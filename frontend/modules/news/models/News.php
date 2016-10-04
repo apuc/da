@@ -25,7 +25,7 @@ class News extends \common\models\db\News
             'timestamp' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
                 'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['dt_add', 'dt_update'],
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['dt_add', 'dt_update', 'dt_public'],
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['dt_update'],
                 ],
             ],

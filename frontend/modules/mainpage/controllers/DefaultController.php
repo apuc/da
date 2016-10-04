@@ -3,6 +3,7 @@
 namespace frontend\modules\mainpage\controllers;
 
 use common\classes\Debug;
+use common\models\db\CategoryCompany;
 use common\models\db\Company;
 use common\models\db\Lang;
 use common\models\db\News;
@@ -44,11 +45,20 @@ class DefaultController extends Controller
     }
 
     public function actionGet_company_by_cat(){
+        $all_cats = CategoryCompany::find()->where(['parent_id'=>$_POST['id']])->all();
+        $cats_id = [];
+        foreach($all_cats as $cat){
+            $cats_id[] = $cat->id;
+        }
+        //Debug::prn($cats_id);
+
         $company = Company::find()
             ->leftJoin('category_company_relations', '`category_company_relations`.`company_id` = `company`.`id`')
-            ->where(['lang_id'=>Lang::getCurrent()['id'], 'cat_id' => $_POST['id']])
-            ->limit(5)
+            ->where(['lang_id'=>Lang::getCurrent()['id'], 'cat_id' => $cats_id])
+            ->limit(10)
             ->all();
+
+        //Debug::prn($company->createCommand()->getRawSql());
         return $this->renderPartial('company_list', [
             'company' => $company,
         ]);

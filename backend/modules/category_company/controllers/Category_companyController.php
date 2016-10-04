@@ -2,9 +2,11 @@
 
 namespace backend\modules\category_company\controllers;
 
+use dosamigos\transliterator\TransliteratorHelper;
 use Yii;
 use backend\modules\category_company\models\CategoryCompany;
 use backend\modules\category_company\models\CategoryCompanySearch;
+use yii\helpers\Inflector;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

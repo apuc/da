@@ -1,5 +1,5 @@
-$(document).ready(function(){
-    $('.menu-link a').on('click', function(){
+$(document).ready(function () {
+    $('.menu-link a').on('click', function () {
         var id = $(this).attr('data-id');
         $.ajax({
             type: 'POST',
@@ -11,7 +11,7 @@ $(document).ready(function(){
         });
     });
 
-    $(document).on('click', '.content__main_posts_items', function(){
+    $(document).on('click', '.content__main_posts_items', function () {
         var id = $(this).attr('data-id');
         $.ajax({
             type: 'POST',
@@ -24,7 +24,7 @@ $(document).ready(function(){
         return false;
     });
 
-    $('.company_list_item a').on('click', function(){
+    $('.company_list_item a').on('click', function () {
         var id = $(this).attr('data-id');
         $.ajax({
             type: 'POST',
@@ -37,7 +37,7 @@ $(document).ready(function(){
         return false;
     });
 
-    $('#news-lang_id').on('change', function(){
+    $('#news-lang_id').on('change', function () {
         var langId = $(this).val();
         $.ajax({
             type: 'POST',
@@ -49,7 +49,7 @@ $(document).ready(function(){
         });
     });
 
-    $('#company-lang_id').on('change', function(){
+    $('#company-lang_id').on('change', function () {
         var langId = $(this).val();
         $.ajax({
             type: 'POST',
@@ -61,8 +61,29 @@ $(document).ready(function(){
         });
     });
 
-    $(document).on('change','.itemImg',function(){
+    $(document).on('change', '.itemImg', function () {
         var path = $('.itemImg').val();
-        $('.media__upload_img').html('<img src="' +path + '" width="100px"/> <br>');
+        $('.media__upload_img').html('<img src="' + path + '" width="100px"/> <br>');
+    });
+
+    $('.news__post p').find('img').each(function () {
+        $(this).addClass('newsImg');
+        $(this).wrap('<a href="' + $(this).attr('src') + '" data-lightbox="image-1"></a>')
+        if ($(this).width() > 800) {
+            $(this).css({width: '100%', height: 'auto'});
+        }
+    });
+
+    $('.element-title').on('click', function(){
+        var id = $(this).attr('data-id');
+        $.ajax({
+            type: 'POST',
+            url: "/company/company/get_sub_categ",
+            data: 'id=' + id,
+            success: function (data) {
+                $(".clicked-element").html(data);
+            }
+        });
+        return false;
     });
 });

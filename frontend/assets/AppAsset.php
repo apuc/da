@@ -23,6 +23,7 @@ class AppAsset extends AssetBundle
         'theme/portal-donbassa/css/jquery.fancybox.css',
         'theme/portal-donbassa/css/jquery.fancybox-buttons.css',
         'theme/portal-donbassa/css/jquery.fancybox-thumbs.css',
+        'css/lightbox.css',
         'theme/portal-donbassa/css/style.min.css',
     ];
     public $js = [
@@ -31,6 +32,7 @@ class AppAsset extends AssetBundle
         'theme/portal-donbassa/js/jquery.fancybox.pack.js',
         'theme/portal-donbassa/js/jquery.fancybox-buttons.js',
         'theme/portal-donbassa/js/jquery.fancybox-media.js',
+        'js/lightbox.js',
         'js/script.js'
     ];
     public $depends = [

@@ -1,46 +1,102 @@
 <?php
+/**
+ * @var $company CategoryCompany
+ * @var $sub_company CategoryCompany
+ */
+use common\models\db\CategoryCompany;
+use common\models\db\CategoryCompanyRelations;
+use yii\helpers\Url;
 
-use yii\helpers\Html;
-use yii\grid\GridView;
+$this->title = "Предприятия";
 
-/* @var $this yii\web\View */
-/* @var $searchModel frontend\modules\company\models\CompanySearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = Yii::t('company', 'Companies');
-$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="company-index">
+<div class="category">
+    <div class="category-list">
+        <div class="category-list-items">
+            <?php foreach ($company as $item):?>
+                <div class="element">
+                    <a href="#" data-id="<?= $item->id ?>" class="element-title"><span class="square"></span><?= $item->title ?></a>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <div class="clicked-element">
+            <h2><?= CategoryCompany::find()->where(['id'=>$sub_company[0]->parent_id])->one()->title ?></h2>
+            <?php foreach($sub_company as $sub_item): ?>
+                <div class="element">
+                    <a href="<?= Url::to(['/company/company/category', 'slug'=>$sub_item->slug]) ?>" class="element-title"><span class="square"></span><?= $sub_item->title ?></a>
+                    <p class="element-links">
+                        <a href="<?= Url::to(['/company/company/category', 'slug'=>$sub_item->slug]) ?>"><?= CategoryCompanyRelations::find()->where(['cat_id'=>$sub_item->id])->count() ?> предприятий</a>
+                    </p>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a(Yii::t('company', 'Create Company'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'name',
-            'address',
-            'phone',
-            'email:email',
-            // 'photo',
-            // 'dt_add',
-            // 'dt_update',
-            // 'descr:ntext',
-            // 'status',
-            // 'slug',
-            // 'lang_id',
-            // 'meta_title',
-            // 'meta_descr',
-            // 'views',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+    <!--<div class="category-items category-items-organization">
+        <a href="#" class="category-items-item">
+            <div class="thumb">
+                <img src="img/pic-item.png" alt="">
+            </div>
+            <div class="info">
+                <h2>Art-Noks, торговая компания</h2>
+                <p>50 лет СССР, 168</p>
+                <small>135 предприятий</small>
+            </div>
+            <div class="contacts">
+                <span>+380 (66) 555 44 32</span>
+            </div>
+        </a>
+        <a href="#" class="category-items-item">
+            <div class="thumb">
+                <img src="img/pic-item.png" alt="">
+            </div>
+            <div class="info">
+                <h2>Art-Noks, торговая компания</h2>
+                <p>50 лет СССР, 168</p>
+                <small>135 предприятий</small>
+            </div>
+            <div class="contacts">
+                <span>+380 (66) 555 44 32</span>
+            </div>
+        </a>
+        <a href="#" class="category-items-item">
+            <div class="thumb">
+                <img src="img/pic-item.png" alt="">
+            </div>
+            <div class="info">
+                <h2>Art-Noks, торговая компания</h2>
+                <p>50 лет СССР, 168</p>
+                <small>135 предприятий</small>
+            </div>
+            <div class="contacts">
+                <span>+380 (66) 555 44 32</span>
+            </div>
+        </a>
+        <a href="#" class="category-items-item">
+            <div class="thumb">
+                <img src="img/pic-item.png" alt="">
+            </div>
+            <div class="info">
+                <h2>Art-Noks, торговая компания</h2>
+                <p>50 лет СССР, 168</p>
+                <small>135 предприятий</small>
+            </div>
+            <div class="contacts">
+                <span>+380 (66) 555 44 32</span>
+            </div>
+        </a>
+        <a href="#" class="category-items-item">
+            <div class="thumb">
+                <img src="img/pic-item.png" alt="">
+            </div>
+            <div class="info">
+                <h2>Art-Noks, торговая компания</h2>
+                <p>50 лет СССР, 168</p>
+                <small>135 предприятий</small>
+            </div>
+            <div class="contacts">
+                <span>+380 (66) 555 44 32</span>
+            </div>
+        </a>
+    </div>-->
 </div>

@@ -31,4 +31,8 @@ class CategoryNews extends \common\models\db\CategoryNews
             ],
         ];
     }
+
+    public static function getBySlug($slug){
+        return self::find()->where(['slug'=>$slug])->one();
+    }
 }

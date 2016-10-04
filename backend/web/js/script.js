@@ -51,6 +51,40 @@ $(document).ready(function(){
             }
         });
     });
+
+    $('#dt_public_time').clockpicker({
+        autoclose: true,
+        'default': 'now'
+    });
+
+    $('.dt_public_box_link a').on('click', function(e){
+        e.preventDefault();
+        $('.dt_public_box').slideToggle();
+    });
+
+    $('#categ_company').on('change', function(){
+        var catId = $(this).val();
+        $.ajax({
+            type: 'POST',
+            url: "/secure/company/company/get_sub_categ",
+            data: 'catId=' + catId,
+            success: function (data) {
+                $("#admin_company_sub_category_box").html(data);
+            }
+        });
+    });
+
+    $(document).on('change', '#sub_categ_company', function(){
+        $('#all_cats').tagsinput('add', { value: $(this).val() , text: $('#sub_categ_company option:selected').text()  });
+        console.log($('#all_cats').val());
+    });
+
+    var elt = $('#all_cats');
+    elt.tagsinput({
+        itemValue: 'value',
+        itemText: 'text'
+    });
+    //$('#all_cats').tagsinput('add', { "value": 1 , "text": "Amsterdam"  });
 });
 
 Share = {

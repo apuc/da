@@ -21,6 +21,7 @@ use Yii;
  * @property integer $views
  * @property string $meta_title
  * @property string $meta_descr
+ * @property integer $dt_public
  *
  * @property CategoryNewsRelations[] $categoryNewsRelations
  */
@@ -67,6 +68,7 @@ class News extends \yii\db\ActiveRecord
             'views' => Yii::t('news', 'Views'),
             'meta_title' => Yii::t('news', 'Meta Title'),
             'meta_descr' => Yii::t('news', 'Meta Descr'),
+            'dt_public' => Yii::t('news', 'Dt Public'),
         ];
     }
 

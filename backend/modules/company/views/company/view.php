@@ -28,18 +28,22 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            /*'id',*/
             'name',
             'address',
             'phone',
             'email:email',
-            'photo',
-            'dt_add',
-            'dt_update',
+            [                      // the owner name of the model
+                'attribute' => 'photo',
+                'format' => 'html',
+                'value' => "<img src='$model->photo' width='200px'>",
+            ],
+            /*'dt_add',*/
+            /*'dt_update',*/
             'descr:ntext',
-            'status',
+            /*'status',*/
             'slug',
-            'lang_id',
+            /*'lang_id',*/
         ],
     ]) ?>
 

@@ -31,4 +31,12 @@ class DefaultController extends Controller
              'news' => $new
         ]);
     }
+
+    public function actionSet_dt_public(){
+        $news = News::find()->where(['dt_public' => null])->all();
+
+        foreach($news as $new){
+            News::updateAll(['dt_public'=>$new->dt_add], ['id'=>$new->id]);
+        }
+    }
 }

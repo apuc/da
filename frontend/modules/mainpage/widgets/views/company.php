@@ -10,7 +10,7 @@ use yii\helpers\Url;
 <div class="title">
     <h2>каталог предприятий</h2>
     <div class="title-right">
-        <a href="" class="all-news">все предпреиятия</a>
+        <a href="" class="all-news">все предприятия</a>
     </div>
 </div>
 <div class="category">
@@ -20,51 +20,8 @@ use yii\helpers\Url;
                 <li class="company_list_item"><a href="#" data-id="<?= $item->id ?>"><?= $item->title ?></a></li>
             <?php endforeach; ?>
         </ul>
-        <!--<ul class="category-list-hide">
-            <li><a href="">Авто</a></li>
-            <li><a href="">Бизнес услуги</a></li>
-            <li><a href="">бытовая техника</a></li>
-            <li><a href="">городские службы, учереждения</a></li>
-            <li><a href="">флора и фауна</a></li>
-            <li><a href="">Авто</a></li>
-            <li><a href="">Бизнес услуги</a></li>
-        </ul>
-        <span class="more-categories"><b></b><b></b><b></b>еще рубрики</span>-->
     </div>
-    <!--<div class="category-list-block-mob">
-        <ul class="category-list">
-            <li><a href="">Авто</a></li>
-            <li><a href="">Бизнес услуги</a></li>
-            <li><a href="">бытовая техника</a></li>
-            <li><a href="">городские службы, учереждения</a></li>
-            <li><a href="">флора и фауна</a></li>
-            <li><a href="">Авто</a></li>
-        </ul>
-        <ul class="category-list-hide-mob">
-            <li><a href="">Бизнес услуги</a></li>
-            <li><a href="">бытовая техника</a></li>
-            <li><a href="">городские службы, учереждения</a></li>
-            <li><a href="">флора и фауна</a></li>
-            <li><a href="">Авто</a></li>
-            <li><a href="">Бизнес услуги</a></li>
-            <li><a href="">бытовая техника</a></li>
-            <li><a href="">городские службы, учереждения</a></li>
-            <li><a href="">флора и фауна</a></li>
-            <li><a href="">Авто</a></li>
-            <li><a href="">Бизнес услуги</a></li>
-            <li><a href="">бытовая техника</a></li>
-            <li><a href="">городские службы, учереждения</a></li>
-            <li><a href="">флора и фауна</a></li>
-            <li><a href="">Авто</a></li>
-            <li><a href="">Бизнес услуги</a></li>
-            <li><a href="">бытовая техника</a></li>
-            <li><a href="">городские службы, учереждения</a></li>
-            <li><a href="">флора и фауна</a></li>
-            <li><a href="">Авто</a></li>
-            <li><a href="">Бизнес услуги</a></li>
-        </ul>
-        <span class="more-categories"><b></b><b></b><b></b>еще рубрики</span>
-    </div>-->
+
     <div class="category-items ">
         <?php foreach($company as $item): ?>
             <a href="<?= Url::to(['/company/default/view', 'slug' => $item->slug]) ?>" class="category-items-item">
@@ -74,7 +31,7 @@ use yii\helpers\Url;
                 <div class="info">
                     <h2><?= $item->name ?></h2>
                     <p><?= $item->address ?></p>
-                    <small>135 предприятий</small>
+                    <!--<small>135 предприятий</small>-->
                 </div>
                 <div class="contacts">
                     <span><?= $item->phone ?></span>

@@ -3,6 +3,7 @@
  * @var $cat \backend\modules\category\models\CategoryNews
  * @var $news \common\models\db\News
  */
+use common\classes\WordFunctions;
 use yii\helpers\Url;
 
 ?>
@@ -28,7 +29,7 @@ use yii\helpers\Url;
     </div>
     <div class="content__main_post_text">
         <h2><?= $news[0]->title ?></h2>
-        <p><?= \common\classes\WordFunctions::crop_str_word($news[0]->content);  ?></p>
+        <p><?= WordFunctions::crop_str_word(strip_tags($news[0]->content));  ?></p>
     </div>
     <div class="content__main_post_navigation">
         <a href="" class="views"><span class="view-icon"></span><?= $news[0]->views ?> просмотров  </a>

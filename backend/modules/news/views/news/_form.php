@@ -40,6 +40,7 @@ use yii\widgets\ActiveForm;
             'inline' => false,
             'path' => 'frontend/web/media/upload',
         ]),
+
     ]); ?>
 
     <? /*= $form->field($model, 'dt_add')->textInput() */ ?>
@@ -48,9 +49,17 @@ use yii\widgets\ActiveForm;
 
     <? /*= $form->field($model, 'slug')->textInput(['maxlength' => true]) */ ?>
 
+    <div class="dt_public_box_link"><a href="#">Отложенная публикация</a></div>
+    <div class="dt_public_box">
+        <?= $form->field($model, 'dt_public')->input('date', ['class'=>'form-control', 'value'=>123])?>
+        <?= Html::input('text','dt_public_time',date(''),['id'=>'dt_public_time', 'class'=>'form-control','placeholder'=>'Время']) ?>
+    </div>
+
     <?= $form->field($model, 'tags')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
+
+
     <?= $form->field($model, 'meta_descr')->textInput(['maxlength' => true]) ?>
 
     <? /*= $form->field($model, 'photo')->textInput(['maxlength' => true]) */ ?>

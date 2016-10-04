@@ -21,7 +21,7 @@ $this->registerMetaTag([
 <div class="news__post">
     <span class="date-news__post"><?= date('d', $news->dt_add) ?> <?= DateFunctions::getMonthShortName(date('m', $news->dt_add)) ?> <?= date('H:i', $news->dt_add) ?></span>
     <h2><?= $news->title ?></h2>
-    <a href="" class="view-img"><img src="<?= $news->photo ?>" alt=""></a>
+    <a href="<?= $news->photo ?>" data-lightbox="image-1" class="view-img"><img src="<?= $news->photo ?>" alt=""></a>
     <?= $news->content ?>
 </div>
 <div class="post-nav">

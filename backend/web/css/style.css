@@ -19,3 +19,17 @@
 .contentLoginAdmin{
     margin-left: 0;
 }
+
+.dt_public_box {
+    display: none;
+    padding-bottom: 20px;
+}
+
+.dt_public_box_link {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#sub_categ_company {
+    margin-top: 10px;
+}

@@ -2,11 +2,13 @@
 
 namespace frontend\modules\company\controllers;
 
+use common\classes\Debug;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
 use Yii;
 use frontend\modules\company\models\Company;
 use frontend\modules\company\models\CompanySearch;
+use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\Controller;
@@ -40,12 +42,36 @@ class CompanyController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new CompanySearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $company = CategoryCompany::find()->where(['parent_id'=>0,'lang_id'=>1])->all();
+        $sub_company = CategoryCompany::find()->where(['parent_id'=>533])->all();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'company' => $company,
+            'sub_company' => $sub_company
+        ]);
+    }
+
+    public function actionCategory($slug){
+        $cat = CategoryCompany::find()->where(['slug'=>$slug])->one();
+        if(empty($cat)) return $this->goHome();
+        $query = CategoryCompanyRelations::find()
+            ->leftJoin('company', '`category_company_relations`.`company_id` = `company`.`id`')
+            ->where(['cat_id'=>$cat->id])
+            ->orderBy('`company`.`id` DESC')
+            ->with('company');
+
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
+        $pages->pageSizeParam = false;
+
+        $news = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+
+        return $this->render('category', [
+            'company' => $news,
+            'cat' => $cat,
+            'pages' => $pages,
         ]);
     }
 
@@ -143,5 +169,13 @@ class CompanyController extends Controller
             ArrayHelper::map(CategoryCompany::find()->where(['lang_id'=>$_POST['langId']])->all(),'id','title'),
             ['class'=>'form-control', 'id'=>'categ_company']
         );
+    }
+
+    public function actionGet_sub_categ(){
+        $sub_company = CategoryCompany::find()->where(['parent_id'=>$_POST['id']])->all();
+
+        return $this->renderPartial('sub_company', [
+            'sub_company' => $sub_company
+        ]);
     }
 }

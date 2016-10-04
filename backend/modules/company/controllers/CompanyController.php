@@ -2,6 +2,7 @@
 
 namespace backend\modules\company\controllers;
 
+use common\classes\Debug;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
 use Yii;
@@ -69,13 +70,18 @@ class CompanyController extends Controller
     {
         $model = new Company();
 
+        //Debug::prn($_POST);
+
         if ($model->load(Yii::$app->request->post())) {
             $model->user_id = Yii::$app->user->getId();
             $model->save();
-            $catCompanyRel = new CategoryCompanyRelations();
-            $catCompanyRel->cat_id = $_POST['categ'];
-            $catCompanyRel->company_id = $model->id;
-            $catCompanyRel->save();
+            $cats_ids = explode(',', $_POST['cats']);
+            foreach($cats_ids as $cats_id){
+                $catCompanyRel = new CategoryCompanyRelations();
+                $catCompanyRel->cat_id = $cats_id;
+                $catCompanyRel->company_id = $model->id;
+                $catCompanyRel->save();
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -96,10 +102,13 @@ class CompanyController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             CategoryCompanyRelations::deleteAll(['company_id'=>$model->id]);
-            $catCompanyRel = new CategoryCompanyRelations();
-            $catCompanyRel->cat_id = $_POST['categ'];
-            $catCompanyRel->company_id = $model->id;
-            $catCompanyRel->save();
+            $cats_ids = explode(',', $_POST['cats']);
+            foreach($cats_ids as $cats_id){
+                $catCompanyRel = new CategoryCompanyRelations();
+                $catCompanyRel->cat_id = $cats_id;
+                $catCompanyRel->company_id = $model->id;
+                $catCompanyRel->save();
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -143,6 +152,15 @@ class CompanyController extends Controller
             null,
             ArrayHelper::map(CategoryCompany::find()->where(['lang_id'=>$_POST['langId']])->all(),'id','title'),
             ['class'=>'form-control', 'id'=>'categ_company']
+        );
+    }
+
+    public function actionGet_sub_categ(){
+        echo Html::dropDownList(
+            'sub_categ',
+            null,
+            ArrayHelper::map(CategoryCompany::find()->where(['parent_id'=>$_POST['catId']])->all(),'id','title'),
+            ['class'=>'form-control', 'id'=>'sub_categ_company']
         );
     }
 

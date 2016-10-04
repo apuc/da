@@ -42,6 +42,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Дата редактирования',
                 'value' => date('Y-m-d H:i', $model->dt_update),
             ],
+            [                      // the owner name of the model
+                'attribute' => 'dt_public',
+                'label' => 'Дата публикации',
+                'value' => date('Y-m-d H:i', $model->dt_public),
+            ],
             'slug',
             'tags',
             [                      // the owner name of the model

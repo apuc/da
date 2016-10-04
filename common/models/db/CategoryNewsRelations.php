@@ -63,4 +63,8 @@ class CategoryNewsRelations extends \yii\db\ActiveRecord
     {
         return $this->hasOne(CategoryNews::className(), ['id' => 'cat_id']);
     }
+
+    public function getnews(){
+        return $this->hasOne(News::className(), ['id'=>'new_id']);
+    }
 }

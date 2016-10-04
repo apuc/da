@@ -73,9 +73,10 @@ class NewsController extends Controller
         $lang = Lang::find()->all();
 
         if ($model->load(Yii::$app->request->post())) {
-            //Debug::prn($_POST['categ']);
-            $model->status = 0;
+            //Debug::prn($_POST['News']['dt_public']);
+            $model->status = (!empty($_POST['dt_public_time'])) ? 3 : 0;
             $model->user_id = Yii::$app->user->getId();
+            $model->dt_public = (!empty($_POST['dt_public_time'])) ? strtotime($_POST['News']['dt_public'] . ' ' . $_POST['dt_public_time']) : time();
             $model->save();
             foreach($_POST['categ'] as $cat){
                 $catNewRel = new CategoryNewsRelations();
@@ -108,7 +109,8 @@ class NewsController extends Controller
             $cats_arr[] = $cat_item->cat_id;
         }
         if ($model->load(Yii::$app->request->post())) {
-            $model->status = 0;
+            //$model->status = (!empty($_POST['dt_public_time'])) ? 3 : 0;
+            //$model->dt_public = (!empty($_POST['dt_public_time'])) ? strtotime($_POST['News']['dt_public'] . ' ' . $_POST['dt_public_time']) : time();
             $model->save();
             CategoryNewsRelations::deleteAll(['new_id'=>$model->id]);
             foreach($_POST['categ'] as $cat){

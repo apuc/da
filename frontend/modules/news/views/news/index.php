@@ -1,7 +1,10 @@
 <?php
 
+use common\classes\DateFunctions;
+use common\classes\WordFunctions;
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\StringHelper;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
@@ -26,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <span class="news-text">
                             <h4 class="gallery-news-text-header"><?= $new->title ?></h4>
                             <p>
-                                <?= $new->content ?>
+                                <?= WordFunctions::crop_str_word(strip_tags($new->content), 20);  ?>
                             </p>
                         </span>
                     </a>
@@ -48,149 +51,48 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 
         <div class="news-posts">
-            <div class="news-posts__item">
-                <span class="date-news__post">22 сен 20:16</span>
-                <h4 class="category">Экономика</h4>
-                <h5 class="post-header">Для расследования причин пожара на судне
-                    ВМС «Донбасс» создана комиссия</h5>
-                <div class="post-image">
-                    <img src="/theme/portal-donbassa/img/news-post-item.jpg" alt="">
+            <?php foreach($cat as $item): ?>
+                <?php $news_item = \common\models\db\News::find()->leftJoin('category_news_relations', '`new_id` = `news`.`id`')->where(['cat_id'=>$item->id])->limit(4)->orderBy('id DESC')->all(); ?>
+                <div class="news-posts__item">
+                    <?php $dt = ($new['news']->dt_public != $new['news']->dt_add) ? $new['news']->dt_public : $new['news']->dt_add; ?>
+                    <span class="date-news__post"><?= date('d', $dt) ?> <?= DateFunctions::getMonthShortName(date('m', $dt)) ?> <?= date('H:i', $dt) ?></span>
+                    <h4 class="category">
+                        <a href="<?= Url::to(['/news/news/category/', 'slug'=>$item->slug]) ?>">
+                            <?= $item->title ?>
+                        </a>
+                    </h4>
+                    <a href="/news/<?= $news_item[0]->slug ?>">
+                        <h5 class="post-header"><?= $news_item[0]->title ?></h5>
+                        <div class="post-overflow">
+                            <div class="post-image">
+                                <img src="<?= $news_item[0]->photo ?>" alt="">
+                            </div>
+                            <p class="text-preview"><?= WordFunctions::crop_str_word(strip_tags($news_item[0]->content),15);  ?></p>
+                        </div>
+                    </a>
+                    <a href="#" class="read-more more-news-link">Читать дальше <img src="/theme/portal-donbassa/img/scroll-arrow-to-right.svg" width="4px" height="6px"></a>
+
+                    <ul class="more-news">
+                        <li>
+                            <a class="more-news-link" href="<?= Url::to(['/news/default/view', 'slug'=>$news_item[1]->slug]) ?>">
+                                <?= $news_item[1]->title ?>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="more-news-link" href="<?= Url::to(['/news/default/view', 'slug'=>$news_item[2]->slug]) ?>">
+                                <?= $news_item[2]->title ?>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="more-news-link" href="<?= Url::to(['/news/default/view', 'slug'=>$news_item[3]->slug]) ?>">
+                                <?= $news_item[3]->title ?>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="line"></div>
+                    <a href="<?= Url::to(['/news/news/category/', 'slug'=>$item->slug]) ?>" class="read-more more-news-link watch-all">Смотреть все <img src="/theme/portal-donbassa/img/scroll-arrow-to-right.svg" width="4px" height="6px"></a>
                 </div>
-                <p class="text-preview">Командующий Военно-морских сил ВСУ Игорь Воронченко назначил комиссию для
-                    расследования причин пожара на судне </p>
-                <a href="#" class="read-more">Читать дальше <img
-                        src="/theme/portal-donbassa/img/scroll-arrow-to-right.svg" width="4px" height="6px"></a>
-
-                <ul class="more-news">
-                    <li><a href="#">Сегодня комитет Европарламента рассмотрит вопрос
-                            безвизового режима с Украиной</a></li>
-                    <li><a href="#">Путин и Меркель на саммите G20 обсудили ситуацию
-                            в Украине</a></li>
-                    <li><a href="#">Дело об убийстве Шеремета имеет все шансы быть
-                            расследуемым, — Аваков</a></li>
-                </ul>
-                <div class="line"></div>
-            </div>
-            <div class="news-posts__item">
-                <span class="date-news__post">22 сен 20:16</span>
-                <h4 class="category">Политика</h4>
-                <h5 class="post-header">Для расследования причин пожара на судне
-                    ВМС «Донбасс» создана комиссия</h5>
-                <div class="post-image">
-                    <img src="/theme/portal-donbassa/img/news-post-item.jpg" alt="">
-                </div>
-                <p class="text-preview">Командующий Военно-морских сил ВСУ Игорь Воронченко назначил комиссию для
-                    расследования причин пожара на судне </p>
-                <a href="#" class="read-more">Читать дальше <img
-                        src="/theme/portal-donbassa/img/scroll-arrow-to-right.svg" width="4px" height="6px"></a>
-
-                <ul class="more-news">
-                    <li><a href="#">Сегодня комитет Европарламента рассмотрит вопрос
-                            безвизового режима с Украиной</a></li>
-                    <li><a href="#">Путин и Меркель на саммите G20 обсудили ситуацию
-                            в Украине</a></li>
-                    <li><a href="#">Дело об убийстве Шеремета имеет все шансы быть
-                            расследуемым, — Аваков</a></li>
-                </ul>
-                <div class="line"></div>
-            </div>
-            <div class="news-posts__item">
-                <span class="date-news__post">22 сен 20:16</span>
-                <h4 class="category">Происшествия</h4>
-                <h5 class="post-header">Для расследования причин пожара на судне
-                    ВМС «Донбасс» создана комиссия</h5>
-                <div class="post-image">
-                    <img src="/theme/portal-donbassa/img/news-post-item.jpg" alt="">
-                </div>
-
-                <p class="text-preview">Командующий Военно-морских сил ВСУ Игорь Воронченко назначил комиссию для
-                    расследования причин пожара на судне </p>
-                <a href="#" class="read-more">Читать дальше <img
-                        src="/theme/portal-donbassa/img/scroll-arrow-to-right.svg" width="4px" height="6px"></a>
-
-                <ul class="more-news">
-                    <li><a href="#">Сегодня комитет Европарламента рассмотрит вопрос
-                            безвизового режима с Украиной</a></li>
-                    <li><a href="#">Путин и Меркель на саммите G20 обсудили ситуацию
-                            в Украине</a></li>
-                    <li><a href="#">Дело об убийстве Шеремета имеет все шансы быть
-                            расследуемым, — Аваков</a></li>
-                </ul>
-                <div class="line"></div>
-            </div>
-            <div class="news-posts__item">
-                <span class="date-news__post">22 сен 20:16</span>
-                <h4 class="category">Культура</h4>
-                <h5 class="post-header">Для расследования причин пожара на судне
-                    ВМС «Донбасс» создана комиссия</h5>
-                <div class="post-image">
-                    <img src="/theme/portal-donbassa/img/news-post-item.jpg" alt="">
-                </div>
-
-                <p class="text-preview">Командующий Военно-морских сил ВСУ Игорь Воронченко назначил комиссию для
-                    расследования причин пожара на судне </p>
-                <a href="#" class="read-more">Читать дальше <img
-                        src="/theme/portal-donbassa/img/scroll-arrow-to-right.svg" width="4px" height="6px"></a>
-
-                <ul class="more-news">
-                    <li><a href="#">Сегодня комитет Европарламента рассмотрит вопрос
-                            безвизового режима с Украиной</a></li>
-                    <li><a href="#">Путин и Меркель на саммите G20 обсудили ситуацию
-                            в Украине</a></li>
-                    <li><a href="#">Дело об убийстве Шеремета имеет все шансы быть
-                            расследуемым, — Аваков</a></li>
-                </ul>
-                <div class="line"></div>
-            </div>
-            <div class="news-posts__item">
-                <span class="date-news__post">22 сен 20:16</span>
-                <h4 class="category">Спорт</h4>
-                <h5 class="post-header">Для расследования причин пожара на судне
-                    ВМС «Донбасс» создана комиссия</h5>
-                <div class="post-image">
-                    <img src="/theme/portal-donbassa/img/news-post-item.jpg" alt="">
-                </div>
-
-                <p class="text-preview">Командующий Военно-морских сил ВСУ Игорь Воронченко назначил комиссию для
-                    расследования причин пожара на судне </p>
-                <a href="#" class="read-more">Читать дальше <img
-                        src="/theme/portal-donbassa/img/scroll-arrow-to-right.svg" width="4px" height="6px"></a>
-
-                <ul class="more-news">
-                    <li><a href="#">Сегодня комитет Европарламента рассмотрит вопрос
-                            безвизового режима с Украиной</a></li>
-                    <li><a href="#">Путин и Меркель на саммите G20 обсудили ситуацию
-                            в Украине</a></li>
-                    <li><a href="#">Дело об убийстве Шеремета имеет все шансы быть
-                            расследуемым, — Аваков</a></li>
-                </ul>
-                <div class="line"></div>
-            </div>
-            <div class="news-posts__item">
-                <span class="date-news__post">22 сен 20:16</span>
-                <h4 class="category">Финансы</h4>
-                <h5 class="post-header">Для расследования причин пожара на судне
-                    ВМС «Донбасс» создана комиссия</h5>
-
-                <div class="post-image">
-                    <img src="/theme/portal-donbassa/img/news-post-item.jpg" alt="">
-                </div>
-
-                <p class="text-preview">Командующий Военно-морских сил ВСУ Игорь Воронченко назначил комиссию для
-                    расследования причин пожара на судне </p>
-                <a href="#" class="read-more">Читать дальше <img
-                        src="/theme/portal-donbassa/img/scroll-arrow-to-right.svg" width="4px" height="6px"></a>
-
-                <ul class="more-news">
-                    <li><a href="#">Сегодня комитет Европарламента рассмотрит вопрос
-                            безвизового режима с Украиной</a></li>
-                    <li><a href="#">Путин и Меркель на саммите G20 обсудили ситуацию
-                            в Украине</a></li>
-                    <li><a href="#">Дело об убийстве Шеремета имеет все шансы быть
-                            расследуемым, — Аваков</a></li>
-                </ul>
-                <div class="line"></div>
-            </div>
+            <?php endforeach; ?>
         </div>
         <div class="main-news-prefooter">
             <div class="social">

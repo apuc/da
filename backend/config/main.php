@@ -28,6 +28,15 @@ return [
         'category_company' => [
             'class' => 'backend\modules\category_company\Category_company',
         ],
+        'exchange_rates' => [
+            'class' => 'backend\modules\exchange_rates\Exchange_rates',
+        ],
+        'key_value' => [
+            'class' => 'backend\modules\key_value\Key_value',
+        ],
+        'top_company' => [
+            'class' => 'backend\modules\top_company\Top_company',
+        ],
     ],
     'components' => [
         /*'user' => [
@@ -58,6 +67,8 @@ return [
                 'lang' => 'lang/lang',
                 'company' => 'company/company',
                 'category_company' => 'category_company/category_company',
+                'exchange_rates' => 'exchange_rates/default',
+                'key_value' => 'key_value/key_value'
             ]
         ],
         'mailer' => [

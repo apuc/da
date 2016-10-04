@@ -30,6 +30,8 @@ class AppAsset extends AssetBundle
         'css/plugins/daterangepicker/daterangepicker-bs3.css',
         'css/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css',
         'css/plugins/timepicker/bootstrap-timepicker.min.css',
+        'css/clockpicker.css',
+        'css/bootstrap-tagsinput.css',
         'css/style.css',
     ];
     public $js = [
@@ -53,6 +55,8 @@ class AppAsset extends AssetBundle
         'js/dist/js/app.min.js',
         /*'js/dist/js/pages/dashboard.js',*/
         'js/dist/js/demo.js',
+        'js/clockpicker.js',
+        'js/bootstrap-tagsinput.js',
         'js/script.js',
     ];
     public $depends = [

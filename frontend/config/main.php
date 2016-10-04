@@ -58,6 +58,8 @@ return [
                 'company/<slug>' => 'company/default/view',
                 'all-new' => 'news/news',
                 'all-company' => 'company/company',
+                'news/category/<slug>' => 'news/news/category',
+                'company/category/<slug>' => 'company/company/category'
             ]
         ],
         'mailer' => [

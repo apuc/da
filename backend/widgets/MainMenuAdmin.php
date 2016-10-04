@@ -70,6 +70,12 @@ class MainMenuAdmin extends Widget
                                 'active' => Yii::$app->controller->module->id == 'category_company' && Yii::$app->controller->action->id == 'index',
                                 'visible' => UserFunction::hasRoles(['admin']),
                             ],
+                            [
+                                'label' => 'Топ',
+                                'url' => Url::to(['/top_company/top_company']),
+                                'active' => Yii::$app->controller->module->id == 'top_company',
+                                'visible' => UserFunction::hasRoles(['admin']),
+                            ],
                         ],
                         'options' => [
                             'class' => 'treeview',
@@ -77,10 +83,24 @@ class MainMenuAdmin extends Widget
                         'template' => '<a href="#"><i class="fa fa-building-o"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
                     [
+                        'label' => 'Курсы валют',
+                        'url' => Url::to(['/exchange_rates']),
+                        'template' => '<a href="{url}"><i class="fa fa-money"></i> <span>{label}</span></a>',
+                        'active' => Yii::$app->controller->module->id == 'exchange_rates',
+                        'visible' => UserFunction::hasRoles(['admin']),
+                    ],
+                    [
+                        'label' => 'Переменные',
+                        'url' => Url::to(['/key_value']),
+                        'template' => '<a href="{url}"><i class="fa fa-ellipsis-h"></i> <span>{label}</span></a>',
+                        'active' => Yii::$app->controller->module->id == 'key_value',
+                        'visible' => UserFunction::hasRoles(['admin']),
+                    ],
+                    [
                         'label' => 'Языки',
                         'url' => Url::to(['/lang']),
                         'template' => '<a href="{url}"><i class="fa fa-language"></i> <span>{label}</span></a>',
-                        'active' => Yii::$app->controller->module->id == 'lang' || Yii::$app->controller->module->id == 'lang',
+                        'active' => Yii::$app->controller->module->id == 'lang',
                         'visible' => UserFunction::hasRoles(['admin']),
                     ],
                     /*[

@@ -38,6 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'meta_title',
             'meta_descr',
             'lang_id',
+            'slug'
         ],
     ]) ?>
 

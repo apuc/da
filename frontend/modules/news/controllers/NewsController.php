@@ -2,12 +2,14 @@
 
 namespace frontend\modules\news\controllers;
 
+use common\classes\Debug;
 use common\models\db\CategoryNews;
 use common\models\db\CategoryNewsRelations;
 use common\models\db\Lang;
 use Yii;
 use frontend\modules\news\models\News;
 use frontend\modules\news\models\NewsSearch;
+use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\Controller;
@@ -47,7 +49,7 @@ class NewsController extends Controller
 
         return $this->render('index',
             [
-                'news_5' => \common\models\db\News::find()->orderBy('dt_add DESC')->limit(5)->all(),
+                'news_5' => \common\models\db\News::find()->where(['status'=>0])->orderBy('dt_add DESC')->limit(5)->all(),
                 'cat' => CategoryNews::find()->where(['lang_id' => Lang::getCurrent()['id']])->all(),
             ]);
     }
@@ -119,6 +121,31 @@ class NewsController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionCategory($slug){
+        $cat = \backend\modules\category\models\CategoryNews::getBySlug($slug);
+        if(empty($cat)) return $this->goHome();
+        $query = CategoryNewsRelations::find()
+            ->leftJoin('news', '`category_news_relations`.`new_id` = `news`.`id`')
+            ->where(['cat_id'=>$cat->id])
+            ->andWhere(['status' => 0])
+            ->orderBy('`news`.`id` DESC')
+            ->with('news');
+
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
+        $pages->pageSizeParam = false;
+
+        $news = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+
+        return $this->render('category', [
+            'news' => $news,
+            'cat' => $cat,
+            'pages' => $pages,
+        ]);
     }
 
     /**

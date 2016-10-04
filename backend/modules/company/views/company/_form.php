@@ -24,11 +24,19 @@ use yii\widgets\ActiveForm;
         echo Html::dropDownList(
             'categ',
             null,
-            ArrayHelper::map(CategoryCompany::find()->where(['lang_id'=>1])->all(),'id','title'),
+            ArrayHelper::map(CategoryCompany::find()->where(['lang_id'=>1, 'parent_id'=>0])->all(),'id','title'),
             ['class'=>'form-control', 'id'=>'categ_company']
         );
         ?>
+
+        <span id="admin_company_sub_category_box"></span>
     </span>
+    <div style="margin-top: 20px;margin-bottom: 20px">
+        <?= Html::textInput('cats', null, [
+            'class'=>'form-control',
+            'id' => 'all_cats'
+        ]) ?>
+    </div>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 

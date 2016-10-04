@@ -3,6 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use frontend\widgets\ExchangeRates;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -46,11 +47,7 @@ AppAsset::register($this);
             </div>
             <p class="weather"><span class="sun"></span>+25</p>
         </div>
-        <div class="currency">
-            <p>usd <span>24/34</span></p>
-            <p>eur <span>34/45</span></p>
-            <p>rub <span>98/100</span></p>
-        </div>
+        <?= ExchangeRates::widget() ?>
         <div class="search">
             <form action="">
                 <span class="search-icon"></span>
@@ -60,8 +57,8 @@ AppAsset::register($this);
     </div>
 </section>
 <section class="header__main">
-    <div class="container">
-        <a href="" class="header__main_logo" style="width: 25%"><img width="70%" src="/theme/portal-donbassa/img/logo2.png" alt=""></a>
+    <div>
+        <a href="/" class="header__main_logo" style="width: 25%"><img width="72%" src="/theme/portal-donbassa/img/logo3.png" alt=""></a>
         <div class="header__main_panel" style="width: 70%">
             <?php echo \frontend\widgets\MainMenu::widget() ?>
             <!--<div class="header__main_panel_user">
@@ -84,11 +81,22 @@ AppAsset::register($this);
 
     </div>
 </section>
+<section class="header-menu-bot">
+    <ul class="header-menu-bot-mnu">
+        <li><a href="#">Главная</a></li>
+        <li><a href="#">Главная</a></li>
+        <li><a href="#">Главная</a></li>
+        <li><a href="#">Главная</a></li>
+        <li><a href="#">Главная</a></li>
+        <li><a href="#">Главная</a></li>
+        <li><a href="#">Главная</a></li>
+    </ul>
+</section>
 <section class="header__banner">
     <img src="/theme/portal-donbassa/img/banner.png" alt="">
     </div>
 </section>
-
+<?= $content ?>
 <!-- end header.html-->
 <!-- start content.html-->
 
@@ -200,26 +208,8 @@ AppAsset::register($this);
             <h2>топ лучших</h2>
             <a href="<?= Url::to(['/company/company/create']) ?>" class="add-ad">Добавить предприятие </a>
             <div class="right-bar__ad">
-                <div class="right-bar__ad_items">
-                    <img src="/theme/portal-donbassa/img/pic-ad.png" alt="">
-                    <h4>Ресторан “Больше жизни”</h4>
-                    <span>Донецк, ул. Щетинина 22</span>
-                </div>
-                <div class="right-bar__ad_items">
-                    <img src="/theme/portal-donbassa/img/pic-ad.png" alt="">
-                    <h4>Ресторан “Больше жизни”</h4>
-                    <span>Донецк, ул. Щетинина 22</span>
-                </div>
-                <div class="right-bar__ad_items">
-                    <img src="/theme/portal-donbassa/img/pic-ad.png" alt="">
-                    <h4>Ресторан “Больше жизни”</h4>
-                    <span>Донецк, ул. Щетинина 22</span>
-                </div>
-                <div class="right-bar__ad_items">
-                    <img src="/theme/portal-donbassa/img/pic-ad.png" alt="">
-                    <h4>Ресторан “Больше жизни”</h4>
-                    <span>Донецк, ул. Щетинина 22</span>
-                </div>
+                <?= \frontend\widgets\TopCompanyWidget::widget() ?>
+
                 <a class="add-ad" href="">ДОБАВИТЬ ОБЪЯВЛЕНИЕ ?</a>
             </div>
             <div class="right-bar__ad-room">
@@ -261,7 +251,8 @@ AppAsset::register($this);
                 <li class=""><a href="">о нас</a></li>
             </ul>
         </div>
-        <a href="" class="header__main_logo">Портал <span>ДОНБАССА</span></a>
+        <!--<a href="" class="header__main_logo">Портал <span>ДОНБАССА</span></a>-->
+        <div class="header__main_logo"></div>
         <p class="footer-alert">Любое использование материалов сайта  разрешается только при условии указания гиперссылки на материал.</p>
         <ul class="social">
             <li><a href="" class="circle"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
