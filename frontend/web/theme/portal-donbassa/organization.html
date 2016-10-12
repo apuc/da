@@ -1,0 +1,435 @@
+<!-- start header.html-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="css/jquery.fancybox.css" rel="stylesheet" type="text/css">
+    <link href="css/jquery.fancybox-buttons.css" rel="stylesheet" type="text/css">
+    <link href="css/jquery.fancybox-thumbs.css" rel="stylesheet" type="text/css">
+    <link href="css/flipclock.css" rel="stylesheet" type="text/css">
+    <link href="css/datepicker.min.css" rel="stylesheet" type="text/css">
+    <link href="css/style.min.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<section class="header__top">
+  <div class="container">
+    <div class="city">
+      <p class="city-string"><span class="geo-city"></span>Ваш город:</p>
+      <div class="delivery_block">
+        <div class="delivery_list">
+          <span>Донецк</span></div>
+        <ul class="cities_list">
+          <li>Макеевка</li>
+          <li>Луганск</li>
+          <li>Транпорт</li>
+          <li>Казань</li>
+        </ul>
+      </div>
+      <p class="weather"><span class="sun"></span>+25</p>
+    </div>
+    <div class="currency">
+      <p>usd <span>24/34</span></p>
+      <p>eur <span>34/45</span></p>
+      <p>rub <span>98/100</span></p>
+    </div>
+    <div class="search">
+      <form action="">
+        <span class="search-icon"></span>
+        <input type="search" placeholder="поиск">
+      </form>
+    </div>
+  </div>
+</section>
+<section class="header__main">
+  <div>
+    <a href="" class="header__main_logo"><img width="72%" src="img/logo3.png" alt=""></a>
+    <div class="header__main_panel" style="width: 70%">
+      <ul class="header__menu_mnu">
+        <li class="active"><a href="">главная</a></li>
+        <li><a href="#">новости<!-- <span class="count">56</span>--></a></li>
+        <li>
+            <a href="">предприятия</a>
+            <ul>
+                <li>
+                    <a href="">предприятия</a>
+                </li>
+                <li>
+                    <a href="">предприятия</a>
+                </li>
+                <li>
+                    <a href="">предприятия</a>
+                </li>
+                <li>
+                    <a href="">предприятия</a>
+                </li>
+                <li>
+                    <a href="">предприятия</a>
+                </li>
+            </ul>
+        </li>
+        <li><a href="">объявления <!--<span class="count">31</span>--></a>
+            <ul>
+                <li>
+                    <a href="">объявления</a>
+                </li>
+                <li>
+                    <a href="">объявления</a>
+                </li>
+                <li>
+                    <a href="">объявления</a>
+                </li>
+                <li>
+                    <a href="">объявления</a>
+                </li>
+                <li>
+                    <a href="">объявления</a>
+                </li>
+            </ul>
+        </li>
+        <li><a href="">афиша</a></li>
+        <li><a href="">консультация</a></li>
+      </ul>
+      <!--<div class="header__main_panel_user">
+          <a href="" class="header__main_panel_user-name">Александр Константинович</a>
+          <a href="" class="header__main_panel_user-pic"><img src="/theme/portal-donbassa/img/user-pic.png" alt=""></a>
+          <a href="" class="header__main_panel_user-exit"><span class="exit-icon"></span></a>
+      </div>-->
+    </div>
+  </div>
+</section>
+<section class="header-menu-bot">
+    <ul class="header-menu-bot-mnu">
+        <li><a href="#">Главная</a></li>
+        <li><a href="#">Главная</a></li>
+        <li><a href="#">Главная</a></li>
+        <li><a href="#">Главная</a></li>
+        <li><a href="#">Главная</a></li>
+        <li><a href="#">Главная</a></li>
+        <li><a href="#">Главная</a></li>
+    </ul>
+</section>
+<section class="header__menu">
+  <div class="container">
+    <button class="toggle_mnu">
+        <span class="sandwich">
+          <span class="sw-topper"></span>
+          <span class="sw-bottom"></span>
+          <span class="sw-footer"></span>
+        </span>
+    </button>
+
+  </div>
+</section>
+<section class="header__banner">
+    <img src="img/banner.png" alt="">
+  </div>
+</section>
+
+<!-- end header.html-->
+
+<section class="title">
+  <div class="container">
+    <h2>каталог предприятий</h2>
+    <div class="title-right">
+      <a href="#" class="add-organization"><i class="fa fa-plus"></i>Добавить предприятие</a>
+      <a href="" class="all-news"><i class="fa fa-users" aria-hidden="true"></i> все предпреиятия</a>
+      <a href="" class="popular"><span></span>Популярные заведения</a>
+    </div>
+  </div>
+</section>
+<section class="content">
+  <div class="container">
+    <div class="content__main">
+      <ul class="content__main_mnu">
+        <li class="menu-link active"><a href="">картина дня</a></li>
+        <li class="menu-link"><a href="">экономика</a></li>
+        <li class="menu-link"><a href="">политика</a></li>
+        <li class="menu-link"><a href="">проишествия</a></li>
+        <li class="menu-link"><a href="">погода</a></li>
+        <li class="menu-link"><a href="">культура</a></li>
+        <li class="menu-link"><a href="">спорт</a></li>
+        <li class="menu-link"><a href="">финансы</a></li>
+      </ul>
+      <div class="shape">
+        <img src="img/shape-line.png" alt="">
+      </div>
+
+      <div class="category">
+        <div class="category-list">
+            <div class="category-list-items">
+            <div class="element">
+              <a href="" class="element-title"><span class="square"></span>Аварийные / справрчные / экстренные службы</a>
+              <p class="element-links">
+                <a href="">Справочно-информационные услуги</a>,
+                <a href="">Аварийные службы</a>,
+                <a href="">Скорая медицинская помощь</a>
+              </p>
+            </div>
+            <div class="element">
+              <a href="" class="element-title"><span class="square"></span>Досуг / Развлечения /Общественное питание</a>
+              <p class="element-links">
+                <a href="">Рестораны</a>,
+                <a href="">Кафе</a>,
+                <a href="">Бары</a>
+              </p>
+            </div>
+            <div class="element">
+              <a href="" class="element-title"><span class="square"></span>Аварийные / справрчные / экстренные службы</a>
+              <p class="element-links">
+                <a href="">Справочно-информационные услуги</a>,
+                <a href="">Аварийные службы</a>,
+                <a href="">Скорая медицинская помощь</a>
+              </p>
+            </div>
+            </div>
+            <div class="clicked-element">
+              <h2>Досуг / Развлечения /Общественное питание</h2>
+              <div class="element">
+                <a href="" class="element-title"><span class="square"></span>Рестораны</a>
+                <p class="element-links">
+                  <a href="">351 организация</a>
+                </p>
+              </div>
+              <div class="element">
+                <a href="" class="element-title"><span class="square"></span>Кафе</a>
+                <p class="element-links">
+                  <a href="">401 организация</a>
+                </p>
+              </div>
+              <div class="element">
+                <a href="" class="element-title"><span class="square"></span>Рестораны</a>
+                <p class="element-links">
+                  <a href="">351 организация</a>
+                </p>
+              </div>
+              <div class="element">
+                <a href="" class="element-title"><span class="square"></span>Кафе</a>
+                <p class="element-links">
+                  <a href="">401 организация</a>
+                </p>
+              </div>
+              <div class="element">
+                <a href="" class="element-title"><span class="square"></span>Рестораны</a>
+                <p class="element-links">
+                  <a href="">351 организация</a>
+                </p>
+              </div>
+              <div class="element">
+                <a href="" class="element-title"><span class="square"></span>Кафе</a>
+                <p class="element-links">
+                  <a href="">401 организация</a>
+                </p>
+              </div>
+              <div class="element">
+                <a href="" class="element-title"><span class="square"></span>Рестораны</a>
+                <p class="element-links">
+                  <a href="">351 организация</a>
+                </p>
+              </div>
+              <div class="element">
+                <a href="" class="element-title"><span class="square"></span>Кафе</a>
+                <p class="element-links">
+                  <a href="">401 организация</a>
+                </p>
+              </div>
+            </div>
+        </div>
+
+        <div class="category-items category-items-organization">
+            <a href="#" class="category-items-item">
+              <div class="thumb">
+                <img src="img/pic-item.png" alt="">
+              </div>
+              <div class="info">
+                <h2>Art-Noks, торговая компания</h2>
+                <p>50 лет СССР, 168</p>
+                <small>135 предприятий</small>
+              </div>
+              <div class="contacts">
+                <span>+380 (66) 555 44 32</span>
+              </div>
+            </a>
+            <a href="#" class="category-items-item">
+              <div class="thumb">
+                <img src="img/pic-item.png" alt="">
+              </div>
+              <div class="info">
+                <h2>Art-Noks, торговая компания</h2>
+                <p>50 лет СССР, 168</p>
+                <small>135 предприятий</small>
+              </div>
+              <div class="contacts">
+                <span>+380 (66) 555 44 32</span>
+              </div>
+            </a>
+            <a href="#" class="category-items-item">
+              <div class="thumb">
+                <img src="img/pic-item.png" alt="">
+              </div>
+              <div class="info">
+                <h2>Art-Noks, торговая компания</h2>
+                <p>50 лет СССР, 168</p>
+                <small>135 предприятий</small>
+              </div>
+              <div class="contacts">
+                <span>+380 (66) 555 44 32</span>
+              </div>
+            </a>
+            <a href="#" class="category-items-item">
+              <div class="thumb">
+                <img src="img/pic-item.png" alt="">
+              </div>
+              <div class="info">
+                <h2>Art-Noks, торговая компания</h2>
+                <p>50 лет СССР, 168</p>
+                <small>135 предприятий</small>
+              </div>
+              <div class="contacts">
+                <span>+380 (66) 555 44 32</span>
+              </div>
+            </a>
+            <a href="#" class="category-items-item">
+              <div class="thumb">
+                <img src="img/pic-item.png" alt="">
+              </div>
+              <div class="info">
+                <h2>Art-Noks, торговая компания</h2>
+                <p>50 лет СССР, 168</p>
+                <small>135 предприятий</small>
+              </div>
+              <div class="contacts">
+                <span>+380 (66) 555 44 32</span>
+              </div>
+            </a>
+        </div>
+      </div>
+
+
+
+    <div class="banner-bottom">
+      <img src="img/banner-bottom.png" alt="">
+    </div>
+    </div>
+  <!-- right bar -->
+    <div class="right-bar">
+      <h2>топ лучших</h2>
+      <!--<a href="" class="add-ad">Добавить предприятие </a>-->
+
+      <div class="right-bar__ad">
+        <div class="right-bar__ad_items">
+          <img src="img/pic-ad.png" alt="">
+          <h4>Ресторан “Больше жизни”</h4>
+          <span>Донецк, ул. Щетинина 22</span>
+        </div>
+        <div class="right-bar__ad_items">
+          <img src="img/pic-ad.png" alt="">
+          <h4>Ресторан “Больше жизни”</h4>
+          <span>Донецк, ул. Щетинина 22</span>
+        </div>
+        <div class="right-bar__ad_items">
+          <img src="img/pic-ad.png" alt="">
+          <h4>Ресторан “Больше жизни”</h4>
+          <span>Донецк, ул. Щетинина 22</span>
+        </div>
+        <div class="right-bar__ad_items">
+          <img src="img/pic-ad.png" alt="">
+          <h4>Ресторан “Больше жизни”</h4>
+          <span>Донецк, ул. Щетинина 22</span>
+        </div>
+        <div class="white-overlay">
+          <a class="add-ad" href="">ДОБАВИТЬ ОБЪЯВЛЕНИЕ</a>
+      </div>
+      </div>
+      <div class="right-bar__ad-room">
+            <h2>объявления</h2>
+          <a href="" class="ad-room">
+            <img src="img/room.png" alt="">
+            <h4>3-к квартира, 65 м², 4/9 эт.</h4>
+            <p><span class="geo-icon"></span>р-н Пролетарский</p>
+          </a>
+          <a href="" class="ad-room">
+            <img src="img/room.png" alt="">
+            <h4>3-к квартира, 65 м², 4/9 эт.</h4>
+            <p><span class="geo-icon"></span>р-н Пролетарский</p>
+          </a>
+          <a href="" class="ad-room">
+            <img src="img/room.png" alt="">
+            <h4>3-к квартира, 65 м², 4/9 эт.</h4>
+            <p><span class="geo-icon"></span>р-н Пролетарский</p>
+          </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- start footer.html-->
+<!-- @@block  =  footer-->
+
+<section class="footer">
+  <div class="container">
+    <div class="footer__menu">
+      <ul class="footer__menu_mnu">
+        <li class=""><a href="">главная</a></li>
+        <li class=""><a href="">новости </a></li>
+        <li class=""><a href="">предприятия</a></li>
+        <li class=""><a href="">объявления </a></li>
+        <li class=""><a href="">досуг</a></li>
+        <li class=""><a href="">о нас</a></li>
+      </ul>
+    </div>
+    <!--<a href="" class="header__main_logo">Портал <span>ДОНБАССА</span></a>-->
+    <div class="footer-copyright-cont">
+        <p class="footer-copyright">2017 © da-info.pro- Сайт города Донецка</p>
+        <p class="footer-copyright">info@da-info, (071) 210-80-54, (093) 998-49-04</p>
+    </div>
+    <div class="info">
+      <a href="#">Реклама на сайте</a><a href="#">Правила пользования сайтом</a><a href="#">Договор пользования сайтом</a>
+    </div>
+
+    <!--<div class="header__main_logo"></div>-->
+
+    <ul class="social">
+      <li><a href="" class="circle"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+      <li><a href="" class="circle"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+      <li><a href="" class="circle"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+      <li><a href="" class="circle"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+      <li><a href="" class="circle"><i class="fa fa-odnoklassniki" aria-hidden="true"></i> </a></li>
+      <li><a href="" class="circle"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+      <li><a href="" class="circle"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+    </ul>
+  </div>
+    <div class="footer-alert-container">
+      <div class="container">
+        <p class="footer-alert">
+          Допускается цитирование материалов без получения предварительного согласия при условии размещения в тексте обязательной ссылки на Сайт Донецка da-info.pro.
+          Для интернет-изданий обязательно размещение прямой, открытой для поисковых систем гиперссылки на цитируемые статьи не ниже второго абзаца в тексте или в качестве источника.
+          Нарушение исключительных прав преследуется по закону.
+        </p>
+      </div>
+  </div>
+  <div class="bottom-footer">
+  </div>
+
+    <img id="Go_Top" src="img/button_up.svg" alt="">
+
+</section>
+<!-- @@close-->
+</body>
+<script src='https://code.jquery.com/jquery-2.2.2.min.js' type="text/javascript"></script>
+<script src="js/jquery.mousewheel-3.0.6.pack.js" type="text/javascript"></script>
+<script src="js/jquery.fancybox.pack.js" type="text/javascript"></script>
+<script src="js/jquery.fancybox-buttons.js" type="text/javascript"></script>
+<script src="js/jquery.fancybox-media.js" type="text/javascript"></script>
+<script src="js/flipclock.min.js" type="text/javascript"></script>
+<script src="js/flipclockoptions.js" type="text/javascript"></script>
+<script src="js/datepicker.min.js" type="text/javascript"></script>
+<script src="js/script.js" type="text/javascript"></script>
+<script src="js/script.min.js" type="text/javascript"></script>
+</html>
+
+<!-- end footer.html-->

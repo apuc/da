@@ -1,0 +1,88 @@
+@media only screen and (max-width: 1024px) {
+
+}
+
+@media only screen and (max-width: 980px) {
+
+}
+
+@media only screen and (max-width: 770px) {
+ .main-news .news-gallery-container{
+   padding-right: 0;
+   width: 100%;
+ }
+  .main-news .news-posts{
+    width: 100%;
+  }
+  .main-news{
+    .news-posts__item{
+      height: auto;
+    }
+  }
+  .main-news .news-posts__item .date-news__post{
+    width: 17%;
+  }
+  .banner-bottom{
+    width: 100%;
+    img{
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+@media only screen and (max-width: 736px) {
+
+}
+
+@media only screen and (max-width: 500px) {
+    .main-news{
+      width: 100%;
+    }
+  .main-news .news-gallery-container .big-news-gallery-item{
+    width: 99%;
+  }
+  .main-news .main-news-prefooter{
+    .social{
+      width: 100%;
+      img{
+        width: 100%;
+      }
+    }
+    .weather-forecast{
+      width: 100%;
+      img{
+        width: 100%;
+      }
+    }
+  }
+  .main-news .news-gallery-container{
+    height: auto;
+  }
+  .main-news .news-gallery-container .news-gallery-item{
+    width: 49%;
+  }
+  .main-news .news-posts__item{
+    width: 84%;
+    .watch-all{
+      position: absolute;
+      bottom: 4px;
+    }
+    float: right;
+    padding-left: 0;
+    .date-news__post{
+      left: -23%;
+      width: 20%;
+    }
+    .date-news__post{
+      width: 22%;
+    }
+  }
+  .main-news .main-news-prefooter{
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+
+}

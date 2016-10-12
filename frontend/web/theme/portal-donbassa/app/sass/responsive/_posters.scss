@@ -1,0 +1,36 @@
+@media only screen and (max-width: 1024px) {
+  .posters .left-side {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 980px) {
+
+}
+
+@media only screen and (max-width: 770px) {
+
+}
+
+@media only screen and (max-width: 736px) {
+
+}
+
+@media only screen and (max-width: 500px) {
+  .posters .posters-categories {
+    width: 96%;
+  }
+  .posters .categories-clear-option{
+    margin-bottom: 40px;
+  }
+  .posters .content__main{
+    width: 100%;
+    .afisha__right_item{
+      width: 47%;
+    }
+  }
+}
+
+@media only screen and (max-width: 320px) {
+
+}

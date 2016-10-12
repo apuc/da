@@ -1,0 +1,156 @@
+.footer{
+  width: 100%;
+  float: left;
+  display: block;
+  position: relative;
+  background-color: #edeef0;
+  .header__main_logo{
+    width: 26%;
+    height: 100px;
+  }
+  .footer-copyright-cont{
+
+    float: left;
+    .footer-copyright{
+      font-family:$rr;
+      font-size: 13px;
+    }
+  }
+.info{
+  float: left;
+  margin-left: 16%;
+  a{
+    display: block;
+    font-family:$rr;
+    font-size: 13px;
+    color: #000;
+    text-decoration: none;
+  }
+}
+}
+.bottom-footer{
+  width: 100%;
+  float: left;
+  display: inline-block;
+  height: 20px;
+  background-color: #ff0200;
+}
+
+.footer__menu{
+  width: 100%;
+  float: left;
+  position: relative;
+  padding: 15px 0;
+  box-sizing: border-box;
+}
+
+.footer__menu_mnu{
+  display: inline-block;
+  padding: 0;
+  box-sizing: border-box;
+  float: left;
+  margin: 0;
+  li{
+    display: inline-block;
+    list-style-type: none;
+    padding: 15px 0;
+    box-sizing: border-box;
+    margin: 0 10px;
+    &:first-of-type{
+      margin-left: 0;
+    }
+    &:hover{
+      a{
+        color:#ff3432;
+      }
+    }
+    a{
+      text-decoration: none;
+      text-transform: uppercase;
+      color: #242424;
+      font-size: 14px;
+      font-family: $rb;
+      font-weight: 900;
+      min-width: 100px;
+      @include hov-red;
+
+    }
+  }
+}
+.footer-alert-container{
+
+  height:100px;
+  background-color: #fff;
+  padding: 24px 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-top: 25px;
+.footer-alert{
+  width: 100%;
+  float: left;
+  display: inline-block;
+  color: #242424;
+  font-size: 13px;
+  font-family: $rr;
+  font-weight: 400;
+  margin: 0;
+}
+}
+
+.social{
+  width: 30%;
+  float: right;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  text-align: right;
+  li{
+    list-style-type: none;
+    display: inline-block;
+    margin: 0 5px;
+
+    .circle{
+      size: 30px;
+      background-color: #9a9a9a;
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+      text-align: center;
+      i{
+        color: #fff;
+        position: absolute;
+        left: 26%;
+        bottom: 22%;
+        @include hov-red;
+      }
+      .fa-vk{
+        left: 20%;
+      }
+      .fa-facebook{
+        left: 37%;
+      }
+      .fa-instagram{
+        left: 30%;
+      }
+      .fa-odnoklassniki{
+        left: 33%;
+      }
+      .fa-google-plus{
+        left: 20%;
+      }
+      .fa-youtube-play{
+        left: 24%;
+      }
+    }
+  }
+}
+#Go_Top {
+  position: fixed;
+  bottom: 60px;
+  left: 30px;
+  cursor: pointer;
+  z-index: 10;
+  display: none;
+  width: 40px;
+}
