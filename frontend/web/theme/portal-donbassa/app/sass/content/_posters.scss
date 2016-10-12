@@ -1,0 +1,119 @@
+.posters{
+
+  .left-side{
+    width: 80%;
+    float: left;
+    position: relative;
+    .shape{
+      margin-top:10px;
+      width: 97%;
+    }
+  }
+  width: 100%;
+  float: left;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  .posters-categories{
+    width: 25%;
+    float: left;
+    ul{
+      display: block;
+      float: left;
+    }
+    .posters-month{
+      margin-bottom: 44px;
+    }
+    ul li{
+      float: left;
+      width: 100%;
+      list-style-type: none;
+      position: relative;
+      
+      &::before{
+        position: absolute;
+        left: -20px;
+        width: 4px;
+        height: 4px;
+        background-color: #242424;
+        content: "";
+        top: 7px;
+      }
+      a{
+        font-family: $rb;
+        font-size: 14px;
+        text-decoration: none;
+        color: #242424;
+        &:hover{
+          &::before{
+            position: absolute;
+            left: -20px;
+            width: 4px;
+            height: 4px;
+            background-color: #ff3432;
+            content: "";
+            top: 7px;
+        }
+        }
+      }
+      span{
+        float: right;
+        color: #bbb9b4;
+      }
+    }
+    .posters-categories-list{
+      text-transform: uppercase;
+    }
+  .active{
+    a{
+    &::before{
+      position: absolute;
+      left: -20px;
+      width: 4px;
+      height: 4px;
+      background-color: #ff3432;
+      content: "";
+      top: 7px;
+    }
+    }
+  }
+    .categories-clear-option{
+      display: block;
+      text-align: center;
+      font-family: $rb;
+      font-size: 14px;
+      color: #242424;
+    }
+    .shape{
+      height: 11px;
+      width: 100%;
+      img{
+        width: 100%;
+      }
+    }
+  }
+  .content__main{
+    width: 75%;
+    float: left;
+    .afisha__right{
+      width: 100%;
+      .afisha-date-small{
+        width: 31%;
+      }
+    }
+  }
+  .banner-bottom{
+    float: left;
+    width: 96%;
+    margin-top: 35px;
+    img{
+      width: 100%;
+    }
+  }
+
+}
+
+.clearfix{
+  clear: both;
+}

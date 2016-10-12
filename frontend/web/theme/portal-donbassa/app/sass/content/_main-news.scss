@@ -1,0 +1,387 @@
+
+.main-news{
+  .content__main{
+    width: 100%;
+  }
+  width: 80%;
+  float: left;
+  .news-gallery-container{
+    width: 80%;
+    height: 338px;
+    float: left;
+    display: block;
+    padding-right: 45px;
+    box-sizing: border-box;
+    position: relative;
+    a{
+      text-decoration: none;
+      position: relative;
+    }
+    .big-news-gallery-item{
+      display: block;
+      width: 49%;
+      float: left;
+      height: 339px;
+      overflow: hidden;
+      img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      &:hover{
+        img{
+          -webkit-transform: scale(1.04);
+          -moz-transform: scale(1.04);
+          -o-transform: scale(1.04);
+          transform: scale(1.04);
+          -webkit-transition: all ease-in-out 0.5s;
+          -moz-transition: all ease-in-out 0.5s;
+          -ms-transition: all ease-in-out 0.5s;
+          -o-transition: all ease-in-out 0.5s;
+          transition: all ease-in-out 0.5s;
+        }
+        .news-text{
+          background-color: rgba(0,0,0,.5);
+          -webkit-transition: all ease-in-out 0.5s;
+          -moz-transition: all ease-in-out 0.5s;
+          -ms-transition: all ease-in-out 0.5s;
+          -o-transition: all ease-in-out 0.5s;
+          transition: all ease-in-out 0.5s;
+
+        }}
+    }
+    .news-gallery-item{
+      position: relative;
+      width: 25%;
+      float: left;
+      height: 169px;
+      overflow: hidden;
+      margin-left: 1px;
+      margin-bottom: 1px;
+      img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+
+      }
+      &:hover{
+        img{
+            -webkit-transform: scale(1.04);
+            -moz-transform: scale(1.04);
+            -o-transform: scale(1.04);
+            transform: scale(1.04);
+            -webkit-transition: all ease-in-out 0.5s;
+            -moz-transition: all ease-in-out 0.5s;
+            -ms-transition: all ease-in-out 0.5s;
+            -o-transition: all ease-in-out 0.5s;
+            transition: all ease-in-out 0.5s;
+        }
+        .news-text{
+        background-color: rgba(0,0,0,.5);
+        -webkit-transition: all ease-in-out 0.5s;
+        -moz-transition: all ease-in-out 0.5s;
+        -ms-transition: all ease-in-out 0.5s;
+        -o-transition: all ease-in-out 0.5s;
+        transition: all ease-in-out 0.5s;
+      }}
+    }
+    .news-text{
+      padding-left: 10px;
+      padding-top: 10px;
+      display: block;
+      background-color: rgba(0,0,0,.2);
+      position: absolute;
+      min-height: 60px;
+      bottom: 0;
+      width: 100%;
+
+      .gallery-news-text-header{
+        font-family: $rr;
+        font-size: 18px;
+        color: #fff;
+        margin: 0;
+        margin-bottom: 8px;
+      }
+      p{
+        color: #fff;
+        font-family:$rr;
+        font-size: 15px;
+      }
+    }
+  .shape{
+    width: 99.5%;
+    height: 11px;
+    margin-top: 11px;
+    margin-bottom: 11px;
+
+  }
+  }
+  .all-news-to-day{
+    width: 80%;
+    float: left;
+    display: block;
+    padding-top: 40px;
+    padding-bottom: 21px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;;
+    padding-left:30px;
+    h4{
+      font-family: $rb;
+      font-size: 16px;
+      color: #000;
+    }
+    li{
+
+      display: block;
+      width: 50%;
+      float: left;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      position: relative;
+      height: 46px;
+      margin-top: 0;
+      padding-right: 60px;
+      a{
+        display: block;
+        position: relative;
+        font-family:$rr;
+        font-size: 13px;
+        color: #000;
+        text-decoration: none;
+        padding-right:70px;
+        .time{
+          position: relative;
+          display: block;
+          top: 15px;
+          left: -64px;
+          font-size: 11px;
+        }
+        .views{
+          color: #5b5b5b;
+          font-size: 11px;
+          font-family: $rr;
+          position: absolute;
+          right: 18px;
+          top: 18px;
+          .view-icon{
+            size: 18px 12px;
+            display: inline-block;
+            background-repeat: no-repeat;
+            background-image: url("../img/view-icon.png");
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  .paginator{
+    float: left;
+    margin-top: 40px;
+    width: 100%;
+    ul{
+      margin: 0;
+      padding-left:0;
+      .active{
+        a{
+          font-family: $rb;
+          color:#ff3432;
+        }
+      }
+    li{
+      position: relative;
+      display: inline-block;
+      float: none;
+      padding-right: 0;
+       width:10px;
+      margin-left: 11px;
+    a{
+      margin: 0 10px;
+      color: #334a51;
+      text-decoration: none;
+      font-size: 13px;
+      font-family: $rr;
+    }
+    .prev, .next{
+      position: relative;
+      top: -1px;
+      margin: 0 12px;
+    }
+    }
+
+    }
+  }
+  }
+.news-posts{
+  width: 80%;
+  position: relative;
+  display: block;
+  float: left;
+  padding-top: 20px;
+  padding-right: 30px;
+  box-sizing: border-box;
+  .more-news{
+    list-style-type: none;
+    li{
+      position: relative;
+        &::before{
+          position: absolute;
+          left: -20px;
+          width: 4px;
+          height: 4px;
+          background-color: #ff3432;
+          content: "";
+          top: 7px;
+    }
+    }
+  }
+
+  &__item{
+    //background-color: #e6e3e3;
+    margin-right: 3px;
+    margin-bottom: 3px;
+    width: 49%;
+    float: left;
+    padding: 20px;
+    box-sizing: border-box;
+    //padding-left: 10%;
+    position: relative;
+    height: 390px;
+    .post-overflow{
+      overflow: hidden;
+      height: 118px;
+      background-color: #e6e3e3;
+      padding-top: 10px;
+      padding-right: 10px;
+    }
+    .date-news__post{
+      width: 14%;
+    }
+    a{
+      text-decoration: none;
+    }
+    .category{
+      a{
+      font-family:$rb;
+      font-size: 16px;
+      color: #000;
+      }
+    }
+    .post-header{
+
+      font-family:$rb;
+      font-size: 14px;
+        color: #000;
+    }
+    .post-image{
+      height: 106px;
+      width: 120px;
+      overflow: hidden;
+      float: left;
+      margin: 0 10px;
+      img{
+        object-fit: cover;
+        width: 100%;
+        height:93%;
+      }
+    }
+    .text-preview{
+      font-family: $rr;
+      font-size: 14px;
+      color: #414a5a;
+    }
+    .more-news-link{
+      text-decoration: none;
+      font-family: $rr;
+      font-size: 13px;
+      color: #000;
+    }
+    .watch-all{
+      position: absolute;
+      bottom: 4px;
+      color: #ff3432;
+    }
+    .read-more{
+      color:#ff3432;
+      position: relative;
+      top: 10px;
+    }
+    .more-news{
+      margin: 0;
+      clear: both;
+      padding: 20px;
+    }
+  }
+.line{
+  height: 1px;
+  width: 75%;
+  background-color: #e9e9e9;
+  position: absolute;
+  bottom: 25px;
+}
+}
+  .main-news-prefooter{
+    width: 80%;
+    float: left;
+    display: block;
+    padding: 28px 0;
+    padding-bottom: 40px;
+    .social{
+      width: 50%;
+      height: 100%;
+      box-sizing: border-box;
+      float: left;
+      padding-bottom: 40px;
+      .social-header{
+        display: inline-block;
+        font-family: $rb;
+        font-size: 16px;
+        color: #000;
+        float: left;
+      }
+      img{
+        display: block;
+        clear: both;
+      }
+    }
+    .weather-forecast{
+      float: right;
+      width: 50%;
+      height: 100%;
+      box-sizing: border-box;
+      .weather-header{
+        display: inline-block;
+        font-family: $rb;
+        font-size: 16px;
+        color: #000;
+      }
+      img{
+        display: block;
+        clear: both;
+      }
+    }
+    .banner-bottom{
+      margin: 35px 0;
+      float: left;
+      width: 98%;
+      img{
+        width: 100%;
+      }
+    }
+  }
+
+}
+.img-zoom {
+  width: 100%;
+  -webkit-transition: all ease-in-out 0.2s;
+  -moz-transition: all ease-in-out 0.2s;
+  -o-transition: all ease-in-out 0.2s;
+  transition: all ease-in-out 0.2s;
+}
+.transition {
+
+}
+.datepicker-inline .datepicker{
+  float: left;
+  width: 100%;
+}

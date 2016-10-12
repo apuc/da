@@ -1,0 +1,58 @@
+$ebi: 'OpenSansExtraBoldItalic';
+$osr: 'OpenSansRegular';
+$rr: 'RobotoRegular';
+$rb: 'RobotoBold';
+$rm: 'RobotoMedium';
+
+
+
+@font-face {
+font-family: 'OpenSansExtraBoldItalic';
+src: url('../fonts/OpenSansExtraBoldItalic/OpenSansExtraBoldItalic.eot') format('embedded-opentype'),
+  url('../fonts/OpenSansExtraBoldItalic/OpenSansExtraBoldItalic.woff2') format('woff2'),
+  url('../fonts/OpenSansExtraBoldItalic/OpenSansExtraBoldItalic.woff') format('woff'),
+  url('../fonts/OpenSansExtraBoldItalic/OpenSansExtraBoldItalic.ttf') format('truetype'),
+  url('../fonts/OpenSansExtraBoldItalic/OpenSansExtraBoldItalic.svg') format('svg');
+  font-style: normal;
+}
+
+@font-face {
+font-family: 'RobotoRegular';
+src: url('../fonts/RobotoRegular/RobotoRegular.eot') format('embedded-opentype'),
+  url('../fonts/RobotoRegular/RobotoRegular.woff2') format('woff2'),
+  url('../fonts/RobotoRegular/RobotoRegular.woff') format('woff'),
+  url('../fonts/RobotoRegular/RobotoRegular.ttf') format('truetype'),
+  url('../fonts/RobotoRegular/RobotoRegular.svg') format('svg');
+  font-style: normal;
+  font-weight: normal;
+}
+@font-face {
+font-family: 'RobotoMedium';
+src: url('../fonts/RobotoMedium/RobotoMedium.eot') format('embedded-opentype'),
+  url('../fonts/RobotoMedium/RobotoMedium.woff2') format('woff2'),
+  url('../fonts/RobotoMedium/RobotoMedium.woff') format('woff'),
+  url('../fonts/RobotoMedium/RobotoMedium.ttf') format('truetype'),
+  url('../fonts/RobotoMedium/RobotoMedium.svg') format('svg');
+  font-style: normal;
+  font-weight: normal;
+}
+@font-face {
+font-family: 'OpenSansRegular';
+src: url('../fonts/OpenSansRegular/OpenSansRegular.eot') format('embedded-opentype'),
+  url('../fonts/OpenSansRegular/OpenSansRegular.woff2') format('woff2'),
+  url('../fonts/OpenSansRegular/OpenSansRegular.woff') format('woff'),
+  url('../fonts/OpenSansRegular/OpenSansRegular.ttf') format('truetype'),
+  url('../fonts/OpenSansRegular/OpenSansRegular.svg') format('svg');
+  font-style: normal;
+  font-weight: normal;
+}
+@font-face {
+font-family: 'RobotoBold';
+src: url('../fonts/RobotoBold/RobotoBold.eot') format('embedded-opentype'),
+  url('../fonts/RobotoBold/RobotoBold.woff2') format('woff2'),
+  url('../fonts/RobotoBold/RobotoBold.woff') format('woff'),
+  url('../fonts/RobotoBold/RobotoBold.ttf') format('truetype'),
+  url('../fonts/RobotoBold/RobotoBold.svg') format('svg');
+  font-style: normal;
+  font-weight: normal;
+}
