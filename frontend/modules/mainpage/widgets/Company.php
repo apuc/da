@@ -20,7 +20,7 @@ class Company extends Widget
     {
         return $this->render('company', [
             'category' => CategoryCompany::find()->where(['parent_id'=>0, 'lang_id'=>Lang::getCurrent()['id']])->all(),
-            'company' => \common\models\db\Company::find()->where(['lang_id'=>Lang::getCurrent()['id']])->limit(10)->all(),
+            'company' => \common\models\db\Company::find()->where(['lang_id'=>Lang::getCurrent()['id']])->orderBy('id DESC')->limit(7)->all(),
         ]);
     }
 

@@ -64,4 +64,9 @@ class CategoryCompanyRelations extends \yii\db\ActiveRecord
         return $this->hasOne(CategoryCompany::className(), ['id' => 'cat_id']);
     }
 
+    public function getcategory_company()
+    {
+        return $this->hasOne(CategoryCompany::className(), ['id' => 'cat_id']);
+    }
+
 }

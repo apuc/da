@@ -28,7 +28,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'address',
             'phone',
-            'email:email',
+            /*'email:email',*/
+            [
+                'attribute' => 'vip',
+                'format' => 'text',
+                'value' => function($model){
+                    return ($model->vip == 0) ? 'Стандарт' : 'VIP';
+                }
+            ],
             // 'photo',
             // 'dt_add',
             // 'dt_update',

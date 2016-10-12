@@ -37,6 +37,12 @@ return [
         'top_company' => [
             'class' => 'backend\modules\top_company\Top_company',
         ],
+        'poster' => [
+            'class' => 'backend\modules\poster\Poster',
+        ],
+        'category_poster' => [
+            'class' => 'backend\modules\category_poster\Category_poster',
+        ],
     ],
     'components' => [
         /*'user' => [
@@ -68,7 +74,9 @@ return [
                 'company' => 'company/company',
                 'category_company' => 'category_company/category_company',
                 'exchange_rates' => 'exchange_rates/default',
-                'key_value' => 'key_value/key_value'
+                'key_value' => 'key_value/key_value',
+                'poster' => 'poster/poster',
+                'category_poster' => 'category_poster/category_poster'
             ]
         ],
         'mailer' => [

@@ -22,6 +22,9 @@ return [
         'company' => [
             'class' => 'frontend\modules\company\Company',
         ],
+        'poster' => [
+            'class' => 'frontend\modules\poster\Poster',
+        ],
     ],
     'components' => [
         'view' => [
@@ -53,13 +56,16 @@ return [
             'rules' => [
                 '' => 'mainpage/default',
                 'news' => 'news/default',
+                'all-news/<page:\d+>/<per-page:\d+>' => 'news/news/index',
                 'news/<slug>' => 'news/default/view',
                 'company' => 'company/default',
                 'company/<slug>' => 'company/default/view',
                 'all-new' => 'news/news',
                 'all-company' => 'company/company',
                 'news/category/<slug>' => 'news/news/category',
-                'company/category/<slug>' => 'company/company/category'
+                'news/archive/<date>' => 'news/news/archive',
+                'company/category/<slug>' => 'company/company/category',
+                'poster/<slug>' => 'poster/default/view',
             ]
         ],
         'mailer' => [

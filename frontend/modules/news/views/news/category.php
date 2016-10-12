@@ -21,7 +21,7 @@ $this->title = (empty($cat->meta_title))? $cat->title : $cat->meta_title;
             <?php foreach($news as $new): ?>
                 <div class="news-posts__item" style="height:270px">
                     <?php $dt = ($new['news']->dt_public != $new['news']->dt_add) ? $new['news']->dt_public : $new['news']->dt_add; ?>
-                    <span class="date-news__post"><?= date('d', $dt) ?> <?= DateFunctions::getMonthShortName(date('m', $dt)) ?> <?= date('H:i', $dt) ?></span>
+                    <!--<span class="date-news__post"><?/*= date('d', $dt) */?> <?/*= DateFunctions::getMonthShortName(date('m', $dt)) */?> <?/*= date('H:i', $dt) */?></span>-->
                     <!--<h4 class="category"><a href="#"><?/*= $cat->title */?></a></h4>-->
                     <a href="/news/<?= $new['news']->slug ?>">
                         <h5 class="post-header"><?= $new['news']->title ?></h5>

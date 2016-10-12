@@ -23,6 +23,7 @@ use Yii;
  * @property string $meta_descr
  * @property integer $views
  * @property integer $user_id
+ * @property integer $vip
  *
  * @property CategoryCompanyRelations[] $categoryCompanyRelations
  */
@@ -43,7 +44,7 @@ class Company extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['dt_add', 'dt_update', 'status', 'lang_id', 'views', 'user_id'], 'integer'],
+            [['dt_add', 'dt_update', 'status', 'lang_id', 'views', 'user_id', 'vip'], 'integer'],
             [['descr'], 'string'],
             [['name', 'address', 'phone', 'email', 'photo', 'slug', 'meta_title', 'meta_descr'], 'string', 'max' => 255],
         ];
@@ -71,6 +72,7 @@ class Company extends \yii\db\ActiveRecord
             'meta_descr' => Yii::t('company', 'Meta Descr'),
             'views' => Yii::t('company', 'Views'),
             'user_id' => Yii::t('company', 'User ID'),
+            'vip' => Yii::t('company', 'Vip'),
         ];
     }
 

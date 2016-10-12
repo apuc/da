@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\modules\news\models\NewsSearch */
@@ -24,12 +25,13 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php $i = 0; ?>
             <?php foreach ($news_5 as $new): ?>
                 <?php if ($i == 0): ?>
-                    <a href="<?= Url::to(['/news/default/view', 'slug' => $new->slug]) ?>" class="big-news-gallery-item">
+                    <a href="<?= Url::to(['/news/default/view', 'slug' => $new->slug]) ?>"
+                       class="big-news-gallery-item">
                         <img src="<?= $new->photo ?>" alt="">
                         <span class="news-text">
                             <h4 class="gallery-news-text-header"><?= $new->title ?></h4>
                             <p>
-                                <?= WordFunctions::crop_str_word(strip_tags($new->content), 20);  ?>
+                                <?= WordFunctions::crop_str_word(strip_tags($new->content), 20); ?>
                             </p>
                         </span>
                     </a>
@@ -50,47 +52,85 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
 
+        <div class="all-news-to-day">
+            <h4>Все новости</h4>
+
+            <ul class="news">
+                <?php Pjax::begin(); ?>
+                <?= \yii\widgets\ListView::widget([
+                    'dataProvider' => $dataProvider,
+                    'itemView' => '_list',
+                    'layout' => "{items}\n<div class='paginator'>{pager}</div>",
+                    'pager' => [
+                        'options' => [
+                            'class' => 'paginator',
+                            'tag' => 'div',
+                        ],
+                        'maxButtonCount' => 15,
+                        'nextPageCssClass' => 'next',
+                        'nextPageLabel' => '<img src="/theme/portal-donbassa/img/paginator-right.png" alt="">',
+                        'prevPageCssClass' => 'prev',
+                        'prevPageLabel' => '<img src="/theme/portal-donbassa/img/paginator-left.png" alt="">',
+                    ]
+                ]) ?>
+                <?php Pjax::end(); ?>
+            </ul>
+        </div>
+
         <div class="news-posts">
-            <?php foreach($cat as $item): ?>
-                <?php $news_item = \common\models\db\News::find()->leftJoin('category_news_relations', '`new_id` = `news`.`id`')->where(['cat_id'=>$item->id])->limit(4)->orderBy('id DESC')->all(); ?>
+            <?php foreach ($cat as $item): ?>
+                <?php $news_item = \common\models\db\News::find()->leftJoin('category_news_relations', '`new_id` = `news`.`id`')->where(['cat_id' => $item->id])->limit(4)->orderBy('id DESC')->all(); ?>
                 <div class="news-posts__item">
-                    <?php $dt = ($new['news']->dt_public != $new['news']->dt_add) ? $new['news']->dt_public : $new['news']->dt_add; ?>
-                    <span class="date-news__post"><?= date('d', $dt) ?> <?= DateFunctions::getMonthShortName(date('m', $dt)) ?> <?= date('H:i', $dt) ?></span>
+                    <?php $dt = ($news_item[0]->dt_public != $news_item[0]->dt_add) ? $news_item[0]->dt_public : $news_item[0]->dt_add; ?>
+                    <!--<span class="date-news__post"><? /*= date('d', $dt) */ ?> <? /*= DateFunctions::getMonthShortName(date('m', $dt)) */ ?> <? /*= date('H:i', $dt) */ ?></span>-->
                     <h4 class="category">
-                        <a href="<?= Url::to(['/news/news/category/', 'slug'=>$item->slug]) ?>">
+                        <a href="<?= Url::to(['/news/news/category/', 'slug' => $item->slug]) ?>">
                             <?= $item->title ?>
                         </a>
                     </h4>
                     <a href="/news/<?= $news_item[0]->slug ?>">
-                        <h5 class="post-header"><?= $news_item[0]->title ?></h5>
                         <div class="post-overflow">
                             <div class="post-image">
                                 <img src="<?= $news_item[0]->photo ?>" alt="">
                             </div>
-                            <p class="text-preview"><?= WordFunctions::crop_str_word(strip_tags($news_item[0]->content),15);  ?></p>
+                            <h5 class="post-header"><?= $news_item[0]->title ?></h5>
                         </div>
                     </a>
-                    <a href="#" class="read-more more-news-link">Читать дальше <img src="/theme/portal-donbassa/img/scroll-arrow-to-right.svg" width="4px" height="6px"></a>
+                    <!--<a href="/news/<? /*= $news_item[0]->slug */ ?>">
+                        <div class="post-overflow">
+                            <div class="post-image">
+                                <img src="<? /*= $news_item[0]->photo */ ?>" alt="">
+                            </div>
+                            <h5 class="post-header"><? /*= $news_item[0]->title */ ?></h5>
+                        </div>
+                    </a>-->
+                    <a href="#" class="read-more more-news-link">Читать дальше <img
+                            src="/theme/portal-donbassa/img/scroll-arrow-to-right.svg" width="4px" height="6px"></a>
 
                     <ul class="more-news">
                         <li>
-                            <a class="more-news-link" href="<?= Url::to(['/news/default/view', 'slug'=>$news_item[1]->slug]) ?>">
+                            <a class="more-news-link"
+                               href="<?= Url::to(['/news/default/view', 'slug' => $news_item[1]->slug]) ?>">
                                 <?= $news_item[1]->title ?>
                             </a>
                         </li>
                         <li>
-                            <a class="more-news-link" href="<?= Url::to(['/news/default/view', 'slug'=>$news_item[2]->slug]) ?>">
+                            <a class="more-news-link"
+                               href="<?= Url::to(['/news/default/view', 'slug' => $news_item[2]->slug]) ?>">
                                 <?= $news_item[2]->title ?>
                             </a>
                         </li>
                         <li>
-                            <a class="more-news-link" href="<?= Url::to(['/news/default/view', 'slug'=>$news_item[3]->slug]) ?>">
+                            <a class="more-news-link"
+                               href="<?= Url::to(['/news/default/view', 'slug' => $news_item[3]->slug]) ?>">
                                 <?= $news_item[3]->title ?>
                             </a>
                         </li>
                     </ul>
                     <div class="line"></div>
-                    <a href="<?= Url::to(['/news/news/category/', 'slug'=>$item->slug]) ?>" class="read-more more-news-link watch-all">Смотреть все <img src="/theme/portal-donbassa/img/scroll-arrow-to-right.svg" width="4px" height="6px"></a>
+                    <a href="<?= Url::to(['/news/news/category/', 'slug' => $item->slug]) ?>"
+                       class="more-news-link watch-all">Смотреть все <img
+                            src="/theme/portal-donbassa/img/scroll-arrow-to-right.svg" width="4px" height="6px"></a>
                 </div>
             <?php endforeach; ?>
         </div>

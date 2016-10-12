@@ -10,14 +10,18 @@ use yii\helpers\Url;
 <div class="title">
     <h2>каталог предприятий</h2>
     <div class="title-right">
-        <a href="" class="all-news">все предприятия</a>
+        <a href="<?= Url::to(['/company/company/create']) ?>" class="add-organization"><i class="fa fa-plus"></i>Добавить предприятие</a>
+        <a href="<?= Url::to(['/company/company']) ?>" class="all-news"><i class="fa fa-users" aria-hidden="true"></i> все предпреиятия</a>
     </div>
+</div>
+<div class="shape">
+    <img src="/theme/portal-donbassa/img/shape-line.png" alt="">
 </div>
 <div class="category">
     <div class="category-list-block">
         <ul class="category-list">
             <?php foreach ($category as $item): ?>
-                <li class="company_list_item"><a href="#" data-id="<?= $item->id ?>"><?= $item->title ?></a></li>
+                <li class="company_list_item"><a href="<?= Url::to(['/company/company/category', 'slug'=>$item->slug]) ?>" data-id="<?= $item->id ?>"><?= $item->title ?></a></li>
             <?php endforeach; ?>
         </ul>
     </div>
@@ -39,57 +43,5 @@ use yii\helpers\Url;
             </a>
         <?php endforeach; ?>
 
-        <!--<a href="#" class="category-items-item">
-            <div class="thumb">
-                <img src="/theme/portal-donbassa/img/pic-item.png" alt="">
-            </div>
-            <div class="info">
-                <h2>Art-Noks, торговая компания</h2>
-                <p>50 лет СССР, 168</p>
-                <small>135 предприятий</small>
-            </div>
-            <div class="contacts">
-                <span>+380 (66) 555 44 32</span>
-            </div>
-        </a>
-        <a href="#" class="category-items-item">
-            <div class="thumb">
-                <img src="/theme/portal-donbassa/img/pic-item.png" alt="">
-            </div>
-            <div class="info">
-                <h2>Art-Noks, торговая компания</h2>
-                <p>50 лет СССР, 168</p>
-                <small>135 предприятий</small>
-            </div>
-            <div class="contacts">
-                <span>+380 (66) 555 44 32</span>
-            </div>
-        </a>
-        <a href="#" class="category-items-item">
-            <div class="thumb">
-                <img src="/theme/portal-donbassa/img/pic-item.png" alt="">
-            </div>
-            <div class="info">
-                <h2>Art-Noks, торговая компания</h2>
-                <p>50 лет СССР, 168</p>
-                <small>135 предприятий</small>
-            </div>
-            <div class="contacts">
-                <span>+380 (66) 555 44 32</span>
-            </div>
-        </a>
-        <a href="#" class="category-items-item">
-            <div class="thumb">
-                <img src="/theme/portal-donbassa/img/pic-item.png" alt="">
-            </div>
-            <div class="info">
-                <h2>Art-Noks, торговая компания</h2>
-                <p>50 лет СССР, 168</p>
-                <small>135 предприятий</small>
-            </div>
-            <div class="contacts">
-                <span>+380 (66) 555 44 32</span>
-            </div>
-        </a>-->
     </div>
 </div>

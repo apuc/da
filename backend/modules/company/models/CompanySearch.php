@@ -74,6 +74,9 @@ class CompanySearch extends Company
             ->andFilterWhere(['like', 'descr', $this->descr])
             ->andFilterWhere(['like', 'slug', $this->slug]);
 
+
+        $query->orderBy('id DESC');
+
         return $dataProvider;
     }
 }

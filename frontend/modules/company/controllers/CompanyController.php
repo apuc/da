@@ -54,10 +54,18 @@ class CompanyController extends Controller
     public function actionCategory($slug){
         $cat = CategoryCompany::find()->where(['slug'=>$slug])->one();
         if(empty($cat)) return $this->goHome();
+        $cats = [];
+        if($cat->parent_id == 0){
+            $child_cat = CategoryCompany::find()->where(['parent_id' => $cat->id])->all();
+            foreach($child_cat as $c){
+                $cats[] = $c->id;
+            }
+        }
         $query = CategoryCompanyRelations::find()
             ->leftJoin('company', '`category_company_relations`.`company_id` = `company`.`id`')
-            ->where(['cat_id'=>$cat->id])
+            ->where(['cat_id'=>($cat->parent_id == 0) ? $cats : $cat->id])
             ->orderBy('`company`.`id` DESC')
+            ->groupBy('`company`.`id`')
             ->with('company');
 
         $countQuery = clone $query;

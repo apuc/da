@@ -83,6 +83,33 @@ class MainMenuAdmin extends Widget
                         'template' => '<a href="#"><i class="fa fa-building-o"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
                     [
+                        'label' => 'Афиша',
+                        'items' => [
+                            [
+                                'label' => 'Добавить',
+                                'url' => Url::to(['/poster/poster/create']),
+                                'active' => Yii::$app->controller->module->id == 'poster' && Yii::$app->controller->action->id == 'create',
+                                'visible' => UserFunction::hasRoles(['admin','author']),
+                            ],
+                            [
+                                'label' => 'Все',
+                                'url' => Url::to(['/poster']),
+                                'active' => Yii::$app->controller->module->id == 'poster' && Yii::$app->controller->action->id == 'index',
+                                'visible' => UserFunction::hasRoles(['admin']),
+                            ],
+                            [
+                                'label' => 'Категории',
+                                'url' => Url::to(['/category_poster']),
+                                'active' => Yii::$app->controller->module->id == 'category_poster' && Yii::$app->controller->action->id == 'index',
+                                'visible' => UserFunction::hasRoles(['admin']),
+                            ],
+                        ],
+                        'options' => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="#"><i class="fa fa-university"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                    ],
+                    [
                         'label' => 'Курсы валют',
                         'url' => Url::to(['/exchange_rates']),
                         'template' => '<a href="{url}"><i class="fa fa-money"></i> <span>{label}</span></a>',

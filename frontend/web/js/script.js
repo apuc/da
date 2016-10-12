@@ -24,7 +24,7 @@ $(document).ready(function () {
         return false;
     });
 
-    $('.company_list_item a').on('click', function () {
+    /*$('.company_list_item a').on('click', function () {
         var id = $(this).attr('data-id');
         $.ajax({
             type: 'POST',
@@ -35,7 +35,7 @@ $(document).ready(function () {
             }
         });
         return false;
-    });
+    });*/
 
     $('#news-lang_id').on('change', function () {
         var langId = $(this).val();
@@ -85,5 +85,10 @@ $(document).ready(function () {
             }
         });
         return false;
+    });
+
+    $('.allNewsPageLink').on('click', function(event){
+        event.preventDefault();
+
     });
 });

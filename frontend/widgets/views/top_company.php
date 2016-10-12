@@ -9,9 +9,11 @@
 ?>
 
 <?php foreach($top_company as $item): ?>
-    <div class="right-bar__ad_items">
-        <img src="<?= $item->company['photo'] ?>" alt="">
-        <h4><?= $item->company['name'] ?></h4>
-        <span><?= $item->company['address'] ?></span>
-    </div>
+    <a href="<?= \yii\helpers\Url::to(['/company/default/view', 'slug'=>$item->company['slug']]) ?>">
+        <div class="right-bar__ad_items">
+            <img src="<?= $item->company['photo'] ?>" alt="">
+            <h4><?= $item->company['name'] ?></h4>
+            <span><?= $item->company['address'] ?></span>
+        </div>
+    </a>
 <?php endforeach; ?>

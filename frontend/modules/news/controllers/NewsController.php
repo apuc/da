@@ -10,6 +10,7 @@ use Yii;
 use frontend\modules\news\models\News;
 use frontend\modules\news\models\NewsSearch;
 use yii\data\Pagination;
+use yii\data\SqlDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\Controller;
@@ -44,13 +45,26 @@ class NewsController extends Controller
      */
     public function actionIndex()
     {
-        //$searchModel = new NewsSearch();
-        //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $query = News::find()
+            ->where(['lang_id'=>Lang::getCurrent()['id'], 'status'=>0])
+            ->orderBy('id DESC');
+
+
+        $dataProvider = new SqlDataProvider([
+            'sql' => $query->createCommand()->rawSql,
+            'totalCount' => (int)$query->count(),
+            'pagination' => [
+                // количество пунктов на странице
+                'pageSize' => 12,
+            ]
+        ]);
 
         return $this->render('index',
             [
                 'news_5' => \common\models\db\News::find()->where(['status'=>0])->orderBy('dt_add DESC')->limit(5)->all(),
                 'cat' => CategoryNews::find()->where(['lang_id' => Lang::getCurrent()['id']])->all(),
+                'dataProvider' => $dataProvider,
             ]);
     }
 
@@ -144,6 +158,25 @@ class NewsController extends Controller
         return $this->render('category', [
             'news' => $news,
             'cat' => $cat,
+            'pages' => $pages,
+        ]);
+    }
+
+    public function actionArchive($date){
+        $query = News::find()->where(['DATE(FROM_UNIXTIME(dt_public))'=>$date]);
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
+        $pages->pageSizeParam = false;
+
+        $news = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+
+
+
+        return $this->render('archive', [
+            'news' => $news,
+            'cat' => (object)['title' => 'Архив за ' . $date],
             'pages' => $pages,
         ]);
     }

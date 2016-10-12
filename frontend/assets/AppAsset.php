@@ -23,16 +23,20 @@ class AppAsset extends AssetBundle
         'theme/portal-donbassa/css/jquery.fancybox.css',
         'theme/portal-donbassa/css/jquery.fancybox-buttons.css',
         'theme/portal-donbassa/css/jquery.fancybox-thumbs.css',
+        'theme/portal-donbassa/css/datepicker.min.css',
         'css/lightbox.css',
         'theme/portal-donbassa/css/style.min.css',
     ];
     public $js = [
-        'theme/portal-donbassa/js/script.min.js',
         'theme/portal-donbassa/js/jquery.mousewheel-3.0.6.pack.js',
         'theme/portal-donbassa/js/jquery.fancybox.pack.js',
         'theme/portal-donbassa/js/jquery.fancybox-buttons.js',
         'theme/portal-donbassa/js/jquery.fancybox-media.js',
+        'theme/portal-donbassa/js/flipclock.min.js',
+        'theme/portal-donbassa/js/datepicker.min.js',
         'js/lightbox.js',
+        'theme/portal-donbassa/js/script.min.js',
+        'theme/portal-donbassa/js/script.js',
         'js/script.js'
     ];
     public $depends = [

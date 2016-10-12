@@ -84,7 +84,13 @@ $(document).ready(function(){
         itemValue: 'value',
         itemText: 'text'
     });
-    //$('#all_cats').tagsinput('add', { "value": 1 , "text": "Amsterdam"  });
+
+    if($('*').is('#_cats')){
+        var arr = JSON.parse($('#_cats').val());
+        for (var i=0;i<arr.length;i++){
+            elt.tagsinput('add', { value: arr[i].id , text: arr[i].title});
+        }
+    }
 });
 
 Share = {

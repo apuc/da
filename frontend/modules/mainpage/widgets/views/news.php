@@ -12,12 +12,6 @@ use yii\helpers\Url;
     <?php foreach($cat as $item): ?>
         <li class="menu-link"><a href="#" data-id="<?= $item->id ?>"><?= $item->title ?></a></li>
     <?php endforeach; ?>
-    <!--<li class="menu-link"><a href="">политика</a></li>
-    <li class="menu-link"><a href="">проишествия</a></li>
-    <li class="menu-link"><a href="">погода</a></li>
-    <li class="menu-link"><a href="">культура</a></li>
-    <li class="menu-link"><a href="">спорт</a></li>
-    <li class="menu-link"><a href="">финансы</a></li>-->
 </ul>
 <div class="content__main_post">
     <div class="content__main_post_pic">
@@ -43,40 +37,5 @@ use yii\helpers\Url;
             <p class="post-of-time"><span class="posts-time"><?= date('Y-m-d H:i', $new->dt_add) ?></span><?= $new->title ?></p>
         </a>
     <?php endforeach; ?>
-    <!--<a href="" class="content__main_posts_items">
-        <p class="post-of-time"><span class="posts-time">09:48</span>Дочь президента Узбекистана поблагодарила всех за
-            поддержку</p>
-    </a>
-    <a href="" class="content__main_posts_items">
-        <p class="post-of-time"><span class="posts-time">09:48</span>Правительство отвергло предложение Минфина
-            повысить  налоги</p>
-    </a>
-    <a href="" class="content__main_posts_items">
-        <p class="post-of-time"><span class="posts-time">09:48</span>Дочь президента Узбекистана поблагодарила всех за
-            поддержку</p>
-    </a>
-    <a href="" class="content__main_posts_items">
-        <p class="post-of-time"><span class="posts-time">09:48</span>Правительство отвергло предложение Минфина
-            повысить  налоги</p>
-    </a>
-    <a href="" class="content__main_posts_items">
-        <p class="post-of-time"><span class="posts-time">09:48</span>Дочь президента Узбекистана поблагодарила всех за
-            поддержку</p>
-    </a>
-    <a href="" class="content__main_posts_items">
-        <p class="post-of-time"><span class="posts-time">09:48</span>Правительство отвергло предложение Минфина
-            повысить  налоги</p>
-    </a>
-    <a href="" class="content__main_posts_items">
-        <p class="post-of-time"><span class="posts-time">09:48</span>Дочь президента Узбекистана поблагодарила всех за
-            поддержку</p>
-    </a>
-    <a href="" class="content__main_posts_items">
-        <p class="post-of-time"><span class="posts-time">09:48</span>Дочь президента Узбекистана поблагодарила всех за
-            поддержку</p>
-    </a>
-    <a href="" class="content__main_posts_items">
-        <p class="post-of-time"><span class="posts-time">09:48</span>Правительство отвергло предложение Минфина
-            повысить  налоги</p>
-    </a>-->
+    <a href="<?= Url::to(['/news/news']) ?>" class="watch-all">Смотреть все <img src="/theme/portal-donbassa/img/scroll-arrow-to-right.svg" width="4px" height="6px"></a>
 </div>

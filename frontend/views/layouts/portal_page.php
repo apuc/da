@@ -61,11 +61,6 @@ AppAsset::register($this);
         <a href="/" class="header__main_logo" style="width: 25%"><img width="72%" src="/theme/portal-donbassa/img/logo3.png" alt=""></a>
         <div class="header__main_panel" style="width: 70%">
             <?php echo \frontend\widgets\MainMenu::widget() ?>
-            <!--<div class="header__main_panel_user">
-                <a href="" class="header__main_panel_user-name">Александр Константинович</a>
-                <a href="" class="header__main_panel_user-pic"><img src="/theme/portal-donbassa/img/user-pic.png" alt=""></a>
-                <a href="" class="header__main_panel_user-exit"><span class="exit-icon"></span></a>
-            </div>-->
         </div>
     </div>
 </section>
@@ -82,15 +77,7 @@ AppAsset::register($this);
     </div>
 </section>
 <section class="header-menu-bot">
-    <ul class="header-menu-bot-mnu">
-        <li><a href="#">Главная</a></li>
-        <li><a href="#">Главная</a></li>
-        <li><a href="#">Главная</a></li>
-        <li><a href="#">Главная</a></li>
-        <li><a href="#">Главная</a></li>
-        <li><a href="#">Главная</a></li>
-        <li><a href="#">Главная</a></li>
-    </ul>
+    <?= \frontend\widgets\MainSubMenu::widget() ?>
 </section>
 <section class="header__banner">
     <img src="/theme/portal-donbassa/img/banner.png" alt="">
@@ -119,10 +106,11 @@ AppAsset::register($this);
 
         <div class="right-bar">
             <h2>топ лучших</h2>
-            <a href="<?= Url::to(['/company/company/create']) ?>" class="add-ad">Добавить предприятие </a>
+            <!--<a href="<?/*= Url::to(['/company/company/create']) */?>" class="add-ad">Добавить предприятие </a>-->
 
             <div class="right-bar__ad">
                 <?= \frontend\widgets\TopCompanyWidget::widget() ?>
+                <?= \frontend\modules\news\widgets\NewsArchive::widget() ?>
             </div>
     </div>
 </section>
@@ -143,13 +131,13 @@ AppAsset::register($this);
         <div class="header__main_logo"></div>
         <p class="footer-alert">Любое использование материалов сайта  разрешается только при условии указания гиперссылки на материал.</p>
         <ul class="social">
-            <li><a href="" class="circle"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-            <li><a href="" class="circle"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
-            <li><a href="" class="circle"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-            <li><a href="" class="circle"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-            <li><a href="" class="circle"><i class="fa fa-odnoklassniki" aria-hidden="true"></i> </a></li>
-            <li><a href="" class="circle"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-            <li><a href="" class="circle"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+            <li><a href="https://www.facebook.com/da.info.pro/" class="circle"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+            <li><a href="https://vk.com/da_info_pro" class="circle"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+            <li><a href="https://www.facebook.com/da.info.pro/" class="circle"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+            <li><a href="https://www.instagram.com/da.info.pro/" class="circle"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+            <li><a href="https://ok.ru/da...infor" class="circle"><i class="fa fa-odnoklassniki" aria-hidden="true"></i> </a></li>
+            <!--<li><a href="" class="circle"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+            <li><a href="" class="circle"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>-->
         </ul>
     </div>
     <div class="bottom-footer">

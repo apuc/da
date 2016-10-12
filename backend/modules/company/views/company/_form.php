@@ -1,6 +1,7 @@
 <?php
 
 use common\models\db\CategoryCompany;
+use common\models\db\CategoryCompanyRelations;
 use common\models\db\Lang;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\InputFile;
@@ -24,8 +25,8 @@ use yii\widgets\ActiveForm;
         echo Html::dropDownList(
             'categ',
             null,
-            ArrayHelper::map(CategoryCompany::find()->where(['lang_id'=>1, 'parent_id'=>0])->all(),'id','title'),
-            ['class'=>'form-control', 'id'=>'categ_company']
+            ArrayHelper::map(CategoryCompany::find()->where(['lang_id' => 1, 'parent_id' => 0])->all(), 'id', 'title'),
+            ['class' => 'form-control', 'id' => 'categ_company']
         );
         ?>
 
@@ -33,10 +34,28 @@ use yii\widgets\ActiveForm;
     </span>
     <div style="margin-top: 20px;margin-bottom: 20px">
         <?= Html::textInput('cats', null, [
-            'class'=>'form-control',
+            'class' => 'form-control',
             'id' => 'all_cats'
         ]) ?>
     </div>
+
+    <?php if (Yii::$app->controller->action->id == 'update'): ?>
+        <?php
+        $cat = CategoryCompanyRelations::find()
+            ->leftJoin('category_company', '`category_company_relations`.`cat_id` = `category_company`.`id`')
+            ->where(['company_id' => $model->id])
+            ->with('category_company')
+            ->all();
+        $arr = [];
+        $i=0;
+        foreach($cat as $c){
+            $arr[$i]['id'] = $c['category_company']->id;
+            $arr[$i]['title'] = $c['category_company']->title;
+            $i++;
+        }
+        echo Html::hiddenInput('_cats',json_encode($arr, JSON_UNESCAPED_UNICODE),['id'=>'_cats']);
+        ?>
+    <?php endif ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -46,7 +65,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <?/*= $form->field($model, 'photo')->textInput(['maxlength' => true]) */?>
+    <? /*= $form->field($model, 'photo')->textInput(['maxlength' => true]) */ ?>
     <div class="imgUpload">
         <div class="media__upload_img"><img src="<?= $model->photo; ?>" width="100px"/></div>
         <?php
@@ -65,11 +84,11 @@ use yii\widgets\ActiveForm;
         ?>
     </div>
 
-    <?/*= $form->field($model, 'dt_add')->textInput() */?>
+    <? /*= $form->field($model, 'dt_add')->textInput() */ ?>
 
-    <?/*= $form->field($model, 'dt_update')->textInput() */?>
+    <? /*= $form->field($model, 'dt_update')->textInput() */ ?>
 
-    <?/*= $form->field($model, 'descr')->textarea(['rows' => 6]) */?>
+    <? /*= $form->field($model, 'descr')->textarea(['rows' => 6]) */ ?>
     <?php echo $form->field($model, 'descr')->widget(CKEditor::className(), [
         'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
             'preset' => 'full',
@@ -81,9 +100,11 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'meta_descr')->textInput(['maxlength' => true]) ?>
 
-    <?/*= $form->field($model, 'status')->textInput() */?>
+    <?= $form->field($model, 'vip')->dropDownList([0 => 'Стандарт', 1 => 'VIP'], ['class' => 'form-control']) ?>
 
-    <?/*= $form->field($model, 'slug')->textInput(['maxlength' => true]) */?>
+    <? /*= $form->field($model, 'status')->textInput() */ ?>
+
+    <? /*= $form->field($model, 'slug')->textInput(['maxlength' => true]) */ ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('company', 'Create') : Yii::t('company', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
