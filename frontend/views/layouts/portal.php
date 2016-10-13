@@ -49,13 +49,13 @@ AppAsset::register($this);
 <!--            <p class="weather"><span class="sun"></span>-->
 <!--            --><?//= \frontend\widgets\Weather::widget() ?><!--<!--</p>-->
             <ul class="social-head">
-                <li><a href="" class="circle"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                <li><a href="" class="circle"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
-                <li><a href="" class="circle"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                <li><a href="" class="circle"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                <li><a href="" class="circle"><i class="fa fa-odnoklassniki" aria-hidden="true"></i> </a></li>
-                <li><a href="" class="circle"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                <li><a href="" class="circle"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                <li><a href="https://www.facebook.com/da.info.pro/" class="circle"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a href="https://vk.com/da_info_pro" class="circle"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                <li><a href="https://www.facebook.com/da.info.pro/" class="circle"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                <li><a href="https://www.instagram.com/da.info.pro/" class="circle"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                <li><a href="https://ok.ru/da...infor" class="circle"><i class="fa fa-odnoklassniki" aria-hidden="true"></i> </a></li>
+                <!--<li><a href="" class="circle"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                <li><a href="" class="circle"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>-->
             </ul>
         </div>
 
@@ -160,6 +160,7 @@ AppAsset::register($this);
 
 <section class="footer">
     <div class="container">
+        <a href="http://da-info.pro/" class="footer-main_logo"><img width="122px" src="/theme/portal-donbassa/img/logo3.png" alt=""></a>
         <div class="footer__menu">
             <ul class="footer__menu_mnu">
                 <li class=""><a href="">главная</a></li>
@@ -170,16 +171,16 @@ AppAsset::register($this);
                 <li class=""><a href="">о нас</a></li>
             </ul>
         </div>
-        <!--<a href="" class="header__main_logo">Портал <span>ДОНБАССА</span></a>-->
-        <div class="footer-copyright-cont">
-            <p class="footer-copyright">2017 © da-info.pro- Сайт города Донецка</p>
-            <p class="footer-copyright">info@da-info, (071) 210-80-54, (093) 998-49-04</p>
-        </div>
-        <div class="info">
-            <a href="#">Реклама на сайте</a><a href="#">Правила пользования сайтом</a><a href="#">Договор пользования сайтом</a>
-        </div>
+        <div class="info"><p>info@da-info, (071) 210-80-54, (093) 998-49-04</p></div>
+<!--        <div class="footer-copyright-cont">-->
+<!--            <p class="footer-copyright">2017 © da-info.pro- Сайт города Донецка</p>-->
+<!--            <p class="footer-copyright">info@da-info, (071) 210-80-54, (093) 998-49-04</p>-->
+<!--        </div>-->
+<!--        <div class="info">-->
+<!--            <a href="#">Реклама на сайте</a><a href="#">Правила пользования сайтом</a><a href="#">Договор пользования сайтом</a>-->
+<!--        </div>-->
 
-        <!--<div class="header__main_logo"></div>-->
+<!--        <div class="header__main_logo"></div>-->
 
         <ul class="social">
             <li><a href="https://www.facebook.com/da.info.pro/" class="circle"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
@@ -190,13 +191,15 @@ AppAsset::register($this);
             <!--<li><a href="" class="circle"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
             <li><a href="" class="circle"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>-->
         </ul>
+        <div class="footer-alert-top">
+            <p>Допускается цитирование материалов без получения предварительного согласия при условии размещения в тексте обязательной ссылки на Сайт Донецка da-info.pro. </p>
+        </div>
     </div>
+
     <div class="footer-alert-container">
         <div class="container">
             <p class="footer-alert">
-                Допускается цитирование материалов без получения предварительного согласия при условии размещения в тексте обязательной ссылки на Сайт Донецка da-info.pro.
-                Для интернет-изданий обязательно размещение прямой, открытой для поисковых систем гиперссылки на цитируемые статьи не ниже второго абзаца в тексте или в качестве источника.
-                Нарушение исключительных прав преследуется по закону.
+                2017 © <a href="http://da-info.pro/">da-info.pro</a> - Сайт города Донецка
             </p>
         </div>
     </div>

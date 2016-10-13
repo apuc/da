@@ -1,9 +1,18 @@
 .footer{
+  padding-top: 20px;
   width: 100%;
   float: left;
   display: block;
   position: relative;
   background-color: #edeef0;
+  .footer-alert-top{
+    font-family: $rr;
+    font-size: 12px;
+    color:#242424;
+    float: left;
+    width: 78%;
+    margin-top: 16px;
+  }
   .header__main_logo{
     width: 26%;
     height: 100px;
@@ -17,8 +26,11 @@
     }
   }
 .info{
-  float: left;
-  margin-left: 16%;
+  float: right;
+  font-family: $rr;
+  font-size: 12px;
+  color:#242424;
+  padding-top: 17px;
   a{
     display: block;
     font-family:$rr;
@@ -37,16 +49,17 @@
 }
 
 .footer__menu{
-  width: 100%;
+  width: 67%;
   float: left;
   position: relative;
-  padding: 15px 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 .footer__menu_mnu{
   display: inline-block;
   padding: 0;
+  padding-left:4%;
   box-sizing: border-box;
   float: left;
   margin: 0;
@@ -79,14 +92,18 @@
 }
 .footer-alert-container{
 
-  height:100px;
+  height:37px;
   background-color: #fff;
-  padding: 24px 0;
+  padding: 9px 0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   margin-top: 25px;
+  a{
+    color: #242424;
+  }
 .footer-alert{
+
   width: 100%;
   float: left;
   display: inline-block;
@@ -100,11 +117,16 @@
 
 .social{
   width: 30%;
+  margin-top: 16px;
   float: right;
   display: inline-block;
   padding: 0;
   margin: 0;
   text-align: right;
+  width: 20%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   li{
     list-style-type: none;
     display: inline-block;
@@ -144,6 +166,11 @@
       }
     }
   }
+}
+.footer-main_logo{
+  display: block;
+  width: 11%;
+  float: left;
 }
 #Go_Top {
   position: fixed;
