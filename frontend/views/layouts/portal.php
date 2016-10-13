@@ -163,12 +163,12 @@ AppAsset::register($this);
         <a href="http://da-info.pro/" class="footer-main_logo"><img width="122px" src="/theme/portal-donbassa/img/logo3.png" alt=""></a>
         <div class="footer__menu">
             <ul class="footer__menu_mnu">
-                <li class=""><a href="">главная</a></li>
-                <li class=""><a href="">новости </a></li>
-                <li class=""><a href="">предприятия</a></li>
-                <li class=""><a href="">объявления </a></li>
-                <li class=""><a href="">досуг</a></li>
-                <li class=""><a href="">о нас</a></li>
+                <li class=""><a href="">Главная</a></li>
+                <li class=""><a href="">Новости </a></li>
+                <li class=""><a href="">Предприятия</a></li>
+                <li class=""><a href="">Объявления </a></li>
+                <li class=""><a href="">Досуг</a></li>
+                <li class=""><a href="">О нас</a></li>
             </ul>
         </div>
         <div class="info"><p>info@da-info, (071) 210-80-54, (093) 998-49-04</p></div>
@@ -192,7 +192,7 @@ AppAsset::register($this);
             <li><a href="" class="circle"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>-->
         </ul>
         <div class="footer-alert-top">
-            <p>Допускается цитирование материалов без получения предварительного согласия при условии размещения в тексте обязательной ссылки на Сайт Донецка da-info.pro. </p>
+            <p>Допускается цитирование материалов без получения предварительного согласия при условии размещения в тексте обязательной ссылки на da-info.pro. </p>
         </div>
     </div>
 

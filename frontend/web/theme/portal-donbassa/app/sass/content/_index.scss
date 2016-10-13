@@ -446,16 +446,16 @@
           }
         }
       }
-      &::after{
-        content: "";
-        position: absolute;
-      	width: 0;
-      	height: 0;
-        right: 2%;
-        top: 1.5%;
-        border-top: 30px solid #ff3432;
-        border-left: 30px solid transparent;
-      }
+      //&::after{
+      //  content: "";
+      //  position: absolute;
+      //	width: 0;
+      //	height: 0;
+      //  right: 2%;
+      //  top: 1.5%;
+      //  border-top: 30px solid #ff3432;
+      //  border-left: 30px solid transparent;
+      //}
     }
   }
   .afisha{
