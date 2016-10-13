@@ -25,7 +25,7 @@ use common\classes\DateFunctions;
                 <img src="<?= $one_poster[0]->photo ?>" alt="">
             </div>
             <div class="about">
-                <p>Афиша:: Кино</p>
+                <p>Афиша:: <?= \frontend\modules\poster\models\Poster::getCategoryName($one_poster[0]->id) ?></p>
                 <h2><?= $one_poster[0]->title ?></h2>
                 <p><?= $one_poster[0]->short_descr ?></p>
             </div>

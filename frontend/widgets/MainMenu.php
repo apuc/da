@@ -49,9 +49,9 @@ class MainMenu extends Widget
                 ],
                 [
                     'label' => 'Афиша',
-                    'url' => Url::to(['/']),
+                    'url' => Url::to(['/all-poster']),
                     'template' => '<a href="{url}">{label}</a>',
-                    'active' => Yii::$app->controller->module->id == 'mainpage1',
+                    'active' => Yii::$app->controller->module->id == 'poster',
                 ],
                 [
                     'label' => 'Консультация',
