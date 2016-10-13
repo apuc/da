@@ -37,4 +37,8 @@ $(document).ready(function() {
         }
     });
 
+    $(document).on("click",".tgl_mnu",function () {
+      $('.content__main_mnu').slideToggle();
+    });
+
 });

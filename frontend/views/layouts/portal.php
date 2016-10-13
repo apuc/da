@@ -66,6 +66,10 @@ AppAsset::register($this);
                 <input type="search" placeholder="поиск">
             </form>
         </div>
+        <div class="sign">
+            <a href="#"><img src="/frontend/web/theme/portal-donbassa/img/signin.png" alt="">вход</a>
+            <a href="#"><img src="/frontend/web/theme/portal-donbassa/img/signup.png" alt="">регистрация</a>
+        </div>
     </div>
 </section>
 <section class="header__main">
@@ -102,7 +106,7 @@ AppAsset::register($this);
 <!-- @@block  =  content-->
 <section class="title">
     <div class="container">
-        <h2>Новости</h2>
+        <h2 class="tgl_mnu">Новости</h2>
         <div class="title-right">
             <a href="<?= Url::to(['/news/news/create']) ?>" class="header__main_panel-add-cont"><span class="header-news icon"></span>Предложить новость </a>
             <a href="<?= Url::to(['/news/news/']) ?>" class="all-news"><i class="fa fa-newspaper-o" aria-hidden="true"></i>все новости</a>
