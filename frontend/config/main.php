@@ -67,6 +67,7 @@ return [
                 'company/category/<slug>' => 'company/company/category',
                 'poster/<slug>' => 'poster/default/view',
                 'all-poster' => 'poster/default/category',
+                'poster/category/<slug>' => 'poster/default/single_category'
             ]
         ],
         'mailer' => [

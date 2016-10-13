@@ -14,7 +14,7 @@ use common\classes\DateFunctions;
 <div class="title">
     <h2>афиша</h2>
     <div class="title-right">
-        <a href="" class="all-news">вся афиша</a>
+        <a href="<?= \yii\helpers\Url::to(['/all-poster']) ?>" class="all-news">вся афиша</a>
     </div>
 </div>
 <div class="afisha">

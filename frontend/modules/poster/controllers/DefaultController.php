@@ -2,6 +2,8 @@
 
 namespace frontend\modules\poster\controllers;
 
+use common\classes\Debug;
+use common\models\db\CategoryPoster;
 use common\models\db\Poster;
 use yii\web\Controller;
 
@@ -29,6 +31,12 @@ class DefaultController extends Controller
     }
 
     public function actionCategory(){
-        return $this->render('category');
+        return $this->render('category',[
+            'category' => CategoryPoster::find()->orderBy('id DESC')->all(),
+        ]);
+    }
+
+    public function actionSingle_category($slug){
+        Debug::prn($slug);
     }
 }
