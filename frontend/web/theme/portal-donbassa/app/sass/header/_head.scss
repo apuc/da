@@ -11,18 +11,14 @@
   width: 40%;
   float: left;
   display: inline-block;
-
 }
-
 .city-string{
-  min-width: 20%;
   float: left;
   color: #e00500;
   font-family: $osr;
   font-weight: 300;
   margin: 0;
 }
-
 .geo-city{
   size: 12px 16px;
   background-image: url("../img/geo-city.png");
@@ -46,6 +42,7 @@ cursor: pointer;
 color: #ed4226;
 width: 100%;
 z-index: 11;
+margin-top: -3px;
 
 }
 .delivery_list #btn {
@@ -499,4 +496,50 @@ box-sizing: border-box;
 
 .sw-topper,.sw-bottom,.sw-footer{
   background-color: #ddd;
-} 
+}
+.social-head{
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  text-align: right;
+  li{
+    list-style-type: none;
+    display: inline-block;
+    margin: 0 5px;
+
+    .circle{
+      size: 20px;
+      background-color: #9a9a9a;
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+      text-align: center;
+      i{
+        color: #fff;
+        position: absolute;
+        left: 26%;
+        bottom: 22%;
+        @include hov-red;
+        font-size:12px;
+      }
+      .fa-vk{
+        left: 17%;
+      }
+      .fa-facebook{
+        left: 33%;
+      }
+      .fa-instagram{
+        left: 27%;
+      }
+      .fa-odnoklassniki{
+        left: 30%;
+      }
+      .fa-google-plus{
+        left: 17%;
+      }
+      .fa-youtube-play{
+        left: 22%;
+      }
+    }
+  }
+}

@@ -14,7 +14,7 @@ class WordFunctions
 
     public static function crop_str_word($text, $max_words = 50, $sep = ' ')
     {
-        $words = split($sep, $text);
+        $words = explode($sep, $text);
 
         if ( count($words) > $max_words )
         {

@@ -309,12 +309,12 @@
     position: relative;
     padding: 2px 0;
     box-sizing: border-box;
-    margin-top:10px;
     .category-list-block, .category-list-block-mob{
       width: 35%;
       float: left;
       display: block;
       box-sizing: border-box;
+      padding-top: 10px;
     }
     .category-list, .category-list-hide, .category-list-hide-mob{
       width: 100%;
@@ -373,6 +373,7 @@
       margin-left: 24px;
       &-item{
         width: 98%;
+        height: 83px;
         float: left;
         display: inline-block;
         padding: 15px;
@@ -599,6 +600,7 @@
 }
 .right-bar{
   width: 20%;
+  padding-top: 18px;
   float: left;
   position: relative;
   text-align: center;
@@ -611,10 +613,12 @@
     box-sizing: border-box;
   }
   
-  background-color: #e6e3e3;
+  background-color: #f5f5f5;
   h2{
     font-family: $rr;
     text-align: center;
+    font-size: 18px;
+    color: #2e2e2e;
   }
   .right-bar__ad, .right-bar__ad-room{
     width: 100%;
@@ -625,7 +629,7 @@
       width: 100%;
       float: left;
       position: relative;
-      margin: 10px 0;
+      margin: 10px 0 0;
       img{
         width: 100%;
         height: 145px;
@@ -637,8 +641,9 @@
         text-decoration: underline;
         font-family: $rb;
         color: #9b4c07;
-        padding-top: 5px;
+        padding-top: 10px;
         box-sizing: border-box;
+        padding-left: 10px;
       }
       span{
         float: left;
@@ -646,10 +651,11 @@
         font-family: $rr;
         font-size: 12px;
         text-align: left;
-        margin-top:6px;
+        padding-left: 10px;
       }
     }
   }
+
   .add-ad{
     margin: 17px 0;
     display: inline-block;
@@ -667,7 +673,7 @@
   }
   &__ad-room{
     background-color: #f4e9e9;
-    padding: 20px 10px;
+    padding: 20px 20px;
     box-sizing: border-box;
     h2{
       font-family: $rb;
@@ -676,6 +682,7 @@
       text-align: left;
       margin: 0 0 10px;
       text-transform: uppercase;
+      text-align: center;
     }
     .ad-room{
       width: 100%;
@@ -692,10 +699,10 @@
       }
       h4{
         margin: 0;
-        color: #eb852d;
+        color: #0f0701;
         font-family: $rr;
         text-align: left;
-        font-size: 18px;
+        font-size: 15px;
         font-weight: 400;
         padding: 10px 0;
         box-sizing: border-box;

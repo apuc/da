@@ -1,6 +1,5 @@
 var gulp = require('gulp'), // Подключаем Gulp
     sass = require('gulp-sass'), //Подключаем Sass пакет,
-    browserSync = require('browser-sync'), // Подключаем Browser Sync
     concat = require('gulp-concat'), // Подключаем gulp-concat (для конкатенации файлов)
     rename = require('gulp-rename'), // Подключаем библиотеку для переименования файлов
     del = require('del'), // Подключаем библиотеку для удаления файлов и папок
@@ -40,9 +39,7 @@ gulp.task('css-libs', function() { // Создаем таск Sass
         .pipe(postcss(processors))
         .pipe(concat('libs.min.css'))
         .pipe(gulp.dest('css')) // Выгружаем результата в папку app/css
-        .pipe(browserSync.reload({
-            stream: true
-        })) // Обновляем CSS на странице при изменении
+
 });
 
 gulp.task('js-libs', function() {
@@ -85,25 +82,10 @@ gulp.task('sass', function() { // Создаем таск Sass
             extname: ".css"
         }))
         .pipe(sourcemaps.write('.', { sourceRoot: 'css-source' }))
-        .pipe(gulp.dest('css'))
-        .pipe(browserSync.reload({
-            stream: true
-        }));
+        .pipe(gulp.dest('css'));
 });
 
-gulp.task('browser-sync', function() { // Создаем таск browser-sync
-    browserSync({ // Выполняем browserSync
-        proxy: {
-            target: 'portal-donbassa' // Директория для сервера - app
-        },
-        ghostMode: {
-            clicks: true,
-            forms: true,
-            scroll: true
-        },
-        notify: false // Отключаем уведомления
-    });
-});
+
 
 gulp.task('compress', ['clean'], function() {
   return gulp.src('app/js/*.js')
@@ -130,11 +112,10 @@ gulp.task('extend', function () {
 
 });
 
-gulp.task('watch', ['browser-sync', 'compress'], function() {
+gulp.task('watch', ['compress'], function() {
     gulp.watch('app/img/**/*', ['img']);
     gulp.watch('app/sass/**/*.scss', ['sass']); // Наблюдение за sass файлами в папке sass
     gulp.watch(['./app/html/*.html'], ['extend']);
-    gulp.watch('./**/*.html', browserSync.reload); // Наблюдение за HTML файлами в корне проекта
     gulp.watch('app/js/*', function() {
        gulp.run('compress');
   }); // Наблюдение за JS файлами в папке js
@@ -150,10 +131,7 @@ gulp.task('img', function() {
             }],
             use: [pngquant()]
         })))
-        .pipe(gulp.dest('img'))
-        .pipe(browserSync.reload({
-            stream: true
-        }));
+        .pipe(gulp.dest('img'));
 });
 
 

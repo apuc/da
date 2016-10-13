@@ -34,7 +34,7 @@ AppAsset::register($this);
 <section class="header__top">
     <div class="container">
         <div class="city">
-            <p class="city-string"><span class="geo-city"></span>Ваш город:</p>
+            <p class="city-string"><span class="geo-city"></span></p>
             <div class="delivery_block">
                 <div class="delivery_list">
                     <span>Донецк</span></div>
@@ -45,8 +45,20 @@ AppAsset::register($this);
                     <li>Казань</li>
                 </ul>
             </div>
-            <p class="weather"><span class="sun"></span><?= \frontend\widgets\Weather::widget() ?></p>
+
+<!--            <p class="weather"><span class="sun"></span>-->
+<!--            --><?//= \frontend\widgets\Weather::widget() ?><!--<!--</p>-->
+            <ul class="social-head">
+                <li><a href="" class="circle"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a href="" class="circle"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                <li><a href="" class="circle"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                <li><a href="" class="circle"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                <li><a href="" class="circle"><i class="fa fa-odnoklassniki" aria-hidden="true"></i> </a></li>
+                <li><a href="" class="circle"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                <li><a href="" class="circle"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+            </ul>
         </div>
+
         <?= ExchangeRates::widget() ?>
         <div class="search">
             <form action="">
