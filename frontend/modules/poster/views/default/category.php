@@ -6,6 +6,7 @@
  * Time: 11:31
  */
 ?>
+<div class="posters">
 <div class="shape">
     <img src="img/shape-line.png" alt="">
 </div>
@@ -110,4 +111,5 @@
 <div class="clearfix"></div>
 <div class="banner-bottom">
     <img src="img/banner-bottom.png" alt="">
+</div>
 </div>
