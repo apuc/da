@@ -46,4 +46,8 @@ class CategoryPosterRelations extends \yii\db\ActiveRecord
     public function getcategory_poster(){
         return $this->hasOne(CategoryPoster::className(), ['id'=>'cat_id']);
     }
+
+    public function getposter(){
+        return $this->hasOne(Poster::className(), ['id'=>'poster_id']);
+    }
 }

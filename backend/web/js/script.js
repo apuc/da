@@ -64,10 +64,12 @@ $(document).ready(function(){
 
     $('#categ_company').on('change', function(){
         var catId = $(this).val();
+        var csrf = $("input[name='_csrf']").val();
+        console.log(csrf);
         $.ajax({
             type: 'POST',
             url: "/secure/company/company/get_sub_categ",
-            data: 'catId=' + catId,
+            data: 'catId=' + catId + '&_csrf=' + csrf,
             success: function (data) {
                 $("#admin_company_sub_category_box").html(data);
             }

@@ -5,6 +5,7 @@
  * Date: 13.10.2016
  * Time: 11:31
  * @var $category \common\models\db\CategoryPoster
+ * @var $dataProvider \yii\data\SqlDataProvider
  */
 use yii\helpers\Url;
 
@@ -44,66 +45,11 @@ use yii\helpers\Url;
     </div>
     <div class="posters-posts content__main afisha__right">
         <div class="afisha__right">
-            <a href="" class="afisha__right_item">
-                <span class="afisha-date-small"><b>20</b> сен</span>
-                <img src="img/small-afisha.png" alt="">
-                <p>Lorem ipsum dolor sit amet</p>
-            </a>
-            <a href="" class="afisha__right_item">
-                <span class="afisha-date-small"><b>20</b> сен</span>
-                <img src="img/small-afisha.png" alt="">
-                <p>Lorem ipsum dolor sit amet</p>
-            </a>
-            <a href="" class="afisha__right_item">
-                <span class="afisha-date-small"><b>20</b> сен</span>
-                <img src="img/small-afisha.png" alt="">
-                <p>Lorem ipsum dolor sit amet</p>
-            </a>
-            <a href="" class="afisha__right_item">
-                <span class="afisha-date-small"><b>20</b> сен</span>
-                <img src="img/small-afisha.png" alt="">
-                <p>Lorem ipsum dolor sit amet</p>
-            </a>
-            <a href="" class="afisha__right_item">
-                <span class="afisha-date-small"><b>20</b> сен</span>
-                <img src="img/small-afisha.png" alt="">
-                <p>Lorem ipsum dolor sit amet</p>
-            </a>
-            <a href="" class="afisha__right_item">
-                <span class="afisha-date-small"><b>20</b> сен</span>
-                <img src="img/small-afisha.png" alt="">
-                <p>Lorem ipsum dolor sit amet</p>
-            </a>
-            <a href="" class="afisha__right_item">
-                <span class="afisha-date-small"><b>20</b> сен</span>
-                <img src="img/small-afisha.png" alt="">
-                <p>Lorem ipsum dolor sit amet</p>
-            </a>
-            <a href="" class="afisha__right_item">
-                <span class="afisha-date-small"><b>20</b> сен</span>
-                <img src="img/small-afisha.png" alt="">
-                <p>Lorem ipsum dolor sit amet</p>
-            </a>
-            <a href="" class="afisha__right_item">
-                <span class="afisha-date-small"><b>20</b> сен</span>
-                <img src="img/small-afisha.png" alt="">
-                <p>Lorem ipsum dolor sit amet</p>
-            </a>
-            <a href="" class="afisha__right_item">
-                <span class="afisha-date-small"><b>20</b> сен</span>
-                <img src="img/small-afisha.png" alt="">
-                <p>Lorem ipsum dolor sit amet</p>
-            </a>
-            <a href="" class="afisha__right_item">
-                <span class="afisha-date-small"><b>20</b> сен</span>
-                <img src="img/small-afisha.png" alt="">
-                <p>Lorem ipsum dolor sit amet</p>
-            </a>
-            <a href="" class="afisha__right_item">
-                <span class="afisha-date-small"><b>20</b> сен</span>
-                <img src="img/small-afisha.png" alt="">
-                <p>Lorem ipsum dolor sit amet</p>
-            </a>
+            <?= \yii\widgets\ListView::widget([
+                'dataProvider' => $dataProvider,
+                'itemView' => (Yii::$app->controller->action->id == 'category') ? '_poster_item' : '_s_poster_item',
+                'layout' => "{items}\n{pager}",
+            ]); ?>
         </div>
     </div>
     <div class="clearfix"></div>

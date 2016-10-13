@@ -4,7 +4,10 @@ namespace frontend\modules\poster\controllers;
 
 use common\classes\Debug;
 use common\models\db\CategoryPoster;
+use common\models\db\CategoryPosterRelations;
 use common\models\db\Poster;
+use yii\data\ActiveDataProvider;
+use yii\data\SqlDataProvider;
 use yii\web\Controller;
 
 /**
@@ -31,12 +34,39 @@ class DefaultController extends Controller
     }
 
     public function actionCategory(){
+        $query = \common\models\db\Poster::find()->orderBy('id DESC');
+        $dataProvider = new SqlDataProvider([
+            'sql' => $query->createCommand()->rawSql,
+            'totalCount' => (int)$query->count(),
+            'pagination' => [
+                'pageSize' => 12,
+            ],
+        ]);
+
         return $this->render('category',[
             'category' => CategoryPoster::find()->orderBy('id DESC')->all(),
+            'dataProvider' => $dataProvider,
         ]);
     }
 
     public function actionSingle_category($slug){
-        Debug::prn($slug);
+        $cat = CategoryPoster::find()->where(['slug'=>$slug])->one();
+        $query = CategoryPosterRelations::find()
+            ->leftJoin('poster', '`category_poster_relations`.`poster_id` = `poster`.`id`')
+            ->where(['cat_id'=>$cat->id])
+            ->with('poster');
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'totalCount' => (int)$query->count(),
+            'pagination' => [
+                'pageSize' => 12,
+            ],
+        ]);
+
+        return $this->render('category',[
+            'category' => CategoryPoster::find()->orderBy('id DESC')->all(),
+            'dataProvider' => $dataProvider,
+        ]);
     }
 }

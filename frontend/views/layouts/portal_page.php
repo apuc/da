@@ -23,6 +23,8 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <meta name="yandex-verification" content="6102a93fabadb2cf" />
+    <?= \frontend\widgets\Metrika::widget() ?>
     <style>
         .mnu-link a {
             color: whitesmoke !important;
@@ -47,13 +49,13 @@ AppAsset::register($this);
             </div>
 <!--            <p class="weather"><span class="sun"></span>+25</p>-->
             <ul class="social-head">
-                <li><a href="" class="circle"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                <li><a href="" class="circle"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
-                <li><a href="" class="circle"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                <li><a href="" class="circle"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                <li><a href="" class="circle"><i class="fa fa-odnoklassniki" aria-hidden="true"></i> </a></li>
-                <li><a href="" class="circle"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                <li><a href="" class="circle"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                <li><a href="https://www.facebook.com/da.info.pro/" class="circle"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a href="https://vk.com/da_info_pro" class="circle"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                <li><a href="https://www.facebook.com/da.info.pro/" class="circle"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                <li><a href="https://www.instagram.com/da.info.pro/" class="circle"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                <li><a href="https://ok.ru/da...infor" class="circle"><i class="fa fa-odnoklassniki" aria-hidden="true"></i> </a></li>
+                <!--<li><a href="" class="circle"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                <li><a href="" class="circle"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>-->
             </ul>
         </div>
         <?= ExchangeRates::widget() ?>
