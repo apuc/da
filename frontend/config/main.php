@@ -66,6 +66,7 @@ return [
                 'news/archive/<date>' => 'news/news/archive',
                 'company/category/<slug>' => 'company/company/category',
                 'poster/<slug>' => 'poster/default/view',
+                'all-poster' => 'poster/default/category',
             ]
         ],
         'mailer' => [

@@ -15,7 +15,7 @@ use common\classes\DateFunctions;
     <div class="bread-crumbs">
         <a href="#">Афиша</a>
         <span>&raquo</span>
-        <p>Цирк</p>
+        <p><?= \frontend\modules\poster\models\Poster::getCategoryName($poster->id) ?></p>
     </div>
     <div class="poster-container">
         <span class="date-news__post"><?= date('d', $poster->dt_add) ?> <?= DateFunctions::getMonthShortName(date('m',$poster->dt_add)) ?></span>

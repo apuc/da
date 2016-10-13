@@ -27,4 +27,8 @@ class DefaultController extends Controller
             'poster' => $poster
         ]);
     }
+
+    public function actionCategory(){
+        return $this->render('category');
+    }
 }
