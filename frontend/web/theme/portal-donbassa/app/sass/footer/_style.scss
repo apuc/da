@@ -79,7 +79,6 @@
     }
     a{
       text-decoration: none;
-      text-transform: uppercase;
       color: #242424;
       font-size: 14px;
       font-family: $rb;
@@ -116,14 +115,13 @@
 }
 
 .social{
-  width: 30%;
   margin-top: 16px;
   float: right;
   display: inline-block;
   padding: 0;
   margin: 0;
-  text-align: right;
-  width: 20%;
+  text-align: left;
+  width: 22%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -146,17 +144,21 @@
         bottom: 22%;
         @include hov-red;
       }
+      .fa-twitter{
+        left: 30%;
+      }
       .fa-vk{
-        left: 20%;
+        left: 24%;
+        bottom: 27%;
       }
       .fa-facebook{
         left: 37%;
       }
       .fa-instagram{
-        left: 30%;
+        left: 33%;
       }
       .fa-odnoklassniki{
-        left: 33%;
+        left: 35%;
       }
       .fa-google-plus{
         left: 20%;

@@ -65,6 +65,10 @@ AppAsset::register($this);
                 <input type="search" placeholder="поиск">
             </form>
         </div>
+        <div class="sign">
+            <a href="#"><img src="/frontend/web/theme/portal-donbassa/img/signin.png" alt="">вход</a>
+            <a href="#"><img src="/frontend/web/theme/portal-donbassa/img/signup.png" alt="">регистрация</a>
+        </div>
     </div>
 </section>
 <section class="header__main">
@@ -128,19 +132,28 @@ AppAsset::register($this);
 
 <section class="footer">
     <div class="container">
+        <a href="http://da-info.pro/" class="footer-main_logo"><img width="122px" src="/theme/portal-donbassa/img/logo3.png" alt=""></a>
         <div class="footer__menu">
             <ul class="footer__menu_mnu">
-                <li class=""><a href="">главная</a></li>
-                <li class=""><a href="">новости </a></li>
-                <li class=""><a href="">предприятия</a></li>
-                <li class=""><a href="">объявления </a></li>
-                <li class=""><a href="">досуг</a></li>
-                <li class=""><a href="">о нас</a></li>
+                <li class=""><a href="">Главная</a></li>
+                <li class=""><a href="">Новости </a></li>
+                <li class=""><a href="">Предприятия</a></li>
+                <li class=""><a href="">Объявления </a></li>
+                <li class=""><a href="">Досуг</a></li>
+                <li class=""><a href="">О нас</a></li>
             </ul>
         </div>
-        <!--<a href="" class="header__main_logo">Портал <span>ДОНБАССА</span></a>-->
-        <div class="header__main_logo"></div>
-        <p class="footer-alert">Любое использование материалов сайта  разрешается только при условии указания гиперссылки на материал.</p>
+        <div class="info"><p>info@da-info, (071) 210-80-54, (093) 998-49-04</p></div>
+        <!--        <div class="footer-copyright-cont">-->
+        <!--            <p class="footer-copyright">2017 © da-info.pro- Сайт города Донецка</p>-->
+        <!--            <p class="footer-copyright">info@da-info, (071) 210-80-54, (093) 998-49-04</p>-->
+        <!--        </div>-->
+        <!--        <div class="info">-->
+        <!--            <a href="#">Реклама на сайте</a><a href="#">Правила пользования сайтом</a><a href="#">Договор пользования сайтом</a>-->
+        <!--        </div>-->
+
+        <!--        <div class="header__main_logo"></div>-->
+
         <ul class="social">
             <li><a href="https://www.facebook.com/da.info.pro/" class="circle"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
             <li><a href="https://vk.com/da_info_pro" class="circle"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
@@ -150,9 +163,23 @@ AppAsset::register($this);
             <!--<li><a href="" class="circle"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
             <li><a href="" class="circle"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>-->
         </ul>
+        <div class="footer-alert-top">
+            <p>Допускается цитирование материалов без получения предварительного согласия при условии размещения в тексте обязательной ссылки на da-info.pro. </p>
+        </div>
+    </div>
+
+    <div class="footer-alert-container">
+        <div class="container">
+            <p class="footer-alert">
+                2017 © <a href="http://da-info.pro/">da-info.pro</a> - Сайт города Донецка
+            </p>
+        </div>
     </div>
     <div class="bottom-footer">
     </div>
+
+    <img id="Go_Top" src="/theme/portal-donbassa/img/button_up.svg" alt="">
+
 </section>
 <?php $this->endBody() ?>
 </body>

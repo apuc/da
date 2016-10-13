@@ -8,7 +8,7 @@
 }
 
 .city{
-  width: 40%;
+  width: 24%;
   float: left;
   display: inline-block;
 }
@@ -92,6 +92,21 @@ position: relative;
 }
 
 }
+
+.sign{
+  float: right;
+  width: 20%;
+  a{
+    font-style: italic;
+    font-size:14px;
+    color: #242424;
+    margin-left:25px;
+    img{
+      margin-right: 10px;
+    }
+  }
+}
+
 ul.cities_list li:hover {
 cursor: pointer;
 color: #ff3432;
@@ -122,6 +137,10 @@ margin: 5px 0 0 3px;
   float: left;
   position: relative;
   display: inline-block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0 5%;
   p{
     margin: 0 10px;
     float: left;
@@ -139,7 +158,7 @@ margin: 5px 0 0 3px;
 
 .search{
   width: 20%;
-  float: right;
+  float: left;
   position: relative;
   display: inline-block;
   form{
@@ -503,6 +522,7 @@ margin: 5px 0 0 3px;
   padding: 0;
   margin: 0;
   text-align: right;
+  float: right;
   li{
     list-style-type: none;
     display: inline-block;
