@@ -1,10 +1,13 @@
 <li>
     <a href="<?= \yii\helpers\Url::to(['/news/default/view', 'slug' => $model['slug']]) ?>">
-        <span class="time"><?= date('d.m H:i', $model['dt_public']) ?></span>
+        <span class="time">
+            <?= date('d.m', $model['dt_public']) ?><br>
+            <span><?= date('H:i', $model['dt_public']) ?></span>
+        </span>
         <?= $model['title'] ?>
         <span class="views">
-                                    <span class="view-icon"></span>
+            <span class="view-icon"></span>
             <?= $model['views'] ?>
-                                </span>
+        </span>
     </a>
 </li>
