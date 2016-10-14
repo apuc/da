@@ -140,10 +140,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 <img src="/theme/portal-donbassa/img/we-at-vk.jpg" alt="">
 
             </div>
-            <div class="weather-forecast">
-                <h4 class="weather-header">Погода</h4>
-                <img src="/theme/portal-donbassa/img/prefooter-weather.jpg" alt="">
+            <div class="social">
+                <h4 class="social-header">МЫ В ФЕЙСБУКЕ</h4>
+                <img src="/theme/portal-donbassa/img/we-at-vk.jpg" alt="">
+
             </div>
+<!--            <div class="weather-forecast">-->
+<!--                <h4 class="weather-header">Погода</h4>-->
+<!--                <img src="/theme/portal-donbassa/img/prefooter-weather.jpg" alt="">-->
+<!--            </div>-->
             <div class="banner-bottom">
                 <img src="/theme/portal-donbassa/img/banner-bottom.png" alt="">
             </div>

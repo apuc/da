@@ -738,6 +738,19 @@
       }
     }
   }
+  .right-bar-social{
+    width:100%;
+    float: left;
+    h4{
+      font-family:$rb;
+      font-size:12px;
+      color: #242424;
+      margin: 18px 0;
+    }
+    img{
+      width: 100%;
+    }
+  }
 }
 .content__main_mnu{
   display: none;

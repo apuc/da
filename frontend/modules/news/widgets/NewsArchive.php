@@ -18,7 +18,7 @@ class NewsArchive extends Widget
     public function run()
     {
         if (Yii::$app->controller->module->id == 'news') {
-            return "<div class='date-picker'><div></div></div>";
+            return $this->render("news_archive");
         }
         return false;
     }
