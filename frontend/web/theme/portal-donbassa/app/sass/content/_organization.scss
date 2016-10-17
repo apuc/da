@@ -104,5 +104,11 @@
 .element{
   .main-elem{
     text-transform: uppercase;
+    img{
+      position: absolute;
+      right: 0;
+      top: 3px;
+      display: none;
+    }
   }
 }
