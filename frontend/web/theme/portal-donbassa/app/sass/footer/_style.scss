@@ -37,6 +37,7 @@
     font-size: 13px;
     color: #000;
     text-decoration: none;
+    display: inline-block;
   }
 }
 }
@@ -49,7 +50,7 @@
 }
 
 .footer__menu{
-  width: 67%;
+  width: 60%;
   float: left;
   position: relative;
   padding: 0;
@@ -178,8 +179,15 @@
   position: fixed;
   bottom: 60px;
   left: 30px;
-  cursor: pointer;
-  z-index: 10;
+  z-index: 3;
   display: none;
-  width: 30px;
+  padding: 9px 10px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  background-color: #e6e3e3;
+  border-radius: 50%;
+   img {
+    width: 30px;
+   }
 }

@@ -94,13 +94,13 @@ AppAsset::register($this);
 
     </div>
 </section>
-<section class="header-menu-bot">
-    <?= \frontend\widgets\MainSubMenu::widget() ?>
-</section>
-<section class="header__banner">
-    <img src="/theme/portal-donbassa/img/banner.png" alt="">
-    </div>
-</section>
+<!--<section class="header-menu-bot">-->
+<!--    --><?//= \frontend\widgets\MainSubMenu::widget() ?>
+<!--</section>-->
+<!--<section class="header__banner">-->
+<!--    <img src="/theme/portal-donbassa/img/banner.png" alt="">-->
+<!--    </div>-->
+<!--</section>-->
 <?= $content ?>
 <!-- end header.html-->
 <!-- start content.html-->
@@ -122,9 +122,9 @@ AppAsset::register($this);
             <?php echo \frontend\modules\mainpage\widgets\News::widget()?>
             <?php echo \frontend\modules\mainpage\widgets\Company::widget()?>
             <?php echo \frontend\modules\mainpage\widgets\Poster::widget() ?>
-            <div class="banner-bottom">
-                <img src="/theme/portal-donbassa/img/banner-bottom.png" alt="">
-            </div>
+<!--            <div class="banner-bottom">-->
+<!--                <img src="/theme/portal-donbassa/img/banner-bottom.png" alt="">-->
+<!--            </div>-->
         </div>
         <!-- right bar -->
         <div class="right-bar">
@@ -183,7 +183,7 @@ AppAsset::register($this);
                 <li class=""><a href="">О нас</a></li>
             </ul>
         </div>
-        <div class="info"><p>info@da-info, (071) 210-80-54, (093) 998-49-04</p></div>
+        <div class="info"><p><a href="mailto:da.info.pro@gmail.com">da.info.pro@gmail.com</a>, (071) 210-80-54, (093) 998-49-04</p></div>
 <!--        <div class="footer-copyright-cont">-->
 <!--            <p class="footer-copyright">2017 © da-info.pro- Сайт города Донецка</p>-->
 <!--            <p class="footer-copyright">info@da-info, (071) 210-80-54, (093) 998-49-04</p>-->
@@ -218,8 +218,9 @@ AppAsset::register($this);
     <div class="bottom-footer">
     </div>
 
-    <img id="Go_Top" src="/theme/portal-donbassa/img/button_up.svg" alt="">
-
+    <div id="Go_Top">
+        <img  src="/theme/portal-donbassa/img/button_up.svg" alt="">
+    </div>
 </section>
 
 <!-- @@close-->

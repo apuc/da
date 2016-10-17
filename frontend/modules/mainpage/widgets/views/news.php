@@ -34,7 +34,7 @@ use yii\helpers\Url;
 <div class="content__main_posts">
     <?php foreach($news as $new): ?>
         <a href="#" data-id="<?= $new->id ?>" class="content__main_posts_items">
-            <p class="post-of-time"><span class="posts-time"><?= date('Y-m-d H:i', $new->dt_add) ?></span><?= $new->title ?></p>
+            <p class="post-of-time"><span class="posts-time"><?= date('H:i', $new->dt_add) ?></span><?= $new->title ?></p>
         </a>
     <?php endforeach; ?>
     <a href="<?= Url::to(['/news/news']) ?>" class="watch-all">Смотреть все <img src="/theme/portal-donbassa/img/scroll-arrow-to-right.svg" width="4px" height="6px"></a>
