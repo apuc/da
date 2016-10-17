@@ -202,7 +202,7 @@ class CompanyController extends Controller {
         $id_parrent_company = ArrayHelper::getColumn($select_categories,'id');
         $select_organizations = Company::find()
                                        ->leftJoin( 'category_company_relations', '`category_company_relations`.`company_id`=`company`.`id`' )
-                                       ->where( [ '`category_company_relations`.`cat_id`' => $_POST['id']  ] )->orWhere(['`category_company_relations`.`cat_id`' => $id_parrent_company])
+                                       ->where( [ '`category_company_relations`.`cat_id`' => $_POST['id']  ] )->orFilterWhere(['`category_company_relations`.`cat_id`' => $id_parrent_company])
                                        ->with( 'category_company_relations' )
                                         ->all();
 
