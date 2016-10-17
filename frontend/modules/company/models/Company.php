@@ -9,6 +9,7 @@
 namespace frontend\modules\company\models;
 
 
+use common\models\db\CategoryCompanyRelations;
 use yii\db\ActiveRecord;
 
 class Company extends \common\models\db\Company
@@ -30,5 +31,12 @@ class Company extends \common\models\db\Company
                 ],
             ],
         ];
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getcategory_company_relations()
+    {
+        return $this->hasMany(CategoryCompanyRelations::className(), ['company_id' => 'id']);
     }
 }

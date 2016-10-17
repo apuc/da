@@ -82,16 +82,41 @@ $(document).ready(function () {
             data: 'id=' + id,
             success: function (data) {
                 $(".clicked-element[data-id="+id+"]").html(data).slideToggle();
+                $(".element").find('a[data-id="'+id+'"]').find('img').toggle();
                  var elem = $(".element");
                 $.each(elem,function () {
-                    if ($(this).find("a").attr('data-id')!= id && $(this).find("a").attr('data-id')!=undefined){
-                        $(this).slideToggle();
+                    if ($(this).find("a").attr('data-id')!= id
+                        && $(this).find("a").attr('data-id')!=undefined
+                        && $(this).find("a").hasClass("main-elem")){
+                        $(this).fadeToggle();
+                    }
+                    else {
+                        $(this).fadeOut().fadeIn();
                     };
                 })
+                updateCompanybyCategory(id);
             }
         });
         return false;
     });
+
+    $(document).on('click','.element-title',function () {
+        var id = $(this).attr('data-id');
+        updateCompanybyCategory(id);
+        return false;
+    });
+
+    function updateCompanybyCategory(id){
+        $.ajax({
+            type:'POST',
+            url: "/company/company/get_company_by_categ",
+            data: 'id=' + id,
+            success: function (data) {
+                console.log(data);
+                $(".category-items").html(data);
+            }
+        })
+    }
 
     $('.allNewsPageLink').on('click', function(event){
         event.preventDefault();
