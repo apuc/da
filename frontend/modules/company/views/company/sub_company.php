@@ -11,7 +11,7 @@ use common\models\db\CategoryCompanyRelations;
 use yii\helpers\Url;
 
 ?>
-<h2><?= CategoryCompany::find()->where(['id'=>$sub_company[0]->parent_id])->one()->title ?></h2>
+<!--<h2>--><?//= CategoryCompany::find()->where(['id'=>$sub_company[0]->parent_id])->one()->title ?><!--</h2>-->
 <?php foreach($sub_company as $sub_item): ?>
     <div class="element">
         <a href="<?= Url::to(['/company/company/category', 'slug'=>$sub_item->slug]) ?>" class="element-title"><span class="square"></span><?= $sub_item->title ?></a>

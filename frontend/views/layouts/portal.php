@@ -155,6 +155,12 @@ AppAsset::register($this);
                     <p><span class="geo-icon"></span>р-н Пролетарский</p>
                 </a>
             </div>
+            <div class="right-bar-social">
+                <h4>МЫ В КОНТАКТЕ</h4>
+                <img src="/theme/portal-donbassa/img/we-at-vk.jpg" alt="">
+                <h4>МЫ В ФЕЙСБУКЕ</h4>
+                <img src="/theme/portal-donbassa/img/we-at-vk.jpg" alt="">
+            </div>
         </div>
     </div>
 </section>

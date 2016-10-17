@@ -154,17 +154,23 @@
         .time{
           position: relative;
           display: block;
-          top: 15px;
-          left: -64px;
-          font-size: 11px;
+          top: 30px;
+          left: -35px;
+          font-size: 10px;
+          width: 30px;
+          text-align: center;
+          span{
+            font-size: 10px;
+            width: 100%;
+          }
         }
         .views{
           color: #5b5b5b;
           font-size: 11px;
           font-family: $rr;
           position: absolute;
+          top: 28px;
           right: 18px;
-          top: 18px;
           .view-icon{
             size: 18px 12px;
             display: inline-block;
@@ -178,6 +184,7 @@
   .paginator{
     float: left;
     margin-top: 40px;
+    margin-left: -38px;
     width: 100%;
     ul{
       margin: 0;
@@ -338,10 +345,13 @@
         font-size: 16px;
         color: #000;
         float: left;
+        width:100%;
+        text-align: center;
       }
       img{
         display: block;
         clear: both;
+        margin: 0 auto;
       }
     }
     .weather-forecast{
@@ -384,4 +394,30 @@
 .datepicker-inline .datepicker{
   float: left;
   width: 100%;
+}
+
+.list-view{
+  float: left;
+  width: 100%;
+  margin-left: -10px;
+  box-sizing: border-box;
+}
+
+.date-picker-header{
+  border: solid 1px #e6e3dc;
+  background-color: #fff;
+  display: block;
+  float: left;
+  width:100%;
+  border-top: 5px solid #ff3432;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 34px;
+  font-family: $rb;
+  font-size: 13px;
+  color: #0f0101;
+  padding-top: 6px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }

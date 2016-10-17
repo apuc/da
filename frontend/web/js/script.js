@@ -81,7 +81,13 @@ $(document).ready(function () {
             url: "/company/company/get_sub_categ",
             data: 'id=' + id,
             success: function (data) {
-                $(".clicked-element").html(data);
+                $(".clicked-element[data-id="+id+"]").html(data).slideToggle();
+                 var elem = $(".element");
+                $.each(elem,function () {
+                    if ($(this).find("a").attr('data-id')!= id && $(this).find("a").attr('data-id')!=undefined){
+                        $(this).slideToggle();
+                    };
+                })
             }
         });
         return false;

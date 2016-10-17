@@ -125,6 +125,9 @@ AppAsset::register($this);
 
             <div class="right-bar__ad">
                 <?= \frontend\widgets\TopCompanyWidget::widget() ?>
+                <div class="white-overlay">
+                    <a class="add-ad" href="">ДОБАВИТЬ ОБЪЯВЛЕНИЕ</a>
+                </div>
                 <?= \frontend\modules\news\widgets\NewsArchive::widget() ?>
             </div>
     </div>
