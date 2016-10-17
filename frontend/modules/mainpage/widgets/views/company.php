@@ -11,7 +11,7 @@ use yii\helpers\Url;
     <h2>каталог предприятий</h2>
     <div class="title-right">
         <a href="<?= Url::to(['/company/company/create']) ?>" class="add-organization"><i class="fa fa-plus"></i>Добавить предприятие</a>
-        <a href="<?= Url::to(['/company/company']) ?>" class="all-news"><i class="fa fa-users" aria-hidden="true"></i> все предпреиятия</a>
+        <a href="<?= Url::to(['/company/company']) ?>" class="all-news"><i class="fa fa-users" aria-hidden="true"></i> все предприятия</a>
     </div>
 </div>
 <div class="shape">

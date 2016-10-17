@@ -142,7 +142,20 @@
       position: relative;
       height: 46px;
       margin-top: 0;
-      padding-right: 60px;
+      //padding-right: 60px;
+      .time{
+        position: relative;
+        display: block;
+        top: 30px;
+        left: -35px;
+        font-size: 10px;
+        width: 30px;
+        text-align: center;
+        span{
+          font-size: 10px;
+          width: 100%;
+        }
+      }
       a{
         display: block;
         position: relative;
@@ -151,19 +164,8 @@
         color: #000;
         text-decoration: none;
         padding-right:70px;
-        .time{
-          position: relative;
-          display: block;
-          top: 30px;
-          left: -35px;
-          font-size: 10px;
-          width: 30px;
-          text-align: center;
-          span{
-            font-size: 10px;
-            width: 100%;
-          }
-        }
+        overflow: hidden;
+        height: 34px;
         .views{
           color: #5b5b5b;
           font-size: 11px;
@@ -209,11 +211,17 @@
       font-size: 13px;
       font-family: $rr;
     }
-    .prev, .next{
+      span{
+        position: relative;
+        top: -20px;
+        right: -10px;
+      }
+     .next{
       position: relative;
       top: -1px;
       margin: 0 12px;
     }
+
     }
 
     }

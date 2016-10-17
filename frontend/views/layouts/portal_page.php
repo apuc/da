@@ -91,13 +91,13 @@ AppAsset::register($this);
 
     </div>
 </section>
-<section class="header-menu-bot">
-    <?= \frontend\widgets\MainSubMenu::widget() ?>
-</section>
-<section class="header__banner">
-    <img src="/theme/portal-donbassa/img/banner.png" alt="">
-    </div>
-</section>
+<!--<section class="header-menu-bot">-->
+<!--    --><?//= \frontend\widgets\MainSubMenu::widget() ?>
+<!--</section>-->
+<!--<section class="header__banner">-->
+<!--    <img src="/theme/portal-donbassa/img/banner.png" alt="">-->
+<!--    </div>-->
+<!--</section>-->
 <section class="title">
     <div class="container">
         <h2><?= \frontend\widgets\GenerateH1::widget() ?></h2>
@@ -181,7 +181,9 @@ AppAsset::register($this);
     <div class="bottom-footer">
     </div>
 
-    <img id="Go_Top" src="/theme/portal-donbassa/img/button_up.svg" alt="">
+    <div id="Go_Top">
+        <img  src="/theme/portal-donbassa/img/button_up.svg" alt="">
+    </div>
 
 </section>
 <?php $this->endBody() ?>
