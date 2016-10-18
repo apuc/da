@@ -37,7 +37,23 @@
     width: 17%;
   }
 }
-
+  .category .category-items .category-items-item {
+    .thumb{
+      width: 30%;
+    }
+    .info{
+      width: 66%;
+      p{
+        display: none;
+      }
+    }
+    .contacts{
+      display: none;
+    }
+  }
+  .title h2{
+    width: 60%;
+  }
 }
 
 @media only screen and (max-width: 320px) {
