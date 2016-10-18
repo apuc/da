@@ -146,7 +146,7 @@ AppAsset::register($this);
                 <li class=""><a href="">О нас</a></li>
             </ul>
         </div>
-        <div class="info"><p>info@da-info, (071) 210-80-54, (093) 998-49-04</p></div>
+        <div class="info"><p><a href="mailto:da.info.pro@gmail.com">da.info.pro@gmail.com</a>, +380996717172, +380713100954</p></div>
         <!--        <div class="footer-copyright-cont">-->
         <!--            <p class="footer-copyright">2017 © da-info.pro- Сайт города Донецка</p>-->
         <!--            <p class="footer-copyright">info@da-info, (071) 210-80-54, (093) 998-49-04</p>-->
