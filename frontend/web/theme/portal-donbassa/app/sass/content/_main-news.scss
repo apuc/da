@@ -344,6 +344,7 @@
     .social{
       width: 50%;
       height: 100%;
+      text-align: center;
       box-sizing: border-box;
       float: left;
       padding-bottom: 40px;
@@ -359,6 +360,9 @@
       img{
         display: block;
         clear: both;
+        margin: 0 auto;
+      }
+      #vk_groups_news{
         margin: 0 auto;
       }
     }

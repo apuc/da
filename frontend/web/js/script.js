@@ -122,4 +122,14 @@ $(document).ready(function () {
         event.preventDefault();
 
     });
+    VK.Widgets.Group("vk_groups", {mode: 3, width: "auto", height: "100", color1: 'FFFFFF', color2: '000000', color3: '5E81A8'}, 123860296);
+    VK.Widgets.Group("vk_groups_news", {mode: 3, width: "340", height: "154", color1: 'FFFFFF', color2: '000000', color3: '5E81A8'}, 123860296);
 });
+
+   (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.8";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));

@@ -53,7 +53,7 @@ use yii\helpers\Url;
         </div>
     </div>
     <div class="clearfix"></div>
-    <div class="banner-bottom">
-        <img src="/theme/portal-donbassa/img/banner-bottom.png" alt="">
-    </div>
+<!--    <div class="banner-bottom">-->
+<!--        <img src="/theme/portal-donbassa/img/banner-bottom.png" alt="">-->
+<!--    </div>-->
 </div>
