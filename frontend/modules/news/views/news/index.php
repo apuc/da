@@ -18,6 +18,8 @@ use yii\widgets\Pjax;
 
 $this->title = Yii::t('news', 'News');
 $this->params['breadcrumbs'][] = $this->title;
+
+$md = new \common\classes\Mobile_Detect();
 ?>
 <div class="main-news" style="margin-top: 30px">
     <div class="container">
@@ -66,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'class' => 'paginator',
                             'tag' => 'div',
                         ],
-                        'maxButtonCount' => 15,
+                        'maxButtonCount' => ($md->isMobile() or $md->isTablet()) ? 5 : 15,
                         'nextPageCssClass' => 'next',
                         'nextPageLabel' => '<img src="/theme/portal-donbassa/img/paginator-right.png" alt="">',
                         'prevPageCssClass' => 'prev',
