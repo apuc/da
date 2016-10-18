@@ -106,6 +106,17 @@
   .main-news .all-news-to-day .paginator{
     margin-left:-80px;
   }
+  .header__top .search{
+    width: 68%;
+    form{
+      input{
+        display: none;
+      }
+    }
+  }
+  .sign{
+    margin-top:3px;
+  }
 }
 
 @media only screen and (max-width: 320px) {

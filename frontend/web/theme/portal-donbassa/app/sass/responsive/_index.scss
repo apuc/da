@@ -53,11 +53,11 @@
   .right-bar{
     padding: 0 5px;
     .right-bar__ad .right-bar__ad_items{
-      width: 43.3%;
+      width: 42.3%;
     }
     .right-bar__ad-room{
       .ad-room{
-        width: 43.3%;
+        width: 42.3%;
       }
     }
   }
@@ -76,5 +76,15 @@
 
 
 @media only screen and (max-width: 320px) {
-
+  .right-bar{
+    padding: 0 5px;
+    .right-bar__ad .right-bar__ad_items{
+      width: 93%;
+    }
+    .right-bar__ad-room{
+      .ad-room{
+        width: 93%;
+      }
+    }
+  }
 }

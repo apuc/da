@@ -66,8 +66,8 @@ AppAsset::register($this);
             </form>
         </div>
         <div class="sign">
-            <a href="#"><img src="/frontend/web/theme/portal-donbassa/img/signin.png" alt=""><sign>вход</sign></a>
-            <a href="#"><img src="/frontend/web/theme/portal-donbassa/img/signup.png" alt=""><sign>регистрация</sign></a>
+            <a href="#"><img src="/frontend/web/theme/portal-donbassa/img/signin.png" alt=""><span>вход</span></a>
+            <a href="#"><img src="/frontend/web/theme/portal-donbassa/img/signup.png" alt=""><span>регистрация</span></a>
         </div>
     </div>
 </section>
