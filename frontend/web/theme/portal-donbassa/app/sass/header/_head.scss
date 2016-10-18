@@ -100,8 +100,12 @@ position: relative;
     font-size:14px;
     color: #242424;
     margin-left:25px;
+    display: inline-block;
     img{
       margin-right: 10px;
+    }
+    span{
+      display: inline-block;
     }
   }
 }

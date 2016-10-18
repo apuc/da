@@ -37,10 +37,10 @@ use common\classes\DateFunctions;
     <p class="poster-descr-bot"><?= $poster->descr ?></p>
     <div class="social">
         <h4 class="social-header">МЫ В КОНТАКТЕ</h4>
-        <img src="/theme/portal-donbassa/img/we-at-vk.jpg" alt="">
+        <div id="vk_groups_news"></div>
     </div>
-    <div class="banner-bottom">
-        <img src="/theme/portal-donbassa/img/banner-bottom.png" alt="">
-    </div>
+<!--    <div class="banner-bottom">-->
+<!--        <img src="/theme/portal-donbassa/img/banner-bottom.png" alt="">-->
+<!--    </div>-->
 
 

@@ -37,6 +37,7 @@ class AppAsset extends AssetBundle
         'js/lightbox.js',
         'theme/portal-donbassa/js/script.min.js',
         'theme/portal-donbassa/js/script.js',
+        '//vk.com/js/api/openapi.js?133',
         'js/script.js'
     ];
     public $depends = [

@@ -18,6 +18,8 @@ use yii\widgets\Pjax;
 
 $this->title = Yii::t('news', 'News');
 $this->params['breadcrumbs'][] = $this->title;
+
+$md = new \common\classes\Mobile_Detect();
 ?>
 <div class="main-news" style="margin-top: 30px">
     <div class="container">
@@ -66,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'class' => 'paginator',
                             'tag' => 'div',
                         ],
-                        'maxButtonCount' => 15,
+                        'maxButtonCount' => ($md->isMobile() or $md->isTablet()) ? 5 : 15,
                         'nextPageCssClass' => 'next',
                         'nextPageLabel' => '<img src="/theme/portal-donbassa/img/paginator-right.png" alt="">',
                         'prevPageCssClass' => 'prev',
@@ -137,21 +139,21 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="main-news-prefooter">
             <div class="social">
                 <h4 class="social-header">МЫ В КОНТАКТЕ</h4>
-                <img src="/theme/portal-donbassa/img/we-at-vk.jpg" alt="">
+                <div id="vk_groups_news"></div>
 
             </div>
             <div class="social">
                 <h4 class="social-header">МЫ В ФЕЙСБУКЕ</h4>
-                <img src="/theme/portal-donbassa/img/we-at-vk.jpg" alt="">
+                <div class="fb-page" data-href="https://www.facebook.com/da.info.pro/" data-heigh = "180" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true"><blockquote cite="https://www.facebook.com/da.info.pro/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/da.info.pro/">DA</a></blockquote></div>
 
             </div>
 <!--            <div class="weather-forecast">-->
 <!--                <h4 class="weather-header">Погода</h4>-->
 <!--                <img src="/theme/portal-donbassa/img/prefooter-weather.jpg" alt="">-->
 <!--            </div>-->
-            <div class="banner-bottom">
-                <img src="/theme/portal-donbassa/img/banner-bottom.png" alt="">
-            </div>
+<!--            <div class="banner-bottom">-->
+<!--                <img src="/theme/portal-donbassa/img/banner-bottom.png" alt="">-->
+<!--            </div>-->
         </div>
     </div>
 </div>

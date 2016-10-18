@@ -69,8 +69,8 @@ AppAsset::register($this);
             </form>
         </div>
         <div class="sign">
-            <a href="#"><img src="/frontend/web/theme/portal-donbassa/img/signin.png" alt="">вход</a>
-            <a href="#"><img src="/frontend/web/theme/portal-donbassa/img/signup.png" alt="">регистрация</a>
+            <a href="#"><img src="/frontend/web/theme/portal-donbassa/img/signin.png" alt=""><span>вход</span></a>
+            <a href="#"><img src="/frontend/web/theme/portal-donbassa/img/signup.png" alt=""><span>регистрация</span></a>
         </div>
     </div>
 </section>
@@ -157,9 +157,9 @@ AppAsset::register($this);
             </div>
             <div class="right-bar-social">
                 <h4>МЫ В КОНТАКТЕ</h4>
-                <img src="/theme/portal-donbassa/img/we-at-vk.jpg" alt="">
+                <div id="vk_groups"></div>
                 <h4>МЫ В ФЕЙСБУКЕ</h4>
-                <img src="/theme/portal-donbassa/img/we-at-vk.jpg" alt="">
+                <div class="fb-page" data-href="https://www.facebook.com/da.info.pro/" data-heigh = "180" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true"><blockquote cite="https://www.facebook.com/da.info.pro/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/da.info.pro/">DA</a></blockquote></div>
             </div>
         </div>
     </div>
@@ -183,7 +183,16 @@ AppAsset::register($this);
                 <li class=""><a href="">О нас</a></li>
             </ul>
         </div>
-        <div class="info"><p><a href="mailto:da.info.pro@gmail.com">da.info.pro@gmail.com</a>, +380996717172, +380713100954</p></div>
+        <ul class="social">
+            <li><a href="https://www.facebook.com/da.info.pro/" class="circle"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+            <li><a href="https://vk.com/da_info_pro" class="circle"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+            <li><a href="https://www.facebook.com/da.info.pro/" class="circle"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+            <li><a href="https://www.instagram.com/da.info.pro/" class="circle"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+            <li><a href="https://ok.ru/da...infor" class="circle"><i class="fa fa-odnoklassniki" aria-hidden="true"></i> </a></li>
+            <!--<li><a href="" class="circle"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+            <li><a href="" class="circle"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>-->
+        </ul>
+        <div class="info"><p><a href="mailto:da.info.pro@gmail.com">da.info.pro@gmail.com</a>,<br> колл центр - +38(099)671-71-72, +38(071)310-09-54,<br> отдел продаж - +38(099)671-71-73, +38(099)620-45-85, +38(099)625-76-07</p></div>
 <!--        <div class="footer-copyright-cont">-->
 <!--            <p class="footer-copyright">2017 © da-info.pro- Сайт города Донецка</p>-->
 <!--            <p class="footer-copyright">info@da-info, (071) 210-80-54, (093) 998-49-04</p>-->
@@ -194,24 +203,16 @@ AppAsset::register($this);
 
 <!--        <div class="header__main_logo"></div>-->
 
-        <ul class="social">
-            <li><a href="https://www.facebook.com/da.info.pro/" class="circle"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-            <li><a href="https://vk.com/da_info_pro" class="circle"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
-            <li><a href="https://www.facebook.com/da.info.pro/" class="circle"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-            <li><a href="https://www.instagram.com/da.info.pro/" class="circle"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-            <li><a href="https://ok.ru/da...infor" class="circle"><i class="fa fa-odnoklassniki" aria-hidden="true"></i> </a></li>
-            <!--<li><a href="" class="circle"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-            <li><a href="" class="circle"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>-->
-        </ul>
-        <div class="footer-alert-top">
-            <p>Допускается цитирование материалов без получения предварительного согласия при условии размещения в тексте обязательной ссылки на da-info.pro. </p>
-        </div>
+
+<!--        <div class="footer-alert-top">-->
+<!--            <p>Допускается цитирование материалов без получения предварительного согласия при условии размещения в тексте обязательной ссылки на da-info.pro. </p>-->
+<!--        </div>-->
     </div>
 
     <div class="footer-alert-container">
         <div class="container">
             <p class="footer-alert">
-                2017 © <a href="http://da-info.pro/">da-info.pro</a> - Сайт города Донецка
+                2017 © <a href="http://da-info.pro/">da-info.pro</a> - Сайт города Донецка.Допускается цитирование материалов без получения предварительного согласия при условии размещения в тексте обязательной ссылки на da-info.pro.
             </p>
         </div>
     </div>
