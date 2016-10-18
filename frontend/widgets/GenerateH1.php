@@ -53,7 +53,19 @@ class GenerateH1 extends Widget
                 $h1 = "Афиша";
             }
 
-        }else {
+        }
+        elseif (Yii::$app->controller->module->id == 'user') {
+            if (Yii::$app->controller->action->id == 'register'){
+                $h1 = "Регистрация";
+            }
+            elseif (Yii::$app->controller->action->id == 'login'){
+                $h1 = "Вход";
+            }
+            else{
+                $h1 = "Пользователь";
+            }
+        }
+        else {
             $h1 = "Новости";
         }
 
