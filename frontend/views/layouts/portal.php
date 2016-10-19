@@ -68,10 +68,7 @@ AppAsset::register($this);
                 <input type="search" placeholder="поиск">
             </form>
         </div>
-        <div class="sign">
-            <a href="#"><img src="/frontend/web/theme/portal-donbassa/img/signin.png" alt=""><span>вход</span></a>
-            <a href="#"><img src="/frontend/web/theme/portal-donbassa/img/signup.png" alt=""><span>регистрация</span></a>
-        </div>
+        <?= \frontend\widgets\Sign::widget() ?>
     </div>
 </section>
 <section class="header__main">
