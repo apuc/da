@@ -62,6 +62,7 @@ AppAsset::register($this);
         </div>
 
         <?= ExchangeRates::widget() ?>
+
         <div class="search">
             <form action="">
                 <span class="search-icon"></span>
