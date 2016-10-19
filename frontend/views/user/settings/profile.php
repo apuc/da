@@ -23,15 +23,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?= $this->render('/_alert', ['module' => Yii::$app->getModule('user')]) ?>
 
-<div class="row">
-    <div class="col-md-3">
+<div class="row profile-account-settings">
+    <div class="col-md-4 toggle-menu">
         <?= $this->render('_menu') ?>
     </div>
-    <div class="col-md-9">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <?= Html::encode($this->title) ?>
-            </div>
+    <div class="col-md-6">
+        <div class="panel panel-default settings">
+<!--            <div class="panel-heading">-->
+<!--                --><?//= Html::encode($this->title) ?>
+<!--            </div>-->
             <div class="panel-body">
                 <?php $form = \yii\widgets\ActiveForm::begin([
                     'id' => 'profile-form',
@@ -49,11 +49,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'public_email') ?>
 
-                <?= $form->field($model, 'website') ?>
+<!--                --><?//= $form->field($model, 'website') ?>
 
-                <?= $form->field($model, 'location') ?>
+<!--                --><?//= $form->field($model, 'location') ?>
 
-                <?= $form->field($model, 'gravatar_email')->hint(\yii\helpers\Html::a(Yii::t('user', 'Change your avatar at Gravatar.com'), 'http://gravatar.com')) ?>
+<!--                --><?//= $form->field($model, 'gravatar_email') ?>
+<!--                   ->hint(\yii\helpers\Html::a(Yii::t('user', 'Change your avatar at Gravatar.com'), 'http://gravatar.com')) ?>-->
 
                 <?= $form->field($model, 'bio')->textarea() ?>
 

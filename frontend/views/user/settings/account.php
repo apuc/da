@@ -24,15 +24,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?= $this->render('/_alert', ['module' => Yii::$app->getModule('user')]) ?>
 
-<div class="row">
-    <div class="col-md-3">
+<div class="row profile-account-settings">
+    <div class="col-md-4 toggle-menu">
         <?= $this->render('_menu') ?>
     </div>
-    <div class="col-md-9">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <?= Html::encode($this->title) ?>
-            </div>
+    <div class="col-md-6">
+        <div class="panel panel-default settings">
+<!--            <div class="panel-heading">-->
+<!--                --><?//= Html::encode($this->title) ?>
+<!--            </div>-->
             <div class="panel-body">
                 <?php $form = ActiveForm::begin([
                     'id'          => 'account-form',

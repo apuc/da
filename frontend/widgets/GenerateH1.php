@@ -61,6 +61,15 @@ class GenerateH1 extends Widget
             elseif (Yii::$app->controller->action->id == 'login'){
                 $h1 = "Вход";
             }
+            elseif (Yii::$app->controller->action->id == 'request'){
+                $h1 = "Восстановление пароля";
+            }
+            elseif (Yii::$app->controller->action->id == 'profile'){
+                $h1 = "Настройки профиля";
+            }
+            elseif(Yii::$app->controller->action->id == 'account'){
+                $h1 = "Настройки аккаунта";
+            }
             else{
                 $h1 = "Пользователь";
             }

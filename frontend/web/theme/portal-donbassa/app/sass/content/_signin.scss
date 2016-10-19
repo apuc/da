@@ -57,7 +57,10 @@
   #login-form-rememberme{
     width: auto;
   }
-
+  .panel-default .panel-heading{
+    background-color: transparent;
+    border: 1px solid transparent;
+  }
   }
 .form-group .field-login-form-rememberme{
   label{

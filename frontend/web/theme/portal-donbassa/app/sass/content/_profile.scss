@@ -1,0 +1,53 @@
+.profile-account-settings{
+  .toggle-menu{
+    height: 125px;
+    .panel-body{
+     border-top: 5px solid #ff3432;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+    a{
+      font-family: $rb;
+      font-size: 19px;
+      color: #ff3432;
+    }
+    .active{
+      a,a:hover{
+        color: #ff3432;
+        background-color: #e6e3e3;
+        //&:hover{
+        //  background-color: #e6e3e3;
+        //  color: #ff3432;
+        //}
+      }
+    }
+  }
+  .settings{
+    border:1px solid transparent;
+    margin-top:120px;
+    label{
+      font-family:$rr;
+      color: #6c7274;
+      font-size: 13px;
+    }
+    input{
+      height: 28px;
+      border-radius: 0;
+    }
+    textarea{
+      height: 28px;
+      border-radius: 0;
+      resize: none;
+      overflow: hidden;
+    }
+    button{
+      height: 35px;
+      background-color: #ff3432;
+      border: 1px solid transparent;
+      font-family:$rr;
+      font-size: 14px;
+      margin: 0 auto;
+    }
+  }
+}
