@@ -99,8 +99,10 @@ AppAsset::register($this);
     <div class="container">
         <h2><?= \frontend\widgets\GenerateH1::widget() ?></h2>
         <div class="title-right">
-            <a href="<?= Url::to(['/news/news/create']) ?>" class="header__main_panel-add-cont"><span class="header-news icon"></span>Предложить новость </a>
-            <a href="<?= Url::to(['/news/news/']) ?>" class="all-news"><i class="fa fa-newspaper-o" aria-hidden="true"></i>все новости</a>
+            <?= \frontend\widgets\GenerateTitleMenu::widget(); ?>
+<!--            <a href="--><?//= Url::to(['/news/news/create']) ?><!--" class="header__main_panel-add-cont"><span class="header-news icon"></span>Предложить новость </a>-->
+<!--            <a href="--><?//= Url::to(['/news/news/']) ?><!--" class="all-news"><i class="fa fa-newspaper-o" aria-hidden="true"></i>все новости</a>-->
+                
             <a href="" class="popular"><span></span>Популярные заведения</a>
         </div>
     </div>
