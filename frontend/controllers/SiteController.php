@@ -210,4 +210,8 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionDesign(){
+        return $this->render('design');
+    }
 }

@@ -43,7 +43,7 @@ class MainMenu extends Widget
                 ],
                 [
                     'label' => 'Объявления',
-                    'url' => Url::to(['/']),
+                    'url' => Url::to(['/site/design']),
                     'template' => '<a href="{url}">{label}</a>',
                     'active' => Yii::$app->controller->module->id == 'mainpage1',
                 ],
@@ -55,7 +55,7 @@ class MainMenu extends Widget
                 ],
                 [
                     'label' => 'Консультация',
-                    'url' => Url::to(['/']),
+                    'url' => Url::to(['/site/design']),
                     'template' => '<a href="{url}">{label}</a>',
                     'active' => Yii::$app->controller->module->id == 'mainpage1',
                 ],
