@@ -643,7 +643,9 @@
       margin: 10px 0 0;
       img{
         width: 100%;
-        height: 145px;
+        //height: 145px;
+        height: auto;
+        object-fit: contain;
       }
       h4{
         margin: 0;
@@ -705,8 +707,10 @@
       img{
         float: left;
         width: 100%;
-        height: 126px;
+        //height: 126px;
+        height: auto;
         margin-bottom: 10px;
+        object-fit: contain;
       }
       h4{
         margin: 0;
