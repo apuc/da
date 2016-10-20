@@ -43,6 +43,12 @@ return [
         'category_poster' => [
             'class' => 'backend\modules\category_poster\Category_poster',
         ],
+        'category_faq' => [
+            'class' => 'backend\modules\category_faq\CategoryFaq',
+        ],
+        'faq' => [
+            'class' => 'backend\modules\faq\Faq',
+        ],
     ],
     'components' => [
         /*'user' => [
