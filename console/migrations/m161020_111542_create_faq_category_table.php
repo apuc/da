@@ -14,12 +14,12 @@ class m161020_111542_create_faq_category_table extends Migration
     {
         $this->createTable('faq_category', [
             'id' => $this->primaryKey(),
-            'title' => $this->varchar(255),
-            'parent_id' => $this->int(11),
-            'slug' => $this->varchar(255),
-            'dt_add' => $this->int(11),
-            'dt_update' => $this->int(11),
-            'icon' => $this->varchar(255),
+            'title' => $this->string(255),
+            'parent_id' => $this->integer(11),
+            'slug' => $this->string(255),
+            'dt_add' => $this->integer(11),
+            'dt_update' => $this->integer(11),
+            'icon' => $this->string(255),
             'type' => $this->string(),
         ]);
     }
