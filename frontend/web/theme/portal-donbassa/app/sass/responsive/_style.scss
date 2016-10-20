@@ -1,8 +1,8 @@
 @media only screen and (max-width: 1346px) {
 	.header{
 	&__main_logo{
-		width: 31%!important;
-		margin-left: -4.4%;
+		width: 7.9%!important;
+		margin-left: -3.9%;
 	}}
 	.header__main_panel{
 		.header__menu_mnu li a{
@@ -13,9 +13,12 @@
 @media only screen and (max-width: 1224px) {
 	.header{
 		&__main_logo{
-			width: 33%!important;
+			width: 9.5%!important;
 			margin-left: -4.7%;
 		}}
+	.header__menu_mnu li a{
+		font-size: 11px;
+	}
 
 }
 @media only screen and (max-width: 1024px) {
