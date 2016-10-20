@@ -205,7 +205,8 @@ margin: 5px 0 0 3px;
   margin-left: 10%;
 
   &_logo{
-    width: 26%;
+    //width: 26%;
+    width: 7.5%;
     float: left;
     position: relative;
     display: inline-block;
@@ -219,6 +220,7 @@ margin: 5px 0 0 3px;
     margin-left: -3.7%;
     img{
       display: block;
+      width: 100%;
     }
     span{
       color: #ffa000;
@@ -227,19 +229,14 @@ margin: 5px 0 0 3px;
   }
   &_panel{
     width: 70%;
+    padding-left:10%;
     float: left;
     position: relative;
     padding: 20px 0;
     box-sizing: border-box;
     &-add-cont{
-      text-decoration: none;
-      font-family: $osr;
-      font-size: 14px;
-      color: #424242;
-      min-width: 30%;
-      float: left;
+      display: inline-block;
       text-transform: lowercase;
-      margin-left:8.5%;
       .icon{
         height: 18px;
         width: 18px;
@@ -250,9 +247,7 @@ margin: 5px 0 0 3px;
         position: relative;
         left: 6px;
       }
-      &:hover{
-        color: #ff3432;
-      }
+
       .header-plus{
         background-image: url("../img/header-plus.png");
       }

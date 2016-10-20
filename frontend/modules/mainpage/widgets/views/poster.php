@@ -12,9 +12,11 @@ use common\classes\DateFunctions;
 ?>
 
 <div class="title">
-    <h2>афиша</h2>
-    <div class="title-right">
-        <a href="<?= \yii\helpers\Url::to(['/all-poster']) ?>" class="all-news">вся афиша</a>
+    <div class="title-left-side title-full-width">
+        <h2>афиша</h2>
+        <div class="title-right">
+            <a href="<?= \yii\helpers\Url::to(['/all-poster']) ?>" class="all-news">вся афиша</a>
+        </div>
     </div>
 </div>
 <div class="afisha">
