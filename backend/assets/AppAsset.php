@@ -58,6 +58,7 @@ class AppAsset extends AssetBundle
         'js/clockpicker.js',
         'js/bootstrap-tagsinput.js',
         'js/script.js',
+        'js/custom.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

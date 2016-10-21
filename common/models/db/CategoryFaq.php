@@ -32,6 +32,7 @@ class CategoryFaq extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['title'], 'required'],
             [['parent_id', 'dt_add', 'dt_update'], 'integer'],
             [['title', 'slug', 'icon', 'type'], 'string', 'max' => 255],
         ];

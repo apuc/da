@@ -14,7 +14,7 @@ class m161020_111542_create_faq_category_table extends Migration
     {
         $this->createTable('category_faq', [
             'id' => $this->primaryKey(),
-            'title' => $this->string(255),
+            'title' => $this->string(255)->notNull(),
             'parent_id' => $this->integer(11)->defaultValue(0),
             'slug' => $this->string(255),
             'dt_add' => $this->integer(11),

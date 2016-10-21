@@ -17,6 +17,7 @@ use Yii;
  * @property integer $user_id
  * @property string $type
  * @property integer $company_id
+ * @property integer $cat_id
  */
 class Faq extends \yii\db\ActiveRecord
 {
@@ -34,9 +35,9 @@ class Faq extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['question', 'answer'], 'required'],
+            [['question', 'answer', 'company_id', 'cat_id'], 'required'],
             [['answer'], 'string'],
-            [['dt_add', 'dt_update', 'views', 'user_id', 'company_id'], 'integer'],
+            [['dt_add', 'dt_update', 'views', 'user_id', 'company_id', 'cat_id'], 'integer'],
             [['question', 'slug', 'type'], 'string', 'max' => 255],
         ];
     }
@@ -57,6 +58,7 @@ class Faq extends \yii\db\ActiveRecord
             'user_id' => Yii::t('faq', 'User ID'),
             'type' => Yii::t('faq', 'Type'),
             'company_id' => Yii::t('faq', 'Company ID'),
+            'cat_id' => Yii::t('faq', 'Cat ID'),
         ];
     }
 }

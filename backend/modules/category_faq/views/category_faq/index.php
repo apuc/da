@@ -1,6 +1,7 @@
 <?php
 
 use common\models\db\CategoryFaq;
+use common\models\db\Consulting;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -31,15 +32,29 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'parent_id',
                 'format'    => 'text',
                 'value'     => function ( $model ) {
-                    if($model->parent_id==0) return 'Нет';
+                    if ( $model->parent_id == 0 ) {
+                        return 'Нет';
+                    }
+
                     return CategoryFaq::find()->where( [ 'id' => $model->parent_id ] )->one()->title;
                 },
             ],
             //'slug',
             //'dt_add',
-//             'dt_update',
+            //'dt_update',
             // 'icon',
-            // 'type',
+            [
+                'attribute' => 'type',
+                'format'    => 'text',
+                'value'     => function ( $model ) {
+                    if ( $model->type == '') {
+                        return 'Нет';
+                    }
+
+                    return Consulting::find()->where( [ 'slug' => $model->type ] )->one()->title;
+                }
+            ],
+
 
             [ 'class' => 'yii\grid\ActionColumn' ],
         ],

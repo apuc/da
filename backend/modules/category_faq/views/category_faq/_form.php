@@ -1,6 +1,7 @@
 <?php
 
 use common\models\db\CategoryFaq;
+use common\models\db\Consulting;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -28,6 +29,8 @@ use yii\widgets\ActiveForm;
 <!--    --><?//= $form->field($model, 'icon')->textInput(['maxlength' => true]) ?>
 
 <!--    --><?//= $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'type')->dropDownList(ArrayHelper::map( Consulting::find()->all(),'slug','title'),['prompt'=>'Нет']) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('faq', 'Create') : Yii::t('faq', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

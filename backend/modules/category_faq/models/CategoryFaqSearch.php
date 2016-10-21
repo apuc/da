@@ -2,10 +2,12 @@
 
 namespace backend\modules\category_faq\models;
 
+use common\classes\Debug;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use backend\modules\category_faq\models\CategoryFaq;
+use yii\db\Query;
 
 /**
  * CategoryFaqSearch represents the model behind the search form about `backend\modules\category_faq\models\CategoryFaq`.
