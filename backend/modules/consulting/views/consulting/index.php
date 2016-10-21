@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return 'Нет';
                     }
 
-                    return Company::find()->where( ['id'=>$model->company_id])-one()->name;
+                    return Company::find()->where( ['id'=>$model->company_id])->one()->name;
                 }
             ],
             'descr:ntext',

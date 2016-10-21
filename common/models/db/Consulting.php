@@ -33,7 +33,7 @@ class Consulting extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title'], 'required'],
+            [['title', 'company_id'], 'required'],
             [['descr'], 'string'],
             [['dt_add', 'dt_update', 'views', 'company_id'], 'integer'],
             [['title', 'slug', 'icon'], 'string', 'max' => 255],

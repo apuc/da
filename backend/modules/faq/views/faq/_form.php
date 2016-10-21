@@ -1,5 +1,8 @@
 <?php
 
+use common\models\db\Company;
+use common\models\db\Consulting;
+use common\models\db\Faq;
 use common\models\User;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -37,8 +40,9 @@ use mihaildev\ckeditor\CKEditor;
     <?= $form->field($model, 'user_id')->dropDownList( ArrayHelper::map( User::find()->all(),'id','username'),[ 'prompt' =>'Нет']) ?>
 
 <!--    --><?//= $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'type')->dropDownList(ArrayHelper::map( Consulting::find()->all(),'slug','title'),['prompt'=>'Нет']) ?>
 
-    <?= $form->field($model, 'company_id')->dropDownList(ArrayHelper::map(\common\models\db\Company::find()->all(),'id','name'),['prompt'=>'Нет']) ?>
+    <?= $form->field($model, 'company_id')->dropDownList(ArrayHelper::map( Company::find()->all(),'id','name'),[ 'prompt' =>'Нет']) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('faq', 'Create') : Yii::t('faq', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
