@@ -21,7 +21,7 @@ class m161021_080751_create_consulting_table extends Migration
             'slug'=>$this->string(255),
             'icon'=>$this->string(255),
             'views'=>$this->integer(11),
-            'company_id'=>$this->integer(11)
+            'company_id'=>$this->integer(11)->notNull()
         ]);
     }
 

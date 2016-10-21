@@ -13,5 +13,6 @@ return [
     'Update'            => 'Изменить',
     'Company ID'        => 'Организация',
     'Create'            => 'Создать',
-
+    'Delete'            => 'Удалить',
+    'Update {modelClass}: ' => 'Изменить Консалтинг: '
 ];
