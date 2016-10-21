@@ -15,7 +15,7 @@ class m161020_105918_create_faq_table extends Migration
         $this->createTable('faq', [
             'id' => $this->primaryKey(),
             'question' => $this->string(255)->notNull(),
-            'answer' => $this->text(),
+            'answer' => $this->text()->notNull(),
             'dt_add' => $this->integer(11),
             'dt_update' => $this->integer(11),
             'slug' => $this->string(255),

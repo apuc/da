@@ -49,6 +49,9 @@ return [
         'faq' => [
             'class' => 'backend\modules\faq\Faq',
         ],
+        'consulting' => [
+            'class' => 'backend\modules\consulting\Consulting',
+        ],
     ],
     'components' => [
         /*'user' => [

@@ -78,6 +78,9 @@ class GenerateH1 extends Widget
             if(Yii::$app->controller->action->id == 'design'){
                 $h1 = "Разработка";
             }
+            elseif (Yii::$app->controller->action->id == 'contacts'){
+                $h1 = "Контакты";
+            }
             else{
                 $h1 = "Сайт";
             }

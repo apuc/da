@@ -155,7 +155,8 @@ AppAsset::register($this);
             <!--<li><a href="" class="circle"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
             <li><a href="" class="circle"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>-->
         </ul>
-        <div class="info"><p><a href="mailto:da.info.pro@gmail.com">da.info.pro@gmail.com</a>,<br> колл центр - +38(099)671-71-72, +38(071)310-09-54,<br> отдел продаж - +38(099)671-71-73, +38(099)620-45-85, +38(099)625-76-07</p></div>
+<!--        <div class="info"><p><a href="mailto:da.info.pro@gmail.com">da.info.pro@gmail.com</a>,<br> колл центр - +38(099)671-71-72, +38(071)310-09-54,<br> отдел продаж - +38(099)671-71-73, +38(099)620-45-85, +38(099)625-76-07</p></div>-->
+        <div class="info"><p><a href="mailto:da.info.pro@gmail.com">da.info.pro@gmail.com</a>,<br> колл центр - +38(099)671-71-72, +38(071)310-09-54</p></div>
         <!--        <div class="footer-copyright-cont">-->
         <!--            <p class="footer-copyright">2017 © da-info.pro- Сайт города Донецка</p>-->
         <!--            <p class="footer-copyright">info@da-info, (071) 210-80-54, (093) 998-49-04</p>-->
@@ -175,7 +176,7 @@ AppAsset::register($this);
     <div class="footer-alert-container">
         <div class="container">
             <p class="footer-alert">
-                2017 © <a href="http://da-info.pro/">da-info.pro</a> - Сайт города Донецка.Допускается цитирование материалов без получения предварительного согласия при условии размещения в тексте обязательной ссылки на da-info.pro.
+                2017 © <a href="http://da-info.pro/">da-info.pro</a> - Портал города Донецка.Допускается цитирование материалов без получения предварительного согласия при условии размещения в тексте обязательной ссылки на da-info.pro.
             </p>
         </div>
     </div>

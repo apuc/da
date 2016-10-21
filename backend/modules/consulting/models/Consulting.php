@@ -2,21 +2,21 @@
 /**
  * Created by PhpStorm.
  * User: warya
- * Date: 20.10.2016
- * Time: 16:44
+ * Date: 21.10.2016
+ * Time: 11:44
  */
 
-namespace backend\modules\faq\models;
+namespace backend\modules\consulting\models;
 
 use yii\db\ActiveRecord;
 
-class Faq extends \common\models\db\Faq {
+class Consulting  extends \common\models\db\Consulting{
     public function behaviors()
     {
         return [
             'slug' => [
                 'class' => 'common\behaviors\Slug',
-                'in_attribute' => 'question',
+                'in_attribute' => 'title',
                 'out_attribute' => 'slug',
                 'translit' => true
             ],

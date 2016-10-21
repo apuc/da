@@ -114,6 +114,12 @@ class MainMenuAdmin extends Widget {
                         'label'    => 'FAQ',
                         'items'    => [
                             [
+                                'label'   => 'Добавить',
+                                'url'     => Url::to( [ '/faq/faq/create' ] ),
+                                'active'  => Yii::$app->controller->module->id == 'faq',
+                                'visible' => UserFunction::hasRoles(['admin']),
+                            ],
+                            [
                                 'label'   => 'Категории',
                                 'url'     => Url::to( [ '/category_faq/category_faq' ] ),
                                 'active'  => Yii::$app->controller->module->id == 'category_faq',
@@ -121,7 +127,7 @@ class MainMenuAdmin extends Widget {
                             ],
                             [
                                 'label'   => 'Все',
-                                'url'     => Url::to( ['/faq/faq'] ),
+                                'url'     => Url::to( [ '/faq/faq' ] ),
                                 'active'  => Yii::$app->controller->module->id == 'faq',
                                 'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ]
@@ -130,6 +136,27 @@ class MainMenuAdmin extends Widget {
                             'class' => 'treeview',
                         ],
                         'template' => '<a href="#"><i class="fa fa-question-circle"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                    ],
+                    [
+                        'label'    => 'Консалтинг',
+                        'items'    => [
+                            [
+                                'label'   => 'Добавить',
+                                'url'     => Url::to( [ '/consulting/consulting/create' ] ),
+                                'active'  => Yii::$app->controller->module->id == 'consulting',
+                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                            [
+                                'label'   => 'Все',
+                                'url'     => Url::to( [ '/consulting/consulting' ] ),
+                                'active'  => Yii::$app->controller->module->id == 'consulting',
+                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ]
+                        ],
+                        'options'  => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="#"><i class="fa fa-comments"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
                     [
                         'label'    => 'Курсы валют',

@@ -34,7 +34,7 @@ class Faq extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['question'], 'required'],
+            [['question', 'answer'], 'required'],
             [['answer'], 'string'],
             [['dt_add', 'dt_update', 'views', 'user_id', 'company_id'], 'integer'],
             [['question', 'slug', 'type'], 'string', 'max' => 255],

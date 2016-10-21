@@ -74,7 +74,10 @@ class SiteController extends Controller
     {
         return $this->render('index');
     }
-
+    public function actionContacts()
+    {
+        return $this->render('contacts');
+    }
     /**
      * Logs in a user.
      *
