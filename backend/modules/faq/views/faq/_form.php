@@ -40,14 +40,23 @@ use mihaildev\ckeditor\CKEditor;
     <?= $form->field($model, 'user_id')->dropDownList( ArrayHelper::map( User::find()->all(),'id','username'),[ 'prompt' =>'Нет']) ?>
 
 <!--    --><?//= $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'type')->dropDownList(ArrayHelper::map( Consulting::find()->all(),'slug','title'),['prompt'=>'Нет']) ?>
+
 
     <?= $form->field($model, 'company_id')->dropDownList(ArrayHelper::map( Company::find()->all(),'id','name'),[ 'prompt' =>'Нет']) ?>
 
+    <?= $form->field($model, 'type')->dropDownList(ArrayHelper::map( Consulting::find()->all(),'slug','title'),['prompt'=>'Нет']) ?>
+
+
+
+
+    <?php if(Yii::$app->controller->action->id == 'update') {?>
+
+        <?= $form->field($model,'cat_id')->textInput()->label('Категория',['style'=>'display:none'])?>
+    <?php }else{ ?>
+        <?= $form->field($model,'cat_id')->dropDownList([],['style'=>'display:none'])->label('Категория')?>
+    <?php }; ?>
+    <?php ActiveForm::end(); ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('faq', 'Create') : Yii::t('faq', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
-    
-    <?php ActiveForm::end(); ?>
-
 </div>

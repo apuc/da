@@ -13,10 +13,12 @@ $(document).ready(function(){
                 url: "/secure/category_faq/category_faq/get_catfaq_by_type",
                 data: "slug=" + faqtype,
                 success: function (data) {
-                    console.log(data);
+                    $('#faq-cat_id').html(data).slideDown();
+                    $('.field-faq-cat_id').slideDown();
+                    $('.field-faq-cat_id label').slideDown();
                 }
             });
-        }
+        } else $('.field-faq-cat_id').slideUp();
     });
 
 });

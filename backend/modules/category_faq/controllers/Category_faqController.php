@@ -7,9 +7,11 @@ use Yii;
 use backend\modules\category_faq\models\CategoryFaq;
 use backend\modules\category_faq\models\CategoryFaqSearch;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\widgets\ActiveForm;
 
 /**
  * Category_faqController implements the CRUD actions for CategoryFaq model.
@@ -138,7 +140,10 @@ class Category_faqController extends Controller {
     public function actionGet_catfaq_by_type() {
         //Debug::prn(ArrayHelper::map(CategoryFaq::find()->where(['slug'=>$_POST['slug']])->all(),'id','title'));
         //return ArrayHelper::map(CategoryFaq::find()->where(['type'=>$_POST['slug']])->all(),'id','title');
-       // return \common\models\db\CategoryFaq::find()->where(['type'=>$_POST['slug']])->all();
+        //return \common\models\db\CategoryFaq::find()->where(['type'=>$_POST['slug']])->all();
+        //return $_POST['slug'];
+        $categorys_faq = ArrayHelper::map( CategoryFaq::find()->where( [ 'type' => $_POST['slug'] ] )->all(), 'id', 'title' );
 
+        return Html::dropDownList( 'cat_id', [ ], $categorys_faq, [ 'class' => 'form-control', 'prompt' =>'Нет','id'=>'faq-cat_id'] );
     }
 }
