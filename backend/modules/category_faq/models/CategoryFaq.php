@@ -10,6 +10,8 @@ namespace backend\modules\category_faq\models;
 
 
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 
 class CategoryFaq extends \common\models\db\CategoryFaq{
     public function behaviors()
@@ -29,5 +31,12 @@ class CategoryFaq extends \common\models\db\CategoryFaq{
                 ],
             ],
         ];
+    }
+    public static function get_catfaq_by_type($type) {
+
+
+        $cat_faq = ArrayHelper::map( CategoryFaq::find()->where( [ 'type' =>  $type] )->all(), 'id', 'title' );
+
+        return Html::dropDownList( 'cat_id', [ ], $cat_faq, [ 'class' => 'form-control', 'prompt' =>'Нет','id'=>'faq-cat_id'] );
     }
 }

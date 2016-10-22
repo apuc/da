@@ -14,7 +14,7 @@ return [
     'Dt Update'             => 'Дата обновления',
     'Create'                => 'Создать',
     'Update'                => 'Изменить',
-    'Update {modelClass}: ' => 'Изменить категорию FAQ: ',
+    'Update {modelClass}: ' => 'Изменить Вопрос-Ответ: ',
     'Delete'                => 'Удалить',
     'Slug'                  => 'Слаг',
     'Icon'                  => 'Иконка',
@@ -26,7 +26,11 @@ return [
     'User ID'               => 'Пользователь',
     'Company ID'            => 'Организация',
     'Faqs'                  => 'Вопрос - ответ',
-    'Create Category Faq'                  => 'Создать категорию FAQ'
+    'Create Category Faq'   => 'Создать категорию FAQ',
+    'Update Category Faq: ' => 'Изменить категорию FAQ: ',
+    'Category Faqs'         => 'Категории FAQ',
+    'Category Faq'          => 'Категория FAQ',
+    'Cat ID'                => 'Категория',
 
 
 ];

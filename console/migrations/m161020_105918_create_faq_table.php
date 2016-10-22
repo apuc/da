@@ -21,7 +21,7 @@ class m161020_105918_create_faq_table extends Migration
             'slug' => $this->string(255),
             'views' => $this->integer(8)->defaultValue(0),
             'user_id' => $this->integer(11),
-            'type' => $this->string(255),
+            'type' => $this->string(255)->notNull(),
             'company_id' => $this->integer(11)->notNull(),
             'cat_id' => $this->integer(11)->notNull(),
         ]);
