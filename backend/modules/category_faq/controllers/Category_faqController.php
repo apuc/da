@@ -137,18 +137,6 @@ class Category_faqController extends Controller {
         }
     }
 
-
-//    public function actionGet_catfaq_by_type($type=null) {
-//
-//        if (empty($type)){
-//            $type = $_POST['slug'];
-//        }
-//
-//        $categorys_faq = ArrayHelper::map( CategoryFaq::find()->where( [ 'type' =>  $type] )->all(), 'id', 'title' );
-//
-//        return Html::dropDownList( 'cat_id', [ ], $categorys_faq, [ 'class' => 'form-control', 'prompt' =>'Нет','id'=>'faq-cat_id'] );
-//    }
-
     public function actionGet_catfaq_by_type() {
         if ($_POST){
             return CategoryFaq::get_catfaq_by_type($_POST['slug']);

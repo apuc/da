@@ -54,7 +54,7 @@ use mihaildev\ckeditor\CKEditor;
     
     <?php } else { ?>
 
-        <?= $form->field( $model, 'cat_id' )->dropDownList( [ ], [ 'style' => 'display:none' ] )->label( 'Категория' ) ?>
+        <?= $form->field( $model, 'cat_id' )->dropDownList( [ ], [ 'style' => 'display:none' ] )->label( 'Категория' ,['style'=>'display:none']) ?>
 
     <?php }; ?>
 
