@@ -1,5 +1,6 @@
 <?php
 
+use common\models\db\CategoryFaq;
 use common\models\db\Company;
 use common\models\User;
 use yii\helpers\Html;
@@ -30,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'question',
             'answer:ntext',
             // 'dt_add',
+
             //'dt_update',
             // 'slug',
             // 'views',
@@ -56,6 +58,27 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
 
                     return Company::find()->where( [ 'id' => $model->company_id ] )->one()->name;
+                }
+            ],
+            [
+                'attribute' => 'cat_id',
+                'format'    => 'text',
+                'value'     => function($model){
+                    return CategoryFaq::find()->where(['id'=>$model->cat_id])->one()->title;
+                }
+            ],
+            [
+                'attribute' => 'dt_add',
+                'format'    => 'text',
+                'value'     => function ( $model ) {
+                    return date( 'Y-m-d H:i', $model->dt_add );
+                }
+            ],
+            [
+                'attribute' => 'dt_update',
+                'format'    => 'text',
+                'value'     => function ( $model ) {
+                    return date( 'Y-m-d H:i', $model->dt_update );
                 }
             ],
 

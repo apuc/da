@@ -41,22 +41,35 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             //'slug',
             //'dt_add',
-            //'dt_update',
-            // 'icon',
             [
-                'attribute' => 'type',
+                'attribute' => 'dt_add',
                 'format'    => 'text',
                 'value'     => function ( $model ) {
-                    if ( $model->type == '') {
-                        return 'Нет';
-                    }
-
-                    return Consulting::find()->where( [ 'slug' => $model->type ] )->one()->title;
+                    return date( 'Y-m-d H:i', $model->dt_add );
                 }
             ],
+            [
+                'attribute' => 'dt_update',
+                'format'    => 'text',
+                'value'     => function($model){
+                    return date('Y-m-d H:i',$model->dt_update);
+                }
+            ],
+                //'dt_update',
+                // 'icon',
+            ['attribute' => 'type',
+            'format'     => 'text',
+            'value'      => function ( $model ) {
+                if ( $model->type == '' ) {
+                    return 'Нет';
+                }
 
-
-            [ 'class' => 'yii\grid\ActionColumn' ],
+                return Consulting::find()->where( [ 'slug' => $model->type ] )->one()->title;
+            }
         ],
+
+
+        [ 'class' => 'yii\grid\ActionColumn' ],
+    ],
     ] ); ?>
 </div>
