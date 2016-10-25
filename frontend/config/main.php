@@ -28,6 +28,9 @@ return [
         'msg' => [
             'class' => 'frontend\modules\msg\Msg',
         ],
+        'consulting' => [
+            'class' => 'frontend\modules\consulting\Consulting',
+        ],
     ],
     'components' => [
         'mymessages' => [
@@ -109,7 +112,8 @@ return [
                 'company/category/<slug>' => 'company/company/category',
                 'poster/<slug>' => 'poster/default/view',
                 'all-poster' => 'poster/default/category',
-                'poster/category/<slug>' => 'poster/default/single_category'
+                'poster/category/<slug>' => 'poster/default/single_category',
+                'consulting'=> 'consulting/consulting'
             ]
         ],
         'mailer' => [

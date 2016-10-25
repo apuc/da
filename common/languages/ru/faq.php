@@ -7,12 +7,12 @@
  */
 return [
     'Category Faqs'                    => 'Категории FAQ',
-    'Create Category Faq'              => 'Создать категорию',
+    'Create Category Faq'              => 'Добавить категорию',
     'Title'                            => 'Заголовок',
     'Parent ID'                        => 'Родительская категория',
     'Dt Add'                           => 'Дата добавления',
     'Dt Update'                        => 'Дата обновления',
-    'Create'                           => 'Создать',
+    'Create'                           => 'Добавить',
     'Update'                           => 'Изменить',
     'Update {modelClass}: '            => 'Изменить Вопрос-Ответ: ',
     'Delete'                           => 'Удалить',
@@ -26,7 +26,7 @@ return [
     'User ID'                          => 'Пользователь',
     'Company ID'                       => 'Организация',
     'Faqs'                             => 'Вопрос - ответ',
-    'Create Category Faq'              => 'Создать категорию FAQ',
+    'Create Category Faq'              => 'Добавить категорию FAQ',
     'Update Category Faq: '            => 'Изменить категорию FAQ: ',
     'Category Faqs'                    => 'Категории FAQ',
     'Category Faq'                     => 'Категория FAQ',
