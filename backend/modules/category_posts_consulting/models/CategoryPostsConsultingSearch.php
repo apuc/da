@@ -1,18 +1,16 @@
 <?php
 
-namespace backend\modules\faq\models;
+namespace backend\modules\category_posts_consulting\models;
 
-use common\classes\Debug;
-use common\models\db\CategoryFaq;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\modules\faq\models\Faq;
+use backend\modules\category_posts_consulting\models\CategoryPostsConsulting;
 
 /**
- * FaqSearch represents the model behind the search form about `backend\modules\faq\models\Faq`.
+ * CategoryPostsConsultingSearch represents the model behind the search form about `backend\modules\category_posts_consulting\models\CategoryPostsConsulting`.
  */
-class FaqSearch extends Faq
+class CategoryPostsConsultingSearch extends CategoryPostsConsulting
 {
     /**
      * @inheritdoc
@@ -20,8 +18,8 @@ class FaqSearch extends Faq
     public function rules()
     {
         return [
-            [['id', 'dt_add', 'dt_update', 'views', 'user_id', 'company_id','cat_id'], 'integer'],
-            [['question', 'answer', 'slug', 'type'], 'safe'],
+            [['id', 'parent_id', 'dt_add', 'dt_update'], 'integer'],
+            [['title', 'slug', 'icon', 'type'], 'safe'],
         ];
     }
 
@@ -43,7 +41,8 @@ class FaqSearch extends Faq
      */
     public function search($params)
     {
-        $query = Faq::find();
+        $query = CategoryPostsConsulting::find();
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -61,17 +60,14 @@ class FaqSearch extends Faq
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'parent_id' => $this->parent_id,
             'dt_add' => $this->dt_add,
             'dt_update' => $this->dt_update,
-            'views' => $this->views,
-            'user_id' => $this->user_id,
-            'company_id' => $this->company_id,
-            'cat_id' => $this->cat_id,
-
         ]);
-        $query->andFilterWhere(['like', 'question', $this->question])
-            ->andFilterWhere(['like', 'answer', $this->answer])
+
+        $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'slug', $this->slug])
+            ->andFilterWhere(['like', 'icon', $this->icon])
             ->andFilterWhere(['like', 'type', $this->type]);
 
         return $dataProvider;

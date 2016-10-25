@@ -21,4 +21,38 @@ $(document).ready(function(){
         } else $('.field-faq-cat_id').slideUp();
     });
 
+    $('#postsconsulting-type').change(function () {
+        var faqtype = $("#postsconsulting-type").val();
+        $('#postsconsulting-cat_id select').val = '';
+        if (faqtype){
+            $.ajax({
+                type: "POST",
+                url: "/secure/category_posts_consulting/category_posts_consulting/get_cat_post_by_type",
+                data: "slug=" + faqtype,
+                success: function (data) {
+                    $('#postsconsulting-cat_id').html(data).slideDown();
+                    $('.field-postsconsulting-cat_id').slideDown();
+                    $('.field-postsconsulting-cat_id label').slideDown();
+                }
+            });
+        } else $('.field-postsconsulting-cat_id').slideUp();
+    }); 
+    
+    $('#postsdigest-type').change(function () {
+        var faqtype = $("#postsdigest-type").val();
+        $('#postsdigest-cat_id select').val = '';
+        if (faqtype){
+            $.ajax({
+                type: "POST",
+                url: "/secure/category_posts_digest/category_posts_digest/get_cat_post_by_type",
+                data: "slug=" + faqtype,
+                success: function (data) {
+                    $('#postsdigest-cat_id').html(data).slideDown();
+                    $('.field-postsdigest-cat_id').slideDown();
+                    $('.field-postsdigest-cat_id label').slideDown();
+                }
+            });
+        } else $('.field-postsdigest-cat_id').slideUp();
+    });
+
 });

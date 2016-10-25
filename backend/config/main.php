@@ -52,6 +52,18 @@ return [
         'consulting' => [
             'class' => 'backend\modules\consulting\Consulting',
         ],
+        'posts_consulting' => [
+            'class' => 'backend\modules\posts_consulting\Posts_consulting',
+        ],
+        'category_posts_consulting' => [
+            'class' => 'backend\modules\category_posts_consulting\categoryPostsConsulting',
+        ],
+        'posts_digest' => [
+            'class' => 'backend\modules\posts_digest\Posts_digest',
+        ],
+        'category_posts_digest' => [
+            'class' => 'backend\modules\category_posts_digest\Category_posts_digest',
+        ],
     ],
     'components' => [
         /*'user' => [

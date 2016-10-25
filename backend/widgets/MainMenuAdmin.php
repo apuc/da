@@ -111,33 +111,6 @@ class MainMenuAdmin extends Widget {
                         'template' => '<a href="#"><i class="fa fa-university"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
                     [
-                        'label'    => 'FAQ',
-                        'items'    => [
-                            [
-                                'label'   => 'Добавить',
-                                'url'     => Url::to( [ '/faq/faq/create' ] ),
-                                'active'  => Yii::$app->controller->module->id == 'faq',
-                                'visible' => UserFunction::hasRoles(['admin']),
-                            ],
-                            [
-                                'label'   => 'Категории',
-                                'url'     => Url::to( [ '/category_faq/category_faq' ] ),
-                                'active'  => Yii::$app->controller->module->id == 'category_faq',
-                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
-                            ],
-                            [
-                                'label'   => 'Все',
-                                'url'     => Url::to( [ '/faq/faq' ] ),
-                                'active'  => Yii::$app->controller->module->id == 'faq',
-                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
-                            ]
-                        ],
-                        'options'  => [
-                            'class' => 'treeview',
-                        ],
-                        'template' => '<a href="#"><i class="fa fa-question-circle"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
-                    ],
-                    [
                         'label'    => 'Консалтинг',
                         'items'    => [
                             [
@@ -151,12 +124,117 @@ class MainMenuAdmin extends Widget {
                                 'url'     => Url::to( [ '/consulting/consulting' ] ),
                                 'active'  => Yii::$app->controller->module->id == 'consulting',
                                 'visible' => UserFunction::hasRoles( [ 'admin' ] ),
-                            ]
+                            ],
+//                            [
+//                                'label'   => 'Добавить категорию',
+//                                'url'     => Url::to( [ '/category_posts_consulting/category_posts_consulting/create' ] ),
+//                                'active'  => Yii::$app->controller->module->id == 'consulting',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+//                            ],
+//                            [
+//                                'label'   => 'Добавить статью',
+//                                'url'     => Url::to( [ '/posts_consulting/posts_consulting/create' ] ),
+//                                'active'  => Yii::$app->controller->module->id == 'consulting',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+//                            ],
+//                            [
+//                                'label'   => 'Категории статей',
+//                                'url'     => Url::to( [ '/category_posts_consulting/category_posts_consulting' ] ),
+//                                'active'  => Yii::$app->controller->module->id == 'consulting',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+//                            ],
+//                            [
+//                                'label'   => 'Статьи',
+//                                'url'     => Url::to( [ '/posts_consulting/posts_consulting' ] ),
+//                                'active'  => Yii::$app->controller->module->id == 'consulting',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+//                            ]
                         ],
                         'options'  => [
                             'class' => 'treeview',
                         ],
                         'template' => '<a href="#"><i class="fa fa-comments"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                    ],
+                    [
+                        'label'    => 'Консалтинг - FAQ',
+                        'items'    => [
+                            [
+                                'label'   => 'Добавить',
+                                'url'     => Url::to( [ '/faq/faq/create' ] ),
+                                'active'  => Yii::$app->controller->module->id == 'faq',
+                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                            [
+                                'label'   => 'Все',
+                                'url'     => Url::to( [ '/faq/faq' ] ),
+                                'active'  => Yii::$app->controller->module->id == 'faq',
+                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                            [
+                                'label'   => 'Категории FAQ',
+                                'url'     => Url::to( [ '/category_faq/category_faq' ] ),
+                                'active'  => Yii::$app->controller->module->id == 'category_faq',
+                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                        ],
+                        'options'  => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="#"><i class="fa fa-question-circle"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                    ],
+                    [
+                        'label'    => 'Консалтинг - Статьи',
+                        'items'    => [
+                            [
+                                'label'   => 'Добавить',
+                                'url'     => Url::to( [ '/posts_consulting/posts_consulting/create' ] ),
+                                'active'  => Yii::$app->controller->module->id == 'faq',
+                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                            [
+                                'label'   => 'Все статьи',
+                                'url'     => Url::to( [ '/posts_consulting/posts_consulting' ] ),
+                                'active'  => Yii::$app->controller->module->id == 'faq',
+                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                            [
+                                'label'   => 'Категории статей',
+                                'url'     => Url::to( [ '/category_posts_consulting/category_posts_consulting' ] ),
+                                'active'  => Yii::$app->controller->module->id == 'category_faq',
+                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                        ],
+                        'options'  => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="#"><i class="fa fa-file-text-o "></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                    ],
+                    [
+                        'label'    => 'Консалтинг - Дайджест',
+                        'items'    => [
+                            [
+                                'label'   => 'Добавить',
+                                'url'     => Url::to( [ '/posts_digest/posts_digest/create' ] ),
+                                'active'  => Yii::$app->controller->module->id == 'faq',
+                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                            [
+                                'label'   => 'Все статьи Дайджест',
+                                'url'     => Url::to( [ '/posts_digest/posts_digest' ] ),
+                                'active'  => Yii::$app->controller->module->id == 'faq',
+                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                            [
+                                'label'   => 'Категории статей',
+                                'url'     => Url::to( [ '/category_posts_digest/category_posts_digest' ] ),
+                                'active'  => Yii::$app->controller->module->id == 'category_faq',
+                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                        ],
+                        'options'  => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="#"><i class="fa fa-book"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
                     [
                         'label'    => 'Курсы валют',

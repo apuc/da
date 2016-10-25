@@ -1,18 +1,16 @@
 <?php
 
-namespace backend\modules\faq\models;
+namespace backend\modules\posts_consulting\models;
 
-use common\classes\Debug;
-use common\models\db\CategoryFaq;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\modules\faq\models\Faq;
+use backend\modules\posts_consulting\models\PostsConsulting;
 
 /**
- * FaqSearch represents the model behind the search form about `backend\modules\faq\models\Faq`.
+ * PostsConsultingSearch represents the model behind the search form about `backend\modules\posts_consulting\models\PostsConsulting`.
  */
-class FaqSearch extends Faq
+class PostsConsultingSearch extends PostsConsulting
 {
     /**
      * @inheritdoc
@@ -20,8 +18,8 @@ class FaqSearch extends Faq
     public function rules()
     {
         return [
-            [['id', 'dt_add', 'dt_update', 'views', 'user_id', 'company_id','cat_id'], 'integer'],
-            [['question', 'answer', 'slug', 'type'], 'safe'],
+            [['id', 'dt_add', 'dt_update', 'user_id', 'cat_id', 'views'], 'integer'],
+            [['title', 'content', 'slug', 'photo', 'type'], 'safe'],
         ];
     }
 
@@ -43,7 +41,8 @@ class FaqSearch extends Faq
      */
     public function search($params)
     {
-        $query = Faq::find();
+        $query = PostsConsulting::find();
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -63,15 +62,15 @@ class FaqSearch extends Faq
             'id' => $this->id,
             'dt_add' => $this->dt_add,
             'dt_update' => $this->dt_update,
-            'views' => $this->views,
             'user_id' => $this->user_id,
-            'company_id' => $this->company_id,
             'cat_id' => $this->cat_id,
-
+            'views' => $this->views,
         ]);
-        $query->andFilterWhere(['like', 'question', $this->question])
-            ->andFilterWhere(['like', 'answer', $this->answer])
+
+        $query->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'content', $this->content])
             ->andFilterWhere(['like', 'slug', $this->slug])
+            ->andFilterWhere(['like', 'photo', $this->photo])
             ->andFilterWhere(['like', 'type', $this->type]);
 
         return $dataProvider;
