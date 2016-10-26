@@ -113,7 +113,8 @@ return [
                 'poster/<slug>' => 'poster/default/view',
                 'all-poster' => 'poster/default/category',
                 'poster/category/<slug>' => 'poster/default/single_category',
-                'consulting'=> 'consulting/consulting'
+                'consulting'=> 'consulting/consulting',
+                'consulting/<slug>'=>'/consulting/consulting/view',
             ]
         ],
         'mailer' => [
