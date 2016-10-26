@@ -1,5 +1,3 @@
-<section class="content">
-    <div class="container">
         <div class="consulting">
             <div class="consulting-items">
                 <?php foreach ($consulting as $item) :?>
@@ -15,5 +13,4 @@
                 <?php endforeach; ?>
             </div>
         </div>
-    </div>
-</section>
+
