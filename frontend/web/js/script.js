@@ -124,6 +124,14 @@ $(document).ready(function () {
     });
     VK.Widgets.Group("vk_groups", {mode: 3, width: "auto", height: "100", color1: 'FFFFFF', color2: '000000', color3: '5E81A8'}, 123860296);
     VK.Widgets.Group("vk_groups_news", {mode: 3, width: "340", height: "154", color1: 'FFFFFF', color2: '000000', color3: '5E81A8'}, 123860296);
+
+$(document).on('click','.parent',function () {
+    if ($(this).next('.inserted').find('li').length!=0){
+        $(this).toggleClass('active');
+        $(this).next('.inserted').slideToggle();
+    }
+    return false;
+})
 });
 
    (function(d, s, id) {

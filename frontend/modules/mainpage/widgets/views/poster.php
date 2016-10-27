@@ -23,7 +23,7 @@ use common\classes\DateFunctions;
     <div class="afisha__left">
         <div class="afisha__main">
             <div class="thumb">
-                <span class="afisha-date"><b><?= date('d', $one_poster[0]->dt_add) ?></b> <?= DateFunctions::getMonthShortName(date('m', $one_poster[0]->dt_add)) ?></span>
+                <span class="afisha-date"><b><?= date('d', $one_poster[0]->dt_event) ?></b> <?= DateFunctions::getMonthShortName(date('m', $one_poster[0]->dt_event)) ?></span>
                 <img src="<?= $one_poster[0]->photo ?>" alt="">
             </div>
             <div class="about">

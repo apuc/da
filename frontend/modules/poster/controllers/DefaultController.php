@@ -2,6 +2,7 @@
 
 namespace frontend\modules\poster\controllers;
 
+use backend\modules\poster\controllers\PosterController;
 use common\classes\Debug;
 use common\models\db\CategoryPoster;
 use common\models\db\CategoryPosterRelations;
@@ -68,5 +69,15 @@ class DefaultController extends Controller
             'category' => CategoryPoster::find()->orderBy('id DESC')->all(),
             'dataProvider' => $dataProvider,
         ]);
+    }
+    public static function actionUpdposterdt_event(){
+
+        $posters = Poster::find()->all();
+        foreach ($posters as $k){
+            if($k->dt_event == 0){
+                Poster::updateAll(['dt_event'=>$k->dt_add],['id'=>$k->id]);
+            }
+        }
+
     }
 }

@@ -8,6 +8,7 @@
  */
 use common\classes\DateFunctions;
 
+
 ?>
     <div class="shape">
         <img src="/theme/portal-donbassa/img/shape-line.png" alt="">
@@ -18,7 +19,7 @@ use common\classes\DateFunctions;
         <p><?= \frontend\modules\poster\models\Poster::getCategoryName($poster->id) ?></p>
     </div>
     <div class="poster-container">
-        <span class="date-news__post"><?= date('d', $poster->dt_add) ?> <?= DateFunctions::getMonthShortName(date('m',$poster->dt_add)) ?></span>
+        <span class="date-news__post"><?= date('d', $poster->dt_event) ?> <?= DateFunctions::getMonthShortName(date('m',$poster->dt_event)) ?></span>
         <div class="poster-img-container">
             <img src="<?= $poster->photo ?>" alt="">
         </div>
@@ -39,6 +40,7 @@ use common\classes\DateFunctions;
         <h4 class="social-header">МЫ В КОНТАКТЕ</h4>
         <div id="vk_groups_news"></div>
     </div>
+
 <!--    <div class="banner-bottom">-->
 <!--        <img src="/theme/portal-donbassa/img/banner-bottom.png" alt="">-->
 <!--    </div>-->

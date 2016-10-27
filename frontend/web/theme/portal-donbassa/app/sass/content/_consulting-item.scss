@@ -50,6 +50,13 @@
             background-color:#ff3432;
           }
         }
+         .active{
+          font-family: $rb;
+        }
+      }
+      .inserted{
+        display: none;
+        padding-left:6px;
       }
     }
   }
