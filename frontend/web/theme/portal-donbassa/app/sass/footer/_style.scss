@@ -172,8 +172,12 @@
 }
 .footer-main_logo{
   display: block;
-  width: 11%;
+  width: 6%;
   float: left;
+  margin-right: 3%;
+  img{
+    width: 100%;
+  }
 }
 #Go_Top {
   position: fixed;

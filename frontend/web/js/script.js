@@ -132,6 +132,9 @@ $(document).on('click','.parent',function () {
     }
     return false;
 })
+
+    //Waryataw
+
 });
 
    (function(d, s, id) {
@@ -141,3 +144,16 @@ $(document).on('click','.parent',function () {
         js.src = "//connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.8";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+
+// (function worker() {
+//     $.ajax({
+//         url: 'company/company/startwidgetcompany',
+//         success: function(data) {
+//             $('.category-items').html(data);
+//         },
+//         complete: function() {
+//             // Schedule the next request when the current one's complete
+//             setTimeout(worker, 5000);
+//         }
+//     });
+// })();
