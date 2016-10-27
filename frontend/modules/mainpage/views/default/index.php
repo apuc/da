@@ -1,3 +1,3 @@
 <?php
-$this->title = "Digital Answer";
+$this->title = "ДА Донецк";
 ?>
