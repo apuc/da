@@ -2,6 +2,7 @@
 
 namespace backend\modules\poster\controllers;
 
+use common\classes\Debug;
 use common\models\db\CategoryPosterRelations;
 use Yii;
 use backend\modules\poster\models\Poster;
@@ -66,7 +67,11 @@ class PosterController extends Controller
     {
         $model = new Poster();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            $model->dt_event = strtotime($model->dt_event);
+            $model->save();
+
             foreach($_POST['cat'] as $cat){
                 $catNewRel = new CategoryPosterRelations();
                 $catNewRel->cat_id = $cat;

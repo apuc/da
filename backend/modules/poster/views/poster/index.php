@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'slug',
             'dt_add',
             'dt_update',
+            'dt_event',
             // 'descr:ntext',
             // 'short_descr:ntext',
             // 'price',

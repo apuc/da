@@ -27,7 +27,7 @@
   }
 
   .main-news .news-posts__item .date-news__post{
-    width: 17%;
+    width: 100%;
   }
   .banner-bottom{
     width: 100%;
@@ -43,6 +43,16 @@
 }
 
 @media only screen and (max-width: 500px) {
+  .news__post{
+    overflow: hidden;
+    padding-left:0;
+    .wall_post_text{
+      width: 100%;
+    }
+    .page_post_sized_thumbs{
+      width: 100%;
+    }
+  }
     .main-news{
       width: 100%;
     }
@@ -80,12 +90,9 @@
     }
     float: right;
     padding-left: 0;
+
     .date-news__post{
-      left: -23%;
-      width: 20%;
-    }
-    .date-news__post{
-      width: 22%;
+      width: 100%;
     }
   }
   .main-news .main-news-prefooter{

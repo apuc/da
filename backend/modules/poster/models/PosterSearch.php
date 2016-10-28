@@ -18,7 +18,7 @@ class PosterSearch extends Poster
     public function rules()
     {
         return [
-            [['id', 'dt_add', 'dt_update', 'views', 'status'], 'integer'],
+            [['id', 'dt_add', 'dt_update','dt_event', 'views', 'status'], 'integer'],
             [['title', 'slug', 'descr', 'short_descr', 'price', 'start', 'meta_title', 'meta_descr'], 'safe'],
         ];
     }
@@ -62,6 +62,7 @@ class PosterSearch extends Poster
             'id' => $this->id,
             'dt_add' => $this->dt_add,
             'dt_update' => $this->dt_update,
+            'dt_event' => $this->dt_update,
             'views' => $this->views,
             'status' => $this->status,
         ]);

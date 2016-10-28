@@ -124,6 +124,17 @@ $(document).ready(function () {
     });
     VK.Widgets.Group("vk_groups", {mode: 3, width: "auto", height: "100", color1: 'FFFFFF', color2: '000000', color3: '5E81A8'}, 123860296);
     VK.Widgets.Group("vk_groups_news", {mode: 3, width: "340", height: "154", color1: 'FFFFFF', color2: '000000', color3: '5E81A8'}, 123860296);
+
+$(document).on('click','.parent',function () {
+    if ($(this).next('.inserted').find('li').length!=0){
+        $(this).toggleClass('active');
+        $(this).next('.inserted').slideToggle();
+    }
+    return false;
+})
+
+    //Waryataw
+
 });
 
    (function(d, s, id) {
@@ -133,3 +144,16 @@ $(document).ready(function () {
         js.src = "//connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.8";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+
+// (function worker() {
+//     $.ajax({
+//         url: 'company/company/startwidgetcompany',
+//         success: function(data) {
+//             $('.category-items').html(data);
+//         },
+//         complete: function() {
+//             // Schedule the next request when the current one's complete
+//             setTimeout(worker, 5000);
+//         }
+//     });
+// })();

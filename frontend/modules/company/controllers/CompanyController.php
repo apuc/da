@@ -5,6 +5,7 @@ namespace frontend\modules\company\controllers;
 use common\classes\Debug;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
+use frontend\widgets\VipCompanyWidget;
 use Yii;
 use frontend\modules\company\models\Company;
 use frontend\modules\company\models\CompanySearch;
@@ -209,5 +210,10 @@ class CompanyController extends Controller {
         return $this->renderPartial( 'organizations', [
             'organizations' => $select_organizations
         ] );
+    }
+    public static function actionStartwidgetcompany(){
+        //return \frontend\modules\mainpage\widgets\Company::widget();
+        return VipCompanyWidget::widget();
+       // return '1';
     }
 }

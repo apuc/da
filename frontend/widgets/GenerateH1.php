@@ -86,7 +86,12 @@ class GenerateH1 extends Widget
             }
         }
         elseif (Yii::$app->controller->id=='consulting'){
-            $h1 ='Консультации';
+            if (Yii::$app->controller->action->id == 'index') {
+                $h1 ='Консультации';
+            }
+            elseif(Yii::$app->controller->action->id == 'view'){
+                $h1 ='Консалтинг';
+            }
         }
         else {
             $h1 = Yii::$app->controller->id;

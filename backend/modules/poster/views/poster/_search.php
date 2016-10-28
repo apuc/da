@@ -25,6 +25,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'dt_update') ?>
 
+    <?= $form->field($model, 'dt_event') ?>
+
     <?php // echo $form->field($model, 'descr') ?>
 
     <?php // echo $form->field($model, 'short_descr') ?>
