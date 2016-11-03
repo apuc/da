@@ -14,6 +14,7 @@
             <img src="<?= $item->company['photo'] ?>" alt="">
             <h4><?= $item->company['name'] ?></h4>
             <span><?= $item->company['address'] ?></span>
+        <span class="rb-separator"></span>
         </div>
     </a>
 <?php endforeach; ?>

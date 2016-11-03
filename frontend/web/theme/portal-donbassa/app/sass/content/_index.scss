@@ -42,7 +42,10 @@
   .title-left-side{
     width: 80%;
     float: left;
-
+    img{
+      margin-right: 5px;
+      margin-top: -2px;
+    }
   .title-right{
     float: right;
     text-align: right;
@@ -686,6 +689,14 @@
   float: left;
   position: relative;
   text-align: center;
+  .rb-separator{
+    display: block;
+    width: 100%;
+    height: 11px;
+    background-image: url("../img/rb-separator.png");
+    background-size: cover;
+    margin-top: 10px;
+  }
   .white-overlay{
     background-color: #fff;
     height: 70px;
