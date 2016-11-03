@@ -71,6 +71,23 @@
     }
   }
 }
+  .content .poster-container .poster-img-container{
+    width: 100%;
+    margin: 43px 0;
+  }
+  .content .poster-container .poster-description {
+    width: 100%;
+  }
+   .content__main{
+    width: 100%;
+    padding-right: 0;
+  }
+  .content .poster-description{
+    padding: 0 8px;
+  }
+  .content .poster-description .by-ticket-container{
+    width: 100%;
+  }
 }
 
 @media only screen and (max-width: 400px) {
