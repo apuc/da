@@ -11,22 +11,26 @@ namespace frontend\modules\mainpage\widgets;
 
 use backend\modules\category\models\CategoryNews;
 use common\classes\Debug;
+use common\models\db\KeyValue;
 use common\models\db\Lang;
 use yii\base\Widget;
 
-class News extends Widget
-{
+class News extends Widget {
 
-    public function run()
-    {
-        return $this->render('news', [
-            'cat' => CategoryNews::find()->where(['lang_id'=>Lang::getCurrent()['id']])->all(),
-            'news' => \common\models\db\News::find()
-                ->where(['lang_id'=>Lang::getCurrent()['id'], 'status'=>0])
-                ->orderBy('id DESC')
-                ->limit(10)
-                ->all(),
-        ]);
+    public function run() {
+
+        return $this->render( 'news', [
+            'cat'      => CategoryNews::find()->where( [ 'lang_id' => Lang::getCurrent()['id'] ] )->all(),
+            'news'     => \common\models\db\News::find()
+                                                ->where( [ 'lang_id' => Lang::getCurrent()['id'], 'status' => 0 ] )
+                                                ->orderBy( 'id DESC' )
+                                                ->limit( 10 )
+                                                ->all(),
+            'main_new' => \common\models\db\News::find()
+                                                ->where( [ 'id' => KeyValue::find()->where( [ 'key' => 'main_new' ] )->one()->value ] )
+                                                ->one(),
+
+        ] );
     }
 
 }

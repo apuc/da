@@ -5,7 +5,7 @@ use yii\helpers\Url;
 <?php if (\Yii::$app->user->isGuest): ?>
     <div class="sign">
         <a href="<?= Url::to(['/user/security/login']) ?>"><img src="/frontend/web/theme/portal-donbassa/img/signin.png" alt=""><span>вход</span></a>
-        <!--<a href="<?/*= Url::to(['/user/registration/register']) */?>"><img src="/frontend/web/theme/portal-donbassa/img/signup.png" alt=""><span>регистрация</span></a>-->
+<!--        <a href="--><?//= Url::to(['/user/registration/register']) ?><!--"><img src="/frontend/web/theme/portal-donbassa/img/signup.png" alt=""><span>регистрация</span></a>-->
     </div>
 <?php else: ?>
     <div class="sign">

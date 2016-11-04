@@ -44,6 +44,12 @@ class MainMenuAdmin extends Widget {
                                 'active'  => Yii::$app->controller->module->id == 'category' && Yii::$app->controller->action->id == 'index',
                                 'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
+                            [
+                                'label'   => 'Главная новость',
+                                'url'     => Url::to( [ '/main_new' ] ),
+                                'active'  => Yii::$app->controller->module->id == 'main_new' && Yii::$app->controller->action->id == 'index',
+                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
                         ],
                         'options'  => [
                             'class' => 'treeview',

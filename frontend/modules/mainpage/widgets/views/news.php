@@ -13,24 +13,45 @@ use yii\helpers\Url;
         <li class="menu-link"><a href="#" data-id="<?= $item->id ?>"><?= $item->title ?></a></li>
     <?php endforeach; ?>
 </ul>
-<div class="content__main_post">
-    <div class="content__main_post_pic">
-        <a href="#" class="date-post">
-            <span class="date"><?= date('Y-m-d H:i', $news[0]->dt_add) ?></span>
-            <span class="note"></span>
-        </a>
-        <img src="<?= $news[0]->photo ?>" alt="">
+<?php if ($main_new): ?>
+    <div class="content__main_post">
+        <div class="content__main_post_pic">
+            <a href="#" class="date-post">
+                <span class="date"><?= date('Y-m-d H:i', $main_new->dt_add) ?></span>
+                <span class="note"></span>
+            </a>
+            <img src="<?= $main_new->photo ?>" alt="">
+        </div>
+        <div class="content__main_post_text">
+            <h2><?= $main_new->title ?></h2>
+            <p><?= WordFunctions::crop_str_word(strip_tags($main_new->content));  ?></p>
+        </div>
+        <div class="content__main_post_navigation">
+            <a href="" class="views"><span class="view-icon"></span><?= $main_new->views ?> просмотров  </a>
+            <!--<a href="" class="comments"><span class="comments-icon"></span> 21 комментарий</a>-->
+            <a href="<?= Url::to(['/news/default/view', 'slug' => $main_new->slug]) ?>" class="next-read">Читать дальше<span class="arrow-next"></span></a>
+        </div>
     </div>
-    <div class="content__main_post_text">
-        <h2><?= $news[0]->title ?></h2>
-        <p><?= WordFunctions::crop_str_word(strip_tags($news[0]->content));  ?></p>
+<?php else: ?>
+    <div class="content__main_post">
+        <div class="content__main_post_pic">
+            <a href="#" class="date-post">
+                <span class="date"><?= date('Y-m-d H:i', $news[0]->dt_add) ?></span>
+                <span class="note"></span>
+            </a>
+            <img src="<?= $news[0]->photo ?>" alt="">
+        </div>
+        <div class="content__main_post_text">
+            <h2><?= $news[0]->title ?></h2>
+            <p><?= WordFunctions::crop_str_word(strip_tags($news[0]->content));  ?></p>
+        </div>
+        <div class="content__main_post_navigation">
+            <a href="" class="views"><span class="view-icon"></span><?= $news[0]->views ?> просмотров  </a>
+            <!--<a href="" class="comments"><span class="comments-icon"></span> 21 комментарий</a>-->
+            <a href="<?= Url::to(['/news/default/view', 'slug' => $news[0]->slug]) ?>" class="next-read">Читать дальше<span class="arrow-next"></span></a>
+        </div>
     </div>
-    <div class="content__main_post_navigation">
-        <a href="" class="views"><span class="view-icon"></span><?= $news[0]->views ?> просмотров  </a>
-        <!--<a href="" class="comments"><span class="comments-icon"></span> 21 комментарий</a>-->
-        <a href="<?= Url::to(['/news/default/view', 'slug' => $news[0]->slug]) ?>" class="next-read">Читать дальше<span class="arrow-next"></span></a>
-    </div>
-</div>
+<?php endif; ?>
 <div class="content__main_posts">
     <?php foreach($news as $new): ?>
         <a href="#" data-id="<?= $new->id ?>" class="content__main_posts_items">
