@@ -34,11 +34,13 @@
                 </li>
                 <li>
                     <a class="parent" href="#"><span class="marker"></span>Вопрос / ответ</a>
-                    <ul class="consult-item-mnu-menu inserted">
-                        <?php foreach ($categories_faq as $cat_faq): ?>
-                            <li><a href="#"><?= $cat_faq->title?></a></li>
-                        <?php endforeach; ?>
-                    </ul>
+                    <?= \frontend\modules\consulting\widgets\GenerateCatTree::widget(['categories_faq'=>$categories_faq]); ?>
+
+                    <!--                    <ul class="consult-item-mnu-menu inserted">-->
+<!--                        --><?php //foreach ($categories_faq as $cat_faq): ?>
+<!--                            <li><a href="#">--><?//= $cat_faq['title']?><!-- [--><?//= $cat_faq['memberCount']; ?><!-- вопросов]</a></li>-->
+<!--                        --><?php //endforeach; ?>
+<!--                    </ul>-->
                 </li>
             </ul>
         </div>
