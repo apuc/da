@@ -64,6 +64,9 @@ return [
         'category_posts_digest' => [
             'class' => 'backend\modules\category_posts_digest\Category_posts_digest',
         ],
+        'main_new' => [
+            'class' => 'backend\modules\main_new\Main_new',
+        ],
     ],
     'components' => [
         /*'user' => [
