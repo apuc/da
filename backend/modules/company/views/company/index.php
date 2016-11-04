@@ -36,6 +36,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     return ($model->vip == 0) ? 'Стандарт' : 'VIP';
                 }
             ],
+            [
+                'attribute' => 'status',
+                'format' => 'text',
+                'value' => function($model){
+                    return ($model->status == 0) ? 'Опублткована' : 'На модерации';
+                }
+            ],
             // 'photo',
             // 'dt_add',
             // 'dt_update',
