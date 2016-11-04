@@ -6,6 +6,8 @@
  * Time: 16:35
  * @var $top_company \common\models\db\TopCompany
  */
+use yii\helpers\Url;
+
 ?>
 <?php //echo \common\classes\Debug::prn($top_company); ?>
 <?php //foreach($top_company as $top_company): ?>
@@ -18,7 +20,7 @@
 <!--    </a>-->
 <?php //endforeach; ?>
 <?php foreach($top_company as $item): ?>
-<!--    <a href="--><?//= Url::to(['/company/default/view', 'slug' => $item->slug]) ?><!--" class="category-items-item">-->
+    <a href="<?= Url::to(['/company/default/view', 'slug' => $item->slug]) ?>" class="category-items-item">
         <div class="thumb">
             <img src="<?= $item->photo ?>" alt="">
         </div>

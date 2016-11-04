@@ -69,7 +69,7 @@ use yii\widgets\ActiveForm;
     <?/*= $form->field($model, 'status')->textInput() */?>
 
 
-    <?= $form->field($model, 'dt_event')->input('date', ['class'=>'form-control', 'value'=>123])?>
+    <?= $form->field($model, 'dt_event')->input('date', ['class'=>'form-control', 'value'=>date('d.m.Y',$model->dt_event)])?>
 
     <?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
 
