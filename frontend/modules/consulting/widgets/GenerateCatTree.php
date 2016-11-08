@@ -12,25 +12,50 @@ use common\models\db\Poster;
 use Yii;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 class GenerateCatTree extends Widget {
     public $categories_faq;
+    public $id_attr;
+    public $url;
+    public $active_id;
+    public $cat_faq;
 
     public function run() {
-        echo $this->get_tree($this->categories_faq);
+        echo $this->get_tree( $this->categories_faq );
     }
 
-    public function get_tree($tree, $parent_id=0) {
+    public function get_tree( $tree, $parent_id = 0 ) {
         $html = '';
-        foreach ($tree as $row) {
-            if ($row['parent_id'] == $parent_id) {
-                $html .= '<li><a class="parent" href="#">';
+        foreach ( $tree as $row ) {
+            if ( $row['parent_id'] == $parent_id ) {
+                if ($row['id']== $this->active_id){
+                   $active = 'active';
+                  //  Debug::prn($row['id']);
+                } else{
+                    $active = '';
+                    //Debug::prn($this->active_id);
+                }
+              // $url = Url::to([$this->url . $row['slug']]);
+                $url = Url::to([$this->url ,'slugcategory'=> $row['slug']]);
+                $html .= '<li><a class="parent '.$active.'" '.$this->id_attr. '="' . $row['id'] . '" href="'.$url.'">';
                 $html .= '' . $row['title'];
-               // $html .='' . ' ['.$row['memberCount'].' вопросов] </a>';
-                $html .= '' . $this->get_tree($tree, $row['id']);
-                $html .= '</li>' ;
+                $html .= '' . ' [' . $this->getCountCat( $row['id'], $tree, $row['memberCount'] ) . ' вопросов] </a>';
+                $html .= '' . $this->get_tree( $tree, $row['id'] );
+                $html .= '</li>';
             }
         }
+
         return $html ? '<ul class="consult-item-mnu-menu inserted">' . $html . '</ul>' . "\n" : '';
+    }
+
+    public function getCountCat( $id, $tree, $memCount = 0 ) {
+        foreach ( $tree as $row ) {
+            if ( $row['parent_id'] == $id ) {
+                $memCount = $row['memberCount'] + $this->getCountCat( $row['id'], $tree, $memCount );
+            }
+        }
+
+        return $memCount;
     }
 }

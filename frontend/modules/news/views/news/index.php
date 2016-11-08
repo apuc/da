@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
+use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
@@ -59,7 +60,7 @@ $md = new \common\classes\Mobile_Detect();
 
             <ul class="news">
                 <?php Pjax::begin(); ?>
-                <?= \yii\widgets\ListView::widget([
+                <?= ListView::widget([
                     'dataProvider' => $dataProvider,
                     'itemView' => '_list',
                     'layout' => "{items}\n<div class='paginator'>{pager}</div>",

@@ -1,0 +1,120 @@
+.faq{
+  float: left;
+  position: relative;
+  min-height: 500px;
+  width: 100%;
+  padding-left: 15px;
+  padding-bottom: 40px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  .consult-search-form{
+    width: 100%;
+    float: left;
+    position: relative;
+    .consult-search{
+      display: block;
+      border: 1px solid transparent;
+      height: 35px;
+      background-color: #edeef0;
+      width: 80%;
+      float: left;
+      padding-left: 15px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+    input[type=submit]{
+      display: block;
+      width: 20%;
+      float: left;
+      height: 35px;
+      border: 1px solid transparent;
+      background-color: #ff3432;
+      color: #fff;
+      font-family:$rr;
+      font-size: 13px;
+      cursor: pointer;
+    }
+  }
+  .faq-section{
+    display: block;
+    font-family:$rr;
+    font-size: 18px;
+    color: #293239;
+    text-transform: uppercase;
+    margin: 20px 0;
+  }
+  .faq-items{
+    width: 100%;
+    float: left;
+    position: relative;
+    .faq-item{
+      width: 100%;
+      float: left;
+      position: relative;
+      padding: 10px 0;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      .date{
+        display: inline-block;
+        font-family:$rr;
+        font-size: 14px;
+        color:#293239;
+        font-style: italic;
+        margin-right:27px;
+      }
+      .quastion{
+        display: inline-block;
+        font-family:$rr;
+        font-size: 14px;
+        color:#293239;
+        font-style: italic;
+      }
+      .answer{
+        display: inline-block;
+        font-family:$rr;
+        font-size: 14px;
+        color:#293239;
+        font-style: italic;
+      }
+      p{
+        margin: 7px 0;
+      }
+      .read-answer{
+        width: 100%;
+        display: inline-block;
+        font-family:$rr;
+        font-size: 14px;
+        color:#293239;
+        margin: 5px 0;
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  .empty{
+    font-family:$rr;
+    padding-left: 13px;
+    font-size: 18px;
+  }
+.paginator{
+  padding-left: 0;
+  padding-top: 10px;
+  display: block;
+  float: left;
+  ul{
+    li{
+      display: inline-block;
+      margin-right: 11px;
+    }
+    .active{
+      a{
+        color: #242424;
+      }
+    }
+  }
+}
+}

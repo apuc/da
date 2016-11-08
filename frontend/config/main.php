@@ -115,6 +115,11 @@ return [
                 'poster/category/<slug>' => 'poster/default/single_category',
                 'consulting'=> 'consulting/consulting',
                 'consulting/<slug>'=>'/consulting/consulting/view',
+                //'faq/<faqslug>'=>'/consulting/consulting/faqv',
+                'faq/<slug>'=>'/consulting/consulting/faq',
+                'faq-categories/<slugcategory>'=>'/consulting/consulting/faq',
+                'faq/<slug>/<faqslug>'=>'/consulting/consulting/faqv',
+
             ]
         ],
         'mailer' => [
