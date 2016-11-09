@@ -189,18 +189,18 @@ class ConsultingController extends \yii\web\Controller {
             $category       = CategoryPostsConsulting::find()->where( [ 'id' => $category_id ] )->one();
             $consulting     = Consulting::find()->where( [ 'slug' => $consulting ] )->one();
             $db             = new Connection( Yii::$app->db );
-            $categories_posts = $db->createCommand( "SELECT *, (SELECT COUNT(*) FROM `faq` WHERE cat_id = category_faq.id) AS memberCount FROM `category_faq` as category_faq WHERE category_faq.type = '$consulting->slug'
+            $categories_posts = $db->createCommand( "SELECT *, (SELECT COUNT(*) FROM `posts_consulting` WHERE cat_id = category_posts_consulting.id) AS memberCount FROM `category_posts_consulting` as category_posts_consulting WHERE category_posts_consulting.type = '$consulting->slug'
         " )->queryAll();
             $cat_faq        = $category->title;
         }
 
         return $this->render( 'consulting_posts_item', [
             'consulting'     => $consulting,
-            'categories_faq' => $categories_faq,
+            'categories_posts' => $categories_posts,
             'active_id'      => $category_id,
             'url'            => '/consulting/consulting/faq',
             'cat_faq'        => $cat_faq,
-            'faq'            => $faq,
+            'faq'            => $posts,
             'category'       => $category,
         ] );
 

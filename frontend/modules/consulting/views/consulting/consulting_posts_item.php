@@ -49,10 +49,10 @@
                 <div class="faq-item">
                     <span class="date"><?= date( 'd.m.y', $faq->dt_add ); ?></span>
                     <p class="quastion">
-                        <?= $faq->question; ?>
+                        <?= $faq->title; ?>
                     </p>
                     <p class="answer">
-                        <?= $faq->answer; ?>
+                        <?= $faq->content; ?>
                     </p>
                     <a href="<?= Url::to( [ '/consulting/consulting/faq', 'slugcategory' => $category->slug ] ); ?>" class="read-answer">Вернуться
                         в
