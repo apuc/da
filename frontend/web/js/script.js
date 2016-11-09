@@ -179,7 +179,7 @@ $(document).ready(function () {
 });
 
 function OpenCategories(el,i) {
-    el.closest('ul').slideDown().addClass('her');
+    el.closest('ul').slideDown();
     i++;
     if ($(el).closest('ul').hasClass('end')) {
        return;

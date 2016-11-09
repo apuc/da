@@ -18,19 +18,9 @@
             </li>
             <li>
                 <a class="parent" href="#"><span class="marker"></span>Нормативно-правовые и законодательные акты</a>
-                <ul class="consult-item-mnu-menu inserted">
-                    <?php foreach ( $categories_digest as $cat_digest ): ?>
-                        <li><a href="#"><?= $cat_digest->title ?></a></li>
-                    <?php endforeach; ?>
-                </ul>
             </li>
             <li>
-                <a class="parent" href="#"><span class="marker"></span>Статьи</a>
-                <ul class="consult-item-mnu-menu inserted">
-                    <?php foreach ( $categories_posts as $cat_posts ): ?>
-                        <li><a href="#"><?= $cat_posts->title ?></a></li>
-                    <?php endforeach; ?>
-                </ul>
+                <a class="parent" href="<?= Url::to( [ '/posts/' . $consulting->slug ] ) ?>"><span class="marker"></span>Статьи</a>
             </li>
             <li>
                 <a class="parent" href="#"><span class="marker"></span>Налоговый раздел</a>
@@ -38,18 +28,6 @@
             <li>
                 <a class="" faq-id="0" href="<?= Url::to( [ '/faq/' . $consulting->slug ] ) ?>"><span
                         class="marker"></span>Вопрос / ответ</a>
-                <?= \frontend\modules\consulting\widgets\GenerateCatTree::widget( [
-                    'categories_faq' => $categories_faq,
-                    'id_attr'        => 'faq-id',
-                    'url'        => $url,
-                ] ); ?>
-
-                <!--                    <ul class="consult-item-mnu-menu inserted">-->
-                <!--                        --><?php //foreach ($categories_faq as $cat_faq): ?>
-                <!--                            <li><a href="#">--><? //= $cat_faq['title']?><!-- [-->
-                <? //= $cat_faq['memberCount']; ?><!-- вопросов]</a></li>-->
-                <!--                        --><?php //endforeach; ?>
-                <!--                    </ul>-->
             </li>
         </ul>
     </div>

@@ -19,20 +19,19 @@
                 <a href="#"><span class="marker"></span>Нормативно-правовые и законодательные акты</a>
             </li>
             <li>
-                <a href="#"><span class="marker"></span>Статьи</a>
+                <a href="<?= Url::to( [ '/posts/' . $consulting->slug ] ) ?>" class="active parent"><span class="marker "></span>Статьи</a>
+                <?= \frontend\modules\consulting\widgets\GenerateCatTree::widget( [
+                    'categories' => $categories_posts,
+                    'id_attr'        => 'posts-id',
+                    'active_id'      => $active_id,
+                    'url'            => $url,
+                ] ); ?>
             </li>
             <li>
                 <a class="parent" href="#"><span class="marker"></span>Налоговый раздел</a>
             </li>
             <li>
-                <a class="active parent" faq-id="0" href="<?= Url::to( [ '/faq/' . $consulting->slug ] ) ?>"><span class="marker"></span>Вопрос / ответ</a>
-                <?= \frontend\modules\consulting\widgets\GenerateCatTree::widget( [
-                    'categories' => $categories_faq,
-                    'id_attr'        => 'faq-id',
-                    'active_id'      => $active_id,
-                    'url'            => $url,
-                ] ); ?>
-
+                <a faq-id="0" href="<?= Url::to( [ '/faq/' . $consulting->slug ] ) ?>"><span class="marker"></span>Вопрос / ответ</a>
             </li>
         </ul>
     </div>
@@ -43,13 +42,13 @@
                 <input type="submit" value="искать">
             </form>
             <div class="clearfix"></div>
-            <h3 class="faq-section">Раздел: <?= $cat_faq; ?></h3>
+            <h3 class="faq-section">Раздел: <?= $cat_posts; ?></h3>
             <div class="faq-items">
 <!--                --><?php //\yii\widgets\Pjax::begin(); ?>
 
                 <?= \yii\widgets\ListView::widget( [
                     'dataProvider' => $dataProvider,
-                    'itemView'     => '_faq_list',
+                    'itemView'     => '_posts_list',
                     'layout'       => "{items}\n<div class='paginator'>{pager}</div>",
                     'pager'        => [
                         'options'          => [

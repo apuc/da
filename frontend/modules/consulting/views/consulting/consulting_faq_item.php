@@ -28,7 +28,7 @@
                 <a class="active parent" faq-id="0" href="<?= Url::to( [ '/faq/' . $consulting->slug ] ) ?>"><span
                         class="marker"></span>Вопрос / ответ</a>
                 <?= \frontend\modules\consulting\widgets\GenerateCatTree::widget( [
-                    'categories_faq' => $categories_faq,
+                    'categories' => $categories_faq,
                     'id_attr'        => 'faq-id',
                     'active_id'      => $active_id,
                     'url'            => $url,

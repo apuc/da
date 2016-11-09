@@ -25,10 +25,11 @@
                 <a class="parent" href="#"><span class="marker"></span>Налоговый раздел</a>
             </li>
             <li>
-                <a class="active parent" faq-id="0" href="<?= Url::to( [ '/faq/' . $consulting->slug ] ) ?>"><span class="marker"></span>Вопрос / ответ</a>
+                <a class="active parent" faq-id="0" href="<?= Url::to( [ '/faq/' . $consulting->slug ] ) ?>"><span
+                        class="marker"></span>Вопрос / ответ</a>
                 <?= \frontend\modules\consulting\widgets\GenerateCatTree::widget( [
-                    'categories' => $categories_faq,
-                    'id_attr'        => 'faq-id',
+                    'categories' => $categories_posts,
+                    'id_attr'        => 'post-id',
                     'active_id'      => $active_id,
                     'url'            => $url,
                 ] ); ?>
@@ -43,29 +44,20 @@
                 <input type="submit" value="искать">
             </form>
             <div class="clearfix"></div>
-            <h3 class="faq-section">Раздел: <?= $cat_faq; ?></h3>
+            <h3 class="faq-section">Раздел: <?= $cat_posts; ?></h3>
             <div class="faq-items">
-<!--                --><?php //\yii\widgets\Pjax::begin(); ?>
-
-                <?= \yii\widgets\ListView::widget( [
-                    'dataProvider' => $dataProvider,
-                    'itemView'     => '_faq_list',
-                    'layout'       => "{items}\n<div class='paginator'>{pager}</div>",
-                    'pager'        => [
-                        'options'          => [
-                            'class' => 'paginator',
-                            'tag'   => 'div',
-                        ],
-                        'maxButtonCount'   => 5,//($md->isMobile() or $md->isTablet()) ? 5 : 15,
-                        'nextPageCssClass' => 'next',
-                        'nextPageLabel'    => '<img src="/theme/portal-donbassa/img/paginator-right.png" alt="">',
-                        'prevPageCssClass' => 'prev',
-                        'prevPageLabel'    => '<img src="/theme/portal-donbassa/img/paginator-left.png" alt="">',
-                    ]
-                ] ) ?>
-
-
-<!--                --><?php //\yii\widgets\Pjax::end(); ?>
+                <div class="faq-item">
+                    <span class="date"><?= date( 'd.m.y', $faq->dt_add ); ?></span>
+                    <p class="quastion">
+                        <?= $faq->question; ?>
+                    </p>
+                    <p class="answer">
+                        <?= $faq->answer; ?>
+                    </p>
+                    <a href="<?= Url::to( [ '/consulting/consulting/faq', 'slugcategory' => $category->slug ] ); ?>" class="read-answer">Вернуться
+                        в
+                        раздел</a>
+                </div>
             </div>
         </div>
     </div>

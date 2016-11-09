@@ -15,14 +15,17 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
 class GenerateCatTree extends Widget {
-    public $categories_faq;
+    public $categories;
     public $id_attr;
     public $url;
     public $active_id;
-    public $cat_faq;
+    public $cat;
 
     public function run() {
-        echo $this->get_tree( $this->categories_faq );
+        if (!$this->active_id){
+            $this->active_id = 0;
+        }
+        echo $this->get_tree( $this->categories );
     }
 
     public function get_tree( $tree, $parent_id = 0 ) {
