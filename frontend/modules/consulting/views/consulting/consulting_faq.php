@@ -19,7 +19,7 @@
                 <a href="#"><span class="marker"></span>Нормативно-правовые и законодательные акты</a>
             </li>
             <li>
-                <a href="#"><span class="marker"></span>Статьи</a>
+                <a href="<?= Url::to( [ '/posts/' . $consulting->slug ] ) ?>"><span class="marker"></span>Статьи</a>
             </li>
             <li>
                 <a class="parent" href="#"><span class="marker"></span>Налоговый раздел</a>

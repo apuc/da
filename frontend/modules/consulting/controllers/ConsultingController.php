@@ -193,14 +193,13 @@ class ConsultingController extends \yii\web\Controller {
         " )->queryAll();
             $cat_faq        = $category->title;
         }
-
         return $this->render( 'consulting_posts_item', [
             'consulting'     => $consulting,
             'categories_posts' => $categories_posts,
             'active_id'      => $category_id,
-            'url'            => '/consulting/consulting/faq',
-            'cat_faq'        => $cat_faq,
-            'faq'            => $posts,
+            'url'            => '/consulting/consulting/posts',
+            'cat_posts'        => $cat_faq,
+            'posts'            => $posts,
             'category'       => $category,
         ] );
 
