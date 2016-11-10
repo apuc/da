@@ -30,22 +30,35 @@ $this->registerMetaTag( [
     <?php if ( ! empty( $news->tags ) ): ?>
         <span>Теги: <?= $news->tags ?></span>
     <?php endif ?>
-    <span>Поделись <a onclick="Share.twitter('<?= \yii\helpers\Url::to() ?>','<?= $news->title ?>')" href=""
+    <?php
+    $news_title = strip_tags( $news->title );
+    $news_title = preg_replace( "/\s{2,}/", " ", $news_title );
+    $news_content  = strip_tags( $news->content );
+    $news_content  = preg_replace( "/\s{2,}/", " ", $news_content );; ?>
+    <span>Поделись <a onclick="Share.twitter('<?=
+        \yii\helpers\Url::to() ?>',
+            '<?= $news_title ?>')" href=""
                       class="soc-icon">
             <img class="twi" src="/theme/portal-donbassa/img/twi.png" alt="">
         </a>
         <a onclick="Share.facebook(
             '<?= \yii\helpers\Url::to() ?>',
-            '<?= $news->title; ?>')" href="" class="soc-icon">
+            '<?= $news_title; ?>',
+            '<?= $news->photo?>')" href="" class="soc-icon">
             <img class="fb" src="/theme/portal-donbassa/img/fb.png" alt="">
         </a>
         <a onclick="Share.vkontakte(
-                    '<?= \yii\helpers\Url::to() ?>',
-                    '<?= $news->title; ?>')" href="" class="soc-icon">
+            '<?= \yii\helpers\Url::to() ?>',
+            '<?= $news_title; ?>',
+            '<?= $news->photo; ?>',
+            '<?= $news_content; ?>'
+            )" href="" class="soc-icon">
             <img class="vk" src="/theme/portal-donbassa/img/vk.png" alt="">
         </a>
         <a onclick="Share.odnoklassniki(
-                    '<?= \yii\helpers\Url::to() ?>')" href="" class="soc-icon">
+            '<?= \yii\helpers\Url::to() ?>',
+            '<?= $news_title; ?>'
+            )" href="" class="soc-icon">
             <img class="ok" src="/theme/portal-donbassa/img/ok.png" alt="">
         </a>
     </span>

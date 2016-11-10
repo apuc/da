@@ -40,9 +40,9 @@ class News extends Widget {
 
         switch ($dbDate)
         {
-            case $today : $output = 'Сегодня в '; break;
+            case $today : $output = ''; break;
             case $yesterday : $output = 'Вчера в '; break;
-            default : $output = $dbDate;
+            default : $output = date('d.m',strtotime($dbDate));//date('m.d',$dbDate);
         }
         return $output;
     }
