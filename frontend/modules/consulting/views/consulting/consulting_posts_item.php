@@ -16,7 +16,7 @@
                         class="marker"></span>О компании</a>
             </li>
             <li>
-                <a href="#"><span class="marker"></span>Нормативно-правовые и законодательные акты</a>
+                <a href="<?= Url::to( [ '/documents/' . $consulting->slug ] ) ?>"><span class="marker"></span>Нормативно-правовые и законодательные акты</a>
             </li>
             <li>
                 <a href="<?= Url::to( [ '/posts/' . $consulting->slug ] ) ?>"><span class="marker"></span>Статьи</a>

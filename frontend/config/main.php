@@ -121,6 +121,9 @@ return [
                 'posts/<slug>'=>'/consulting/consulting/posts',
                 'posts-categories/<slugcategory>'=>'/consulting/consulting/posts',
                 'posts/<slug>/<postslug>'=>'/consulting/consulting/postsv',
+                'documents/<slug>'=>'/consulting/consulting/documents',
+                'documents-categories/<slugcategory>'=>'/consulting/consulting/documents',
+                'documents/<slug>/<postslug>'=>'/consulting/consulting/documentsv',
             ]
         ],
         'mailer' => [

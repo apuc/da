@@ -16,16 +16,16 @@
                         class="marker"></span>О компании</a>
             </li>
             <li>
-                <a href="<?= Url::to( [ '/documents/' . $consulting->slug ] ) ?>"><span class="marker"></span>Нормативно-правовые и законодательные акты</a>
-            </li>
-            <li>
-                <a href="<?= Url::to( [ '/posts/' . $consulting->slug ] ) ?>" class="active parent"><span class="marker "></span>Статьи</a>
+                <a class="active parent" href="<?= Url::to( [ '/documents/' . $consulting->slug ] ) ?>"><span class="marker"></span>Нормативно-правовые и законодательные акты</a>
                 <?= \frontend\modules\consulting\widgets\GenerateCatTree::widget( [
                     'categories' => $categories_posts,
                     'id_attr'        => 'posts-id',
                     'active_id'      => $active_id,
                     'url'            => $url,
                 ] ); ?>
+            </li>
+            <li>
+                <a href="<?= Url::to( [ '/posts/' . $consulting->slug ] ) ?>"><span class="marker "></span>Статьи</a>
             </li>
             <li>
                 <a class="parent" href="#"><span class="marker"></span>Налоговый раздел</a>
@@ -45,10 +45,9 @@
             <h3 class="faq-section">Раздел: <?= $cat_posts; ?></h3>
             <div class="faq-items">
 <!--                --><?php //\yii\widgets\Pjax::begin(); ?>
-
                 <?= \yii\widgets\ListView::widget( [
                     'dataProvider' => $dataProvider,
-                    'itemView'     => '_posts_list',
+                    'itemView'     => '_posts_digest_list',
                     'layout'       => "{items}\n<div class='paginator'>{pager}</div>",
                     'pager'        => [
                         'options'          => [

@@ -16,23 +16,24 @@
                         class="marker"></span>О компании</a>
             </li>
             <li>
-                <a href="<?= Url::to( [ '/documents/' . $consulting->slug ] ) ?>"><span class="marker"></span>Нормативно-правовые и законодательные акты</a>
+                <a href="<?= Url::to( [ '/documents/' . $consulting->slug ] ) ?>" class="parent active"><span class="marker"></span>Нормативно-правовые и законодательные акты</a>
+                <?= \frontend\modules\consulting\widgets\GenerateCatTree::widget( [
+                    'categories' => $categories_posts,
+                    'id_attr'    => 'post-id',
+                    'active_id'  => $active_id,
+                    'url'        => $url,
+                ] ); ?>
             </li>
             <li>
                 <a href="<?= Url::to( [ '/posts/' . $consulting->slug ] ) ?>"><span class="marker"></span>Статьи</a>
+
             </li>
             <li>
                 <a class="parent" href="#"><span class="marker"></span>Налоговый раздел</a>
             </li>
             <li>
-                <a class="active parent" faq-id="0" href="<?= Url::to( [ '/faq/' . $consulting->slug ] ) ?>"><span
+                <a class="parent" faq-id="0" href="<?= Url::to( [ '/faq/' . $consulting->slug ] ) ?>"><span
                         class="marker"></span>Вопрос / ответ</a>
-                <?= \frontend\modules\consulting\widgets\GenerateCatTree::widget( [
-                    'categories' => $categories_faq,
-                    'id_attr'        => 'faq-id',
-                    'active_id'      => $active_id,
-                    'url'            => $url,
-                ] ); ?>
 
             </li>
         </ul>
@@ -44,17 +45,23 @@
                 <input type="submit" value="искать">
             </form>
             <div class="clearfix"></div>
-            <h3 class="faq-section">Раздел: <?= $cat_faq; ?></h3>
+            <h3 class="faq-section">Раздел: <?= $cat_posts; ?></h3>
             <div class="faq-items">
                 <div class="faq-item">
-                    <span class="date"><?= date( 'd.m.y', $faq->dt_add ); ?></span>
+                    <span class="date"><?= date( 'd.m.y', $posts->dt_add ); ?></span>
                     <p class="quastion">
-                        <?= $faq->question; ?>
+                        <?= $posts->title; ?>
                     </p>
+                    <?php if($posts->photo): ; ?>
+                        <div class="faq-item-img">
+                            <img src="<?= $posts->photo; ?>" alt="">
+                        </div>
+                    <?php endif; ?>
                     <p class="answer">
-                        <?= $faq->answer; ?>
+                        <?= $posts->content; ?>
                     </p>
-                    <a href="<?= Url::to( [ '/consulting/consulting/faq', 'slugcategory' => $category->slug ] ); ?>" class="read-answer">Вернуться
+                    <a href="<?= Url::to( [ '/consulting/consulting/documents', 'slugcategory' => $category->slug ] ); ?>"
+                       class="read-answer">Вернуться
                         в
                         раздел</a>
                 </div>
