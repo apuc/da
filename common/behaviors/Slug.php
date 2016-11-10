@@ -21,49 +21,46 @@ class Slug extends Behavior
         ];
     }
 
-    public function getSlug( $event )
+    public function getSlug($event)
     {
-        if ( empty( $this->owner->{$this->out_attribute} ) ) {
-            $this->owner->{$this->out_attribute} = $this->generateSlug( $this->owner->{$this->in_attribute} );
-        } else {
-            $this->owner->{$this->out_attribute} = $this->generateSlug( $this->owner->{$this->out_attribute} );
-        }
+        $this->owner->{$this->out_attribute} = $this->generateSlug($this->owner->{$this->in_attribute});
     }
 
-    private function generateSlug( $slug )
+    private function generateSlug($slug)
     {
-        $slug = $this->slugify( $slug );
-        if ( $this->checkUniqueSlug( $slug ) ) {
+        $slug = $this->slugify($slug);
+        if ($this->checkUniqueSlug($slug)) {
             return $slug;
         } else {
-            for ( $suffix = 2; !$this->checkUniqueSlug( $new_slug = $slug . '-' . $suffix ); $suffix++ ) {}
+            for ($suffix = 2; !$this->checkUniqueSlug($new_slug = $slug . '-' . $suffix); $suffix++) {
+            }
             return $new_slug;
         }
     }
 
-    private function slugify( $slug )
+    private function slugify($slug)
     {
-        if ( $this->translit ) {
-            return Inflector::slug( TransliteratorHelper::process( $slug ), '-', true );
+        if ($this->translit) {
+            return Inflector::slug(TransliteratorHelper::process($slug), '-', true);
         } else {
-            return $this->slug( $slug, '-', true );
+            return $this->slug($slug, '-', true);
         }
     }
 
-    private function checkUniqueSlug( $slug )
+    private function checkUniqueSlug($slug)
     {
         $pk = $this->owner->primaryKey();
         $pk = $pk[0];
 
         $condition = $this->out_attribute . ' = :out_attribute';
-        $params = [ ':out_attribute' => $slug ];
-        if ( !$this->owner->isNewRecord ) {
+        $params = [':out_attribute' => $slug];
+        if (!$this->owner->isNewRecord) {
             $condition .= ' and ' . $pk . ' != :pk';
             $params[':pk'] = $this->owner->{$pk};
         }
 
         return !$this->owner->find()
-            ->where( $condition, $params )
+            ->where($condition, $params)
             ->one();
     }
 
