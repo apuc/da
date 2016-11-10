@@ -50,7 +50,7 @@ use yii\widgets\ActiveForm;
             'id' => 'company-photo',
             'template' => '<div class="input-group">{input}<span class="span-btn">{button}</span></div>',
             'options' => ['class' => 'form-control itemImg', 'maxlength' => '255'],
-            'buttonOptions' => ['class' => 'btn btn-primary'],
+            'buttonOptions' => ['class' => 'choose-img btn btn-primary'],
             'value' => $model->photo,
             'buttonName' => 'Выбрать изображение',
         ]);
@@ -78,7 +78,7 @@ use yii\widgets\ActiveForm;
     <?/*= $form->field($model, 'slug')->textInput(['maxlength' => true]) */?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('company', 'Create') : Yii::t('company', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('company', 'Create') : Yii::t('company', 'Update'), ['class' => $model->isNewRecord ? 'company-add btn btn-success' : 'company-add btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

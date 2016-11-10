@@ -1,0 +1,19 @@
+.choose-img{
+  background-color: #ff3432;
+  border: 1px solid transparent;
+  margin: 15px 0;
+  &:hover, &:active:focus,.focus{
+    background-color: #E62A29;
+    border: 1px solid transparent;
+    outline: none;
+  }
+}
+.company-add{
+  background-color: #ff3432;
+  border: 1px solid transparent;
+  &:hover, &:active:focus, .focus{
+    background-color: #E62A29;
+    border: 1px solid transparent;
+    outline: none;
+  }
+}

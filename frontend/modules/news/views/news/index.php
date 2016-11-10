@@ -130,10 +130,10 @@ $md = new \common\classes\Mobile_Detect();
                             </a>
                         </li>
                     </ul>
-                    <div class="line"></div>
                     <a href="<?= Url::to(['/news/news/category/', 'slug' => $item->slug]) ?>"
                        class="more-news-link watch-all">Смотреть все <img
                             src="/theme/portal-donbassa/img/scroll-arrow-to-right.svg" width="4px" height="6px"></a>
+                    <div class="line"></div>
                 </div>
             <?php endforeach; ?>
         </div>
