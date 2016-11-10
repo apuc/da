@@ -41,11 +41,16 @@ $this->registerMetaTag( [
         </a>
         <a onclick="Share.vkontakte(
                     '<?= \yii\helpers\Url::to() ?>',
-                    '<?= $news->title; ?>')" href="" class="soc-icon">
+                    '<?= $news->title; ?>',
+                    '<?= $news->photo; ?>',
+                    ''
+            )" href="" class="soc-icon">
             <img class="vk" src="/theme/portal-donbassa/img/vk.png" alt="">
         </a>
         <a onclick="Share.odnoklassniki(
-                    '<?= \yii\helpers\Url::to() ?>')" href="" class="soc-icon">
+                    '<?= \yii\helpers\Url::to() ?>',
+                    '<?= $news->title; ?>'
+            )" href="" class="soc-icon">
             <img class="ok" src="/theme/portal-donbassa/img/ok.png" alt="">
         </a>
     </span>
