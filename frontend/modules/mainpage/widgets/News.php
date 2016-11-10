@@ -33,4 +33,18 @@ class News extends Widget {
         ] );
     }
 
+    public static function getDateNew( $date ) {
+        $today = date('d.m.Y', time());
+        $yesterday = date('d.m.Y', time() - 86400);
+        $dbDate = date('d.m.Y', strtotime($date));
+
+        switch ($dbDate)
+        {
+            case $today : $output = 'Сегодня в '; break;
+            case $yesterday : $output = 'Вчера в '; break;
+            default : $output = $dbDate;
+        }
+        return $output;
+    }
+
 }

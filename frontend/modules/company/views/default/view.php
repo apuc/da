@@ -31,7 +31,23 @@ $this->registerMetaTag([
     <?php if (!empty($company->tags)): ?>
         <span>Теги: <?= $company->tags ?></span>
     <?php endif ?>
-    <span>Поделись <a href="" class="soc-icon"><img src="/theme/portal-donbassa/img/twi.png" alt=""></a><a href=""
-                                                                                                           class="soc-icon"><img
-                src="/theme/portal-donbassa/img/fb.png" alt=""></a></span>
+    <span>Поделись <a onclick="Share.twitter('<?= \yii\helpers\Url::to() ?>','<?= $news->title ?>')" href=""
+                      class="soc-icon">
+            <img class="twi" src="/theme/portal-donbassa/img/twi.png" alt="">
+        </a>
+        <a onclick="Share.facebook(
+            '<?= \yii\helpers\Url::to() ?>',
+            '<?= $news->title; ?>')" href="" class="soc-icon">
+            <img class="fb" src="/theme/portal-donbassa/img/fb.png" alt="">
+        </a>
+        <a onclick="Share.vkontakte(
+            '<?= \yii\helpers\Url::to() ?>',
+            '<?= $news->title; ?>')" href="" class="soc-icon">
+            <img class="vk" src="/theme/portal-donbassa/img/vk.png" alt="">
+        </a>
+        <a onclick="Share.odnoklassniki(
+            '<?= \yii\helpers\Url::to() ?>')" href="" class="soc-icon">
+            <img class="ok" src="/theme/portal-donbassa/img/ok.png" alt="">
+        </a>
+    </span>
 </div>

@@ -8,7 +8,7 @@ use yii\helpers\Url;
 
 ?>
 <ul class="content__main_mnu" style="width: 100%">
-    <li class="menu-link active"><a href="#" data-id="0">картина дня</a></li>
+<!--    <li class="menu-link active"><a href="#" data-id="0">картина дня</a></li>-->
     <?php foreach($cat as $item): ?>
         <li class="menu-link"><a href="#" data-id="<?= $item->id ?>"><?= $item->title ?></a></li>
     <?php endforeach; ?>
@@ -55,8 +55,11 @@ use yii\helpers\Url;
 <div class="content__main_posts">
     <?php foreach($news as $new): ?>
         <a href="#" data-id="<?= $new->id ?>" class="content__main_posts_items">
-            <p class="post-of-time"><span class="posts-time"><?= date('H:i', $new->dt_add) ?></span><?= $new->title ?></p>
+<!--            <p class="post-of-time"><span class="posts-time">--><?//= date('H:i', $new->dt_add) ?><!--</span>--><?//= $new->title ?><!--</p>-->
+<!--            <p class="post-of-time"><span class="posts-time">--><?//= \frontend\modules\mainpage\widgets\News::getDateNew(date('H:i', $new->dt_add)); ?><!--</span>--><?//= $new->title ?><!--</p>-->
+            <p class="post-of-time"><span class="posts-time"><?= \frontend\modules\mainpage\widgets\News::getDateNew(date('Y-m-d', $new->dt_add)) . ' ' . date('H:i', $new->dt_add); ?></span><?= $new->title ?></p>
         </a>
     <?php endforeach; ?>
+
     <a href="<?= Url::to(['/news/news']) ?>" class="watch-all">Смотреть все <img src="/theme/portal-donbassa/img/scroll-arrow-to-right.svg" width="4px" height="6px"></a>
 </div>

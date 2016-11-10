@@ -76,7 +76,7 @@
       @include hov-red;
     }
     .soc-icon{
-      margin-right: 10px;
+      margin-right: 3px;
       width: 30px;
       height: 30px;
       border: 1px solid transparent;
@@ -89,6 +89,24 @@
       left: 0;
       img{
         position: absolute;
+      }
+      .twi{
+        top: 8px;
+        left: 6px;
+      }
+      .fb{
+        top:6px;
+        left: 10px;
+      }
+      .vk{
+        top: 9px;
+        width: 18px;
+        left: 4px;
+      }
+      .ok{
+        top: 6px;
+        left: 9px;
+        width: 10px;
       }
       .soc-icon-twitter{
         top: 9px;
