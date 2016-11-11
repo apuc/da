@@ -1,7 +1,7 @@
 ymaps.ready(function () {
     var myMap = new ymaps.Map('map', {
-            center: [55.751574, 37.573856],
-            zoom: 9
+            center: [48.023, 37.80224],
+            zoom: 11
         }, {
             searchControlProvider: 'yandex#search'
         }),
@@ -28,7 +28,16 @@ ymaps.ready(function () {
 
     result.then(function () {
          myMap.geoObjects.add(result.get(0));
-        myMap.setCenterPoint(result.get(0));
+        var coord = result.get(0).geometry.getCoordinates();
+        //console.log(coord);
+        //myMap.setCenterPoint();
+        myMap.panTo(coord ,{
+
+            flying: true,
+
+            duration: 2500
+
+        });
     }, function () {
         //карта не достпна
     });
