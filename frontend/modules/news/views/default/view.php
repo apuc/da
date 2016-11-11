@@ -31,33 +31,42 @@ $this->registerMetaTag( [
         <span>Теги: <?= $news->tags ?></span>
     <?php endif ?>
     <?php
+    $news_url = \yii\helpers\Url::to();
     $news_title = strip_tags( $news->title );
     $news_title = preg_replace( "/\s{2,}/", " ", $news_title );
+    $news_title = str_replace('"',"&quot;",$news_title);
+    $news_img = 'http://'. $_SERVER['HTTP_HOST'] . $news->photo;
+
+    $count_symbols = 800 - 48 - strlen($news_url) - strlen($news_title) - strlen($news_img);
     $news_content  = strip_tags( $news->content );
-    $news_content  = preg_replace( "/\s{2,}/", " ", $news_content );; ?>
-    <span>Поделись <a onclick="Share.twitter('<?=
-        \yii\helpers\Url::to() ?>',
+    $news_content  = preg_replace( "/\s{2,}/", " ", $news_content );
+
+    $news_content = substr($news_content, 0, $count_symbols) . '...';
+    ?>
+
+
+    <span>Поделись <a onclick="Share.twitter('<?=$news_url ?>',
             '<?= $news_title ?>')" href=""
                       class="soc-icon">
             <img class="twi" src="/theme/portal-donbassa/img/twi.png" alt="">
         </a>
         <a onclick="Share.facebook(
-            '<?= \yii\helpers\Url::to() ?>',
+            '<?= $news_url ?>',
             '<?= $news_title; ?>',
-            '<?= "http://". $_SERVER['HTTP_HOST'] . $news->photo; ?>')" href="" class="soc-icon">
+            '<?= $news_img; ?>')" href="" class="soc-icon">
             <img class="fb" src="/theme/portal-donbassa/img/fb.png" alt="">
         </a>
 
         <a onclick="Share.vkontakte(
-            '<?= \yii\helpers\Url::to() ?>',
+            '<?= $news_url ?>',
             '<?= $news_title; ?>',
-            '<?= "http://". $_SERVER['HTTP_HOST'] . $news->photo; ?>',
+            '<?= $news_img ?>',
             '<?= $news_content; ?>'
             )" href="" class="soc-icon">
             <img class="vk" src="/theme/portal-donbassa/img/vk.png" alt="">
         </a>
         <a onclick="Share.odnoklassniki(
-            '<?= \yii\helpers\Url::to() ?>',
+            '<?= $news_url ?>',
             '<?= $news_title; ?>'
             )" href="" class="soc-icon">
             <img class="ok" src="/theme/portal-donbassa/img/ok.png" alt="">

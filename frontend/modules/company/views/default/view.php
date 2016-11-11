@@ -33,33 +33,41 @@ $this->registerMetaTag( [
         <span>Теги: <?= $company->tags ?></span>
     <?php endif ?>
     <?php
-    $company_descr = strip_tags( $company->descr );
-    $company_descr = preg_replace( "/\s{2,}/", " ", $company_descr );
-    $company_name  = strip_tags( $company->name );
-    $company_name  = preg_replace( "/\s{2,}/", " ", $company_name );; ?>
-    <span>Поделись <a onclick="Share.twitter('<?=
-        \yii\helpers\Url::to() ?>',
-            '<?= $company_name ?>')" href=""
+    $company_url = \yii\helpers\Url::to();
+    $company_title = strip_tags( $company->name );
+    $company_title = preg_replace( "/\s{2,}/", " ", $company_title );
+    $company_title = str_replace('"',"&quot;",$company_title);
+    $company_img = 'http://'. $_SERVER['HTTP_HOST'] . $company->photo;
+
+    $count_symbols = 800 - 48 - strlen($news_url) - strlen($news_title) - strlen($news_img);
+    $company_content  = strip_tags( $company->descr );
+    $company_content  = preg_replace( "/\s{2,}/", " ", $company_content );
+
+    $company_content = substr($company_content, 0, $count_symbols) . '...';
+    ?>
+    <span>Поделись <a onclick="Share.twitter('<?=$company_url ?>',
+            '<?= $company_title ?>')" href=""
                       class="soc-icon">
             <img class="twi" src="/theme/portal-donbassa/img/twi.png" alt="">
         </a>
         <a onclick="Share.facebook(
-            '<?= \yii\helpers\Url::to() ?>',
-            '<?= $company_name; ?>',
-            '<?= "http://". $_SERVER['HTTP_HOST'] . $company->photo; ?>')" href="" class="soc-icon">
+            '<?= $company_url ?>',
+            '<?= $company_title; ?>',
+            '<?= $company_img; ?>')" href="" class="soc-icon">
             <img class="fb" src="/theme/portal-donbassa/img/fb.png" alt="">
         </a>
+
         <a onclick="Share.vkontakte(
-            '<?= \yii\helpers\Url::to() ?>',
-            '<?= $company_name; ?>',
-            '<?= "http://". $_SERVER['HTTP_HOST'] . $company->photo; ?>',
-            '<?= $company_descr; ?>'
+            '<?= $company_url ?>',
+            '<?= $company_title; ?>',
+            '<?= $company_img ?>',
+            '<?= $company_content; ?>'
             )" href="" class="soc-icon">
             <img class="vk" src="/theme/portal-donbassa/img/vk.png" alt="">
         </a>
         <a onclick="Share.odnoklassniki(
-            '<?= \yii\helpers\Url::to() ?>',
-            '<?= $company_name; ?>'
+            '<?= $company_url ?>',
+            '<?= $company_title; ?>'
             )" href="" class="soc-icon">
             <img class="ok" src="/theme/portal-donbassa/img/ok.png" alt="">
         </a>
