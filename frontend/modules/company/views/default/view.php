@@ -46,13 +46,13 @@ $this->registerMetaTag( [
         <a onclick="Share.facebook(
             '<?= \yii\helpers\Url::to() ?>',
             '<?= $company_name; ?>',
-            '<?= $company->photo?>')" href="" class="soc-icon">
+            '<?= "http://". $_SERVER['HTTP_HOST'] . $company->photo; ?>')" href="" class="soc-icon">
             <img class="fb" src="/theme/portal-donbassa/img/fb.png" alt="">
         </a>
         <a onclick="Share.vkontakte(
             '<?= \yii\helpers\Url::to() ?>',
             '<?= $company_name; ?>',
-            '<?= $company->photo; ?>',
+            '<?= "http://". $_SERVER['HTTP_HOST'] . $company->photo; ?>',
             '<?= $company_descr; ?>'
             )" href="" class="soc-icon">
             <img class="vk" src="/theme/portal-donbassa/img/vk.png" alt="">

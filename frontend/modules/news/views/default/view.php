@@ -44,13 +44,14 @@ $this->registerMetaTag( [
         <a onclick="Share.facebook(
             '<?= \yii\helpers\Url::to() ?>',
             '<?= $news_title; ?>',
-            '<?= $news->photo?>')" href="" class="soc-icon">
+            '<?= "http://". $_SERVER['HTTP_HOST'] . $news->photo; ?>')" href="" class="soc-icon">
             <img class="fb" src="/theme/portal-donbassa/img/fb.png" alt="">
         </a>
+
         <a onclick="Share.vkontakte(
             '<?= \yii\helpers\Url::to() ?>',
             '<?= $news_title; ?>',
-            '<?= $news->photo; ?>',
+            '<?= "http://". $_SERVER['HTTP_HOST'] . $news->photo; ?>',
             '<?= $news_content; ?>'
             )" href="" class="soc-icon">
             <img class="vk" src="/theme/portal-donbassa/img/vk.png" alt="">
