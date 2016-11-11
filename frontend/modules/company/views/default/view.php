@@ -33,7 +33,7 @@ $this->registerMetaTag( [
         <span>Теги: <?= $company->tags ?></span>
     <?php endif ?>
     <?php
-    $company_url = \yii\helpers\Url::to();
+    $company_url = \yii\helpers\Url::base(true).\yii\helpers\Url::to();
     $company_title = strip_tags( $company->name );
     $company_title = preg_replace( "/\s{2,}/", " ", $company_title );
     $company_title = str_replace('"',"&quot;",$company_title);
