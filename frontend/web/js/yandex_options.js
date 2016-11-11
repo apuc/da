@@ -22,4 +22,14 @@ ymaps.ready(function () {
         });
 
     myMap.geoObjects.add(myPlacemark);
+    //Waryatav
+
+     var result = ymaps.geoQuery(ymaps.geocode($('.company-location').html()));
+
+    result.then(function () {
+         myMap.geoObjects.add(result.get(0));
+        myMap.setCenterPoint(result.get(0));
+    }, function () {
+        //карта не достпна
+    });
 });
