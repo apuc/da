@@ -236,7 +236,7 @@ class ConsultingController extends \yii\web\Controller {
         $cat_posts = CategoryPosts::find()->where( [ 'id' => $id ] )->one()->title;
 
         if ( ! $cat_posts ) {
-            $cat_posts = 'Статьи';
+            $cat_posts = $consulting->title_digest;
         }
         $dataProvider = new SqlDataProvider( [
             'sql'        => $query->createCommand()->rawSql,
