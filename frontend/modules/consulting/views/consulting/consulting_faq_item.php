@@ -1,5 +1,5 @@
 <?php use yii\helpers\Url;
-
+$this->title = $faq->question ;
 ; ?>
 <div class="consult-item">
     <div class="consult-item-mnu">
@@ -20,9 +20,6 @@
             </li>
             <li>
                 <a href="<?= Url::to( [ '/posts/' . $consulting->slug ] ) ?>"><span class="marker"></span>Статьи</a>
-            </li>
-            <li>
-                <a class="parent" href="#"><span class="marker"></span>Налоговый раздел</a>
             </li>
             <li>
                 <a class="active parent" faq-id="0" href="<?= Url::to( [ '/faq/' . $consulting->slug ] ) ?>"><span

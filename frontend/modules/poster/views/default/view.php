@@ -8,7 +8,7 @@
  */
 use common\classes\DateFunctions;
 
-
+$this->title =  $poster->title;
 ?>
     <div class="shape">
         <img src="/theme/portal-donbassa/img/shape-line.png" alt="">
