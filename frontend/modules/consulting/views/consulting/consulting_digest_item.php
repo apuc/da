@@ -16,7 +16,7 @@
                         class="marker"></span>О компании</a>
             </li>
             <li>
-                <a href="<?= Url::to( [ '/documents/' . $consulting->slug ] ) ?>" class="parent active"><span class="marker"></span>Нормативно-правовые и законодательные акты</a>
+                <a href="<?= Url::to( [ '/documents/' . $consulting->slug ] ) ?>" class="parent active"><span class="marker"></span><?= $consulting->title_digest;?></a>
                 <?= \frontend\modules\consulting\widgets\GenerateCatTree::widget( [
                     'categories' => $categories_posts,
                     'id_attr'    => 'post-id',

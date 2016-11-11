@@ -16,6 +16,7 @@ use Yii;
  * @property string $icon
  * @property integer $views
  * @property integer $company_id
+ * @property string $title_digest
  */
 class Consulting extends \yii\db\ActiveRecord
 {
@@ -33,10 +34,10 @@ class Consulting extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'company_id'], 'required'],
+            [['title', 'company_id', 'title_digest'], 'required'],
             [['descr'], 'string'],
             [['dt_add', 'dt_update', 'views', 'company_id'], 'integer'],
-            [['title', 'slug', 'icon'], 'string', 'max' => 255],
+            [['title', 'slug', 'icon', 'title_digest'], 'string', 'max' => 255],
         ];
     }
 
@@ -46,15 +47,16 @@ class Consulting extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('consulting', 'ID'),
-            'title' => Yii::t('consulting', 'Title'),
-            'descr' => Yii::t('consulting', 'Descr'),
-            'dt_add' => Yii::t('consulting', 'Dt Add'),
-            'dt_update' => Yii::t('consulting', 'Dt Update'),
-            'slug' => Yii::t('consulting', 'Slug'),
-            'icon' => Yii::t('consulting', 'Icon'),
-            'views' => Yii::t('consulting', 'Views'),
-            'company_id' => Yii::t('consulting', 'Company ID'),
+            'id' => Yii::t('poster', 'ID'),
+            'title' => Yii::t('poster', 'Title'),
+            'descr' => Yii::t('poster', 'Descr'),
+            'dt_add' => Yii::t('poster', 'Dt Add'),
+            'dt_update' => Yii::t('poster', 'Dt Update'),
+            'slug' => Yii::t('poster', 'Slug'),
+            'icon' => Yii::t('poster', 'Icon'),
+            'views' => Yii::t('poster', 'Views'),
+            'company_id' => Yii::t('poster', 'Company ID'),
+            'title_digest' => Yii::t('poster', 'Title Digest'),
         ];
     }
 }
