@@ -39,8 +39,8 @@ class AppAsset extends AssetBundle
         'theme/portal-donbassa/js/script.js',
         '//vk.com/js/api/openapi.js?133',
         '//api-maps.yandex.ru/2.1/?lang=ru_RU',
+        'js/map.js',
         'js/yandex_options.js',
-        //'js/company_ajax.js',
         'js/script.js'
     ];
     public $depends = [
