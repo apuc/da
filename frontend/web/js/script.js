@@ -11,18 +11,18 @@ $(document).ready(function () {
         });
     });
 
-    $(document).on('click', '.content__main_posts_items', function () {
-        var id = $(this).attr('data-id');
-        $.ajax({
-            type: 'POST',
-            url: "/mainpage/default/get_news_by_id",
-            data: 'id=' + id,
-            success: function (data) {
-                $(".content__main_post").html(data);
-            }
-        });
-        return false;
-    });
+    // $(document).on('click', '.content__main_posts_items', function () {
+    //     var id = $(this).attr('data-id');
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: "/mainpage/default/get_news_by_id",
+    //         data: 'id=' + id,
+    //         success: function (data) {
+    //             $(".content__main_post").html(data);
+    //         }
+    //     });
+    //     return false;
+    // });
 
     /*$('.company_list_item a').on('click', function () {
      var id = $(this).attr('data-id');
