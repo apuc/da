@@ -17,7 +17,7 @@ use yii\helpers\Url;
     <div class="content__main_post">
         <div class="content__main_post_pic">
             <a href="#" class="date-post">
-                <span class="date"><?= date('Y-m-d H:i', $main_new->dt_add) ?></span>
+                <span class="date"><?= date('Y-m-d H:i', $main_new->dt_public) ?></span>
                 <span class="note"></span>
             </a>
             <img src="<?= $main_new->photo ?>" alt="">
@@ -36,7 +36,7 @@ use yii\helpers\Url;
     <div class="content__main_post">
         <div class="content__main_post_pic">
             <a href="#" class="date-post">
-                <span class="date"><?= date('Y-m-d H:i', $news[0]->dt_add) ?></span>
+                <span class="date"><?= date('Y-m-d H:i', $news[0]->dt_public) ?></span>
                 <span class="note"></span>
             </a>
             <img src="<?= $news[0]->photo ?>" alt="">
