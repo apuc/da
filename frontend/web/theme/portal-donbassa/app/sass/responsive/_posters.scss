@@ -13,9 +13,14 @@
 }
 
 @media only screen and (max-width: 736px) {
-
+  .content__main .afisha__right_item{
+    width: 47%;
+  }
 }
 
+@media only screen and (max-width: 568px) {
+
+}
 @media only screen and (max-width: 500px) {
   .posters .posters-categories {
     width: 96%;
