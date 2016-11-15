@@ -23,7 +23,7 @@ class News extends Widget {
             'cat'      => CategoryNews::find()->where( [ 'lang_id' => Lang::getCurrent()['id'] ] )->all(),
             'news'     => \common\models\db\News::find()
                                                 ->where( [ 'lang_id' => Lang::getCurrent()['id'], 'status' => 0 ] )
-                                                ->orderBy( 'id DESC' )
+                                                ->orderBy( 'dt_public DESC' )
                                                 ->limit( 10 )
                                                 ->all(),
             'main_new' => \common\models\db\News::find()
