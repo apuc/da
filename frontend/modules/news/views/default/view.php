@@ -8,7 +8,10 @@
  */
 
 use common\classes\DateFunctions;
-
+$this->registerMetaTag( [
+    'name'    => 'og:image',
+    'content' => 'http://'. $_SERVER['HTTP_HOST'] . $news->photo,
+] );
 $this->title = $news->meta_title;
 $this->registerMetaTag( [
     'name'    => 'description',
