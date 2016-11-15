@@ -10,6 +10,10 @@ use common\classes\DateFunctions;
 
 $this->title = $company->meta_title;
 $this->registerMetaTag( [
+    'name'    => 'og:image',
+    'content' => 'http://'. $_SERVER['HTTP_HOST'] . $company->photo,
+] );
+$this->registerMetaTag( [
     'name'    => 'description',
     'content' => $company->meta_descr,
 ] );
