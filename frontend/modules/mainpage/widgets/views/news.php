@@ -54,7 +54,7 @@ use yii\helpers\Url;
 <?php endif; ?>
 <div class="content__main_posts">
     <?php foreach($news as $new): ?>
-        <a href="#" data-id="<?= $new->id ?>" class="content__main_posts_items">
+        <a href="<?= Url::to(['/news/default/view', 'slug' => $new->slug]) ?>" data-id="<?= $new->id ?>" class="content__main_posts_items">
 <!--            <p class="post-of-time"><span class="posts-time">--><?//= date('H:i', $new->dt_add) ?><!--</span>--><?//= $new->title ?><!--</p>-->
 <!--            <p class="post-of-time"><span class="posts-time">--><?//= \frontend\modules\mainpage\widgets\News::getDateNew(date('H:i', $new->dt_add)); ?><!--</span>--><?//= $new->title ?><!--</p>-->
             <p class="post-of-time"><span class="posts-time"><?= \frontend\modules\mainpage\widgets\News::getDateNew(date('d.m.Y', $new->dt_public)) . ' ' . date('H:i', $new->dt_public); ?></span><?= $new->title ?></p>
