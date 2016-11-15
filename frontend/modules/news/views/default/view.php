@@ -54,7 +54,8 @@ $this->registerMetaTag( [
         <a onclick="Share.facebook(
             '<?= $news_url ?>',
             '<?= $news_title; ?>',
-            '<?= $news_img; ?>')" href="" class="soc-icon">
+            '<?= $news_img; ?>',
+            '<?= $news_content; ?>')" href="" class="soc-icon">
             <img class="fb" src="/theme/portal-donbassa/img/fb.png" alt="">
         </a>
 

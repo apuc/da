@@ -53,7 +53,8 @@ $this->registerMetaTag( [
         <a onclick="Share.facebook(
             '<?= $company_url ?>',
             '<?= $company_title; ?>',
-            '<?= $company_img; ?>')" href="" class="soc-icon">
+            '<?= $company_img; ?>',
+            '<?= $company_content;?>')" href="" class="soc-icon">
             <img class="fb" src="/theme/portal-donbassa/img/fb.png" alt="">
         </a>
 
