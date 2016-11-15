@@ -1,4 +1,7 @@
-        <div class="consulting">
+   <?php
+   $this->title =  'Консалтинг';
+   ; ?>
+    <div class="consulting">
             <div class="consulting-items">
                 <?php foreach ($consulting as $item) :?>
                     <div class="consulting-item">

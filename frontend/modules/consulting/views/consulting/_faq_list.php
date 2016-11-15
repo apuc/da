@@ -1,5 +1,6 @@
 <?php use common\classes\WordFunctions;
-use yii\helpers\Url; ?>
+use yii\helpers\Url;
+?>
 <div class="faq-item">
     <span class="date"><?=
 

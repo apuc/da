@@ -8,7 +8,7 @@
  * @var $dataProvider \yii\data\SqlDataProvider
  */
 use yii\helpers\Url;
-
+$this->title = "Афиша";
 ?>
 <div class="posters">
     <div class="shape">
