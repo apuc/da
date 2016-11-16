@@ -43,9 +43,9 @@ class GenerateCatTree extends Widget {
                 $url = Url::to([$this->url ,'slugcategory'=> $row['slug']]);
                 $html .= '<li><a class="parent '.$active.'" '.$this->id_attr. '="' . $row['id'] . '" href="'.$url.'">';
                 $html .= '' . $row['title'];
-                if(!empty($row['memberCount'])){
-                     $html .= '' . ' [' . $this->getCountCat( $row['id'], $tree, $row['memberCount'] ) . ' вопросов] </a>';
-                }
+//                if(!empty($row['memberCount'])){
+//                     $html .= '' . ' [' . $this->getCountCat( $row['id'], $tree, $row['memberCount'] ) . ' вопросов] </a>';
+//                }
                 $html .= '' . $this->get_tree( $tree, $row['id'] );
                 $html .= '</li>';
                 $html .= '</li>';

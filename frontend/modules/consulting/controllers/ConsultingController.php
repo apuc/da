@@ -280,7 +280,7 @@ class ConsultingController extends \yii\web\Controller {
             'consulting'       => $consulting,
             'categories_posts' => $categories_posts,
             'active_id'        => $category_id,
-            'url'              => '/consulting/consulting/posts',
+            'url'              => '/consulting/consulting/documents',
             'cat_posts'        => $cat_digest,
             'posts'            => $posts,
             'category'         => $category,

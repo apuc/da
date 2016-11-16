@@ -48,7 +48,7 @@ class NewsController extends Controller
 
         $query = News::find()
             ->where(['lang_id'=>Lang::getCurrent()['id'], 'status'=>0])
-            ->orderBy('id DESC');
+            ->orderBy('dt_public DESC');
 
 
         $dataProvider = new SqlDataProvider([

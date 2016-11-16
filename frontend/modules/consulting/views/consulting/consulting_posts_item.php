@@ -42,7 +42,7 @@ $this->title = $posts->title ;
                 <input type="submit" value="искать">
             </form>
             <div class="clearfix"></div>
-            <h3 class="faq-section">Раздел: <?= $cat_posts; ?></h3>
+            <h3 class="faq-section"><?= $cat_posts; ?></h3>
             <div class="faq-items">
                 <div class="faq-item">
                     <span class="date"><?= date( 'd.m.y', $posts->dt_add ); ?></span>

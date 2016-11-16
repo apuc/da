@@ -41,7 +41,7 @@ $this->title = $consulting->title ;
                 <input type="submit" value="искать">
             </form>
             <div class="clearfix"></div>
-            <h3 class="faq-section">Раздел: <?= $cat_faq; ?></h3>
+            <h3 class="faq-section"><?= $cat_faq; ?></h3>
             <div class="faq-items">
 <!--                --><?php //\yii\widgets\Pjax::begin(); ?>
 
