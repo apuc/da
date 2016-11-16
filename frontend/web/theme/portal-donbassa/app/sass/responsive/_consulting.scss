@@ -13,7 +13,24 @@
 }
 
 @media only screen and (max-width: 736px) {
-
+  .right-bar .right-bar__ad .right-bar__ad_items{
+    width: 21.3%;
+  }
+}
+@media only screen and (max-width: 634px) {
+  .consult-item .consult-item-mnu{
+    width: 100%;
+  }
+  .consult-item .consult-item-content{
+    width: 100%;
+    padding: 20px 0;
+  }
+  .consult-item .consult-item-mnu .shape{
+    width: 100%;
+  }
+  .right-bar .right-bar__ad .right-bar__ad_items{
+    width: 45%;
+  }
 }
 
 @media only screen and (max-width: 500px) {
@@ -24,6 +41,14 @@
       width: 60%;
     }
     margin-bottom: 20px;
+  }
+  .faq .faq-items .faq-item .faq-item-img{
+    width: 100%;
+    height: auto;
+    max-height: none;
+  }
+  .right-bar .right-bar__ad .right-bar__ad_items{
+    width: 93%;
   }
 }
 
