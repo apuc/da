@@ -155,7 +155,7 @@ class ConsultingController extends \yii\web\Controller {
             'type'   => $type
         ] )->orderBy( 'id DESC' );
 
-        $cat_posts = CategoryFaq::find()->where( [ 'id' => $id ] )->one()->title;
+        $cat_posts = CategoryPostsConsulting::find()->where( [ 'id' => $id ] )->one()->title;
 
         if ( ! $cat_posts ) {
             $cat_posts = 'Статьи';
@@ -193,7 +193,7 @@ class ConsultingController extends \yii\web\Controller {
             $db               = new Connection( Yii::$app->db );
             $categories_posts = $db->createCommand( "SELECT *, (SELECT COUNT(*) FROM `posts_consulting` WHERE cat_id = category_posts_consulting.id) AS memberCount FROM `category_posts_consulting` as category_posts_consulting WHERE category_posts_consulting.type = '$consulting->slug'
         " )->queryAll();
-            $cat_faq          = $category->title;
+            $cat_post          = $category->title;
         }
 
         return $this->render( 'consulting_posts_item', [
@@ -201,7 +201,7 @@ class ConsultingController extends \yii\web\Controller {
             'categories_posts' => $categories_posts,
             'active_id'        => $category_id,
             'url'              => '/consulting/consulting/posts',
-            'cat_posts'        => $cat_faq,
+            'cat_posts'        => $cat_post,
             'posts'            => $posts,
             'category'         => $category,
         ] );
@@ -235,7 +235,7 @@ class ConsultingController extends \yii\web\Controller {
             'cat_id' => $allCat_posts,
             'type'   => $type
         ] )->orderBy( 'id DESC' );
-        $cat_posts    = CategoryPosts::find()->where( [ 'id' => $id ] )->one()->title;
+        $cat_posts    = CategoryPostsDigest::find()->where( [ 'id' => $id ] )->one()->title;
 
         if ( ! $cat_posts ) {
             $cat_posts = $consulting->title_digest;
