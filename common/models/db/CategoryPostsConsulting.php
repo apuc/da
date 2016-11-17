@@ -15,6 +15,7 @@ use Yii;
  * @property integer $dt_update
  * @property string $icon
  * @property string $type
+ * @property integer $order
  */
 class CategoryPostsConsulting extends \yii\db\ActiveRecord
 {
@@ -33,7 +34,7 @@ class CategoryPostsConsulting extends \yii\db\ActiveRecord
     {
         return [
             [['title'], 'required'],
-            [['parent_id', 'dt_add', 'dt_update'], 'integer'],
+            [['parent_id', 'dt_add', 'dt_update', 'order'], 'integer'],
             [['title', 'slug', 'icon', 'type'], 'string', 'max' => 255],
         ];
     }
@@ -44,14 +45,15 @@ class CategoryPostsConsulting extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('faq', 'ID'),
-            'title' => Yii::t('faq', 'Title'),
-            'parent_id' => Yii::t('faq', 'Parent ID'),
-            'slug' => Yii::t('faq', 'Slug'),
-            'dt_add' => Yii::t('faq', 'Dt Add'),
-            'dt_update' => Yii::t('faq', 'Dt Update'),
-            'icon' => Yii::t('faq', 'Icon'),
-            'type' => Yii::t('faq', 'Type'),
+            'id' => Yii::t('poster', 'ID'),
+            'title' => Yii::t('poster', 'Title'),
+            'parent_id' => Yii::t('poster', 'Parent ID'),
+            'slug' => Yii::t('poster', 'Slug'),
+            'dt_add' => Yii::t('poster', 'Dt Add'),
+            'dt_update' => Yii::t('poster', 'Dt Update'),
+            'icon' => Yii::t('poster', 'Icon'),
+            'type' => Yii::t('poster', 'Type'),
+            'order' => Yii::t('poster', 'Order'),
         ];
     }
 }

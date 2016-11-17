@@ -12,20 +12,28 @@ $this->title =  $consulting->title;
             <img src="/theme/portal-donbassa/img/shape-line.png" alt="">
         </div>
         <ul class="consult-item-mnu-menu">
-            <li>
-                <a href="<?= Url::to( [ "/consulting/consulting/view", 'slug' => $consulting->slug ] ); ?>" class="active"><span
-                        class="marker"></span>О компании</a>
-            </li>
-            <li>
-                <a class="parent" href="<?= Url::to( [ '/documents/' . $consulting->slug ] ) ?>"><span class="marker"></span><?= $consulting->title_digest;?></a>
-            </li>
-            <li>
-                <a class="parent" href="<?= Url::to( [ '/posts/' . $consulting->slug ] ) ?>"><span class="marker"></span>Статьи</a>
-            </li>
+            <?php if($consulting->about_company): ?>
+                <li>
+                    <a href="<?= Url::to( [ "/consulting/consulting/view", 'slug' => $consulting->slug ] ); ?>" class="active"><span
+                            class="marker"></span>О компании</a>
+                </li>
+            <?php endif; ?>
+            <?php if($consulting->documents): ?>
+                <li>
+                    <a class="parent" href="<?= Url::to( [ '/documents/' . $consulting->slug ] ) ?>"><span class="marker"></span><?= $consulting->title_digest;?></a>
+                </li>
+            <?php endif; ?>
+            <?php if($consulting->posts): ?>
+                <li>
+                    <a class="parent" href="<?= Url::to( [ '/posts/' . $consulting->slug ] ) ?>"><span class="marker"></span>Статьи</a>
+                </li>
+            <?php endif; ?>
+            <?php if($consulting->faq): ?>
             <li>
                 <a class="" faq-id="0" href="<?= Url::to( [ '/faq/' . $consulting->slug ] ) ?>"><span
                         class="marker"></span>Вопрос / ответ</a>
             </li>
+            <?php endif; ?>
         </ul>
     </div>
     <div class="consult-item-content">

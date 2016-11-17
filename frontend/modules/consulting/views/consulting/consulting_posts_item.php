@@ -12,27 +12,35 @@ $this->title = $posts->title ;
             <img src="/theme/portal-donbassa/img/shape-line.png" alt="">
         </div>
         <ul class="consult-item-mnu-menu end">
-            <li>
-                <a href="<?= Url::to( [ "/consulting/consulting/view", 'slug' => $consulting->slug ] ); ?>"><span
-                        class="marker"></span>О компании</a>
-            </li>
-            <li>
-                <a href="<?= Url::to( [ '/documents/' . $consulting->slug ] ) ?>"><span class="marker"></span><?= $consulting->title_digest;?></a>
-            </li>
-            <li>
-                <a href="<?= Url::to( [ '/posts/' . $consulting->slug ] ) ?>"><span class="marker"></span>Статьи</a>
-                <?= \frontend\modules\consulting\widgets\GenerateCatTree::widget( [
-                    'categories' => $categories_posts,
-                    'id_attr'    => 'post-id',
-                    'active_id'  => $active_id,
-                    'url'        => $url,
-                ] ); ?>
-            </li>
-            <li>
-                <a class="parent" faq-id="0" href="<?= Url::to( [ '/faq/' . $consulting->slug ] ) ?>"><span
-                        class="marker"></span>Вопрос / ответ</a>
-
-            </li>
+            <?php if($consulting->about_company): ?>
+                <li>
+                    <a href="<?= Url::to( [ "/consulting/consulting/view", 'slug' => $consulting->slug ] ); ?>"><span
+                            class="marker"></span>О компании</a>
+                </li>
+            <?php endif; ?>
+            <?php if($consulting->documents): ?>
+                <li>
+                    <a href="<?= Url::to( [ '/documents/' . $consulting->slug ] ) ?>"><span class="marker"></span><?= $consulting->title_digest;?></a>
+                </li>
+            <?php endif; ?>
+            <?php if($consulting->posts): ?>
+                <li>
+                    <a href="<?= Url::to( [ '/posts/' . $consulting->slug ] ) ?>"><span class="marker"></span>Статьи</a>
+                    <?= \frontend\modules\consulting\widgets\GenerateCatTree::widget( [
+                        'categories' => $categories_posts,
+                        'id_attr'    => 'post-id',
+                        'active_id'  => $active_id,
+                        'url'        => $url,
+                    ] ); ?>
+                </li>
+            <?php endif; ?>
+            <?php if($consulting->faq): ?>
+                <li>
+                    <a class="parent" faq-id="0" href="<?= Url::to( [ '/faq/' . $consulting->slug ] ) ?>"><span
+                            class="marker"></span>Вопрос / ответ</a>
+    
+                </li>
+            <?php endif; ?>
         </ul>
     </div>
     <div class="consult-item-content">

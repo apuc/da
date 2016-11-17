@@ -133,7 +133,7 @@ $(document).ready(function () {
     }, 123860296);
     VK.Widgets.Group("vk_groups_news", {
         mode: 3,
-        width: "340",
+         width: "auto",
         height: "154",
         color1: 'FFFFFF',
         color2: '000000',

@@ -79,6 +79,10 @@
 			.right-bar__ad_items{
 				margin: 9px;
 				width: 22.3%;
+				height: 280px;
+				img{
+					height: 200px;
+				}
 			}
 		}
 		.right-bar__ad-room{
@@ -93,6 +97,9 @@
 	}
 	.title .title-left-side{
 		width: 100%;
+	}
+	.content__main{
+		padding-right: 0;
 	}
 }
 
@@ -130,7 +137,9 @@
 }
 
 @media only screen and (max-width: 736px) {
-
+	.right-bar .right-bar__ad .right-bar__ad_items{
+		width: 46%;
+	}
 	.header__top{
 		width: 100%;
 		padding: 20px 5px;
@@ -287,7 +296,7 @@
 		top: -63px;
 	}
 	.right-bar .right-bar__ad .right-bar__ad_items{
-		width: 22%;
+		width: 46%;
 	}
 }
 @media only screen and (max-width: 568px) {

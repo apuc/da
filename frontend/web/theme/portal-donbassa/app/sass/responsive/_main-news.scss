@@ -51,6 +51,15 @@
   }
 }
 
+@media only screen and (max-width: 760px) {
+  .main-news{
+    width: 100%;
+  }
+  .banner-bottom, .main-news .news-posts, .main-news .news-posts__item .date-news__post{
+    padding-right: 0;
+  }
+}
+
 @media only screen and (max-width: 667px) {
   .main-news .news-posts__item .post-overflow{
     height: 116px;
