@@ -101,6 +101,10 @@
 	.content__main{
 		padding-right: 0;
 	}
+.title{
+	height: auto;
+	padding-bottom: 15px;
+}
 }
 
 @media only screen and (max-width: 980px) {
@@ -287,6 +291,9 @@
 	}
 	.toggle_mnu{
 		top:-63px;
+	}
+	.right-bar h2{
+		margin-top: 15px;
 	}
 }
 

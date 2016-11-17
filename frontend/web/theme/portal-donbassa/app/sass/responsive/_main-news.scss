@@ -60,6 +60,12 @@
   }
 }
 
+@media only screen and (max-width: 688px) {
+  .main-news .news-posts__item{
+    width: 100%;
+    height: auto!important;
+  }
+}
 @media only screen and (max-width: 667px) {
   .main-news .news-posts__item .post-overflow{
     height: 116px;
