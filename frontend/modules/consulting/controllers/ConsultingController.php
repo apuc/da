@@ -33,7 +33,7 @@ class ConsultingController extends \yii\web\Controller {
         $company        = Company::find()->where( [ 'id' => $consulting->company_id ] )->one();
         $db             = new Connection( Yii::$app->db );
         $categories_faq = $db->createCommand( "SELECT *, (SELECT COUNT(*) FROM `faq` WHERE cat_id = category_faq.id) AS memberCount FROM `category_faq` as category_faq WHERE category_faq.type = '$consulting->slug'
-        " )->queryAll();
+        ORDER BY category_faq.order DESC " )->queryAll();
 
         $categories_posts  = CategoryPostsConsulting::find()->where( [ 'type' => $consulting->slug ] )->all();
         $categories_digest = CategoryPostsDigest::find()->where( [ 'type' => $consulting->slug ] )->all();
@@ -67,7 +67,7 @@ class ConsultingController extends \yii\web\Controller {
 
         $db             = new Connection( Yii::$app->db );
         $categories_faq = $db->createCommand( "SELECT *, (SELECT COUNT(*) FROM `faq` WHERE cat_id = category_faq.id) AS memberCount FROM `category_faq` as category_faq WHERE category_faq.type = '$consulting->slug'
-        " )->queryAll();
+        ORDER BY category_faq.order DESC " )->queryAll();
 
         $allCat_faq = \frontend\modules\consulting\models\CategoryFaq::getChildCategoriesById( $id );
         $query      = Faq::find()->where( [
@@ -112,7 +112,7 @@ class ConsultingController extends \yii\web\Controller {
             $consulting     = Consulting::find()->where( [ 'slug' => $consulting ] )->one();
             $db             = new Connection( Yii::$app->db );
             $categories_faq = $db->createCommand( "SELECT *, (SELECT COUNT(*) FROM `faq` WHERE cat_id = category_faq.id) AS memberCount FROM `category_faq` as category_faq WHERE category_faq.type = '$consulting->slug'
-        " )->queryAll();
+        ORDER BY category_faq.order DESC " )->queryAll();
             $cat_faq        = $category->title;
         }
 
@@ -147,7 +147,7 @@ class ConsultingController extends \yii\web\Controller {
 
         $db               = new Connection( Yii::$app->db );
         $categories_posts = $db->createCommand( "SELECT *, (SELECT COUNT(*) FROM `posts_consulting` WHERE cat_id = category_posts_consulting.id) AS memberCount FROM `category_posts_consulting` as category_posts_consulting WHERE category_posts_consulting.type = '$consulting->slug'
-        " )->queryAll();
+        ORDER BY category_posts_consulting.order DESC " )->queryAll();
 
         $allCat_posts = \frontend\modules\consulting\models\CategoryPosts::getChildCategoriesById( $id );
         $query        = PostsConsulting::find()->where( [
@@ -192,7 +192,7 @@ class ConsultingController extends \yii\web\Controller {
             $consulting       = Consulting::find()->where( [ 'slug' => $consulting ] )->one();
             $db               = new Connection( Yii::$app->db );
             $categories_posts = $db->createCommand( "SELECT *, (SELECT COUNT(*) FROM `posts_consulting` WHERE cat_id = category_posts_consulting.id) AS memberCount FROM `category_posts_consulting` as category_posts_consulting WHERE category_posts_consulting.type = '$consulting->slug'
-        " )->queryAll();
+        ORDER BY category_posts_consulting.order DESC " )->queryAll();
             $cat_post          = $category->title;
         }
 
@@ -228,7 +228,7 @@ class ConsultingController extends \yii\web\Controller {
         $db = new Connection( Yii::$app->db );
 //        $categories_posts = $db->createCommand( "SELECT *, (SELECT COUNT(*) FROM `posts_digest` WHERE cat_id = category_posts_digest.id) AS memberCount FROM `category_posts_digest` as category_posts_digest WHERE category_posts_digest.type = '$consulting->slug'
 //        " )->queryAll();
-        $categories_posts = CategoryPostsDigest::find()->where( [ 'type' => $consulting->slug] )->all();
+        $categories_posts = CategoryPostsDigest::find()->where( [ 'type' => $consulting->slug] )->orderBy('order DESC')->all();
 
         $allCat_posts = \frontend\modules\consulting\models\CategoryDigest::getChildCategoriesById( $id );
         $query        = PostsDigest::find()->where( [
@@ -272,7 +272,7 @@ class ConsultingController extends \yii\web\Controller {
             $consulting       = Consulting::find()->where( [ 'slug' => $consulting ] )->one();
             $db               = new Connection( Yii::$app->db );
             $categories_posts = $db->createCommand( "SELECT *, (SELECT COUNT(*) FROM `posts_digest` WHERE cat_id = category_posts_digest.id) AS memberCount FROM `category_posts_digest` as category_posts_digest WHERE category_posts_digest.type = '$consulting->slug'
-        " )->queryAll();
+        ORDER BY category_posts_digest.order DESC " )->queryAll();
             $cat_digest       = $category->title;
         }
 

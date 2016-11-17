@@ -72,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 }
             ],
-
+            'order',
             [
                 'class' => 'yii\grid\ActionColumn'
             ],

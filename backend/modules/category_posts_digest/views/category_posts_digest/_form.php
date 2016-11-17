@@ -32,7 +32,17 @@ use yii\widgets\ActiveForm;
 <!--    --><?//= $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'type')->dropDownList(ArrayHelper::map( Consulting::find()->all(),'slug','title'),['prompt'=>'Нет']) ?>
+    <?php if ( empty( $model->order ) ): ?>
 
+        <?= $form->field( $model, 'order' )->textInput( [
+            'value' => 1
+        ] )->label( 'Приоритет сортироки' ); ?>
+
+    <?php else: ?>
+
+        <?= $form->field( $model, 'order' )->textInput()->label( 'Приоритет сортироки' ); ?>
+
+    <?php endif; ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('faq', 'Create') : Yii::t('faq', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
