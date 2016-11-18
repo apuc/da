@@ -13,7 +13,7 @@ $this->title =  $consulting->title;
         </div>
         <ul class="consult-item-mnu-menu">
             <li>
-                <a href="<?= Url::to( [ "/consulting/view", 'slug' => $consulting->slug ] ); ?>" class="active"><span
+                <a href="<?= Url::to( [ "/consulting/consulting/view", 'slug' => $consulting->slug ] ); ?>" class="active"><span
                         class="marker"></span>О компании</a>
             </li>
             <li>

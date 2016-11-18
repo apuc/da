@@ -179,7 +179,7 @@ class MainMenuAdmin extends Widget {
                             [
                                 'label'   => 'Категории FAQ',
                                 'url'     => Url::to( [ '/category_faq/category_faq' ] ),
-                                'active'  => Yii::$app->controller->module->id == 'category_faq' && Yii::$app->controller->action->id == 'index',
+                                'active'  => Yii::$app->controller->module->id == 'category_faq' && (Yii::$app->controller->action->id == 'index' || Yii::$app->controller->action->id == 'create'),
                                 'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
                         ],
@@ -206,7 +206,7 @@ class MainMenuAdmin extends Widget {
                             [
                                 'label'   => 'Категории статей',
                                 'url'     => Url::to( [ '/category_posts_consulting/category_posts_consulting' ] ),
-                                'active'  => Yii::$app->controller->module->id == 'category_posts_consulting' && Yii::$app->controller->action->id == 'index',
+                                'active'  => Yii::$app->controller->module->id == 'category_posts_consulting' && (Yii::$app->controller->action->id == 'index' || Yii::$app->controller->action->id == 'create'),
                                 'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
                         ],
@@ -233,7 +233,7 @@ class MainMenuAdmin extends Widget {
                             [
                                 'label'   => 'Категории статей',
                                 'url'     => Url::to( [ '/category_posts_digest/category_posts_digest' ] ),
-                                'active'  => Yii::$app->controller->module->id == 'category_posts_digest' && Yii::$app->controller->action->id == 'index',
+                                'active'  => Yii::$app->controller->module->id == 'category_posts_digest' && (Yii::$app->controller->action->id == 'index' || Yii::$app->controller->action->id == 'create'),
                                 'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
                         ],
