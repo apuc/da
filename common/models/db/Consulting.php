@@ -17,6 +17,10 @@ use Yii;
  * @property integer $views
  * @property integer $company_id
  * @property string $title_digest
+ * @property integer $about_company
+ * @property integer $documents
+ * @property integer $posts
+ * @property integer $faq
  */
 class Consulting extends \yii\db\ActiveRecord
 {
@@ -36,7 +40,7 @@ class Consulting extends \yii\db\ActiveRecord
         return [
             [['title', 'company_id', 'title_digest'], 'required'],
             [['descr'], 'string'],
-            [['dt_add', 'dt_update', 'views', 'company_id'], 'integer'],
+            [['dt_add', 'dt_update', 'views', 'company_id', 'about_company', 'documents', 'posts', 'faq'], 'integer'],
             [['title', 'slug', 'icon', 'title_digest'], 'string', 'max' => 255],
         ];
     }
@@ -57,6 +61,10 @@ class Consulting extends \yii\db\ActiveRecord
             'views' => Yii::t('poster', 'Views'),
             'company_id' => Yii::t('poster', 'Company ID'),
             'title_digest' => Yii::t('poster', 'Title Digest'),
+            'about_company' => Yii::t('poster', 'About Company'),
+            'documents' => Yii::t('poster', 'Documents'),
+            'posts' => Yii::t('poster', 'Posts'),
+            'faq' => Yii::t('poster', 'Faq'),
         ];
     }
 }

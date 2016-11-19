@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
                  return Consulting::find()->where( [ 'slug' => $model->type ] )->one()->title;
              }
             ],
-
+            'order',
             [ 'class' => 'yii\grid\ActionColumn' ],
         ],
     ] ); ?>

@@ -27,36 +27,45 @@ use mihaildev\elfinder\InputFile;
         ] )
     ] ) ?>
 
-<!--    --><?//= $form->field( $model, 'dt_add' )->textInput() ?>
+    <!--    --><? //= $form->field( $model, 'dt_add' )->textInput() ?>
 
-<!--    --><?//= $form->field( $model, 'dt_update' )->textInput() ?>
+    <!--    --><? //= $form->field( $model, 'dt_update' )->textInput() ?>
 
-<!--    --><?//= $form->field( $model, 'slug' )->textInput( [ 'maxlength' => true ] ) ?>
+    <!--    --><? //= $form->field( $model, 'slug' )->textInput( [ 'maxlength' => true ] ) ?>
 
-    <?= $form->field( $model, 'icon' )->textInput( [ 'maxlength' => true ] )->label('Класс Font Awesome') ?>
-<!--    <div class="imgUpload">-->
-<!--        <div class="media__upload_img"><img src="--><?//= $model->icon; ?><!--" width="100px"/></div>-->
-<!--        --><?php
-//        echo InputFile::widget([
-//            'language' => 'ru',
-//            'controller' => 'elfinder', // вставляем название контроллера, по умолчанию равен elfinder
-//            'filter' => 'image', // фильтр файлов, можно задать массив фильтров https://github.com/Studio-42/elFinder/wiki/Client-con..
-//            'name' => 'Consulting[icon]',
-//            'id' => 'consulting-icon',
-//            'template' => '<div class="input-group">{input}<span class="span-btn">{button}</span></div>',
-//            'options' => ['class' => 'form-control itemImg', 'maxlength' => '255'],
-//            'buttonOptions' => ['class' => 'btn btn-primary'],
-//            'value' => $model->icon,
-//            'buttonName' => 'Выбрать изображение',
-//        ]);
-//        ?>
-<!--    </div>-->
+    <?= $form->field( $model, 'icon' )->textInput( [ 'maxlength' => true ] )->label( 'Класс Font Awesome' ) ?>
+    <!--    <div class="imgUpload">-->
+    <!--        <div class="media__upload_img"><img src="--><? //= $model->icon; ?><!--" width="100px"/></div>-->
+    <!--        --><?php
+    //        echo InputFile::widget([
+    //            'language' => 'ru',
+    //            'controller' => 'elfinder', // вставляем название контроллера, по умолчанию равен elfinder
+    //            'filter' => 'image', // фильтр файлов, можно задать массив фильтров https://github.com/Studio-42/elFinder/wiki/Client-con..
+    //            'name' => 'Consulting[icon]',
+    //            'id' => 'consulting-icon',
+    //            'template' => '<div class="input-group">{input}<span class="span-btn">{button}</span></div>',
+    //            'options' => ['class' => 'form-control itemImg', 'maxlength' => '255'],
+    //            'buttonOptions' => ['class' => 'btn btn-primary'],
+    //            'value' => $model->icon,
+    //            'buttonName' => 'Выбрать изображение',
+    //        ]);
+    //        ?>
+    <!--    </div>-->
 
-<!--    --><?//= $form->field( $model, 'views' )->textInput() ?>
+    <!--    --><? //= $form->field( $model, 'views' )->textInput() ?>
 
-    <?= $form->field( $model, 'title_digest' )->textInput( [ 'maxlength' => true ] )->label('Наименование раздела: Документы') ?>
+    <?= $form->field( $model, 'title_digest' )->textInput( [ 'maxlength' => true ] )->label( 'Наименование раздела: Документы' ) ?>
 
-    <?= $form->field( $model, 'company_id' )->dropDownList( ArrayHelper::map( Company::find()->all(),'id','name'),['prompt'=>'Нет']) ?>
+    <?= $form->field( $model, 'company_id' )->dropDownList( ArrayHelper::map( Company::find()->all(), 'id', 'name' ), [ 'prompt' => 'Нет' ] ) ?>
+
+
+    <?= Html::label( 'Разделы консалтинга:' ); ?>
+    <hr>
+
+    <?= $form->field( $model, 'about_company' )->checkbox( [ ],false )->label('О компании'); ?>
+    <?= $form->field( $model, 'documents' )->checkbox( [ ],false )->label('Документы'); ?>
+    <?= $form->field( $model, 'posts' )->checkbox( [ ],false )->label('Статьи'); ?>
+    <?= $form->field( $model, 'faq' )->checkbox( [ ],false )->label('Вопрос / ответ'); ?>
 
     <div class="form-group">
         <?= Html::submitButton( $model->isNewRecord ? Yii::t( 'consulting', 'Create' ) : Yii::t( 'consulting', 'Update' ), [ 'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary' ] ) ?>

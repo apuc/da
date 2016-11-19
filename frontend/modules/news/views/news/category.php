@@ -19,7 +19,7 @@ $this->title = (empty($cat->meta_title))? $cat->title : $cat->meta_title;
     <div class="container">
         <div class="news-posts">
             <?php foreach($news as $new): ?>
-                <div class="news-posts__item" style="height:270px">
+                <div class="news-posts__item" style="height:270px;">
                     <?php $dt = ($new['news']->dt_public != $new['news']->dt_add) ? $new['news']->dt_public : $new['news']->dt_add; ?>
                     <!--<span class="date-news__post"><?/*= date('d', $dt) */?> <?/*= DateFunctions::getMonthShortName(date('m', $dt)) */?> <?/*= date('H:i', $dt) */?></span>-->
                     <!--<h4 class="category"><a href="#"><?/*= $cat->title */?></a></h4>-->
@@ -35,7 +35,7 @@ $this->title = (empty($cat->meta_title))? $cat->title : $cat->meta_title;
                     <div class="line"></div>
                 </div>
             <?php endforeach; ?>
-            <div style="float: left;width: 100%;">
+            <div style="float: left;width: 100%;margin-top: 20px">
                 <?php echo LinkPager::widget([
                     'pagination' => $pages,
                 ]); ?>
@@ -45,16 +45,20 @@ $this->title = (empty($cat->meta_title))? $cat->title : $cat->meta_title;
         <div class="main-news-prefooter">
             <div class="social">
                 <h4 class="social-header">МЫ В КОНТАКТЕ</h4>
-                <img src="/theme/portal-donbassa/img/we-at-vk.jpg" alt="">
-
+                <div id="vk_groups_news"></div>
             </div>
-            <div class="weather-forecast">
-                <h4 class="weather-header">Погода</h4>
-                <img src="/theme/portal-donbassa/img/prefooter-weather.jpg" alt="">
+            <div class="social">
+                <h4 class="social-header">МЫ В ФЕЙСБУКЕ</h4>
+                <div class="fb-page" data-href="https://www.facebook.com/da.info.pro/" data-heigh="180"
+                     data-small-header="true" data-adapt-container-width="true" data-hide-cover="true"
+                     data-show-facepile="true">
+                    <blockquote cite="https://www.facebook.com/da.info.pro/" class="fb-xfbml-parse-ignore"><a
+                            href="https://www.facebook.com/da.info.pro/">DA</a></blockquote>
+                </div>
             </div>
-            <div class="banner-bottom">
-                <img src="/theme/portal-donbassa/img/banner-bottom.png" alt="">
-            </div>
+<!--            <div class="banner-bottom">-->
+<!--                <img src="/theme/portal-donbassa/img/banner-bottom.png" alt="">-->
+<!--            </div>-->
         </div>
     </div>
 </div>
