@@ -59,13 +59,19 @@ use mihaildev\elfinder\InputFile;
     <?= $form->field( $model, 'company_id' )->dropDownList( ArrayHelper::map( Company::find()->all(), 'id', 'name' ), [ 'prompt' => 'Нет' ] ) ?>
 
 
-    <?= Html::label( 'Разделы консалтинга:' ); ?>
+    <?= Html::label( 'Разделы консалтинга:' );
+    if(Yii::$app->controller->action->id == 'create') {
+        $checked = ['checked '=> true];
+    }else{
+        $checked = [];
+    }
+    ?>
     <hr>
 
-    <?= $form->field( $model, 'about_company' )->checkbox( [ ],false )->label('О компании'); ?>
-    <?= $form->field( $model, 'documents' )->checkbox( [ ],false )->label('Документы'); ?>
-    <?= $form->field( $model, 'posts' )->checkbox( [ ],false )->label('Статьи'); ?>
-    <?= $form->field( $model, 'faq' )->checkbox( [ ],false )->label('Вопрос / ответ'); ?>
+    <?= $form->field( $model, 'about_company' )->checkbox(  $checked,false )->label('О компании'); ?>
+    <?= $form->field( $model, 'documents' )->checkbox( $checked,false )->label('Документы'); ?>
+    <?= $form->field( $model, 'posts' )->checkbox( $checked,false )->label('Статьи'); ?>
+    <?= $form->field( $model, 'faq' )->checkbox( $checked,false )->label('Вопрос / ответ'); ?>
 
     <div class="form-group">
         <?= Html::submitButton( $model->isNewRecord ? Yii::t( 'consulting', 'Create' ) : Yii::t( 'consulting', 'Update' ), [ 'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary' ] ) ?>

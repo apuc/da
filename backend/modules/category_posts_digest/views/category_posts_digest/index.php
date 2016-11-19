@@ -43,20 +43,20 @@ $this->params['breadcrumbs'][] = $this->title;
             //'slug',
 //            'dt_add',
 //            'dt_update',
-            [
-                'attribute' => 'dt_add',
-                'format'    => 'text',
-                'value'     => function ( $model ) {
-                    return date( 'Y-m-d H:i', $model->dt_add );
-                }
-            ],
-            [
-                'attribute' => 'dt_update',
-                'format'    => 'text',
-                'value'     => function($model){
-                    return date('Y-m-d H:i',$model->dt_update);
-                }
-            ],
+//            [
+//                'attribute' => 'dt_add',
+//                'format'    => 'text',
+//                'value'     => function ( $model ) {
+//                    return date( 'Y-m-d H:i', $model->dt_add );
+//                }
+//            ],
+//            [
+//                'attribute' => 'dt_update',
+//                'format'    => 'text',
+//                'value'     => function($model){
+//                    return date('Y-m-d H:i',$model->dt_update);
+//                }
+//            ],
             // 'icon',
             //'type',
             ['attribute' => 'type',
@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
                  return Consulting::find()->where( [ 'slug' => $model->type ] )->one()->title;
              }
             ],
-            'order',
+            'sort_order',
             [ 'class' => 'yii\grid\ActionColumn' ],
         ],
     ] ); ?>

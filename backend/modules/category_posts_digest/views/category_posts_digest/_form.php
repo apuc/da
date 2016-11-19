@@ -32,15 +32,16 @@ use yii\widgets\ActiveForm;
 <!--    --><?//= $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'type')->dropDownList(ArrayHelper::map( Consulting::find()->all(),'slug','title'),['prompt'=>'Нет']) ?>
-    <?php if ( empty( $model->order ) ): ?>
+    <?php if ( empty( $model->sort_order ) ): ?>
 
-        <?= $form->field( $model, 'order' )->textInput( [
-            'value' => 1
+        <?= $form->field( $model, 'sort_order' )->textInput( [
+
+            'value' =>  10
         ] )->label( 'Приоритет сортироки' ); ?>
 
     <?php else: ?>
 
-        <?= $form->field( $model, 'order' )->textInput()->label( 'Приоритет сортироки' ); ?>
+        <?= $form->field( $model, 'sort_order' )->textInput()->label( 'Приоритет сортироки' ); ?>
 
     <?php endif; ?>
     <div class="form-group">

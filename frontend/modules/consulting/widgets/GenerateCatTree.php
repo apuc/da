@@ -46,6 +46,7 @@ class GenerateCatTree extends Widget {
 //                if(!empty($row['memberCount'])){
 //                     $html .= '' . ' [' . $this->getCountCat( $row['id'], $tree, $row['memberCount'] ) . ' вопросов] </a>';
 //                }
+                $html .=''. '</a>';
                 $html .= '' . $this->get_tree( $tree, $row['id'] );
                 $html .= '</li>';
                 $html .= '</li>';

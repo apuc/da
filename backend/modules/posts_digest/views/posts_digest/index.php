@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             // 'views',
-
+            'sort_order',
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

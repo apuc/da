@@ -77,7 +77,18 @@ use mihaildev\elfinder\ElFinder;
     <?php }; ?>
 
 <!--    --><?//= $form->field($model, 'views')->textInput() ?>
+    <?php if ( empty( $model->sort_order ) ): ?>
 
+        <?= $form->field( $model, 'sort_order' )->textInput( [
+
+            'value' =>  10
+        ] )->label( 'Приоритет сортироки' ); ?>
+
+    <?php else: ?>
+
+        <?= $form->field( $model, 'sort_order' )->textInput()->label( 'Приоритет сортироки' ); ?>
+
+    <?php endif; ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('faq', 'Create') : Yii::t('faq', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

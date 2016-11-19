@@ -12,7 +12,7 @@ class m161117_073657_add_order_column_to_category_faq_table extends Migration
      */
     public function up()
     {
-        $this->addColumn('category_faq', 'order', $this->integer(11));
+        $this->addColumn('category_faq', 'sort_order', $this->integer(11));
     }
 
     /**

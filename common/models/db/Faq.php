@@ -18,6 +18,7 @@ use Yii;
  * @property string $type
  * @property integer $company_id
  * @property integer $cat_id
+ * @property integer $sort_order
  */
 class Faq extends \yii\db\ActiveRecord
 {
@@ -37,7 +38,7 @@ class Faq extends \yii\db\ActiveRecord
         return [
             [['question', 'answer', 'type', 'company_id', 'cat_id'], 'required'],
             [['answer'], 'string'],
-            [['dt_add', 'dt_update', 'views', 'user_id', 'company_id', 'cat_id'], 'integer'],
+            [['dt_add', 'dt_update', 'views', 'user_id', 'company_id', 'cat_id', 'sort_order'], 'integer'],
             [['question', 'slug', 'type'], 'string', 'max' => 255],
         ];
     }
@@ -48,17 +49,18 @@ class Faq extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('faq', 'ID'),
-            'question' => Yii::t('faq', 'Question'),
-            'answer' => Yii::t('faq', 'Answer'),
-            'dt_add' => Yii::t('faq', 'Dt Add'),
-            'dt_update' => Yii::t('faq', 'Dt Update'),
-            'slug' => Yii::t('faq', 'Slug'),
-            'views' => Yii::t('faq', 'Views'),
-            'user_id' => Yii::t('faq', 'User ID'),
-            'type' => Yii::t('faq', 'Type'),
-            'company_id' => Yii::t('faq', 'Company ID'),
-            'cat_id' => Yii::t('faq', 'Cat ID'),
+            'id' => Yii::t('poster', 'ID'),
+            'question' => Yii::t('poster', 'Question'),
+            'answer' => Yii::t('poster', 'Answer'),
+            'dt_add' => Yii::t('poster', 'Dt Add'),
+            'dt_update' => Yii::t('poster', 'Dt Update'),
+            'slug' => Yii::t('poster', 'Slug'),
+            'views' => Yii::t('poster', 'Views'),
+            'user_id' => Yii::t('poster', 'User ID'),
+            'type' => Yii::t('poster', 'Type'),
+            'company_id' => Yii::t('poster', 'Company ID'),
+            'cat_id' => Yii::t('poster', 'Cat ID'),
+            'sort_order' => Yii::t('poster', 'Sort Order'),
         ];
     }
 }

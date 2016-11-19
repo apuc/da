@@ -20,7 +20,7 @@ $this->title = $consulting->title ;
             <?php endif; ?>
             <?php if($consulting->documents): ?>
                 <li>
-                    <a class="active parent" href="<?= Url::to( [ '/documents/' . $consulting->slug ] ) ?>"><span class="marker"></span><?= $consulting->title_digest;?></a>
+                    <a class="active" href="<?= Url::to( [ '/documents/' . $consulting->slug ] ) ?>"><span class="marker"></span><?= $consulting->title_digest;?></a>
                     <?= \frontend\modules\consulting\widgets\GenerateCatTree::widget( [
                         'categories' => $categories_posts,
                         'id_attr'        => 'posts-id',

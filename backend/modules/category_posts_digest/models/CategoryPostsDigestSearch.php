@@ -2,6 +2,7 @@
 
 namespace backend\modules\category_posts_digest\models;
 
+use common\classes\Debug;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -65,8 +66,7 @@ class CategoryPostsDigestSearch extends CategoryPostsDigest
             'dt_update' => $this->dt_update,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'slug', $this->slug])
+        $query->andFilterWhere(['like', 'title', $this->title ])
             ->andFilterWhere(['like', 'icon', $this->icon])
             ->andFilterWhere(['like', 'type', $this->type]);
 

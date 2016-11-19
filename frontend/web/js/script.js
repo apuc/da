@@ -176,6 +176,10 @@ $(document).ready(function () {
     OpenCategories(el,i);
 
 
+    //Waryataw 18_11_16
+
+    //Waryataw 18_11_16
+
 });
 
 function OpenCategories(el,i) {
@@ -197,3 +201,13 @@ function OpenCategories(el,i) {
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
+$(document).on('click','.parent',function () {
+
+    if($(this).closest('li').find('ul').length > 0){
+        $(this).parent('li').find('ul').first().slideToggle().toggleClass('active');
+        
+        return false;
+    }
+
+
+})

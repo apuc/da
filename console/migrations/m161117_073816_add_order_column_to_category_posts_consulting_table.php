@@ -12,7 +12,7 @@ class m161117_073816_add_order_column_to_category_posts_consulting_table extends
      */
     public function up()
     {
-        $this->addColumn('category_posts_consulting', 'order', $this->integer(11));
+        $this->addColumn('category_posts_consulting', 'sort_order', $this->integer(11));
     }
 
     /**

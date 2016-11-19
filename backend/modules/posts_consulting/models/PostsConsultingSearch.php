@@ -69,7 +69,6 @@ class PostsConsultingSearch extends PostsConsulting
 
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'content', $this->content])
-            ->andFilterWhere(['like', 'slug', $this->slug])
             ->andFilterWhere(['like', 'photo', $this->photo])
             ->andFilterWhere(['like', 'type', $this->type]);
 

@@ -12,7 +12,7 @@ class m161117_073835_add_order_column_to_category_posts_digest_table extends Mig
      */
     public function up()
     {
-        $this->addColumn('category_posts_digest', 'order', $this->integer(11));
+        $this->addColumn('category_posts_digest', 'sort_order', $this->integer(11));
     }
 
     /**
