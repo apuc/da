@@ -44,20 +44,20 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             //'slug',
             //'dt_add',
-            [
-                'attribute' => 'dt_add',
-                'format'    => 'text',
-                'value'     => function ( $model ) {
-                    return date( 'Y-m-d H:i', $model->dt_add );
-                }
-            ],
-            [
-                'attribute' => 'dt_update',
-                'format'    => 'text',
-                'value'     => function ( $model ) {
-                    return date( 'Y-m-d H:i', $model->dt_update );
-                }
-            ],
+//            [
+//                'attribute' => 'dt_add',
+//                'format'    => 'text',
+//                'value'     => function ( $model ) {
+//                    return date( 'Y-m-d H:i', $model->dt_add );
+//                }
+//            ],
+//            [
+//                'attribute' => 'dt_update',
+//                'format'    => 'text',
+//                'value'     => function ( $model ) {
+//                    return date( 'Y-m-d H:i', $model->dt_update );
+//                }
+//            ],
             // 'dt_update',
             // 'icon',
             //'type',
@@ -72,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 }
             ],
-            'order',
+            'sort_order',
             [
                 'class' => 'yii\grid\ActionColumn'
             ],

@@ -71,7 +71,6 @@ class FaqSearch extends Faq
         ]);
         $query->andFilterWhere(['like', 'question', $this->question])
             ->andFilterWhere(['like', 'answer', $this->answer])
-            ->andFilterWhere(['like', 'slug', $this->slug])
             ->andFilterWhere(['like', 'type', $this->type]);
 
         return $dataProvider;

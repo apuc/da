@@ -15,7 +15,7 @@ use Yii;
  * @property integer $dt_update
  * @property string $icon
  * @property string $type
- * @property integer $order
+ * @property integer $sort_order
  */
 class CategoryPostsDigest extends \yii\db\ActiveRecord
 {
@@ -34,7 +34,7 @@ class CategoryPostsDigest extends \yii\db\ActiveRecord
     {
         return [
             [['title'], 'required'],
-            [['parent_id', 'dt_add', 'dt_update', 'order'], 'integer'],
+            [['parent_id', 'dt_add', 'dt_update', 'sort_order'], 'integer'],
             [['title', 'slug', 'icon', 'type'], 'string', 'max' => 255],
         ];
     }
@@ -53,7 +53,7 @@ class CategoryPostsDigest extends \yii\db\ActiveRecord
             'dt_update' => Yii::t('poster', 'Dt Update'),
             'icon' => Yii::t('poster', 'Icon'),
             'type' => Yii::t('poster', 'Type'),
-            'order' => Yii::t('poster', 'Order'),
+            'sort_order' => Yii::t('poster', 'Sort Order'),
         ];
     }
 }

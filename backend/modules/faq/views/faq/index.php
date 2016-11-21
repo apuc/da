@@ -81,7 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return date( 'Y-m-d H:i', $model->dt_update );
                 }
             ],
-
+            'sort_order',
             [ 'class' => 'yii\grid\ActionColumn' ],
         ],
     ] ); ?>

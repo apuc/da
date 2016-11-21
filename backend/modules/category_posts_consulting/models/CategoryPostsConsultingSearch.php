@@ -66,7 +66,6 @@ class CategoryPostsConsultingSearch extends CategoryPostsConsulting
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'slug', $this->slug])
             ->andFilterWhere(['like', 'icon', $this->icon])
             ->andFilterWhere(['like', 'type', $this->type]);
 

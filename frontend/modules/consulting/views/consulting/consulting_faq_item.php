@@ -29,7 +29,7 @@ $this->title = $faq->question ;
             <?php endif; ?>
             <?php if($consulting->faq): ?>
                 <li>
-                    <a class="active parent" faq-id="0" href="<?= Url::to( [ '/faq/' . $consulting->slug ] ) ?>"><span
+                    <a class="active" faq-id="0" href="<?= Url::to( [ '/faq/' . $consulting->slug ] ) ?>"><span
                             class="marker"></span>Вопрос / ответ</a>
                     <?= \frontend\modules\consulting\widgets\GenerateCatTree::widget( [
                         'categories' => $categories_faq,
