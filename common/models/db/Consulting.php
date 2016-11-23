@@ -21,6 +21,8 @@ use Yii;
  * @property integer $documents
  * @property integer $posts
  * @property integer $faq
+ * @property string $meta_title
+ * @property string $meta_descr
  */
 class Consulting extends \yii\db\ActiveRecord
 {
@@ -41,7 +43,7 @@ class Consulting extends \yii\db\ActiveRecord
             [['title', 'company_id', 'title_digest'], 'required'],
             [['descr'], 'string'],
             [['dt_add', 'dt_update', 'views', 'company_id', 'about_company', 'documents', 'posts', 'faq'], 'integer'],
-            [['title', 'slug', 'icon', 'title_digest'], 'string', 'max' => 255],
+            [['title', 'slug', 'icon', 'title_digest', 'meta_title', 'meta_descr'], 'string', 'max' => 255],
         ];
     }
 
@@ -65,6 +67,8 @@ class Consulting extends \yii\db\ActiveRecord
             'documents' => Yii::t('poster', 'Documents'),
             'posts' => Yii::t('poster', 'Posts'),
             'faq' => Yii::t('poster', 'Faq'),
+            'meta_title' => Yii::t('poster', 'Meta Title'),
+            'meta_descr' => Yii::t('poster', 'Meta Descr'),
         ];
     }
 }

@@ -91,6 +91,8 @@ use common\models\db\CategoryFaq;
         <?= $form->field( $model, 'sort_order' )->textInput()->label( 'Приоритет сортироки' ); ?>
 
     <?php endif; ?>
+    <?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'meta_descr')->textInput(['maxlength' => true]) ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('faq', 'Create') : Yii::t('faq', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

@@ -31,13 +31,13 @@ class ConsultingController extends \yii\web\Controller {
 
         $consulting = Consulting::find()->where( [ 'slug' => $request->get( 'slug' ) ] )->one();
         if ( empty( $consulting->about_company ) ) {
-            if(!empty($consulting->documents)){
+            if ( ! empty( $consulting->documents ) ) {
                 return $this->redirect( [ '/consulting/consulting/documents', 'slug' => $request->get( 'slug' ) ] );
-            }elseif (!empty($consulting->posts)){
+            } elseif ( ! empty( $consulting->posts ) ) {
                 return $this->redirect( [ '/consulting/consulting/posts', 'slug' => $request->get( 'slug' ) ] );
-            }elseif (!empty($consulting->faq)){
+            } elseif ( ! empty( $consulting->faq ) ) {
                 return $this->redirect( [ '/consulting/consulting/faq', 'slug' => $request->get( 'slug' ) ] );
-            }else{
+            } else {
                 return $this->redirect( [ '/consulting/consulting/index' ] );
             }
         }
@@ -77,6 +77,15 @@ class ConsultingController extends \yii\web\Controller {
             $consulting = Consulting::find()->where( [ 'slug' => $type ] )->one();
         }
 
+        if ( ! empty( $id ) ) {
+            $cur_cat    = CategoryFaq::find()->where( [ 'id' => $id ] )->one();
+            $meta_title = ( empty( $cur_cat->meta_title ) ) ? $cur_cat->title : $cur_cat->meta_title;
+            $meta_descr = $cur_cat->meta_descr;
+        } else {
+            $meta_title = ( empty( $consulting->meta_title ) ) ? $consulting->title : $consulting->meta_title;
+            $meta_descr = $consulting->meta_descr;
+        }
+
         $db             = new Connection( Yii::$app->db );
         $categories_faq = $db->createCommand( "SELECT *, (SELECT COUNT(*) FROM `faq` WHERE cat_id = category_faq.id) AS memberCount FROM `category_faq` as category_faq WHERE category_faq.type = '$consulting->slug'
         ORDER BY category_faq.sort_order, category_faq.dt_add" )->queryAll();
@@ -108,6 +117,8 @@ class ConsultingController extends \yii\web\Controller {
             'dataProvider'   => $dataProvider,
             'active_id'      => $id,
             'url'            => "/consulting/consulting/faq",
+            'meta_title'       => $meta_title,
+            'meta_descr'       => $meta_descr,
         ] );
     }
 
@@ -157,6 +168,15 @@ class ConsultingController extends \yii\web\Controller {
             $consulting  = Consulting::find()->where( [ 'slug' => $type ] )->one();
         }
 
+        if ( ! empty( $id ) ) {
+            $cur_cat    = CategoryPostsConsulting::find()->where( [ 'id' => $id ] )->one();
+            $meta_title = ( empty( $cur_cat->meta_title ) ) ? $cur_cat->title : $cur_cat->meta_title;
+            $meta_descr = $cur_cat->meta_descr;
+        } else {
+            $meta_title = ( empty( $consulting->meta_title ) ) ? $consulting->title : $consulting->meta_title;
+            $meta_descr = $consulting->meta_descr;
+        }
+        
         $db               = new Connection( Yii::$app->db );
         $categories_posts = $db->createCommand( "SELECT *, (SELECT COUNT(*) FROM `posts_consulting` WHERE cat_id = category_posts_consulting.id) AS memberCount FROM `category_posts_consulting` as category_posts_consulting WHERE category_posts_consulting.type = '$consulting->slug'
         ORDER BY category_posts_consulting.sort_order, category_posts_consulting.dt_add " )->queryAll();
@@ -188,6 +208,8 @@ class ConsultingController extends \yii\web\Controller {
             'dataProvider'     => $dataProvider,
             'active_id'        => $id,
             'url'              => "/consulting/consulting/posts",
+            'meta_title'       => $meta_title,
+            'meta_descr'       => $meta_descr,
         ] );
     }
 
@@ -237,7 +259,16 @@ class ConsultingController extends \yii\web\Controller {
             $consulting  = Consulting::find()->where( [ 'slug' => $type ] )->one();
         }
 
-        $db = new Connection( Yii::$app->db );
+        if ( ! empty( $id ) ) {
+            $cur_cat    = CategoryPostsDigest::find()->where( [ 'id' => $id ] )->one();
+            $meta_title = ( empty( $cur_cat->meta_title ) ) ? $cur_cat->title : $cur_cat->meta_title;
+            $meta_descr = $cur_cat->meta_descr;
+        } else {
+            $meta_title = ( empty( $consulting->meta_title ) ) ? $consulting->title : $consulting->meta_title;
+            $meta_descr = $consulting->meta_descr;
+        }
+
+        // $db = new Connection( Yii::$app->db );
 //        $categories_posts = $db->createCommand( "SELECT *, (SELECT COUNT(*) FROM `posts_digest` WHERE cat_id = category_posts_digest.id) AS memberCount FROM `category_posts_digest` as category_posts_digest WHERE category_posts_digest.type = '$consulting->slug'
 //        " )->queryAll();
         $categories_posts = CategoryPostsDigest::find()->where( [ 'type' => $consulting->slug ] )->orderBy( 'sort_order, dt_add' )->all();
@@ -268,6 +299,8 @@ class ConsultingController extends \yii\web\Controller {
             'dataProvider'     => $dataProvider,
             'active_id'        => $id,
             'url'              => "/consulting/consulting/documents",
+            'meta_title'       => $meta_title,
+            'meta_descr'       => $meta_descr,
         ] );
     }
 

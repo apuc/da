@@ -72,7 +72,8 @@ use mihaildev\elfinder\InputFile;
     <?= $form->field( $model, 'documents' )->checkbox( $checked,false )->label('Документы'); ?>
     <?= $form->field( $model, 'posts' )->checkbox( $checked,false )->label('Статьи'); ?>
     <?= $form->field( $model, 'faq' )->checkbox( $checked,false )->label('Вопрос / ответ'); ?>
-
+    <?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'meta_descr')->textInput(['maxlength' => true]) ?>
     <div class="form-group">
         <?= Html::submitButton( $model->isNewRecord ? Yii::t( 'consulting', 'Create' ) : Yii::t( 'consulting', 'Update' ), [ 'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary' ] ) ?>
     </div>

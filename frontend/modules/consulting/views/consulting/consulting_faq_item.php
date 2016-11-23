@@ -1,5 +1,10 @@
 <?php use yii\helpers\Url;
-$this->title = $faq->question ;
+
+$this->title = (empty($faq->meta_title)) ? $faq->question : $faq->meta_title;
+$this->registerMetaTag( [
+    'name'    => 'description',
+    'content' => $posts->meta_descr,
+] );
 ; ?>
 <div class="consult-item">
     <div class="consult-item-mnu">
