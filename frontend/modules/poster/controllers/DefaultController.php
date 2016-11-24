@@ -28,7 +28,7 @@ class DefaultController extends Controller
 
     public function actionView($slug){
         $poster = Poster::find()->where(['slug'=>$slug])->one();
-
+        $poster->updateAllCounters(['views'=>1],['id'=>$poster->id]);
         return $this->render('view', [
             'poster' => $poster
         ]);
