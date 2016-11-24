@@ -11,3 +11,45 @@ input#profile-avatar {
 .selectAvatar {
   position: relative;
 }
+
+.consult-views-list{
+  position: absolute;
+  bottom: 20px;
+  right: -28px;
+  width: 50px;
+  color: #5b5b5b;
+  font-size: 11px;
+  font-family: RobotoRegular;
+  .views-icon{
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    margin-right: 5px;
+    width: 18px;
+    height: 12px;
+    background-image: url('../img/view-icon.png');
+    background-repeat: no-repeat;
+  }
+
+}
+
+.consult-views{
+  width: 100%;
+  text-align: right;
+  color: #5b5b5b;
+  font-size: 11px;
+  font-family: RobotoRegular;
+  margin-top: 10px!important;
+  padding-right: 1px;
+  .views-icon{
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    margin-right: 5px;
+    width: 18px;
+    height: 12px;
+    background-image: url('../img/view-icon.png');
+    background-repeat: no-repeat;
+  }
+
+}
