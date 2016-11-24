@@ -11,7 +11,9 @@ $this->registerMetaTag( [
         <p class="consult-img">
             <i class="fa <?= $consulting->icon; ?>"></i>
         </p>
+
         <h4><?= $consulting->title; ?></h4>
+
         <div class="shape">
             <img src="/theme/portal-donbassa/img/shape-line.png" alt="">
         </div>
@@ -54,7 +56,8 @@ $this->registerMetaTag( [
                 <input type="submit" value="искать">
             </form>
             <div class="clearfix"></div>
-            <h3 class="faq-section"><?= $cat_faq; ?></h3>
+            <span class="consult-views"><span class="views-icon"></span><?= $faq['views'];?></span>
+<!--            <h3 class="faq-section">--><?//= $cat_faq; ?><!--</h3>-->
             <div class="faq-items">
                 <div class="faq-item">
                     <span class="date"><?= date( 'd.m.y', $faq->dt_add ); ?></span>

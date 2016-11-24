@@ -13,4 +13,5 @@ use yii\helpers\Url;
 <!--    </p>-->
     <a href="<?= Url::to( [ '/consulting/consulting/faqv', 'slug' => $model['type'],'faqslug' => $model['slug'] ] ); ?>"
        class="read-answer">Читать ответ</a>
+    <span class="consult-views-list"><span class="views-icon"></span><?= $model['views'];?></span>
 </div>

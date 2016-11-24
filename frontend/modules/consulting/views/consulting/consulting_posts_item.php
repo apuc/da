@@ -54,7 +54,8 @@ $this->registerMetaTag( [
                 <input type="submit" value="искать">
             </form>
             <div class="clearfix"></div>
-            <h3 class="faq-section"><?= $cat_posts; ?></h3>
+            <span class="consult-views"><span class="views-icon"></span><?= $posts['views'];?></span>
+            <h3 class="faq-section faq-section-header-item"><?= $cat_posts; ?></h3>
             <div class="faq-items">
                 <div class="faq-item">
                     <span class="date"><?= date( 'd.m.y', $posts->dt_add ); ?></span>
@@ -69,7 +70,7 @@ $this->registerMetaTag( [
                     <p class="answer">
                         <?= $posts->content; ?>
                     </p>
-                    <a href="<?= Url::to( [ '/consulting/consulting/faq', 'slugcategory' => $category->slug ] ); ?>"
+                    <a href="<?= Url::to( [ '/consulting/consulting/posts', 'slugcategory' => $category->slug ] ); ?>"
                        class="read-answer">Вернуться
                         в
                         раздел</a>

@@ -130,6 +130,7 @@ class ConsultingController extends \yii\web\Controller {
         if ( $request->get()['faqslug'] ) {
 
             $faq            = Faq::find()->where( [ 'slug' => $faq_slug ] )->one();
+            $faq->updateAllCounters(['views'=>1],['id'=>$faq->id]);
             $category_id    = $faq->cat_id;
             $category       = CategoryFaq::find()->where( [ 'id' => $category_id ] )->one();
             $consulting     = Consulting::find()->where( [ 'slug' => $consulting ] )->one();
@@ -217,10 +218,11 @@ class ConsultingController extends \yii\web\Controller {
 
         $request    = Yii::$app->request;
         $post_slug  = $request->get()['postslug'];
+
         $consulting = $request->get()['slug'];
         if ( $request->get()['postslug'] ) {
-
             $posts            = PostsConsulting::find()->where( [ 'slug' => $post_slug ] )->one();
+            $posts->updateAllCounters(['views'=>1],['id'=>$posts->id]);
             $category_id      = $posts->cat_id;
             $category         = CategoryPostsConsulting::find()->where( [ 'id' => $category_id ] )->one();
             $consulting       = Consulting::find()->where( [ 'slug' => $consulting ] )->one();
@@ -312,6 +314,7 @@ class ConsultingController extends \yii\web\Controller {
         if ( $request->get()['postslug'] ) {
 
             $posts            = PostsDigest::find()->where( [ 'slug' => $post_slug ] )->one();
+            $posts->updateAllCounters(['views'=>1],['id'=>$posts->id]);
             $category_id      = $posts->cat_id;
             $category         = CategoryPostsDigest::find()->where( [ 'id' => $category_id ] )->one();
             $consulting       = Consulting::find()->where( [ 'slug' => $consulting ] )->one();
