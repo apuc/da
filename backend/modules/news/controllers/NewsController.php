@@ -35,6 +35,12 @@ class NewsController extends Controller
         ];
     }
 
+
+    public function beforeAction($action) {
+        $this->enableCsrfValidation = ($action->id !== "update");
+        return parent::beforeAction($action);
+    }
+
     /**
      * Lists all News models.
      * @return mixed
