@@ -53,6 +53,49 @@ input#profile-avatar {
   }
 
 }
+
+.consult-views-poster{
+  width: 9%;
+  float: right;
+  text-align: right;
+  color: #5b5b5b;
+  font-size: 11px;
+  font-family: RobotoRegular;
+  margin-top: 25px!important;
+  padding-right: 1px;
+  .views-icon{
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    margin-right: 5px;
+    width: 18px;
+    height: 12px;
+    background-image: url('../img/view-icon.png');
+    background-repeat: no-repeat;
+  }
+
+}
+
+.consult-views{
+  width: 100%;
+  text-align: right;
+  color: #5b5b5b;
+  font-size: 11px;
+  font-family: RobotoRegular;
+  margin-top: 10px!important;
+  padding-right: 1px;
+  .views-icon{
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    margin-right: 5px;
+    width: 18px;
+    height: 12px;
+    background-image: url('../img/view-icon.png');
+    background-repeat: no-repeat;
+  }
+
+}
 .error-404{
   display: block;
   margin: auto;

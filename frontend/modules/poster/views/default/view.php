@@ -18,6 +18,7 @@ $this->title =  $poster->title;
         <span>&raquo</span>
         <p><?= \frontend\modules\poster\models\Poster::getCategoryName($poster->id) ?></p>
     </div>
+    <span class="consult-views-poster"><span class="views-icon"></span><?= $poster->views;?></span>
     <div class="poster-container">
         <span class="date-news__post"><?= date('d', $poster->dt_event) ?> <?= DateFunctions::getMonthShortName(date('m',$poster->dt_event)) ?></span>
         <div class="poster-img-container">
