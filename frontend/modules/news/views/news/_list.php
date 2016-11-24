@@ -6,9 +6,9 @@
     <a href="<?= \yii\helpers\Url::to(['/news/default/view', 'slug' => $model['slug']]) ?>">
 
         <?= $model['title'] ?>
-<!--        <span class="views">-->
-<!--            <span class="view-icon"></span>-->
-<!--            --><?//= $model['views'] ?>
-<!--        </span>-->
+        <span class="views">
+            <span class="view-icon"></span>
+            <?= $model['views'] ?>
+        </span>
     </a>
 </li>

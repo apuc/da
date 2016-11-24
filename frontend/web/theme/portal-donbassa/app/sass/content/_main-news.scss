@@ -163,7 +163,7 @@
         font-size: 13px;
         color: #000;
         text-decoration: none;
-        padding-right:70px;
+        padding-right:100px;
         overflow: hidden;
         height: 34px;
         .views{
@@ -171,14 +171,17 @@
           font-size: 11px;
           font-family: $rr;
           position: absolute;
-          top: 28px;
-          right: 18px;
+          top: 4px;
+          right: 41px;
+          width: 50px;
           .view-icon{
             size: 18px 12px;
             display: inline-block;
             background-repeat: no-repeat;
             background-image: url("../img/view-icon.png");
-            margin-right: 5px;
+            margin-right: 1px;
+            position: relative;
+            top: 2px;
           }
         }
       }
