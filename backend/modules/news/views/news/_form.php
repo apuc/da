@@ -82,9 +82,8 @@ use yii\widgets\ActiveForm;
     </div>
 
     <?=  $form->field($model, 'status')->dropDownList([
-
-        '1'=>'На модерации',
         '0'=>'Опубликована',
+        '1'=>'На модерации',
         '3'=>'Отложена',
     ])->label('Статус')  ?>
 
