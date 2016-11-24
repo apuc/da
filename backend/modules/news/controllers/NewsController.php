@@ -110,7 +110,7 @@ class NewsController extends Controller
         }
         if ($model->load(Yii::$app->request->post())) {
             //$model->status = (!empty($_POST['dt_public_time'])) ? 3 : 0;
-            //$model->dt_public = (!empty($_POST['dt_public_time'])) ? strtotime($_POST['News']['dt_public'] . ' ' . $_POST['dt_public_time']) : time();
+            $model->dt_public = (!empty($_POST['dt_public_time'])) ? strtotime($_POST['News']['dt_public'] . ' ' . $_POST['dt_public_time']) : time();
             $model->save();
             CategoryNewsRelations::deleteAll(['new_id'=>$model->id]);
             foreach($_POST['categ'] as $cat){
