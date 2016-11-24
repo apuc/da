@@ -16,6 +16,8 @@ use Yii;
  * @property string $icon
  * @property string $type
  * @property integer $sort_order
+ * @property string $meta_title
+ * @property string $meta_descr
  */
 class CategoryPostsConsulting extends \yii\db\ActiveRecord
 {
@@ -35,7 +37,7 @@ class CategoryPostsConsulting extends \yii\db\ActiveRecord
         return [
             [['title'], 'required'],
             [['parent_id', 'dt_add', 'dt_update', 'sort_order'], 'integer'],
-            [['title', 'slug', 'icon', 'type'], 'string', 'max' => 255],
+            [['title', 'slug', 'icon', 'type', 'meta_title', 'meta_descr'], 'string', 'max' => 255],
         ];
     }
 
@@ -54,6 +56,8 @@ class CategoryPostsConsulting extends \yii\db\ActiveRecord
             'icon' => Yii::t('poster', 'Icon'),
             'type' => Yii::t('poster', 'Type'),
             'sort_order' => Yii::t('poster', 'Sort Order'),
+            'meta_title' => Yii::t('poster', 'Meta Title'),
+            'meta_descr' => Yii::t('poster', 'Meta Descr'),
         ];
     }
 }

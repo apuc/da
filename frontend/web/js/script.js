@@ -180,6 +180,15 @@ $(document).ready(function () {
 
     //Waryataw 18_11_16
 
+    // $("#profile-avatar").change(function () {
+    //     console.log('ok');
+    //     readURL(this);
+ //    // });
+ // $(document).on('click','.profile-avatar',function () {
+ //     console.log('ok');
+ // })
+
+
 });
 
 function OpenCategories(el,i) {
@@ -211,3 +220,22 @@ $(document).on('click','.parent',function () {
 
 
 })
+
+$(document).on('change','.profile-avatar',function () {
+console.log('ok');
+        readURL(this);
+})
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('.blah').attr('src', e.target.result);
+
+            console.log(input.files);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}

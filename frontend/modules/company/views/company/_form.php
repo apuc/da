@@ -40,20 +40,30 @@ use yii\widgets\ActiveForm;
 
     <?/*= $form->field($model, 'photo')->textInput(['maxlength' => true]) */?>
     <div class="imgUpload">
-        <div class="media__upload_img"><img src="<?= $model->photo; ?>" width="100px"/></div>
+<!--        <div class="media__upload_img"><img src="--><?//= $model->photo; ?><!--" width="100px"/></div>-->
+<!--        --><?php
+//        echo InputFile::widget([
+//            'language' => 'ru',
+//            'controller' => 'elfinder', // вставляем название контроллера, по умолчанию равен elfinder
+//            'filter' => 'image', // фильтр файлов, можно задать массив фильтров https://github.com/Studio-42/elFinder/wiki/Client-con..
+//            'name' => 'Company[photo]',
+//            'id' => 'company-photo',
+//            'template' => '<div class="input-group">{input}<span class="span-btn">{button}</span></div>',
+//            'options' => ['class' => 'form-control itemImg', 'maxlength' => '255'],
+//            'buttonOptions' => ['class' => 'choose-img btn btn-primary'],
+//            'value' => $model->photo,
+//            'buttonName' => 'Выбрать изображение',
+//        ]);
+//        ?>
         <?php
-        echo InputFile::widget([
-            'language' => 'ru',
-            'controller' => 'elfinder', // вставляем название контроллера, по умолчанию равен elfinder
-            'filter' => 'image', // фильтр файлов, можно задать массив фильтров https://github.com/Studio-42/elFinder/wiki/Client-con..
-            'name' => 'Company[photo]',
-            'id' => 'company-photo',
-            'template' => '<div class="input-group">{input}<span class="span-btn">{button}</span></div>',
-            'options' => ['class' => 'form-control itemImg', 'maxlength' => '255'],
-            'buttonOptions' => ['class' => 'choose-img btn btn-primary'],
-            'value' => $model->photo,
-            'buttonName' => 'Выбрать изображение',
-        ]);
+
+        echo $form->field( $model, 'photo', [
+            'template' => '{label}<div class="selectAvatar">
+                    <span>Нажмите для выбора</span>
+                    <img style="margin-top: 21px;" class="blah" src="/theme/portal-donbassa/img/picture.svg" alt="" width="160px"> {input}</div>',
+
+        ] )->label( 'Загрузить аватар с компютера' )->fileInput(['class'=>'profile-avatar','id'=>'profile-avatar']);
+
         ?>
     </div>
 
@@ -63,11 +73,11 @@ use yii\widgets\ActiveForm;
 
     <?/*= $form->field($model, 'descr')->textarea(['rows' => 6]) */?>
     <?php echo $form->field($model, 'descr')->widget(CKEditor::className(), [
-        'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
-            'preset' => 'full',
-            'inline' => false,
-            'path' => 'frontend/web/media/upload',
-        ]),
+//        'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
+//            'preset' => 'full',
+//            'inline' => false,
+//            'path' => 'frontend/web/media/upload',
+//        ]),
     ]); ?>
 
     <?/*= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) */?><!--

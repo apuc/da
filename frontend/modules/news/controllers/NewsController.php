@@ -2,6 +2,7 @@
 
 namespace frontend\modules\news\controllers;
 
+use app\models\UploadPhoto;
 use common\classes\Debug;
 use common\models\db\CategoryNews;
 use common\models\db\CategoryNewsRelations;
@@ -16,6 +17,7 @@ use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * NewsController implements the CRUD actions for News model.
@@ -92,6 +94,19 @@ class NewsController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->status = 1;
             $model->user_id = Yii::$app->user->getId();
+
+
+            if($_FILES['News']['name']['photo']){
+                $upphoto = New \common\models\UploadPhoto();
+                $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
+                $loc = 'media/upload/userphotos/'. date('dmY') . '/';
+                if(!is_dir($loc)){
+                    mkdir($loc);
+                }
+                $upphoto->location = $loc;
+                $upphoto->upload();
+                $model->photo = '/'. $loc . $_FILES['News']['name']['photo'];
+            }
             $model->save();
             $catNewRel = new CategoryNewsRelations();
             $catNewRel->cat_id = $_POST['categ'];

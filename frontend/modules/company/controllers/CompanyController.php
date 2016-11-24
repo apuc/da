@@ -15,6 +15,7 @@ use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * CompanyController implements the CRUD actions for Company model.
@@ -115,6 +116,17 @@ class CompanyController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->status = 1;
+            if($_FILES['Company']['name']['photo']){
+                $upphoto = New \common\models\UploadPhoto();
+                $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
+                $loc = 'media/upload/userphotos/'. date('dmY') . '/';
+                if(!is_dir($loc)){
+                    mkdir($loc);
+                }
+                $upphoto->location = $loc;
+                $upphoto->upload();
+                $model->photo = '/'. $loc . $_FILES['Company']['name']['photo'];
+            }
             $model->save();
             $catCompanyRel = new CategoryCompanyRelations();
             $catCompanyRel->cat_id = $_POST['categ'];

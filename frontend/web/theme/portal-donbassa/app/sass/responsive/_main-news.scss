@@ -77,7 +77,10 @@
     padding: 1px;
   }
 }
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
+  .main-news .all-news-to-day li a .views{
+    right: 1px;
+  }
   .news__post {
     overflow: hidden;
     padding-left: 0;
@@ -137,10 +140,10 @@
     width: 100%;
   }
   .main-news .all-news-to-day li a {
-    padding-right: 20px;
+    padding-right: 106px;
   }
   .main-news .all-news-to-day li .time {
-    left: -52px;
+    left: -57px;
   }
   .all-news-to-day {
     padding-left: 10px;

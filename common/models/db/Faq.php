@@ -19,6 +19,8 @@ use Yii;
  * @property integer $company_id
  * @property integer $cat_id
  * @property integer $sort_order
+ * @property string $meta_title
+ * @property string $meta_descr
  */
 class Faq extends \yii\db\ActiveRecord
 {
@@ -39,7 +41,7 @@ class Faq extends \yii\db\ActiveRecord
             [['question', 'answer', 'type', 'company_id', 'cat_id'], 'required'],
             [['answer'], 'string'],
             [['dt_add', 'dt_update', 'views', 'user_id', 'company_id', 'cat_id', 'sort_order'], 'integer'],
-            [['question', 'slug', 'type'], 'string', 'max' => 255],
+            [['question', 'slug', 'type', 'meta_title', 'meta_descr'], 'string', 'max' => 255],
         ];
     }
 
@@ -61,6 +63,8 @@ class Faq extends \yii\db\ActiveRecord
             'company_id' => Yii::t('poster', 'Company ID'),
             'cat_id' => Yii::t('poster', 'Cat ID'),
             'sort_order' => Yii::t('poster', 'Sort Order'),
+            'meta_title' => Yii::t('poster', 'Meta Title'),
+            'meta_descr' => Yii::t('poster', 'Meta Descr'),
         ];
     }
 }

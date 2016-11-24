@@ -19,6 +19,8 @@ use Yii;
  * @property integer $cat_id
  * @property integer $views
  * @property integer $sort_order
+ * @property string $meta_title
+ * @property string $meta_descr
  */
 class PostsConsulting extends \yii\db\ActiveRecord
 {
@@ -39,7 +41,7 @@ class PostsConsulting extends \yii\db\ActiveRecord
             [['title', 'type', 'cat_id'], 'required'],
             [['content'], 'string'],
             [['dt_add', 'dt_update', 'user_id', 'cat_id', 'views', 'sort_order'], 'integer'],
-            [['title', 'slug', 'photo', 'type'], 'string', 'max' => 255],
+            [['title', 'slug', 'photo', 'type', 'meta_title', 'meta_descr'], 'string', 'max' => 255],
         ];
     }
 
@@ -61,6 +63,8 @@ class PostsConsulting extends \yii\db\ActiveRecord
             'cat_id' => Yii::t('poster', 'Cat ID'),
             'views' => Yii::t('poster', 'Views'),
             'sort_order' => Yii::t('poster', 'Sort Order'),
+            'meta_title' => Yii::t('poster', 'Meta Title'),
+            'meta_descr' => Yii::t('poster', 'Meta Descr'),
         ];
     }
 }
