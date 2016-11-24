@@ -8,6 +8,11 @@
 use yii\helpers\Html;
 
 $this->title = $name;
+if ($exception->statusCode == 404){
+    ?>
+    <img class="error-404" src="/theme/portal-donbassa/img/404.png" alt="">
+    <?php
+}else{
 ?>
 <div class="site-error">
 
@@ -25,3 +30,4 @@ $this->title = $name;
     </p>
 
 </div>
+<?php }; ?>
