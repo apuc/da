@@ -78,7 +78,7 @@ class NewsController extends Controller {
 
         if ( $model->load( Yii::$app->request->post() ) ) {
             //Debug::prn($_POST['News']['dt_public']);
-            $model->status    = ( ! empty( $_POST['dt_public_time'] ) ) ? 3 : 0;
+         //   $model->status    = ( ! empty( $_POST['dt_public_time'] ) ) ? 3 : 0;
             $model->user_id   = Yii::$app->user->getId();
             $model->dt_public = ( ! empty( $_POST['dt_public_time'] ) ) ? strtotime( $_POST['News']['dt_public'] . ' ' . $_POST['dt_public_time'] ) : time();
             $model->save();
@@ -120,13 +120,13 @@ class NewsController extends Controller {
 
             $model->dt_public = ( ! empty( $_POST['dt_public_time'] ) ) ? strtotime( $_POST['News']['dt_public'] . ' ' . $_POST['dt_public_time'] ) : '';
 
-            if ( ! empty( $model->dt_public ) ) {
-                if ( $model->dt_public <= time() ) {
-                    $model->status = 0;
-                }else{
-                    $model->status = 3;
-                }
-            }
+//            if ( ! empty( $model->dt_public ) ) {
+//                if ( $model->dt_public <= time() ) {
+//                    $model->status = 0;
+//                }else{
+//                    //$model->status = 3;
+//                }
+//            }
 
             $model->save();
             CategoryNewsRelations::deleteAll( [ 'new_id' => $model->id ] );
