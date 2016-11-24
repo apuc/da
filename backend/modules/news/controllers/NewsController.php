@@ -119,7 +119,7 @@ class NewsController extends Controller {
 
 
             $model->dt_public = ( ! empty( $_POST['dt_public_time'] ) ) ? strtotime( $_POST['News']['dt_public'] . ' ' . $_POST['dt_public_time'] ) : '';
-//Debug::prn( $_POST);
+
             if ( ! empty( $model->dt_public ) ) {
                 if ( $model->dt_public <= time() ) {
                     $model->status = 0;
