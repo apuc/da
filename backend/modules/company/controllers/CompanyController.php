@@ -33,7 +33,11 @@ class CompanyController extends Controller
             ],
         ];
     }
+    public function beforeAction( $action ) {
+        $this->enableCsrfValidation = ( $action->id !== "update" );
 
+        return parent::beforeAction( $action );
+    }
     /**
      * Lists all Company models.
      * @return mixed
