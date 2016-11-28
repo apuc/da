@@ -101,3 +101,16 @@ input#profile-avatar {
   margin: auto;
   padding-top: 111px;
 }
+
+.views-ico{
+  font-size: 14px;
+  position: relative;
+  top:0;
+  margin-right:4px;
+}
+.views:hover{
+  color: #ff3432!important;
+  .views-ico{
+    color: #ff3432;
+  }
+}

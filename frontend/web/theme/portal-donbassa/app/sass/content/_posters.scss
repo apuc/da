@@ -117,3 +117,16 @@
 .clearfix{
   clear: both;
 }
+.archive-posters{
+  text-align: center;
+  font-size: 19px;
+  font-family:$rb;
+  display: block;
+  width: 100%;
+  color: #ff3432;
+  margin-bottom: 15px;
+  &:hover{
+    color: #ff3432;
+    text-decoration: underline;
+  }
+}

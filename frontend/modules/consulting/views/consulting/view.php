@@ -41,11 +41,11 @@ $this->registerMetaTag( [
         </ul>
     </div>
     <div class="consult-item-content">
-        <h4 class="company-title">"<?= $company->name; ?>"</h4>
+        <h4 class="company-title map-company-title">"<?= $company->name; ?>"</h4>
         <p class="company-descr"><?= $company->descr; ?></p>
         <!--            <img src="/theme/portal-donbassa/img/map.png" class="company-map" alt="">-->
         <div id="map" style="width: 100%; height: 150px; padding: 0; margin: 0;"></div>
-        <p class="company-location"><?= $company->address; ?></p>
+        <p class="company-location map-company-location"><?= $company->address; ?></p>
         <p class="company-phone"><?= $company->phone; ?></p>
     </div>
 </div>

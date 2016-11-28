@@ -98,7 +98,7 @@ AppAsset::register($this);
 <section class="title">
     <div class="container">
         <div class="title-left-side">
-            <h2><?= \frontend\widgets\GenerateH1::widget() ?></h2>
+            <h1><?= \frontend\widgets\GenerateH1::widget() ?></h1>
             <div class="title-right">
                 <?= \frontend\widgets\GenerateTitleMenu::widget(); ?>
             </div>

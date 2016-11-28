@@ -49,6 +49,9 @@ class GenerateH1 extends Widget
             elseif(Yii::$app->controller->action->id == 'single_category'){
                 $h1 = CategoryPoster::find()->where(['slug'=>$_GET['slug']])->one()->title;
             }
+            elseif (Yii::$app->controller->action->id == 'archive_category' || Yii::$app->controller->action->id == 'single_archive_category'){
+                $h1 = 'Архив мероприятий';
+            }
             else {
                 $h1 = "Афиша";
             }

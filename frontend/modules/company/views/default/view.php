@@ -24,13 +24,16 @@ $this->registerMetaTag( [
 <div class="news__post">
     <span
         class="date-news__post"><?= date( 'd', $company->dt_add ) ?> <?= DateFunctions::getMonthShortName( date( 'm', $company->dt_add ) ) ?> <?= date( 'H:i', $company->dt_add ) ?></span>
-    <h2><?= $company->name ?></h2>
+    <h2 class="map-company-title"><?= $company->name ?></h2>
     <a href="" class="view-img"><img src="<?= $company->photo ?>" alt=""></a>
     <p><b>Тел.:</b> <?= $company->phone ?></p>
-    <p><b>Адрес:</b> <?= $company->address ?></p>
+    <p><b>Адрес:</b> <span style="display: inline-block;" class="map-company-location"><?= $company->address ?></span></p>
     <p><b>Email:</b> <?= $company->email ?></p>
-    <?= $company->descr ?>
+    <div class="company-description"><?= $company->descr ?></div>
+
 </div>
+<div class="clearfix"></div>
+<div id="map" style="width: 100%; height: 300px; padding: 0; padding-left: 80px; margin: 0; display: block; float: left;"></div>
 <div class="post-nav">
     <span><a href=""><i class="fa fa-eye" aria-hidden="true"></i> <?= $company->views ?></a></span>
     <?php if ( ! empty( $company->tags ) ): ?>
@@ -48,7 +51,10 @@ $this->registerMetaTag( [
     $company_content  = preg_replace( "/\s{2,}/", " ", $company_content );
 
     $company_content = substr($company_content, 0, $count_symbols) . '...';
+
     ?>
+
+
     <span>Поделись <a onclick="Share.twitter('<?=$company_url ?>',
             '<?= $company_title ?>')" href=""
                       class="soc-icon">

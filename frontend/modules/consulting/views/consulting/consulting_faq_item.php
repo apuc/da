@@ -56,7 +56,7 @@ $this->registerMetaTag( [
                 <input type="submit" value="искать">
             </form>
             <div class="clearfix"></div>
-            <span class="consult-views"><span class="views-icon"></span><?= $faq['views'];?></span>
+            <span class="consult-views"><i class="views-ico fa fa-eye"></i><?= $faq['views'];?></span>
 <!--            <h3 class="faq-section">--><?//= $cat_faq; ?><!--</h3>-->
             <div class="faq-items">
                 <div class="faq-item">

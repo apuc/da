@@ -7,7 +7,8 @@
 
         <?= $model['title'] ?>
         <span class="views">
-            <span class="view-icon"></span>
+            <i class="views-ico fa fa-eye"></i>
+<!--            <span class="view-icon"></span>-->
             <?= $model['views'] ?>
         </span>
     </a>
