@@ -15,9 +15,10 @@ $this->title = "Афиша";
         <img src="/theme/portal-donbassa/img/shape-line.png" alt="">
     </div>
     <div class="posters-categories">
+        <a class="archive-posters" href="<?= Url::to(['/poster/default/archive_category']);?>">Архив мероприятий</a>
         <ul class="posters-categories-list">
             <?php foreach ($category as $item): ?>
-                <li><a href="<?= Url::to(['/poster/default/single_category', 'slug'=>$item->slug]) ?>"><?= $item->title ?>
+                <li><a href="<?= Url::to([(Yii::$app->controller->action->id == 'category' || Yii::$app->controller->action->id == 'single_category')?'/poster/default/single_category': '/poster/default/single_archive_category', 'slug'=>$item->slug]) ?>"><?= $item->title ?>
                         <!--<span>90</span>-->
                     </a>
                 </li>
@@ -47,7 +48,7 @@ $this->title = "Афиша";
         <div class="afisha__right">
             <?= \yii\widgets\ListView::widget([
                 'dataProvider' => $dataProvider,
-                'itemView' => (Yii::$app->controller->action->id == 'category') ? '_poster_item' : '_s_poster_item',
+                'itemView' => (Yii::$app->controller->action->id == 'category' || Yii::$app->controller->action->id == 'archive_category') ? '_poster_item' : '_s_poster_item',
                 'layout' => "{items}\n{pager}",
             ]); ?>
         </div>
