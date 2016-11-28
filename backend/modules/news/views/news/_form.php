@@ -81,7 +81,11 @@ use yii\widgets\ActiveForm;
         ?>
     </div>
 
-    <? /*= $form->field($model, 'status')->textInput() */ ?>
+    <?=  $form->field($model, 'status')->dropDownList([
+        '0'=>'Опубликована',
+        '1'=>'На модерации',
+        '3'=>'Отложена',
+    ])->label('Статус')  ?>
 
     <? /*= $form->field($model, 'user_id')->textInput() */ ?>
     <br>
