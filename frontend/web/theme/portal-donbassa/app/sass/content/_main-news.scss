@@ -126,6 +126,9 @@
     box-sizing: border-box;
     padding-top: 40px;
     padding-bottom: 21px;
+    .news{
+      padding-left: 0;
+    }
       h4{
         font-family: $rb;
         font-size: 16px;
@@ -180,6 +183,10 @@
       .column-list{
         width: 50%;
         float: left;
+        li{
+
+          height: 46px;
+        }
       }
 
     }
