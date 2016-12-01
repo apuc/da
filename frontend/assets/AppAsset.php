@@ -41,6 +41,7 @@ class AppAsset extends AssetBundle
         '//api-maps.yandex.ru/2.1/?lang=ru_RU',
         'js/map.js',
         'js/yandex_options.js',
+        'js/jquery.columnlist.js',
         'js/script.js'
     ];
     public $depends = [

@@ -239,3 +239,5 @@ function readURL(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
+
+$('.column-list-js').columnlist({ size: 2 });
