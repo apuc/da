@@ -59,12 +59,13 @@ $md = new \common\classes\Mobile_Detect();
         <div class="all-news-to-day">
             <h4>Все новости</h4>
 
-            <ul class="news">
+            <ul class="news column-list-js">
                 <?php Pjax::begin(); ?>
                 <?= ListView::widget( [
                     'dataProvider' => $dataProvider,
                     'itemView'     => '_list',
                     'layout'       => "{items}\n<div class='paginator'>{pager}</div>",
+
                     'pager'        => [
                         'options'          => [
                             'class' => 'paginator',

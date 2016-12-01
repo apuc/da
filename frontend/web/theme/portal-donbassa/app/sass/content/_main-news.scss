@@ -117,119 +117,208 @@
   }
   }
   .all-news-to-day{
+    position: relative;
     width: 80%;
     float: left;
     display: block;
-    padding-top: 40px;
-    padding-bottom: 21px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
-    box-sizing: border-box;;
-    padding-left:30px;
-    h4{
-      font-family: $rb;
-      font-size: 16px;
-      color: #000;
-    }
-    li{
-
+    box-sizing: border-box;
+    padding-top: 40px;
+    padding-bottom: 21px;
+      h4{
+        font-family: $rb;
+        font-size: 16px;
+        color: #000;
+      }
+    ul{
       display: block;
-      width: 50%;
+      width: 100%;
       float: left;
-      -webkit-box-sizing: border-box;
-      -moz-box-sizing: border-box;
-      box-sizing: border-box;
-      position: relative;
-      height: 46px;
-      margin-top: 0;
-      //padding-right: 60px;
+      list-style-type: none;
       .time{
         position: relative;
-        display: block;
-        top: 30px;
+        top: 35px;
         left: -35px;
-        font-size: 10px;
+        display: block;
         width: 30px;
         text-align: center;
+        font-size: 10px;
         span{
-          font-size: 10px;
           width: 100%;
+          font-size: 10px;
         }
       }
-      a{
-        display: block;
+      a,span{
         position: relative;
-        font-family:$rr;
-        font-size: 13px;
+        display: block;
+        overflow: hidden;
+        padding-right: 100px;
+        height: 34px;
         color: #000;
         text-decoration: none;
-        padding-right:100px;
-        overflow: hidden;
-        height: 34px;
+        font-size: 13px;
+        font-family: $rr;
+        height: 32px;
         .views{
+          position: absolute;
+          top: 4px;
+          right: -38px;
+          width: 50px;
           color: #5b5b5b;
           font-size: 11px;
           font-family: $rr;
-          position: absolute;
-          top: 4px;
-          right: 41px;
-          width: 50px;
-          .view-icon{
-            size: 18px 12px;
-            display: inline-block;
-            background-repeat: no-repeat;
-            background-image: url("../img/view-icon.png");
-            margin-right: 1px;
+          .views-ico{
             position: relative;
-            top: 2px;
+            top: 0;
+            margin-right: 4px;
+            font-size: 14px;
+            float: left;
           }
         }
       }
+      .column-list{
+        width: 50%;
+        float: left;
+      }
+
     }
-  .paginator{
-    float: left;
-    margin-top: 40px;
-    margin-left: -38px;
-    width: 100%;
-    ul{
-      margin: 0;
-      padding-left:0;
-      .active{
-        a{
-          font-family: $rb;
-          color:#ff3432;
+    .paginator{
+      width: 100%;
+      display: inline-block;
+      position: absolute;
+      bottom: -15px;
+      li{
+        display: inline-block;
+        width: 3%;
+        a,span{
+          width: 100%;
+          display: inline-block;
+          height: 100%;
+          z-index: 5;
         }
       }
-    li{
-      position: relative;
-      display: inline-block;
-      float: none;
-      padding-right: 0;
-       width:10px;
-      margin-left: 11px;
-    a{
-      margin: 0 10px;
-      color: #334a51;
-      text-decoration: none;
-      font-size: 13px;
-      font-family: $rr;
-    }
-      span{
-        position: relative;
-        top: -20px;
-        right: -10px;
+      .active{
+        a{
+          color: #ff3432;
+        }
       }
-     .next{
-      position: relative;
-      top: -1px;
-      margin: 0 12px;
-    }
-
-    }
-
     }
   }
-  }
+  //.all-news-to-day{
+  //  width: 80%;
+  //  float: left;
+  //  display: block;
+  //  padding-top: 40px;
+  //  padding-bottom: 21px;
+  //  -webkit-box-sizing: border-box;
+  //  -moz-box-sizing: border-box;
+  //  box-sizing: border-box;;
+  //  padding-left:30px;
+  //  h4{
+  //    font-family: $rb;
+  //    font-size: 16px;
+  //    color: #000;
+  //  }
+  //  li{
+  //
+  //    display: block;
+  //    width: 50%;
+  //    float: left;
+  //    -webkit-box-sizing: border-box;
+  //    -moz-box-sizing: border-box;
+  //    box-sizing: border-box;
+  //    position: relative;
+  //    height: 46px;
+  //    margin-top: 0;
+  //    //padding-right: 60px;
+  //    .time{
+  //      position: relative;
+  //      display: block;
+  //      top: 30px;
+  //      left: -35px;
+  //      font-size: 10px;
+  //      width: 30px;
+  //      text-align: center;
+  //      span{
+  //        font-size: 10px;
+  //        width: 100%;
+  //      }
+  //    }
+  //    a{
+  //      display: block;
+  //      position: relative;
+  //      font-family:$rr;
+  //      font-size: 13px;
+  //      color: #000;
+  //      text-decoration: none;
+  //      padding-right:100px;
+  //      overflow: hidden;
+  //      height: 34px;
+  //      .views{
+  //        color: #5b5b5b;
+  //        font-size: 11px;
+  //        font-family: $rr;
+  //        position: absolute;
+  //        top: 4px;
+  //        right: 41px;
+  //        width: 50px;
+  //        .view-icon{
+  //          size: 18px 12px;
+  //          display: inline-block;
+  //          background-repeat: no-repeat;
+  //          background-image: url("../img/view-icon.png");
+  //          margin-right: 1px;
+  //          position: relative;
+  //          top: 2px;
+  //        }
+  //      }
+  //    }
+  //  }
+  //.paginator{
+  //  float: left;
+  //  margin-top: 40px;
+  //  margin-left: -38px;
+  //  width: 100%;
+  //  ul{
+  //    margin: 0;
+  //    padding-left:0;
+  //    .active{
+  //      a{
+  //        font-family: $rb;
+  //        color:#ff3432;
+  //      }
+  //    }
+  //  li{
+  //    position: relative;
+  //    display: inline-block;
+  //    float: none;
+  //    padding-right: 0;
+  //     width:10px;
+  //    margin-left: 11px;
+  //  a{
+  //    margin: 0 10px;
+  //    color: #334a51;
+  //    text-decoration: none;
+  //    font-size: 13px;
+  //    font-family: $rr;
+  //  }
+  //    span{
+  //      position: relative;
+  //      top: -20px;
+  //      right: -10px;
+  //    }
+  //   .next{
+  //    position: relative;
+  //    top: -1px;
+  //    margin: 0 12px;
+  //  }
+  //
+  //  }
+  //
+  //  }
+  //}
+  //}
 .news-posts{
   width: 80%;
   position: relative;
