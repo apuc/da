@@ -3,8 +3,10 @@
 namespace frontend\modules\news\controllers;
 
 use common\classes\Debug;
+use common\models\db\CategoryNewsRelations;
 use common\models\db\Lang;
 use common\models\db\News;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 
 /**
@@ -27,8 +29,17 @@ class DefaultController extends Controller
     public function actionView(){
         $new = News::find()->where(['slug'=>$_GET['slug']])->one();
         $new->updateAllCounters(['views'=>1], ['id'=>$new->id]);
+
+        $cats_news_ids = ArrayHelper::getColumn(CategoryNewsRelations::find()->where(['new_id'=>$new->id])->select('cat_id')->asArray()->all(),'cat_id');
+        $cats_news = ArrayHelper::getColumn(CategoryNewsRelations::find()->where(['cat_id'=>$cats_news_ids])->select('new_id')->asArray()->all(),'new_id');
+        $related_news = News::find()->where(['id'=>$cats_news])->andWhere(['!=','id',$new->id])->orderBy(['rand()'=>SORT_DESC])->limit(3)->all();
+
+        $most_popular_news = News::find()->andWhere(['>','dt_public', time()- 3600*24*14 ] )->andWhere(['!=','id',$new->id])->orderBy('views DESC')->limit(3)->all();
+       
         return $this->render('view', [
-             'news' => $new
+            'news' => $new,
+            'related_news' =>$related_news,
+            'most_popular_news'=>$most_popular_news
         ]);
     }
 

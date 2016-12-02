@@ -7,6 +7,8 @@
  * @var $poster \common\models\db\Poster
  */
 use common\classes\DateFunctions;
+use common\classes\WordFunctions;
+use yii\helpers\Url;
 
 $this->title =  $poster->title;
 ?>
@@ -37,12 +39,39 @@ $this->title =  $poster->title;
     </div>
     <div class="clearfix"></div>
     <p class="poster-descr-bot"><?= $poster->descr ?></p>
+<div class="another-news">
+    <div class="rand-cat-news">
+        <?php if($related_posters): ?>
+            <h3>Похожие события:</h3>
+        <?php endif; ?>
+        <?php foreach ($related_posters as $related_new): ?>
+            <a href="<?= Url::to( [ '/poster/default/view', 'slug' => $related_new->slug ] ) ?>" class="news-like-item">
+                <div class="news-like-img"><img src="<?= $related_new->photo;?>" alt=""></div>
+                <h4 class="new-header"><?= $related_new->title;?></h4>
+                <p class="new-descr"><?=  WordFunctions::crop_str_word( strip_tags( $related_new->descr ), 20 );?> </p>
+            </a>
+        <?php endforeach; ?>
+    </div>
+    <div class="best-views-news">
+        <?php if($most_popular_posters): ?>
+            <h3>Самые популярные события:</h3>
+        <?php endif; ?>
+        <?php foreach ($most_popular_posters as $most_popular_new): ?>
+            <a href="<?= Url::to( [ '/poster/default/view', 'slug' => $most_popular_new->slug ] ) ?>" class="news-like-item">
+                <div class="news-like-img"><img src="<?= $most_popular_new->photo;?>" alt=""></div>
+                <h4 class="new-header"><?= $most_popular_new->title;?></h4>
+                <p class="new-descr"><?=  WordFunctions::crop_str_word( strip_tags( $most_popular_new->descr ), 20 );?></p>
+            </a>
+        <?php endforeach; ?>
+    </div>
+</div>
 <div class="prefooter-social">
     <div class="social">
         <h4 class="social-header">МЫ В КОНТАКТЕ</h4>
         <div id="vk_groups_news"></div>
 
     </div>
+
     <div class="social">
         <h4 class="social-header">МЫ В ФЕЙСБУКЕ</h4>
         <div class="fb-page" data-href="https://www.facebook.com/da.info.pro/" data-heigh="180"

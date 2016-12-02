@@ -8,6 +8,9 @@
  */
 
 use common\classes\DateFunctions;
+use common\classes\WordFunctions;
+use yii\helpers\Url;
+
 $this->registerMetaTag( [
     'name'    => 'og:image',
     'content' => 'http://'. $_SERVER['HTTP_HOST'] . $news->photo,
@@ -77,4 +80,31 @@ $this->registerMetaTag( [
             <img class="ok" src="/theme/portal-donbassa/img/ok.png" alt="">
         </a>
     </span>
+</div>
+
+<div class="another-news">
+    <div class="rand-cat-news">
+        <?php if($related_news): ?>
+            <h3>Новости по теме:</h3>
+        <?php endif; ?>
+        <?php foreach ($related_news as $related_new): ?>
+            <a href="<?= Url::to( [ '/news/default/view', 'slug' => $related_new->slug ] ) ?>" class="news-like-item">
+                <div class="news-like-img"><img src="<?= $related_new->photo;?>" alt=""></div>
+                <h4 class="new-header"><?= $related_new->title;?></h4>
+                <p class="new-descr"><?=  WordFunctions::crop_str_word( strip_tags( $related_new->content ), 20 );?> </p>
+            </a>
+        <?php endforeach; ?>
+    </div>
+    <div class="best-views-news">
+    <?php if($most_popular_news): ?>
+        <h3>Самые популярные новости:</h3>
+    <?php endif; ?>
+        <?php foreach ($most_popular_news as $most_popular_new): ?>
+            <a href="<?= Url::to( [ '/news/default/view', 'slug' => $most_popular_new->slug ] ) ?>" class="news-like-item">
+                <div class="news-like-img"><img src="<?= $most_popular_new->photo;?>" alt=""></div>
+                <h4 class="new-header"><?= $most_popular_new->title;?></h4>
+                <p class="new-descr"><?=  WordFunctions::crop_str_word( strip_tags( $most_popular_new->content ), 20 );?></p>
+            </a>
+        <?php endforeach; ?>
+    </div>
 </div>

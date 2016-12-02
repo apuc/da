@@ -7,6 +7,8 @@
  * @var $company \common\models\db\Company
  */
 use common\classes\DateFunctions;
+use common\classes\WordFunctions;
+use yii\helpers\Url;
 
 $this->title = $company->meta_title;
 $this->registerMetaTag( [
@@ -83,4 +85,30 @@ $this->registerMetaTag( [
             <img class="ok" src="/theme/portal-donbassa/img/ok.png" alt="">
         </a>
     </span>
+</div>
+<div class="another-news">
+    <div class="rand-cat-news">
+        <?php if($related_company): ?>
+            <h3>Похожие компании:</h3>
+        <?php endif; ?>
+        <?php foreach ($related_company as $related_new): ?>
+            <a href="<?= Url::to( [ '/company/default/view', 'slug' => $related_new->slug ] ) ?>" class="news-like-item">
+                <div class="news-like-img"><img src="<?= $related_new->photo;?>" alt=""></div>
+                <h4 class="new-header"><?= $related_new->name;?></h4>
+                <p class="new-descr"><?=  WordFunctions::crop_str_word( strip_tags( $related_new->descr ), 20 );?> </p>
+            </a>
+        <?php endforeach; ?>
+    </div>
+    <div class="best-views-news">
+        <?php if($most_popular_company): ?>
+            <h3>Самые популярные компании:</h3>
+        <?php endif; ?>
+        <?php foreach ($most_popular_company as $most_popular_new): ?>
+            <a href="<?= Url::to( [ '/company/default/view', 'slug' => $most_popular_new->slug ] ) ?>" class="news-like-item">
+                <div class="news-like-img"><img src="<?= $most_popular_new->photo;?>" alt=""></div>
+                <h4 class="new-header"><?= $most_popular_new->name;?></h4>
+                <p class="new-descr"><?=  WordFunctions::crop_str_word( strip_tags( $most_popular_new->descr ), 20 );?></p>
+            </a>
+        <?php endforeach; ?>
+    </div>
 </div>

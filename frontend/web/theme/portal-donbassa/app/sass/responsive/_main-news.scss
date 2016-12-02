@@ -71,6 +71,9 @@
     width: 100%;
     height: auto!important;
   }
+  .another-news .news-like-item{
+    width: 50%;
+  }
 }
 @media only screen and (max-width: 667px) {
   .main-news .news-posts__item .post-overflow{
@@ -87,6 +90,9 @@
   }
 }
 @media only screen and (max-width: 600px) {
+  .another-news .news-like-item{
+    width: 100%;
+  }
   .main-news .all-news-to-day li a .views{
     right: -65px;
   }

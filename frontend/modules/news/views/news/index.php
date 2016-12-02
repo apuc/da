@@ -158,6 +158,7 @@ $md = new \common\classes\Mobile_Detect();
                 </div>
 
             </div>
+           
             <!--            <div class="weather-forecast">-->
             <!--                <h4 class="weather-header">Погода</h4>-->
             <!--                <img src="/theme/portal-donbassa/img/prefooter-weather.jpg" alt="">-->
