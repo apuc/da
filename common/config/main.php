@@ -46,7 +46,7 @@ return [
                 'User' => '\frontend\models\user\UserDec',
             ],
             'enableUnconfirmedLogin' => true,
-            'enableGeneratingPassword' => true,
+            'enableGeneratingPassword' => false,
             'enableConfirmation' => true,
             'enableFlashMessages' => false,
             'confirmWithin' => 86400,
