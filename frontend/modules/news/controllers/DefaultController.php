@@ -28,6 +28,9 @@ class DefaultController extends Controller
 
     public function actionView(){
         $new = News::find()->where(['slug'=>$_GET['slug']])->one();
+        if (empty($new)){
+           return $this->redirect(['site/error']);
+        }
         $new->updateAllCounters(['views'=>1], ['id'=>$new->id]);
 
         $cats_news_ids = ArrayHelper::getColumn(CategoryNewsRelations::find()->where(['new_id'=>$new->id])->select('cat_id')->asArray()->all(),'cat_id');

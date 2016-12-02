@@ -222,6 +222,7 @@ $(document).on('click','.parent',function () {
 })
 
 $(document).on('change','.profile-avatar',function () {
+
 console.log('ok');
         readURL(this);
 })
