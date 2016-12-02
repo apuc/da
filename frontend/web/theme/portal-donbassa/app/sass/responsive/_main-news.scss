@@ -90,6 +90,12 @@
   }
 }
 @media only screen and (max-width: 600px) {
+  .main-news .all-news-to-day ul{
+    width: 103%;
+  }
+  .main-news .all-news-to-day ul .column-list li{
+    height: 40px;
+  }
   .another-news .news-like-item{
     width: 100%;
   }
