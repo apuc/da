@@ -73,6 +73,8 @@ class CategoryCompanySearch extends CategoryCompany
             ->andFilterWhere(['like', 'meta_descr', $this->meta_descr])
             ->andFilterWhere(['like', 'slug', $this->slug]);
 
+        $query->orderBy('dt_add DESC');
+
         return $dataProvider;
     }
 }

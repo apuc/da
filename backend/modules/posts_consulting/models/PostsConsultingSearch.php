@@ -72,6 +72,8 @@ class PostsConsultingSearch extends PostsConsulting
             ->andFilterWhere(['like', 'photo', $this->photo])
             ->andFilterWhere(['like', 'type', $this->type]);
 
+        $query->orderBy('dt_add DESC');
+
         return $dataProvider;
     }
 }

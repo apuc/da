@@ -6,11 +6,19 @@
 /* @var $exception Exception */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 $this->title = $name;
 if ($exception->statusCode == 404){
     ?>
-    <img class="error-404" src="/theme/portal-donbassa/img/404.png" alt="">
+    <img style="z-index: 0" class="error-404" src="/theme/portal-donbassa/img/404.png" alt="">
+    <div class="buttons-left">
+        <a class="nav-404" href="<?= Url::to(['/all-new']);?>">НОВОСТИ</a>
+        <a class="nav-404" href="<?= Url::to(['/all-company']);?>">ПРЕДПРИЯТИ</a>
+    </div>
+    <div class="buttons-right">
+        <a class="nav-404" href="<?= Url::to(['design']);?>">ОБЪЯВЛЕНИЯ</a>
+        <a class="nav-404" href="<?= Url::to(['/consulting']);?>">КОНСУЛЬТАЦИЯ</a></div>
     <?php
 }else{
 ?>

@@ -63,7 +63,8 @@ class TopCompanySearch extends TopCompany
             'order' => $this->order,
         ]);
 
-        $query->orderBy('order DESC');
+
+        $query->orderBy('dt_add DESC');
 
         return $dataProvider;
     }

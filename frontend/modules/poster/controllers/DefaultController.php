@@ -29,6 +29,11 @@ class DefaultController extends Controller
 
     public function actionView($slug){
         $poster = Poster::find()->where(['slug'=>$slug])->one();
+
+        if (empty($poster)){
+            return $this->redirect(['site/error']);
+        }
+
         $poster->updateAllCounters(['views'=>1],['id'=>$poster->id]);
 
         $cats_posters_ids = ArrayHelper::getColumn(CategoryPosterRelations::find()->where(['poster_id'=>$poster->id])->select('cat_id')->asArray()->all(),'cat_id');

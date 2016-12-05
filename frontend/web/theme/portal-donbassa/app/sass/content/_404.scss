@@ -1,0 +1,56 @@
+.buttons-left{
+  display: block;
+  float: left;
+  position: relative;
+  top: -228px;
+  z-index: 5;
+  left: 16%;
+  .nav-404{
+    display: block;
+    width: 173px;
+    height: 36px;
+    background-color: #ff3432;
+    color: #fff;
+    font-family: $rb;
+    font-size: 16px;;
+    text-align: center;
+    cursor: pointer;
+    padding-top: 8px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    z-index:5;
+    margin: 20px 0;
+    &:hover{
+      text-decoration: none;
+    }
+  }
+}
+.buttons-right{
+  display: block;
+  float: right;
+  position: relative;
+  top: -228px;
+  z-index: 5;
+  right: 14%;
+  .nav-404{
+    display: block;
+    width: 173px;
+    height: 36px;
+    background-color: #ff3432;
+    color: #fff;
+    font-family: $rb;
+    font-size: 16px;;
+    text-align: center;
+    cursor: pointer;
+    padding-top: 8px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    z-index:5;
+    margin: 20px 0;
+    &:hover{
+      text-decoration: none;
+    }
+  }
+}

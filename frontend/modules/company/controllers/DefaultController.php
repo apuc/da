@@ -24,6 +24,9 @@ class DefaultController extends Controller
 
     public function actionView(){
         $company = \common\models\db\Company::find()->where(['slug'=>$_GET['slug']])->one();
+        if (empty($company)){
+            return $this->redirect(['site/error']);
+        }
         $company->updateAllCounters(['views'=>1], ['id'=>$company->id]);
 
         $cats_company_ids = ArrayHelper::getColumn(CategoryCompanyRelations::find()->where(['company_id'=>$company->id])->select('cat_id')->asArray()->all(),'cat_id');

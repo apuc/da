@@ -71,6 +71,8 @@ class ConsultingSearch extends Consulting
             ->andFilterWhere(['like', 'slug', $this->slug])
             ->andFilterWhere(['like', 'icon', $this->icon]);
 
+        $query->orderBy('dt_add DESC');
+
         return $dataProvider;
     }
 }
