@@ -190,6 +190,9 @@
       }
 
     }
+    .column-list{
+      margin-bottom: 30px;
+    }
     .paginator{
       width: 100%;
       display: inline-block;
@@ -203,6 +206,8 @@
           display: inline-block;
           height: 100%;
           z-index: 5;
+          position: relative;
+          left: 0%;
         }
       }
       .active{
@@ -559,7 +564,7 @@
     box-sizing: border-box;
     padding-right: 20px;
     margin-bottom:25px;
-    height: 139px;
+    height: 141px;
 
     &:hover{
       text-decoration: none;
@@ -581,7 +586,7 @@
       overflow: hidden;
       height: 41px;
     }
-    p, span{
+    p{
       font-family:$rr;
       font-size: 12px;
     }
