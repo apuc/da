@@ -75,7 +75,7 @@ class CompanySearch extends Company
             ->andFilterWhere(['like', 'slug', $this->slug]);
 
 
-        $query->orderBy('id DESC');
+        $query->orderBy('dt_add DESC');
 
         return $dataProvider;
     }

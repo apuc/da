@@ -70,6 +70,8 @@ class CategoryPostsDigestSearch extends CategoryPostsDigest
             ->andFilterWhere(['like', 'icon', $this->icon])
             ->andFilterWhere(['like', 'type', $this->type]);
 
+        $query->orderBy('dt_add DESC');
+
         return $dataProvider;
     }
 }

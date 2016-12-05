@@ -73,6 +73,8 @@ class FaqSearch extends Faq
             ->andFilterWhere(['like', 'answer', $this->answer])
             ->andFilterWhere(['like', 'type', $this->type]);
 
+        $query->orderBy('dt_add DESC');
+
         return $dataProvider;
     }
 }

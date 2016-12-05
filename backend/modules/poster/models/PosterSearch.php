@@ -76,6 +76,8 @@ class PosterSearch extends Poster
             ->andFilterWhere(['like', 'meta_title', $this->meta_title])
             ->andFilterWhere(['like', 'meta_descr', $this->meta_descr]);
 
+        $query->orderBy('dt_add DESC');
+
         return $dataProvider;
     }
 }
