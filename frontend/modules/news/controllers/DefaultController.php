@@ -38,12 +38,20 @@ class DefaultController extends Controller
         $related_news = News::find()->where(['id'=>$cats_news])->andWhere(['!=','id',$new->id])->andWhere(['>','dt_public', time()- 3600*24*14 ] )->orderBy(['rand()'=>SORT_DESC])->limit(3)->all();
 
         $most_popular_news = News::find()->andWhere(['>','dt_public', time()- 3600*24*14 ] )->andWhere(['!=','id',$new->id])->orderBy('views DESC')->limit(3)->all();
-       
-        return $this->render('view', [
-            'news' => $new,
-            'related_news' =>$related_news,
-            'most_popular_news'=>$most_popular_news
-        ]);
+
+        if(!empty($new->content)){
+            return $this->render('view', [
+                'news' => $new,
+                'related_news' =>$related_news,
+                'most_popular_news'=>$most_popular_news
+            ]);
+        }else{
+            return $this->render('view_image', [
+                'news' => $new,
+                'related_news' =>$related_news,
+                'most_popular_news'=>$most_popular_news
+            ]);
+        }
     }
 
     public function actionSet_dt_public(){
