@@ -26,10 +26,24 @@ $this->params['breadcrumbs'][] = $this->title;
 
             /*'id',*/
             'title',
-            'slug',
-            'dt_add',
-            'dt_update',
-            'dt_event',
+//            'slug',
+//            'dt_add',
+//            'dt_update',
+            [
+                'attribute' => 'dt_update',
+                'format' => 'text',
+                'value' => function($model){
+                    return date('Y-m-d H:i', $model->dt_update);
+                }
+            ],
+//            'dt_event',
+            [
+                'attribute' => 'dt_event',
+                'format' => 'text',
+                'value' => function($model){
+                    return date('Y-m-d H:i', $model->dt_event);
+                }
+            ],
             // 'descr:ntext',
             // 'short_descr:ntext',
             // 'price',

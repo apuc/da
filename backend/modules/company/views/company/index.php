@@ -34,7 +34,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'text',
                 'value' => function($model){
                     return ($model->vip == 0) ? 'Стандарт' : 'VIP';
-                }
+                },
+                'filter'=> Html::activeDropDownList($searchModel, 'vip', [0=>'Стандарт',1=>'VIP'],['class'=>'form-control','prompt' => '']),
             ],
             [
                 'attribute' => 'status',

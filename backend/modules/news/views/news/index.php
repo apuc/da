@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -7,40 +8,42 @@ use yii\grid\GridView;
 /* @var $searchModel backend\modules\news\models\NewsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('news', 'News');
+$this->title = Yii::t( 'news', 'News' );
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="news-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode( $this->title ) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('news', 'Create News'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a( Yii::t( 'news', 'Create News' ), [ 'create' ], [ 'class' => 'btn btn-success' ] ) ?>
     </p>
-    <?= GridView::widget([
+    <?= GridView::widget( [
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+        'filterModel'  => $searchModel,
+        'columns'      => [
+            [ 'class' => 'yii\grid\SerialColumn' ],
 
             'id',
             'title',
             /*'content:ntext',*/
-            [
-                'attribute' => 'dt_add',
-                'format' => 'text',
-                'value' => function($model){
-                    return date('Y-m-d H:i', $model->dt_add);
-                }
-            ],
+//            [
+//                'attribute' => 'dt_add',
+//                'format' => 'text',
+//                'value' => function($model){
+//                    return date('Y-m-d H:i', $model->dt_add);
+//                }
+//            ],
             [
                 'attribute' => 'dt_update',
-                'format' => 'text',
-                'value' => function($model){
-                    return date('Y-m-d H:i', $model->dt_update);
-                }
+                'format'    => 'text',
+                'value'     => function ( $model ) {
+                    return date( 'Y-m-d H:i', $model->dt_update );
+                },
+//                'filter'    => Html::
             ],
+
             //'dt_add',
             //'dt_update',
             // 'slug',
@@ -48,24 +51,34 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'photo',
             [
                 'attribute' => 'status',
-                'format' => 'text',
-                'value' => function($model){
+                'format'    => 'text',
+                'value'     => function ( $model ) {
                     $st = 0;
-                    switch($model->status){
-                        case 0: $st = 'Опубликована';
+                    switch ( $model->status ) {
+                        case 0:
+                            $st = 'Опубликована';
                             break;
-                        case 1: $st = 'На модерации';
+                        case 1:
+                            $st = 'На модерации';
                             break;
-                        case 3: $st = 'Отложена';
+                        case 3:
+                            $st = 'Отложена';
                             break;
                     }
+
                     return $st;
-                }
+                },
+                'filter'    => Html::activeDropDownList( $searchModel, 'status', [
+                    '0' => 'Опубликована',
+                    '1' => 'На модерации',
+                    '3'=>'Отложена',
+                ], [ 'class' => 'form-control', 'prompt' => '' ] ),
             ],
+
             // 'user_id',
             // 'lang_id',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [ 'class' => 'yii\grid\ActionColumn' ],
         ],
-    ]); ?>
+    ] ); ?>
 </div>

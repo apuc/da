@@ -1,6 +1,7 @@
 <?php
 
 use backend\modules\category\models\CategoryNews;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -32,7 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'text',
                 'value' => function($model){
                     return ($model->parent_id == 0)?'Нет': CategoryNews::find()->where(['id'=>$model->parent_id])->one()->title;
-                }
+                },
+                'filter'    => Html::activeDropDownList( $searchModel, 'parent_id', ArrayHelper::map(\common\models\db\CategoryNews::find()->all(),'id','title'), [ 'class' => 'form-control', 'prompt' => 'Нет' ] ),
             ],
             //'descr:ntext',
             //'dt_add',

@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'company_id',
             [
                 'attribute' => 'company_id',
+                'label'=>'Компания',
                 'format'    => 'text',
                 'value'     => function ( $model ) {
                     if ( $model->company_id == 0 ) {

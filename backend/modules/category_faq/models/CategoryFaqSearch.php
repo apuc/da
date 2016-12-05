@@ -20,7 +20,7 @@ class CategoryFaqSearch extends CategoryFaq
     public function rules()
     {
         return [
-            [['id', 'parent_id', 'dt_add', 'dt_update'], 'integer'],
+            [['id', 'parent_id', 'dt_add', 'dt_update','sort_order'], 'integer'],
             [['title', 'slug', 'icon', 'type'], 'safe'],
         ];
     }
@@ -65,6 +65,7 @@ class CategoryFaqSearch extends CategoryFaq
             'parent_id' => $this->parent_id,
             'dt_add' => $this->dt_add,
             'dt_update' => $this->dt_update,
+            'sort_order' => $this->sort_order,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])

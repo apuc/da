@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -26,7 +27,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'title',
-            'parent_id',
+//            'parent_id',
+            [
+                'attribute' => 'parent_id',
+                'format' => 'text',
+                'value' => function($model){
+                    $parent = \common\models\db\CategoryCompany::find()->where(['id'=>$model->parent_id])->one()->title;
+                   if(!empty($parent)){
+                       return $parent;
+                   }else{
+                       return '';
+                   }
+                },
+                'filter'=> Html::activeDropDownList($searchModel, 'parent_id', ArrayHelper::map(\common\models\db\CategoryCompany::find()->all(),'id','title'),['class'=>'form-control','prompt' => '']),
+            ],
             'descr:ntext',
             [
                 'attribute' => 'dt_add',

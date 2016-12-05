@@ -11,7 +11,7 @@ return [
     'Title'                            => 'Заголовок',
     'Parent ID'                        => 'Родительская категория',
     'Dt Add'                           => 'Дата добавления',
-    'Dt Update'                        => 'Дата обновления',
+    'Dt Update'                        => 'Дата изменения',
     'Create'                           => 'Добавить',
     'Update'                           => 'Изменить',
     'Update {modelClass}: '            => 'Изменить Вопрос-Ответ: ',
@@ -24,7 +24,7 @@ return [
     'Create Faq'                       => 'Добавить вопрос-ответ',
     'Views'                            => 'Просмотры',
     'User ID'                          => 'Пользователь',
-    'Company ID'                       => 'Организация',
+    'Company ID'                       => 'Компания',
     'Faqs'                             => 'Вопрос - ответ',
     'Create Category Faq'              => 'Добавить категорию FAQ',
     'Update Category Faq: '            => 'Изменить категорию FAQ: ',
@@ -41,6 +41,8 @@ return [
     'Posts Digests'                    => 'Статьи Дайджест',
     'Category Posts Digests'           => 'Категории статей Дайджест',
     'Create Category Posts Digest'     => 'Добавить категорию Дайджест',
-
+    'Category'                     => 'Категория',
+    'Sort Order'                     => 'Порядок',
+    'type'                     => 'Консалтинг',
 
 ];
