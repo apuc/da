@@ -6,6 +6,7 @@ $this->registerMetaTag( [
     'content' => $posts->meta_descr,
 ] );
 ; ?>
+<h1>consulting_digest_item</h1>
 <div class="consult-item">
     <div class="consult-item-mnu">
         <p class="consult-img">
@@ -71,10 +72,17 @@ $this->registerMetaTag( [
                     <p class="answer">
                         <?= $posts->content; ?>
                     </p>
-                    <a href="<?= Url::to( [ '/consulting/consulting/documents', 'slugcategory' => $category->slug ] ); ?>"
-                       class="read-answer">Вернуться
-                        в
-                        раздел</a>
+                    <?php if(!empty($category->slug)): ?>
+                        <a href="<?= Url::to( [ '/consulting/consulting/documents', 'slugcategory' => $category->slug ] ); ?>"
+                           class="read-answer">Вернуться
+                            в
+                            раздел</a>
+                        <?php else: ?>
+                        <a href="<?= Url::to( [ '/consulting/consulting/documents','slug'=>$consulting->slug  ] ); ?>"
+                           class="read-answer">Вернуться
+                            в
+                            раздел</a>
+                    <?php ;endif; ?>
                 </div>
             </div>
         </div>

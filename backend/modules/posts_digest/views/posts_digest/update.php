@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = Yii::t('faq', 'Update');
 
     <?= $this->render('_form', [
         'model' => $model,
+        'cats_arr'=>$cats_arr,
     ]) ?>
 
 </div>

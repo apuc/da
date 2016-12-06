@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'photo',
             'user_id',
             'type',
-            'cat_id',
+           // 'cat_id',
             'views',
         ],
     ]) ?>

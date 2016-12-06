@@ -83,17 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ] ),
             ],
             // 'cat_id',
-            [
-                'attribute' => 'cat_id',
-                'format'    => 'text',
-                'label'     => Yii::t( 'faq', 'Category' ),
-                'value'     => function ( $model ) {
-                    return \common\models\db\CategoryPostsDigest::find()->where( [ 'id' => $model->cat_id ] )->one()->title;
-                },
-                'filter'    => Html::activeDropDownList( $searchModel, 'cat_id', ArrayHelper::map( \common\models\db\CategoryPostsDigest::find()->all(), 'id', 'title' ), [ 'class'  => 'form-control',
-                                                                                                                                                              'prompt' => ''
-                ] ),
-            ],
+
             // 'views',
             //'sort_order',
             [
