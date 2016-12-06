@@ -6,7 +6,7 @@ $this->registerMetaTag( [
     'content' => $posts->meta_descr,
 ] );
 ; ?>
-<h1>consulting_digest_item</h1>
+
 <div class="consult-item">
     <div class="consult-item-mnu">
         <p class="consult-img">
