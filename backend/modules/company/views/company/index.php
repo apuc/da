@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status',
                 'format' => 'text',
                 'value' => function($model){
-                    return ($model->status == 0) ? 'Опублткована' : 'На модерации';
+                    return ($model->status == 0) ? 'Опубликована' : 'На модерации';
                 }
             ],
             // 'photo',
