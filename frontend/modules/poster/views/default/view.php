@@ -48,7 +48,7 @@ $this->title =  $poster->title;
             <a href="<?= Url::to( [ '/poster/default/view', 'slug' => $related_new->slug ] ) ?>" class="news-like-item">
                 <div class="news-like-img"><img src="<?= $related_new->photo;?>" alt=""></div>
                 <h4 class="new-header"><?= $related_new->title;?></h4>
-                <p class="new-descr"><?=  WordFunctions::crop_str_word( strip_tags( $related_new->descr ), 20 );?> </p>
+                <p class="new-descr"><?=  WordFunctions::crop_str_word( strip_tags( $related_new->descr ), 13 );?> </p>
             </a>
         <?php endforeach; ?>
     </div>
@@ -60,7 +60,7 @@ $this->title =  $poster->title;
             <a href="<?= Url::to( [ '/poster/default/view', 'slug' => $most_popular_new->slug ] ) ?>" class="news-like-item">
                 <div class="news-like-img"><img src="<?= $most_popular_new->photo;?>" alt=""></div>
                 <h4 class="new-header"><?= $most_popular_new->title;?></h4>
-                <p class="new-descr"><?=  WordFunctions::crop_str_word( strip_tags( $most_popular_new->descr ), 20 );?></p>
+                <p class="new-descr"><?=  WordFunctions::crop_str_word( strip_tags( $most_popular_new->descr ), 13 );?></p>
             </a>
         <?php endforeach; ?>
     </div>

@@ -18,8 +18,8 @@ class ConsultingSearch extends Consulting
     public function rules()
     {
         return [
-            [['id', 'dt_add', 'dt_update', 'views', 'company_id'], 'integer'],
-            [['title', 'descr', 'slug', 'icon'], 'safe'],
+            [['id', 'dt_add', 'dt_update', 'views'], 'integer'],
+            [['title', 'descr', 'slug', 'icon', 'company_id'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class ConsultingSearch extends Consulting
      */
     public function search($params)
     {
-        $query = Consulting::find();
+        $query = Consulting::find()->leftJoin('company','`consulting`.company_id = `company`.id');
 
         // add conditions that should always apply here
 
@@ -63,13 +63,14 @@ class ConsultingSearch extends Consulting
             'dt_add' => $this->dt_add,
             'dt_update' => $this->dt_update,
             'views' => $this->views,
-            'company_id' => $this->company_id,
+//            'company_id' => $this->company_id,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'descr', $this->descr])
             ->andFilterWhere(['like', 'slug', $this->slug])
-            ->andFilterWhere(['like', 'icon', $this->icon]);
+            ->andFilterWhere(['like', 'icon', $this->icon])
+            ->andFilterWhere(['like', '`company`.name', $this->company_id]);
 
         $query->orderBy('dt_add DESC');
 

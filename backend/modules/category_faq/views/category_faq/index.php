@@ -2,6 +2,7 @@
 
 use common\models\db\CategoryFaq;
 use common\models\db\Consulting;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -38,6 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     return CategoryFaq::find()->where( [ 'id' => $model->parent_id ] )->one()->title;
                 },
+                'filter'    => Html::activeDropDownList( $searchModel, 'parent_id', ArrayHelper::map( CategoryFaq::find()->all(), 'id', 'title' ), [
+                    'class'  => 'form-control',
+                    'prompt' => ''
+                ] )
             ],
             //'slug',
             //'dt_add',
@@ -55,21 +60,30 @@ $this->params['breadcrumbs'][] = $this->title;
 //                    return date('Y-m-d H:i',$model->dt_update);
 //                }
 //            ],
-                //'dt_update',
-                // 'icon',
-            ['attribute' => 'type',
-            'format'     => 'text',
-            'value'      => function ( $model ) {
-                if ( $model->type == '' ) {
-                    return 'Нет';
-                }
+            //'dt_update',
+            // 'icon',
+            [
+                'attribute' => 'type',
+                'format'    => 'text',
+                'label'     => Yii::t('faq','type'),
+                'value'     => function ( $model ) {
+                    if ( $model->type == '' ) {
+                        return 'Нет';
+                    }
 
-                return Consulting::find()->where( [ 'slug' => $model->type ] )->one()->title;
-            }
+                    return Consulting::find()->where( [ 'slug' => $model->type ] )->one()->title;
+                },
+                'filter'    => Html::activeDropDownList( $searchModel, 'type', ArrayHelper::map( Consulting::find()->all(), 'id', 'title' ), [
+                    'class'  => 'form-control',
+                    'prompt' => ''
+                ] ),
+            ],
+//            'sort_order',
+            [
+                'attribute'=>'sort_order',
+                'label'=> Yii::t('faq','Sort Order'),
+            ],
+            [ 'class' => 'yii\grid\ActionColumn' ],
         ],
-            'sort_order',
-
-        [ 'class' => 'yii\grid\ActionColumn' ],
-    ],
     ] ); ?>
 </div>

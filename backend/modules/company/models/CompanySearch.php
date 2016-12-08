@@ -19,7 +19,7 @@ class CompanySearch extends Company
     {
         return [
             [['id', 'dt_add', 'dt_update', 'status', 'lang_id'], 'integer'],
-            [['name', 'address', 'phone', 'email', 'photo', 'descr', 'slug'], 'safe'],
+            [['name', 'address', 'phone', 'email', 'photo', 'descr', 'slug','vip'], 'safe'],
         ];
     }
 
@@ -72,7 +72,8 @@ class CompanySearch extends Company
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'photo', $this->photo])
             ->andFilterWhere(['like', 'descr', $this->descr])
-            ->andFilterWhere(['like', 'slug', $this->slug]);
+            ->andFilterWhere(['like', 'slug', $this->slug])
+            ->andFilterWhere(['like', 'vip', $this->vip]);
 
 
         $query->orderBy('dt_add DESC');

@@ -68,7 +68,6 @@ class PosterSearch extends Poster
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'slug', $this->slug])
             ->andFilterWhere(['like', 'descr', $this->descr])
             ->andFilterWhere(['like', 'short_descr', $this->short_descr])
             ->andFilterWhere(['like', 'price', $this->price])

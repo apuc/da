@@ -2,6 +2,7 @@
 
 use common\models\db\CategoryPostsDigest;
 use common\models\db\Consulting;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -39,6 +40,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     return CategoryPostsDigest::find()->where( [ 'id' => $model->parent_id ] )->one()->title;
                 },
+                'filter'    => Html::activeDropDownList( $searchModel, 'parent_id', ArrayHelper::map( CategoryPostsDigest::find()->all(), 'id', 'title' ), [
+                    'class'  => 'form-control',
+                    'prompt' => ''
+                ] )
             ],
             //'slug',
 //            'dt_add',
@@ -59,17 +64,34 @@ $this->params['breadcrumbs'][] = $this->title;
 //            ],
             // 'icon',
             //'type',
-            ['attribute' => 'type',
-             'format'     => 'text',
-             'value'      => function ( $model ) {
-                 if ( $model->type == '' ) {
-                     return 'Нет';
-                 }
+            [
+                'attribute' => 'type',
+                'format'    => 'text',
+                'label'     => Yii::t('faq','type'),
+                'value'     => function ( $model ) {
+                    if ( $model->type == '' ) {
+                        return 'Нет';
+                    }
 
-                 return Consulting::find()->where( [ 'slug' => $model->type ] )->one()->title;
-             }
+                    return Consulting::find()->where( [ 'slug' => $model->type ] )->one()->title;
+                },
+                'filter'    => Html::activeDropDownList( $searchModel, 'type', ArrayHelper::map( Consulting::find()->all(), 'id', 'title' ), [
+                    'class'  => 'form-control',
+                    'prompt' => ''
+                ] ),
             ],
-            'sort_order',
+//            'sort_order',
+            [
+                'attribute'=>'sort_order',
+                'label'=> Yii::t('faq','Sort Order'),
+                'value'=>function($model){
+                    if(!empty($model->sort_order)){
+                        return $model->sort_order;
+                    }else{
+                        return '';
+                    }
+                }
+            ],
             [ 'class' => 'yii\grid\ActionColumn' ],
         ],
     ] ); ?>

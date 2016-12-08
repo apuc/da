@@ -28,8 +28,8 @@ $this->registerMetaTag( [
     <span
         class="date-news__post"><?= date( 'd', $news->dt_public ) ?> <?= DateFunctions::getMonthShortName( date( 'm', $news->dt_public ) ) ?> <?= date( 'H:i', $news->dt_public ) ?></span>
     <h2><?= $news->title ?></h2>
-    <a href="<?= $news->photo ?>" data-lightbox="image-1" class="view-img"><img src="<?= $news->photo ?>" alt=""></a>
-    <?= $news->content ?>
+    <a href="<?= $news->photo ?>" data-lightbox="image-1" class="view-img-big "><img src="<?= $news->photo ?>" alt=""></a>
+
 </div>
 <div class="post-nav">
     <span><a href=""><i class="fa fa-eye" aria-hidden="true"></i> <?= $news->views ?></a></span>
@@ -91,19 +91,19 @@ $this->registerMetaTag( [
             <a href="<?= Url::to( [ '/news/default/view', 'slug' => $related_new->slug ] ) ?>" class="news-like-item">
                 <div class="news-like-img"><img src="<?= $related_new->photo;?>" alt=""></div>
                 <h4 class="new-header"><?= $related_new->title;?></h4>
-                <p class="new-descr"><?=  WordFunctions::crop_str_word( strip_tags( $related_new->content ), 13 );?> </p>
+                <p class="new-descr"><?=  WordFunctions::crop_str_word( strip_tags( $related_new->content ), 20 );?> </p>
             </a>
         <?php endforeach; ?>
     </div>
     <div class="best-views-news">
-    <?php if($most_popular_news): ?>
-        <h3>Самые популярные новости:</h3>
-    <?php endif; ?>
+        <?php if($most_popular_news): ?>
+            <h3>Самые популярные новости:</h3>
+        <?php endif; ?>
         <?php foreach ($most_popular_news as $most_popular_new): ?>
             <a href="<?= Url::to( [ '/news/default/view', 'slug' => $most_popular_new->slug ] ) ?>" class="news-like-item">
                 <div class="news-like-img"><img src="<?= $most_popular_new->photo;?>" alt=""></div>
                 <h4 class="new-header"><?= $most_popular_new->title;?></h4>
-                <p class="new-descr"><?=  WordFunctions::crop_str_word( strip_tags( $most_popular_new->content ), 13 );?></p>
+                <p class="new-descr"><?=  WordFunctions::crop_str_word( strip_tags( $most_popular_new->content ), 20 );?></p>
             </a>
         <?php endforeach; ?>
     </div>

@@ -20,8 +20,8 @@ class FaqSearch extends Faq
     public function rules()
     {
         return [
-            [['id', 'dt_add', 'dt_update', 'views', 'user_id', 'company_id','cat_id'], 'integer'],
-            [['question', 'answer', 'slug', 'type'], 'safe'],
+            [['id', 'dt_add', 'dt_update', 'views', 'user_id','cat_id','sort_order'], 'integer'],
+            [['question', 'answer', 'slug', 'type', 'company_id'], 'safe'],
         ];
     }
 
@@ -43,7 +43,7 @@ class FaqSearch extends Faq
      */
     public function search($params)
     {
-        $query = Faq::find();
+        $query = Faq::find()->leftJoin('company','`faq`.company_id = `company`.id');
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -64,14 +64,15 @@ class FaqSearch extends Faq
             'dt_add' => $this->dt_add,
             'dt_update' => $this->dt_update,
             'views' => $this->views,
-            'user_id' => $this->user_id,
-            'company_id' => $this->company_id,
+            '`faq`.user_id' => $this->user_id,
             'cat_id' => $this->cat_id,
 
         ]);
         $query->andFilterWhere(['like', 'question', $this->question])
             ->andFilterWhere(['like', 'answer', $this->answer])
-            ->andFilterWhere(['like', 'type', $this->type]);
+            ->andFilterWhere(['like', 'type', $this->type])
+            ->andFilterWhere(['like', 'sort_order', $this->sort_order])
+            ->andFilterWhere(['like', '`company`.name', $this->company_id]);
 
         $query->orderBy('dt_add DESC');
 

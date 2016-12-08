@@ -18,7 +18,7 @@ class PostsDigestSearch extends PostsDigest
     public function rules()
     {
         return [
-            [['id', 'dt_add', 'dt_update', 'user_id', 'cat_id', 'views'], 'integer'],
+            [['id', 'dt_add', 'dt_update', 'user_id', 'cat_id', 'views','sort_order'], 'integer'],
             [['title', 'content', 'slug', 'photo', 'type'], 'safe'],
         ];
     }
@@ -65,6 +65,7 @@ class PostsDigestSearch extends PostsDigest
             'user_id' => $this->user_id,
             'cat_id' => $this->cat_id,
             'views' => $this->views,
+            'sort_order' => $this->sort_order,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
