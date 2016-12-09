@@ -24,7 +24,7 @@ use yii\helpers\Url;
         </div>
         <div class="content__main_post_text">
             <h2><?= $main_new->title ?></h2>
-            <p><?= WordFunctions::crop_str_word(strip_tags($main_new->content));  ?></p>
+            <!--<p><?/*= WordFunctions::crop_str_word(strip_tags($main_new->content));  */?></p>-->
         </div>
         <div class="content__main_post_navigation">
             <a href="" class="views"><span class="view-icon"></span><?= $main_new->views ?> просмотров  </a>
@@ -43,7 +43,7 @@ use yii\helpers\Url;
         </div>
         <div class="content__main_post_text">
             <h2><?= $news[0]->title ?></h2>
-            <p><?= WordFunctions::crop_str_word(strip_tags($news[0]->content));  ?></p>
+            <!--<p><?/*= WordFunctions::crop_str_word(strip_tags($news[0]->content));  */?></p>-->
         </div>
         <div class="content__main_post_navigation">
             <a href="" class="views"><span class="view-icon"></span><?= $news[0]->views ?> просмотров  </a>

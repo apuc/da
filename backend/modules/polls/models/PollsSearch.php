@@ -1,16 +1,16 @@
 <?php
 
-namespace backend\modules\posts_digest\models;
+namespace backend\modules\polls\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\modules\posts_digest\models\PostsDigest;
+use backend\modules\polls\models\Polls;
 
 /**
- * PostsDigestSearch represents the model behind the search form about `backend\modules\posts_digest\models\PostsDigest`.
+ * PollsSearch represents the model behind the search form about `backend\modules\polls\models\Polls`.
  */
-class PostsDigestSearch extends PostsDigest
+class PollsSearch extends Polls
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class PostsDigestSearch extends PostsDigest
     public function rules()
     {
         return [
-            [['id', 'dt_add', 'dt_update', 'user_id', 'views','sort_order'], 'integer'],
-            [['title', 'content', 'slug', 'photo', 'type'], 'safe'],
+            [['id', 'dt_add', 'dt_update', 'status'], 'integer'],
+            [['title'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class PostsDigestSearch extends PostsDigest
      */
     public function search($params)
     {
-        $query = PostsDigest::find();
+        $query = Polls::find();
 
         // add conditions that should always apply here
 
@@ -62,17 +62,10 @@ class PostsDigestSearch extends PostsDigest
             'id' => $this->id,
             'dt_add' => $this->dt_add,
             'dt_update' => $this->dt_update,
-            'user_id' => $this->user_id,
-            'views' => $this->views,
-            'sort_order' => $this->sort_order,
+            'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'content', $this->content])
-            ->andFilterWhere(['like', 'photo', $this->photo])
-            ->andFilterWhere(['like', 'type', $this->type]);
-
-        $query->orderBy('dt_add DESC');
+        $query->andFilterWhere(['like', 'title', $this->title]);
 
         return $dataProvider;
     }

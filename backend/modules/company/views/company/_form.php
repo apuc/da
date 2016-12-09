@@ -102,7 +102,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'vip')->dropDownList([0 => 'Стандарт', 1 => 'VIP'], ['class' => 'form-control']) ?>
 
-    <? /*= $form->field($model, 'status')->textInput() */ ?>
+    <?= $form->field($model, 'status')->dropDownList([
+        0 => 'Опубликована',
+        1 => 'На модерации'
+    ]) ?>
 
     <? /*= $form->field($model, 'slug')->textInput(['maxlength' => true]) */ ?>
 

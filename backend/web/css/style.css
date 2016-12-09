@@ -33,3 +33,16 @@
 #sub_categ_company {
     margin-top: 10px;
 }
+
+.pa {
+    padding: 10px 0 10px 0;
+    margin-bottom: 10px;
+}
+
+.pa input {
+    margin-top: 5px;
+}
+
+.pa a {
+    margin-top: 5px;
+}

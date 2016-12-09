@@ -24,7 +24,7 @@ class News extends Widget {
             'news'     => \common\models\db\News::find()
                                                 ->where( [ 'lang_id' => Lang::getCurrent()['id'], 'status' => 0 ] )
                                                 ->orderBy( 'dt_public DESC' )
-                                                ->limit( 10 )
+                                                ->limit( 8 )
                                                 ->all(),
             'main_new' => \common\models\db\News::find()
                                                 ->where( [ 'id' => KeyValue::find()->where( [ 'key' => 'main_new' ] )->one()->value ] )

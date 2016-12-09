@@ -125,6 +125,7 @@ return [
                 'posts/<slug>/<postslug>'=>'/consulting/consulting/postsv',
                 'documents/<slug>'=>'/consulting/consulting/documents',
                 'documents-categories/<slugcategory>'=>'/consulting/consulting/documents',
+                'documents/<slug>/<catslug>/<postslug>'=>'/consulting/consulting/documentsv',
                 'documents/<slug>/<postslug>'=>'/consulting/consulting/documentsv',
             ]
         ],

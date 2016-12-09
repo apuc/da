@@ -67,6 +67,9 @@ return [
         'main_new' => [
             'class' => 'backend\modules\main_new\Main_new',
         ],
+        'polls' => [
+            'class' => 'backend\modules\polls\Polls',
+        ],
     ],
     'components' => [
         /*'user' => [
@@ -100,7 +103,8 @@ return [
                 'exchange_rates' => 'exchange_rates/default',
                 'key_value' => 'key_value/key_value',
                 'poster' => 'poster/poster',
-                'category_poster' => 'category_poster/category_poster'
+                'category_poster' => 'category_poster/category_poster',
+                'polls' => 'polls/polls'
             ]
         ],
         'mailer' => [

@@ -10,7 +10,9 @@ use yii\helpers\Url;?>
     <p class="answer">
         <?= WordFunctions::crop_str_word(strip_tags($model['content'])); ?>
     </p>
-    <a href="<?= Url::to( [ '/consulting/consulting/documentsv', 'slug' => $model['type'],'postslug' => $model['slug'] ] ); ?>"
-       class="read-answer">Читать статью</a>
+
+    <a href="<?= Url::to( [ '/consulting/consulting/documentsv', 'slug' => $model['type'],'catslug'=>Yii::$app->request->get()['slugcategory'],'postslug' => $model['slug'] ] ); ?>"
+           class="read-answer">Читать статью</a>
+
     <span class="consult-views-list"><i class="views-ico fa fa-eye"></i><?= $model['views'];?></span>
 </div>

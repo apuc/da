@@ -243,6 +243,27 @@ class MainMenuAdmin extends Widget {
                         'template' => '<a href="#"><i class="fa fa-book"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
                     [
+                        'label'    => 'Опросы',
+                        'items'    => [
+                            [
+                                'label'   => 'Добавить',
+                                'url'     => Url::to( [ '/polls/polls/create' ] ),
+                                'active'  => Yii::$app->controller->module->id == 'polls' && Yii::$app->controller->action->id == 'create',
+                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                            [
+                                'label'   => 'Все опросы',
+                                'url'     => Url::to( [ '/polls' ] ),
+                                'active'  => Yii::$app->controller->module->id == 'polls' && Yii::$app->controller->action->id == 'index',
+                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                        ],
+                        'options'  => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="#"><i class="fa fa-bar-chart"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                    ],
+                    [
                         'label'    => 'Курсы валют',
                         'url'      => Url::to( [ '/exchange_rates' ] ),
                         'template' => '<a href="{url}"><i class="fa fa-money"></i> <span>{label}</span></a>',

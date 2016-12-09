@@ -29,8 +29,13 @@ class CategoryPostsDigest extends \common\models\db\CategoryPostsDigest{
     }
     public static function get_cat_post_by_type($type) {
 
-        $cat_post = ArrayHelper::map( \common\models\db\CategoryPostsDigest::find()->where( [ 'type' =>  $type] )->all(), 'id', 'title' );
+     //   $cat_post = ArrayHelper::map( \common\models\db\CategoryPostsDigest::find()->where( [ 'type' =>  $type] )->all(), 'id', 'title' );
 
-        return Html::dropDownList( 'cat_id', [ ], $cat_post, [ 'class' => 'form-control', 'prompt' =>'Нет','id'=>'postsdigest-cat_id'] );
+        return Html::dropDownList(
+            'categ',
+            null,
+            ArrayHelper::map(\common\models\db\CategoryPostsDigest::find()->where(['type'=>$type])->all(),'id','title'),
+            [  'class'=>'form-control', 'id'=>'categ', 'multiple'=>'multiple']);
+        //return Html::dropDownList( 'cat_id', [ ], $cat_post, [ 'class' => 'form-control', 'prompt' =>'Нет','id'=>'postsdigest-cat_id'] );
     }
 }

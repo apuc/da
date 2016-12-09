@@ -87,6 +87,8 @@ use yii\widgets\ActiveForm;
         '3'=>'Отложена',
     ])->label('Статус')  ?>
 
+    <?= $form->field($model, 'exclude_popular')->checkbox() ?>
+
     <? /*= $form->field($model, 'user_id')->textInput() */ ?>
     <br>
 

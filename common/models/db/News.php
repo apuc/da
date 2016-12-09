@@ -22,6 +22,7 @@ use Yii;
  * @property string $meta_title
  * @property string $meta_descr
  * @property integer $dt_public
+ * @property integer $exclude_popular
  *
  * @property CategoryNewsRelations[] $categoryNewsRelations
  */
@@ -43,7 +44,7 @@ class News extends \yii\db\ActiveRecord
         return [
             [['title'], 'required'],
             [['content'], 'string'],
-            [['dt_add', 'dt_update', 'status', 'user_id', 'lang_id', 'views'], 'integer'],
+            [['dt_add', 'dt_update', 'status', 'user_id', 'lang_id', 'views', 'exclude_popular'], 'integer'],
             [['title', 'slug', 'tags', 'photo', 'meta_title', 'meta_descr'], 'string', 'max' => 255],
         ];
     }
@@ -69,6 +70,7 @@ class News extends \yii\db\ActiveRecord
             'meta_title' => Yii::t('news', 'Meta Title'),
             'meta_descr' => Yii::t('news', 'Meta Descr'),
             'dt_public' => Yii::t('news', 'Dt Public'),
+            'exclude_popular' => Yii::t('news', 'Exclude popular'),
         ];
     }
 

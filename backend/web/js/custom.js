@@ -39,6 +39,7 @@ $(document).ready(function(){
     }); 
     
     $('#postsdigest-type').change(function () {
+        
         var faqtype = $("#postsdigest-type").val();
         $('#postsdigest-cat_id select').val = '';
         if (faqtype){

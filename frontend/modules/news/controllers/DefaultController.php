@@ -35,9 +35,21 @@ class DefaultController extends Controller
 
         $cats_news_ids = ArrayHelper::getColumn(CategoryNewsRelations::find()->where(['new_id'=>$new->id])->select('cat_id')->asArray()->all(),'cat_id');
         $cats_news = ArrayHelper::getColumn(CategoryNewsRelations::find()->where(['cat_id'=>$cats_news_ids])->select('new_id')->asArray()->all(),'new_id');
-        $related_news = News::find()->where(['id'=>$cats_news])->andWhere(['!=','id',$new->id])->andWhere(['>','dt_public', time()- 3600*24*14 ] )->orderBy(['rand()'=>SORT_DESC])->limit(3)->all();
+        $related_news = News::find()
+            ->where(['id'=>$cats_news])
+            ->andWhere(['!=','id',$new->id])
+            ->andWhere(['>','dt_public', time()- 3600*24*14 ] )
+            ->orderBy(['rand()'=>SORT_DESC])
+            ->limit(6)
+            ->all();
 
-        $most_popular_news = News::find()->andWhere(['>','dt_public', time()- 3600*24*14 ] )->andWhere(['!=','id',$new->id])->orderBy('views DESC')->limit(3)->all();
+        $most_popular_news = News::find()
+            ->andWhere(['>','dt_public', time()- 3600*24*14 ] )
+            ->andWhere(['!=','id',$new->id])
+            ->andWhere(['exclude_popular' => 0])
+            ->orderBy('views DESC')
+            ->limit(6)
+            ->all();
 
         if(!empty($new->content)){
             return $this->render('view', [

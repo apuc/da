@@ -66,16 +66,28 @@ use mihaildev\elfinder\ElFinder;
 
 <!--    --><?//= $form->field($model, 'cat_id')->textInput() ?>
 
-    <?php if ( Yii::$app->controller->action->id == 'update' ) { ?>
-
-        <?= $form->field( $model, 'cat_id' )->dropDownList( ArrayHelper::map( CategoryPostsDigest::find()->where( [ 'type' =>  $model->type] )->all(), 'id', 'title' ) )->label( 'Категория' ) ?>
-
+<!--    --><?php //if ( Yii::$app->controller->action->id == 'update' ) { ?>
+<!---->
+<!--        --><?//= $form->field( $model, 'cat_id' )->dropDownList( ArrayHelper::map( CategoryPostsDigest::find()->where( [ 'type' =>  $model->type] )->all(), 'id', 'title' ) )->label( 'Категория' ) ?>
+<!---->
+<!--    --><?php //} else { ?>
+<!---->
+<!--        --><?//= $form->field( $model, 'cat_id' )->dropDownList( [ ], [ 'style' => 'display:none' ] )->label( 'Категория' ,['style'=>'display:none']) ?>
+<!---->
+<!--    --><?php //}; ?>
+        <?php if ( Yii::$app->controller->action->id == 'update' ) { ?>
+            <?= Html::dropDownList(
+                'categ',
+                $cats_arr,
+                ArrayHelper::map(CategoryPostsDigest::find()->where(['type'=>$model->type])->all(),'id','title'),
+                ['class'=>'form-control', 'id'=>'postsdigest-cat_id', 'multiple'=>'multiple']); ?>
     <?php } else { ?>
-
-        <?= $form->field( $model, 'cat_id' )->dropDownList( [ ], [ 'style' => 'display:none' ] )->label( 'Категория' ,['style'=>'display:none']) ?>
-
+            <?= Html::dropDownList(
+                'categ',
+                $cats_arr,
+                [],
+                ['style'=>'display:none' , 'class'=>'form-control', 'id'=>'postsdigest-cat_id', 'multiple'=>'multiple']); ?>
     <?php }; ?>
-
 <!--    --><?//= $form->field($model, 'views')->textInput() ?>
     <?php if ( empty( $model->sort_order ) ): ?>
 

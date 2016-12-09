@@ -81,6 +81,20 @@ $(document).ready(function(){
         console.log($('#all_cats').val());
     });
 
+    $('#add_pa').on('click', function(){
+        $.ajax({
+            type: 'POST',
+            url: "/secure/polls/polls/get_pa",
+            data: {
+                _csrf:$('[name = _csrf]').val()
+            },
+            success: function (data) {
+                $(data).insertBefore('#add_pa');
+            }
+        });
+        return false;
+    });
+
     var elt = $('#all_cats');
     elt.tagsinput({
         itemValue: 'value',
