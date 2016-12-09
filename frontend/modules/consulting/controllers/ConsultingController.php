@@ -295,10 +295,7 @@ class ConsultingController extends \yii\web\Controller {
         $categories_posts = CategoryPostsDigest::find()->where( [ 'type' => $consulting->slug ] )->orderBy( 'sort_order, dt_add' )->all();
 
         $allCat_posts = \frontend\modules\consulting\models\CategoryDigest::getChildCategoriesById( $id );
-        $query        = PostsDigest::find()->where( [
-            //  'cat_id' => $allCat_posts,
-            'type' => $type
-        ] )->rightJoin( 'category_posts_digest_relations', '`posts_digest`.id = `category_posts_digest_relations`.posts_digest_id' )->where( [ '`category_posts_digest_relations`.cat_id' => $allCat_posts ] )->orderBy( 'sort_order, dt_add' );
+        $query        = PostsDigest::find()->rightJoin( 'category_posts_digest_relations', '`posts_digest`.id = `category_posts_digest_relations`.posts_digest_id' )->where( [ '`category_posts_digest_relations`.cat_id' => $allCat_posts,'`posts_digest`.type'=> $type] )->orderBy( 'sort_order, dt_add' );
         $cat_posts    = CategoryPostsDigest::find()->where( [ 'id' => $id ] )->one()->title;
 
         if ( ! $cat_posts ) {
