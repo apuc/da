@@ -31,9 +31,9 @@ class DefaultController extends Controller
 
         $cats_company_ids = ArrayHelper::getColumn(CategoryCompanyRelations::find()->where(['company_id'=>$company->id])->select('cat_id')->asArray()->all(),'cat_id');
         $cats_company = ArrayHelper::getColumn(CategoryCompanyRelations::find()->where(['cat_id'=>$cats_company_ids])->select('company_id')->asArray()->all(),'company_id');
-        $related_company = \common\models\db\Company::find()->where(['id'=>$cats_company])->andWhere(['!=','id',$company->id])->orderBy(['rand()'=>SORT_DESC])->limit(3)->all();
+        $related_company = \common\models\db\Company::find()->where(['id'=>$cats_company])->andWhere(['!=','id',$company->id])->orderBy(['rand()'=>SORT_DESC])->limit(6)->all();
 
-        $most_popular_company = \common\models\db\Company::find()->andWhere(['!=','id',$company->id])->orderBy('views DESC')->limit(3)->all();
+        $most_popular_company = \common\models\db\Company::find()->andWhere(['!=','id',$company->id])->orderBy('views DESC')->limit(6)->all();
 
 
         return $this->render('view', [

@@ -38,9 +38,9 @@ class DefaultController extends Controller
 
         $cats_posters_ids = ArrayHelper::getColumn(CategoryPosterRelations::find()->where(['poster_id'=>$poster->id])->select('cat_id')->asArray()->all(),'cat_id');
         $cats_posters = ArrayHelper::getColumn(CategoryPosterRelations::find()->where(['cat_id'=>$cats_posters_ids])->select('poster_id')->asArray()->all(),'poster_id');
-        $related_posters = Poster::find()->where(['id'=>$cats_posters])->andWhere(['!=','id',$poster->id])->andWhere(['>','dt_event',time()])->orderBy(['rand()'=>SORT_DESC])->limit(3)->all();
+        $related_posters = Poster::find()->where(['id'=>$cats_posters])->andWhere(['!=','id',$poster->id])->andWhere(['>','dt_event',time()])->orderBy(['rand()'=>SORT_DESC])->limit(6)->all();
 
-        $most_popular_posters = Poster::find()->andWhere(['>','dt_event', time()] )->andWhere(['!=','id',$poster->id])->orderBy('views DESC')->limit(3)->all();
+        $most_popular_posters = Poster::find()->andWhere(['>','dt_event', time()] )->andWhere(['!=','id',$poster->id])->orderBy('views DESC')->limit(6)->all();
 
         return $this->render('view', [
             'poster' => $poster,

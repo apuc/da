@@ -48,11 +48,13 @@ class CompanyController extends Controller
         $company = CategoryCompany::find()->where(['parent_id' => 0, 'lang_id' => 1])->all();
         $sub_company = CategoryCompany::find()->where(['parent_id' => 533])->all();
         $organizations = Company::find()->where(['user_id' => 1])->orderBy('RAND()')->limit(6)->all();
+        $most_popular_company = \common\models\db\Company::find()->orderBy('views DESC')->limit(6)->all();
 
         return $this->render('index', [
             'company' => $company,
             'sub_company' => $sub_company,
-            'organizations' => $organizations
+            'organizations' => $organizations,
+            'most_popular_company' => $most_popular_company
         ]);
     }
 
