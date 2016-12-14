@@ -11,7 +11,9 @@ use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
 
-AppAsset::register($this);
+
+
+AppAsset::register( $this );
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -20,7 +22,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title><?= Html::encode( $this->title ) ?></title>
     <?php $this->head() ?>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -29,10 +31,10 @@ AppAsset::register($this);
     <?php $this->beginBody() ?>
 
     <?php
-    if (Yii::$app->user->isGuest): ?>
+    if ( Yii::$app->user->isGuest ): ?>
         <header class="main-header">
             <!-- Logo -->
-            <a href="<?= Url::to(['/']) ?>" class="logo">
+            <a href="<?= Url::to( [ '/' ] ) ?>" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini">Админпанель</span>
                 <!-- logo for regular state and mobile devices -->
@@ -47,20 +49,20 @@ AppAsset::register($this);
             <!-- Main content -->
             <section class="content">
                 <?= Alert::widget() ?>
-                <?/*= $content */?>
+                <? /*= $content */ ?>
                 <?= \backend\widgets\Login::widget(); ?>
             </section><!-- /.content -->
         </div><!-- /.content-wrapper -->
         <footer class="main-footer contentLoginAdmin">
             <div class="pull-right hidden-xs">
             </div>
-            <strong>&copy; My Company <?= date('Y') ?></strong>
+            <strong>&copy; My Company <?= date( 'Y' ) ?></strong>
         </footer>
     <?php else: ?>
 
         <header class="main-header">
             <!-- Logo -->
-            <a href="<?= Url::to(['/']) ?>" class="logo">
+            <a href="<?= Url::to( [ '/' ] ) ?>" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini">Админпанель</span>
                 <!-- logo for regular state and mobile devices -->
@@ -72,8 +74,9 @@ AppAsset::register($this);
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a data-method="post" href="<?= Url::to(['/site/logout']); ?>"><i class="fa fa-sign-out"></i></a>
-                            <?/*= Html::endForm(); */?>
+                            <a data-method="post" href="<?= Url::to( [ '/site/logout' ] ); ?>"><i
+                                    class="fa fa-sign-out"></i></a>
+                            <? /*= Html::endForm(); */ ?>
                         </li>
                     </ul>
                 </div>
@@ -92,9 +95,9 @@ AppAsset::register($this);
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
-                <?= Breadcrumbs::widget([
-                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                ]) ?>
+                <?= Breadcrumbs::widget( [
+                    'links' => isset( $this->params['breadcrumbs'] ) ? $this->params['breadcrumbs'] : [ ],
+                ] ) ?>
                 <!--<ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                     <li class="active">Dashboard</li>
@@ -110,7 +113,7 @@ AppAsset::register($this);
         <footer class="main-footer contentLoginAdmin">
             <div class="pull-right hidden-xs">
             </div>
-            <strong>&copy; My Company <?= date('Y') ?></strong>
+            <strong>&copy; My Company <?= date( 'Y' ) ?></strong>
         </footer>
 
         <?php
@@ -119,9 +122,8 @@ AppAsset::register($this);
         //   \common\classes\Debug::prn(Yii::$app->urlManagerFrontend->createAbsoluteUrl(['site/index']));
         //Yii::$app->getResponse()->redirect(Yii::$app->urlManagerFrontend->createAbsoluteUrl(['site/index']), 200);
         //Yii::$app->response->redirect(Yii::$app->urlManagerFrontend->createAbsoluteUrl(['site/index']));
-        /*return $this->redirect(Yii::$app->urlManagerFrontend->createUrl(Url::base())); */?>
+        /*return $this->redirect(Yii::$app->urlManagerFrontend->createUrl(Url::base())); */ ?>
     <?php endif ?>
-
 
 
     <!--<div class="wrap">

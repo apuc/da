@@ -11,15 +11,26 @@ namespace common\classes;
 
 use Yii;
 
-class UserFunction
-{
-    public static function hasRoles($roles, $user_id = false){
-        $role = Yii::$app->authManager->getRolesByUser((!$user_id)?Yii::$app->user->getId():$user_id);
-        foreach($role as $k=>$v){
-            if(in_array($k,$roles)){
+class UserFunction {
+    public static function hasRoles( $roles, $user_id = false ) {
+        $role = Yii::$app->authManager->getRolesByUser( ( ! $user_id ) ? Yii::$app->user->getId() : $user_id );
+        foreach ( $role as $k => $v ) {
+            if ( in_array( $k, $roles ) ) {
                 return true;
             }
         }
+
+        return false;
+    }
+
+    public static function hasPermission( $permission, $user_id = false ) {
+        $permissions = Yii::$app->authManager->getPermissionsByUser( ( ! $user_id ) ? Yii::$app->user->getId() : $user_id );
+        foreach ( $permissions as $k => $v ) {
+            if ( in_array( $k, $permission ) ) {
+                return true;
+            }
+        }
+
         return false;
     }
 }
