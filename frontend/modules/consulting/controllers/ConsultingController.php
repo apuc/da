@@ -9,6 +9,7 @@ use common\models\db\CategoryPostsDigest;
 use common\models\db\Company;
 use common\models\db\Consulting;
 use common\models\db\Faq;
+use common\models\db\KeyValue;
 use common\models\db\PostsConsulting;
 use common\models\db\PostsDigest;
 use frontend\modules\consulting\models\CategoryPosts;
@@ -23,7 +24,12 @@ class ConsultingController extends \yii\web\Controller {
 //        return $this->render('index');
         $consulting = Consulting::find()->all();
 
-        return $this->render( 'index', [ 'consulting' => $consulting ] );
+        return $this->render( 'index', 
+            [ 
+                'consulting' => $consulting,
+                'meta_title' => KeyValue::findOne( [ 'key' => 'consulting_page_meta_title' ] )->value,
+                'meta_descr' => KeyValue::findOne( [ 'key' => 'consulting_page_meta_descr' ] )->value,
+            ] );
     }
 
     public function actionView() {

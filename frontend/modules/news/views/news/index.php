@@ -17,9 +17,13 @@ use yii\widgets\Pjax;
  * @var $news_5 \common\models\db\News
  */
 
-$this->title                   = Yii::t( 'news', 'News' );
+//$this->title                   = Yii::t( 'news', 'News' );
 $this->params['breadcrumbs'][] = $this->title;
-
+$this->title = $meta_title;
+$this->registerMetaTag( [
+    'name'    => 'description',
+    'content' => $meta_descr,
+] );
 $md = new \common\classes\Mobile_Detect();
 ?>
 <div class="main-news" style="margin-top: 30px">

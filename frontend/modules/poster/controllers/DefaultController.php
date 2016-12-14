@@ -6,6 +6,7 @@ use backend\modules\poster\controllers\PosterController;
 use common\classes\Debug;
 use common\models\db\CategoryPoster;
 use common\models\db\CategoryPosterRelations;
+use common\models\db\KeyValue;
 use common\models\db\Poster;
 use yii\data\ActiveDataProvider;
 use yii\data\SqlDataProvider;
@@ -62,6 +63,8 @@ class DefaultController extends Controller
         return $this->render('category',[
             'category' => CategoryPoster::find()->orderBy('id DESC')->all(),
             'dataProvider' => $dataProvider,
+            'meta_title' => KeyValue::findOne( [ 'key' => 'poster_page_meta_title' ] )->value,
+            'meta_descr' => KeyValue::findOne( [ 'key' => 'poster_page_meta_descr' ] )->value,
         ]);
     }
 
@@ -80,7 +83,7 @@ class DefaultController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-    
+
     public function actionSingle_category($slug){
         $cat = CategoryPoster::find()->where(['slug'=>$slug])->one();
         $query = CategoryPosterRelations::find()
@@ -125,7 +128,7 @@ class DefaultController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-    
+
     public static function actionUpdposterdt_event(){
 
         $posters = Poster::find()->all();

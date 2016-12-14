@@ -259,6 +259,13 @@ class MainMenuAdmin extends Widget {
                         'visible'  => UserFunction::hasPermission( [ 'Курсы валют' ] ),
                     ],
                     [
+                        'label'    => 'СЕО',
+                        'url'      => Url::to( [ '/seo' ] ),
+                        'template' => '<a href="{url}"><i class="fa fa-line-chart"></i> <span>{label}</span></a>',
+                        'active'   => Yii::$app->controller->module->id == 'seo',
+                        'visible'  => UserFunction::hasPermission( [ 'СЕО' ] ),
+                    ],
+                    [
                         'label'    => 'Переменные',
                         'url'      => Url::to( [ '/key_value' ] ),
                         'template' => '<a href="{url}"><i class="fa fa-ellipsis-h"></i> <span>{label}</span></a>',

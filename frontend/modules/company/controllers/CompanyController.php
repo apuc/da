@@ -5,6 +5,7 @@ namespace frontend\modules\company\controllers;
 use common\classes\Debug;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
+use common\models\db\KeyValue;
 use frontend\widgets\VipCompanyWidget;
 use Yii;
 use frontend\modules\company\models\Company;
@@ -52,7 +53,9 @@ class CompanyController extends Controller {
         return $this->render( 'index', [
             'company'       => $company,
             'sub_company'   => $sub_company,
-            'organizations' => $organizations
+            'organizations' => $organizations,
+            'meta_title'    => KeyValue::findOne( [ 'key' => 'company_page_meta_title' ] )->value,
+            'meta_descr'    => KeyValue::findOne( [ 'key' => 'company_page_meta_descr' ] )->value,
         ] );
     }
 
@@ -219,12 +222,12 @@ class CompanyController extends Controller {
                                                ->all();
         $id_parrent_company   = ArrayHelper::getColumn( $select_categories, 'id' );
         $select_organizations = Company::find()
-                                        ->leftJoin( 'category_company_relations', '`category_company_relations`.`company_id`=`company`.`id`' )
-                                        ->where( [ '`company`.`status`' => 0 ] )
-                                        ->andWhere( [ '`category_company_relations`.`cat_id`' => $_POST['id'] ] )
-                                        ->orWhere( [ '`category_company_relations`.`cat_id`' => $id_parrent_company ] )
-                                        ->with( 'category_company_relations' )
-                                        ->all();
+                                       ->leftJoin( 'category_company_relations', '`category_company_relations`.`company_id`=`company`.`id`' )
+                                       ->where( [ '`company`.`status`' => 0 ] )
+                                       ->andWhere( [ '`category_company_relations`.`cat_id`' => $_POST['id'] ] )
+                                       ->orWhere( [ '`category_company_relations`.`cat_id`' => $id_parrent_company ] )
+                                       ->with( 'category_company_relations' )
+                                       ->all();
 
         return $this->renderPartial( 'organizations', [
             'organizations' => $select_organizations

@@ -67,6 +67,9 @@ return [
         'main_new' => [
             'class' => 'backend\modules\main_new\Main_new',
         ],
+        'seo' => [
+            'class' => 'backend\modules\seo\Seo',
+        ],
     ],
     'components' => [
         /*'user' => [
@@ -98,6 +101,7 @@ return [
                 'company' => 'company/company',
                 'category_company' => 'category_company/category_company',
                 'exchange_rates' => 'exchange_rates/default',
+                'seo' => 'seo/default',
                 'key_value' => 'key_value/key_value',
                 'poster' => 'poster/poster',
                 'category_poster' => 'category_poster/category_poster'
