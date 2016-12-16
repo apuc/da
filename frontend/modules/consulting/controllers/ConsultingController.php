@@ -305,7 +305,8 @@ class ConsultingController extends \yii\web\Controller
             ->orderBy('sort_order, dt_add')
             ->all();
 
-        $allCat_posts = \frontend\modules\consulting\models\CategoryDigest::getChildCategoriesById($id);
+
+        $allCat_posts = \frontend\modules\consulting\models\CategoryDigest::getChildCategoriesById( $id );
 
         $query = PostsDigest::find()
             ->rightJoin('category_posts_digest_relations', '`posts_digest`.id = `category_posts_digest_relations`.posts_digest_id')
