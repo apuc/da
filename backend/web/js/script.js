@@ -93,6 +93,13 @@ $(document).ready(function(){
             elt.tagsinput('add', { value: arr[i].id , text: arr[i].title});
         }
     }
+
+    $(document).on('change','#poster-dt_event',function () {
+
+        $('#poster-dt_event_end').val($(this).val());
+        
+    })
+
 });
 
 Share = {

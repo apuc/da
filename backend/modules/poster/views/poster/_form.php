@@ -68,9 +68,17 @@ use yii\widgets\ActiveForm;
 
     <?/*= $form->field($model, 'status')->textInput() */?>
 
+<?php if (!empty($model->dt_event)): ?>
+    <?= $form->field($model, 'dt_event')->input('date', ['class'=>'form-control', 'value'=>date('Y-m-d',$model->dt_event)])?>
+<?php else: ?>
+    <?= $form->field($model, 'dt_event')->input('date', ['class'=>'form-control', 'value'=>date('Y-m-d',time())])?>
+<?php endif; ?>
 
-    <?= $form->field($model, 'dt_event')->input('date', ['class'=>'form-control', 'value'=>date('d.m.Y',$model->dt_event)])?>
-
+<?php if (!empty($model->dt_event_end)): ?>
+    <?= $form->field($model, 'dt_event_end')->input('date', ['class'=>'form-control', 'value'=>date('Y-m-d',$model->dt_event_end)])->label('Дата окончания события')?>
+    <?php else: ?>
+    <?= $form->field($model, 'dt_event_end')->input('date', ['class'=>'form-control', 'value'=>date('Y-m-d',time())])->label('Дата окончания события')?>
+<?php endif; ?>
     <?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'meta_descr')->textInput(['maxlength' => true]) ?>
