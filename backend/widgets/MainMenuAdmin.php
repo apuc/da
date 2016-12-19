@@ -17,7 +17,8 @@ class MainMenuAdmin extends Widget {
                         'url'      => Url::to( [ '/user/admin' ] ),
                         'template' => '<a href="{url}"><i class="fa fa-users"></i> <span>{label}</span></a>',
                         'active'   => Yii::$app->controller->module->id == 'user' || Yii::$app->controller->module->id == 'rbac',
-                        'visible'  => UserFunction::hasRoles( [ 'admin' ] ),
+                        //'visible'  => UserFunction::hasRoles( [ 'admin' ] ),
+                        'visible'  => UserFunction::hasPermission( [ 'Пользователи' ] ),
                     ],
                     /*[
                         'label' => 'Ссылка 2',
@@ -51,6 +52,7 @@ class MainMenuAdmin extends Widget {
                                 'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
                         ],
+                        'visible'  => UserFunction::hasPermission( [ 'Новости' ] ),
                         'options'  => [
                             'class' => 'treeview',
                         ],
@@ -84,6 +86,8 @@ class MainMenuAdmin extends Widget {
                                 'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
                         ],
+
+                        'visible'  => UserFunction::hasPermission( [ 'Компании' ] ),
                         'options'  => [
                             'class' => 'treeview',
                         ],
@@ -111,6 +115,7 @@ class MainMenuAdmin extends Widget {
                                 'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
                         ],
+                        'visible'  => UserFunction::hasPermission( [ 'Афиша' ] ),
                         'options'  => [
                             'class' => 'treeview',
                         ],
@@ -156,6 +161,7 @@ class MainMenuAdmin extends Widget {
 //                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
 //                            ]
                         ],
+                        'visible'  => UserFunction::hasPermission( [ 'Консалтинг' ] ),
                         'options'  => [
                             'class' => 'treeview',
                         ],
@@ -183,6 +189,7 @@ class MainMenuAdmin extends Widget {
                                 'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
                         ],
+                        'visible'  => UserFunction::hasPermission( [ 'Консалтинг - FAQ' ] ),
                         'options'  => [
                             'class' => 'treeview',
                         ],
@@ -210,6 +217,7 @@ class MainMenuAdmin extends Widget {
                                 'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
                         ],
+                        'visible'  => UserFunction::hasPermission( [ 'Консалтинг - Статьи' ] ),
                         'options'  => [
                             'class' => 'treeview',
                         ],
@@ -237,6 +245,7 @@ class MainMenuAdmin extends Widget {
                                 'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
                         ],
+                        'visible'  => UserFunction::hasPermission( [ 'Консалтинг - Дайджест' ] ),
                         'options'  => [
                             'class' => 'treeview',
                         ],
@@ -268,21 +277,28 @@ class MainMenuAdmin extends Widget {
                         'url'      => Url::to( [ '/exchange_rates' ] ),
                         'template' => '<a href="{url}"><i class="fa fa-money"></i> <span>{label}</span></a>',
                         'active'   => Yii::$app->controller->module->id == 'exchange_rates',
-                        'visible'  => UserFunction::hasRoles( [ 'admin' ] ),
+                        'visible'  => UserFunction::hasPermission( [ 'Курсы валют' ] ),
+                    ],
+                    [
+                        'label'    => 'СЕО',
+                        'url'      => Url::to( [ '/seo' ] ),
+                        'template' => '<a href="{url}"><i class="fa fa-line-chart"></i> <span>{label}</span></a>',
+                        'active'   => Yii::$app->controller->module->id == 'seo',
+                        'visible'  => UserFunction::hasPermission( [ 'СЕО' ] ),
                     ],
                     [
                         'label'    => 'Переменные',
                         'url'      => Url::to( [ '/key_value' ] ),
                         'template' => '<a href="{url}"><i class="fa fa-ellipsis-h"></i> <span>{label}</span></a>',
                         'active'   => Yii::$app->controller->module->id == 'key_value',
-                        'visible'  => UserFunction::hasRoles( [ 'admin' ] ),
+                        'visible'  => UserFunction::hasPermission( [ 'Переменные' ] ),
                     ],
                     [
                         'label'    => 'Языки',
                         'url'      => Url::to( [ '/lang' ] ),
                         'template' => '<a href="{url}"><i class="fa fa-language"></i> <span>{label}</span></a>',
                         'active'   => Yii::$app->controller->module->id == 'lang',
-                        'visible'  => UserFunction::hasRoles( [ 'admin' ] ),
+                        'visible'  => UserFunction::hasPermission( [ 'Языки' ] ),
                     ],
 
                     /*[

@@ -6,6 +6,7 @@ use backend\modules\poster\controllers\PosterController;
 use common\classes\Debug;
 use common\models\db\CategoryPoster;
 use common\models\db\CategoryPosterRelations;
+use common\models\db\KeyValue;
 use common\models\db\Poster;
 use yii\data\ActiveDataProvider;
 use yii\data\SqlDataProvider;
@@ -38,9 +39,11 @@ class DefaultController extends Controller
 
         $cats_posters_ids = ArrayHelper::getColumn(CategoryPosterRelations::find()->where(['poster_id'=>$poster->id])->select('cat_id')->asArray()->all(),'cat_id');
         $cats_posters = ArrayHelper::getColumn(CategoryPosterRelations::find()->where(['cat_id'=>$cats_posters_ids])->select('poster_id')->asArray()->all(),'poster_id');
+
         $related_posters = Poster::find()->where(['id'=>$cats_posters])->andWhere(['!=','id',$poster->id])->andWhere(['>','dt_event',time()])->orderBy(['rand()'=>SORT_DESC])->limit(6)->all();
 
         $most_popular_posters = Poster::find()->andWhere(['>','dt_event', time()] )->andWhere(['!=','id',$poster->id])->orderBy('views DESC')->limit(6)->all();
+
 
         return $this->render('view', [
             'poster' => $poster,
@@ -50,7 +53,7 @@ class DefaultController extends Controller
     }
 
     public function actionCategory(){
-        $query = \common\models\db\Poster::find()->orderBy('dt_event')->andWhere(['>','dt_event',time()]);
+        $query = \common\models\db\Poster::find()->orderBy('dt_event_end')->andWhere(['>','dt_event_end',time()]);
         $dataProvider = new SqlDataProvider([
             'sql' => $query->createCommand()->rawSql,
             'totalCount' => (int)$query->count(),
@@ -62,6 +65,8 @@ class DefaultController extends Controller
         return $this->render('category',[
             'category' => CategoryPoster::find()->orderBy('id DESC')->all(),
             'dataProvider' => $dataProvider,
+            'meta_title' => KeyValue::findOne( [ 'key' => 'poster_page_meta_title' ] )->value,
+            'meta_descr' => KeyValue::findOne( [ 'key' => 'poster_page_meta_descr' ] )->value,
         ]);
     }
 
@@ -80,14 +85,14 @@ class DefaultController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-    
+
     public function actionSingle_category($slug){
         $cat = CategoryPoster::find()->where(['slug'=>$slug])->one();
         $query = CategoryPosterRelations::find()
             ->leftJoin('poster', '`category_poster_relations`.`poster_id` = `poster`.`id`')
             ->orderBy('dt_event')
             ->where(['cat_id'=>$cat->id])
-            ->andWhere(['>','dt_event',time()])
+            ->andWhere(['>','dt_event_end',time()])
             ->with('poster');
 
         $dataProvider = new ActiveDataProvider([
@@ -125,13 +130,24 @@ class DefaultController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-    
+
     public static function actionUpdposterdt_event(){
 
         $posters = Poster::find()->all();
         foreach ($posters as $k){
             if($k->dt_event == 0){
                 Poster::updateAll(['dt_event'=>$k->dt_add],['id'=>$k->id]);
+            }
+        }
+
+    }
+
+    public static function actionUpdposterdt_event_end(){
+
+        $posters = Poster::find()->all();
+        foreach ($posters as $k){
+            if($k->dt_event_end == 0){
+                Poster::updateAll(['dt_event_end'=>$k->dt_event],['id'=>$k->id]);
             }
         }
 

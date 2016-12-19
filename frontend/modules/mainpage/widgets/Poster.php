@@ -18,7 +18,7 @@ class Poster extends Widget
 
     public function run()
     {
-        $query = \common\models\db\Poster::find()->andWhere(['>',"dt_event",time()])->orderBy('dt_event');
+        $query = \common\models\db\Poster::find()->andWhere(['>',"dt_event_end",time()])->orderBy('dt_event');
         $dataProvider = new SqlDataProvider([
             'sql' => $query->createCommand()->rawSql,
             'totalCount' => (int)$query->count(),
@@ -27,7 +27,7 @@ class Poster extends Widget
             ],
         ]);
 
-        $one_poster = \common\models\db\Poster::find()->andWhere(['>',"dt_event",time()])->limit(1)->orderBy('dt_event')->all();
+        $one_poster = \common\models\db\Poster::find()->andWhere(['>',"dt_event_end",time()])->limit(1)->orderBy('dt_event')->all();
 
         return $this->render('poster', [
             'dataProvider' => $dataProvider,

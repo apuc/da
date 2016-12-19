@@ -10,8 +10,11 @@ use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
 use yii\helpers\Url;
 
-$this->title = "Предприятия";
-
+$this->title = $meta_title;
+$this->registerMetaTag( [
+    'name'    => 'description',
+    'content' => $meta_descr,
+] );
 ?>
 <div class="category">
     <div class="category-list">

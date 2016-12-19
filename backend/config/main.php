@@ -70,6 +70,9 @@ return [
         'polls' => [
             'class' => 'backend\modules\polls\Polls',
         ],
+        'seo' => [
+            'class' => 'backend\modules\seo\Seo',
+        ],
     ],
     'components' => [
         /*'user' => [
@@ -88,7 +91,7 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'request'      => [
+        'request' => [
             'baseUrl' => '/secure',
         ],
         'urlManager' => [
@@ -101,6 +104,7 @@ return [
                 'company' => 'company/company',
                 'category_company' => 'category_company/category_company',
                 'exchange_rates' => 'exchange_rates/default',
+                'seo' => 'seo/default',
                 'key_value' => 'key_value/key_value',
                 'poster' => 'poster/poster',
                 'category_poster' => 'category_poster/category_poster',

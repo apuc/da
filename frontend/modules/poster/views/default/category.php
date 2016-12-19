@@ -8,7 +8,11 @@
  * @var $dataProvider \yii\data\SqlDataProvider
  */
 use yii\helpers\Url;
-$this->title = "Афиша";
+$this->title = $meta_title;
+$this->registerMetaTag( [
+    'name'    => 'description',
+    'content' => $meta_descr,
+] );
 ?>
 <div class="posters">
     <div class="shape">

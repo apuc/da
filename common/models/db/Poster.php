@@ -22,6 +22,7 @@ use Yii;
  * @property string $meta_descr
  * @property string $photo
  * @property integer $dt_event
+ * @property integer $dt_event_end
  */
 class Poster extends \yii\db\ActiveRecord
 {
@@ -39,8 +40,9 @@ class Poster extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'dt_event'], 'required'],
+            [['title', 'dt_event', 'dt_event_end'], 'required'],
             [['dt_add', 'dt_update', 'views', 'status'], 'integer'],
+            [['dt_event', 'dt_event_end'],'safe'],
             [['descr', 'short_descr'], 'string'],
             [['title', 'slug', 'price', 'meta_title', 'meta_descr', 'photo'], 'string', 'max' => 255],
             [['start'], 'string', 'max' => 512],
@@ -68,6 +70,7 @@ class Poster extends \yii\db\ActiveRecord
             'meta_descr' => Yii::t('poster', 'Meta Descr'),
             'photo' => Yii::t('poster', 'Photo'),
             'dt_event' => Yii::t('poster', 'Dt Event'),
+            'dt_event_end' => Yii::t('poster', 'Dt Event End'),
         ];
     }
 }

@@ -70,6 +70,7 @@ class PosterController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             $model->dt_event = strtotime($model->dt_event);
+            $model->dt_event_end = strtotime($model->dt_event_end);
             $model->save();
 
             foreach($_POST['cat'] as $cat){
@@ -98,6 +99,7 @@ class PosterController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->dt_event = strtotime($model->dt_event);
+            $model->dt_event_end= strtotime($model->dt_event_end);
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
