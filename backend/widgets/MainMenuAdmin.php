@@ -266,6 +266,12 @@ class MainMenuAdmin extends Widget {
                                 'active'  => Yii::$app->controller->module->id == 'polls' && Yii::$app->controller->action->id == 'index',
                                 'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
+                            [
+                                'label'   => 'Активный опрос',
+                                'url'     => Url::to( [ '/active_poll' ] ),
+                                'active'  => Yii::$app->controller->module->id == 'active_poll' && Yii::$app->controller->action->id == 'index',
+                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
                         ],
                         'options'  => [
                             'class' => 'treeview',

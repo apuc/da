@@ -31,6 +31,9 @@ return [
         'consulting' => [
             'class' => 'frontend\modules\consulting\Consulting',
         ],
+        'ajax' => [
+            'class' => 'frontend\modules\ajax\Ajax',
+        ],
     ],
     'components' => [
         'mymessages' => [
@@ -127,6 +130,8 @@ return [
                 'documents-categories/<slugcategory>'=>'/consulting/consulting/documents',
                 'documents/<slug>/<catslug>/<postslug>'=>'/consulting/consulting/documentsv',
                 'documents/<slug>/<postslug>'=>'/consulting/consulting/documentsv',
+                //'ajax'=> 'ajax/default',
+                //'ajax/send_poll'=> 'ajax/default/send_poll',
             ]
         ],
         'mailer' => [

@@ -25,6 +25,7 @@ class AppAsset extends AssetBundle
         'theme/portal-donbassa/css/jquery.fancybox-thumbs.css',
         'theme/portal-donbassa/css/datepicker.min.css',
         'css/lightbox.css',
+        'theme/portal-donbassa/css/jquery-ui.min.css',
         'theme/portal-donbassa/css/style.min.css',
     ];
     public $js = [
@@ -37,11 +38,13 @@ class AppAsset extends AssetBundle
         'js/lightbox.js',
         'theme/portal-donbassa/js/script.min.js',
         'theme/portal-donbassa/js/script.js',
+        'theme/portal-donbassa/js/jquery-ui.min.js',
         '//vk.com/js/api/openapi.js?133',
         '//api-maps.yandex.ru/2.1/?lang=ru_RU',
         'js/map.js',
         'js/yandex_options.js',
         'js/jquery.columnlist.js',
+        'js/poll_ajax.js',
         'js/script.js'
     ];
     public $depends = [

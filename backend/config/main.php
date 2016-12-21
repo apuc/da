@@ -73,6 +73,9 @@ return [
         'seo' => [
             'class' => 'backend\modules\seo\Seo',
         ],
+        'active_poll' => [
+            'class' => 'backend\modules\active_poll\Active_poll',
+        ],
     ],
     'components' => [
         /*'user' => [

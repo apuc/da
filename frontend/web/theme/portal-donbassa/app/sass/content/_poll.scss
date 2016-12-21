@@ -1,0 +1,99 @@
+.poll{
+  padding-top: 17px;
+  padding-bottom: 17px;
+  background: #fff;
+  width: 100%;
+  float: left;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  h4{
+    font-family:$rb;
+    color:#0f0101;
+    text-transform: uppercase;
+    font-size: 14px;
+    height: 35px;
+    line-height: 30px;
+    width: 100%;
+    border: 1px solid #e6e3dc;
+    border-top: 5px solid #ff3432;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  h5{
+    font-family:$rb;
+    color:#0f0101;
+    font-size: 14px;
+    margin-top: 16px;
+  }
+  label{
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0 17px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    input[type = 'radio']{
+      margin-right: 10px;
+      border: 1px solid transparent;
+    }
+
+    .add-ad{
+      outline: none;
+      border: 1px solid transparent;
+    }
+    p{
+      font-family:$rr;
+      color:#0f0101;
+      font-size: 13px;
+      display: inline-block;
+      width: 100%;
+      height: auto;
+    }
+
+  }
+  .sbm-poll{
+    outline: none;
+    border: 1px solid transparent;
+    text-transform: uppercase;
+  }
+  .pol-progress-cont{
+    width: 100%;
+    float: left;
+    .answer{
+      margin-top:7px;
+      width: 100%;
+      float: left;
+      text-align: left;
+      p{
+        font-family:$rr;
+        font-size: 13px;
+        margin-bottom: 3px;
+      }
+    }
+    .poll-progressbar{
+      float: left;
+      width: 85%;
+      height: 20px;
+      border-radius: 0;
+      border: 1px solid transparent;
+      .ui-progressbar .ui-progressbar-value{
+        background-color: #c0b9b9;
+      }
+      background-color: transparent;
+    }
+    .result{
+      width: 15%;
+      float: left;
+      display: block;
+      font-family:$rr;
+      font-size: 12px;
+    }
+  }
+}

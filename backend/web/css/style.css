@@ -46,3 +46,7 @@
 .pa a {
     margin-top: 5px;
 }
+
+.polls-view .pa p{
+    display: inline-block;
+}

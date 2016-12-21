@@ -130,6 +130,9 @@ AppAsset::register($this);
                 </div>
                 <?= \frontend\modules\news\widgets\NewsArchive::widget() ?>
             </div>
+            <div class="poll">
+                 <?= \frontend\widgets\Poll::widget() ?>
+            </div>
     </div>
 </section>
 

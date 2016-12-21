@@ -134,6 +134,7 @@ AppAsset::register($this);
         <!-- right bar -->
         <div class="right-bar">
             <h2>топ лучших</h2>
+
             <!--<a href="<?/*= Url::to(['/company/company/create']) */?>" class="add-ad">Добавить предприятие </a>-->
             <div class="right-bar__ad">
                 <?= \frontend\widgets\TopCompanyWidget::widget() ?>
@@ -165,6 +166,9 @@ AppAsset::register($this);
                 <div id="vk_groups"></div>
                 <h4>МЫ В ФЕЙСБУКЕ</h4>
                 <div class="fb-page" data-href="https://www.facebook.com/da.info.pro/" data-heigh = "180" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true"><blockquote cite="https://www.facebook.com/da.info.pro/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/da.info.pro/">DA</a></blockquote></div>
+            </div>
+            <div class="poll">
+                <?= \frontend\widgets\Poll::widget() ?>
             </div>
         </div>
     </div>
