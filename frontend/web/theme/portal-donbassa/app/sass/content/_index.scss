@@ -687,8 +687,13 @@
   }
 }
 .right-bar{
+  h2{
+    padding-top: 18px;
+    float: left;
+    width: 100%;
+    text-align: center;
+  }
   width: 20%;
-  padding-top: 18px;
   float: left;
   position: relative;
   text-align: center;

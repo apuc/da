@@ -120,6 +120,9 @@ AppAsset::register($this);
         </div>
 
         <div class="right-bar">
+            <div class="poll">
+                <?= \frontend\widgets\Poll::widget() ?>
+            </div>
             <h2>топ лучших</h2>
             <!--<a href="<?/*= Url::to(['/company/company/create']) */?>" class="add-ad">Добавить предприятие </a>-->
 
@@ -130,9 +133,7 @@ AppAsset::register($this);
                 </div>
                 <?= \frontend\modules\news\widgets\NewsArchive::widget() ?>
             </div>
-            <div class="poll">
-                 <?= \frontend\widgets\Poll::widget() ?>
-            </div>
+
     </div>
 </section>
 
