@@ -10,6 +10,7 @@ use common\models\db\Company;
 use common\models\db\Consulting;
 use common\models\db\Faq;
 use common\models\db\KeyValue;
+use common\models\db\Likes;
 use common\models\db\PostsConsulting;
 use common\models\db\PostsDigest;
 use frontend\modules\consulting\models\CategoryPosts;
@@ -160,6 +161,16 @@ class ConsultingController extends \yii\web\Controller
             }
             $faq->updateAllCounters(['views' => 1], ['id' => $faq->id]);
         }
+        $count_likes   = count( Likes::find()
+                                     ->where( [ 'post_type' => 'faq', 'post_id' => $company->id ] )
+                                     ->all() );
+        $user_set_like = Likes::find()
+                              ->where( [
+                                  'post_type' => 'faq',
+                                  'user_id'   => Yii::$app->user->id,
+                                  'post_id'   => $company->id,
+                              ] )
+                              ->one();
 
         return $this->render('consulting_faq_item', [
             'consulting' => $consulting,
@@ -169,6 +180,8 @@ class ConsultingController extends \yii\web\Controller
             'cat_faq' => $cat_faq,
             'faq' => $faq,
             'category' => $category,
+            'count_likes' => $count_likes,
+            'user_set_like' => $user_set_like,
         ]);
 
     }
@@ -260,6 +273,17 @@ class ConsultingController extends \yii\web\Controller
             $posts->updateAllCounters(['views' => 1], ['id' => $posts->id]);
         }
 
+        $count_likes   = count( Likes::find()
+                                     ->where( [ 'post_type' => 'posts_consulting', 'post_id' => $posts->id ] )
+                                     ->all() );
+        $user_set_like = Likes::find()
+                              ->where( [
+                                  'post_type' => 'posts_consulting',
+                                  'user_id'   => Yii::$app->user->id,
+                                  'post_id'   => $posts->id,
+                              ] )
+                              ->one();
+
         return $this->render('consulting_posts_item', [
             'consulting' => $consulting,
             'categories_posts' => $categories_posts,
@@ -268,6 +292,8 @@ class ConsultingController extends \yii\web\Controller
             'cat_posts' => $cat_post,
             'posts' => $posts,
             'category' => $category,
+            'count_likes' => $count_likes,
+            'user_set_like' => $user_set_like,
         ]);
 
     }
@@ -368,6 +394,17 @@ class ConsultingController extends \yii\web\Controller
             $posts->updateAllCounters(['views' => 1], ['id' => $posts->id]);
         }
 
+        $count_likes   = count( Likes::find()
+                                     ->where( [ 'post_type' => 'posts_digest', 'post_id' => $posts->id ] )
+                                     ->all() );
+        $user_set_like = Likes::find()
+                              ->where( [
+                                  'post_type' => 'posts_digest',
+                                  'user_id'   => Yii::$app->user->id,
+                                  'post_id'   => $posts->id,
+                              ] )
+                              ->one();
+
         return $this->render('consulting_digest_item', [
             'consulting' => $consulting,
             'categories_posts' => $categories_posts,
@@ -376,6 +413,8 @@ class ConsultingController extends \yii\web\Controller
             'cat_posts' => $cat_digest,
             'posts' => $posts,
             'category' => $category,
+            'count_likes' => $count_likes,
+            'user_set_like' => $user_set_like,
         ]);
 
     }

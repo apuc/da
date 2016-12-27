@@ -67,6 +67,11 @@ $this->registerMetaTag( [
                     <p class="answer">
                         <?= $faq->answer; ?>
                     </p>
+                    <?php if ( ! empty( \common\models\db\KeyValue::find()->where( [ 'key' => 'likes_for_faq' ] )->one()->value ) ): ?>
+                        <a data-id="<?= $faq->id; ?>" data-type="faq" class="likes"><i
+                                class="like_icon <?= ( empty( $user_set_like ) ? '' : 'like_icon-set' ); ?>"></i><span
+                                class="like-count"><?= $count_likes; ?></span></a>
+                    <?php endif; ?>
                     <a href="<?= Url::to( [ '/consulting/consulting/faq', 'slugcategory' => $category->slug ] ); ?>" class="read-answer">Вернуться
                         в
                         раздел</a>

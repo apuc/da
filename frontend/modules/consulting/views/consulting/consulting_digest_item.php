@@ -72,6 +72,11 @@ $this->registerMetaTag( [
                     <p class="answer">
                         <?= $posts->content; ?>
                     </p>
+                    <?php if ( ! empty( \common\models\db\KeyValue::find()->where( [ 'key' => 'likes_for_posts_digest' ] )->one()->value ) ): ?>
+                        <a data-id="<?= $posts->id; ?>" data-type="posts_digest" class="likes"><i
+                                class="like_icon <?= ( empty( $user_set_like ) ? '' : 'like_icon-set' ); ?>"></i><span
+                                class="like-count"><?= $count_likes; ?></span></a>
+                    <?php endif; ?>
                     <?php if(!empty($category->slug)): ?>
                         <a href="<?= Url::to( [ '/consulting/consulting/documents', 'slugcategory' => $category->slug ] ); ?>"
                            class="read-answer">Вернуться

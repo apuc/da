@@ -85,6 +85,12 @@ $this->registerMetaTag( [
             <img class="ok" src="/theme/portal-donbassa/img/ok.png" alt="">
         </a>
     </span>
+
+    <?php if ( ! empty( \common\models\db\KeyValue::find()->where( [ 'key' => 'likes_for_company' ] )->one()->value ) ): ?>
+        <a data-id="<?= $company->id; ?>" data-type="company" class="likes"><i
+                class="like_icon <?= ( empty( $user_set_like ) ? '' : 'like_icon-set' ); ?>"></i><span
+                class="like-count"><?= $count_likes; ?></span></a>
+    <?php endif; ?>
 </div>
 <div class="another-news">
     <div class="rand-cat-news">
