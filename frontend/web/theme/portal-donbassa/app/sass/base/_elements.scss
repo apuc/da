@@ -12,7 +12,7 @@ input#profile-avatar {
   position: relative;
 }
 
-.consult-views-list{
+.consult-views-list {
   position: absolute;
   bottom: 20px;
   right: -28px;
@@ -20,7 +20,7 @@ input#profile-avatar {
   color: #5b5b5b;
   font-size: 11px;
   font-family: RobotoRegular;
-  .views-icon{
+  .views-icon {
     position: relative;
     top: 2px;
     display: inline-block;
@@ -33,15 +33,15 @@ input#profile-avatar {
 
 }
 
-.consult-views{
+.consult-views {
   width: 100%;
   text-align: right;
   color: #5b5b5b;
   font-size: 11px;
   font-family: RobotoRegular;
-  margin-top: 10px!important;
+  margin-top: 10px !important;
   padding-right: 1px;
-  .views-icon{
+  .views-icon {
     position: relative;
     top: 2px;
     display: inline-block;
@@ -54,16 +54,16 @@ input#profile-avatar {
 
 }
 
-.consult-views-poster{
+.consult-views-poster {
   width: 9%;
   float: right;
   text-align: right;
   color: #5b5b5b;
   font-size: 11px;
   font-family: RobotoRegular;
-  margin-top: 25px!important;
+  margin-top: 25px !important;
   padding-right: 1px;
-  .views-icon{
+  .views-icon {
     position: relative;
     top: 2px;
     display: inline-block;
@@ -76,15 +76,15 @@ input#profile-avatar {
 
 }
 
-.consult-views{
+.consult-views {
   width: 100%;
   text-align: right;
   color: #5b5b5b;
   font-size: 11px;
   font-family: RobotoRegular;
-  margin-top: 10px!important;
+  margin-top: 10px !important;
   padding-right: 1px;
-  .views-icon{
+  .views-icon {
     position: relative;
     top: 2px;
     display: inline-block;
@@ -96,21 +96,45 @@ input#profile-avatar {
   }
 
 }
-.error-404{
+
+.error-404 {
   display: block;
   margin: auto;
   padding-top: 111px;
 }
 
-.views-ico{
+.views-ico {
   font-size: 14px;
   position: relative;
-  top:0;
-  margin-right:4px;
+  top: 0;
+  margin-right: 4px;
 }
-.views:hover{
-  color: #ff3432!important;
-  .views-ico{
+
+.views:hover {
+  color: #ff3432 !important;
+  .views-ico {
     color: #ff3432;
+  }
+}
+
+.likes {
+  float: right;
+  position: relative;
+  bottom: -12px;
+  cursor: pointer;
+  min-width: 8%;
+  .like_icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    background-image: url("../img/icon-like.png");
+    float: left;
+    background-size: cover;
+  }
+  .like_icon-set{
+    background-image: url("../img/icon-like-set.png");
+  }
+  .like-count{
+    line-height: 30px;
   }
 }
