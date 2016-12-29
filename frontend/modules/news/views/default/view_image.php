@@ -9,11 +9,12 @@
 
 use common\classes\DateFunctions;
 use common\classes\WordFunctions;
+use common\models\User;
 use yii\helpers\Url;
 
 $this->registerMetaTag( [
     'name'    => 'og:image',
-    'content' => 'http://'. $_SERVER['HTTP_HOST'] . $news->photo,
+    'content' => 'http://' . $_SERVER['HTTP_HOST'] . $news->photo,
 ] );
 $this->title = $news->meta_title;
 $this->registerMetaTag( [
@@ -28,7 +29,8 @@ $this->registerMetaTag( [
     <span
         class="date-news__post"><?= date( 'd', $news->dt_public ) ?> <?= DateFunctions::getMonthShortName( date( 'm', $news->dt_public ) ) ?> <?= date( 'H:i', $news->dt_public ) ?></span>
     <h2><?= $news->title ?></h2>
-    <a href="<?= $news->photo ?>" data-lightbox="image-1" class="view-img-big "><img src="<?= $news->photo ?>" alt=""></a>
+    <a href="<?= $news->photo ?>" data-lightbox="image-1" class="view-img-big "><img src="<?= $news->photo ?>"
+                                                                                     alt=""></a>
 
 </div>
 <div class="post-nav">
@@ -37,22 +39,22 @@ $this->registerMetaTag( [
         <span>Теги: <?= $news->tags ?></span>
     <?php endif ?>
     <?php
-    $news_url = \yii\helpers\Url::base(true).\yii\helpers\Url::to();
+    $news_url   = \yii\helpers\Url::base( true ) . \yii\helpers\Url::to();
     $news_title = strip_tags( $news->title );
     $news_title = preg_replace( "/\s{2,}/", " ", $news_title );
-    $news_title = str_replace('"',"&quot;",$news_title);
-    $news_img = 'http://'. $_SERVER['HTTP_HOST'] . $news->photo;
+    $news_title = str_replace( '"', "&quot;", $news_title );
+    $news_img   = 'http://' . $_SERVER['HTTP_HOST'] . $news->photo;
 
-    $count_symbols = 800 - 48 - strlen($news_url) - strlen($news_title) - strlen($news_img);
+    $count_symbols = 800 - 48 - strlen( $news_url ) - strlen( $news_title ) - strlen( $news_img );
     $news_content  = strip_tags( $news->content );
     $news_content  = preg_replace( "/\s{2,}/", " ", $news_content );
 
-    $news_content = substr($news_content, 0, $count_symbols) . '...';
+    $news_content = substr( $news_content, 0, $count_symbols ) . '...';
 
     ?>
 
 
-    <span>Поделись <a onclick="Share.twitter('<?=$news_url ?>',
+    <span>Поделись <a onclick="Share.twitter('<?= $news_url ?>',
             '<?= $news_title ?>')" href=""
                       class="soc-icon">
             <img class="twi" src="/theme/portal-donbassa/img/twi.png" alt="">
@@ -80,31 +82,41 @@ $this->registerMetaTag( [
             <img class="ok" src="/theme/portal-donbassa/img/ok.png" alt="">
         </a>
     </span>
+    <?php if ( ! empty( \common\models\db\KeyValue::find()->where( [ 'key' => 'likes_for_news' ] )->one()->value ) ): ?>
+        <a data-id="<?= $news->id; ?>" data-type="news" class="likes"><i
+                class="like_icon <?= ( empty( $user_set_like ) ? '' : 'like_icon-set' ); ?>"></i><span
+                class="like-count"><?= $count_likes; ?></span></a>
+    <?php endif; ?>
 </div>
 
 <div class="another-news">
     <div class="rand-cat-news">
-        <?php if($related_news): ?>
+        <?php if ( $related_news ): ?>
             <h3>Новости по теме:</h3>
         <?php endif; ?>
-        <?php foreach ($related_news as $related_new): ?>
+        <?php foreach ( $related_news as $related_new ): ?>
             <a href="<?= Url::to( [ '/news/default/view', 'slug' => $related_new->slug ] ) ?>" class="news-like-item">
-                <div class="news-like-img"><img src="<?= $related_new->photo;?>" alt=""></div>
-                <h4 class="new-header"><?= $related_new->title;?></h4>
-                <p class="new-descr"><?=  WordFunctions::crop_str_word( strip_tags( $related_new->content ), 20 );?> </p>
+                <div class="news-like-img"><img src="<?= $related_new->photo; ?>" alt=""></div>
+                <h4 class="new-header"><?= $related_new->title; ?></h4>
+                <p class="new-descr"><?= WordFunctions::crop_str_word( strip_tags( $related_new->content ), 20 ); ?> </p>
             </a>
         <?php endforeach; ?>
     </div>
     <div class="best-views-news">
-        <?php if($most_popular_news): ?>
+        <?php if ( $most_popular_news ): ?>
             <h3>Самые популярные новости:</h3>
         <?php endif; ?>
-        <?php foreach ($most_popular_news as $most_popular_new): ?>
-            <a href="<?= Url::to( [ '/news/default/view', 'slug' => $most_popular_new->slug ] ) ?>" class="news-like-item">
-                <div class="news-like-img"><img src="<?= $most_popular_new->photo;?>" alt=""></div>
-                <h4 class="new-header"><?= $most_popular_new->title;?></h4>
-                <p class="new-descr"><?=  WordFunctions::crop_str_word( strip_tags( $most_popular_new->content ), 20 );?></p>
+        <?php foreach ( $most_popular_news as $most_popular_new ): ?>
+            <a href="<?= Url::to( [ '/news/default/view', 'slug' => $most_popular_new->slug ] ) ?>"
+               class="news-like-item">
+                <div class="news-like-img"><img src="<?= $most_popular_new->photo; ?>" alt=""></div>
+                <h4 class="new-header"><?= $most_popular_new->title; ?></h4>
+                <p class="new-descr"><?= WordFunctions::crop_str_word( strip_tags( $most_popular_new->content ), 20 ); ?></p>
             </a>
         <?php endforeach; ?>
     </div>
 </div>
+<?= \frontend\widgets\Comments::widget([
+    'post_id'=>$news->id,
+    'post_type'=>'news',
+]); ?>

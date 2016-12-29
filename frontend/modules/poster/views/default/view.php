@@ -39,6 +39,12 @@ $this->title =  $poster->title;
     </div>
     <div class="clearfix"></div>
     <p class="poster-descr-bot"><?= $poster->descr ?></p>
+
+<?php if ( ! empty( \common\models\db\KeyValue::find()->where( [ 'key' => 'likes_for_posters' ] )->one()->value ) ): ?>
+    <a data-id="<?= $poster->id; ?>" data-type="posters" class="likes"><i
+            class="like_icon <?= ( empty( $user_set_like ) ? '' : 'like_icon-set' ); ?>"></i><span
+            class="like-count"><?= $count_likes; ?></span></a>
+<?php endif; ?>
 <div class="another-news">
     <div class="rand-cat-news">
         <?php if($related_posters): ?>
@@ -65,6 +71,10 @@ $this->title =  $poster->title;
         <?php endforeach; ?>
     </div>
 </div>
+<?= \frontend\widgets\Comments::widget([
+    'post_id'=>$poster->id,
+    'post_type'=>'posters',
+]); ?>
 <div class="prefooter-social">
     <div class="social">
         <h4 class="social-header">МЫ В КОНТАКТЕ</h4>

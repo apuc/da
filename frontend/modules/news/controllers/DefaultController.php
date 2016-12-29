@@ -4,8 +4,11 @@ namespace frontend\modules\news\controllers;
 
 use common\classes\Debug;
 use common\models\db\CategoryNewsRelations;
+use common\models\db\Comments;
 use common\models\db\Lang;
+use common\models\db\Likes;
 use common\models\db\News;
+use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 
@@ -49,18 +52,36 @@ class DefaultController extends Controller {
                                  ->orderBy( 'views DESC' )
                                  ->limit( 6 )
                                  ->all();
+        $count_likes       = count( Likes::find()
+                                         ->where( [ 'post_type' => 'news', 'post_id' => $new->id ] )
+                                         ->all() );
+
+
+        $user_set_like = Likes::find()
+                              ->where( [
+                                  'post_type' => 'news',
+                                  'user_id'   => Yii::$app->user->id,
+                                  'post_id'   => $new->id,
+                              ] )
+                              ->one();
+
+
 
         if ( ! empty( $new->content ) ) {
             return $this->render( 'view', [
                 'news'              => $new,
                 'related_news'      => $related_news,
-                'most_popular_news' => $most_popular_news
+                'most_popular_news' => $most_popular_news,
+                'count_likes'       => $count_likes,
+                'user_set_like'     => $user_set_like,
             ] );
         } else {
             return $this->render( 'view_image', [
                 'news'              => $new,
                 'related_news'      => $related_news,
-                'most_popular_news' => $most_popular_news
+                'most_popular_news' => $most_popular_news,
+                'count_likes'       => $count_likes,
+                'user_set_like'     => $user_set_like,
             ] );
         }
     }

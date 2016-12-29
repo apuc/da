@@ -108,7 +108,13 @@
 }
 
 @media only screen and (max-width: 980px) {
-
+	.likes{
+		width: 25%;
+		text-align: right;
+		.like-count{
+			text-align: left;
+		}
+	}
 }
 
 @media only screen and (max-width: 770px) {
