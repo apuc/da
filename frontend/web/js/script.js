@@ -11,32 +11,6 @@ $(document).ready(function () {
         });
     });
 
-    // $(document).on('click', '.content__main_posts_items', function () {
-    //     var id = $(this).attr('data-id');
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: "/mainpage/default/get_news_by_id",
-    //         data: 'id=' + id,
-    //         success: function (data) {
-    //             $(".content__main_post").html(data);
-    //         }
-    //     });
-    //     return false;
-    // });
-
-    /*$('.company_list_item a').on('click', function () {
-     var id = $(this).attr('data-id');
-     $.ajax({
-     type: 'POST',
-     url: "/mainpage/default/get_company_by_cat",
-     data: 'id=' + id,
-     success: function (data) {
-     $(".category-items").html(data);
-     }
-     });
-     return false;
-     });*/
-
     $('#news-lang_id').on('change', function () {
         var langId = $(this).val();
         $.ajax({
@@ -175,18 +149,8 @@ $(document).ready(function () {
     var i = 1;
     OpenCategories(el,i);
 
+//comments ajax
 
-    //Waryataw 18_11_16
-
-    //Waryataw 18_11_16
-
-    // $("#profile-avatar").change(function () {
-    //     console.log('ok');
-    //     readURL(this);
- //    // });
- // $(document).on('click','.profile-avatar',function () {
- //     console.log('ok');
- // })
 
 
 });
@@ -242,3 +206,43 @@ function readURL(input) {
 }
 
 $('.column-list-js').columnlist({ size: 2 });
+
+$(document).on('click','.more-comments',function () {
+    $.ajax({
+        type: 'POST',
+        url: "/ajax/ajax/get_more_comments",
+        data: {
+            date : $(this).attr('data-time'),
+            post_type : $(this).attr('data-type'),
+            count : $(this).attr('data-count'),
+            limit : $(this).attr('data-limit'),
+            post_id : $(this).attr('data-id'),
+        },
+        success: function (data) {
+
+            $('.comments-content').html($('.comments-content').html() + data);
+            $('.more-comments').attr('data-count',  +$('.more-comments').attr('data-count') + +$('.more-comments').attr('data-limit')  );
+        }
+    });
+})
+$(document).on('click','#send_comment',function () {
+ var comment = $('#new-comment').val();
+    if(comment != ''){
+        $.ajax({
+            url: "/ajax/ajax/add_comment",
+            type: "POST",
+            data: {
+                post_id : $('.more-comments').attr('data-id'),
+                post_type : $('.more-comments').attr('data-type'),
+                content : comment,
+            }  ,
+            success: function (data) {
+                location.reload();
+               // console.log(data);
+                //$('.comments-content').html( data + $('.comments-content').html() );
+            }
+        });
+    }
+
+    return false;
+})

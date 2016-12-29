@@ -138,3 +138,123 @@ input#profile-avatar {
     line-height: 30px;
   }
 }
+.comments{
+  display: block;
+  float: left;
+  width: 100%;
+  position: relative;
+
+  .comments-count{
+    padding-top: 6px;
+    background-color: #f0f0f0;
+    width: 11%;
+    height: 52px;
+    border-radius: 5px;
+    float: left;
+    span{
+      cursor: default;
+      text-align: center;
+      font-family:$rr;
+      font-size: 13px;
+      color: #1b1111;
+    }
+    .count-value{
+      font-family:$rb;
+      font-size: 14px;
+      color: #1b1111;
+    }
+    &::after{
+      width: 0;
+      height: 0;
+      border-top: 28px solid #f0f0f0;
+      border-right: 0px solid transparent;
+      border-left: 30px solid transparent;
+      content: '';
+      position: relative;
+      bottom: -31px;
+      right: -54px;
+    }
+  }
+  .form-title{
+    font-family:$rb;
+    font-size:16px;
+    text-transform: uppercase;
+    color: #ff3432;
+    width: 89%;
+    float: left;
+    line-height: 52px;
+    padding-left: 1%;
+    margin-bottom: 0;
+  }
+  .comments-form{
+    float: left;
+    width: 100%;
+    position: relative;
+    padding-left: 12%;
+    #new-comment{
+      width: 100%;
+      height: 90px;
+      resize: none;
+      border: 1px solid #7c7c7c;
+      border-radius: 5px;
+      outline: none;
+    }
+    input[type=submit]{
+      width: 20%;
+      height: 35px;
+      background-color: #ff3432;
+      box-shadow: 0.5px 0.9px 2px rgba(0,0,0,.13);
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-family: RobotoBold;
+      line-height: 35px;
+      outline: none;
+      border: 1px;
+      float: right;
+    }
+  }
+  .comments-content{
+    width: 100%;
+    float: left;
+    display: block;
+    position: relative;
+    padding: 30px 0;
+    padding-left: 12%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    .single-comment{
+      .nickname{
+        font-family: $rb;
+        font-size: 14px;
+        color: #ff3432;
+        display: inline;
+      }
+      .date{
+        display: inline;
+        font-family: $rr;
+        font-size: 12px;
+        color: #1b1111;
+        margin-left: 30px;
+      }
+      .content{
+        font-family: $rr;
+        font-size: 14px;
+        color: #1b1111;
+
+      }
+    }
+
+  }
+  .more{
+    font-family: $rr;
+    font-size: 15px;
+    color: #1b1111;
+    text-decoration: underline;
+    margin-bottom: 30px;
+    cursor: pointer;
+    float: left;
+    margin-left: 12%;
+  }
+}

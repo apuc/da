@@ -94,3 +94,7 @@ $this->registerMetaTag( [
     </div>
 
 </div>
+<?= \frontend\widgets\Comments::widget([
+    'post_id'=>$posts->id,
+    'post_type'=>'posts_digest',
+]); ?>

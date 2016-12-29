@@ -9,6 +9,7 @@
 
 use common\classes\DateFunctions;
 use common\classes\WordFunctions;
+use common\models\User;
 use yii\helpers\Url;
 
 $this->registerMetaTag( [
@@ -115,3 +116,7 @@ $this->registerMetaTag( [
         <?php endforeach; ?>
     </div>
 </div>
+<?= \frontend\widgets\Comments::widget([
+    'post_id'=>$news->id,
+    'post_type'=>'news',
+]); ?>

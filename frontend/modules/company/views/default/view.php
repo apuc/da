@@ -118,3 +118,7 @@ $this->registerMetaTag( [
         <?php endforeach; ?>
     </div>
 </div>
+<?= \frontend\widgets\Comments::widget([
+    'post_id'=>$company->id,
+    'post_type'=>'company',
+]); ?>

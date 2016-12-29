@@ -71,6 +71,10 @@ $this->title =  $poster->title;
         <?php endforeach; ?>
     </div>
 </div>
+<?= \frontend\widgets\Comments::widget([
+    'post_id'=>$poster->id,
+    'post_type'=>'posters',
+]); ?>
 <div class="prefooter-social">
     <div class="social">
         <h4 class="social-header">МЫ В КОНТАКТЕ</h4>

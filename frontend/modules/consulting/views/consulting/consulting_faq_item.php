@@ -81,3 +81,7 @@ $this->registerMetaTag( [
     </div>
 
 </div>
+<?= \frontend\widgets\Comments::widget([
+    'post_id'=>$faq->id,
+    'post_type'=>'faq',
+]); ?>

@@ -4,6 +4,7 @@ namespace frontend\modules\news\controllers;
 
 use common\classes\Debug;
 use common\models\db\CategoryNewsRelations;
+use common\models\db\Comments;
 use common\models\db\Lang;
 use common\models\db\Likes;
 use common\models\db\News;
@@ -56,13 +57,14 @@ class DefaultController extends Controller {
                                          ->all() );
 
 
-            $user_set_like = Likes::find()
-                                  ->where( [
-                                      'post_type' => 'news',
-                                      'user_id'   => Yii::$app->user->id,
-                                      'post_id'   => $new->id,
-                                  ] )
-                                  ->one();
+        $user_set_like = Likes::find()
+                              ->where( [
+                                  'post_type' => 'news',
+                                  'user_id'   => Yii::$app->user->id,
+                                  'post_id'   => $new->id,
+                              ] )
+                              ->one();
+
 
 
         if ( ! empty( $new->content ) ) {
