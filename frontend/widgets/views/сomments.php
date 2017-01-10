@@ -24,7 +24,7 @@ use common\models\User;
         <h4 class="form-title">Что Вы об этом думаете?</h4>
         <form class="comments-form">
             <textarea id="new-comment" cols="30" rows="10"></textarea>
-            <input id="send_comment" type="submit" value="ОТРАВИТЬ">
+            <input id="send_comment" type="submit" value="ОТПРАВИТЬ">
         </form>
     <?php } else { ?>
         <h4 class="form-title">Что бы оставлять комментарии, войдите или зарегестрируйтесь.</h4>
