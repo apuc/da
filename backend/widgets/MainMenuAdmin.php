@@ -253,6 +253,7 @@ class MainMenuAdmin extends Widget {
                     ],
                     [
                         'label'    => 'Опросы',
+                        'visible'  => UserFunction::hasPermission( [ 'Опросы' ] ),
                         'items'    => [
                             [
                                 'label'   => 'Добавить',
