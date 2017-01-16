@@ -251,7 +251,8 @@ class NewsController extends Controller {
                 'title'       => function ( $widget, \Zelenin\Feed $feed ) {
                     $feed->addChannelTitle( KeyValue::findOne( [ 'key' => 'rss_news_title' ] )->value );
                 },
-                'link'        => Url::toRoute( '/', true ),
+//                'link'        => Url::toRoute( '/', true ),
+                'link'        => Url::toRoute( '/' . Yii::$app->request->url, true ),
                 'description' => KeyValue::findOne( [ 'key' => 'rss_news_desc' ] )->value,
                 'language'    => function ( $widget, \Zelenin\Feed $feed ) {
                     return Yii::$app->language;
@@ -285,11 +286,12 @@ class NewsController extends Controller {
                     return Url::to( [ '/news/' . $model->slug ], true );
                 },
                 'guid'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
-                    $date = date( DATE_RSS, $model->dt_public );
+                    //$date = date( DATE_RSS, $model->dt_public );
 
-                    return Url::to( [
-                        '/news/' . $model->slug
-                    ], true ) . ' ' . $date;
+//                    return Url::to( [
+//                        '/news/' . $model->slug
+//                    ], true ) . ' ' . $date;
+                    return $model->slug;
                 },
                 'pubDate'     => function ( $model, $widget, \Zelenin\Feed $feed ) {
 
