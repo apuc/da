@@ -244,6 +244,7 @@ class NewsController extends Controller {
         $headers  = $response->getHeaders();
 
         $headers->set( 'Content-Type', 'application/rss+xml; charset=utf-8' );
+        $headers->set( 'Content-Disposition: attachment; filename="news.rss"' );
 
         echo \Zelenin\yii\extensions\Rss\RssView::widget( [
             'dataProvider' => $dataProvider,
@@ -259,6 +260,7 @@ class NewsController extends Controller {
                 },
                 'image'       => function ( $widget, \Zelenin\Feed $feed ) {
                     $feed->addChannelImage( Yii::$app->request->hostInfo . '/theme/portal-donbassa/img/logo3.png', Yii::$app->request->hostInfo, 31, 31, 'DA logo' );
+
                 },
             ],
             'items'        => [
@@ -288,10 +290,10 @@ class NewsController extends Controller {
                 'guid'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
                     //$date = date( DATE_RSS, $model->dt_public );
 
-//                    return Url::to( [
-//                        '/news/' . $model->slug
-//                    ], true ) . ' ' . $date;
-                    return $model->slug;
+                    return Url::to( [
+                        '/news/' . $model->slug
+                    ], true );
+                    //return $model->slug;
                 },
                 'pubDate'     => function ( $model, $widget, \Zelenin\Feed $feed ) {
 
@@ -299,7 +301,8 @@ class NewsController extends Controller {
 
                     return $date;
 
-                }
+                },
+
             ]
         ] );
     }
