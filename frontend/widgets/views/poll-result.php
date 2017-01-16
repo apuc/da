@@ -19,5 +19,6 @@ use yii\helpers\Html;
         <span class="result"><?= $answer['val'];?></span>
     </div>
 <?php endforeach; ?>
+<h5 class="total">Всего проголосовало: <?= $answers_count ; ?> чел.</h5>
 <!---->
 <?php //\common\classes\Debug::prn($possible_answers); ?>

@@ -19,6 +19,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\data\ActiveDataProvider;
+use yii\helpers\StringHelper;
+use yii\helpers\Url;
 
 /**
  * NewsController implements the CRUD actions for News model.
@@ -225,4 +228,78 @@ class NewsController extends Controller {
             [ 'class' => 'form-control', 'id' => 'categ' ]
         );
     }
+
+    public function actionNews_rss() {
+        $dataProvider = new ActiveDataProvider( [
+            'query'      => News::find()
+                                ->where( [ 'rss' => 1, 'status' => 0 ] )
+                                ->limit( 20 )
+                                ->orderBy( 'dt_public DESC' ),
+            'pagination' => [
+                'pageSize' => 10
+            ],
+        ] );
+
+        $response = Yii::$app->getResponse();
+        $headers  = $response->getHeaders();
+
+        $headers->set( 'Content-Type', 'application/rss+xml; charset=utf-8' );
+
+        echo \Zelenin\yii\extensions\Rss\RssView::widget( [
+            'dataProvider' => $dataProvider,
+            'channel'      => [
+                'title'       => function ( $widget, \Zelenin\Feed $feed ) {
+                    $feed->addChannelTitle( KeyValue::findOne( [ 'key' => 'rss_news_title' ] )->value );
+                },
+                'link'        => Url::toRoute( '/', true ),
+                'description' => KeyValue::findOne( [ 'key' => 'rss_news_desc' ] )->value,
+                'language'    => function ( $widget, \Zelenin\Feed $feed ) {
+                    return Yii::$app->language;
+                },
+                'image'       => function ( $widget, \Zelenin\Feed $feed ) {
+                    $feed->addChannelImage( Yii::$app->request->hostInfo . '/theme/portal-donbassa/img/logo3.png', Yii::$app->request->hostInfo, 31, 31, 'DA logo' );
+                },
+            ],
+            'items'        => [
+                'title'       => function ( $model, $widget, \Zelenin\Feed $feed ) {
+                    return $model->title;
+                },
+                'category'    => function ( $model, $widget, \Zelenin\Feed $feed ) {
+                    $cats = CategoryNewsRelations::find()
+                                                 ->where( [ 'new_id' => $model->id ] )
+                                                 ->with( 'cat' )
+                                                 ->all();
+                    foreach ( $cats as $cat ) {
+                        $feed->addItemCategory( $cat->cat->title );
+                    }
+                },
+                'enclosure'   => function ( $model, $widget, \Zelenin\Feed $feed ) {
+                    if ( ! empty( $model->photo ) ) {
+                        $feed->addItemEnclosure( Yii::$app->request->hostInfo . $model->photo, 123, 'image/jpeg' );
+                    }
+                },
+                'description' => function ( $model, $widget, \Zelenin\Feed $feed ) {
+                    return StringHelper::truncateWords( strip_tags( $model->content ), 50 );
+                },
+                'link'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
+                    return Url::to( [ '/news/' . $model->slug ], true );
+                },
+                'guid'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
+                    $date = date( DATE_RSS, $model->dt_public );
+
+                    return Url::to( [
+                        '/news/' . $model->slug
+                    ], true ) . ' ' . $date;
+                },
+                'pubDate'     => function ( $model, $widget, \Zelenin\Feed $feed ) {
+
+                    $date = date( DATE_RSS, $model->dt_public );
+
+                    return $date;
+
+                }
+            ]
+        ] );
+    }
+
 }

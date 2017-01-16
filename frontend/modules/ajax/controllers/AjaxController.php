@@ -18,7 +18,12 @@ class AjaxController extends Controller {
 
     public function actionSend_poll() {
         if ( $_POST ) {
-            $user         = Yii::$app->user->id;
+            $user = 0;
+            $user_ip = Yii::$app->request->userIP;
+            if ( ! Yii::$app->user->isGuest ) {
+                $user = Yii::$app->user->id;
+            }
+
             $answer       = PossibleAnswers::find()
                                            ->where( [
                                                'id' => $_POST['answer']
@@ -26,7 +31,7 @@ class AjaxController extends Controller {
                                            ->one();
             $already_poll = Answers::find()
                                    ->where( [
-                                       'user_id'     => $user,
+                                       'user_ip'     => $user_ip,
                                        'question_id' => $answer->question
                                    ] )
                                    ->one();
@@ -36,6 +41,7 @@ class AjaxController extends Controller {
                 $vote->question_id         = $answer->question;
                 $vote->possible_answers_id = $answer->id;
                 $vote->user_id             = $user;
+                $vote->user_ip            = $user_ip;
                 $vote->dt_add              = time();
 
                 $vote->save();
@@ -81,7 +87,7 @@ class AjaxController extends Controller {
 
             $new_comment->save();
 
-           // return $this->redirect();
+            // return $this->redirect();
 
 //            echo $this->renderPartial( '_comments',
 //                [

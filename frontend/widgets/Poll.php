@@ -17,65 +17,99 @@ use common\models\db\Question;
 use common\models\db\TopCompany;
 use Yii;
 use yii\base\Widget;
+use yii\db\Connection;
+use yii\helpers\ArrayHelper;
 
 class Poll extends Widget {
 
     public function run() {
-        if ( ! Yii::$app->user->isGuest ) {
-            $user           = Yii::$app->user->id;
-            $active_poll_id = KeyValue::find()->where( [ 'key' => 'active_poll' ] )->one()->value;
-            $question       = Question::find()->where( [ 'id' => $active_poll_id ] )->one();
-            $already_poll   = Answers::find()
-                                     ->where( [
-                                         'user_id'     => $user,
-                                         'question_id' => $question->id
-                                     ] )
-                                     ->one();
-            if ( empty( $already_poll ) ) {
 
-                $possible_answers = PossibleAnswers::find()
-                                                   ->where( [ 'question' => $question->id ] )
-                                                   ->all();
+        $user_ip = Yii::$app->request->userIP;
 
-                return $this->render( 'poll', [
-                    'question'         => $question,
-                    'possible_answers' => $possible_answers,
-                ] );
+        $active_poll_id = KeyValue::find()->where( [ 'key' => 'active_poll' ] )->one()->value;
+        $question       = Question::find()->where( [ 'id' => $active_poll_id ] )->one();
+        $already_poll   = Answers::find()
+                                 ->where( [
+                                     'user_ip'     => $user_ip,
+                                     'question_id' => $question->id
+                                 ] )
+                                 ->one();
+        if ( empty( $already_poll ) ) {
 
-            } else {
-                
-                $answers = Answers::find()
-                                  ->where( [ 'question_id' => $question->id ] )
-                                  ->asArray()
-                                  ->all();
+            $possible_answers = PossibleAnswers::find()
+                                               ->where( [ 'question' => $question->id ] )
+                                               ->all();
 
-                $sortedAnswers = [ ];
+            return $this->render( 'poll', [
+                'question'         => $question,
+                'possible_answers' => $possible_answers,
+            ] );
 
-                foreach ( $answers as $answer ) {
-                    $sortedAnswers[ $answer['possible_answers_id'] ] = $sortedAnswers[ $answer['possible_answers_id'] ] + 1;
-                }
-                $possible_answers = [ ];
-                foreach ( $sortedAnswers as $key => $sortedAnswer ) {
-                    $possible_answers[ $key ] = [
-                        'val_per' => floor( $sortedAnswer / count( $answers ) * 100 ),
-                        'val'     => $sortedAnswer,
-                        'answer'  => PossibleAnswers::find()
-                                                    ->where( [ 'id' => $key ] )
-                                                    ->one()
-                            ->title
-                    ];
-                }
-                usort($possible_answers, function($a, $b){
-                    return ($b['val_per'] - $a['val_per']);
-                });
-                return $this->render( 'poll-result', [
+        } else {
 
-                    'question'         => $question,
-                    'possible_answers' => $possible_answers,
+            $possible_answers = PossibleAnswers::find()
+                                               ->where( [ 'question' => $question->id ] )
+                                               ->all();
 
-                ] );
+            $db = new Connection( Yii::$app->db );
 
+            $answers = $db->createCommand( "SELECT `possible_answers_id`,
+                                                     COUNT(id)
+                                                     FROM `answers`
+                                                     WHERE `answers`.`question_id` = $question->id
+                                                     GROUP BY `possible_answers_id`
+                                                     " );
+
+            $answers       = ArrayHelper::map( $answers->queryAll(), 'possible_answers_id', 'COUNT(id)' );
+            $answers_count = Answers::find()
+                                    ->where( [ 'question_id' => $question->id ] )
+                                    ->count();
+
+            $answers_array = [ ];
+            foreach ( $possible_answers as $possible_answer ) {
+                $answers_array[ $possible_answer->id ] = [
+                    'answer'  => $possible_answer->title,
+                    'val'     => ( ! empty( $answers[ $possible_answer->id ] ) ) ? $answers[ $possible_answer->id ] : 0,
+                    'val_per' => floor( $answers[ $possible_answer->id ] / $answers_count * 100 )
+                ];
             }
+
+
+//            $answers = Answers::find()
+//                                  ->where( [ 'question_id' => $question->id ] )
+//                                  ->asArray()
+//                                  ->all();
+//
+//
+//                $sortedAnswers = [ ];
+//
+//                foreach ( $answers as $answer ) {
+//                    $sortedAnswers[ $answer['possible_answers_id'] ] = $sortedAnswers[ $answer['possible_answers_id'] ] + 1;
+//                }
+//
+//                $possible_answers = [ ];
+//                foreach ( $sortedAnswers as $key => $sortedAnswer ) {
+//                    $possible_answers[ $key ] = [
+//                        'val_per' => floor( $sortedAnswer / count( $answers ) * 100 ),
+//                        'val'     => $sortedAnswer,
+//                        'answer'  => PossibleAnswers::find()
+//                                                    ->where( [ 'id' => $key ] )
+//                                                    ->one()
+//                            ->title
+//                    ];
+//                }
+//                usort($possible_answers, function($a, $b){
+//                    return ($b['val_per'] - $a['val_per']);
+//                });
+
+            return $this->render( 'poll-result', [
+
+                'question'         => $question,
+                'possible_answers' => $answers_array,
+                'answers_count'    => $answers_count,
+            ] );
+
         }
+//        }
     }
 }

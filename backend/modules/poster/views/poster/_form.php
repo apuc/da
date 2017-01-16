@@ -83,6 +83,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'meta_descr')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'rss')->checkbox() ?>
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('poster', 'Create') : Yii::t('poster', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

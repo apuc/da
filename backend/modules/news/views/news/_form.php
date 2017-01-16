@@ -89,6 +89,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'exclude_popular')->checkbox() ?>
 
+    <?= $form->field($model, 'rss')->checkbox() ?>
+
     <? /*= $form->field($model, 'user_id')->textInput() */ ?>
     <br>
 

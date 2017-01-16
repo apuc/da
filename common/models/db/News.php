@@ -44,7 +44,7 @@ class News extends \yii\db\ActiveRecord
         return [
             [['title'], 'required'],
             [['content'], 'string'],
-            [['dt_add', 'dt_update', 'status', 'user_id', 'lang_id', 'views', 'exclude_popular'], 'integer'],
+            [['dt_add', 'dt_update', 'status', 'user_id', 'lang_id', 'views', 'exclude_popular', 'rss'], 'integer'],
             [['title', 'slug', 'tags', 'photo', 'meta_title', 'meta_descr'], 'string', 'max' => 255],
         ];
     }
@@ -71,6 +71,7 @@ class News extends \yii\db\ActiveRecord
             'meta_descr' => Yii::t('news', 'Meta Descr'),
             'dt_public' => Yii::t('news', 'Dt Public'),
             'exclude_popular' => Yii::t('news', 'Exclude popular'),
+            'rss' => Yii::t('news', 'Rss'),
         ];
     }
 

@@ -41,7 +41,7 @@ class Poster extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'dt_event', 'dt_event_end'], 'required'],
-            [['dt_add', 'dt_update', 'views', 'status'], 'integer'],
+            [['dt_add', 'dt_update', 'views', 'status','rss'], 'integer'],
             [['dt_event', 'dt_event_end'],'safe'],
             [['descr', 'short_descr'], 'string'],
             [['title', 'slug', 'price', 'meta_title', 'meta_descr', 'photo'], 'string', 'max' => 255],
@@ -71,6 +71,7 @@ class Poster extends \yii\db\ActiveRecord
             'photo' => Yii::t('poster', 'Photo'),
             'dt_event' => Yii::t('poster', 'Dt Event'),
             'dt_event_end' => Yii::t('poster', 'Dt Event End'),
+            'rss' => Yii::t('poster', 'Rss'),
         ];
     }
 }
