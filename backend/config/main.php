@@ -76,6 +76,9 @@ return [
         'active_poll' => [
             'class' => 'backend\modules\active_poll\Active_poll',
         ],
+        'rossopt' => [
+            'class' => 'backend\modules\rossopt\Rossopt',
+        ],
     ],
     'components' => [
         /*'user' => [

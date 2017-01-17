@@ -307,7 +307,22 @@ class MainMenuAdmin extends Widget {
                         'active'   => Yii::$app->controller->module->id == 'lang',
                         'visible'  => UserFunction::hasPermission( [ 'Языки' ] ),
                     ],
-
+                    [
+                        'label'    => 'РОСС-ОПТ',
+                       // 'visible'  => UserFunction::hasPermission( [ 'Опросы' ] ),
+                        'items'    => [
+                            [
+                                'label'   => 'Настройки',
+                                'url'     => Url::to( [ '/rossopt/default' ] ),
+                                'active'  => Yii::$app->controller->module->id == 'rossopt',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                        ],
+                        'options'  => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="#"><i class="fa fa-bar-chart"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                    ],
                     /*[
                         'label' => 'Категории',
                         'items' => [
