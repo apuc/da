@@ -34,6 +34,9 @@ return [
         'ajax' => [
             'class' => 'frontend\modules\ajax\Ajax',
         ],
+        'rss' => [
+            'class' => 'frontend\modules\rss\Rss',
+        ],
     ],
     'components' => [
         'mymessages' => [
