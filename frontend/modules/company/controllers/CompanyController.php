@@ -44,20 +44,20 @@ class CompanyController extends Controller {
      */
 
     public function actionIndex() {
-        $company       = CategoryCompany::find()->where( [ 'parent_id' => 0, 'lang_id' => 1 ] )->all();
-        $sub_company   = CategoryCompany::find()->where( [ 'parent_id' => 533 ] )->all();
-        $organizations = Company::find()->where( [
+        $company              = CategoryCompany::find()->where( [ 'parent_id' => 0, 'lang_id' => 1 ] )->all();
+        $sub_company          = CategoryCompany::find()->where( [ 'parent_id' => 533 ] )->all();
+        $organizations        = Company::find()->where( [
             'user_id' => 1,
             'status'  => 0
         ] )->orderBy( 'RAND()' )->limit( 6 )->all();
-        $most_popular_company = \common\models\db\Company::find()->orderBy('views DESC')->limit(6)->all();
+        $most_popular_company = \common\models\db\Company::find()->orderBy( 'views DESC' )->limit( 6 )->all();
 
         return $this->render( 'index', [
-            'company'       => $company,
-            'sub_company'   => $sub_company,
-            'organizations' => $organizations,
-            'meta_title'    => KeyValue::findOne( [ 'key' => 'company_page_meta_title' ] )->value,
-            'meta_descr'    => KeyValue::findOne( [ 'key' => 'company_page_meta_descr' ] )->value,
+            'company'              => $company,
+            'sub_company'          => $sub_company,
+            'organizations'        => $organizations,
+            'meta_title'           => KeyValue::findOne( [ 'key' => 'company_page_meta_title' ] )->value,
+            'meta_descr'           => KeyValue::findOne( [ 'key' => 'company_page_meta_descr' ] )->value,
             'most_popular_company' => $most_popular_company
         ] );
     }
@@ -225,10 +225,12 @@ class CompanyController extends Controller {
                                                ->all();
         $id_parrent_company   = ArrayHelper::getColumn( $select_categories, 'id' );
         $select_organizations = Company::find()
+                                       ->where( [ 'status' => 0 ] )
                                        ->leftJoin( 'category_company_relations', '`category_company_relations`.`company_id`=`company`.`id`' )
-                                       ->where( [ '`company`.`status`' => 0 ] )
                                        ->andWhere( [ '`category_company_relations`.`cat_id`' => $_POST['id'] ] )
-                                       ->orWhere( [ '`category_company_relations`.`cat_id`' => $id_parrent_company ] )
+                                       ->orWhere( [ 'status'                                => 0,
+                                                    '`category_company_relations`.`cat_id`' => $id_parrent_company
+                                       ] )
                                        ->with( 'category_company_relations' )
                                        ->all();
 

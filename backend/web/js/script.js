@@ -11,9 +11,15 @@ $(document).ready(function(){
     });
 
 
+    // $(document).on('change','.itemImg',function(){
+    //     var path = $('.itemImg').val();
+    //     $('.media__upload_img').html('<img src="' +path + '" width="100px"/> <br>');
+    // });
+
     $(document).on('change','.itemImg',function(){
-        var path = $('.itemImg').val();
-        $('.media__upload_img').html('<img src="' +path + '" width="100px"/> <br>');
+        var path = $(this).val();
+        $(this).closest('.imgUpload').find('.media__upload_img').html('<img src="' +path + '" width="100px"/> <br>')
+
     });
 
     $(document).on('change', '.selectLang', function(){

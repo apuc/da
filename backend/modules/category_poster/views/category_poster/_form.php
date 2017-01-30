@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'parent_id')->dropDownList(ArrayHelper::map(CategoryPoster::find()->all(), 'id', 'title')) ?>
+    <?= $form->field($model, 'parent_id')->dropDownList(ArrayHelper::map(CategoryPoster::find()->all(), 'id', 'title'),['prompt'=>'']) ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
