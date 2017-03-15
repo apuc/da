@@ -73,6 +73,9 @@ return [
         'seo' => [
             'class' => 'backend\modules\seo\Seo',
         ],
+        'entertainment' => [
+            'class' => 'backend\modules\entertainment\Entertainment',
+        ],
         'active_poll' => [
             'class' => 'backend\modules\active_poll\Active_poll',
         ],
@@ -114,7 +117,8 @@ return [
                 'key_value' => 'key_value/key_value',
                 'poster' => 'poster/poster',
                 'category_poster' => 'category_poster/category_poster',
-                'polls' => 'polls/polls'
+                'polls' => 'polls/polls',
+                'entertainment'=>'entertainment/default',
             ]
         ],
         'mailer' => [

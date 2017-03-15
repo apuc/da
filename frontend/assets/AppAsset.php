@@ -19,33 +19,28 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         /*'css/site.css',*/
-        'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css',
-        'theme/portal-donbassa/css/jquery.fancybox.css',
-        'theme/portal-donbassa/css/jquery.fancybox-buttons.css',
-        'theme/portal-donbassa/css/jquery.fancybox-thumbs.css',
+        'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
+        'theme/portal-donbassa/css/libs.min.css',
         'theme/portal-donbassa/css/datepicker.min.css',
-        'css/lightbox.css',
-        'theme/portal-donbassa/css/jquery-ui.min.css',
-        'theme/portal-donbassa/css/style.min.css',
+        'theme/portal-donbassa/css/fancybox/jquery.fancybox.css',
+        'theme/portal-donbassa/css/fancybox/jquery.fancybox-thumbs.css',
+        'theme/portal-donbassa/css/fancybox/jquery.fancybox-buttons.css',
+        'theme/portal-donbassa/css/styles.min.css',
     ];
     public $js = [
-        'theme/portal-donbassa/js/jquery.mousewheel-3.0.6.pack.js',
-        'theme/portal-donbassa/js/jquery.fancybox.pack.js',
-        'theme/portal-donbassa/js/jquery.fancybox-buttons.js',
-        'theme/portal-donbassa/js/jquery.fancybox-media.js',
-        'theme/portal-donbassa/js/flipclock.min.js',
+        'http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU',
+        'theme/portal-donbassa/js/jquery-2.1.3.min.js',
+        'theme/portal-donbassa/js/libs.min.js',
+        'theme/portal-donbassa/js/owl.carousel.min.js',
         'theme/portal-donbassa/js/datepicker.min.js',
-        'js/lightbox.js',
+        'theme/portal-donbassa/js/fancybox/jquery.fancybox.js',
+        'theme/portal-donbassa/js/fancybox/jquery.fancybox-buttons.js',
+        'theme/portal-donbassa/js/fancybox/jquery.fancybox-media.js',
+        'theme/portal-donbassa/js/fancybox/jquery.fancybox-thumbs.js',
+        'theme/portal-donbassa/js/fancybox/jquery.fancybox.pack.js',
         'theme/portal-donbassa/js/script.min.js',
-        'theme/portal-donbassa/js/script.js',
-        'theme/portal-donbassa/js/jquery-ui.min.js',
-        '//vk.com/js/api/openapi.js?133',
-        '//api-maps.yandex.ru/2.1/?lang=ru_RU',
-        'js/map.js',
-        'js/yandex_options.js',
-        'js/jquery.columnlist.js',
-        'js/poll_ajax.js',
-        'js/script.js'
+        'theme/portal-donbassa/js/jquery.hc-sticky.min.js',
+
     ];
     public $depends = [
         'yii\web\YiiAsset',

@@ -25,8 +25,8 @@ use yii\widgets\ActiveForm;
         echo Html::dropDownList(
             'categ',
             $cats_arr,
-            ArrayHelper::map(CategoryNews::find()->where(['lang_id'=>1])->all(),'id','title'),
-            ['class'=>'form-control', 'id'=>'categ', 'multiple'=>'multiple']
+            ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title'),
+            ['class' => 'form-control', 'id' => 'categ', 'multiple' => 'multiple']
         );
         ?>
     </span>
@@ -51,8 +51,9 @@ use yii\widgets\ActiveForm;
 
     <div class="dt_public_box_link"><a href="#">Отложенная публикация</a></div>
     <div class="dt_public_box">
-        <?= $form->field($model, 'dt_public')->input('date', ['class'=>'form-control', 'value'=>123])?>
-        <?= Html::input('text','dt_public_time',date(''),['id'=>'dt_public_time', 'class'=>'form-control','placeholder'=>'Время']) ?>
+        <?= $form->field($model, 'dt_public')->input('date', ['class' => 'form-control', 'value' => 123]) ?>
+        <?= Html::input('text', 'dt_public_time', date(''),
+            ['id' => 'dt_public_time', 'class' => 'form-control', 'placeholder' => 'Время']) ?>
     </div>
 
     <?= $form->field($model, 'tags')->textInput(['maxlength' => true]) ?>
@@ -68,8 +69,10 @@ use yii\widgets\ActiveForm;
         <?php
         echo InputFile::widget([
             'language' => 'ru',
-            'controller' => 'elfinder', // вставляем название контроллера, по умолчанию равен elfinder
-            'filter' => 'image', // фильтр файлов, можно задать массив фильтров https://github.com/Studio-42/elFinder/wiki/Client-con..
+            'controller' => 'elfinder',
+            // вставляем название контроллера, по умолчанию равен elfinder
+            'filter' => 'image',
+            // фильтр файлов, можно задать массив фильтров https://github.com/Studio-42/elFinder/wiki/Client-con..
             'name' => 'News[photo]',
             'id' => 'news-photo',
             'template' => '<div class="input-group">{input}<span class="span-btn">{button}</span></div>',
@@ -81,21 +84,22 @@ use yii\widgets\ActiveForm;
         ?>
     </div>
 
-    <?=  $form->field($model, 'status')->dropDownList([
-        '0'=>'Опубликована',
-        '1'=>'На модерации',
-        '3'=>'Отложена',
-    ])->label('Статус')  ?>
+    <?= $form->field($model, 'status')->dropDownList([
+        '0' => 'Опубликована',
+        '1' => 'На модерации',
+        '3' => 'Отложена',
+    ])->label('Статус') ?>
 
     <?= $form->field($model, 'exclude_popular')->checkbox() ?>
 
     <?= $form->field($model, 'rss')->checkbox() ?>
 
-    <? /*= $form->field($model, 'user_id')->textInput() */ ?>
+    <?= $form->field($model, 'main_slider')->checkbox(); ?>
     <br>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('news', 'Create') : Yii::t('news', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('news', 'Create') : Yii::t('news', 'Update'),
+            ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -22,4 +22,5 @@ return [
     'Dt Public' => 'Дата публикации',
     'Status' => 'Статус',
     'Exclude popular' => 'Исключить из популярных',
+    'Main slider' => 'Главный слайдер',
 ];

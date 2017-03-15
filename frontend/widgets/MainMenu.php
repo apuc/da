@@ -24,7 +24,7 @@ class MainMenu extends Widget
         echo Menu::widget([
             'items' => [
                 [
-                    'label' => 'Главная',
+                    'label' => 'INFO PRO',
                     'url' => Url::to(['/']),
                     'template' => '<a href="{url}">{label}</a>',
                     'active' => Yii::$app->controller->module->id == 'mainpage',
@@ -68,7 +68,7 @@ class MainMenu extends Widget
             /*'dropDownCaret' => false,*/
             /*'submenuTemplate' => "\n<ul class='header__menu_mnu'>\n{items}\n</ul>\n",*/
             'options' => [
-                'class' => 'header__menu_mnu',
+                'class' => 'header-menu',
             ]
         ]);
     }

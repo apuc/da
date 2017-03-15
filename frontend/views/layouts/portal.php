@@ -12,232 +12,1386 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 
-
 AppAsset::register($this);
-
 ?>
 <?php $this->beginPage() ?>
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
-    <head>
-        <meta charset="<?= Yii::$app->charset ?>">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <?= Html::csrfMetaTags() ?>
-        <title><?= Html::encode($this->title) ?></title>
-        <?php $this->head() ?>
-        <meta name="yandex-verification" content="6102a93fabadb2cf" />
-        <?= \frontend\widgets\Metrika::widget() ?>
-        <style>
-            .mnu-link a{
-                color: whitesmoke!important;
-            }
-        </style>
-    </head>
-    <body>
+<head>
+    <meta charset="<?= Yii::$app->charset ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?= Html::csrfMetaTags() ?>
+    <title><?= Html::encode($this->title) ?></title>
+    <?php $this->head() ?>
+    <meta name="yandex-verification" content="6102a93fabadb2cf"/>
+    <?= \frontend\widgets\Metrika::widget() ?>
+</head>
+<body>
 <?php $this->beginBody() ?>
-<section class="header__top">
+
+<section class="header">
     <div class="container">
-        <div class="city">
-            <p class="city-string"><span class="geo-city"></span></p>
-            <div class="delivery_block">
-                <div class="delivery_list">
-                    <span>Донецк</span></div>
-                <ul class="cities_list">
-                    <li>Макеевка</li>
-                    <li>Луганск</li>
-                    <li>Транпорт</li>
-                    <li>Казань</li>
-                </ul>
+
+        <a href="/" class="header-logo">
+
+            <img src="/theme/portal-donbassa/img/logo.png" alt="">
+        </a>
+        <div class="header-ipanel">
+            <div class="select">
+                <select class="" name="">
+                    <option value="">Донецк</option>
+                    <option value="">Макеевка</option>
+                </select>
             </div>
-
-<!--            <p class="weather"><span class="sun"></span>-->
-<!--            --><?//= \frontend\widgets\Weather::widget() ?><!--<!--</p>-->
-            <ul class="social-head">
-                <li><a href="https://www.facebook.com/da.info.pro/" class="circle"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                <li><a href="https://vk.com/da_info_pro" class="circle"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
-                <li><a href="https://www.facebook.com/da.info.pro/" class="circle"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                <li><a href="https://www.instagram.com/da.info.pro/" class="circle"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                <li><a href="https://ok.ru/da...infor" class="circle"><i class="fa fa-odnoklassniki" aria-hidden="true"></i> </a></li>
-                <!--<li><a href="" class="circle"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                <li><a href="" class="circle"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>-->
-            </ul>
-        </div>
-
-        <?= ExchangeRates::widget() ?>
-
-        <div class="search">
+            <div class="weather">
+        <span class="weather-pic">
+          <img src="/theme/portal-donbassa/img/header/rain-pic.png" alt="">
+        </span>
+                <span class="weather-temp">
+          +11
+        </span>
+            </div>
+            <?= ExchangeRates::widget() ?>
             <form action="">
-                <span class="search-icon"></span>
-                <input type="search" placeholder="поиск">
+                <input class="search-input" type="text" placeholder="Поиск">
+                <button>
+                    <span class="autoriz-icon"></span>
+                    авторизация
+                </button>
             </form>
         </div>
-        <?= \frontend\widgets\Sign::widget() ?>
-    </div>
-</section>
-<section class="header__main">
-    <div>
-        <a href="/" class="header__main_logo" ><img width="72%" src="/theme/portal-donbassa/img/logo3.png" alt=""></a>
-        <div class="header__main_panel" style="width: 70%">
-            <?php echo \frontend\widgets\MainMenu::widget() ?>
-        </div>
-    </div>
-</section>
-<section class="header__menu">
-    <div class="container">
-        <button class="toggle_mnu">
-        <span class="sandwich">
-          <span class="sw-topper"></span>
-          <span class="sw-bottom"></span>
-          <span class="sw-footer"></span>
-        </span>
-        </button>
+        <?php echo \frontend\widgets\MainMenu::widget() ?>
 
     </div>
 </section>
-<!--<section class="header-menu-bot">-->
-<!--    --><?//= \frontend\widgets\MainSubMenu::widget() ?>
-<!--</section>-->
-<!--<section class="header__banner">-->
-<!--    <img src="/theme/portal-donbassa/img/banner.png" alt="">-->
-<!--    </div>-->
-<!--</section>-->
-<?= $content ?>
-<!-- end header.html-->
-<!-- start content.html-->
 
-<!-- @@block  =  content-->
-<section class="title">
+<section class="home-content">
     <div class="container">
-        <div class="title-left-side">
-            <h1 class="tgl_mnu"><img src="/frontend/web/theme/portal-donbassa/img/news-arrow.png" alt="">Новости</h1>
-            <div class="title-right">
-                <a href="<?= Url::to(['/news/news/create']) ?>" class="header__main_panel-add-cont"><span class="header-news icon"></span>Предложить новость </a>
-                <a href="<?= Url::to(['/news/news/']) ?>" class="all-news"><i class="fa fa-newspaper-o" aria-hidden="true"></i>все новости</a>
-            </div>
-        </div>
-        <div class="popular-container">
-            <a href="" class="popular"><span></span>Популярные заведения</a>
-        </div>
-    </div>
-</section>
-<section class="content">
-    <div class="container">
-        <div class="content__main">
-            <?php echo \frontend\modules\mainpage\widgets\News::widget()?>
-            <?php echo \frontend\modules\mainpage\widgets\Company::widget()?>
-<!--            --><?php //echo \frontend\widgets\VipCompanyWidget::widget(); ?>
-            <?php echo \frontend\modules\mainpage\widgets\Poster::widget() ?>
-<!--            <div class="banner-bottom">-->
-<!--                <img src="/theme/portal-donbassa/img/banner-bottom.png" alt="">-->
-<!--            </div>-->
-        </div>
-        <!-- right bar -->
-        <div class="right-bar">
-            <div class="poll">
-                <?= \frontend\widgets\Poll::widget() ?>
-            </div>
-            <h2>топ лучших</h2>
 
-            <!--<a href="<?/*= Url::to(['/company/company/create']) */?>" class="add-ad">Добавить предприятие </a>-->
-            <div class="right-bar__ad">
-                <?= \frontend\widgets\TopCompanyWidget::widget() ?>
-                <?= \frontend\modules\news\widgets\NewsArchive::widget() ?>
-                <div class="white-overlay">
-                    <a class="add-ad" href="">ДОБАВИТЬ ОБЪЯВЛЕНИЕ</a>
+        <div class="home-content__wrap">
+
+            <?= \frontend\widgets\MainSlider::widget(); ?>
+
+            <?= \frontend\widgets\Entertainment::widget(); ?>
+
+            <div class="home-content__wrap_checkpoint">
+                <span class="color-zebra"></span>
+                <div class="title">
+                    <h2>Ситауция на блокпостах</h2>
+                    <a href=""><span class="rect-icon"></span>Проинформировать</a>
+                </div>
+
+                <div class="item">
+                    <span class="color_checkpoint"></span>
+                    <div class="item-city">
+                        <a href="">#Артемовск</a>
+                        <a href="">#Зайцево</a>
+                        <a href="">#Майорск</a>
+                        <a href="">#Бахмут</a>
+                        <a href="">#Майорск</a>
+                        <a href="">#Бахмут</a>
+                    </div>
+                    <p>09:49 - Курахово очередь курахово очередь</p>
+                </div>
+                <div class="item">
+                    <span class="color_checkpoint"></span>
+                    <div class="item-city">
+                        <a href="">#Артемовск</a>
+                        <a href="">#Зайцево</a>
+                        <a href="">#Майорск</a>
+                        <a href="">#Бахмут</a>
+                        <a href="">#Майорск</a>
+                        <a href="">#Бахмут</a>
+                    </div>
+                    <p>09:49 - Курахово очередь курахово очередь</p>
+                </div>
+                <div class="item">
+                    <span class="color_checkpoint"></span>
+                    <div class="item-city">
+                        <a href="">#Артемовск</a>
+                        <a href="">#Зайцево</a>
+                        <a href="">#Майорск</a>
+                        <a href="">#Бахмут</a>
+                        <a href="">#Майорск</a>
+                        <a href="">#Бахмут</a>
+                    </div>
+                    <p>09:49 - Курахово очередь курахово очередь</p>
                 </div>
             </div>
-            <div class="right-bar__ad-room">
-                <h2>объявления</h2>
-                <a href="" class="ad-room">
-                    <img src="/theme/portal-donbassa/img/room.png" alt="">
-                    <h4>3-к квартира, 65 м², 4/9 эт.</h4>
-                    <p><span class="geo-icon"></span>р-н Пролетарский</p>
-                </a>
-                <a href="" class="ad-room">
-                    <img src="/theme/portal-donbassa/img/room.png" alt="">
-                    <h4>3-к квартира, 65 м², 4/9 эт.</h4>
-                    <p><span class="geo-icon"></span>р-н Пролетарский</p>
-                </a>
-                <a href="" class="ad-room">
-                    <img src="/theme/portal-donbassa/img/room.png" alt="">
-                    <h4>3-к квартира, 65 м², 4/9 эт.</h4>
-                    <p><span class="geo-icon"></span>р-н Пролетарский</p>
-                </a>
+
+            <div class="home-content__wrap_komunalka">
+                <div class="title_row">
+                    <h3>комунальные тарифы</h3>
+                    <a href="" class="show-enterprises">все тарифы<span class="red-arrow"></span></a>
+                </div>
+                <div class="komunalka">
+
+                    <div class="komunalka__item komunalka__line_active">
+            <span class="komunalka__icon">
+              <img src="/theme/portal-donbassa/img/home-content/energy.png" alt="">
+            </span>
+                        <a href="" class="komunalka__line ">электричество<span class="red-arrow"></span></a>
+                    </div>
+                    <div class="komunalka__item">
+            <span class="komunalka__icon">
+              <img src="/theme/portal-donbassa/img/home-content/wind.png" alt="">
+            </span>
+                        <a href="" class="komunalka__line">отопление <span class="red-arrow"></span></a>
+                    </div>
+                    <div class="komunalka__item">
+            <span class="komunalka__icon">
+              <img src="/theme/portal-donbassa/img/home-content/gas.png" alt="">
+            </span>
+                        <a href="" class="komunalka__line">газ <span class="red-arrow"></span></a>
+                    </div>
+                    <div class="komunalka__item">
+            <span class="komunalka__icon">
+              <img src="/theme/portal-donbassa/img/home-content/home.png" alt="">
+            </span>
+                        <a href="" class="komunalka__line">жкх <span class="red-arrow"></span></a>
+                    </div>
+                    <div class="komunalka__item">
+            <span class="komunalka__icon">
+              <img src="/theme/portal-donbassa/img/home-content/water.png" alt="">
+            </span>
+                        <a href="" class="komunalka__line">вода<span class="red-arrow"></span></a>
+                    </div>
+                </div>
             </div>
-            <div class="right-bar-social">
-                <h4>МЫ В КОНТАКТЕ</h4>
-                <div id="vk_groups"></div>
-                <h4>МЫ В ФЕЙСБУКЕ</h4>
-                <div class="fb-page" data-href="https://www.facebook.com/da.info.pro/" data-heigh = "180" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true"><blockquote cite="https://www.facebook.com/da.info.pro/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/da.info.pro/">DA</a></blockquote></div>
+
+            <div class="home-content__wrap_subscribe">
+                <div class="subscribe__wrap">
+                    <h3>ПОДПИСАТЬСЯ НА НОВОСТИ</h3>
+                    <form action="">
+                        <input type="text" placeholder="Выслать на email">
+                        <button>подписаться</button>
+                    </form>
+                    <div class="social-wrap">
+                        <h4>мы в социальных сетях</h4>
+                        <div class="social-wrap__item vk">
+                            <img src="/theme/portal-donbassa/img/soc/vk.png" alt="">
+                        </div>
+                        <div class="social-wrap__item fb">
+                            <img src="/theme/portal-donbassa/img/soc/fb.png" alt="">
+                        </div>
+                        <div class="social-wrap__item ok">
+                            <img src="/theme/portal-donbassa/img/soc/ok-icon.png" alt="">
+                        </div>
+                        <div class="social-wrap__item insta">
+                            <img src="/theme/portal-donbassa/img/soc/insta-icon.png" alt="">
+                        </div>
+                        <div class="social-wrap__item twitter">
+                            <img src="/theme/portal-donbassa/img/soc/twi-icon.png" alt="">
+                        </div>
+                        <div class="social-wrap__item google">
+                            <img src="/theme/portal-donbassa/img/soc/google-icon.png" alt="">
+                        </div>
+                        <div class="social-wrap__item pinterest">
+                            <img src="/theme/portal-donbassa/img/soc/pinter-icon.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="home-content__tape">
+            <?= \frontend\widgets\DayFeed::widget(); ?>
+        </div>
+
+        <div class="home-content__sidebar">
+
+            <div class="home-content__sidebar_stock">
+                <h3 class="main-title">Акции</h3>
+                <span class="separator"></span>
+                <div class="stock__item">
+                    <div class="stock__item_hide">
+                        <p>до -50% Карандаши для глаз, Карандаши и тени для бровей, Тени для век, Тушь</p>
+                        <a href="">подобнее <span class="red-arrow"></span></a>
+                    </div>
+                    <div class="stock__item_visible">
+                        <div class="thumb">
+                            <img src="/theme/portal-donbassa/img/home-content/stock-pic-1.png" alt="">
+                        </div>
+                        <div class="content">
+                            <p> (23 Декабря 2016 - 08 Января 2017)</p>
+                        </div>
+                        <span class="mouse-area">
+              <img src="/theme/portal-donbassa/img/home-content/mouse-area.png" alt="">
+            </span>
+                    </div>
+                </div>
+                <div class="stock__item">
+                    <div class="stock__item_hide">
+                        <p>до -50% Карандаши для глаз, Карандаши и тени для бровей, Тени для век, Тушь</p>
+                        <a href="">подобнее <span class="red-arrow"></span></a>
+                    </div>
+                    <div class="stock__item_visible">
+                        <div class="thumb">
+                            <img src="/theme/portal-donbassa/img/home-content/stock-pic-1.png" alt="">
+                        </div>
+                        <div class="content">
+                            <p> (23 Декабря 2016 - 08 Января 2017)</p>
+                        </div>
+                        <span class="mouse-area">
+              <img src="/theme/portal-donbassa/img/home-content/mouse-area.png" alt="">
+            </span>
+                    </div>
+                </div>
+                <div class="stock__item">
+                    <div class="stock__item_hide">
+                        <p>до -50% Карандаши для глаз, Карандаши и тени для бровей, Тени для век, Тушь</p>
+                        <a href="">подобнее <span class="red-arrow"></span></a>
+                    </div>
+                    <div class="stock__item_visible">
+                        <div class="thumb">
+                            <img src="/theme/portal-donbassa/img/home-content/stock-pic-1.png" alt="">
+                        </div>
+                        <div class="content">
+                            <p> (23 Декабря 2016 - 08 Января 2017)</p>
+                        </div>
+                        <span class="mouse-area">
+              <img src="/theme/portal-donbassa/img/home-content/mouse-area.png" alt="">
+            </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="home-content__sidebar_poll">
+                <!-- <span class="red-line"></span> -->
+                <h3>Голосование</h3>
+                <h5>Выбери свой вариант</h5>
+                <form action="#">
+                    <label><p><input data-id="24" name="answer" type="radio" value="24">1. Готов(а) смотреть по ТВ</p>
+                    </label>
+                    <label><p><input data-id="25" name="answer" type="radio" value="25">2. Посещаю</p></label>
+                    <label><p><input data-id="26" name="answer" type="radio" value="26">3. Не посещаю</p></label>
+                    <label><p><input data-id="27" name="answer" type="radio" value="27">4. Ходил(а), если бы были в моем
+                            городе</p></label>
+                    <label><p><input data-id="28" name="answer" type="radio" value="28">5. Отрицательно</p></label>
+                    <button><span class="pencil"></span>Проголосовать</button>
+                </form>
+                <!--
+                <div class="pol-progress-cont">
+             <div class="answer"><p>1. Готов(а) смотреть по ТВ</p></div>
+             <div data-progress="0" class="poll-progressbar ui-progressbar ui-corner-all ui-widget ui-widget-content" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="ui-progressbar-value ui-corner-left ui-widget-header" style="display: none; width: 4px;"></div></div>
+             <span class="result">0</span>
+         </div>
+         <div class="pol-progress-cont">
+             <div class="answer"><p>2. Посещаю</p></div>
+             <div data-progress="0" class="poll-progressbar ui-progressbar ui-corner-all ui-widget ui-widget-content" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="ui-progressbar-value ui-corner-left ui-widget-header" style="display: none; width: 4px;"></div></div>
+             <span class="result">0</span>
+         </div>
+         <div class="pol-progress-cont">
+             <div class="answer"><p>3. Не посещаю</p></div>
+             <div data-progress="33" class="poll-progressbar ui-progressbar ui-corner-all ui-widget ui-widget-content" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="33"><div class="ui-progressbar-value ui-corner-left ui-widget-header" style="width: 65px;"></div></div>
+             <span class="result">1</span>
+         </div>
+         <div class="pol-progress-cont">
+             <div class="answer"><p>4. Ходил(а), если бы были в моем городе</p></div>
+             <div data-progress="66" class="poll-progressbar ui-progressbar ui-corner-all ui-widget ui-widget-content" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="66"><div class="ui-progressbar-value ui-corner-left ui-widget-header" style="width: 129px;"></div></div>
+             <span class="result">2</span>
+         </div>
+         <div class="pol-progress-cont">
+             <div class="answer"><p>5. Отрицательно</p></div>
+             <div data-progress="0" class="poll-progressbar ui-progressbar ui-corner-all ui-widget ui-widget-content" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="ui-
+                -->
+
+            </div>
+
+            <div class="home-content__sidebar_consultation">
+                <h3>КОНСУЛЬТАЦИИ</h3>
+                <!-- <span class="consultation-title"></span> -->
+                <a href="" class="ask"><span class="ask-icon"></span> Задать вопрос</a>
+                <a href="" class="consultation__item">
+                    <div class="thumb">
+                        <img src="/theme/portal-donbassa/img/home-content/consultation-pic.png" alt="">
+                    </div>
+                    <span class="category">право</span>
+                    <p> Как быстро сделать документы без выезда ДНР? </p>
+                </a>
+                <a href="" class="consultation__item">
+                    <p> Как быстро сделать документы без выезда ДНР? </p>
+                    <span class="category">право</span>
+                    <div class="thumb">
+                        <img src="/theme/portal-donbassa/img/home-content/consultation-pic.png" alt="">
+                    </div>
+
+                </a>
+                <a href="" class="consultation__item">
+                    <div class="thumb">
+                        <img src="/theme/portal-donbassa/img/home-content/consultation-pic.png" alt="">
+                    </div>
+                    <span class="category">право</span>
+                    <p> Как быстро сделать документы без выезда ДНР? </p>
+                </a>
+                <a href="" class="consultation__item">
+
+                    <p> Как быстро сделать документы без выезда ДНР? </p>
+                    <span class="category">право</span>
+                    <div class="thumb">
+                        <img src="/theme/portal-donbassa/img/home-content/consultation-pic.png" alt="">
+                    </div>
+                </a>
+                <a href="" class="show-more">посмотреть больше<span class="red-arrow"></span></a>
+            </div>
+
+            <div class="home-content__sidebar_exchange">
+                <nav class="title__tabs">
+                    <ul>
+                        <li>
+                            <a href="#" class="page__tabs_target page__tabs_active" data-tab="one">
+                                <span>Межбанк</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="page__tabs_target" data-tab="two">
+                                <span>Обменки</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="box-connent">
+                    <article class="page__tabcontent  one">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Валюта</th>
+                                <th>Покупка</th>
+                                <th>Продажа</th>
+                            </tr>
+                            </thead>
+                            <tbode>
+                                <tr>
+                                    <td>usd</td>
+                                    <td>26.000</td>
+                                    <td>26.000</td>
+                                </tr>
+                                <tr>
+                                    <td>eur</td>
+                                    <td>26.000
+                                        <span class="up"></span></td>
+                                    <td>26.000<span class="down"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>rub</td>
+                                    <td>26.000</td>
+                                    <td>26.000</td>
+                                </tr>
+                            </tbode>
+                        </table>
+                        <a href="" class="show-more">подробнее<span class="red-arrow"></span></a>
+                    </article>
+
+
+                    <article class="page__tabcontent two">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Валюта</th>
+                                <th>Покупка</th>
+                                <th>Продажа</th>
+                            </tr>
+                            </thead>
+                            <tbode>
+                                <tr>
+                                    <td>usd</td>
+                                    <td>26.000</td>
+                                    <td>26.000</td>
+                                </tr>
+                                <tr>
+                                    <td>eur</td>
+                                    <td>26.230</td>
+                                    <td>26.230</td>
+                                </tr>
+                                <tr>
+                                    <td>rub</td>
+                                    <td>26.230</td>
+                                    <td>26.230</td>
+                                </tr>
+                            </tbode>
+                        </table>
+                        <a href="" class="show-more">подробнее<span class="red-arrow"></span></a>
+                    </article>
+                </div>
+
+            </div>
+
+            <div class="home-content__sidebar_weather">
+                <h3>Погода</h3>
+                <div class="main-weather">
+                    <div class="main-weather__content">
+                        <span class="city">Донецк</span>
+                        <span class="date">пятница 20.01</span>
+                        <span class="precipitation">Облачно</span>
+                    </div>
+                    <div class="main-weather__pic">
+                        <img src="/theme/portal-donbassa/img/weather/partly_cloudy.png" alt="">
+                    </div>
+                    <span class="main-weather_temp">-8</span>
+                </div>
+                <div class="week-weather">
+                    <div class="week-weather__item">
+                        <span class="week-weather__date">сб 21.01</span>
+                        <div class="week-weather__pic">
+                            <img src="/theme/portal-donbassa/img/weather/snow_light.png" alt="">
+                        </div>
+                        <span class="week-weather_temp">-8</span>
+                    </div>
+                    <div class="week-weather__item">
+                        <span class="week-weather__date">сб 21.01</span>
+                        <div class="week-weather__pic">
+                            <img src="/theme/portal-donbassa/img/weather/snow_light.png" alt="">
+                        </div>
+                        <span class="week-weather_temp">-8</span>
+                    </div>
+                    <div class="week-weather__item">
+                        <span class="week-weather__date">сб 21.01</span>
+                        <div class="week-weather__pic">
+                            <img src="/theme/portal-donbassa/img/weather/snow_light.png" alt="">
+                        </div>
+                        <span class="week-weather_temp">-8</span>
+                    </div>
+                </div>
             </div>
         </div>
+
     </div>
 </section>
-<!-- @@close-->
 
-<!-- end content.html-->
-<!-- start footer.html-->
-<!-- @@block  =  footer-->
-
-<section class="footer">
+<section class="news-slider-index">
     <div class="container">
-        <a href="http://da-info.pro/" class="footer-main_logo"><img width="122px" src="/theme/portal-donbassa/img/logo3.png" alt=""></a>
-<!--        <div class="footer__menu">-->
-<!--            <ul class="footer__menu_mnu">-->
-<!--                <li class=""><a href="">Главная</a></li>-->
-<!--                <li class=""><a href="">Новости </a></li>-->
-<!--                <li class=""><a href="">Предприятия</a></li>-->
-<!--                <li class=""><a href="">Объявления </a></li>-->
-<!--                <li class=""><a href="">Досуг</a></li>-->
-<!--                <li class=""><a href="">О нас</a></li>-->
-<!--            </ul>-->
-<!--        </div>-->
-        <ul class="social">
-            <li><a href="https://www.facebook.com/da.info.pro/" class="circle"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-            <li><a href="https://vk.com/da_info_pro" class="circle"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
-            <li><a href="https://www.facebook.com/da.info.pro/" class="circle"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-            <li><a href="https://www.instagram.com/da.info.pro/" class="circle"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-            <li><a href="https://ok.ru/da...infor" class="circle"><i class="fa fa-odnoklassniki" aria-hidden="true"></i> </a></li>
-            <!--<li><a href="" class="circle"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-            <li><a href="" class="circle"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>-->
-        </ul>
-<!--        <div class="info"><p><a href="mailto:da.info.pro@gmail.com">da.info.pro@gmail.com</a>,<br> колл центр - +38(099)671-71-72, +38(071)310-09-54,<br> отдел продаж - +38(099)671-71-73, +38(099)620-45-85, +38(099)625-76-07</p></div>-->
-        <div class="info"><p><a href="mailto:da.info.pro@gmail.com">da.info.pro@gmail.com</a>,<br> колл центр - +38(099)671-71-72</p></div>
-<!--        <div class="footer-copyright-cont">-->
-<!--            <p class="footer-copyright">2017 © da-info.pro- Сайт города Донецка</p>-->
-<!--            <p class="footer-copyright">info@da-info, (071) 210-80-54, (093) 998-49-04</p>-->
-<!--        </div>-->
-<!--        <div class="info">-->
-<!--            <a href="#">Реклама на сайте</a><a href="#">Правила пользования сайтом</a><a href="#">Договор пользования сайтом</a>-->
-<!--        </div>-->
+        <h3 class="main-title">популярные новости</h3>
+        <span class="separator"></span>
+        <div class="news-slider-wrap">
+            <div class=" js-carousel-1 owl-carousel" id="sync1">
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/1pic.jpg" alt="">
+                    <div class="content-item">
+                        <div class="content-row">
+                            <a href="">Новости</a>
+                            <span><small class="view-icon"></small> 2589</span>
+                            <div class="hide-social">
+                                <a href=""><i class="fa fa-vk  fa-lg"></i></a>
+                                <a href=""><i class="fa fa-twitter fa-lg"></i></a>
+                                <a href=""><i class="fa fa-facebook fa-lg"></i></a>
+                                <a href=""><i class="fa fa-odnoklassniki  fa-lg"></i></a>
 
-<!--        <div class="header__main_logo"></div>-->
+                            </div>
+                            <span class="open-soc"><i class="fa fa-random fa-lg"></i>
+
+              </span>
+                        </div>
+                        <h4>Месть Украины за Донбасс будет безжалостной </h4>
+
+                    </div>
+                </div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/3pic.jpg" alt="">
+                    <div class="content-item">
+                        <div class="content-row">
+                            <a href="">Новости</a>
+                            <span><small class="view-icon"></small> 2589</span>
+                            <div class="hide-social">
+                                <a href=""><i class="fa fa-vk  fa-lg"></i></a>
+                                <a href=""><i class="fa fa-twitter fa-lg"></i></a>
+                                <a href=""><i class="fa fa-facebook fa-lg"></i></a>
+                                <a href=""><i class="fa fa-odnoklassniki  fa-lg"></i></a>
+
+                            </div>
+                            <span class="open-soc"><i class="fa fa-random fa-lg"></i>
+
+              </span>
+                        </div>
+                        <h4>Месть Украины за Донбасс будет безжалостной </h4>
+
+                    </div>
+                </div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/2pic.jpg" alt="">
+                    <div class="content-item">
+                        <div class="content-row">
+                            <a href="">Новости</a>
+                            <span><small class="view-icon"></small> 2589</span>
+                            <div class="hide-social">
+                                <a href=""><i class="fa fa-vk  fa-lg"></i></a>
+                                <a href=""><i class="fa fa-twitter fa-lg"></i></a>
+                                <a href=""><i class="fa fa-facebook fa-lg"></i></a>
+                                <a href=""><i class="fa fa-odnoklassniki  fa-lg"></i></a>
+
+                            </div>
+                            <span class="open-soc"><i class="fa fa-random fa-lg"></i>
+
+              </span>
+                        </div>
+                        <h4>Месть Украины за Донбасс будет безжалостной </h4>
+
+                    </div>
+                </div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/3pic.jpg" alt="">
+                    <div class="content-item">
+                        <div class="content-row">
+                            <a href="">Новости</a>
+                            <span><small class="view-icon"></small> 2589</span>
+                            <div class="hide-social">
+                                <a href=""><i class="fa fa-vk  fa-lg"></i></a>
+                                <a href=""><i class="fa fa-twitter fa-lg"></i></a>
+                                <a href=""><i class="fa fa-facebook fa-lg"></i></a>
+                                <a href=""><i class="fa fa-odnoklassniki  fa-lg"></i></a>
+
+                            </div>
+                            <span class="open-soc"><i class="fa fa-random fa-lg"></i>
+
+              </span>
+                        </div>
+                        <h4>Месть Украины за Донбасс будет безжалостной </h4>
+
+                    </div>
+                </div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/2pic.jpg" alt="">
+                    <div class="content-item">
+                        <div class="content-row">
+                            <a href="">Новости</a>
+                            <span><small class="view-icon"></small> 2589</span>
+                            <div class="hide-social">
+                                <a href=""><i class="fa fa-vk  fa-lg"></i></a>
+                                <a href=""><i class="fa fa-twitter fa-lg"></i></a>
+                                <a href=""><i class="fa fa-facebook fa-lg"></i></a>
+                                <a href=""><i class="fa fa-odnoklassniki  fa-lg"></i></a>
+
+                            </div>
+                            <span class="open-soc"><i class="fa fa-random fa-lg"></i>
+
+              </span>
+                        </div>
+                        <h4>Месть Украины за Донбасс будет безжалостной </h4>
+
+                    </div>
+                </div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/3pic.jpg" alt="">
+                    <div class="content-item">
+                        <div class="content-row">
+                            <a href="">Новости</a>
+                            <span><small class="view-icon"></small> 2589</span>
+                            <div class="hide-social">
+                                <a href=""><i class="fa fa-vk  fa-lg"></i></a>
+                                <a href=""><i class="fa fa-twitter fa-lg"></i></a>
+                                <a href=""><i class="fa fa-facebook fa-lg"></i></a>
+                                <a href=""><i class="fa fa-odnoklassniki  fa-lg"></i></a>
+
+                            </div>
+                            <span class="open-soc"><i class="fa fa-random fa-lg"></i>
+
+              </span>
+                        </div>
+                        <h4>Месть Украины за Донбасс будет безжалостной </h4>
+
+                    </div>
+                </div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/4pic.jpg" alt="">
+                    <div class="content-item">
+                        <div class="content-row">
+                            <a href="">Новости</a>
+                            <span><small class="view-icon"></small> 2589</span>
+                            <div class="hide-social">
+                                <a href=""><i class="fa fa-vk  fa-lg"></i></a>
+                                <a href=""><i class="fa fa-twitter fa-lg"></i></a>
+                                <a href=""><i class="fa fa-facebook fa-lg"></i></a>
+                                <a href=""><i class="fa fa-odnoklassniki  fa-lg"></i></a>
+
+                            </div>
+                            <span class="open-soc"><i class="fa fa-random fa-lg"></i>
+
+              </span>
+                        </div>
+                        <h4>Месть Украины за Донбасс будет безжалостной </h4>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="js-carousel-2 owl-carousel" id="sync2">
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/2pic.jpg" alt="">
+                    <div class="content-item">
+                        <div class="content-row">
+                            <a href="">Новости</a>
+                            <span><small class="view-icon"></small> 2589</span>
+                            <div class="hide-social">
+                                <a href=""><i class="fa fa-vk  fa-lg"></i></a>
+                                <a href=""><i class="fa fa-twitter fa-lg"></i></a>
+                                <a href=""><i class="fa fa-facebook fa-lg"></i></a>
+                                <a href=""><i class="fa fa-odnoklassniki  fa-lg"></i></a>
+
+                            </div>
+                            <span class="open-soc"><i class="fa fa-random fa-lg"></i>
+
+              </span>
+                        </div>
+                        <h4>Месть Украины за Донбасс будет безжалостной </h4>
+
+                    </div>
+                </div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/3pic.jpg" alt="">
+                    <div class="content-item">
+                        <div class="content-row">
+                            <a href="">Новости</a>
+                            <span><small class="view-icon"></small> 2589</span>
+                            <div class="hide-social">
+                                <a href=""><i class="fa fa-vk  fa-lg"></i></a>
+                                <a href=""><i class="fa fa-twitter fa-lg"></i></a>
+                                <a href=""><i class="fa fa-facebook fa-lg"></i></a>
+                                <a href=""><i class="fa fa-odnoklassniki  fa-lg"></i></a>
+
+                            </div>
+                            <span class="open-soc"><i class="fa fa-random fa-lg"></i>
+
+              </span>
+                        </div>
+                        <h4>Месть Украины за Донбасс будет безжалостной </h4>
+
+                    </div>
+                </div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/1pic.jpg" alt="">
+                    <div class="content-item">
+                        <div class="content-row">
+                            <a href="">Новости</a>
+                            <span><small class="view-icon"></small> 2589</span>
+                            <div class="hide-social">
+                                <a href=""><i class="fa fa-vk  fa-lg"></i></a>
+                                <a href=""><i class="fa fa-twitter fa-lg"></i></a>
+                                <a href=""><i class="fa fa-facebook fa-lg"></i></a>
+                                <a href=""><i class="fa fa-odnoklassniki  fa-lg"></i></a>
+
+                            </div>
+                            <span class="open-soc"><i class="fa fa-random fa-lg"></i>
+
+              </span>
+                        </div>
+                        <h4>Месть Украины за Донбасс будет безжалостной </h4>
+
+                    </div>
+                </div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/3pic.jpg" alt="">
+                    <div class="content-item">
+                        <div class="content-row">
+                            <a href="">Новости</a>
+                            <span><small class="view-icon"></small> 2589</span>
+                            <div class="hide-social">
+                                <a href=""><i class="fa fa-vk  fa-lg"></i></a>
+                                <a href=""><i class="fa fa-twitter fa-lg"></i></a>
+                                <a href=""><i class="fa fa-facebook fa-lg"></i></a>
+                                <a href=""><i class="fa fa-odnoklassniki  fa-lg"></i></a>
+
+                            </div>
+                            <span class="open-soc"><i class="fa fa-random fa-lg"></i>
+
+              </span>
+                        </div>
+                        <h4>Месть Украины за Донбасс будет безжалостной </h4>
+
+                    </div>
+                </div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/2pic.jpg" alt="">
+                    <div class="content-item">
+                        <div class="content-row">
+                            <a href="">Новости</a>
+                            <span><small class="view-icon"></small> 2589</span>
+                            <div class="hide-social">
+                                <a href=""><i class="fa fa-vk  fa-lg"></i></a>
+                                <a href=""><i class="fa fa-twitter fa-lg"></i></a>
+                                <a href=""><i class="fa fa-facebook fa-lg"></i></a>
+                                <a href=""><i class="fa fa-odnoklassniki  fa-lg"></i></a>
+
+                            </div>
+                            <span class="open-soc"><i class="fa fa-random fa-lg"></i>
+
+              </span>
+                        </div>
+                        <h4>Месть Украины за Донбасс будет безжалостной </h4>
+
+                    </div>
+                </div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/3pic.jpg" alt="">
+                    <div class="content-item">
+                        <div class="content-row">
+                            <a href="">Новости</a>
+                            <span><small class="view-icon"></small> 2589</span>
+                            <div class="hide-social">
+                                <a href=""><i class="fa fa-vk  fa-lg"></i></a>
+                                <a href=""><i class="fa fa-twitter fa-lg"></i></a>
+                                <a href=""><i class="fa fa-facebook fa-lg"></i></a>
+                                <a href=""><i class="fa fa-odnoklassniki  fa-lg"></i></a>
+
+                            </div>
+                            <span class="open-soc"><i class="fa fa-random fa-lg"></i>
+
+              </span>
+                        </div>
+                        <h4>Месть Украины за Донбасс будет безжалостной </h4>
+
+                    </div>
+                </div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/4pic.jpg" alt="">
+                    <div class="content-item">
+                        <div class="content-row">
+                            <a href="">Новости</a>
+                            <span><small class="view-icon"></small> 2589</span>
+                            <div class="hide-social">
+                                <a href=""><i class="fa fa-vk  fa-lg"></i></a>
+                                <a href=""><i class="fa fa-twitter fa-lg"></i></a>
+                                <a href=""><i class="fa fa-facebook fa-lg"></i></a>
+                                <a href=""><i class="fa fa-odnoklassniki  fa-lg"></i></a>
+
+                            </div>
+                            <span class="open-soc"><i class="fa fa-random fa-lg"></i>
+
+              </span>
+                        </div>
+                        <h4>Месть Украины за Донбасс будет безжалостной </h4>
+
+                    </div>
+                </div>
+            </div>
+            <div class="js-carousel-3 owl-carousel">
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/2pic.jpg" alt="">
+                    <div class="content-item">
+                        <div class="content-row">
+                            <a href="">Новости</a>
+                            <span><small class="view-icon"></small> 2589</span>
+                            <div class="hide-social">
+                                <a href=""><i class="fa fa-vk  fa-lg"></i></a>
+                                <a href=""><i class="fa fa-twitter fa-lg"></i></a>
+                                <a href=""><i class="fa fa-facebook fa-lg"></i></a>
+                                <a href=""><i class="fa fa-odnoklassniki  fa-lg"></i></a>
+
+                            </div>
+                            <span class="open-soc"><i class="fa fa-random fa-lg"></i>
+
+              </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/3pic.jpg" alt="">
+                    <div class="content-item">
+                        <div class="content-row">
+                            <a href="">Новости</a>
+                            <span><small class="view-icon"></small> 2589</span>
+                            <div class="hide-social">
+                                <a href=""><i class="fa fa-vk  fa-lg"></i></a>
+                                <a href=""><i class="fa fa-twitter fa-lg"></i></a>
+                                <a href=""><i class="fa fa-facebook fa-lg"></i></a>
+                                <a href=""><i class="fa fa-odnoklassniki  fa-lg"></i></a>
+
+                            </div>
+                            <span class="open-soc"><i class="fa fa-random fa-lg"></i>
+
+              </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/1pic.jpg" alt="">
+                    <div class="content-item">
+                        <div class="content-row">
+                            <a href="">Новости</a>
+                            <span><small class="view-icon"></small> 2589</span>
+                            <div class="hide-social">
+                                <a href=""><i class="fa fa-vk  fa-lg"></i></a>
+                                <a href=""><i class="fa fa-twitter fa-lg"></i></a>
+                                <a href=""><i class="fa fa-facebook fa-lg"></i></a>
+                                <a href=""><i class="fa fa-odnoklassniki  fa-lg"></i></a>
+
+                            </div>
+                            <span class="open-soc"><i class="fa fa-random fa-lg"></i>
+
+              </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/3pic.jpg" alt="">
+                    <div class="content-item">
+                        <div class="content-row">
+                            <a href="">Новости</a>
+                            <span><small class="view-icon"></small> 2589</span>
+                            <div class="hide-social">
+                                <a href=""><i class="fa fa-vk  fa-lg"></i></a>
+                                <a href=""><i class="fa fa-twitter fa-lg"></i></a>
+                                <a href=""><i class="fa fa-facebook fa-lg"></i></a>
+                                <a href=""><i class="fa fa-odnoklassniki  fa-lg"></i></a>
+
+                            </div>
+                            <span class="open-soc"><i class="fa fa-random fa-lg"></i>
+
+              </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/2pic.jpg" alt="">
+                    <div class="content-item">
+                        <div class="content-row">
+                            <a href="">Новости</a>
+                            <span><small class="view-icon"></small> 2589</span>
+                            <div class="hide-social">
+                                <a href=""><i class="fa fa-vk  fa-lg"></i></a>
+                                <a href=""><i class="fa fa-twitter fa-lg"></i></a>
+                                <a href=""><i class="fa fa-facebook fa-lg"></i></a>
+                                <a href=""><i class="fa fa-odnoklassniki  fa-lg"></i></a>
+
+                            </div>
+                            <span class="open-soc"><i class="fa fa-random fa-lg"></i>
+
+              </span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/3pic.jpg" alt="">
+                    <div class="content-item">
+                        <div class="content-row">
+                            <a href="">Новости</a>
+                            <span><small class="view-icon"></small> 2589</span>
+                            <div class="hide-social">
+                                <a href=""><i class="fa fa-vk  fa-lg"></i></a>
+                                <a href=""><i class="fa fa-twitter fa-lg"></i></a>
+                                <a href=""><i class="fa fa-facebook fa-lg"></i></a>
+                                <a href=""><i class="fa fa-odnoklassniki  fa-lg"></i></a>
+
+                            </div>
+                            <span class="open-soc"><i class="fa fa-random fa-lg"></i>
+
+              </span>
+                        </div>
 
 
-<!--        <div class="footer-alert-top">-->
-<!--            <p>Допускается цитирование материалов без получения предварительного согласия при условии размещения в тексте обязательной ссылки на da-info.pro. </p>-->
-<!--        </div>-->
-    </div>
+                    </div>
+                </div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/4pic.jpg" alt="">
+                    <div class="content-item">
+                        <div class="content-row">
+                            <a href="">Новости</a>
+                            <span><small class="view-icon"></small> 2589</span>
+                            <div class="hide-social">
+                                <a href=""><i class="fa fa-vk  fa-lg"></i></a>
+                                <a href=""><i class="fa fa-twitter fa-lg"></i></a>
+                                <a href=""><i class="fa fa-facebook fa-lg"></i></a>
+                                <a href=""><i class="fa fa-odnoklassniki  fa-lg"></i></a>
 
-    <div class="footer-alert-container">
-        <div class="container">
-            <p class="footer-alert">
-                2017 © <a href="http://da-info.pro/">da-info.pro</a> - Портал города Донецка.Допускается цитирование материалов без получения предварительного согласия при условии размещения в тексте обязательной ссылки на da-info.pro.
-            </p>
+                            </div>
+                            <span class="open-soc"><i class="fa fa-random fa-lg"></i>
+
+              </span>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="js-carousel-4 owl-carousel">
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/3pic.jpg" alt=""></div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/4pic.jpg" alt=""></div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/3pic.jpg" alt=""></div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/2pic.jpg" alt=""></div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/2pic.jpg" alt=""></div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/3pic.jpg" alt=""></div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/1pic.jpg" alt=""></div>
+                <div class="item"><img src="/theme/portal-donbassa/img/home-content/2pic.jpg" alt=""></div>
+            </div>
+            <div class="slider-nav">
+                <a href="#" class="customPrevBtn"></a>
+                <a href="#" class="customNextBtn"></a>
+            </div>
         </div>
-    </div>
-    <div class="bottom-footer">
-    </div>
-
-    <div id="Go_Top">
-        <img  src="/theme/portal-donbassa/img/button_up.svg" alt="">
+        <div class="news-slider-index-panel">
+            <h3>Важные новости дня</h3>
+            <div class="buttons-wrap">
+                <a href="">подписаться</a>
+                <a href="">посмотреть больше</a>
+            </div>
+        </div>
     </div>
 </section>
 
-<!-- @@close-->
-<?php $this->endBody() ?>
+<section class="afisha">
+    <div class="container">
+        <h3 class="main-title">куда сходить</h3>
+        <span class="separator"></span>
+        <div class="afisha-wrap">
+            <div class="afisha-wrap__event">
+                <h3>События в ближайшие дни</h3>
+                <a href="" class="item">
+                    <img src="/theme/portal-donbassa/img/home-content/afisha-pic.png" alt="">
+                    <div class="item-content">
+                        <span class="type">Концерт / Рок</span>
+                        <span class="name-item">Закон ночи</span>
+                        <span class="time">"28 января 09:00"</span>
+                    </div>
+                </a>
+                <a href="" class="item">
+                    <img src="/theme/portal-donbassa/img/home-content/afisha-pic.png" alt="">
+                    <div class="item-content">
+                        <span class="type">Концерт / Рок</span>
+                        <span class="name-item">Закон ночи</span>
+                        <span class="time">"28 января 09:00"</span>
+                    </div>
+                </a>
+                <a href="" class="item">
+                    <img src="/theme/portal-donbassa/img/home-content/afisha-pic.png" alt="">
+                    <div class="item-content">
+                        <span class="type">Концерт / Рок</span>
+                        <span class="name-item">Закон ночи</span>
+                        <span class="time">"28 января 09:00"</span>
+                    </div>
+                </a>
+                <a href="" class="item">
+                    <img src="/theme/portal-donbassa/img/home-content/afisha-pic.png" alt="">
+                    <div class="item-content">
+                        <span class="type">Концерт / Рок</span>
+                        <span class="name-item">Закон ночи</span>
+                        <span class="time">"28 января 09:00"</span>
+                    </div>
+                </a>
 
-<?php $this->registerJsFile('js/company_ajax.js'); ?>
-    </body>
+
+            </div>
+            <div class="afisha-wrap__yesterday">
+                <h3>Премьера завтра</h3>
+                <div class="gallery">
+                    <div class="main-gallery">
+                        <a class="fancybox" rel="gallery1"
+                           href="http://farm2.staticflickr.com/1669/23976340262_a5ca3859f6_b.jpg">
+                            <img src="http://farm2.staticflickr.com/1669/23976340262_a5ca3859f6_m.jpg" alt=""/>
+                        </a>
+
+                    </div>
+                    <div class="nav-gallery">
+                        <a class="fancybox" rel="gallery1"
+                           href="http://farm2.staticflickr.com/1459/23610702803_83655c7c56_b.jpg">
+                            <img src="http://farm2.staticflickr.com/1459/23610702803_83655c7c56_m.jpg" alt=""/>
+                        </a>
+                        <a class="fancybox" rel="gallery1"
+                           href="http://farm2.staticflickr.com/1617/24108587812_6c9825d0da_b.jpg">
+                            <img src="http://farm2.staticflickr.com/1617/24108587812_6c9825d0da_m.jpg" alt=""/>
+                        </a>
+                        <a class="fancybox" rel="gallery1"
+                           href="http://farm4.staticflickr.com/3691/10185053775_701272da37_b.jpg">
+                            <img src="http://farm4.staticflickr.com/3691/10185053775_701272da37_m.jpg" alt=""/>
+                        </a>
+                        <a class="fancybox" rel="gallery1"
+                           href="http://farm4.staticflickr.com/3691/10185053775_701272da37_b.jpg">
+                            <img src="http://farm4.staticflickr.com/3691/10185053775_701272da37_m.jpg" alt=""/>
+                        </a>
+                        <a class="fancybox" rel="gallery1"
+                           href="http://farm4.staticflickr.com/3691/10185053775_701272da37_b.jpg">
+                            <img src="http://farm4.staticflickr.com/3691/10185053775_701272da37_m.jpg" alt=""/>
+                        </a>
+                    </div>
+                </div>
+                <p>Действие происходит в Америке времён сухого закона. Главный герой картины, сын полицейского,
+                    зарабатывает бутлегерством, в результате чего он оказывается вовлечён в жизнь криминального мира</p>
+            </div>
+            <div class="afisha-wrap__look">
+                <h3>Что посмотреть</h3>
+                <a href="" class="item">
+                    <img src="/theme/portal-donbassa/img/home-content/afisha-pic.png" alt="">
+                    <div class="item-content">
+                        <span class="type">Драма</span>
+                        <span class="name-item"> Ложные признания</span>
+                        <span class="time">"28 января 09:00"</span>
+                    </div>
+                </a>
+                <a href="" class="item">
+                    <img src="/theme/portal-donbassa/img/home-content/afisha-pic.png" alt="">
+                    <div class="item-content">
+                        <span class="type">Драма</span>
+                        <span class="name-item"> Ложные признания</span>
+                        <span class="time">"28 января 09:00"</span>
+                    </div>
+                </a>
+                <a href="" class="item">
+                    <img src="/theme/portal-donbassa/img/home-content/afisha-pic.png" alt="">
+                    <div class="item-content">
+                        <span class="type">Драма</span>
+                        <span class="name-item"> Ложные признания</span>
+                        <span class="time">"28 января 09:00"</span>
+                    </div>
+                </a>
+                <a href="" class="item">
+                    <img src="/theme/portal-donbassa/img/home-content/afisha-pic.png" alt="">
+                    <div class="item-content">
+                        <span class="type">Драма</span>
+                        <span class="name-item"> Ложные признания</span>
+                        <span class="time">"28 января 09:00"</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <a href="#" class="more">посмотреть больше <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+    </div>
+</section>
+
+<section class="company">
+
+    <div class="container">
+
+        <h3 class="main-title">предприятия</h3>
+        <span class="separator"></span>
+
+        <a href="#" class="company__trigger">предприятия</a>
+
+        <div class="company__box">
+
+            <a href="#" class="company__item">
+                <span class="company__item--image">
+                    <img src="/theme/portal-donbassa/img/home-content/enterprises-1.png" alt="">
+                </span>
+
+                <div class="content">
+                    <span class="company__item--title">Веб студия Contrast </span>
+
+                    <p class="company__item--descr">Донецк <br> Адрес: Пухова 31б <br> Телефон: 0667778540</p>
+                </div>
+            </a>
+
+            <a href="#" class="company__big-item">
+                <span class="company__item--image">
+                    <img src="/theme/portal-donbassa/img/home-content/big-banner.png" alt="">
+                </span>
+
+                <div class="content">
+                    <span class="company__item--title">Веб студия Contrast </span>
+
+                    <p class="company__item--descr">Донецк <br> Адрес: Пухова 31б <br> Телефон: 0667778540</p>
+                </div>
+
+            </a>
+
+            <a href="#" class="company__item">
+                <span class="company__item--image">
+                    <img src="/theme/portal-donbassa/img/home-content/enterprises-3.png" alt="">
+                </span>
+
+                <div class="content">
+                    <span class="company__item--title">Веб студия Contrast </span>
+
+                    <p class="company__item--descr">Донецк <br> Адрес: Пухова 31б <br> Телефон: 0667778540</p>
+                </div>
+            </a>
+
+            <a href="#" class="company__item">
+                <span class="company__item--image">
+                    <img src="/theme/portal-donbassa/img/home-content/enterprises-1.png" alt="">
+                </span>
+
+                <div class="content">
+                    <span class="company__item--title">Веб студия Contrast </span>
+
+                    <p class="company__item--descr">Донецк <br> Адрес: Пухова 31б <br> Телефон: 0667778540</p>
+                </div>
+            </a>
+
+            <a href="#" class="company__item">
+                <span class="company__item--image">
+                    <img src="/theme/portal-donbassa/img/home-content/enterprises-1.png" alt="">
+                </span>
+
+                <div class="content">
+                    <span class="company__item--title">Веб студия Contrast </span>
+
+                    <p class="company__item--descr">Донецк <br> Адрес: Пухова 31б <br> Телефон: 0667778540</p>
+                </div>
+            </a>
+
+            <a href="#" class="company__item">
+                <span class="company__item--image">
+                    <img src="/theme/portal-donbassa/img/home-content/enterprises-4.png" alt="">
+                </span>
+
+                <div class="content">
+                    <span class="company__item--title">Веб студия Contrast </span>
+
+                    <p class="company__item--descr">Донецк <br> Адрес: Пухова 31б <br> Телефон: 0667778540</p>
+                </div>
+            </a>
+
+            <a href="#" class="company__item">
+                 <span class="company__item--image">
+                    <img src="/theme/portal-donbassa/img/home-content/enterprises-2.png" alt="">
+                </span>
+
+                <div class="content">
+                    <span class="company__item--title">Веб студия Contrast </span>
+
+                    <p class="company__item--descr">Донецк <br> Адрес: Пухова 31б <br> Телефон: 0667778540</p>
+                </div>
+            </a>
+
+            <a href="#" class="company__big-item">
+                <span class="company__item--image">
+                    <img src="/theme/portal-donbassa/img/home-content/big-banner-2.png" alt="">
+                </span>
+
+                <div class="content">
+                    <span class="company__item--title">Веб студия Contrast </span>
+
+                    <p class="company__item--descr">Донецк <br> Адрес: Пухова 31б <br> Телефон: 0667778540</p>
+                </div>
+            </a>
+
+            <a href="#" class="company__big-item">
+                <span class="company__item--image">
+                    <img src="/theme/portal-donbassa/img/home-content/big-banner-3.png" alt="">
+                </span>
+
+                <div class="content">
+                    <span class="company__item--title">Веб студия Contrast </span>
+
+                    <p class="company__item--descr">Донецк <br> Адрес: Пухова 31б <br> Телефон: 0667778540</p>
+                </div>
+            </a>
+
+        </div>
+
+        <a href="#" class="more">посмотреть больше <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+
+    </div>
+
+</section>
+
+<section class="ads">
+
+    <div class="container">
+
+        <h3 class="main-title">объявления</h3>
+        <span class="separator"></span>
+
+        <a href="#" class="ads__trigger">объявления</a>
+
+        <div class="ads__box">
+
+            <div class="ads__item">
+
+                <h3 class="ads__item--title">Снять посуточно</h3>
+
+                <a href="#" class="ads__item--link">Квартиры посуточно <span>2409</span></a>
+                <a href="#" class="ads__item--link">Коттеджи на сутки <span>780</span></a>
+                <a href="#" class="ads__item--link">Комнаты на сутки <span>134</span></a>
+                <a href="#" class="ads__item--link">Хостелы <span>311</span></a>
+
+            </div>
+
+            <div class="ads__descr">
+
+                <span class="ads__descr--img">
+                    <img src="/theme/portal-donbassa/img/home-content/apartment-img.png" alt="">
+                </span>
+
+                <p class="name">Коттедж 270 м² на участке 5 сот.</p>
+                <p class="price">12 000 руб. за сутки</p>
+                <span class="place">Донецк</span>
+
+            </div>
+
+            <div class="ads__item">
+
+                <h3 class="ads__item--title">Новостройки</h3>
+
+                <a href="#" class="ads__item--link">Каталог ЖКХ <span>1038</span></a>
+                <a href="#" class="ads__item--link">Сданные новостройки <span>369</span></a>
+                <a href="#" class="ads__item--link">Строящиеся новостройки <span>653</span></a>
+
+            </div>
+
+            <div class="ads__descr">
+
+                <span class="ads__descr--img">
+                    <img src="/theme/portal-donbassa/img/home-content/apartment-img.png" alt="">
+                </span>
+
+                <p class="name">Коттедж 270 м² на участке 5 сот.</p>
+                <p class="price">12 000 руб. за сутки</p>
+                <span class="place">Донецк</span>
+
+            </div>
+
+            <div class="ads__descr">
+
+                <span class="ads__descr--img">
+                    <img src="/theme/portal-donbassa/img/home-content/apartment-img.png" alt="">
+                </span>
+
+                <p class="name">Коттедж 270 м² на участке 5 сот.</p>
+                <p class="price">12 000 руб. за сутки</p>
+                <span class="place">Донецк</span>
+
+            </div>
+
+            <div class="ads__item">
+
+                <h3 class="ads__item--title">Коммерческая недвижимость</h3>
+
+                <a href="#" class="ads__item--link">Купить склад <span>161</span></a>
+                <a href="#" class="ads__item--link">Купить гараж <span>1270</span></a>
+                <a href="#" class="ads__item--link">Купить офис <span>4769</span></a>
+                <a href="#" class="ads__item--link">Арендовать офис <span>32292</span></a>
+                <a href="#" class="ads__item--link">Арендовать помещение <span>8619</span></a>
+                <a href="#" class="ads__item--link">Арендовать торговоу площадь <span>6986</span></a>
+
+            </div>
+
+            <div class="ads__map">
+
+                <h3 class="ads__map--title">Поиск на карте</h3>
+
+                <p class="ads__map--subtitle">Ищите объявления с работой, парком
+                    или родственниками</p>
+
+                <a href="#" class="ads__map--link">найти на карте</a>
+
+            </div>
+
+        </div>
+
+        <a href="#" class="more">посмотреть больше <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+
+    </div>
+
+</section>
+
+<section class="photo">
+
+    <div class="container">
+
+        <a href="#" class="photo__trigger">ДОНЕЦК В ФОТОГРАФИЯХ</a>
+
+        <div class="photo__box">
+
+            <div class="photo__left">
+                <a href="/theme/portal-donbassa/img/home-content/photo-img-1.png" class="photo__left--item"
+                   data-lightbox="image-group">
+                    <img src="img/home-content/photo-img-1.png" alt="photo">
+                </a>
+                <a href="/theme/portal-donbassa/img/home-content/photo-img-2.png" class="photo__left--item"
+                   data-lightbox="image-group">
+                    <img src="/theme/portal-donbassa/img/home-content/photo-img-2.png" alt="photo">
+                </a>
+            </div>
+            <div class="photo__center">
+
+                <h3>ДОНЕЦК В ФОТОГРАФИЯХ</h3>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing
+                    elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua Ut enim ad minim veniam,
+                    quis nostrud e</p>
+
+                <a href="/theme/portal-donbassa/img/home-content/photo-img-3.png" class="photo__center--img"
+                   data-lightbox="image-group">
+                    <img src="/theme/portal-donbassa/img/home-content/photo-img-3.png" alt="">
+                </a>
+
+                <div class="photo__center--imgs">
+
+                    <a href="/theme/portal-donbassa/img/home-content/photo-img-3.png" class="photo__center--img"
+                       data-lightbox="image-group">
+                        <img src="/theme/portal-donbassa/img/home-content/photo-img-3.png" alt="">
+                    </a>
+                    <a href="/theme/portal-donbassa/img/home-content/photo-img-5.png" class="photo__left--item"
+                       data-lightbox="image-group">
+                        <img src="/theme/portal-donbassa/img/home-content/photo-img-5.png" alt="">
+                    </a>
+                    <a href="/theme/portal-donbassa/img/home-content/photo-img-4.png" class="photo__center--img"
+                       data-lightbox="image-group">
+                        <img src="/theme/portal-donbassa/img/home-content/photo-img-4.png" alt="">
+                    </a>
+
+                </div>
+
+            </div>
+            <div class="photo__right">
+
+                <a href="/theme/portal-donbassa/img/home-content/photo-img-6.png" class="photo__right--item"
+                   data-lightbox="image-group">
+                    <img src="/theme/portal-donbassa/img/home-content/photo-img-6.png" alt="photo">
+                </a>
+                <a href="/theme/portal-donbassa/img/home-content/photo-img-7.png" class="photo__right--item"
+                   data-lightbox="image-group">
+                    <img src="/theme/portal-donbassa/img/home-content/photo-img-7.png" alt="photo">
+                </a>
+                <a href="/theme/portal-donbassa/img/home-content/photo-img-3.png" class="photo__right--item"
+                   data-lightbox="image-group">
+                    <img src="img/home-content/photo-img-3.png" alt="photo">
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer class="footer">
+
+    <div class="container">
+
+        <div class="footer__logo">
+            <img src="/theme/portal-donbassa/img/logo.png" alt="Logo">
+        </div>
+
+
+        <div class="footer__main">
+
+            <ul class="footer__nav">
+                <li><a href="#">НОВОСТИ</a></li>
+                <li><a href="#">АФИША</a></li>
+                <li><a href="#">ДОСУГ</a></li>
+                <li><a href="#">ПРЕДПРИЯТИЯ</a></li>
+                <li><a href="#">КОНСУЛЬТАЦИИ</a></li>
+                <li><a href="#">ОБЪЯВЛЕНИЯ</a></li>
+            </ul>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicinor incididunt ut labore et dolore magn aliqua. Ut enim
+                ad minim veniam, quis nostrud exercitation
+                ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor n reprehenderit in
+                voluptate velit esse cillum dolor</p>
+
+        </div>
+
+
+        <div class="footer__social">
+
+            <div class="footer__links">
+                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+            </div>
+
+            <a href="#" class="footer__send">написать нам</a>
+
+        </div>
+
+    </div>
+
+</footer>
+
+<a href="" class="fix-button"><img src="/theme/portal-donbassa/img/home-content/fix-button.png" alt=""></a>
+<div class="modal-send">
+
+    <span class="modal-send__close">X</span>
+
+    <form action="" class="modal-send__form">
+
+        <input id="send-message-name" class="modal-send__field valid" type="name" placeholder="Имя" required>
+
+        <input id="send-message-email" class="modal-send__field valid" type="email" placeholder="Электронная почта"
+               required>
+
+        <textarea name="" id="send-message-text" class="modal-send__textarea valid" placeholder="Ваше сообщение"
+                  required></textarea>
+
+        <input id="send-message-submit" class="modal-send__submit" type="submit" value="Отправить">
+
+    </form>
+
+</div>
+<div id="overlay"></div>
+<?php $this->endBody() ?>
+</body>
 </html>
 <?php $this->endPage() ?>

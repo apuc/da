@@ -17,7 +17,8 @@
         "dektrium/yii2-user": "0.9.*@dev",
         "dektrium/yii2-rbac": "dev-master",
         "2amigos/yii2-transliterator-helper": "*",
-        "zelenin/yii2-rss": "~0.1"
+        "zelenin/yii2-rss": "~0.1",
+        "kartik-v/yii2-widget-select2": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
