@@ -33,4 +33,5 @@ return [
     'Delete' => 'Удалить',
     'Category Posters' => 'Афиша категории',
     'Create Category Poster' => 'Добавить категорию',
+    'Main page' => 'Отображать на главной',
 ];
