@@ -7,23 +7,23 @@
         <?php foreach ($companySmall as $item): ?>
             <a href="" class="item-small">
                 <div class="thumb">
-                    <img src="<?= $item->photo;?>" alt="">
+                    <img src="<?= $item->photo; ?>" alt="">
                 </div>
                 <div class="content">
-                    <h4><?= $item->name;?></h4>
-                    <p><?= $item->address;?></p>
-                    <p>Телефон: <?= $item->phone;?></p>
+                    <h4><?= $item->name; ?></h4>
+                    <!--<p>--><? //= $item->address;?><!--</p>-->
+                    <p><?= explode(';', $item->phone)[0]; ?></p>
                 </div>
             </a>
         <?php endforeach; ?>
         <a href="" class="item-large">
             <div class="thumb">
-                <img src="<?= $companyBig->photo;?>" alt="">
+                <img src="<?= $companyBig->photo; ?>" alt="">
             </div>
             <div class="content">
-                <h4><?= $companyBig->name;?></h4>
-                <p><?= $companyBig->address;?></p>
-                <p>Телефон: <?= $companyBig->phone;?></p>
+                <h4><?= $companyBig->name; ?></h4>
+                <!--<p>--><? //= $companyBig->address;?><!--</p>-->
+                <p><?= explode(';', $companyBig->phone)[0]; ?></p>
             </div>
         </a>
         <!-- close item -->

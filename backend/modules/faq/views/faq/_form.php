@@ -71,6 +71,7 @@ use mihaildev\ckeditor\CKEditor;
     <?php endif; ?>
     <?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'meta_descr')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'main_page')->checkbox() ?>
     <div class="form-group">
         <?= Html::submitButton( $model->isNewRecord ? Yii::t( 'faq', 'Create' ) : Yii::t( 'faq', 'Update' ), [ 'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary' ] ) ?>
     </div>
