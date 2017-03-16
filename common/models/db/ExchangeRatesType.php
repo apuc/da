@@ -41,4 +41,9 @@ class ExchangeRatesType extends \yii\db\ActiveRecord
             'name' => 'Наименование',
         ];
     }
+
+    public function getexchange_rates()
+    {
+        return $this->hasMany(ExchangeRates::className(), ['type_id'=>'id']);
+    }
 }
