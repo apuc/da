@@ -74,50 +74,7 @@ AppAsset::register($this);
 
             <?= \frontend\widgets\Entertainment::widget(); ?>
 
-            <div class="home-content__wrap_checkpoint">
-                <span class="color-zebra"></span>
-                <div class="title">
-                    <h2>Ситауция на блокпостах</h2>
-                    <a href=""><span class="rect-icon"></span>Проинформировать</a>
-                </div>
-
-                <div class="item">
-                    <span class="color_checkpoint"></span>
-                    <div class="item-city">
-                        <a href="">#Артемовск</a>
-                        <a href="">#Зайцево</a>
-                        <a href="">#Майорск</a>
-                        <a href="">#Бахмут</a>
-                        <a href="">#Майорск</a>
-                        <a href="">#Бахмут</a>
-                    </div>
-                    <p>09:49 - Курахово очередь курахово очередь</p>
-                </div>
-                <div class="item">
-                    <span class="color_checkpoint"></span>
-                    <div class="item-city">
-                        <a href="">#Артемовск</a>
-                        <a href="">#Зайцево</a>
-                        <a href="">#Майорск</a>
-                        <a href="">#Бахмут</a>
-                        <a href="">#Майорск</a>
-                        <a href="">#Бахмут</a>
-                    </div>
-                    <p>09:49 - Курахово очередь курахово очередь</p>
-                </div>
-                <div class="item">
-                    <span class="color_checkpoint"></span>
-                    <div class="item-city">
-                        <a href="">#Артемовск</a>
-                        <a href="">#Зайцево</a>
-                        <a href="">#Майорск</a>
-                        <a href="">#Бахмут</a>
-                        <a href="">#Майорск</a>
-                        <a href="">#Бахмут</a>
-                    </div>
-                    <p>09:49 - Курахово очередь курахово очередь</p>
-                </div>
-            </div>
+            <?= \frontend\widgets\SituationMain::widget() ?>
 
             <div class="home-content__wrap_komunalka">
                 <div class="title_row">

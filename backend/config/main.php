@@ -82,6 +82,9 @@ return [
         'rossopt' => [
             'class' => 'backend\modules\rossopt\Rossopt',
         ],
+        'situation' => [
+            'class' => 'backend\modules\situation\Situation',
+        ],
     ],
     'components' => [
         /*'user' => [
