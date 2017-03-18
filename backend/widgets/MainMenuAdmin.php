@@ -289,10 +289,25 @@ class MainMenuAdmin extends Widget
                     ],
                     [
                         'label' => 'Курсы валют',
-                        'url' => Url::to(['/exchange_rates']),
-                        'template' => '<a href="{url}"><i class="fa fa-money"></i> <span>{label}</span></a>',
-                        'active' => Yii::$app->controller->module->id == 'exchange_rates',
-                        'visible' => UserFunction::hasPermission(['Курсы валют']),
+                        // 'visible'  => UserFunction::hasPermission( [ 'Опросы' ] ),
+                        'items' => [
+                            [
+                                'label' => 'Типы',
+                                'url' => Url::to(['/exchange_rates/exchange_rates_type']),
+                                'active' => Yii::$app->controller->id == 'exchange_rates_type',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                            [
+                                'label' => 'Валюты',
+                                'url' => Url::to(['/exchange_rates/exchange_rates']),
+                                'active' => Yii::$app->controller->id == 'exchange_rates',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                        ],
+                        'options' => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="#"><i class="fa fa-money"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
                     [
                         'label' => 'СЕО',
@@ -314,6 +329,28 @@ class MainMenuAdmin extends Widget
                         'template' => '<a href="{url}"><i class="fa fa-language"></i> <span>{label}</span></a>',
                         'active' => Yii::$app->controller->module->id == 'lang',
                         'visible' => UserFunction::hasPermission(['Языки']),
+                    ],
+                    [
+                        'label' => 'Ситуации',
+                        // 'visible'  => UserFunction::hasPermission( [ 'Опросы' ] ),
+                        'items' => [
+                            [
+                                'label' => 'Статусы',
+                                'url' => Url::to(['/situation/situation_status']),
+                                'active' => Yii::$app->controller->module->id == 'situation',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                            [
+                                'label' => 'Блок посты',
+                                'url' => Url::to(['/situation/situation']),
+                                'active' => Yii::$app->controller->module->id == 'situation',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                        ],
+                        'options' => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="#"><i class="fa fa-car"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
                     [
                         'label' => 'РОСС-ОПТ',

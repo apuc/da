@@ -25,7 +25,7 @@ class Entertainment extends Widget
         $entertainmantBig = $entertainmants->main_entertainments_big;
 
         $companySmall = [];
-        foreach ($entertainmantSmall as $item) {
+        foreach ((array)$entertainmantSmall as $item) {
             $companySmall[] = Company::findOne($item);
         }
 
