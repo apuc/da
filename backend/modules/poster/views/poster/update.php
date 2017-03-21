@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = Yii::t('poster', 'Update');
 
     <?= $this->render('_form', [
         'model' => $model,
+        'categoriesSelected' => $categoriesSelected,
     ]) ?>
 
 </div>

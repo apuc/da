@@ -85,6 +85,9 @@ return [
         'situation' => [
             'class' => 'backend\modules\situation\Situation',
         ],
+        'mainpage' => [
+            'class' => 'backend\modules\mainpage\Mainpage',
+        ],
     ],
     'components' => [
         /*'user' => [
@@ -122,6 +125,7 @@ return [
                 'category_poster' => 'category_poster/category_poster',
                 'polls' => 'polls/polls',
                 'entertainment'=>'entertainment/default',
+                'main-premiere'=>'poster/poster/main-premiere',
             ]
         ],
         'mailer' => [

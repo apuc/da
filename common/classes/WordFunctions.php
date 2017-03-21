@@ -8,7 +8,6 @@
 
 namespace common\classes;
 
-
 class WordFunctions
 {
 
@@ -16,10 +15,9 @@ class WordFunctions
     {
         $words = explode($sep, $text);
 
-        if ( count($words) > $max_words )
-        {
+        if (count($words) > $max_words) {
             $text = join($sep, array_slice($words, 0, $max_words));
-            $text .=' ...';
+            $text .= ' ...';
         }
 
         return $text;
@@ -33,16 +31,37 @@ class WordFunctions
         } else {
             $i = $number % 10;
             switch ($i) {
-                case (1): $ending = $ending_arr[0];
+                case (1):
+                    $ending = $ending_arr[0];
                     break;
                 case (2):
                 case (3):
-                case (4): $ending = $ending_arr[1];
+                case (4):
+                    $ending = $ending_arr[1];
                     break;
-                default: $ending = $ending_arr[2];
+                default:
+                    $ending = $ending_arr[2];
             }
         }
         return $ending;
+    }
+
+    public static function getRuMonth()
+    {
+        return [
+            "01" => "января",
+            "02" => "февраля",
+            "03" => "марта",
+            "04" => "апреля",
+            "05" => "мая",
+            "06" => "июня",
+            "07" => "июля",
+            "08" => "августа",
+            "09" => "сентября",
+            "10" => "октября",
+            "11" => "ноября",
+            "12" => "декабря",
+        ];
     }
 
 }

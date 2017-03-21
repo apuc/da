@@ -2,11 +2,14 @@
 
 namespace backend\modules\poster\controllers;
 
+use backend\modules\category\Category;
 use common\classes\Debug;
 use common\models\db\CategoryPosterRelations;
+use common\models\db\KeyValue;
 use Yii;
 use backend\modules\poster\models\Poster;
 use backend\modules\poster\models\PosterSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -73,7 +76,7 @@ class PosterController extends Controller
             $model->dt_event_end = strtotime($model->dt_event_end);
             $model->save();
 
-            foreach($_POST['cat'] as $cat){
+            foreach ($_POST['cat'] as $cat) {
                 $catNewRel = new CategoryPosterRelations();
                 $catNewRel->cat_id = $cat;
                 $catNewRel->poster_id = $model->id;
@@ -99,12 +102,25 @@ class PosterController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->dt_event = strtotime($model->dt_event);
-            $model->dt_event_end= strtotime($model->dt_event_end);
+            $model->dt_event_end = strtotime($model->dt_event_end);
+
+            CategoryPosterRelations::deleteAll(['poster_id' => $id]);
+
+            foreach ($_POST['cat'] as $cat) {
+                $catNewRel = new CategoryPosterRelations();
+                $catNewRel->cat_id = $cat;
+                $catNewRel->poster_id = $model->id;
+                $catNewRel->save();
+            }
+
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'categoriesSelected' => ArrayHelper::getColumn(
+                    CategoryPosterRelations::findAll(['poster_id' => $id]),
+                    'cat_id'),
             ]);
         }
     }
@@ -136,5 +152,25 @@ class PosterController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionMainPremiere()
+    {
+        $request = Yii::$app->request->post();
+        if (isset($request['poster_images'][0])) {
+            $json['main_posters'] = $request['poster_images'][0];
+            $json['description'] = $request['description'];
+            $main_poster = KeyValue::findOne(['key' => 'main_posters']);
+            $main_poster->value = json_encode($json);
+            $main_poster->save();
+
+        }
+        $key_val = KeyValue::find()->where(['key' => 'main_posters'])->one();
+        $main_posters = json_decode($key_val->value);
+
+        return $this->render('main_poster', [
+            'key_val' => ArrayHelper::map($key_val, 'key', 'value'),
+            'main_posters' => $main_posters,
+        ]);
     }
 }

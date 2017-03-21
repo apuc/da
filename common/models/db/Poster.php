@@ -41,8 +41,8 @@ class Poster extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'dt_event', 'dt_event_end'], 'required'],
-            [['dt_add', 'dt_update', 'views', 'status','rss'], 'integer'],
-            [['dt_event', 'dt_event_end'],'safe'],
+            [['dt_add', 'dt_update', 'views', 'status', 'rss'], 'integer'],
+            [['dt_event', 'dt_event_end'], 'safe'],
             [['descr', 'short_descr'], 'string'],
             [['title', 'slug', 'price', 'meta_title', 'meta_descr', 'photo'], 'string', 'max' => 255],
             [['start'], 'string', 'max' => 512],
@@ -74,4 +74,15 @@ class Poster extends \yii\db\ActiveRecord
             'rss' => Yii::t('poster', 'Rss'),
         ];
     }
+
+    public function getPosterCategories()
+    {
+        return $this->hasMany(CategoryPosterRelations::className(), ['poster_id' => 'id']);
+    }
+
+    public function getCategories()
+    {
+        return $this->hasMany(CategoryPoster::className(), ['id' => 'cat_id'])->via('posterCategories');
+    }
+
 }

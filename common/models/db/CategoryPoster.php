@@ -61,4 +61,15 @@ class CategoryPoster extends \yii\db\ActiveRecord
             'lang_id' => Yii::t('poster', 'Lang ID'),
         ];
     }
+
+    public function getCategoriesPoster()
+    {
+        return $this->hasMany(CategoryPosterRelations::className(), ['cat_id' => 'id']);
+    }
+
+    public function getPoster()
+    {
+        return $this->hasMany(Poster::className(), ['id' => 'poster_id'])->via('categoriesPoster');
+    }
+
 }

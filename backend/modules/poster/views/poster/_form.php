@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= Html::dropDownList('cat',null, ArrayHelper::map(CategoryPoster::find()->all(), 'id', 'title'),[
+    <?= Html::dropDownList('cat',$categoriesSelected, ArrayHelper::map(CategoryPoster::find()->all(), 'id', 'title'),[
         'class'=>'form-control',
         'id'=>'categ',
         'multiple'=>'multiple'

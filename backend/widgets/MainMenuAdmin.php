@@ -27,6 +27,36 @@ class MainMenuAdmin extends Widget
                         'url' => '#'
                     ],*/
                     [
+                        'label' => 'Главная',
+                        'items' => [
+
+                            [
+                                'label' => 'Фотографии',
+                                'url' => Url::to(['/mainpage/mainpage/photos']),
+                                'active' => Yii::$app->controller->module->id == 'mainpage' && Yii::$app->controller->action->id == 'photos',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                            [
+                                'label' => 'Развлечения',
+                                'url' => Url::to(['/entertainment']),
+                                'active' => Yii::$app->controller->module->id == 'entertainment' && Yii::$app->controller->action->id == 'index',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                            [
+                                'label' => 'Премьера',
+                                'url' => Url::to(['/main-premiere']),
+                                'active' => Yii::$app->controller->module->id == 'poster' && Yii::$app->controller->action->id == 'main-premiere',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                        ],
+                        'visible' => UserFunction::hasPermission(['Новости']),
+                        'options' => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="#"><i class="fa fa-home"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                    ],
+
+                    [
                         'label' => 'Новости',
                         'items' => [
                             [
@@ -90,7 +120,7 @@ class MainMenuAdmin extends Widget
                             [
                                 'label' => 'Развлечения',
                                 'url' => Url::to(['/entertainment']),
-                                'active' => Yii::$app->controller->module->id == 'entertainment',
+                                'active' => Yii::$app->controller->module->id == 'entertainment' && Yii::$app->controller->action->id == 'index',
 //                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
                         ],
@@ -120,6 +150,12 @@ class MainMenuAdmin extends Widget
                                 'label' => 'Категории',
                                 'url' => Url::to(['/category_poster']),
                                 'active' => Yii::$app->controller->module->id == 'category_poster' && Yii::$app->controller->action->id == 'index',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                            [
+                                'label' => 'Главная Афиша',
+                                'url' => Url::to(['/main-premiere']),
+                                'active' => Yii::$app->controller->module->id == 'poster' && Yii::$app->controller->action->id == 'main-premiere',
 //                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
                         ],
