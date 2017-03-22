@@ -86,6 +86,7 @@ class PosterController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'categoriesSelected' => [],
             ]);
         }
     }

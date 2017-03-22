@@ -48,9 +48,10 @@ use yii\widgets\ActiveForm;
             ->all();
         $arr = [];
         $i=0;
+
         foreach($cat as $c){
-            $arr[$i]['id'] = $c['category_company']->id;
-            $arr[$i]['title'] = $c['category_company']->title;
+            $arr[$i]['id'] = (!empty($c['category_company'])) ? $c['category_company']->id : "";
+            $arr[$i]['title'] = (!empty($c['category_company'])) ? $c['category_company']->title : "";
             $i++;
         }
         echo Html::hiddenInput('_cats',json_encode($arr, JSON_UNESCAPED_UNICODE),['id'=>'_cats']);

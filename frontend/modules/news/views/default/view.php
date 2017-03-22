@@ -7,115 +7,301 @@
  * @var $news \common\models\db\News
  */
 
-use common\classes\DateFunctions;
-use common\classes\WordFunctions;
-use yii\helpers\Url;
-
-$this->registerMetaTag( [
-    'name'    => 'og:image',
+$this->registerMetaTag([
+    'name' => 'og:image',
     'content' => 'http://' . $_SERVER['HTTP_HOST'] . $news->photo,
-] );
+]);
 $this->title = $news->meta_title;
-$this->registerMetaTag( [
-    'name'    => 'description',
+$this->registerMetaTag([
+    'name' => 'description',
     'content' => $news->meta_descr,
-] );
+]);
 ?>
-<div class="shape">
-    <img src="/theme/portal-donbassa/img/shape-line.png" alt="">
-</div>
-<div class="news__post">
-    <span
-        class="date-news__post"><?= date( 'd', $news->dt_public ) ?> <?= DateFunctions::getMonthShortName( date( 'm', $news->dt_public ) ) ?> <?= date( 'H:i', $news->dt_public ) ?></span>
-    <h2><?= $news->title ?></h2>
-    <a href="<?= $news->photo ?>" data-lightbox="image-1" class="view-img"><img src="<?= $news->photo ?>" alt=""></a>
-    <?= $news->content ?>
-</div>
-<div class="post-nav">
-    <span><a href=""><i class="fa fa-eye" aria-hidden="true"></i> <?= $news->views ?></a></span>
-    <?php if ( ! empty( $news->tags ) ): ?>
-        <span>Теги: <?= $news->tags ?></span>
-    <?php endif ?>
-    <?php
-    $news_url   = \yii\helpers\Url::base( true ) . \yii\helpers\Url::to();
-    $news_title = strip_tags( $news->title );
-    $news_title = preg_replace( "/\s{2,}/", " ", $news_title );
-    $news_title = str_replace( '"', "&quot;", $news_title );
-    $news_img   = 'http://' . $_SERVER['HTTP_HOST'] . $news->photo;
+<!-- close .header -->
 
-    $count_symbols = 800 - 48 - strlen( $news_url ) - strlen( $news_title ) - strlen( $news_img );
-    $news_content  = strip_tags( $news->content );
-    $news_content  = preg_replace( "/\s{2,}/", " ", $news_content );
+<!-- end header.html-->
 
-    $news_content = substr( $news_content, 0, $count_symbols ) . '...';
+<main id="main-single-news">
 
-    ?>
+    <div class="container">
 
+        <article id="article">
+            <div class="thumbnail-wrapper">
+                <img class="thumbnail" src="<?= $model->photo; ?>" alt="">
+            </div>
 
-    <span>Поделись <a onclick="Share.twitter('<?= $news_url ?>',
-            '<?= $news_title ?>')" href=""
-                      class="soc-icon">
-            <img class="twi" src="/theme/portal-donbassa/img/twi.png" alt="">
-        </a>
-        <a onclick="Share.facebook(
-            '<?= $news_url ?>',
-            '<?= $news_title; ?>',
-            '<?= $news_img; ?>',
-            '<?= $news_content; ?>')" href="" class="soc-icon">
-            <img class="fb" src="/theme/portal-donbassa/img/fb.png" alt="">
-        </a>
+            <div class="breadcrumbs">
+                <a href="#">Главная</a> <span>></span> <a href="#">Финансы</a>
+            </div>
 
-        <a onclick="Share.vkontakte(
-            '<?= $news_url ?>',
-            '<?= $news_title; ?>',
-            '<?= $news_img; ?>',
-            '<?= $news_content; ?>'
-            ); return false;" href="" class="soc-icon">
-            <img class="vk" src="/theme/portal-donbassa/img/vk.png" alt="">
-        </a>
-        <a onclick="Share.odnoklassniki(
-            '<?= $news_url ?>',
-            '<?= $news_title; ?>'
-            )" href="" class="soc-icon">
-            <img class="ok" src="/theme/portal-donbassa/img/ok.png" alt="">
-        </a>
-    </span>
-    <?php if ( ! empty( \common\models\db\KeyValue::find()->where( [ 'key' => 'likes_for_news' ] )->one()->value ) ): ?>
-        <a data-id="<?= $news->id; ?>" data-type="news" class="likes"><i
-                class="like_icon <?= ( empty( $user_set_like ) ? '' : 'like_icon-set' ); ?>"></i><span
-                class="like-count"><?= $count_likes; ?></span></a>
-    <?php endif; ?>
-</div>
+            <div class="content-single-wrapper">
 
-<div class="another-news">
-    <div class="rand-cat-news">
-        <?php if ( $related_news ): ?>
-            <h3>Новости по теме:</h3>
-        <?php endif; ?>
-        <?php foreach ( $related_news as $related_new ): ?>
-            <a href="<?= Url::to( [ '/news/default/view', 'slug' => $related_new->slug ] ) ?>" class="news-like-item">
-                <div class="news-like-img"><img src="<?= $related_new->photo; ?>" alt=""></div>
-                <h4 class="new-header"><?= $related_new->title; ?></h4>
-                <p class="new-descr"><?= WordFunctions::crop_str_word( strip_tags( $related_new->content ), 13 ); ?> </p>
-            </a>
-        <?php endforeach; ?>
+                <h1><?= $model->title; ?></h1>
+
+                <div class="content-info">
+                    <span class="author">Николай Иванович</span>
+                    <span class="comments">20 комментариев</span>
+                    <span class="views"><?= $model->views; ?></span>
+                    <span class="data-time"><?= date('d',
+                            $model->dt_public) . ' ' .
+                        \common\classes\WordFunctions::getRuMonth()[date('m', $model->dt_public)] . ' ' .
+                        date('Y', $model->dt_public) . ', в ' .
+                        date('H:i',$model->dt_public)
+                        ;?></span>
+                    <span class="like"><?= $likes;?></span>
+                </div>
+
+                <div class="content-single">
+                    <?= $model->content; ?>
+                </div>
+
+                <div class="content-info">
+                    <span class="author">Николай Иванович</span>
+                    <span class="comments">20 комментариев</span>
+                    <span class="views"><?= $model->views; ?></span>
+                    <span class="data-time"><?= date('d',
+                            $model->dt_public) . ' ' .
+                        \common\classes\WordFunctions::getRuMonth()[date('m', $model->dt_public)] . ' ' .
+                        date('Y', $model->dt_public) . ', в ' .
+                        date('H:i',$model->dt_public)
+                        ;?></span>
+                    <span class="like"><?= $likes;?></span>
+                </div>
+
+                <div class="tags">
+                    <h3>Теги:</h3>
+                    <?php
+                    foreach ($tags as $tag): ?>
+                        <a><?= $tag; ?></a>
+                    <?php endforeach; ?>
+                </div>
+
+                <!-- start socials.html-->
+                <div class="social-wrapper">
+                    <a href="#" target="_blank" class="social-wrap__item vk">
+                        <img src="/theme/portal-donbassa/img/soc/vk.png" alt="vk">
+                        <span>03</span>
+                    </a>
+                    <a href="#" target="_blank" class="social-wrap__item fb">
+                        <img src="/theme/portal-donbassa/img/soc/fb.png" alt="fb">
+                        <span>12</span>
+                    </a>
+                    <a href="#" target="_blank" class="social-wrap__item ok">
+                        <img src="/theme/portal-donbassa/img/soc/ok-icon.png" alt="ok">
+                        <span>05</span>
+                    </a>
+                    <a href="#" target="_blank" class="social-wrap__item insta">
+                        <img src="/theme/portal-donbassa/img/soc/insta-icon.png" alt="instagramm">
+                        <span>63</span>
+                    </a>
+                    <a href="#" target="_blank" class="social-wrap__item google">
+                        <img src="/theme/portal-donbassa/img/soc/google-icon.png" alt="google">
+                        <span>36</span>
+                    </a>
+                    <a href="#" target="_blank" class="social-wrap__item twitter">
+                        <img src="/theme/portal-donbassa/img/soc/twi-icon.png" alt="twitter">
+                        <span>11</span>
+                    </a>
+                </div>
+                <!-- end socials.html-->
+
+            </div>
+
+            <!-- start comments.html-->
+            <div class="comments-wrapper">
+
+                <div class="after-comments">
+                    <h2>Комментарии к новости</h2>
+
+                    <a href="#" class="populiation">Популярные впереди</a><a href="#">Написать свой</a>
+                </div>
+
+                <div class="comments">
+                    <div class="comment-wrapper moder">
+                        <div class="user">
+                            <span>12</span>
+                            <div class="user-photo">
+                                <img src="/theme/portal-donbassa/img/users-avatars/1.jpg" alt="">
+                            </div>
+
+                            <a href="#" class="up"></a>
+                            <a href="#" class="down"></a>
+                        </div>
+                        <div class="comment">
+                            <div class="comment-info-wrapper">
+                                <div class="user-name">Кирилл Кириленко</div>
+
+                                <div class="comment-info">
+                                    <div class="modern-comment">Выделен модератором</div>
+                                    <a href="#">Ответить</a>
+                                    <div class="time">16:43:12</div>
+                                </div>
+                            </div>
+
+                            <div class="text">
+                                Также хотят запретить выезд из страны имеющим судимость за «экстремизм» и вводить режим
+                                КТО в случаях «посягательства на жизнь государственного или общественного деятеля»,
+                                «насильственного захвата власти», «вооруженного мятежа»
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="comment-wrapper">
+                        <div class="user">
+                            <span>12</span>
+                            <div class="user-photo">
+                                <img src="/theme/portal-donbassa/img/users-avatars/2.jpg" alt="">
+                            </div>
+
+                            <a href="#" class="up"></a>
+                            <a href="#" class="down"></a>
+                        </div>
+                        <div class="comment">
+                            <div class="comment-info-wrapper">
+                                <div class="user-name">Егор Рябцев</div>
+
+                                <div class="comment-info">
+                                    <a href="#">Ответить</a>
+                                    <div class="time">16:43:12</div>
+                                </div>
+                            </div>
+
+                            <div class="text">
+                                Также хотят запретить выезд из страны имеющим судимость за «экстремизм» и вводить режим
+                                КТО в случаях «посягательства на жизнь государственного или общественного деятеля»,
+                                «насильственного захвата власти», «вооруженного мятежа»
+                            </div>
+
+                            <div class="child-comment">
+                                <div class="user">
+                                    <span>12</span>
+                                    <div class="user-photo">
+                                        <img src="/theme/portal-donbassa/img/users-avatars/2.jpg" alt="">
+                                    </div>
+
+                                    <a href="#" class="up"></a>
+                                    <a href="#" class="down"></a>
+                                </div>
+                                <div class="comment">
+                                    <div class="comment-info-wrapper">
+                                        <div class="user-name">Малик Янтижанов</div>
+                                        <div class="moder">Модератор</div>
+
+                                        <div class="comment-info">
+                                            <a href="#">Ответить</a>
+                                            <div class="time">16:43:12</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text">Попахивает рекламой?</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="comment-wrapper">
+                        <div class="user">
+                            <span>12</span>
+                            <div class="user-photo">
+                                <img src="/theme/portal-donbassa/img/users-avatars/1.jpg" alt="">
+                            </div>
+
+                            <a href="#" class="up"></a>
+                            <a href="#" class="down"></a>
+                        </div>
+                        <div class="comment">
+                            <div class="comment-info-wrapper">
+                                <div class="user-name">Кирилл Кириленко</div>
+
+                                <div class="comment-info">
+                                    <a href="#">Ответить</a>
+                                    <div class="time">16:43:12</div>
+                                </div>
+                            </div>
+
+                            <div class="text">
+                                Также хотят запретить выезд из страны имеющим судимость за «экстремизм» и вводить режим
+                                КТО в случаях «посягательства на жизнь государственного или общественного деятеля»,
+                                «насильственного захвата власти», «вооруженного мятежа»
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#" class="load-more">загрузить БОЛЬШЕ</a>
+
+                </div>
+            </div>
+            <!-- end comments.html-->
+
+        </article>
+
+        <!-- start right_sidebar_news.html-->
+        <aside id="aside">
+            <div class="scroll">
+                <div class="more-news">
+
+                    <h3>Читайте по теме</h3>
+
+                    <ul>
+                        <li>
+                            <span>4 мая 2016, в 15:00 копия</span>
+                            <a href="#">Пушков прокомментировал встречу Петра Порошенко и Си Цзиньпина</a>
+                        </li>
+                        <li>
+                            <span>4 мая 2016, в 15:00 копия</span>
+                            <a href="#">Пушков прокомментировал встречу Петра Порошенко и Си Цзиньпина</a>
+                        </li>
+                        <li>
+                            <span>4 мая 2016, в 15:00 копия</span>
+                            <a href="#">Пушков прокомментировал встречу Петра Порошенко и Си Цзиньпина</a>
+                        </li>
+                        <li>
+                            <span>4 мая 2016, в 15:00 копия</span>
+                            <a href="#">Пушков прокомментировал встречу Петра Порошенко и Си Цзиньпина</a>
+                        </li>
+                        <li>
+                            <span>4 мая 2016, в 15:00 копия</span>
+                            <a href="#">Пушков прокомментировал встречу Петра Порошенко и Си Цзиньпина</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="articles">
+                    <div class="article">
+                        <img src="/theme/portal-donbassa/img/content/news-photo.jpg" alt="">
+
+                        <div class="time">4 часа назад</div>
+                        <a href="#">Пассажир поблагодарил
+                            пилотов, отказавшихся
+                            сажать самолет в Ростове</a>
+
+                        <div class="po-teme">Популярное</div>
+                    </div>
+
+                    <div class="article">
+                        <img src="/theme/portal-donbassa/img/content/news-photo.jpg" alt="">
+
+                        <div class="time">4 часа назад</div>
+                        <a href="#">Пассажир поблагодарил
+                            пилотов, отказавшихся
+                            сажать самолет в Ростове</a>
+                    </div>
+
+                    <div class="article">
+                        <img src="/theme/portal-donbassa/img/content/news-photo.jpg" alt="">
+
+                        <div class="time">4 часа назад</div>
+                        <a href="#">Пассажир поблагодарил
+                            пилотов, отказавшихся
+                            сажать самолет в Ростове</a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <!-- end right_sidebar_news.html-->
+
     </div>
-    <div class="best-views-news">
-        <?php if ( $most_popular_news ): ?>
-            <h3>Самые популярные новости:</h3>
-        <?php endif; ?>
-        <?php foreach ( $most_popular_news as $most_popular_new ): ?>
-            <a href="<?= Url::to( [ '/news/default/view', 'slug' => $most_popular_new->slug ] ) ?>"
-               class="news-like-item">
-                <div class="news-like-img"><img src="<?= $most_popular_new->photo; ?>" alt=""></div>
-                <h4 class="new-header"><?= $most_popular_new->title; ?></h4>
-                <p class="new-descr"><?= WordFunctions::crop_str_word( strip_tags( $most_popular_new->content ), 13 ); ?></p>
-            </a>
-        <?php endforeach; ?>
-    </div>
-</div>
+</main>
 
-<?= \frontend\widgets\Comments::widget([
-    'post_id'=>$news->id,
-    'post_type'=>'news',
-]); ?>
+<!-- start footer.html-->

@@ -8,7 +8,7 @@
  */
 
 ?>
-<?php// \common\classes\Debug::prn($sit) ?>
+
 <div class="home-content__wrap_checkpoint">
     <span class="color-zebra"></span>
     <div class="title">

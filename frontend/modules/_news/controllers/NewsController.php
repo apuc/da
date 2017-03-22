@@ -228,6 +228,6 @@ class NewsController extends Controller {
             [ 'class' => 'form-control', 'id' => 'categ' ]
         );
     }
-
+    
 
 }
