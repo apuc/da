@@ -84,6 +84,8 @@ use yii\widgets\ActiveForm;
         ?>
     </div>
 
+    <?= $form->field($model, 'author')->textInput(['maxlength' => true]); ?>
+
     <?= $form->field($model, 'status')->dropDownList([
         '0' => 'Опубликована',
         '1' => 'На модерации',

@@ -7,6 +7,8 @@
  * @var $news \common\models\db\News
  */
 
+use yii\helpers\Url;
+
 $this->registerMetaTag([
     'name' => 'og:image',
     'content' => 'http://' . $_SERVER['HTTP_HOST'] . $news->photo,
@@ -31,7 +33,10 @@ $this->registerMetaTag([
             </div>
 
             <div class="breadcrumbs">
-                <a href="#">Главная</a> <span>></span> <a href="#">Финансы</a>
+                <a href="/">Главная</a> <span>></span> <a href="<?= Url::to([
+                    '/news/news/category/',
+                    'slug' => $category->slug,
+                ]) ?>"><?= $category->title; ?></a>
             </div>
 
             <div class="content-single-wrapper">
@@ -39,16 +44,39 @@ $this->registerMetaTag([
                 <h1><?= $model->title; ?></h1>
 
                 <div class="content-info">
-                    <span class="author">Николай Иванович</span>
-                    <span class="comments">20 комментариев</span>
+                    <span class="author"><?= $model->author; ?></span>
+                    <span class="comments">
+                        <?= $countComments . ' ' . \common\classes\WordFunctions::getNumEnding($countComments,
+                            [
+                                'комментарий',
+                                'комментария',
+                                'комментариев',
+                            ]); ?>
+                    </span>
                     <span class="views"><?= $model->views; ?></span>
                     <span class="data-time"><?= date('d',
                             $model->dt_public) . ' ' .
                         \common\classes\WordFunctions::getRuMonth()[date('m', $model->dt_public)] . ' ' .
                         date('Y', $model->dt_public) . ', в ' .
-                        date('H:i',$model->dt_public)
-                        ;?></span>
-                    <span class="like"><?= $likes;?></span>
+                        date('H:i', $model->dt_public); ?>
+                    </span>
+
+                    <a style="cursor: pointer" csrf-token="<?= Yii::$app->request->getCsrfToken() ?>"
+                       data-id="<?= $model->id; ?>"
+                       data-type="news"
+                       class="like likes">
+
+                        <?php if (!empty($thisUserLike)): ?>
+                            <i class="like-set-icon"></i>
+                        <?php else:; ?>
+                            <i class="like-icon"></i>
+                        <?php endif; ?>
+
+                        <span class="like-counter">
+                                <?= $likes; ?>
+                            </span>
+                    </a>
+
                 </div>
 
                 <div class="content-single">
@@ -56,16 +84,36 @@ $this->registerMetaTag([
                 </div>
 
                 <div class="content-info">
-                    <span class="author">Николай Иванович</span>
-                    <span class="comments">20 комментариев</span>
+                    <span class="author"><?= $model->author; ?></span>
+                    <span class="comments">
+                        <?= $countComments . ' ' . \common\classes\WordFunctions::getNumEnding($countComments,
+                            [
+                                'комментарий',
+                                'комментария',
+                                'комментариев',
+                            ]); ?>
+                    </span>
                     <span class="views"><?= $model->views; ?></span>
                     <span class="data-time"><?= date('d',
                             $model->dt_public) . ' ' .
                         \common\classes\WordFunctions::getRuMonth()[date('m', $model->dt_public)] . ' ' .
                         date('Y', $model->dt_public) . ', в ' .
-                        date('H:i',$model->dt_public)
-                        ;?></span>
-                    <span class="like"><?= $likes;?></span>
+                        date('H:i', $model->dt_public); ?></span>
+                    <a style="cursor: pointer" csrf-token="<?= Yii::$app->request->getCsrfToken() ?>"
+                       data-id="<?= $model->id; ?>"
+                       data-type="news"
+                       class="like likes">
+
+                        <?php if (!empty($thisUserLike)): ?>
+                            <i class="like-set-icon"></i>
+                        <?php else:; ?>
+                            <i class="like-icon"></i>
+                        <?php endif; ?>
+
+                        <span class="like-counter">
+                                <?= $likes; ?>
+                            </span>
+                    </a>
                 </div>
 
                 <div class="tags">
@@ -239,64 +287,9 @@ $this->registerMetaTag([
         <!-- start right_sidebar_news.html-->
         <aside id="aside">
             <div class="scroll">
-                <div class="more-news">
+                <?= \frontend\modules\news\widgets\RandomNewsByCategory::widget(['categoryId' => $category->id]); ?>
 
-                    <h3>Читайте по теме</h3>
-
-                    <ul>
-                        <li>
-                            <span>4 мая 2016, в 15:00 копия</span>
-                            <a href="#">Пушков прокомментировал встречу Петра Порошенко и Си Цзиньпина</a>
-                        </li>
-                        <li>
-                            <span>4 мая 2016, в 15:00 копия</span>
-                            <a href="#">Пушков прокомментировал встречу Петра Порошенко и Си Цзиньпина</a>
-                        </li>
-                        <li>
-                            <span>4 мая 2016, в 15:00 копия</span>
-                            <a href="#">Пушков прокомментировал встречу Петра Порошенко и Си Цзиньпина</a>
-                        </li>
-                        <li>
-                            <span>4 мая 2016, в 15:00 копия</span>
-                            <a href="#">Пушков прокомментировал встречу Петра Порошенко и Си Цзиньпина</a>
-                        </li>
-                        <li>
-                            <span>4 мая 2016, в 15:00 копия</span>
-                            <a href="#">Пушков прокомментировал встречу Петра Порошенко и Си Цзиньпина</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="articles">
-                    <div class="article">
-                        <img src="/theme/portal-donbassa/img/content/news-photo.jpg" alt="">
-
-                        <div class="time">4 часа назад</div>
-                        <a href="#">Пассажир поблагодарил
-                            пилотов, отказавшихся
-                            сажать самолет в Ростове</a>
-
-                        <div class="po-teme">Популярное</div>
-                    </div>
-
-                    <div class="article">
-                        <img src="/theme/portal-donbassa/img/content/news-photo.jpg" alt="">
-
-                        <div class="time">4 часа назад</div>
-                        <a href="#">Пассажир поблагодарил
-                            пилотов, отказавшихся
-                            сажать самолет в Ростове</a>
-                    </div>
-
-                    <div class="article">
-                        <img src="/theme/portal-donbassa/img/content/news-photo.jpg" alt="">
-
-                        <div class="time">4 часа назад</div>
-                        <a href="#">Пассажир поблагодарил
-                            пилотов, отказавшихся
-                            сажать самолет в Ростове</a>
-                    </div>
-                </div>
+                <?= \frontend\modules\news\widgets\MostPopularNews::widget();?>
             </div>
         </aside>
         <!-- end right_sidebar_news.html-->

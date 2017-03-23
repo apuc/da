@@ -54,7 +54,7 @@ $(document).ready(function () {
             },
             success: function (data) {
                 $('.like-count').html(data);
-                $('.like_icon').toggleClass('like_icon-set');
+                $('.like-icon').toggleClass('like-set-icon');
             }
         });
     });

@@ -13,7 +13,6 @@ class LikesController extends Controller {
 
     public function actionLike() {
 
-
         if ( Yii::$app->user->isGuest ) {
             return $this->redirect( '/user/login' );
         }

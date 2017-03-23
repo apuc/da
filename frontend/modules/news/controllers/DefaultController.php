@@ -3,6 +3,7 @@
 namespace frontend\modules\news\controllers;
 
 use common\classes\Debug;
+use common\models\db\CategoryNews;
 use common\models\db\CategoryNewsRelations;
 use common\models\db\Comments;
 use common\models\db\Lang;
@@ -39,18 +40,48 @@ class DefaultController extends Controller
             return $this->redirect(['site/error']);
         }
 
+        $countComments = Comments::find()
+            ->where([
+                'post_type' => 'news',
+                'post_id' => $new->id,
+            ])
+            ->count();
+
         $tags = explode(',', $new->tags);
 
         $likes = Likes::find()
             ->where(['post_id' => $new->id, 'post_type' => 'news'])
             ->count();
 
+        $currentUserId = Yii::$app->user->id;
+
+        if (!empty($currentUserId)) {
+            $thisUserLike = Likes::find()
+                ->where(['post_id' => $new->id, 'post_type' => 'news', 'user_id' => $currentUserId])
+                ->count();
+        } else {
+            $thisUserLike = false;
+        }
         $new->updateAllCounters(['views' => 1], ['id' => $new->id]);
+
+        if (!empty(Yii::$app->request->post()['category'])) {
+            $category = CategoryNews::findOne(Yii::$app->request->post()['category']);
+        } else {
+            $category = CategoryNewsRelations::find()
+                ->where(['new_id' => $new->id])
+                ->orderBy('RAND()')
+                ->limit(1)
+                ->with('cat')
+                ->one();
+        }
 
         return $this->render('view', [
             'model' => $new,
             'tags' => $tags,
             'likes' => $likes,
+            'category' => $category->cat,
+            'countComments' => $countComments,
+            'thisUserLike' => $thisUserLike,
         ]);
     }
 

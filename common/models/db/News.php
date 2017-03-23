@@ -23,7 +23,8 @@ use Yii;
  * @property string $meta_descr
  * @property integer $dt_public
  * @property integer $exclude_popular
- * @property integer main_slider
+ * @property integer $main_slider
+ * @property string $author
  *
  * @property CategoryNewsRelations[] $categoryNewsRelations
  */
@@ -47,7 +48,8 @@ class News extends \yii\db\ActiveRecord
             [['content'], 'string'],
             [['dt_add', 'dt_update', 'status', 'user_id', 'lang_id', 'views', 'exclude_popular', 'rss'], 'integer'],
             [['title', 'slug', 'tags', 'photo', 'meta_title', 'meta_descr'], 'string', 'max' => 255],
-            [['main_slider'],'safe']
+            [['author'], 'string', 'max' => 64],
+            [['main_slider'], 'safe'],
         ];
     }
 
@@ -75,6 +77,7 @@ class News extends \yii\db\ActiveRecord
             'exclude_popular' => Yii::t('news', 'Exclude popular'),
             'rss' => Yii::t('news', 'Rss'),
             'main_slider' => Yii::t('news', 'Main slider'),
+            'author' => Yii::t('news', 'Author'),
         ];
     }
 
@@ -86,7 +89,8 @@ class News extends \yii\db\ActiveRecord
         return $this->hasMany(CategoryNewsRelations::className(), ['new_id' => 'id']);
     }
 
-    public static function mainSlider(){
+    public static function mainSlider()
+    {
         return self::find()->where(['main_slider' => 1]);
     }
 }
