@@ -54,11 +54,7 @@ $this->registerMetaTag([
                             ]); ?>
                     </span>
                     <span class="views"><?= $model->views; ?></span>
-                    <span class="data-time"><?= date('d',
-                            $model->dt_public) . ' ' .
-                        \common\classes\WordFunctions::getRuMonth()[date('m', $model->dt_public)] . ' ' .
-                        date('Y', $model->dt_public) . ', в ' .
-                        date('H:i', $model->dt_public); ?>
+                    <span class="data-time"><?= \common\classes\WordFunctions::FullEventDate($model->dt_public) ?>
                     </span>
 
                     <a style="cursor: pointer" csrf-token="<?= Yii::$app->request->getCsrfToken() ?>"
@@ -94,11 +90,7 @@ $this->registerMetaTag([
                             ]); ?>
                     </span>
                     <span class="views"><?= $model->views; ?></span>
-                    <span class="data-time"><?= date('d',
-                            $model->dt_public) . ' ' .
-                        \common\classes\WordFunctions::getRuMonth()[date('m', $model->dt_public)] . ' ' .
-                        date('Y', $model->dt_public) . ', в ' .
-                        date('H:i', $model->dt_public); ?></span>
+                    <span class="data-time"><?= \common\classes\WordFunctions::FullEventDate($model->dt_public) ?></span>
                     <a style="cursor: pointer" csrf-token="<?= Yii::$app->request->getCsrfToken() ?>"
                        data-id="<?= $model->id; ?>"
                        data-type="news"
@@ -289,7 +281,7 @@ $this->registerMetaTag([
             <div class="scroll">
                 <?= \frontend\modules\news\widgets\RandomNewsByCategory::widget(['categoryId' => $category->id]); ?>
 
-                <?= \frontend\modules\news\widgets\MostPopularNews::widget();?>
+                <?= \frontend\modules\news\widgets\MostPopularNews::widget(); ?>
             </div>
         </aside>
         <!-- end right_sidebar_news.html-->

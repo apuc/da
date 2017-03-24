@@ -34,4 +34,6 @@ return [
     'Category Posters' => 'Афиша категории',
     'Create Category Poster' => 'Добавить категорию',
     'Main page' => 'Отображать на главной',
+    'Address' => 'Адрес',
+    'Popular' => 'Популярное',
 ];

@@ -19,7 +19,8 @@
         "2amigos/yii2-transliterator-helper": "*",
         "zelenin/yii2-rss": "~0.1",
         "kartik-v/yii2-widget-select2": "@dev",
-        "kartik-v/yii2-widget-colorinput": "*"
+        "kartik-v/yii2-widget-colorinput": "*",
+        "kartik-v/yii2-widget-datetimepicker": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

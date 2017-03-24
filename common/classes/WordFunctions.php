@@ -8,6 +8,8 @@
 
 namespace common\classes;
 
+use MongoDB\BSON\Timestamp;
+
 class WordFunctions
 {
 
@@ -61,6 +63,27 @@ class WordFunctions
             "10" => "октября",
             "11" => "ноября",
             "12" => "декабря",
+        ];
+    }
+
+    public static function FullEventDate($date)
+    {
+        return date('d',
+                $date) . ' ' .
+            \common\classes\WordFunctions::getRuMonth()[date('m', $date)] . ' ' .
+            date('Y', $date) . ', в ' .
+            date('H:i', $date);
+    }
+
+    public static function getRuWeek(){
+        return [
+            1 => 'понедельник',
+            2 => 'вторник',
+            3 => 'среда',
+            4 => 'четверг',
+            5 => 'пятница',
+            6 => 'суббота',
+            7 => 'воскресенье',
         ];
     }
 

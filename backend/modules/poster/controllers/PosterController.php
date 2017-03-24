@@ -19,6 +19,14 @@ use yii\filters\VerbFilter;
  */
 class PosterController extends Controller
 {
+
+    public function beforeAction($action)
+    {
+        $this->enableCsrfValidation = false;
+
+        return parent:: beforeAction($action);
+    }
+
     /**
      * @inheritdoc
      */
@@ -174,4 +182,25 @@ class PosterController extends Controller
             'main_posters' => $main_posters,
         ]);
     }
+
+    public function actionMainPoster()
+    {
+        $request = Yii::$app->request;
+        $mainBannerPoster = KeyValue::findOne(['key' => 'main_banner_poster']);
+
+        if ($request->isPost) {
+            $json['poster_image'] = Yii::$app->request->post()['poster_image'];
+            $json['main_poster_title'] = Yii::$app->request->post()['main_poster_title'];
+            $json['main_poster_subtitle'] = Yii::$app->request->post()['main_poster_subtitle'];
+            $json['main_poster_substrate'] = Yii::$app->request->post()['main_poster_substrate'];
+
+            $mainBannerPoster->value = json_encode($json);
+            $mainBannerPoster->save();
+
+        }
+
+        return $this->render('main_poster_banner', ['mainBannerPoster' => json_decode($mainBannerPoster->value)]);
+
+    }
+
 }

@@ -23,6 +23,8 @@ use Yii;
  * @property string $photo
  * @property integer $dt_event
  * @property integer $dt_event_end
+ * @property string $address
+ * @property integer $popular
  */
 class Poster extends \yii\db\ActiveRecord
 {
@@ -41,10 +43,10 @@ class Poster extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'dt_event', 'dt_event_end'], 'required'],
-            [['dt_add', 'dt_update', 'views', 'status', 'rss'], 'integer'],
+            [['dt_add', 'dt_update', 'views', 'status', 'rss', 'popular'], 'integer'],
             [['dt_event', 'dt_event_end'], 'safe'],
             [['descr', 'short_descr'], 'string'],
-            [['title', 'slug', 'price', 'meta_title', 'meta_descr', 'photo'], 'string', 'max' => 255],
+            [['title', 'slug', 'price', 'meta_title', 'meta_descr', 'photo', 'address'], 'string', 'max' => 255],
             [['start'], 'string', 'max' => 512],
         ];
     }
@@ -72,6 +74,8 @@ class Poster extends \yii\db\ActiveRecord
             'dt_event' => Yii::t('poster', 'Dt Event'),
             'dt_event_end' => Yii::t('poster', 'Dt Event End'),
             'rss' => Yii::t('poster', 'Rss'),
+            'address' => Yii::t('poster', 'Address'),
+            'popular' => Yii::t('poster', 'Popular'),
         ];
     }
 
@@ -84,5 +88,6 @@ class Poster extends \yii\db\ActiveRecord
     {
         return $this->hasMany(CategoryPoster::className(), ['id' => 'cat_id'])->via('posterCategories');
     }
+
 
 }

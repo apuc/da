@@ -28,8 +28,9 @@ class AppAsset extends AssetBundle
         'theme/portal-donbassa/css/styles.min.css',
     ];
     public $js = [
-        'http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU',
+        'https://api-maps.yandex.ru/2.1/?lang=ru_RU',
         'theme/portal-donbassa/js/jquery-2.1.3.min.js',
+        'theme/portal-donbassa/js/map.js',
         'theme/portal-donbassa/js/libs.min.js',
         'theme/portal-donbassa/js/owl.carousel.min.js',
         'theme/portal-donbassa/js/datepicker.min.js',

@@ -20,161 +20,199 @@ use yii\web\Controller;
 /**
  * Default controller for the `poster` module
  */
-class DefaultController extends Controller {
+class DefaultController extends Controller
+{
     public $layout = 'portal_page';
 
     /**
      * Renders the index view for the module
      * @return string
      */
-    public function actionIndex() {
-        return $this->render( 'index' );
+    public function actionIndex()
+    {
+        return $this->render('index');
     }
 
-    public function actionView( $slug ) {
-        $poster = Poster::find()->where( [ 'slug' => $slug ] )->one();
+    public function actionView($slug)
+    {
+        $poster = Poster::find()->where(['slug' => $slug])->one();
 
-        if ( empty( $poster ) ) {
-            return $this->redirect( [ 'site/error' ] );
+        if (empty($poster)) {
+            return $this->redirect(['site/error']);
         }
 
-        $poster->updateAllCounters( [ 'views' => 1 ], [ 'id' => $poster->id ] );
+        if (!empty(Yii::$app->request->post()['category'])) {
+            $category = CategoryPoster::findOne(Yii::$app->request->post()['category']);
+        } else {
+            $category = CategoryPosterRelations::find()
+                ->where(['poster_id' => $poster->id])
+                ->orderBy('RAND()')
+                ->limit(1)
+                ->with('category_poster')
+                ->one();
+        }
 
-        $cats_posters_ids = ArrayHelper::getColumn( CategoryPosterRelations::find()->where( [ 'poster_id' => $poster->id ] )->select( 'cat_id' )->asArray()->all(), 'cat_id' );
-        $cats_posters     = ArrayHelper::getColumn( CategoryPosterRelations::find()->where( [ 'cat_id' => $cats_posters_ids ] )->select( 'poster_id' )->asArray()->all(), 'poster_id' );
+        $poster->updateAllCounters(['views' => 1], ['id' => $poster->id]);
 
-        $related_posters = Poster::find()->where( [ 'id' => $cats_posters ] )->andWhere( [
-            '!=',
-            'id',
-            $poster->id
-        ] )->andWhere( [ '>', 'dt_event', time() ] )->orderBy( [ 'rand()' => SORT_DESC ] )->limit( 6 )->all();
-
-        $most_popular_posters = Poster::find()->andWhere( [ '>', 'dt_event', time() ] )->andWhere( [
-            '!=',
-            'id',
-            $poster->id
-        ] )->orderBy( 'views DESC' )->limit( 6 )->all();
-
-        $count_likes   = count( Likes::find()
-                                     ->where( [ 'post_type' => 'posters', 'post_id' => $poster->id ] )
-                                     ->all() );
-        $user_set_like = Likes::find()
-                              ->where( [
-                                  'post_type' => 'posters',
-                                  'user_id'   => Yii::$app->user->id,
-                                  'post_id'   => $poster->id,
-                              ] )
-                              ->one();
-
-        return $this->render( 'view', [
-            'poster'               => $poster,
-            'related_posters'      => $related_posters,
-            'most_popular_posters' => $most_popular_posters,
-            'count_likes'          => $count_likes,
-            'user_set_like'        => $user_set_like,
-        ] );
+        return $this->render('view', [
+            'model' => $poster,
+            'category' => $category->category_poster,
+        ]);
     }
 
-    public function actionCategory() {
-        $query        = \common\models\db\Poster::find()->orderBy( 'dt_event_end' )->andWhere( [
+    public function _actionView($slug)
+    {
+        $poster = Poster::find()->where(['slug' => $slug])->one();
+
+        if (empty($poster)) {
+            return $this->redirect(['site/error']);
+        }
+
+        $poster->updateAllCounters(['views' => 1], ['id' => $poster->id]);
+
+        $cats_posters_ids = ArrayHelper::getColumn(CategoryPosterRelations::find()->where(['poster_id' => $poster->id])->select('cat_id')->asArray()->all(),
+            'cat_id');
+        $cats_posters = ArrayHelper::getColumn(CategoryPosterRelations::find()->where(['cat_id' => $cats_posters_ids])->select('poster_id')->asArray()->all(),
+            'poster_id');
+
+        $related_posters = Poster::find()->where(['id' => $cats_posters])->andWhere([
+            '!=',
+            'id',
+            $poster->id,
+        ])->andWhere(['>', 'dt_event', time()])->orderBy(['rand()' => SORT_DESC])->limit(6)->all();
+
+        $most_popular_posters = Poster::find()->andWhere(['>', 'dt_event', time()])->andWhere([
+            '!=',
+            'id',
+            $poster->id,
+        ])->orderBy('views DESC')->limit(6)->all();
+
+        $count_likes = count(Likes::find()
+            ->where(['post_type' => 'posters', 'post_id' => $poster->id])
+            ->all());
+        $user_set_like = Likes::find()
+            ->where([
+                'post_type' => 'posters',
+                'user_id' => Yii::$app->user->id,
+                'post_id' => $poster->id,
+            ])
+            ->one();
+
+        return $this->render('view', [
+            'poster' => $poster,
+            'related_posters' => $related_posters,
+            'most_popular_posters' => $most_popular_posters,
+            'count_likes' => $count_likes,
+            'user_set_like' => $user_set_like,
+        ]);
+    }
+
+    public function actionCategory()
+    {
+        $query = \common\models\db\Poster::find()->orderBy('dt_event_end')->andWhere([
             '>',
             'dt_event_end',
-            time()
-        ] );
-        $dataProvider = new SqlDataProvider( [
-            'sql'        => $query->createCommand()->rawSql,
-            'totalCount' => (int) $query->count(),
+            time(),
+        ]);
+        $dataProvider = new SqlDataProvider([
+            'sql' => $query->createCommand()->rawSql,
+            'totalCount' => (int)$query->count(),
             'pagination' => [
                 'pageSize' => 12,
             ],
-        ] );
+        ]);
 
-        return $this->render( 'category', [
-            'category'     => CategoryPoster::find()->orderBy( 'id DESC' )->all(),
+        return $this->render('category', [
+            'category' => CategoryPoster::find()->orderBy('id DESC')->all(),
             'dataProvider' => $dataProvider,
-            'meta_title'   => KeyValue::findOne( [ 'key' => 'poster_page_meta_title' ] )->value,
-            'meta_descr'   => KeyValue::findOne( [ 'key' => 'poster_page_meta_descr' ] )->value,
-        ] );
+            'meta_title' => KeyValue::findOne(['key' => 'poster_page_meta_title'])->value,
+            'meta_descr' => KeyValue::findOne(['key' => 'poster_page_meta_descr'])->value,
+        ]);
     }
 
-    public function actionArchive_category() {
-        $query        = \common\models\db\Poster::find()->orderBy( 'dt_event DESC' );
-        $dataProvider = new SqlDataProvider( [
-            'sql'        => $query->createCommand()->rawSql,
-            'totalCount' => (int) $query->count(),
+    public function actionArchive_category()
+    {
+        $query = \common\models\db\Poster::find()->orderBy('dt_event DESC');
+        $dataProvider = new SqlDataProvider([
+            'sql' => $query->createCommand()->rawSql,
+            'totalCount' => (int)$query->count(),
             'pagination' => [
                 'pageSize' => 12,
             ],
-        ] );
+        ]);
 
-        return $this->render( 'category', [
-            'category'     => CategoryPoster::find()->orderBy( 'id DESC' )->all(),
+        return $this->render('category', [
+            'category' => CategoryPoster::find()->orderBy('id DESC')->all(),
             'dataProvider' => $dataProvider,
-        ] );
+        ]);
     }
 
-    public function actionSingle_category( $slug ) {
-        $cat   = CategoryPoster::find()->where( [ 'slug' => $slug ] )->one();
+    public function actionSingle_category($slug)
+    {
+        $cat = CategoryPoster::find()->where(['slug' => $slug])->one();
         $query = CategoryPosterRelations::find()
-                                        ->leftJoin( 'poster', '`category_poster_relations`.`poster_id` = `poster`.`id`' )
-                                        ->orderBy( 'dt_event' )
-                                        ->where( [ 'cat_id' => $cat->id ] )
-                                        ->andWhere( [ '>', 'dt_event_end', time() ] )
-                                        ->with( 'poster' );
+            ->leftJoin('poster', '`category_poster_relations`.`poster_id` = `poster`.`id`')
+            ->orderBy('dt_event')
+            ->where(['cat_id' => $cat->id])
+            ->andWhere(['>', 'dt_event_end', time()])
+            ->with('poster');
 
-        $dataProvider = new ActiveDataProvider( [
-            'query'      => $query,
-            'totalCount' => (int) $query->count(),
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'totalCount' => (int)$query->count(),
             'pagination' => [
                 'pageSize' => 12,
             ],
-        ] );
+        ]);
 
-        return $this->render( 'category', [
-            'category'     => CategoryPoster::find()->orderBy( 'id DESC' )->all(),
+        return $this->render('category', [
+            'category' => CategoryPoster::find()->orderBy('id DESC')->all(),
             'dataProvider' => $dataProvider,
-        ] );
+        ]);
     }
 
-    public function actionSingle_archive_category( $slug ) {
-        $cat   = CategoryPoster::find()->where( [ 'slug' => $slug ] )->one();
+    public function actionSingle_archive_category($slug)
+    {
+        $cat = CategoryPoster::find()->where(['slug' => $slug])->one();
         $query = CategoryPosterRelations::find()
-                                        ->leftJoin( 'poster', '`category_poster_relations`.`poster_id` = `poster`.`id`' )
-                                        ->orderBy( 'dt_event DESC' )
-                                        ->where( [ 'cat_id' => $cat->id ] )
-                                        ->with( 'poster' );
+            ->leftJoin('poster', '`category_poster_relations`.`poster_id` = `poster`.`id`')
+            ->orderBy('dt_event DESC')
+            ->where(['cat_id' => $cat->id])
+            ->with('poster');
 
-        $dataProvider = new ActiveDataProvider( [
-            'query'      => $query,
-            'totalCount' => (int) $query->count(),
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'totalCount' => (int)$query->count(),
             'pagination' => [
                 'pageSize' => 12,
             ],
-        ] );
+        ]);
 
-        return $this->render( 'category', [
-            'category'     => CategoryPoster::find()->orderBy( 'id DESC' )->all(),
+        return $this->render('category', [
+            'category' => CategoryPoster::find()->orderBy('id DESC')->all(),
             'dataProvider' => $dataProvider,
-        ] );
+        ]);
     }
 
-    public static function actionUpdposterdt_event() {
+    public static function actionUpdposterdt_event()
+    {
 
         $posters = Poster::find()->all();
-        foreach ( $posters as $k ) {
-            if ( $k->dt_event == 0 ) {
-                Poster::updateAll( [ 'dt_event' => $k->dt_add ], [ 'id' => $k->id ] );
+        foreach ($posters as $k) {
+            if ($k->dt_event == 0) {
+                Poster::updateAll(['dt_event' => $k->dt_add], ['id' => $k->id]);
             }
         }
 
     }
 
-    public static function actionUpdposterdt_event_end() {
+    public static function actionUpdposterdt_event_end()
+    {
 
         $posters = Poster::find()->all();
-        foreach ( $posters as $k ) {
-            if ( $k->dt_event_end == 0 ) {
-                Poster::updateAll( [ 'dt_event_end' => $k->dt_event ], [ 'id' => $k->id ] );
+        foreach ($posters as $k) {
+            if ($k->dt_event_end == 0) {
+                Poster::updateAll(['dt_event_end' => $k->dt_event], ['id' => $k->id]);
             }
         }
 
