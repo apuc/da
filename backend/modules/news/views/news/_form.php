@@ -97,6 +97,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'rss')->checkbox() ?>
 
     <?= $form->field($model, 'main_slider')->checkbox(); ?>
+
+    <?= $form->field($model, 'hot_new')->checkbox(); ?>
     <br>
 
     <div class="form-group">

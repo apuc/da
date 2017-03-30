@@ -23,5 +23,5 @@ return [
     'Status' => 'Статус',
     'Exclude popular' => 'Исключить из популярных',
     'Main slider' => 'Главный слайдер',
-    'Author' => 'Автор',
+    'Hot new' => 'Горячее',
 ];

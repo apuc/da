@@ -25,6 +25,7 @@ use Yii;
  * @property integer $exclude_popular
  * @property integer $main_slider
  * @property string $author
+ * @property integer $hot_new
  *
  * @property CategoryNewsRelations[] $categoryNewsRelations
  */
@@ -46,7 +47,7 @@ class News extends \yii\db\ActiveRecord
         return [
             [['title'], 'required'],
             [['content'], 'string'],
-            [['dt_add', 'dt_update', 'status', 'user_id', 'lang_id', 'views', 'exclude_popular', 'rss'], 'integer'],
+            [['dt_add', 'dt_update', 'status', 'user_id', 'lang_id', 'views', 'exclude_popular', 'rss','hot_new'], 'integer'],
             [['title', 'slug', 'tags', 'photo', 'meta_title', 'meta_descr'], 'string', 'max' => 255],
             [['author'], 'string', 'max' => 64],
             [['main_slider'], 'safe'],
@@ -78,6 +79,7 @@ class News extends \yii\db\ActiveRecord
             'rss' => Yii::t('news', 'Rss'),
             'main_slider' => Yii::t('news', 'Main slider'),
             'author' => Yii::t('news', 'Author'),
+            'hot_new' => Yii::t('news', 'Hot new'),
         ];
     }
 

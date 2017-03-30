@@ -395,6 +395,12 @@ class MainMenuAdmin extends Widget
                         'template' => '<a href="#"><i class="fa fa-car"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
                     [
+                        'label' => 'О чем говорят в городе',
+                        'url' => Url::to(['/people_talk/people-talk']),
+                        // 'visible'  => UserFunction::hasPermission( [ 'Опросы' ] ),
+                        //'template' => '<a href="#"><i class="fa fa-bar-chart"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                    ],
+                    [
                         'label' => 'РОСС-ОПТ',
                         // 'visible'  => UserFunction::hasPermission( [ 'Опросы' ] ),
                         'items' => [

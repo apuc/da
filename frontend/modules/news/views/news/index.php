@@ -20,10 +20,10 @@ use yii\widgets\Pjax;
 //$this->title                   = Yii::t( 'news', 'News' );
 $this->params['breadcrumbs'][] = $this->title;
 $this->title = $meta_title;
-$this->registerMetaTag( [
-    'name'    => 'description',
+$this->registerMetaTag([
+    'name' => 'description',
     'content' => $meta_descr,
-] );
+]);
 $md = new \common\classes\Mobile_Detect();
 ?>
 
@@ -36,352 +36,86 @@ $md = new \common\classes\Mobile_Detect();
 
             </div>
             <div class="hot-tag">
-                <a href="">Криптовалюты  </a>
+                <a href="">Криптовалюты </a>
                 <a href="">Дональд Трамп</a>
                 <a href="">ОПЕК</a>
                 <a href="">Китай Tesla </a>
             </div>
         </div>
         <div class="news__wrap">
-            <!-- item -->
-            <div class="news__wrap_item-sm">
-                <!-- thumb -->
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
-                    <div class="content-row">
-                        <span><small class="view-icon"></small> 2589</span>
-                        <a href="">Новости</a>
-                    </div>
-                </div>
-                <!-- thumb -->
-                <div class="content-item">
-                    <p><a href="">Что происходит на рынках прямо сейчас</a></p>
-                    <span>20 января</span>
-                </div>
-            </div>
-            <!-- item -->
-            <!-- item -->
-            <div class=" news__wrap_item-sm-hot">
-                <!-- thumb -->
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
-                    <div class="content-row">
-                        <span><small class="view-icon"></small> 2589</span>
-                        <a href="">Новости</a>
-                    </div>
-                </div>
-                <!-- thumb -->
-                <div class="hover-wrap">
-                    <a href="" class="category">
-                        <span class="category-star"></span>
-                        ГОРЯЧЕЕ
-                    </a>
-                    <h2><a href="">Прокомментировали информацию о планах Трампа снять санкции с России</a></h2>
-                </div>
-            </div>
-            <!-- item -->
-            <!-- item -->
-            <div class="news__wrap_item-sm">
-                <!-- thumb -->
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
-                    <div class="content-row">
-                        <span><small class="view-icon"></small> 2589</span>
-                        <a href="">Новости</a>
-                    </div>
-                </div>
-                <!-- thumb -->
-                <div class="content-item">
-                    <p><a href="">Что происходит на рынках прямо сейчас</a></p>
-                    <span>20 января</span>
-                </div>
-            </div>
-            <!-- item -->
-            <!-- item -->
-            <!-- item -->
-            <div class=" news__wrap_item-sm-hot">
-                <!-- thumb -->
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
-                    <div class="content-row">
-                        <span><small class="view-icon"></small> 2589</span>
-                        <a href="">Новости</a>
-                    </div>
-                </div>
-                <!-- thumb -->
-                <div class="hover-wrap">
-                    <a href="" class="category">
-                        <span class="category-star"></span>
-                        ГОРЯЧЕЕ
-                    </a>
-                    <h2><a href="">Прокомментировали информацию о планах Трампа снять санкции с России</a></h2>
-                </div>
-            </div>
-            <!-- item -->
-            <!-- item -->
-            <div class="news__wrap_item-sm">
-                <!-- thumb -->
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
-                    <div class="content-row">
-                        <span><small class="view-icon"></small> 2589</span>
-                        <a href="">Новости</a>
-                    </div>
-                </div>
-                <!-- thumb -->
-                <div class="content-item">
-                    <p><a href="">Что происходит на рынках прямо сейчас</a></p>
-                    <span>20 января</span>
-                </div>
-            </div>
-            <!-- item -->
-            <!-- item -->
-            <div class=" news__wrap_item-sm-hot">
-                <!-- thumb -->
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
-                    <div class="content-row">
-                        <span><small class="view-icon"></small> 2589</span>
-                        <a href="">Новости</a>
-                    </div>
-                </div>
-                <!-- thumb -->
-                <div class="hover-wrap">
-                    <a href="" class="category">
-                        <span class="category-star"></span>
-                        ГОРЯЧЕЕ
-                    </a>
-                    <h2><a href="">Прокомментировали информацию о планах Трампа снять санкции с России</a></h2>
-                </div>
-            </div>
-            <!-- item -->
-            <!-- item -->
-            <div class="news__wrap_item-lg">
-                <!-- thumb -->
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/pic-2.png" alt="">
-                    <div class="content-row">
-                        <span>20 января</span>
-                        <a href="">Новости</a>
-                        <span><small class="view-icon"></small> 2589</span>
-                        <h2><a href="#">День, когда президентом стал Дональд Трамп</a></h2>
-                    </div>
 
-                </div>
-                <!-- thumb -->
-            </div>
-            <!-- item -->
-            <!-- item -->
-            <div class="news__wrap_item-sm">
-                <!-- thumb -->
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
-                    <div class="content-row">
-                        <span><small class="view-icon"></small> 2589</span>
-                        <a href="">Новости</a>
-                    </div>
-                </div>
-                <!-- thumb -->
-                <div class="content-item">
-                    <p><a href="">Что происходит на рынках прямо сейчас</a></p>
-                    <span>20 января</span>
-                </div>
-            </div>
-            <!-- item -->
-            <!-- item -->
-            <div class=" news__wrap_item-sm-hot">
-                <!-- thumb -->
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
-                    <div class="content-row">
-                        <span><small class="view-icon"></small> 2589</span>
-                        <a href="">Новости</a>
-                    </div>
-                </div>
-                <!-- thumb -->
-                <div class="hover-wrap">
-                    <a href="" class="category">
-                        <span class="category-star"></span>
-                        ГОРЯЧЕЕ
-                    </a>
-                    <h2><a href="">Прокомментировали информацию о планах Трампа снять санкции с России</a></h2>
-                </div>
-            </div>
-            <!-- item -->
-            <!-- item -->
-            <div class="news__wrap_item-sm">
-                <!-- thumb -->
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
-                    <div class="content-row">
-                        <span><small class="view-icon"></small> 2589</span>
-                        <a href="">Новости</a>
-                    </div>
-                </div>
-                <!-- thumb -->
-                <div class="content-item">
-                    <p><a href="">Что происходит на рынках прямо сейчас</a></p>
-                    <span>20 января</span>
-                </div>
-            </div>
-            <!-- item -->
-            <!-- item -->
-            <!-- item -->
-            <div class=" news__wrap_item-sm-hot">
-                <!-- thumb -->
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
-                    <div class="content-row">
-                        <span><small class="view-icon"></small> 2589</span>
-                        <a href="">Новости</a>
-                    </div>
-                </div>
-                <!-- thumb -->
-                <div class="hover-wrap">
-                    <a href="" class="category">
-                        <span class="category-star"></span>
-                        ГОРЯЧЕЕ
-                    </a>
-                    <h2><a href="">Прокомментировали информацию о планах Трампа снять санкции с России</a></h2>
-                </div>
-            </div>
-            <!-- item -->
-            <!-- item -->
-            <!-- item -->
-            <div class="news__wrap_item-sm">
-                <!-- thumb -->
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
-                    <div class="content-row">
-                        <span><small class="view-icon"></small> 2589</span>
-                        <a href="">Новости</a>
-                    </div>
-                </div>
-                <!-- thumb -->
-                <div class="content-item">
-                    <p><a href="">Что происходит на рынках прямо сейчас</a></p>
-                    <span>20 января</span>
-                </div>
-            </div>
-            <!-- item -->
+            <?php
+            $simpleNewId = 0;
+            $hotNewId = 0;
+            for ($i = 0; $i <= 38; $i++):
+                if (!in_array($i, $hotNewsIndexes)):
+                    $currNew = $news[$simpleNewId];
+                    if (in_array($i, $bigNewsIndexes)):
+                        ?>
+                        <div class="news__wrap_item-lg">
+                            <div class="thumb">
+                                <img src="<?= $currNew->photo; ?>" alt="">
+                                <div class="content-row">
+                                    <span><?= WordFunctions::dateWithMonts($currNew->dt_public); ?></span>
+                                    <a>Новости</a>
+                                    <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
+                                    <h2><a href="<?= Url::to([
+                                            '/news/default/view',
+                                            'slug' => $currNew->slug,
+                                        ]); ?>"><?= $currNew->title; ?></a></h2>
+                                </div>
 
-            <!-- item -->
-            <div class="news__wrap_item-lg">
-                <!-- thumb -->
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/pic-2.png" alt="">
-                    <div class="content-row">
-                        <span>20 января</span>
-                        <a href="">Новости</a>
-                        <span><small class="view-icon"></small> 2589</span>
-                        <h2><a href="#">День, когда президентом стал Дональд Трамп</a></h2>
+                            </div>
+                        </div>
+                    <?php else: ?>
+                        <div class="news__wrap_item-sm">
+                            <div class="thumb">
+                                <img src="<?= $currNew->photo; ?>" alt="">
+                                <div class="content-row">
+                                    <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
+                                    <a>Новости</a>
+                                </div>
+                            </div>
+                            <div class="content-item">
+                                <p><a href="<?= Url::to([
+                                        '/news/default/view',
+                                        'slug' => $currNew->slug,
+                                    ]); ?>"><?= $currNew->title; ?></a></p>
+                                <span><?= WordFunctions::dateWithMonts($currNew->dt_public); ?></span>
+                            </div>
+                        </div>
+                        <?php
+                    endif;
+                    $simpleNewId++;
+                else:
+                    $currHotNew = $hotNews[$hotNewId];
+                    ?>
+                    <div class=" news__wrap_item-sm-hot">
+                        <!-- thumb -->
+                        <div class="thumb">
+                            <img src="<?= $currHotNew->photo; ?>" alt="">
+                            <div class="content-row">
+                                <span><small class="view-icon"></small> <?= $currHotNew->views; ?></span>
+                                <a>Новости</a>
+                            </div>
+                        </div>
+                        <!-- thumb -->
+                        <div class="hover-wrap">
+                            <a href="" class="category">
+                                <span class="category-star"></span>
+                                ГОРЯЧЕЕ
+                            </a>
+                            <h2><a href="<?= Url::to([
+                                    '/news/default/view',
+                                    'slug' => $currHotNew->slug,
+                                ]); ?>"><?= $currHotNew->title; ?></a></h2>
+                        </div>
                     </div>
+                    <?php
+                endif;
+            endfor; ?>
 
-                </div>
-                <!-- thumb -->
-            </div>
-            <!-- item -->
-            <!-- item -->
-            <div class="news__wrap_item-sm">
-                <!-- thumb -->
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
-                    <div class="content-row">
-                        <span><small class="view-icon"></small> 2589</span>
-                        <a href="">Новости</a>
-                    </div>
-                </div>
-                <!-- thumb -->
-                <div class="content-item">
-                    <p><a href="">Что происходит на рынках прямо сейчас</a></p>
-                    <span>20 января</span>
-                </div>
-            </div>
-            <!-- item -->
-            <!-- item -->
-            <div class="news__wrap_item-sm">
-                <!-- thumb -->
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
-                    <div class="content-row">
-                        <span><small class="view-icon"></small> 2589</span>
-                        <a href="">Новости</a>
-                    </div>
-                </div>
-                <!-- thumb -->
-                <div class="content-item">
-                    <p><a href="">Что происходит на рынках прямо сейчас</a></p>
-                    <span>20 января</span>
-                </div>
-            </div>
-            <!-- item -->
-            <!-- item -->
-            <div class="news__wrap_item-sm">
-                <!-- thumb -->
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
-                    <div class="content-row">
-                        <span><small class="view-icon"></small> 2589</span>
-                        <a href="">Новости</a>
-                    </div>
-                </div>
-                <!-- thumb -->
-                <div class="content-item">
-                    <p><a href="">Что происходит на рынках прямо сейчас</a></p>
-                    <span>20 января</span>
-                </div>
-            </div>
-            <!-- item -->
-            <!-- item -->
-            <div class="news__wrap_item-sm">
-                <!-- thumb -->
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
-                    <div class="content-row">
-                        <span><small class="view-icon"></small> 2589</span>
-                        <a href="">Новости</a>
-                    </div>
-                </div>
-                <!-- thumb -->
-                <div class="content-item">
-                    <p><a href="">Что происходит на рынках прямо сейчас</a></p>
-                    <span>20 января</span>
-                </div>
-            </div>
-            <!-- item -->
-            <!-- item -->
-            <div class="news__wrap_item-sm">
-                <!-- thumb -->
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
-                    <div class="content-row">
-                        <span><small class="view-icon"></small> 2589</span>
-                        <a href="">Новости</a>
-                    </div>
-                </div>
-                <!-- thumb -->
-                <div class="content-item">
-                    <p><a href="">Что происходит на рынках прямо сейчас</a></p>
-                    <span>20 января</span>
-                </div>
-            </div>
-            <!-- item -->
-            <!-- item -->
-            <div class="news__wrap_item-lg">
-                <!-- thumb -->
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/pic-2.png" alt="">
-                    <div class="content-row">
-                        <span>20 января</span>
-                        <a href="">Новости</a>
-                        <span><small class="view-icon"></small> 2589</span>
-                        <h2><a href="">День, когда президентом стал Дональд Трамп</a></h2>
-                    </div>
 
-                </div>
-                <!-- thumb -->
-            </div>
-            <!-- item -->
             <div class="home-content__wrap_subscribe">
                 <div class="subscribe__wrap">
                     <h3>ПОДПИСАТЬСЯ НА НОВОСТИ</h3>
@@ -418,262 +152,20 @@ $md = new \common\classes\Mobile_Detect();
         </div>
         <div class="news__wrap_buttons">
             <a href=""><span class="rotate-arrow"></span>рубрикатор</a>
-            <a href="" class="show-more">загрузить БОЛЬШЕ</a>
-            <span href="#" class="archive-news datepicker-here datepicker-wrap" >архив новостей</span>
+            <a
+                    href=""
+                    data-offset="34"
+                    csrf-token="<?= Yii::$app->getRequest()->getCsrfToken(); ?>"
+                    class="show-more show-more-news-js">загрузить
+                БОЛЬШЕ</a>
+            <span href="#" class="archive-news datepicker-here datepicker-wrap">архив новостей</span>
         </div>
     </div>
 </section>
 
-<section class="what-say">
-    <div class="container">
-        <h2>О чем говорят в городе</h2>
-        <div class="what-say__servises">
-            <!-- <a href=""><span class="comments-icon"></span>Задать свой вопрос</a> -->
-            <a href=""><span class="mail-icon"></span>Подписаться на эту тему</a>
-        </div>
-        <div class="what-say__wrap">
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-                <span class="counter">99</span>
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/what-say-1.png" alt="">
-                </div>
-                <div class="wrapi">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p>О сколько нам открытий чудных?</p>
-                </div>
-            </a>
-            <!-- item -->
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-                <span class="counter">99</span>
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/what-say-1.png" alt="">
-                </div>
-                <div class="wrapi">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p>О сколько нам открытий чудных?</p>
-                </div>
-            </a>
-            <!-- item -->
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-                <span class="counter">99</span>
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/what-say-1.png" alt="">
-                </div>
-                <div class="wrapi">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p>О сколько нам открытий чудных?</p>
-                </div>
-            </a>
-            <!-- item -->
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-                <span class="counter">99</span>
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/what-say-1.png" alt="">
-                </div>
-                <div class="wrapi">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p>О сколько нам открытий чудных?</p>
-                </div>
-            </a>
-            <!-- item -->
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-                <span class="counter">99</span>
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/what-say-1.png" alt="">
-                </div>
-                <div class="wrapi">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p>О сколько нам открытий чудных?</p>
-                </div>
-            </a>
-            <!-- item -->
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-                <span class="counter">99</span>
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/what-say-1.png" alt="">
-                </div>
-                <div class="wrapi">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p>О сколько нам открытий чудных?</p>
-                </div>
-            </a>
-            <!-- item -->
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-                <span class="counter">99</span>
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/what-say-1.png" alt="">
-                </div>
-                <div class="wrapi">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p>О сколько нам открытий чудных?</p>
-                </div>
-            </a>
-            <!-- item -->
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-                <span class="counter">99</span>
-                <div class="thumb">
-                    <img src="theme/portal-donbassa/img/home-content/what-say-1.png" alt="">
-                </div>
-                <div class="wrapi">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p>О сколько нам открытий чудных?</p>
-                </div>
-            </a>
-            <!-- item -->
-        </div>
-    </div>
-</section>
+<?= \frontend\modules\news\widgets\PeopleTalk::widget(); ?>
 
-<section class="rubrick-slider">
-    <div class="container">
-        <div class="rubrick-slider__wrap">
-            <!-- item -->
-            <div class="rubrick-slider__item">
-                <div class="rubrick-slider__title">
-                    <h2>Политика</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus laudantium aperiam amet maxime, at! Soluta enim magnam voluptas deserunt, nihil.</p>
-                </div>
-                <div class="rubrick-slider__item_wrap">
-                    <div class="item__big">
-                        <img src="theme/portal-donbassa/img/home-content/big-pic.png" alt="">
-                        <div class="item__big_content">
-                            <h4><a href="">Первый испытательный полет МС-21 пройдет в начале весны</a></h4>
-                            <span class="hour-ago">7 часов назад</span>
-                            <div class="item__content_panel">
-                                <a href=""><span class="comments-icon"></span>31</a>
-                                <span><small class="view-icon"></small> 2589</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item__small">
-                        <img src="theme/portal-donbassa/img/home-content/small-pic.png" alt="">
-                        <div class="item__small_content">
-                            <span class="hour-ago">7 часов назад</span>
-                            <div class="item__content_panel">
-                                <a href=""><span class="comments-icon"></span>31</a>
-                                <span><small class="view-icon"></small> 2589</span>
-                            </div>
-                            <h4><a href="">Куда пойти на День Святого Патрика?</a></h4>
-                        </div>
-                    </div>
-                    <div class="item__small">
-                        <img src="theme/portal-donbassa/img/home-content/small-pic.png" alt="">
-                        <div class="item__small_content">
-                            <span class="hour-ago">7 часов назад</span>
-                            <div class="item__content_panel">
-                                <a href=""><span class="comments-icon"></span>31</a>
-                                <span><small class="view-icon"></small> 2589</span>
-                            </div>
-                            <h4><a href="">Куда пойти на День Святого Патрика?</a></h4>
-                        </div>
-                    </div>
-                    <div class="item__small">
-                        <img src="theme/portal-donbassa/img/home-content/small-pic.png" alt="">
-                        <div class="item__small_content">
-                            <span class="hour-ago">7 часов назад</span>
-                            <div class="item__content_panel">
-                                <a href=""><span class="comments-icon"></span>31</a>
-                                <span><small class="view-icon"></small> 2589</span>
-                            </div>
-                            <h4><a href="">Куда пойти на День Святого Патрика?</a></h4>
-                        </div>
-                    </div>
-                    <div class="item__small">
-                        <img src="theme/portal-donbassa/img/home-content/small-pic.png" alt="">
-                        <div class="item__small_content">
-                            <span class="hour-ago">7 часов назад</span>
-                            <div class="item__content_panel">
-                                <a href=""><span class="comments-icon"></span>31</a>
-                                <span><small class="view-icon"></small> 2589</span>
-                            </div>
-                            <h4><a href="">Куда пойти на День Святого Патрика?</a></h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- item -->
-            <!-- item -->
-            <div class="rubrick-slider__item">
-                <div class="rubrick-slider__title">
-                    <h2>Объявления</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus laudantium aperiam amet maxime, at! Soluta enim magnam voluptas deserunt, nihil.</p>
-                </div>
-                <div class="rubrick-slider__item_wrap">
-                    <div class="item__big">
-                        <img src="theme/portal-donbassa/img/home-content/big-pic.png" alt="">
-                        <div class="item__big_content">
-                            <h4><a href="">Первый испытательный полет МС-21 пройдет в начале весны</a></h4>
-                            <span class="hour-ago">7 часов назад</span>
-                            <div class="item__content_panel">
-                                <a href=""><span class="comments-icon"></span>31</a>
-                                <span><small class="view-icon"></small> 2589</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item__small">
-                        <img src="theme/portal-donbassa/img/home-content/small-pic.png" alt="">
-                        <div class="item__small_content">
-                            <span class="hour-ago">7 часов назад</span>
-                            <div class="item__content_panel">
-                                <a href=""><span class="comments-icon"></span>31</a>
-                                <span><small class="view-icon"></small> 2589</span>
-                            </div>
-                            <h4><a href="">Куда пойти на День Святого Патрика?</a></h4>
-                        </div>
-                    </div>
-                    <div class="item__small">
-                        <img src="theme/portal-donbassa/img/home-content/small-pic.png" alt="">
-                        <div class="item__small_content">
-                            <span class="hour-ago">7 часов назад</span>
-                            <div class="item__content_panel">
-                                <a href=""><span class="comments-icon"></span>31</a>
-                                <span><small class="view-icon"></small> 2589</span>
-                            </div>
-                            <h4><a href="">Куда пойти на День Святого Патрика?</a></h4>
-                        </div>
-                    </div>
-                    <div class="item__small">
-                        <img src="theme/portal-donbassa/img/home-content/small-pic.png" alt="">
-                        <div class="item__small_content">
-                            <span class="hour-ago">7 часов назад</span>
-                            <div class="item__content_panel">
-                                <a href=""><span class="comments-icon"></span>31</a>
-                                <span><small class="view-icon"></small> 2589</span>
-                            </div>
-                            <h4><a href="">Куда пойти на День Святого Патрика?</a></h4>
-                        </div>
-                    </div>
-                    <div class="item__small">
-                        <img src="theme/portal-donbassa/img/home-content/small-pic.png" alt="">
-                        <div class="item__small_content">
-                            <span class="hour-ago">7 часов назад</span>
-                            <div class="item__content_panel">
-                                <a href=""><span class="comments-icon"></span>31</a>
-                                <span><small class="view-icon"></small> 2589</span>
-                            </div>
-                            <h4><a href="">Куда пойти на День Святого Патрика?</a></h4>
-                        </div>
-                    </div>
-                </div>          <div class="item__big">
-                    <img src="theme/portal-donbassa/img/home-content/big-pic.png" alt="">
-                    <div class="item__big_content">
-                        <h4></h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- item -->
-    </div>
+<?= \frontend\modules\news\widgets\RubricSlider::widget(); ?>
 
-    </div>
-</section>
 
 

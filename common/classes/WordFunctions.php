@@ -75,7 +75,8 @@ class WordFunctions
             date('H:i', $date);
     }
 
-    public static function getRuWeek(){
+    public static function getRuWeek()
+    {
         return [
             1 => 'понедельник',
             2 => 'вторник',
@@ -85,6 +86,11 @@ class WordFunctions
             6 => 'суббота',
             7 => 'воскресенье',
         ];
+    }
+
+    public static function dateWithMonts($time)
+    {
+        return date('d',$time) . ' ' . self::getRuMonth()[date('m',$time)];
     }
 
 }

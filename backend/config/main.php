@@ -88,6 +88,9 @@ return [
         'mainpage' => [
             'class' => 'backend\modules\mainpage\Mainpage',
         ],
+        'people_talk' => [
+            'class' => 'backend\modules\people_talk\PeopleTalk',
+        ],
     ],
     'components' => [
         /*'user' => [
