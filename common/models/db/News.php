@@ -88,7 +88,7 @@ class News extends \yii\db\ActiveRecord
      */
     public function getCategoryNewsRelations()
     {
-        return $this->hasMany(CategoryNewsRelations::className(), ['new_id' => 'id']);
+        return $this->hasMany(CategoryNewsRelations::className(), ['new_id' => 'id'])->with('cat');
     }
 
     public static function mainSlider()

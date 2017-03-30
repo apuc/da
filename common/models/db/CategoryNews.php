@@ -68,6 +68,6 @@ class CategoryNews extends \yii\db\ActiveRecord
      */
     public function getCategoryNewsRelations()
     {
-        return $this->hasMany(CategoryNewsRelations::className(), ['cat_id' => 'id']);
+        return $this->hasMany(CategoryNewsRelations::className(), ['cat_id' => 'id'])->with('new');
     }
 }

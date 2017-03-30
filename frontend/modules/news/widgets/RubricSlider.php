@@ -9,9 +9,12 @@
 namespace frontend\modules\news\widgets;
 
 use common\classes\Debug;
+use common\models\db\CategoryNews;
 use common\models\db\News;
 use Yii;
 use yii\base\Widget;
+use yii\db\Connection;
+use yii\helpers\ArrayHelper;
 
 class RubricSlider extends Widget
 {
@@ -20,9 +23,20 @@ class RubricSlider extends Widget
     public function run()
     {
 
+        $catsListId = ArrayHelper::map(CategoryNews::find()->all(), 'id', 'title');
 
-        return $this->render("rubric_slider", [
+        $news = [];
+        foreach ($catsListId as $id => $title) {
+            $news[$title] = News::find()
+                ->joinWith('categoryNewsRelations')
+                ->where(['`category_news_relations`.`cat_id`' => $id])
+                ->limit(5)
+                ->orderBy('views DESC')
+                ->all();
+        }
 
+        return $this->render('rubric_slider', [
+            'newsArray' => $news,
         ]);
 
     }

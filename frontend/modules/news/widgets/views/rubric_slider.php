@@ -1,147 +1,71 @@
-
 <section class="rubrick-slider">
     <div class="container">
+        <button class="toggle_mnu__rubrick">
+        <span class="sandwich">
+          <span class="sw-topper"></span>
+          <span class="sw-bottom"></span>
+          <span class="sw-footer"></span>
+        </span>
+        </button>
         <div class="rubrick-slider__wrap">
-            <!-- item -->
-            <div class="rubrick-slider__item">
-                <div class="rubrick-slider__title">
-                    <h2>Политика</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus laudantium aperiam amet maxime,
-                        at! Soluta enim magnam voluptas deserunt, nihil.</p>
-                </div>
-                <div class="rubrick-slider__item_wrap">
-                    <div class="item__big">
-                        <img src="theme/portal-donbassa/img/home-content/big-pic.png" alt="">
-                        <div class="item__big_content">
-                            <h4><a href="">Первый испытательный полет МС-21 пройдет в начале весны</a></h4>
-                            <span class="hour-ago">7 часов назад</span>
-                            <div class="item__content_panel">
-                                <a href=""><span class="comments-icon"></span>31</a>
-                                <span><small class="view-icon"></small> 2589</span>
-                            </div>
-                        </div>
+            <?php use yii\helpers\Url;
+
+            foreach ($newsArray as $title => $news):
+                $firstNew = $news[0];
+                ?>
+                <div class="rubrick-slider__item ">
+                    <div class="rubrick-slider__title">
+                        <h2><?= $title; ?></h2>
+                        <p><?= $firstNew->categoryNewsRelations[0]->cat->descr;?></p>
+                        <a href="" class="go-rubrick">перейти в рубрику</a>
                     </div>
-                    <div class="item__small">
-                        <img src="theme/portal-donbassa/img/home-content/small-pic.png" alt="">
-                        <div class="item__small_content">
-                            <span class="hour-ago">7 часов назад</span>
-                            <div class="item__content_panel">
-                                <a href=""><span class="comments-icon"></span>31</a>
-                                <span><small class="view-icon"></small> 2589</span>
+                    <div class="rubrick-slider__item_wrap">
+                        <div class="item__big">
+                            <img src="<?= $firstNew->photo; ?>" alt="">
+                            <div class="item__big_content">
+                                <h4><a href="<?= Url::to([
+                                        '/news/default/view',
+                                        'slug' => $firstNew->slug,
+                                    ]); ?>"><?= $firstNew->title; ?></a></h4>
+                                <span class="hour-ago"><?= \common\classes\WordFunctions::FullEventDate($firstNew->dt_public); ?></span>
+                                <div class="item__content_panel">
+                                    <a href=""><span class="comments-icon"></span>31</a>
+                                    <span><small class="view-icon"></small> <?= $firstNew->views; ?></span>
+                                </div>
                             </div>
-                            <h4><a href="">Куда пойти на День Святого Патрика?</a></h4>
                         </div>
-                    </div>
-                    <div class="item__small">
-                        <img src="theme/portal-donbassa/img/home-content/small-pic.png" alt="">
-                        <div class="item__small_content">
-                            <span class="hour-ago">7 часов назад</span>
-                            <div class="item__content_panel">
-                                <a href=""><span class="comments-icon"></span>31</a>
-                                <span><small class="view-icon"></small> 2589</span>
+                        <?php foreach ($news as $key => $new):
+                            if ($key == 0) {
+                                continue;
+                            }
+                            ?>
+                            <div class="item__small">
+                                <img src="<?= $new->photo; ?>" alt="">
+                                <div class="item__small_content">
+                                    <span class="hour-ago"><?= \common\classes\WordFunctions::FullEventDate($new->dt_public); ?></span>
+                                    <div class="item__content_panel">
+                                        <a href=""><span class="comments-icon"></span>31</a>
+                                        <span><small class="view-icon"></small> <?= $new->views; ?></span>
+                                    </div>
+                                    <h4><a href="<?= Url::to([
+                                            '/news/default/view',
+                                            'slug' => $firstNew->slug,
+                                        ]); ?>"><?= $new->title; ?></a></h4>
+                                </div>
                             </div>
-                            <h4><a href="">Куда пойти на День Святого Патрика?</a></h4>
-                        </div>
-                    </div>
-                    <div class="item__small">
-                        <img src="theme/portal-donbassa/img/home-content/small-pic.png" alt="">
-                        <div class="item__small_content">
-                            <span class="hour-ago">7 часов назад</span>
-                            <div class="item__content_panel">
-                                <a href=""><span class="comments-icon"></span>31</a>
-                                <span><small class="view-icon"></small> 2589</span>
-                            </div>
-                            <h4><a href="">Куда пойти на День Святого Патрика?</a></h4>
-                        </div>
-                    </div>
-                    <div class="item__small">
-                        <img src="theme/portal-donbassa/img/home-content/small-pic.png" alt="">
-                        <div class="item__small_content">
-                            <span class="hour-ago">7 часов назад</span>
-                            <div class="item__content_panel">
-                                <a href=""><span class="comments-icon"></span>31</a>
-                                <span><small class="view-icon"></small> 2589</span>
-                            </div>
-                            <h4><a href="">Куда пойти на День Святого Патрика?</a></h4>
-                        </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
-            </div>
-            <!-- item -->
-            <!-- item -->
-            <div class="rubrick-slider__item">
-                <div class="rubrick-slider__title">
-                    <h2>Объявления</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus laudantium aperiam amet maxime,
-                        at! Soluta enim magnam voluptas deserunt, nihil.</p>
-                </div>
-                <div class="rubrick-slider__item_wrap">
-                    <div class="item__big">
-                        <img src="theme/portal-donbassa/img/home-content/big-pic.png" alt="">
-                        <div class="item__big_content">
-                            <h4><a href="">Первый испытательный полет МС-21 пройдет в начале весны</a></h4>
-                            <span class="hour-ago">7 часов назад</span>
-                            <div class="item__content_panel">
-                                <a href=""><span class="comments-icon"></span>31</a>
-                                <span><small class="view-icon"></small> 2589</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item__small">
-                        <img src="theme/portal-donbassa/img/home-content/small-pic.png" alt="">
-                        <div class="item__small_content">
-                            <span class="hour-ago">7 часов назад</span>
-                            <div class="item__content_panel">
-                                <a href=""><span class="comments-icon"></span>31</a>
-                                <span><small class="view-icon"></small> 2589</span>
-                            </div>
-                            <h4><a href="">Куда пойти на День Святого Патрика?</a></h4>
-                        </div>
-                    </div>
-                    <div class="item__small">
-                        <img src="theme/portal-donbassa/img/home-content/small-pic.png" alt="">
-                        <div class="item__small_content">
-                            <span class="hour-ago">7 часов назад</span>
-                            <div class="item__content_panel">
-                                <a href=""><span class="comments-icon"></span>31</a>
-                                <span><small class="view-icon"></small> 2589</span>
-                            </div>
-                            <h4><a href="">Куда пойти на День Святого Патрика?</a></h4>
-                        </div>
-                    </div>
-                    <div class="item__small">
-                        <img src="theme/portal-donbassa/img/home-content/small-pic.png" alt="">
-                        <div class="item__small_content">
-                            <span class="hour-ago">7 часов назад</span>
-                            <div class="item__content_panel">
-                                <a href=""><span class="comments-icon"></span>31</a>
-                                <span><small class="view-icon"></small> 2589</span>
-                            </div>
-                            <h4><a href="">Куда пойти на День Святого Патрика?</a></h4>
-                        </div>
-                    </div>
-                    <div class="item__small">
-                        <img src="theme/portal-donbassa/img/home-content/small-pic.png" alt="">
-                        <div class="item__small_content">
-                            <span class="hour-ago">7 часов назад</span>
-                            <div class="item__content_panel">
-                                <a href=""><span class="comments-icon"></span>31</a>
-                                <span><small class="view-icon"></small> 2589</span>
-                            </div>
-                            <h4><a href="">Куда пойти на День Святого Патрика?</a></h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="item__big">
-                    <img src="theme/portal-donbassa/img/home-content/big-pic.png" alt="">
-                    <div class="item__big_content">
-                        <h4></h4>
-                    </div>
-                </div>
-            </div>
+            <?php endforeach; ?>
+
         </div>
-        <!-- item -->
+        <div id="dotscustom">
+            <?php
+            foreach ($newsArray as $title => $new): ?>
+                <div><?= $title; ?></div>
+            <?php endforeach; ?>
+        </div>
     </div>
 
-    </div>
+
 </section>
