@@ -1,0 +1,1 @@
+User-agent: *Disallow: /secure/Disallow: /cgi-bin/Host: da-info.proSitemap: http://da-info.pro/sitemap.xml

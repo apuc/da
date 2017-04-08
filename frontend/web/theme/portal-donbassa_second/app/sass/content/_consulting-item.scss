@@ -1,0 +1,94 @@
+.consult-item{
+  padding-top: 50px;
+  width: 100%;
+  float: left;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  .consult-item-mnu{
+    width: 30%;
+    float: left;
+    .consult-img{
+      margin-top: -10px;
+      margin-right: 15px;
+      float: left;
+      width: 41px;
+      height: 35px;
+      object-fit: contain;
+      i{
+        font-size: 40px;
+        color: #ff3432
+      }
+    }
+    h4{
+      font-family:$rb;
+      color: #040000;
+      font-size: 16px;
+      margin-bottom: 7px;
+    }
+    .shape{
+      width: 45%;
+      //margin-left: 50px;
+      margin-bottom: 7px;
+      float: none;
+    }
+    .consult-item-mnu-menu{
+      list-style-type: none;
+      position: relative;
+      padding-left:6%;
+      li{
+        position: relative;
+        margin: 7px 0;
+        a{
+          text-decoration: none;
+          font-family:$rr;
+          font-size: 14px;
+          color:#040000;
+          .marker{
+            left: -22px;
+            top: 5px;
+            background-color:#ff3432;
+          }
+        }
+         .active{
+          font-family: $rb;
+        }
+      }
+      .inserted{
+        display: none;
+        padding-left:6px;
+      }
+    }
+  }
+  .consult-item-content{
+    width: 70%;
+    float: left;
+    .company-title{
+      font-family:$rb;
+      font-size:16px;
+      text-transform: uppercase;
+      color:#040000;
+    }
+    .company-descr{
+      font-family:$rr;
+      font-size: 14px;
+      color:#040000;
+      font-style: italic;
+    }
+    .company-map{
+      width: 93%;
+    }
+    .company-location{
+      font-family: $rr;
+      color:#040000;
+      font-size:16px;
+      margin-top: 7px;
+    }
+    .company-phone{
+      width: 37%;
+      font-family: $rb;
+      color:#040000;
+      font-size:16px;
+    }
+  }
+}

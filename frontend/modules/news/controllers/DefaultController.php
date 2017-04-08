@@ -1,0 +1,154 @@
+<?php
+
+namespace frontend\modules\news\controllers;
+
+use common\classes\Debug;
+use common\models\db\CategoryNews;
+use common\models\db\CategoryNewsRelations;
+use common\models\db\Comments;
+use common\models\db\Lang;
+use common\models\db\Likes;
+use common\models\db\News;
+use Yii;
+use yii\helpers\ArrayHelper;
+use yii\web\Controller;
+
+/**
+ * Default controller for the `news` module
+ */
+class DefaultController extends Controller
+{
+    public $layout = 'portal_page';
+
+    /**
+     * Renders the index view for the module
+     * @return string
+     */
+    public function actionIndex()
+    {
+        return $this->render('index', [
+            'news' => News::find()->where(['lang_id' => Lang::getCurrent()['id']])->all(),
+        ]);
+    }
+
+    public function actionView()
+    {
+        $request = Yii::$app->request->get();
+        $new = News::findOne(['slug' => $request['slug']]);
+
+        if (empty($new)) {
+            return $this->redirect(['site/error']);
+        }
+
+        $countComments = Comments::find()
+            ->where([
+                'post_type' => 'news',
+                'post_id' => $new->id,
+            ])
+            ->count();
+
+        $tags = explode(',', $new->tags);
+
+        $likes = Likes::find()
+            ->where(['post_id' => $new->id, 'post_type' => 'news'])
+            ->count();
+
+        $currentUserId = Yii::$app->user->id;
+
+        if (!empty($currentUserId)) {
+            $thisUserLike = Likes::find()
+                ->where(['post_id' => $new->id, 'post_type' => 'news', 'user_id' => $currentUserId])
+                ->count();
+        } else {
+            $thisUserLike = false;
+        }
+        $new->updateAllCounters(['views' => 1], ['id' => $new->id]);
+
+        if (!empty(Yii::$app->request->post()['category'])) {
+            $category = CategoryNews::findOne(Yii::$app->request->post()['category']);
+        } else {
+            $category = CategoryNewsRelations::find()
+                ->where(['new_id' => $new->id])
+                ->orderBy('RAND()')
+                ->limit(1)
+                ->with('cat')
+                ->one();
+        }
+
+        return $this->render('view', [
+            'model' => $new,
+            'tags' => $tags,
+            'likes' => $likes,
+            'category' => $category->cat,
+            'countComments' => $countComments,
+            'thisUserLike' => $thisUserLike,
+        ]);
+    }
+
+    public function _actionView()
+    {
+        $new = News::find()->where(['slug' => $_GET['slug']])->one();
+        if (empty($new)) {
+            return $this->redirect(['site/error']);
+        }
+        $new->updateAllCounters(['views' => 1], ['id' => $new->id]);
+
+        $cats_news_ids = ArrayHelper::getColumn(CategoryNewsRelations::find()->where(['new_id' => $new->id])->select('cat_id')->asArray()->all(),
+            'cat_id');
+        $cats_news = ArrayHelper::getColumn(CategoryNewsRelations::find()->where(['cat_id' => $cats_news_ids])->select('new_id')->asArray()->all(),
+            'new_id');
+        $related_news = News::find()
+            ->where(['id' => $cats_news, 'status' => 0])
+            ->andWhere(['!=', 'id', $new->id])
+            ->andWhere(['>', 'dt_public', time() - 3600 * 24 * 14])
+            ->orderBy(['rand()' => SORT_DESC])
+            ->limit(6)
+            ->all();
+
+        $most_popular_news = News::find()
+            ->andWhere(['>', 'dt_public', time() - 3600 * 24 * 14])
+            ->andWhere(['!=', 'id', $new->id])
+            ->andWhere(['exclude_popular' => 0, 'status' => 0])
+            ->orderBy('views DESC')
+            ->limit(6)
+            ->all();
+        $count_likes = count(Likes::find()
+            ->where(['post_type' => 'news', 'post_id' => $new->id])
+            ->all());
+
+        $user_set_like = Likes::find()
+            ->where([
+                'post_type' => 'news',
+                'user_id' => Yii::$app->user->id,
+                'post_id' => $new->id,
+            ])
+            ->one();
+
+        if (!empty($new->content)) {
+            return $this->render('view', [
+                'news' => $new,
+                'related_news' => $related_news,
+                'most_popular_news' => $most_popular_news,
+                'count_likes' => $count_likes,
+                'user_set_like' => $user_set_like,
+            ]);
+        } else {
+            return $this->render('view_image', [
+                'news' => $new,
+                'related_news' => $related_news,
+                'most_popular_news' => $most_popular_news,
+                'count_likes' => $count_likes,
+                'user_set_like' => $user_set_like,
+            ]);
+        }
+    }
+
+    public function actionSet_dt_public()
+    {
+        $news = News::find()->where(['dt_public' => null])->all();
+
+        foreach ($news as $new) {
+            News::updateAll(['dt_public' => $new->dt_add], ['id' => $new->id]);
+        }
+    }
+}
