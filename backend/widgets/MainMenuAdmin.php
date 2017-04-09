@@ -164,6 +164,12 @@ class MainMenuAdmin extends Widget
                                 'active' => Yii::$app->controller->module->id == 'poster' && Yii::$app->controller->action->id == 'main-poster',
 //                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
+                            [
+                                'label' => 'Может заинтересовать',
+                                'url' => Url::to(['/poster/poster/interested-in']),
+                                'active' => Yii::$app->controller->module->id == 'poster' && Yii::$app->controller->action->id == 'interested-in',
+                                //'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
                         ],
                         'visible' => UserFunction::hasPermission(['Афиша']),
                         'options' => [

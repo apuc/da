@@ -4,6 +4,7 @@ namespace backend\modules\poster\controllers;
 
 use backend\modules\category\Category;
 use common\classes\Debug;
+use common\classes\WordFunctions;
 use common\models\db\CategoryPosterRelations;
 use common\models\db\KeyValue;
 use Yii;
@@ -203,4 +204,30 @@ class PosterController extends Controller
 
     }
 
+    public function actionInterestedIn()
+    {
+        $request = Yii::$app->request;
+        $interestedInPosters = KeyValue::findOne(['key' => 'intrested_in_posters']);
+
+        if ($request->isPost) {
+            //обновляем индексы, если были удалены категории
+            $json = array_values($request->post()['interested_in']);
+            //убираем пустую категорию
+            foreach ($json as $key => $value) {
+                if (empty($value['title']) || empty($value['thumb']) || empty($value['posters'])) {
+                    unset($json[$key]);
+                } else {
+                    $json[$key]['count'] = count($value['posters']) . ' ' . WordFunctions::getNumEnding(count($value['posters']), ['событие', 'события', 'событий']);
+                }
+            }
+
+            $interestedInPosters->value = json_encode($json);
+            $interestedInPosters->save();
+        }
+
+        return $this->render('interested_in', [
+            'interestedInPosters' => json_decode($interestedInPosters->value),
+            'postersList' => ArrayHelper::map(Poster::find()->orderBy('id DESC')->all(), 'id', 'title'),
+        ]);
+    }
 }
