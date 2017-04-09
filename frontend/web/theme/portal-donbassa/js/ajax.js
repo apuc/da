@@ -49,4 +49,21 @@ $(document).ready(function () {
         }
     });
 
+
+    /*============================================================
+     INTERESTED IN POSTERS
+     =============================================================*/
+    $(document).on('click', '.js-interested-in-more', function () {
+        event.preventDefault();
+        var csrfToken = $(this).attr('csrf-token');
+
+        $.post(
+            '/poster/default/more-interested-in',
+            {'_csrf': csrfToken},
+            function(data) {
+                $('.js-interested-in-more').prev('.afisha-events__wrap').append(data);
+                $('.js-interested-in-more').remove();
+            }
+        );
+    });
 })

@@ -16,10 +16,13 @@ class InterestedIn extends Widget
 {
     public function run()
     {
-        $interestedInPosters = KeyValue::findOne(['key' => 'intrested_in_posters']);
+        $interestedInPostersJson = KeyValue::findOne(['key' => 'intrested_in_posters']);
+        $interestedInPosters = json_decode($interestedInPostersJson->value);
+        $firstInterestedInPosters = array_slice($interestedInPosters, 0, 4);
 
         return $this->render('interested_in', [
-           'interestedInPosters' => json_decode($interestedInPosters->value),
+            'interestedInPosters' => $firstInterestedInPosters,
+            'interestedInPostersCount' => count($interestedInPosters),
         ]);
     }
 }

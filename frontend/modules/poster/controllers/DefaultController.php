@@ -217,4 +217,20 @@ class DefaultController extends Controller
         }
 
     }
+
+    public function actionMoreInterestedIn()
+    {
+        $interestedInPostersJson = KeyValue::findOne(['key' => 'intrested_in_posters']);
+        $interestedInPosters = json_decode($interestedInPostersJson->value);
+
+        if (count($interestedInPosters) <= 4) {
+            die();
+        }
+
+        $moreInterestedPosters = array_slice($interestedInPosters, 4);
+
+        return $this->renderAjax('more_interested_in', [
+            'interestedInPosters' => $moreInterestedPosters,
+        ]);
+    }
 }
