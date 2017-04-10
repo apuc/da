@@ -30,3 +30,4 @@ phpunit.phar
 # local phpunit config
 /phpunit.xml
 /common/classes/WordFunctions.php
+/frontend/web/media/upload/

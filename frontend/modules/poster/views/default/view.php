@@ -17,7 +17,6 @@ $this->title = $poster->title;
 
 <?= \frontend\modules\poster\widgets\Categories::widget(); ?>
 
-
 <section class="single-afisha">
     <div class="container">
         <p class="age"><?= $category->title; ?></p>
