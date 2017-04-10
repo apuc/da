@@ -65,4 +65,26 @@ class PostsDigest extends \yii\db\ActiveRecord
             'meta_descr' => Yii::t('poster', 'Meta Descr'),
         ];
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getConsulting()
+    {
+        return $this->hasOne(Consulting::className(), ['slug' => 'type']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategoryPostsDigestRelation()
+    {
+        return $this->hasMany(CategoryPostsDigestRelations::className(), ['posts_digest_id' => 'id']);
+    }
+
+    public function getCategoryPostsDigest()
+    {
+        return $this->hasMany(CategoryPostsDigest::className(), ['id' => 'cat_id'])->via('categoryPostsDigestRelation');
+    }
+
 }

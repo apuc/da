@@ -23,6 +23,9 @@ use Yii;
  * @property integer $faq
  * @property string $meta_title
  * @property string $meta_descr
+ * @property integer $main_slider
+ * @property string $photo
+ * @property integer $sidebar
  */
 class Consulting extends \yii\db\ActiveRecord
 {
@@ -42,8 +45,8 @@ class Consulting extends \yii\db\ActiveRecord
         return [
             [['title', 'company_id', 'title_digest'], 'required'],
             [['descr'], 'string'],
-            [['dt_add', 'dt_update', 'views', 'company_id', 'about_company', 'documents', 'posts', 'faq'], 'integer'],
-            [['title', 'slug', 'icon', 'title_digest', 'meta_title', 'meta_descr'], 'string', 'max' => 255],
+            [['dt_add', 'dt_update', 'views', 'company_id', 'about_company', 'documents', 'posts', 'faq', 'main_slider','sidebar'], 'integer'],
+            [['title', 'slug', 'icon', 'title_digest', 'meta_title', 'meta_descr','photo'], 'string', 'max' => 255],
         ];
     }
 
@@ -69,6 +72,14 @@ class Consulting extends \yii\db\ActiveRecord
             'faq' => Yii::t('poster', 'Faq'),
             'meta_title' => Yii::t('poster', 'Meta Title'),
             'meta_descr' => Yii::t('poster', 'Meta Descr'),
+            'main_slider' => Yii::t('poster', 'Main slider'),
+            'photo' => Yii::t('poster', 'Photo'),
+            'sidebar' => Yii::t('poster', 'Sidebar'),
+
         ];
+    }
+
+    public function getCompany(){
+        return $this->hasOne(Company::className(), ['id'=>'company_id']);
     }
 }

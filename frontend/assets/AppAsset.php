@@ -41,7 +41,8 @@ class AppAsset extends AssetBundle
         'theme/portal-donbassa/js/fancybox/jquery.fancybox.pack.js',
         'theme/portal-donbassa/js/script.min.js',
         'theme/portal-donbassa/js/jquery.hc-sticky.min.js',
-        'theme/portal-donbassa/js/ajax.js',
+        //'theme/portal-donbassa/js/ajax.js',
+        'js/consulting.js',
 
     ];
     public $depends = [

@@ -130,7 +130,7 @@ return [
                 'posts-categories/<slugcategory>'=>'/consulting/consulting/posts',
                 'posts/<slug>/<postslug>'=>'/consulting/consulting/postsv',
                 'documents/<slug>'=>'/consulting/consulting/documents',
-                'documents-categories/<slugcategory>'=>'/consulting/consulting/documents',
+                'documents-categories/<slug>'=>'/consulting/consulting/documents-categories',
                 'documents/<slug>/<catslug>/<postslug>'=>'/consulting/consulting/documentsv',
                 'documents/<slug>/<postslug>'=>'/consulting/consulting/documentsv',
                 //'ajax'=> 'ajax/default',

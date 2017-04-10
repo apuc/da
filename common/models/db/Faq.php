@@ -41,7 +41,7 @@ class Faq extends \yii\db\ActiveRecord
         return [
             [['question', 'answer', 'type', 'company_id', 'cat_id'], 'required'],
             [['answer'], 'string'],
-            [['dt_add', 'dt_update', 'views', 'user_id', 'company_id', 'cat_id', 'sort_order','main_page'], 'integer'],
+            [['dt_add', 'dt_update', 'views', 'user_id', 'company_id', 'cat_id', 'sort_order', 'main_page'], 'integer'],
             [['question', 'slug', 'type', 'meta_title', 'meta_descr'], 'string', 'max' => 255],
         ];
     }
@@ -70,10 +70,18 @@ class Faq extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getcompany(){
-        return $this->hasOne(Company::className(), ['id'=>'company_id']);
+    public function getcompany()
+    {
+        return $this->hasOne(Company::className(), ['id' => 'company_id']);
     }
-    public function getcategory(){
-        return $this->hasOne(CategoryFaq::className(), ['id'=>'cat_id']);
+
+    public function getcategory()
+    {
+        return $this->hasOne(CategoryFaq::className(), ['id' => 'cat_id']);
+    }
+
+    public function getConsulting()
+    {
+        return $this->hasOne(Consulting::className(), ['slug' => 'type']);
     }
 }
