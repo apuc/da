@@ -35,37 +35,45 @@ class ConsultingPostsMenu extends Widget
         if ($this->consulting->documents) {
             $sections[$this->consulting->title_digest] = [
                 'url' => Url::to(['/consulting/consulting/documents', 'slug' => $this->consulting->slug]),
-                'content' => $this->generateTree(CategoryPostsDigest::findAll(['type' => $this->consulting->slug])),
+                'content' => $this->generateTree(CategoryPostsDigest::findAll(['type' => $this->consulting->slug]),
+                    0,
+                    '/consulting/consulting/documents-categories'),
                 'active' => ($action == 'documents') ? 'active' : '',
             ];
         }
         if ($this->consulting->posts) {
             $sections['Статьи'] = [
                 'url' => Url::to(['/consulting/consulting/posts', 'slug' => $this->consulting->slug]),
-                'content' => $this->generateTree(CategoryPostsConsulting::findAll(['type' => $this->consulting->slug])),
+                'content' => $this->generateTree(CategoryPostsConsulting::findAll(['type' => $this->consulting->slug]),
+                    0,
+                    '/consulting/consulting/posts-categories'
+                ),
                 'active' => ($action == 'posts') ? 'active' : '',
             ];
         }
         if ($this->consulting->faq) {
             $sections['Вопрос / Ответ'] = [
                 'url' => Url::to(['/consulting/consulting/faq', 'slug' => $this->consulting->slug]),
-                'content' => $this->generateTree(CategoryFaq::findAll(['type' => $this->consulting->slug])),
+                'content' => $this->generateTree(CategoryFaq::findAll(['type' => $this->consulting->slug]),
+                    0,
+                    'consulting/consulting/faq-categories'
+                ),
                 'active' => ($action == 'faq') ? 'active' : '',
             ];
         }
         return $this->render('consulting_posts_menu', ['sections' => $sections]);
     }
 
-    public function generateTree($tree, $parent_id = 0)
+    public function generateTree($tree, $parent_id = 0, $url)
     {
 
         $html = '';
         foreach ($tree as $row) {
             if ($row['parent_id'] == $parent_id) {
-                $html .= '<li><a href="">';
+                $html .= '<li><a href="' . Url::to([$url,$row->slug]) . '">';
                 $html .= '' . $row['title'];
                 $html .= '' . '</a>';
-                $html .= '' . $this->generateTree($tree, $row['id']);
+                $html .= '' . $this->generateTree($tree, $row['id'], $url);
                 $html .= '</li>';
                 $html .= '</li>';
             }
