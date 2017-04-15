@@ -19,11 +19,13 @@ $this->registerMetaTag([
 
 <main id="main-consultations">
     <div class="container">
-        <h1><?= $consulting->title; ?></h1>
+        <div class="main-consultations-sidebar">
+            <h1><?= $consulting->title; ?></h1>
+            <?= \frontend\modules\consulting\widgets\ConsultingPostsMenu::widget(['consulting' => $consulting]); ?>
+        </div>
         <div class="search"><input type="text" placeholder="Поиск">
             <button>Найти</button>
         </div>
-        <?= \frontend\modules\consulting\widgets\ConsultingPostsMenu::widget(['consulting' => $consulting]); ?>
         <article id="article">
             <h2><?= $postsTitle; ?></h2>
             <div class="laws">
@@ -40,7 +42,9 @@ $this->registerMetaTag([
                                     ['просмотр', 'просмтора', 'просмотров']); ?></span></div>
                     </div>
                 <?php endforeach; ?>
-                <a href="#" data-post-type="posts" data-type="<?= $consulting->slug;?>"data-category="<?= $ajaxCategory;?>" data-offset="3" id="consulting-more-posts" class="load-more">Загрузить больше</a>
+                <a href="#" data-post-type="posts" data-type="<?= $consulting->slug; ?>"
+                   data-category="<?= $ajaxCategory; ?>" data-offset="3" id="consulting-more-posts" class="load-more">Загрузить
+                    больше</a>
             </div>
         </article>
     </div>

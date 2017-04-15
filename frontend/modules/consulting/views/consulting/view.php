@@ -21,14 +21,14 @@ $this->registerMetaTag([
 <main id="main-consultations">
 
     <div class="container">
-
+        <div class="main-consultations-sidebar">
         <h1><?= $consulting->title; ?></h1>
+
+        <?= \frontend\modules\consulting\widgets\ConsultingPostsMenu::widget(['consulting' => $consulting]); ?>
+        </div>
         <div class="search"><input type="text" placeholder="Поиск">
             <button>Найти</button>
         </div>
-
-        <?= \frontend\modules\consulting\widgets\ConsultingPostsMenu::widget(['consulting' => $consulting]); ?>
-
         <article id="article">
             <h2><?= $consulting->company->name; ?></h2>
 
