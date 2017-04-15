@@ -217,7 +217,8 @@ class PosterController extends Controller
                 if (empty($value['title']) || empty($value['thumb']) || empty($value['posters'])) {
                     unset($json[$key]);
                 } else {
-                    $json[$key]['count'] = count($value['posters']) . ' ' . WordFunctions::getNumEnding(count($value['posters']), ['событие', 'события', 'событий']);
+                    $json[$key]['count'] = count($value['posters']) . ' ' . WordFunctions::getNumEnding(count($value['posters']),
+                            ['событие', 'события', 'событий']);
                 }
             }
 
@@ -228,6 +229,21 @@ class PosterController extends Controller
         return $this->render('interested_in', [
             'interestedInPosters' => json_decode($interestedInPosters->value),
             'postersList' => ArrayHelper::map(Poster::find()->orderBy('id DESC')->all(), 'id', 'title'),
+        ]);
+    }
+
+    public function actionTopSlider()
+    {
+        $request = Yii::$app->request;
+        $topSlider = KeyValue::findOne(['key' => 'poster_page_top_slider']);
+        if ($request->isPost) {
+            $json = json_encode($request->post()['posters']);
+            $topSlider->value = $json;
+            $topSlider->save();
+        }
+        return $this->render('top_slider', [
+            'postersList' => ArrayHelper::map(Poster::find()->orderBy('id DESC')->all(), 'id', 'title'),
+            'topSlider' => json_decode($topSlider->value),
         ]);
     }
 }
