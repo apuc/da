@@ -30,7 +30,7 @@ $this->registerMetaTag([
                 <?php foreach ($posts as $post): ?>
                     <div class="law">
                         <div class="title"><?= $post->consulting->title; ?>
-                            / <?= $post->categoryPostsDigest[0]->title; ?></div>
+                            / <?= $post->categoryPostsConsulting->title; ?></div>
                         <div class="data-time"><?= \common\classes\WordFunctions::FullEventDate($post->dt_add); ?></div>
                         <div class="title-law"><?= $post->title; ?></div>
                         <div class="text"><?= WordFunctions::crop_str_word(strip_tags($post->content), 50); ?>
@@ -40,7 +40,7 @@ $this->registerMetaTag([
                                     ['просмотр', 'просмтора', 'просмотров']); ?></span></div>
                     </div>
                 <?php endforeach; ?>
-                <a href="#" data-type="<?= $consulting->slug;?>" data-offset="3" id="consulting-more-posts" class="load-more">Загрузить больше</a>
+                <a href="#" data-post-type="posts" data-type="<?= $consulting->slug;?>"data-category="<?= $ajaxCategory;?>" data-offset="3" id="consulting-more-posts" class="load-more">Загрузить больше</a>
             </div>
         </article>
     </div>

@@ -23,29 +23,34 @@ class ConsultingPostsMenu extends Widget
     public function run()
     {
         $sections = [];
+        $action = \Yii::$app->controller->action->id;
 
         if ($this->consulting->about_company) {
             $sections['О компании'] = [
-                'url' => Url::to(['/consulting','slug'=>$this->consulting->slug]),
+                'url' => Url::to(['/consulting/consulting/view', 'slug' => $this->consulting->slug]),
                 'content' => '',
+                'active' => '',
             ];
         }
         if ($this->consulting->documents) {
             $sections[$this->consulting->title_digest] = [
-                'url' => '',
+                'url' => Url::to(['/consulting/consulting/documents', 'slug' => $this->consulting->slug]),
                 'content' => $this->generateTree(CategoryPostsDigest::findAll(['type' => $this->consulting->slug])),
+                'active' => ($action == 'documents') ? 'active' : '',
             ];
         }
         if ($this->consulting->posts) {
             $sections['Статьи'] = [
-                'url' => '',
+                'url' => Url::to(['/consulting/consulting/posts', 'slug' => $this->consulting->slug]),
                 'content' => $this->generateTree(CategoryPostsConsulting::findAll(['type' => $this->consulting->slug])),
+                'active' => ($action == 'posts') ? 'active' : '',
             ];
         }
         if ($this->consulting->faq) {
             $sections['Вопрос / Ответ'] = [
-                'url' => '',
+                'url' => Url::to(['/consulting/consulting/faq', 'slug' => $this->consulting->slug]),
                 'content' => $this->generateTree(CategoryFaq::findAll(['type' => $this->consulting->slug])),
+                'active' => ($action == 'faq') ? 'active' : '',
             ];
         }
         return $this->render('consulting_posts_menu', ['sections' => $sections]);

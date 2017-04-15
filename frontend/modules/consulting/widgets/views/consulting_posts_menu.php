@@ -3,7 +3,7 @@
     <div class="accordion-menu">
         <ul>
             <?php foreach ($sections as $section => $categories): ?>
-                <li><a href="<?= $categories['url']; ?>"><?= $section; ?></a>
+                <li><a class="section <?= $categories['active'];?>" href="<?= $categories['url']; ?>"><?= $section; ?></a>
                     <?= $categories['content']; ?>
                 </li>
             <?php endforeach; ?>

@@ -27,10 +27,11 @@ $(document).ready(function () {
             data: {
                 '_csrf': $('meta[name=csrf-token]').attr("content"),
                 'offset': parseInt($('#consulting-more-posts').attr('data-offset')),
-                'type': $('#consulting-more-posts').attr('data-type')
+                'type': $('#consulting-more-posts').attr('data-type'),
+                'category': $('#consulting-more-posts').attr('data-category'),
+                'post-type': $('#consulting-more-posts').attr('data-post-type')
             },
             success: function (data) {
-                console.log(data);
                 $('#consulting-more-posts').attr('data-offset', parseInt($('#consulting-more-posts').attr('data-offset')) + 3);
                 $('#consulting-more-posts').before(data);
             }
@@ -38,5 +39,7 @@ $(document).ready(function () {
 
         return false;
     })
+
+    $('a.active').closest('li').find('ul').first().addClass('up-child');
 
 })

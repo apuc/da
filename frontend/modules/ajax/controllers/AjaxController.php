@@ -7,6 +7,7 @@ use common\models\db\Answers;
 use common\models\db\Comments;
 use common\models\db\Faq;
 use common\models\db\PossibleAnswers;
+use common\models\db\PostsConsulting;
 use common\models\db\PostsDigest;
 use common\models\db\Question;
 use frontend\widgets\Poll;
@@ -127,17 +128,56 @@ class AjaxController extends Controller
     {
         $request = Yii::$app->request;
         if ($request->isPost) {
-            $posts = PostsDigest::find()
-                ->where(['type' => $request->post('type')])
-                ->orderBy('dt_update DESC')
-                ->with('consulting')
-                ->with('categoryPostsDigest')
-                ->offset($request->post('offset'))
-                ->limit(3)
-                ->all();
+            switch ($request->post('post-type')) {
 
-            return $this->renderPartial('consulting_post',['posts'=>$posts]);
+                case 'digest':
 
+                    $posts = PostsDigest::find()
+                        ->where(['type' => $request->post('type')])
+                        ->orderBy('dt_update DESC')
+                        ->with('consulting')
+                        ->With('categoryPostsDigest')
+                        ->offset($request->post('offset'))
+                        ->limit(3);
+
+                    if (!empty($request->post('category'))) {
+                        $posts = $posts->where(['`category_posts_digest`.`slug`' => $request->post('category')]);
+                    }
+
+                    return $this->renderPartial('consulting_post_digest', ['posts' => $posts->all()]);
+
+                case 'posts':
+
+                    $posts = PostsConsulting::find()
+                        ->where(['`posts_consulting`.`type`' => $request->post('type')])
+                        ->orderBy('dt_update DESC')
+                        ->with('consulting')
+                        ->joinWith('categoryPostsConsulting')
+                        ->offset($request->post('offset'))
+                        ->limit(3);
+
+                    if (!empty($request->post('category'))) {
+                        $posts = $posts->where(['`category_posts_consulting`.`slug`' => $request->post('category')]);
+                    }
+
+                    return $this->renderPartial('consulting_post', ['posts' => $posts->all()]);
+
+                case 'faq':
+
+                    $posts = Faq::find()
+                        ->where(['`faq`.`type`' => $request->post('type')])
+                        ->orderBy('dt_update DESC')
+                        ->with('consulting')
+                        ->joinWith('category')
+                        ->offset($request->post('offset'))
+                        ->limit(3);
+
+                    if (!empty($request->post('category'))) {
+                        $posts = $posts->where(['`category_faq`.`slug`' => $request->post('category')]);
+                    }
+
+                    return $this->renderPartial('consulting_faq', ['posts' => $posts->all()]);
+            }
         }
     }
 }

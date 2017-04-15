@@ -67,4 +67,21 @@ class PostsConsulting extends \yii\db\ActiveRecord
             'meta_descr' => Yii::t('poster', 'Meta Descr'),
         ];
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategoryPostsConsulting()
+    {
+        return $this->hasOne(CategoryPostsConsulting::className(), ['id' => 'cat_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getConsulting()
+    {
+        return $this->hasOne(Consulting::className(), ['slug'=> 'type']);
+    }
+
 }

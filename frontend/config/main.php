@@ -127,7 +127,7 @@ return [
                 'faq-categories/<slugcategory>'=>'/consulting/consulting/faq',
                 'faq/<slug>/<faqslug>'=>'/consulting/consulting/faqv',
                 'posts/<slug>'=>'/consulting/consulting/posts',
-                'posts-categories/<slugcategory>'=>'/consulting/consulting/posts',
+                'posts-categories/<slug>'=>'/consulting/consulting/posts-categories',
                 'posts/<slug>/<postslug>'=>'/consulting/consulting/postsv',
                 'documents/<slug>'=>'/consulting/consulting/documents',
                 'documents-categories/<slug>'=>'/consulting/consulting/documents-categories',

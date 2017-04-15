@@ -37,7 +37,7 @@ $this->registerMetaTag([
 
                     <?= $consulting->descr; ?>
                     <div id="map" class="ymaps"></div>
-                    <p><?= $consulting->company->address; ?></p>
+                    <p class="concreate-adress"><?= $consulting->company->address; ?></p>
                     <div class="title-law"><?= $consulting->company->phone; ?></div>
                 </div>
             </div>

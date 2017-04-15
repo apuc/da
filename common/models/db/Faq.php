@@ -70,12 +70,12 @@ class Faq extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getcompany()
+    public function getCompany()
     {
         return $this->hasOne(Company::className(), ['id' => 'company_id']);
     }
 
-    public function getcategory()
+    public function getCategory()
     {
         return $this->hasOne(CategoryFaq::className(), ['id' => 'cat_id']);
     }

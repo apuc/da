@@ -9,13 +9,20 @@
 namespace frontend\modules\poster\widgets;
 
 use yii\base\Widget;
+use common\classes\Debug;
+use common\models\db\KeyValue;
 
 class InterestedIn extends Widget
 {
-
     public function run()
     {
-        return $this->render('interested_in');
-    }
+        $interestedInPostersJson = KeyValue::findOne(['key' => 'intrested_in_posters']);
+        $interestedInPosters = json_decode($interestedInPostersJson->value);
+        $firstInterestedInPosters = array_slice($interestedInPosters, 0, 4);
 
+        return $this->render('interested_in', [
+            'interestedInPosters' => $firstInterestedInPosters,
+            'interestedInPostersCount' => count($interestedInPosters),
+        ]);
+    }
 }

@@ -37,6 +37,7 @@ class AppAsset extends AssetBundle
     public $js = [
         /*'js/plugins/jQuery/jQuery-2.1.4.min.js',*/
         'https://code.jquery.com/ui/1.11.4/jquery-ui.min.js',
+        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
         /*'js/bootstrap/js/bootstrap.min.js',*/
         'https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js',
         /*'js/plugins/morris/morris.min.js',*/

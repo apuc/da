@@ -129,6 +129,15 @@ $(document).ready(function () {
             $('.imgUpload').find('.media__upload_img').html(images);
         });
     });
+
+    /*============================================================
+                            INTERESTED IN POSTERS
+     =============================================================*/
+    $(document).on('click', '.js-interested-in-delete', function () {
+        if (confirm('Удалить категорию?')) {
+            $(this).closest('.panel-primary').remove();
+        }
+    });
 });
 
 Share = {

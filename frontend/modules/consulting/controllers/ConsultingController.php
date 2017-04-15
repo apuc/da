@@ -75,10 +75,11 @@ class ConsultingController extends \yii\web\Controller
 
         $consulting = $posts[0]->consulting;
 
-        return $this->render('view_posts', [
+        return $this->render('view_posts_digest', [
             'posts' => $posts,
             'consulting' => $consulting,
             'postsTitle' => $consulting->title_digest,
+            'ajaxCategory' => '',
         ]);
 
     }
@@ -97,10 +98,104 @@ class ConsultingController extends \yii\web\Controller
 
         $consulting = $posts[0]->consulting;
 
-        return $this->render('view_posts', [
+        return $this->render('view_posts_digest', [
             'posts' => $posts,
             'consulting' => $consulting,
             'postsTitle' => $consulting->title_digest,
+            'ajaxCategory' => $request->get('slug'),
+        ]);
+
+    }
+
+    public function actionPosts()
+    {
+        $request = Yii::$app->request;
+
+        $posts = PostsConsulting::find()
+            ->where(['type' => $request->get('slug')])
+            ->orderBy('dt_update DESC')
+            ->with('consulting')
+            ->with('categoryPostsConsulting')
+            ->limit(3)
+            ->all();
+
+        $consulting = $posts[0]->consulting;
+
+
+        return $this->render('view_posts', [
+            'posts' => $posts,
+            'consulting' => $consulting,
+            'postsTitle' => 'Статьи',
+            'ajaxCategory' => '',
+        ]);
+
+    }
+
+    public function actionPostsCategories()
+    {
+        $request = Yii::$app->request;
+
+        $posts = PostsConsulting::find()
+            ->where(['`category_posts_consulting`.`slug`' => $request->get('slug')])
+            ->orderBy('dt_update DESC')
+            ->with('consulting')
+            ->joinWith('categoryPostsConsulting')
+            ->limit(3)
+            ->all();
+
+        $consulting = $posts[0]->consulting;
+
+        return $this->render('view_posts', [
+            'posts' => $posts,
+            'consulting' => $consulting,
+            'postsTitle' => $posts[0]->categoryPostsConsulting->title,
+            'ajaxCategory' => $request->get('slug'),
+        ]);
+
+    }
+
+    public function actionFaq()
+    {
+        $request = Yii::$app->request;
+
+        $posts = Faq::find()
+            ->where(['type' => $request->get('slug')])
+            ->orderBy('dt_update DESC')
+            ->with('consulting')
+            ->with('category')
+            ->limit(3)
+            ->all();
+
+        $consulting = $posts[0]->consulting;
+
+        return $this->render('view_faq', [
+            'posts' => $posts,
+            'consulting' => $consulting,
+            'postsTitle' => 'Вопрос / ответ',
+            'ajaxCategory' => '',
+        ]);
+
+    }
+
+    public function actionFaqCategories()
+    {
+        $request = Yii::$app->request;
+
+        $posts = Faq::find()
+            ->where(['`category_faq`.`slug`' => $request->get('slug')])
+            ->orderBy('dt_update DESC')
+            ->with('consulting')
+            ->joinWith('category')
+            ->limit(3)
+            ->all();
+
+        $consulting = $posts[0]->consulting;
+
+        return $this->render('view_faq', [
+            'posts' => $posts,
+            'consulting' => $consulting,
+            'postsTitle' => $posts[0]->categoryPostsConsulting->title,
+            'ajaxCategory' => $request->get('slug'),
         ]);
 
     }
