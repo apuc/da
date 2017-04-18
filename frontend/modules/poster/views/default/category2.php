@@ -15,6 +15,8 @@ $this->registerMetaTag( [
     'name'    => 'description',
     'content' => $meta_descr,
 ] );
+
+$this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 
 <?= \frontend\modules\poster\widgets\Banner::widget(); ?>
@@ -26,53 +28,8 @@ $this->registerMetaTag( [
 <section class="afisha-events">
     <div class="container">
         <?= \frontend\modules\poster\widgets\EventsInComing::widget() ?>
-        <div class="what-to-see">
-            <h3>Что посмотреть</h3>
-            <div class="afisha-events__wrap">
-                <a href="" class="item">
-                    <img src="theme/portal-donbassa/img/home-content/afisha-pic.png" alt="">
-                    <div class="item-content">
-                        <span class="type">Концерт / Рок</span>
-                        <span class="name-item">Закон ночи</span>
-                        <span class="time">"28 января 09:00"</span>
-                    </div>
-                </a>
-                <a href="" class="item">
-                    <img src="theme/portal-donbassa/img/home-content/afisha-pic.png" alt="">
-                    <div class="item-content">
-                        <span class="type">Концерт / Рок</span>
-                        <span class="name-item">Закон ночи</span>
-                        <span class="time">"28 января 09:00"</span>
-                    </div>
-                </a>
-                <a href="" class="item">
-                    <img src="theme/portal-donbassa/img/home-content/afisha-pic.png" alt="">
-                    <div class="item-content">
-                        <span class="type">Концерт / Рок</span>
-                        <span class="name-item">Закон ночи</span>
-                        <span class="time">"28 января 09:00"</span>
-                    </div>
-                </a>
-                <a href="" class="item">
-                    <img src="theme/portal-donbassa/img/home-content/afisha-pic.png" alt="">
-                    <div class="item-content">
-                        <span class="type">Концерт / Рок</span>
-                        <span class="name-item">Закон ночи</span>
-                        <span class="time">"28 января 09:00"</span>
-                    </div>
-                </a>
-                <a href="" class="item">
-                    <img src="theme/portal-donbassa/img/home-content/afisha-pic.png" alt="">
-                    <div class="item-content">
-                        <span class="type">Концерт / Рок</span>
-                        <span class="name-item">Закон ночи</span>
-                        <span class="time">"28 января 09:00"</span>
-                    </div>
-                </a>
-            </div>
-            <a href="" class="show-more">загрузить БОЛЬШЕ</a>
-        </div>
-        <div class="where-to-go">
+        <?= \frontend\modules\poster\widgets\WhatToSee::widget() ?>
+        <!--<div class="where-to-go">
             <h3>Куда сходить</h3>
             <div class="afisha-events__wrap">
                 <a href="" class="item">
@@ -117,7 +74,7 @@ $this->registerMetaTag( [
                 </a>
             </div>
             <a href="" class="show-more">загрузить БОЛЬШЕ</a>
-        </div>
+        </div>-->
         <?= \frontend\modules\poster\widgets\InterestedIn::widget() ?>
     </div>
 </section>

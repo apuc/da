@@ -233,4 +233,40 @@ class DefaultController extends Controller
             'interestedInPosters' => $moreInterestedPosters,
         ]);
     }
+
+    public function actionGetMorePoster()
+    {
+        $step = Yii::$app->request->post('step');
+        $poster = Poster::find()
+            ->where(['>', 'dt_event', time()])
+            ->limit(4)
+            ->offset(((int)$step - 1) * 4)
+            ->with('categories')
+            ->all();
+
+        $data['html'] = $this->renderPartial('more_poster', [
+            'posters' => $poster
+        ]);
+        $data['last'] = count($poster) < 4 ? 1 : 0;
+        return json_encode($data);
+    }
+
+    public function actionGetMoreKino()
+    {
+        $step = Yii::$app->request->post('step');
+
+        $posters = Poster::find()
+            ->joinWith('categories')
+            ->where(['>', 'dt_event', time()])
+            ->andWhere(['`category_poster`.`slug`' => 'kino'])
+            ->limit(5)
+            ->offset(((int)$step - 1) * 5)
+            ->all();
+
+        $data['html'] = $this->renderPartial('more_kino', [
+            'posters' => $posters
+        ]);
+        $data['last'] = count($posters) < 5 ? 1 : 0;
+        return json_encode($data);
+    }
 }

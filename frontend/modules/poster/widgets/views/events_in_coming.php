@@ -4,7 +4,10 @@
  * User: apuc0
  * Date: 15.04.2017
  * Time: 13:04
+ * @var $posters \common\models\db\Poster
  */
+use common\classes\WordFunctions;
+use yii\helpers\Url;
 
 ?>
 <div class="events-day">
@@ -47,50 +50,22 @@
         </ul>
     </div>
     <div class="events-day__wrap">
-        <a href="" class="item">
-            <div class="thumb">
-                <img src="theme/portal-donbassa/img/home-content/pic2.png" alt="">
-            </div>
-            <div class="contents">
-                <span class="type">Концерт</span>
-                <h3>ДДТ</h3>
-                <span class="date">5 марта, 19:00</span>
-                <span class="place">Олимпийский</span>
-            </div>
-        </a>
-        <a href="" class="item">
-            <div class="thumb">
-                <img src="theme/portal-donbassa/img/home-content/pic2.png" alt="">
-            </div>
-            <div class="contents">
-                <span class="type">Концерт</span>
-                <h3>ДДТ</h3>
-                <span class="date">5 марта, 19:00</span>
-                <span class="place">Олимпийский</span>
-            </div>
-        </a>
-        <a href="" class="item">
-            <div class="thumb">
-                <img src="theme/portal-donbassa/img/home-content/pic2.png" alt="">
-            </div>
-            <div class="contents">
-                <span class="type">Концерт</span>
-                <h3>ДДТ</h3>
-                <span class="date">5 марта, 19:00</span>
-                <span class="place">Олимпийский</span>
-            </div>
-        </a>
-        <a href="" class="item">
-            <div class="thumb">
-                <img src="theme/portal-donbassa/img/home-content/pic2.png" alt="">
-            </div>
-            <div class="contents">
-                <span class="type">Концерт</span>
-                <h3>ДДТ</h3>
-                <span class="date">5 марта, 19:00</span>
-                <span class="place">Олимпийский</span>
-            </div>
-        </a>
-        <a href="" class="show-more">загрузить БОЛЬШЕ</a>
+        <?php foreach ($posters as $poster): ?>
+            <a href="<?= Url::to(['/poster/default/view', 'slug'=>$poster->slug]) ?>" class="item">
+                <div class="thumb">
+                    <img src="<?= $poster->photo ?>" alt="">
+                </div>
+                <div class="contents">
+                    <span class="type"><?= $poster->categories[0]->title ?></span>
+                    <h3 style="padding-left: 0"><?= WordFunctions::crop_str_word($poster->title, 6)  ?></h3>
+                    <span class="date">
+                        <?= WordFunctions::dateWithMonts($poster->dt_event) ?>, <?= date('H:i',$poster->dt_event) ?>
+                    </span>
+                    <span class="place"><?= $poster->address ?></span>
+                </div>
+            </a>
+        <?php endforeach; ?>
+        <span id="more-poster-box"></span>
+        <a href="" id="load-more-posters" data-step="2" class="show-more">загрузить БОЛЬШЕ</a>
     </div>
 </div>

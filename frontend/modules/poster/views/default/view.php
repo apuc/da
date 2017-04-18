@@ -11,6 +11,7 @@ use common\classes\WordFunctions;
 use yii\helpers\Url;
 
 $this->title = $poster->title;
+$this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 
 <?= \frontend\modules\poster\widgets\Banner::widget(); ?>

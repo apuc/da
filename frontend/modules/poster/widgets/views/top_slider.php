@@ -7,6 +7,7 @@
  * @var $posters \common\models\db\Poster
  */
 use common\classes\DateFunctions;
+use yii\helpers\Url;
 
 ?>
 <section class="afisha-top-slider">
@@ -14,7 +15,7 @@ use common\classes\DateFunctions;
         <div class="afisha-top-slider__wrap">
             <?php foreach ($posters as $poster): ?>
                 <!-- item -->
-                <a  href=""  class="afisha-top-slider__wrap_item">
+                <a  href="<?= Url::to(['/poster/default/view', 'slug' => $poster->slug]) ?>"  class="afisha-top-slider__wrap_item">
                     <div class="thumb">
                         <img src="<?= $poster->photo ?>" alt="">
                     </div>
