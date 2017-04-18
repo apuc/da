@@ -41,5 +41,7 @@ $(document).ready(function () {
     })
 
     $('a.active').closest('li').find('ul').first().addClass('up-child');
+    $('a.activeCategory').closest('ul').addClass('up-child');
+
 
 })

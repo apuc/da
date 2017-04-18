@@ -19,6 +19,7 @@ use yii\helpers\Url;
 class ConsultingPostsMenu extends Widget
 {
     public $consulting;
+    public $activeCategorySlug;
 
     public function run()
     {
@@ -70,7 +71,7 @@ class ConsultingPostsMenu extends Widget
         $html = '';
         foreach ($tree as $row) {
             if ($row['parent_id'] == $parent_id) {
-                $html .= '<li><a href="' . Url::to([$url,$row->slug]) . '">';
+                $html .= '<li><a class="'. (($row->slug == $this->activeCategorySlug) ? 'activeCategory': '') .'" href="' . Url::to([$url, 'slug'=> $row->slug]) . '">';
                 $html .= '' . $row['title'];
                 $html .= '' . '</a>';
                 $html .= '' . $this->generateTree($tree, $row['id'], $url);

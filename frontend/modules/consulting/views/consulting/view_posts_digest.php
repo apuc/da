@@ -21,7 +21,7 @@ $this->registerMetaTag([
     <div class="container">
         <div class="main-consultations-sidebar">
             <h1><?= $consulting->title; ?></h1>
-            <?= \frontend\modules\consulting\widgets\ConsultingPostsMenu::widget(['consulting' => $consulting]); ?>
+            <?= \frontend\modules\consulting\widgets\ConsultingPostsMenu::widget(['consulting' => $consulting,'activeCategorySlug'=>$ajaxCategory]); ?>
         </div>
         <div class="search"><input type="text" placeholder="Поиск">
             <button>Найти</button>

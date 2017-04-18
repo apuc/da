@@ -103,6 +103,7 @@ class ConsultingController extends \yii\web\Controller
             'consulting' => $consulting,
             'postsTitle' => $consulting->title_digest,
             'ajaxCategory' => $request->get('slug'),
+
         ]);
 
     }
