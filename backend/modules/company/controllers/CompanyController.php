@@ -5,6 +5,7 @@ namespace backend\modules\company\controllers;
 use common\classes\Debug;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
+use common\models\db\KeyValue;
 use Yii;
 use backend\modules\company\models\Company;
 use backend\modules\company\models\CompanySearch;
@@ -33,14 +34,18 @@ class CompanyController extends Controller
             ],
         ];
     }
-    public function beforeAction( $action ) {
-        $this->enableCsrfValidation = ( $action->id !== "update" );
 
-        return parent::beforeAction( $action );
+    public function beforeAction($action)
+    {
+        $this->enableCsrfValidation = ($action->id !== "update");
+
+        return parent::beforeAction($action);
     }
+
     /**
      * Lists all Company models.
      * @return mixed
+     * @throws \yii\base\InvalidParamException
      */
     public function actionIndex()
     {
@@ -57,6 +62,7 @@ class CompanyController extends Controller
      * Displays a single Company model.
      * @param integer $id
      * @return mixed
+     * @throws \yii\base\InvalidParamException
      */
     public function actionView($id)
     {
@@ -69,6 +75,7 @@ class CompanyController extends Controller
      * Creates a new Company model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @throws \yii\base\InvalidParamException
      */
     public function actionCreate()
     {
@@ -80,7 +87,7 @@ class CompanyController extends Controller
             $model->user_id = Yii::$app->user->getId();
             $model->save();
             $cats_ids = explode(',', $_POST['cats']);
-            foreach($cats_ids as $cats_id){
+            foreach ($cats_ids as $cats_id) {
                 $catCompanyRel = new CategoryCompanyRelations();
                 $catCompanyRel->cat_id = $cats_id;
                 $catCompanyRel->company_id = $model->id;
@@ -99,15 +106,16 @@ class CompanyController extends Controller
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @throws \yii\base\InvalidParamException
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            CategoryCompanyRelations::deleteAll(['company_id'=>$model->id]);
+            CategoryCompanyRelations::deleteAll(['company_id' => $model->id]);
             $cats_ids = explode(',', $_POST['cats']);
-            foreach($cats_ids as $cats_id){
+            foreach ($cats_ids as $cats_id) {
                 $catCompanyRel = new CategoryCompanyRelations();
                 $catCompanyRel->cat_id = $cats_id;
                 $catCompanyRel->company_id = $model->id;
@@ -129,7 +137,7 @@ class CompanyController extends Controller
      */
     public function actionDelete($id)
     {
-        CategoryCompanyRelations::deleteAll(['company_id'=>$id]);
+        CategoryCompanyRelations::deleteAll(['company_id' => $id]);
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -150,22 +158,40 @@ class CompanyController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    public function actionGet_categ(){
+
+    public function actionGet_categ()
+    {
         echo Html::dropDownList(
             'categ',
             null,
-            ArrayHelper::map(CategoryCompany::find()->where(['lang_id'=>$_POST['langId']])->all(),'id','title'),
-            ['class'=>'form-control', 'id'=>'categ_company']
+            ArrayHelper::map(CategoryCompany::find()->where(['lang_id' => $_POST['langId']])->all(), 'id', 'title'),
+            ['class' => 'form-control', 'id' => 'categ_company']
         );
     }
 
-    public function actionGet_sub_categ(){
+    public function actionGet_sub_categ()
+    {
         echo Html::dropDownList(
             'sub_categ',
             null,
-            ArrayHelper::map(CategoryCompany::find()->where(['parent_id'=>$_POST['catId']])->all(),'id','title'),
-            ['class'=>'form-control', 'id'=>'sub_categ_company']
+            ArrayHelper::map(CategoryCompany::find()->where(['parent_id' => $_POST['catId']])->all(), 'id', 'title'),
+            ['class' => 'form-control', 'id' => 'sub_categ_company']
         );
+    }
+
+    public function actionWeRecommendCompanies()
+    {
+        $request = Yii::$app->request;
+        $wrc = KeyValue::findOne(['key' => 'we_recommend_companies']);
+        if ($request->isPost) {
+            $json = json_encode($request->post()['wrc']);
+            $wrc->value = $json;
+            $wrc->save();
+        }
+        return $this->render('wrc', [
+            'wrcList' => ArrayHelper::map(\common\models\db\Company::find()->all(), 'id', 'name'),
+            'wrc' => json_decode($wrc->value),
+        ]);
     }
 
 }

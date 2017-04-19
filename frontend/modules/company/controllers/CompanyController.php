@@ -21,18 +21,20 @@ use yii\web\UploadedFile;
 /**
  * CompanyController implements the CRUD actions for Company model.
  */
-class CompanyController extends Controller {
+class CompanyController extends Controller
+{
     public $layout = 'portal_page';
 
     /**
      * @inheritdoc
      */
-    public function behaviors() {
+    public function behaviors()
+    {
         return [
             'verbs' => [
-                'class'   => VerbFilter::className(),
+                'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => [ 'POST' ],
+                    'delete' => ['POST'],
                 ],
             ],
         ];
@@ -41,59 +43,66 @@ class CompanyController extends Controller {
     /**
      * Lists all Company models.
      * @return mixed
+     * @throws \yii\base\InvalidParamException
      */
 
-    public function actionIndex() {
-        $company              = CategoryCompany::find()->where( [ 'parent_id' => 0, 'lang_id' => 1 ] )->all();
-        $sub_company          = CategoryCompany::find()->where( [ 'parent_id' => 533 ] )->all();
-        $organizations        = Company::find()->where( [
-            'user_id' => 1,
-            'status'  => 0
-        ] )->orderBy( 'RAND()' )->limit( 6 )->all();
-        $most_popular_company = \common\models\db\Company::find()->orderBy( 'views DESC' )->limit( 6 )->all();
+    public function actionIndex()
+    {
 
-        return $this->render( 'index', [
-            'company'              => $company,
-            'sub_company'          => $sub_company,
-            'organizations'        => $organizations,
-            'meta_title'           => KeyValue::findOne( [ 'key' => 'company_page_meta_title' ] )->value,
-            'meta_descr'           => KeyValue::findOne( [ 'key' => 'company_page_meta_descr' ] )->value,
-            'most_popular_company' => $most_popular_company
-        ] );
+        $organizations = Company::find()
+            ->where([
+                'status' => 0,
+            ])
+            ->orderBy('RAND()')
+            ->limit(12)
+            ->all();
+
+        $wrc = KeyValue::getValue('we_recommend_companies');
+        $wrc = \common\models\db\Company::find()->where(['id' => json_decode($wrc)])->all();
+        $positions = [1,4,10];
+
+        return $this->render('index', [
+            'organizations' => $organizations,
+            'meta_title' => KeyValue::findOne(['key' => 'company_page_meta_title'])->value,
+            'meta_descr' => KeyValue::findOne(['key' => 'company_page_meta_descr'])->value,
+            'wrc' => $wrc,
+            'positions' => $positions
+        ]);
     }
 
-    public function actionCategory( $slug ) {
-        $cat = CategoryCompany::find()->where( [ 'slug' => $slug ] )->one();
-        if ( empty( $cat ) ) {
+    public function actionCategory($slug)
+    {
+        $cat = CategoryCompany::find()->where(['slug' => $slug])->one();
+        if (empty($cat)) {
             return $this->goHome();
         }
-        $cats = [ ];
-        if ( $cat->parent_id == 0 ) {
-            $child_cat = CategoryCompany::find()->where( [ 'parent_id' => $cat->id ] )->all();
-            foreach ( $child_cat as $c ) {
+        $cats = [];
+        if ($cat->parent_id == 0) {
+            $child_cat = CategoryCompany::find()->where(['parent_id' => $cat->id])->all();
+            foreach ($child_cat as $c) {
                 $cats[] = $c->id;
             }
         }
         $query = CategoryCompanyRelations::find()
-                                         ->leftJoin( 'company', '`category_company_relations`.`company_id` = `company`.`id`' )
-                                         ->where( [ 'cat_id' => ( $cat->parent_id == 0 ) ? $cats : $cat->id ] )
-                                         ->orderBy( '`company`.`id` DESC' )
-                                         ->groupBy( '`company`.`id`' )
-                                         ->with( 'company' );
+            ->leftJoin('company', '`category_company_relations`.`company_id` = `company`.`id`')
+            ->where(['cat_id' => ($cat->parent_id == 0) ? $cats : $cat->id])
+            ->orderBy('`company`.`id` DESC')
+            ->groupBy('`company`.`id`')
+            ->with('company');
 
-        $countQuery           = clone $query;
-        $pages                = new Pagination( [ 'totalCount' => $countQuery->count(), 'pageSize' => 10 ] );
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
         $pages->pageSizeParam = false;
 
-        $news = $query->offset( $pages->offset )
-                      ->limit( $pages->limit )
-                      ->all();
+        $news = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
 
-        return $this->render( 'category', [
+        return $this->render('category', [
             'company' => $news,
-            'cat'     => $cat,
-            'pages'   => $pages,
-        ] );
+            'cat' => $cat,
+            'pages' => $pages,
+        ]);
     }
 
     /**
@@ -102,45 +111,49 @@ class CompanyController extends Controller {
      * @param integer $id
      *
      * @return mixed
+     * @throws \yii\base\InvalidParamException
      */
-    public function actionView( $id ) {
-        return $this->render( 'view', [
-            'model' => $this->findModel( $id ),
-        ] );
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
     }
 
     /**
      * Creates a new Company model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @throws \yii\base\InvalidParamException
      */
-    public function actionCreate() {
+    public function actionCreate()
+    {
         $model = new Company();
 
-        if ( $model->load( Yii::$app->request->post() ) ) {
+        if ($model->load(Yii::$app->request->post())) {
             $model->status = 1;
-            if ( $_FILES['Company']['name']['photo'] ) {
-                $upphoto            = New \common\models\UploadPhoto();
-                $upphoto->imageFile = UploadedFile::getInstance( $model, 'photo' );
-                $loc                = 'media/upload/userphotos/' . date( 'dmY' ) . '/';
-                if ( ! is_dir( $loc ) ) {
-                    mkdir( $loc );
+            if ($_FILES['Company']['name']['photo']) {
+                $upphoto = New \common\models\UploadPhoto();
+                $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
+                $loc = 'media/upload/userphotos/' . date('dmY') . '/';
+                if (!is_dir($loc)) {
+                    mkdir($loc);
                 }
                 $upphoto->location = $loc;
                 $upphoto->upload();
                 $model->photo = '/' . $loc . $_FILES['Company']['name']['photo'];
             }
             $model->save();
-            $catCompanyRel             = new CategoryCompanyRelations();
-            $catCompanyRel->cat_id     = $_POST['categ'];
+            $catCompanyRel = new CategoryCompanyRelations();
+            $catCompanyRel->cat_id = $_POST['categ'];
             $catCompanyRel->company_id = $model->id;
             $catCompanyRel->save();
 
-            return $this->redirect( [ '/' ] );
+            return $this->redirect(['/']);
         } else {
-            return $this->render( 'create', [
+            return $this->render('create', [
                 'model' => $model,
-            ] );
+            ]);
         }
     }
 
@@ -151,22 +164,24 @@ class CompanyController extends Controller {
      * @param integer $id
      *
      * @return mixed
+     * @throws \yii\base\InvalidParamException
      */
-    public function actionUpdate( $id ) {
-        $model = $this->findModel( $id );
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
 
-        if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
-            CategoryCompanyRelations::deleteAll( [ 'company_id' => $model->id ] );
-            $catCompanyRel             = new CategoryCompanyRelations();
-            $catCompanyRel->cat_id     = $_POST['categ'];
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            CategoryCompanyRelations::deleteAll(['company_id' => $model->id]);
+            $catCompanyRel = new CategoryCompanyRelations();
+            $catCompanyRel->cat_id = $_POST['categ'];
             $catCompanyRel->company_id = $model->id;
             $catCompanyRel->save();
 
-            return $this->redirect( [ 'view', 'id' => $model->id ] );
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render( 'update', [
+            return $this->render('update', [
                 'model' => $model,
-            ] );
+            ]);
         }
     }
 
@@ -178,10 +193,11 @@ class CompanyController extends Controller {
      *
      * @return mixed
      */
-    public function actionDelete( $id ) {
-        $this->findModel( $id )->delete();
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
 
-        return $this->redirect( [ 'index' ] );
+        return $this->redirect(['index']);
     }
 
     /**
@@ -193,53 +209,59 @@ class CompanyController extends Controller {
      * @return Company the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel( $id ) {
-        if ( ( $model = Company::findOne( $id ) ) !== null ) {
+    protected function findModel($id)
+    {
+        if (($model = Company::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException( 'The requested page does not exist.' );
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
 
-    public function actionGet_categ() {
+    public function actionGet_categ()
+    {
         echo Html::dropDownList(
             'categ',
             null,
-            ArrayHelper::map( CategoryCompany::find()->where( [ 'lang_id' => $_POST['langId'] ] )->all(), 'id', 'title' ),
-            [ 'class' => 'form-control', 'id' => 'categ_company' ]
+            ArrayHelper::map(CategoryCompany::find()->where(['lang_id' => $_POST['langId']])->all(), 'id', 'title'),
+            ['class' => 'form-control', 'id' => 'categ_company']
         );
     }
 
-    public function actionGet_sub_categ() {
-        $sub_company = CategoryCompany::find()->where( [ 'parent_id' => $_POST['id'] ] )->all();
+    public function actionGet_sub_categ()
+    {
+        $sub_company = CategoryCompany::find()->where(['parent_id' => $_POST['id']])->all();
 
-        return $this->renderPartial( 'sub_company', [
-            'sub_company' => $sub_company
-        ] );
+        return $this->renderPartial('sub_company', [
+            'sub_company' => $sub_company,
+        ]);
     }
 
-    public function actionGet_company_by_categ() {
+    public function actionGet_company_by_categ()
+    {
 
-        $select_categories    = CategoryCompany::find()
-                                               ->where( [ 'parent_id' => $_POST['id'] ] )
-                                               ->all();
-        $id_parrent_company   = ArrayHelper::getColumn( $select_categories, 'id' );
+        $select_categories = CategoryCompany::find()
+            ->where(['parent_id' => $_POST['id']])
+            ->all();
+        $id_parrent_company = ArrayHelper::getColumn($select_categories, 'id');
         $select_organizations = Company::find()
-                                       ->where( [ 'status' => 0 ] )
-                                       ->leftJoin( 'category_company_relations', '`category_company_relations`.`company_id`=`company`.`id`' )
-                                       ->andWhere( [ '`category_company_relations`.`cat_id`' => $_POST['id'] ] )
-                                       ->orWhere( [ 'status'                                => 0,
-                                                    '`category_company_relations`.`cat_id`' => $id_parrent_company
-                                       ] )
-                                       ->with( 'category_company_relations' )
-                                       ->all();
+            ->where(['status' => 0])
+            ->leftJoin('category_company_relations', '`category_company_relations`.`company_id`=`company`.`id`')
+            ->andWhere(['`category_company_relations`.`cat_id`' => $_POST['id']])
+            ->orWhere([
+                'status' => 0,
+                '`category_company_relations`.`cat_id`' => $id_parrent_company,
+            ])
+            ->with('category_company_relations')
+            ->all();
 
-        return $this->renderPartial( 'organizations', [
-            'organizations' => $select_organizations
-        ] );
+        return $this->renderPartial('organizations', [
+            'organizations' => $select_organizations,
+        ]);
     }
 
-    public static function actionStartwidgetcompany() {
+    public static function actionStartwidgetcompany()
+    {
         //return \frontend\modules\mainpage\widgets\Company::widget();
         return VipCompanyWidget::widget();
         // return '1';

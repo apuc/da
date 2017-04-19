@@ -158,61 +158,7 @@ AppAsset::register($this);
 
         <div class="home-content__sidebar">
 
-            <div class="home-content__sidebar_stock">
-                <h3 class="main-title">Акции</h3>
-                <span class="separator"></span>
-                <div class="stock__item">
-                    <div class="stock__item_hide">
-                        <p>до -50% Карандаши для глаз, Карандаши и тени для бровей, Тени для век, Тушь</p>
-                        <a href="">подобнее <span class="red-arrow"></span></a>
-                    </div>
-                    <div class="stock__item_visible">
-                        <div class="thumb">
-                            <img src="/theme/portal-donbassa/img/home-content/stock-pic-1.png" alt="">
-                        </div>
-                        <div class="content">
-                            <p> (23 Декабря 2016 - 08 Января 2017)</p>
-                        </div>
-                        <span class="mouse-area">
-              <img src="/theme/portal-donbassa/img/home-content/mouse-area.png" alt="">
-            </span>
-                    </div>
-                </div>
-                <div class="stock__item">
-                    <div class="stock__item_hide">
-                        <p>до -50% Карандаши для глаз, Карандаши и тени для бровей, Тени для век, Тушь</p>
-                        <a href="">подобнее <span class="red-arrow"></span></a>
-                    </div>
-                    <div class="stock__item_visible">
-                        <div class="thumb">
-                            <img src="/theme/portal-donbassa/img/home-content/stock-pic-1.png" alt="">
-                        </div>
-                        <div class="content">
-                            <p> (23 Декабря 2016 - 08 Января 2017)</p>
-                        </div>
-                        <span class="mouse-area">
-              <img src="/theme/portal-donbassa/img/home-content/mouse-area.png" alt="">
-            </span>
-                    </div>
-                </div>
-                <div class="stock__item">
-                    <div class="stock__item_hide">
-                        <p>до -50% Карандаши для глаз, Карандаши и тени для бровей, Тени для век, Тушь</p>
-                        <a href="">подобнее <span class="red-arrow"></span></a>
-                    </div>
-                    <div class="stock__item_visible">
-                        <div class="thumb">
-                            <img src="/theme/portal-donbassa/img/home-content/stock-pic-1.png" alt="">
-                        </div>
-                        <div class="content">
-                            <p> (23 Декабря 2016 - 08 Января 2017)</p>
-                        </div>
-                        <span class="mouse-area">
-              <img src="/theme/portal-donbassa/img/home-content/mouse-area.png" alt="">
-            </span>
-                    </div>
-                </div>
-            </div>
+            <?= \frontend\modules\mainpage\widgets\Stock::widget() ?>
 
             <div class="home-content__sidebar_poll">
                 <!-- <span class="red-line"></span> -->
@@ -408,7 +354,7 @@ AppAsset::register($this);
 
 </section>
 
-<?= \frontend\widgets\MainPhotos::widget();?>
+<?= \frontend\widgets\MainPhotos::widget(); ?>
 
 <footer class="footer">
 

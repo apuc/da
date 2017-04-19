@@ -91,6 +91,9 @@ return [
         'people_talk' => [
             'class' => 'backend\modules\people_talk\PeopleTalk',
         ],
+        'stock' => [
+            'class' => 'backend\modules\stock\Stock',
+        ],
     ],
     'components' => [
         /*'user' => [

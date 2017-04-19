@@ -48,6 +48,12 @@ class MainMenuAdmin extends Widget
                                 'active' => Yii::$app->controller->module->id == 'poster' && Yii::$app->controller->action->id == 'main-premiere',
 //                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
+                            [
+                                'label' => 'Акции',
+                                'url' => Url::to(['/stock/stock']),
+                                'active' => Yii::$app->controller->module->id === 'stock' && Yii::$app->controller->action->id === 'index',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
                         ],
                         'visible' => UserFunction::hasPermission(['Новости']),
                         'options' => [
@@ -121,6 +127,12 @@ class MainMenuAdmin extends Widget
                                 'label' => 'Развлечения',
                                 'url' => Url::to(['/entertainment']),
                                 'active' => Yii::$app->controller->module->id == 'entertainment' && Yii::$app->controller->action->id == 'index',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                            [
+                                'label' => 'Рекомендуем',
+                                'url' => Url::to(['/company/company/we-recommend-companies']),
+                                'active' => Yii::$app->controller->module->id === 'company' && Yii::$app->controller->action->id === 'we-recommend-companies',
 //                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
                         ],

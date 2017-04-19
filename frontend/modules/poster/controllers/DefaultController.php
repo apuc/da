@@ -165,9 +165,10 @@ class DefaultController extends Controller
             ],
         ]);
 
-        return $this->render('category', [
-            'category' => CategoryPoster::find()->orderBy('id DESC')->all(),
-            'dataProvider' => $dataProvider,
+        return $this->render('category_single', [
+            'slug' => $slug,
+            'meta_title' => KeyValue::findOne(['key' => 'poster_page_meta_title'])->value,
+            'meta_descr' => KeyValue::findOne(['key' => 'poster_page_meta_descr'])->value,
         ]);
     }
 

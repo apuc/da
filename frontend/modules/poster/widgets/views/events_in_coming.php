@@ -5,13 +5,14 @@
  * Date: 15.04.2017
  * Time: 13:04
  * @var $posters \common\models\db\Poster
+ * @var $slug string
  */
 use common\classes\WordFunctions;
 use yii\helpers\Url;
 
 ?>
 <div class="events-day">
-    <h3>События в ближайшие дни</h3>
+    <h3><?= !empty($slug) ? \common\models\db\CategoryPoster::findOne(['slug'=>$slug])->title : 'События в ближайшие дни'?></h3>
     <div class="calendar-wrap">
         <ul>
             <li class="weekend">

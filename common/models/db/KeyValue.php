@@ -48,4 +48,9 @@ class KeyValue extends \yii\db\ActiveRecord
             'dt_update' => 'Dt Update',
         ];
     }
+
+    public static function getValue($key)
+    {
+        return self::findOne(['key' => $key])->value;
+    }
 }

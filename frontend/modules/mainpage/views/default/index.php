@@ -4,4 +4,3 @@ $this->registerMetaTag( [
     'name'    => 'description',
     'content' => $meta_descr,
 ] );
-?>
