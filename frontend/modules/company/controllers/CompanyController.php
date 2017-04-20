@@ -59,14 +59,14 @@ class CompanyController extends Controller
 
         $wrc = KeyValue::getValue('we_recommend_companies');
         $wrc = \common\models\db\Company::find()->where(['id' => json_decode($wrc)])->all();
-        $positions = [1,4,10];
+        $positions = [1, 4, 10];
 
         return $this->render('index', [
             'organizations' => $organizations,
             'meta_title' => KeyValue::findOne(['key' => 'company_page_meta_title'])->value,
             'meta_descr' => KeyValue::findOne(['key' => 'company_page_meta_descr'])->value,
             'wrc' => $wrc,
-            'positions' => $positions
+            'positions' => $positions,
         ]);
     }
 
@@ -218,6 +218,26 @@ class CompanyController extends Controller
         }
     }
 
+    public function actionViewCategory($slug)
+    {
+        $cat = CategoryCompany::find()->where(['slug' => $slug])->one();
+        if (empty($cat)) {
+            return $this->goHome();
+        }
+        $organizations = Company::find()
+            ->joinWith('categories')
+            ->where(['cat_id' => $cat->id])
+            ->all();
+
+        $positions = [1, 4, 10];
+
+        return $this->render('view_category', [
+            'organizations' => $organizations,
+            'positions' => $positions,
+            'categ' => $cat
+        ]);
+    }
+
     public function actionGet_categ()
     {
         echo Html::dropDownList(
@@ -257,6 +277,29 @@ class CompanyController extends Controller
 
         return $this->renderPartial('organizations', [
             'organizations' => $select_organizations,
+        ]);
+    }
+
+    public function actionGetMoreCompany()
+    {
+        $organizations = Company::find()
+            ->where([
+                'status' => 0,
+            ])
+            ->orderBy('RAND()')
+            ->limit(12)
+            ->all();
+
+        $post = Yii::$app->request->post();
+        $wrc = KeyValue::getValue('we_recommend_companies');
+        $wrc = array_splice(json_decode($wrc), $post['step'] * 3);
+        $wrc = \common\models\db\Company::find()->where(['id' => $wrc])->all();
+        $positions = [1, 4, 10];
+
+        return $this->renderPartial('more_company', [
+            'organizations' => $organizations,
+            'wrc' => $wrc,
+            'positions' => $positions,
         ]);
     }
 

@@ -5,6 +5,7 @@ namespace backend\modules\company\controllers;
 use common\classes\Debug;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
+use common\models\db\CompanyPhoto;
 use common\models\db\KeyValue;
 use Yii;
 use backend\modules\company\models\Company;
@@ -111,6 +112,9 @@ class CompanyController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $companyPhotos = CompanyPhoto::findAll(['company_id' => $id]);
+        $companyPhotos = ArrayHelper::getColumn($companyPhotos, 'photo');
+        $companyPhotosStr = implode(',', $companyPhotos);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             CategoryCompanyRelations::deleteAll(['company_id' => $model->id]);
@@ -125,6 +129,8 @@ class CompanyController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'companyPhotos' => $companyPhotos,
+                'companyPhotosStr' => $companyPhotosStr,
             ]);
         }
     }
@@ -192,6 +198,11 @@ class CompanyController extends Controller
             'wrcList' => ArrayHelper::map(\common\models\db\Company::find()->all(), 'id', 'name'),
             'wrc' => json_decode($wrc->value),
         ]);
+    }
+
+    public function actionUploadFile()
+    {
+
     }
 
 }

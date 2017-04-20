@@ -9,6 +9,7 @@
 use common\classes\WordFunctions;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
+use frontend\modules\company\widgets\CategoryMenu;
 use yii\helpers\Url;
 
 $this->title = $meta_title;
@@ -16,6 +17,8 @@ $this->registerMetaTag([
     'name' => 'description',
     'content' => $meta_descr,
 ]);
+
+$this->registerJsFile('/js/company_ajax.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 <section class="business">
 
@@ -100,171 +103,14 @@ $this->registerMetaTag([
                         <?php $pos++; ?>
                     <?php endif; ?>
                 <?php endwhile; ?>
-
-                <a href="#" class="show-more">загрузить еще</a>
+                <span id="more-company-box"></span>
+                <a href="#" data-step="1" id="load-more-company" class="show-more">загрузить еще</a>
 
             </div>
 
-            <?= \frontend\modules\company\widgets\CategoryMenu::widget() ?>
+            <?= CategoryMenu::widget() ?>
         </div>
     </div>
 </section>
 
-<section class="what-say">
-
-    <div class="container">
-
-        <h3 class="section-title">Отзывы о компаниях</h3>
-
-        <div class="what-say__servises">
-
-            <a href=""><span class="comments-icon"></span>Написать отзыв</a>
-
-            <a href=""><span class="mail-icon"></span>Подписаться на эту тему</a>
-
-        </div>
-
-        <div class="what-say__wrap">
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-
-                <span class="rew-title">Веб студия Contrast </span>
-
-                <div class="thumb">
-                    <img src="img/home-content/what-say-1.png" alt="">
-                </div>
-
-                <div class="rew-wrap">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p class="rew-descr">Пользовался услугами
-                        перевозки все понравилось</p>
-                </div>
-
-            </a>
-            <!-- item -->
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-
-                <span class="rew-title">Веб студия Contrast </span>
-
-                <div class="thumb">
-                    <img src="img/home-content/what-say-1.png" alt="">
-                </div>
-
-                <div class="rew-wrap">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p class="rew-descr">Пользовался услугами
-                        перевозки все понравилось</p>
-                </div>
-
-            </a>
-            <!-- item -->
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-
-                <span class="rew-title">Веб студия Contrast </span>
-
-                <div class="thumb">
-                    <img src="img/home-content/what-say-1.png" alt="">
-                </div>
-
-                <div class="rew-wrap">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p class="rew-descr">Пользовался услугами
-                        перевозки все понравилось</p>
-                </div>
-
-            </a>
-            <!-- item -->
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-
-                <span class="rew-title">Веб студия Contrast </span>
-
-                <div class="thumb">
-                    <img src="img/home-content/what-say-1.png" alt="">
-                </div>
-
-                <div class="rew-wrap">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p class="rew-descr">Пользовался услугами
-                        перевозки все понравилось</p>
-                </div>
-
-            </a>
-            <!-- item -->
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-
-                <span class="rew-title">Веб студия Contrast </span>
-
-                <div class="thumb">
-                    <img src="img/home-content/what-say-1.png" alt="">
-                </div>
-
-                <div class="rew-wrap">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p class="rew-descr">Пользовался услугами
-                        перевозки все понравилось</p>
-                </div>
-
-            </a>
-            <!-- item -->
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-
-                <span class="rew-title">Веб студия Contrast </span>
-
-                <div class="thumb">
-                    <img src="img/home-content/what-say-1.png" alt="">
-                </div>
-
-                <div class="rew-wrap">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p class="rew-descr">Пользовался услугами
-                        перевозки все понравилось</p>
-                </div>
-
-            </a>
-            <!-- item -->
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-
-                <span class="rew-title">Веб студия Contrast </span>
-
-                <div class="thumb">
-                    <img src="img/home-content/what-say-1.png" alt="">
-                </div>
-
-                <div class="rew-wrap">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p class="rew-descr">О сколько нам открытий чудных?</p>
-                </div>
-
-            </a>
-            <!-- item -->
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-
-                <span class="rew-title">Веб студия Contrast </span>
-
-                <div class="thumb">
-                    <img src="img/home-content/what-say-1.png" alt="">
-                </div>
-
-                <div class="rew-wrap">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p class="rew-descr">Пользовался услугами
-                        перевозки все понравилось</p>
-                </div>
-
-            </a>
-            <!-- item -->
-
-            <a href="#" class="show-more">посмотреть все</a>
-
-        </div>
-
-    </div>
-
-</section>
+<?= \frontend\modules\company\widgets\Feedbacks::widget() ?>

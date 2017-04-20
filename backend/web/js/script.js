@@ -22,6 +22,16 @@ $(document).ready(function () {
 
     });
 
+    $(document).on('change', '.itemImgs', function () {
+        var path = $(this).val();
+        var arr = path.split(',');
+        var box = $(this).closest('.imgUpload').find('.media__upload_img');
+        box.html('');
+        for (var i=0;i<arr.length;i++){
+            box.append('<img src="' + arr[i] + '" width="100px"/>');
+        }
+    });
+
     $(document).on('change', '.selectLang', function () {
         var langId = $(this).val();
         $.ajax({

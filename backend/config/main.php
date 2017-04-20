@@ -94,6 +94,9 @@ return [
         'stock' => [
             'class' => 'backend\modules\stock\Stock',
         ],
+        'company_feedback' => [
+            'class' => 'backend\modules\company_feedback\Company_feedback',
+        ],
     ],
     'components' => [
         /*'user' => [

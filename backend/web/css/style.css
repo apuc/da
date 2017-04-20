@@ -10,10 +10,15 @@
     border-collapse: separate;
 }
 
-.itemImg{
+.itemImg, .itemImgs{
     float: left!important;
     display: inline-block;
     width: 30%!important;
+}
+
+.media__upload_img img{
+    margin: 3px;
+    object-fit: cover;
 }
 
 .contentLoginAdmin{

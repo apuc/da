@@ -115,7 +115,7 @@ return [
                 'all-company' => 'company/company',
                 'news/category/<slug>' => 'news/news/category',
                 'news/archive/<date>' => 'news/news/archive',
-                'company/category/<slug>' => 'company/company/category',
+                'company/category/<slug>' => 'company/company/view-category',
                 'poster/<slug>' => 'poster/default/view',
                 'all-poster' => 'poster/default/category',
                 'all-poster-archive' => 'poster/default/archive_category',

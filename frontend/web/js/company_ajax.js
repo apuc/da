@@ -9,4 +9,22 @@
             setTimeout(worker, 20000);
         }
     });
+
+    $('#load-more-company').on('click', function () {
+        var step = $(this).attr('data-step');
+        $.ajax({
+            type: 'POST',
+            url: "/company/company/get-more-company",
+            data: {
+                step: step,
+                _csrf: $('meta[name=csrf-token]').attr("content")
+            },
+            success: function (data) {
+                console.log(data);
+                $('#more-company-box').append(data);
+                $('#load-more-company').attr('data-step', parseInt(step) + 1);
+            }
+        });
+        return false;
+    })
 })();

@@ -40,7 +40,7 @@ use yii\helpers\Url;
             <ul>
                 <?php foreach ($item[0] as $sub_cat): ?>
                     <li>
-                        <a href="<?= Url::to(['/company/default/view', 'slug' => $sub_cat['slug']]) ?>">
+                        <a href="<?= Url::to(['/company/company/view-category', 'slug' => $sub_cat['slug']]) ?>">
                             <?= $sub_cat['title'] ?>
                         </a>
                     </li>
@@ -49,7 +49,7 @@ use yii\helpers\Url;
             <ul>
                 <?php foreach ($item[1] as $sub_cat): ?>
                     <li>
-                        <a href="<?= Url::to(['/company/default/view', 'slug' => $sub_cat['slug']]) ?>">
+                        <a href="<?= Url::to(['/company/company/view-category', 'slug' => $sub_cat['slug']]) ?>">
                             <?= $sub_cat['title'] ?>
                         </a>
                     </li>

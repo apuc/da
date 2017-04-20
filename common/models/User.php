@@ -1,10 +1,12 @@
 <?php
+
 namespace common\models;
 
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
 
 /**
@@ -82,6 +84,11 @@ class User extends ActiveRecord implements IdentityInterface
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
 
+    public static function findById($id)
+    {
+        return static::findOne(['id' => $id]);
+    }
+
     /**
      * Finds user by password reset token
      *
@@ -112,7 +119,7 @@ class User extends ActiveRecord implements IdentityInterface
             return false;
         }
 
-        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
+        $timestamp = (int)substr($token, strrpos($token, '_') + 1);
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         return $timestamp + $expire >= time();
     }
@@ -184,5 +191,10 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    public static function getList()
+    {
+        return ArrayHelper::map(self::find()->all(), 'id', 'username');
     }
 }

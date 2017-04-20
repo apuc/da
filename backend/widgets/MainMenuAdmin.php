@@ -135,6 +135,12 @@ class MainMenuAdmin extends Widget
                                 'active' => Yii::$app->controller->module->id === 'company' && Yii::$app->controller->action->id === 'we-recommend-companies',
 //                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
+                            [
+                                'label' => 'Отзывы',
+                                'url' => Url::to(['/company_feedback/company_feedback']),
+                                'active' => Yii::$app->controller->module->id === 'company_feedback',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
                         ],
 
                         'visible' => UserFunction::hasPermission(['Компании']),

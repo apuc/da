@@ -4,6 +4,8 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model backend\modules\company\models\Company */
+/* @var $companyPhotos array */
+/* @var $companyPhotosStr string */
 
 $this->title = Yii::t('company', 'Update {modelClass}: ', [
     'modelClass' => 'Company',
@@ -18,6 +20,8 @@ $this->params['breadcrumbs'][] = Yii::t('company', 'Update');
 
     <?= $this->render('_form', [
         'model' => $model,
+        'companyPhotos' => $companyPhotos,
+        'companyPhotosStr' => $companyPhotosStr
     ]) ?>
 
 </div>
