@@ -110,7 +110,7 @@ return [
                 'all-news/<page:\d+>/<per-page:\d+>' => 'news/news/index',
                 'news/<slug>' => 'news/default/view',
                 'company' => 'company/default',
-                'company/<slug>' => 'company/default/view',
+                'company/<slug>' => 'company/company/view',
                 'all-new' => 'news/news',
                 'all-company' => 'company/company',
                 'news/category/<slug>' => 'news/news/category',

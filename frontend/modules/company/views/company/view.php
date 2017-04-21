@@ -1,49 +1,252 @@
 <?php
+/**
+ * @var $model \common\models\db\Company
+ * @var $stock \common\models\db\Stock
+ * @var $feedback \common\models\db\CompanyFeedback
+ * @var $img \common\models\db\CompanyPhoto
+ */
 
-use yii\helpers\Html;
-use yii\widgets\DetailView;
+$this->title = $model->meta_title;
+$this->registerMetaTag([
+    'name' => 'description',
+    'content' => $model->meta_descr,
+]);
 
-/* @var $this yii\web\View */
-/* @var $model frontend\modules\company\models\Company */
-
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('company', 'Companies'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->registerJsFile('/js/company_ajax.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
-<div class="company-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<section class="business">
 
-    <p>
-        <?= Html::a(Yii::t('company', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('company', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('company', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+    <div class="container">
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'name',
-            'address',
-            'phone',
-            'email:email',
-            'photo',
-            'dt_add',
-            'dt_update',
-            'descr:ntext',
-            'status',
-            'slug',
-            'lang_id',
-            'meta_title',
-            'meta_descr',
-            'views',
-        ],
-    ]) ?>
+        <div class="business__wrapper">
 
-</div>
+            <div class="business__content business__single-content">
+
+                <h3 class="business__subtitle">Предприятия / <?= $model->name ?></h3>
+
+                <div class="business__requisites">
+
+                    <div class="business__requisites--avatar">
+
+                        <img src="<?= $model->photo ?>" alt="">
+
+                    </div>
+
+                    <div class="business__requisites--address">
+
+                        <h3><?= $model->name ?></h3>
+                        <p><?= $model['meta_descr'] ?></p>
+                        <p class="concreate-adress"><?= $model->address ?></p>
+
+                    </div>
+
+                    <!--<div class="business__requisites--site">
+
+                        <a href="#" target="_blank"><span>www. site-web.com</span>
+                            <span><img src="img/icons/golink-icon.png" alt=""></span>
+                        </a>
+                        <p>Описание этой ссылки,
+                            подробности</p>
+
+                    </div>-->
+
+                    <div class="business__requisites--links">
+
+                        <a class="phone" href="tel:+380667778540"><?= $model->getPhones()[0] ?></a>
+                        <a class="phone" href="tel:+380667778540"><?= $model->getPhones()[1] ?></a>
+
+                        <a href="" class="social-wrap__item vk">
+                            <img src="/theme/portal-donbassa/img/soc/vk.png" alt="">
+                        </a>
+                        <a href="" class="social-wrap__item fb">
+                            <img src="/theme/portal-donbassa/img/soc/fb.png" alt="">
+                        </a>
+                        <a href="" class="social-wrap__item ok">
+                            <img src="/theme/portal-donbassa/img/soc/ok-icon.png" alt="">
+                        </a>
+
+                    </div>
+
+
+                </div>
+
+                <ul class="business__scroll-links">
+                    <li><a href="#about" class="businessScroll">О компании</a></li>
+                    <li><a href="#reviews" class="businessScroll">Отзывы</a></li>
+                    <li><a href="#stock" class="businessScroll">Акции</a></li>
+                </ul>
+
+                <?php if (!empty($img)): ?>
+                    <div class="business__photos">
+
+                        <?php foreach ($img as $item): ?>
+
+                            <a href="<?= $item->photo ?>" class="fancybox">
+                                <img src="<?= $item->photo ?>" alt="">
+                            </a>
+
+                        <?php endforeach; ?>
+
+                    </div>
+                <?php endif; ?>
+
+                <div class="business__descr" id="about">
+
+                    <?= $model->descr ?>
+
+                </div>
+                <?php if (!empty($stock)): ?>
+                    <div class="business__stocks" id="stock">
+
+                        <h3 class="section-title">Наши акции</h3>
+
+                        <div class="separator"></div>
+
+                        <div class="business__stocks--box">
+
+                            <?php foreach ($stock as $item): ?>
+
+                                <div class="business__stocks--item">
+
+                                    <div class="business__stocks--img">
+                                        <img src="<?= $item->photo ?>" alt="">
+                                    </div>
+
+                                    <p><?= $item->title ?></p>
+                                    <p><?= $item->dt_event ?></p>
+
+                                </div>
+
+                            <?php endforeach; ?>
+
+                        </div>
+
+                    </div>
+                <?php endif; ?>
+
+                <?php if (!empty($feedback)): ?>
+                    <div class="business__reviews" id="reviews">
+
+                        <h3 class="section-title">Отзывы о компании</h3>
+
+                        <div class="separator"></div>
+                        <?php foreach ($feedback as $item): ?>
+                            <div class="business__reviews--item">
+
+                                <div class="business__reviews--avatar">
+                                    <img src="img/home-content/what-say-1.png" alt="">
+                                </div>
+
+                                <div class="descr">
+
+                                    <span class="date"><?= date('H:i d-m-Y') ?></span>
+
+                                    <h3><?= $model->name ?></h3>
+
+                                    <p><?= $model->meta_descr ?></p>
+
+                                    <p class="full"><?= $item->feedback ?></p>
+
+                                </div>
+
+                                <div class="links">
+
+                                    <a href="#" class="links__more">Читать весь отзыв</a>
+
+                                    <!--<a href="" class="social-wrap__item vk">
+                                        <img src="img/soc/vk.png" alt="">
+                                    </a>
+                                    <a href="" class="social-wrap__item fb">
+                                        <img src="img/soc/fb.png" alt="">
+                                    </a>
+                                    <a href="" class="social-wrap__item ok">
+                                        <img src="img/soc/ok-icon.png" alt="">
+                                    </a>
+                                    <a href="" class="social-wrap__item insta">
+                                        <img src="img/soc/insta-icon.png" alt="">
+                                    </a>
+                                    <a href="" class="social-wrap__item twitter">
+                                        <img src="img/soc/twi-icon.png" alt="">
+                                    </a>
+                                    <a href="" class="social-wrap__item google">
+                                        <img src="img/soc/google-icon.png" alt="">
+                                    </a>
+                                    <a href="" class="social-wrap__item pinterest">
+                                        <img src="img/soc/pinter-icon.png" alt="">
+                                    </a>-->
+
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+
+                <div class="business__location">
+
+                    <div id="map"></div>
+
+                </div>
+
+            </div>
+
+            <div class="business__sidebar stock" id="business-stock-sidebar">
+
+                <h3>популярные акции</h3>
+
+                <a href="#" class="stock__link">
+
+                    <span class="stock__title"></span>
+
+                    <div class="stock__link--img">
+                        <img src="img/business/stock1-img.png" alt="">
+                    </div>
+
+                    <div class="stock__link--descr">
+
+                        <p>Скидка до 40% на лазерную эпиляцию</p>
+
+                    </div>
+
+                </a>
+
+                <a href="#" class="stock__link">
+
+                    <span class="stock__title"></span>
+
+                    <div class="stock__link--img">
+                        <img src="img/business/stock1-img.png" alt="">
+                    </div>
+
+                    <div class="stock__link--descr">
+
+                        <p>Скидка до 40% на лазерную эпиляцию</p>
+
+                    </div>
+
+                </a>
+
+                <a href="#" class="stock__link">
+
+                    <span class="stock__title"></span>
+
+                    <div class="stock__link--img">
+                        <img src="img/business/stock1-img.png" alt="">
+                    </div>
+
+                    <div class="stock__link--descr">
+
+                        <p>Скидка до 40% на лазерную эпиляцию</p>
+
+                    </div>
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

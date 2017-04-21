@@ -28,7 +28,7 @@ $this->registerJsFile('/js/company_ajax.js', ['depends' => [\yii\web\JqueryAsset
 
                 <h3 class="business__title"><a href="<?= Url::to(['/company/company']) ?>">Предприятия</a> / <?= $categ->title ?></h3>
                 <?php foreach ($organizations as $organization): ?>
-                    <a href="#" class="business__sm-item">
+                    <a href="<?= Url::to(['/company/company/view', 'slug' => $organization->slug]) ?>" class="business__sm-item">
 
                         <div class="business__sm-item--img">
                             <img src="<?= $organization->photo ?>" alt="">
