@@ -6,9 +6,9 @@
  * Time: 16:28
  * @var $companies \common\models\db\Company
  */
+use yii\helpers\Url;
 
 ?>
-
 <section class="company">
 
     <div class="container">
@@ -21,34 +21,40 @@
         <div class="company__box">
             <?php foreach ($companies as $k => $company): ?>
                 <?php if ($k === 1 || $k === 7 || $k === 8): ?>
-                    <a href="#" class="company__big-item">
-                <span class="company__item--image">
-                    <img src="<?= $company->photo ?>" alt="">
-                </span>
-
-                        <div class="content">
-                            <span class="company__item--title"><?= $company->name ?></span>
-
-                            <p class="company__item--descr"><?= $company->address ?> <br> Телефон: <?= $company->phone ?></p>
+                    <a  href="<?= Url::to(['/company/company/view', 'slug' => $company->slug]) ?>" class="item-large">
+                        <div class="thumb">
+                            <img src="<?= $company->photo ?>" alt="">
                         </div>
-
+                        <div class="content">
+                            <h4><?= $company->name ?></h4>
+                            <!-- <p>Донецк Адрес: Пухова 31б </p>
+                            <p>Телефон: 0667778540</p> -->
+                        </div>
+                        <div class="content-hover">
+                            <h4><?= $company->name ?></h4>
+                            <p><?= $company->address ?></p>
+                            <p>Телефон: <?= $company->phone ?></p>
+                        </div>
                     </a>
                 <?php else: ?>
-                    <a href="#" class="company__item">
-                <span class="company__item--image">
-                    <img src="<?= $company->photo ?>" alt="">
-                </span>
-
+                    <a  href="<?= Url::to(['/company/company/view', 'slug' => $company->slug]) ?>"  class="item-small">
+                        <div class="thumb">
+                            <img src="<?= $company->photo ?>" alt="">
+                        </div>
                         <div class="content">
-                            <span class="company__item--title"><?= $company->name ?></span>
-
-                            <p class="company__item--descr"> Телефон: <?= $company->phone ?></p>
+                            <h4><?= $company->name ?></h4>
+                            <!-- <p>Донецк Адрес: Пухова 31б </p> -->
+                            <!-- <p>Телефон: 0667778540</p> -->
+                        </div>
+                        <div class="content-hover">
+                            <h4><?= $company->name ?></h4>
+                            <p><?= $company->address ?> </p>
+                            <p>Телефон: <?= $company->phone ?></p>
                         </div>
                     </a>
                 <?php endif; ?>
 
             <?php endforeach; ?>
-            
         </div>
 
         <a href="#" class="more">посмотреть больше <i class="fa fa-chevron-right" aria-hidden="true"></i></a>

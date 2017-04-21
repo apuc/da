@@ -110,4 +110,9 @@ class Company extends \yii\db\ActiveRecord
     {
         return static::findOne($id);
     }
+
+    public function getPhones()
+    {
+        return explode(' ', $this->phone);
+    }
 }

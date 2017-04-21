@@ -25,7 +25,7 @@ class MostPopularNews extends Widget
 
         $news = News::find()
             ->where(['status' => 0])
-            ->andWhere(['>=', 'dt_public', time() - (86400 * 14)])
+            /*->andWhere(['>=', 'dt_public', time() - (86400 * 14)])*/
             ->andWhere(['!=', 'slug', $currentNewSlug])
             ->orderBy('views DESC')
             ->limit(3)

@@ -5,7 +5,10 @@ namespace frontend\modules\company\controllers;
 use common\classes\Debug;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
+use common\models\db\CompanyFeedback;
+use common\models\db\CompanyPhoto;
 use common\models\db\KeyValue;
+use common\models\db\Stock;
 use frontend\widgets\VipCompanyWidget;
 use Yii;
 use frontend\modules\company\models\Company;
@@ -108,15 +111,22 @@ class CompanyController extends Controller
     /**
      * Displays a single Company model.
      *
-     * @param integer $id
-     *
+     * @param string $slug
      * @return mixed
+     * @throws \yii\web\NotFoundHttpException
      * @throws \yii\base\InvalidParamException
      */
-    public function actionView($id)
+    public function actionView($slug)
     {
+        $model = \common\models\db\Company::findOne(['slug' => $slug]);
+        $stoke = Stock::find()->where(['company_id' => $model->id])->limit(3)->all();
+        $feedback = CompanyFeedback::find()->where(['company_id' => $model->id])->with('user')->all();
+        $img = CompanyPhoto::findAll(['company_id' => $model->id]);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'stock' => $stoke,
+            'feedback' => $feedback,
+            'img' => $img,
         ]);
     }
 

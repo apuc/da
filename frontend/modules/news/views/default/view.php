@@ -4,19 +4,24 @@
  * User: apuc0
  * Date: 08.09.2016
  * Time: 16:15
- * @var $news \common\models\db\News
+ * @var $model \common\models\db\News
+ * @var $tags array
+ * @var $likes \common\models\db\Likes
+ * @var $category string
+ * @var $countComments integer
+ * @var $thisUserLike \common\models\db\Likes | boolean
  */
 
 use yii\helpers\Url;
 
 $this->registerMetaTag([
     'name' => 'og:image',
-    'content' => 'http://' . $_SERVER['HTTP_HOST'] . $news->photo,
+    'content' => 'http://' . $_SERVER['HTTP_HOST'] . $model->photo,
 ]);
-$this->title = $news->meta_title;
+$this->title = $model->meta_title;
 $this->registerMetaTag([
     'name' => 'description',
-    'content' => $news->meta_descr,
+    'content' => $model->meta_descr,
 ]);
 ?>
 <!-- close .header -->
@@ -53,7 +58,7 @@ $this->registerMetaTag([
                                 'комментариев',
                             ]); ?>
                     </span>
-                    <span class="views"><?= $model->views; ?></span>
+                    <span class="views" style="color: black"><?= $model->views; ?></span>
                     <span class="data-time"><?= \common\classes\WordFunctions::FullEventDate($model->dt_public) ?>
                     </span>
 
@@ -89,7 +94,7 @@ $this->registerMetaTag([
                                 'комментариев',
                             ]); ?>
                     </span>
-                    <span class="views"><?= $model->views; ?></span>
+                    <span class="views" style="color: black"><?= $model->views; ?></span>
                     <span class="data-time"><?= \common\classes\WordFunctions::FullEventDate($model->dt_public) ?></span>
                     <a style="cursor: pointer" csrf-token="<?= Yii::$app->request->getCsrfToken() ?>"
                        data-id="<?= $model->id; ?>"
@@ -148,7 +153,7 @@ $this->registerMetaTag([
             </div>
 
             <!-- start comments.html-->
-            <div class="comments-wrapper">
+            <!--<div class="comments-wrapper">
 
                 <div class="after-comments">
                     <h2>Комментарии к новости</h2>
@@ -271,7 +276,7 @@ $this->registerMetaTag([
                     <a href="#" class="load-more">загрузить БОЛЬШЕ</a>
 
                 </div>
-            </div>
+            </div>-->
             <!-- end comments.html-->
 
         </article>
@@ -281,7 +286,7 @@ $this->registerMetaTag([
             <div class="scroll">
                 <?= \frontend\modules\news\widgets\RandomNewsByCategory::widget(['categoryId' => $category->id]); ?>
 
-                <?= \frontend\modules\news\widgets\MostPopularNews::widget(); ?>
+                <?//= \frontend\modules\news\widgets\MostPopularNews::widget(); ?>
             </div>
         </aside>
         <!-- end right_sidebar_news.html-->

@@ -1,5 +1,6 @@
 <?php
 
+use common\models\db\Company;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\InputFile;
 use yii\helpers\Html;
@@ -49,7 +50,7 @@ use yii\widgets\ActiveForm;
 
     ]); ?>
 
-    <?//= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($model, 'company_id')->dropDownList(Company::getList()) ?>
 
     <?= $form->field($model, 'dt_event')->textInput(['maxlength' => true]) ?>
 

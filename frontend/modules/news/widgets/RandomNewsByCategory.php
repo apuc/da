@@ -25,11 +25,10 @@ class RandomNewsByCategory extends Widget
                 '`category_news_relations`.`cat_id`' => $this->categoryId,
                 'status' => 0,
             ])
-            ->andWhere(['>=', 'dt_public', (string)(time() - 86400 * 14)])
+            /*->andWhere(['>=', 'dt_public', (string)(time() - 86400 * 14)])*/
             ->orderBy('rand()')
             ->limit(5)
             ->all();
-
         return $this->render("random_news_by_category", [
             'news' => $news,
         ]);

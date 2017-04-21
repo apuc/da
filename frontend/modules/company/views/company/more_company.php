@@ -10,6 +10,7 @@
  * @var $positions array
  * @var $organizations \common\models\db\Company
  */
+use yii\helpers\Url;
 
 ?>
 <?php $pos = 0;
@@ -17,7 +18,7 @@ $wrc_count = 0; ?>
 <?php while($pos < 12): ?>
     <?php if (in_array($pos, $positions, true)): ?>
         <?php $company = isset($wrc[$wrc_count]) ? $wrc[$wrc_count] : $organizations[$pos] ?>
-        <a href="#" class="business__big-item">
+        <a href="<?= Url::to(['/company/company/view', 'slug' => $company->slug]) ?>" class="business__big-item">
 
             <div class="business__sm-item--img">
 
@@ -59,7 +60,7 @@ $wrc_count = 0; ?>
         </a>
         <?php $pos += 2;$wrc_count++; ?>
     <?php else: ?>
-        <a href="#" class="business__sm-item">
+        <a href="<?= Url::to(['/company/company/view', 'slug' => $organizations[$pos]->slug]) ?>" class="business__sm-item">
 
             <div class="business__sm-item--img">
                 <img src="<?= $organizations[$pos]->photo ?>" alt="">
