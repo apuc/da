@@ -16,16 +16,19 @@
             $newImageId += 4;
         } else {
             ?>
+
             <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $new->slug]); ?>" class="tape__item">
-                <span class="time"><?= date('H:i', $new->dt_public) ?></span><h4><?= $new->title; ?></h4>
+                <span class="time"><?= date('H:i', $new->dt_public) ?></span>
+                <span class="open-soc"><i class="fa fa-random fa-lg"></i></span>
+                <h4><?= $new->title; ?></h4>
                 <!--<p>--><?//= WordFunctions::crop_str_word( strip_tags( $new->content ), 10 );?><!--</p>-->
-                <?php $content = explode('<div style="page-break-after: always"><span style="display:none">&nbsp;</span></div>',
-                    $new->content);
-                if (!empty($content[0]) && count($content) > 1):?>
-                    <p><?= strip_tags($content[0]); ?></p>
-                <?php else: ?>
-                    <p><?= WordFunctions::crop_str_word(strip_tags($new->content), 10); ?></p>
-                <?php endif; ?>
+                <?php //$content = explode('<div style="page-break-after: always"><span style="display:none">&nbsp;</span></div>',
+                //    $new->content);
+                //if (!empty($content[0]) && count($content) > 1):?>
+                <!--    <p>--><?//= strip_tags($content[0]); ?><!--</p>-->
+                <?php //else: ?>
+                <!--    <p>--><?//= WordFunctions::crop_str_word(strip_tags($new->content), 10); ?><!--</p>-->
+                <?php //endif; ?>
             </a>
             <?php
         }
