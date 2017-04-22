@@ -3,7 +3,8 @@ $this->title = $meta_title;
 $this->registerMetaTag([
     'name' => 'description',
     'content' => $meta_descr,
-]);; ?>
+]);
+?>
 <main id="main-consultation">
 
     <div class="container">
@@ -16,7 +17,7 @@ $this->registerMetaTag([
 
             <div class="consultation-slider">
                 <?php foreach ($consultingsSlider as $item): ?>
-                    <a href="" class="item">
+                    <a href="<?= \yii\helpers\Url::to(['/consulting/consulting/view','slug'=>$item->slug]);?>" class="item">
                         <img src="<?= $item->photo;?>" alt="" class="lazyOwl">
                         <p><?= $item->title;?></p>
                     </a>

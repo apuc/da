@@ -20,6 +20,7 @@ class ConsultingPostsMenu extends Widget
 {
     public $consulting;
     public $activeCategorySlug;
+    public $activeCategoryArray = [];
 
     public function run()
     {
@@ -57,7 +58,7 @@ class ConsultingPostsMenu extends Widget
                 'url' => Url::to(['/consulting/consulting/faq', 'slug' => $this->consulting->slug]),
                 'content' => $this->generateTree(CategoryFaq::findAll(['type' => $this->consulting->slug]),
                     0,
-                    'consulting/consulting/faq-categories'
+                    '/consulting/consulting/faq-categories'
                 ),
                 'active' => ($action == 'faq') ? 'active' : '',
             ];
@@ -71,7 +72,7 @@ class ConsultingPostsMenu extends Widget
         $html = '';
         foreach ($tree as $row) {
             if ($row['parent_id'] == $parent_id) {
-                $html .= '<li><a class="'. (($row->slug == $this->activeCategorySlug) ? 'activeCategory': '') .'" href="' . Url::to([$url, 'slug'=> $row->slug]) . '">';
+                $html .= '<li><a class="'. (($row->slug == $this->activeCategorySlug || in_array($row->slug,$this->activeCategoryArray)) ? 'active-category': '') .'" href="' . Url::to([$url, 'slug'=> $row->slug]) . '">';
                 $html .= '' . $row['title'];
                 $html .= '' . '</a>';
                 $html .= '' . $this->generateTree($tree, $row['id'], $url);

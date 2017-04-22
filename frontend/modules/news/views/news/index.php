@@ -88,6 +88,7 @@ $md = new \common\classes\Mobile_Detect();
                     endif;
                     $simpleNewId++;
                 else:
+
                     $currHotNew = $hotNews[$hotNewId];
                     ?>
                     <div class=" news__wrap_item-sm-hot">
@@ -112,6 +113,7 @@ $md = new \common\classes\Mobile_Detect();
                         </div>
                     </div>
                     <?php
+                    $hotNewId++;
                 endif;
             endfor; ?>
 

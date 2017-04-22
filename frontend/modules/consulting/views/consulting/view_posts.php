@@ -5,7 +5,8 @@ $this->title = (empty($consulting->meta_title)) ? $consulting->title : $consulti
 $this->registerMetaTag([
     'name' => 'description',
     'content' => $consulting->meta_descr,
-]);; ?>
+]);
+?>
 
 
 <section class="breadcrumbs-wrap">
@@ -37,14 +38,17 @@ $this->registerMetaTag([
                         <div class="title-law"><?= $post->title; ?></div>
                         <div class="text"><?= WordFunctions::crop_str_word(strip_tags($post->content), 50); ?>
                         </div>
-                        <div class="info"><a href="#">Читать ответ</a><span
+                        <div class="info"><a href="<?= Url::to(['/consulting/consulting/post','slug'=>$post->slug]);?>">Читать ответ</a><span
                                     class="view"><?= $post->views; ?> <?= WordFunctions::getNumEnding($post->views,
                                     ['просмотр', 'просмтора', 'просмотров']); ?></span></div>
                     </div>
                 <?php endforeach; ?>
-                <a href="#" data-post-type="posts" data-type="<?= $consulting->slug; ?>"
-                   data-category="<?= $ajaxCategory; ?>" data-offset="3" id="consulting-more-posts" class="load-more">Загрузить
-                    больше</a>
+                <?php if ($postsCount > 3): ?>
+                    <a href="#" data-post-type="posts" data-type="<?= $consulting->slug; ?>"
+                       data-category="<?= $ajaxCategory; ?>" data-offset="3" id="consulting-more-posts"
+                       class="load-more">Загрузить
+                        больше</a>
+                <?php endif; ?>
             </div>
         </article>
     </div>

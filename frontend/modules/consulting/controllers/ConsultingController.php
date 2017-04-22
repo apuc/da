@@ -69,9 +69,11 @@ class ConsultingController extends \yii\web\Controller
             ->where(['type' => $request->get('slug')])
             ->orderBy('dt_update DESC')
             ->with('consulting')
-            ->with('categoryPostsDigest')
-            ->limit(3)
-            ->all();
+            ->with('categoryPostsDigest');
+
+        $postsCount = $posts->count();
+
+        $posts = $posts->limit(3)->all();
 
         $consulting = $posts[0]->consulting;
 
@@ -79,6 +81,7 @@ class ConsultingController extends \yii\web\Controller
             'posts' => $posts,
             'consulting' => $consulting,
             'postsTitle' => $consulting->title_digest,
+            'postsCount' => $postsCount,
             'ajaxCategory' => '',
         ]);
 
@@ -92,9 +95,11 @@ class ConsultingController extends \yii\web\Controller
             ->where(['`category_posts_digest`.`slug`' => $request->get('slug')])
             ->orderBy('dt_update DESC')
             ->with('consulting')
-            ->joinWith('categoryPostsDigest')
-            ->limit(3)
-            ->all();
+            ->joinWith('categoryPostsDigest');
+
+        $postsCount = $posts->count();
+
+        $posts = $posts->limit(3)->all();
 
         $consulting = $posts[0]->consulting;
 
@@ -103,6 +108,7 @@ class ConsultingController extends \yii\web\Controller
             'consulting' => $consulting,
             'postsTitle' => $consulting->title_digest,
             'ajaxCategory' => $request->get('slug'),
+            'postsCount' => $postsCount,
 
         ]);
 
@@ -116,18 +122,19 @@ class ConsultingController extends \yii\web\Controller
             ->where(['type' => $request->get('slug')])
             ->orderBy('dt_update DESC')
             ->with('consulting')
-            ->with('categoryPostsConsulting')
-            ->limit(3)
-            ->all();
+            ->with('categoryPostsConsulting');
+
+        $postsCount = $posts->count();
+        $posts = $posts->limit(3)->all();
 
         $consulting = $posts[0]->consulting;
-
 
         return $this->render('view_posts', [
             'posts' => $posts,
             'consulting' => $consulting,
             'postsTitle' => 'Статьи',
             'ajaxCategory' => '',
+            'postsCount' => $postsCount,
         ]);
 
     }
@@ -140,9 +147,10 @@ class ConsultingController extends \yii\web\Controller
             ->where(['`category_posts_consulting`.`slug`' => $request->get('slug')])
             ->orderBy('dt_update DESC')
             ->with('consulting')
-            ->joinWith('categoryPostsConsulting')
-            ->limit(3)
-            ->all();
+            ->joinWith('categoryPostsConsulting');
+
+        $postsCount = $posts->count();
+        $posts = $posts->limit(3)->all();
 
         $consulting = $posts[0]->consulting;
 
@@ -151,6 +159,7 @@ class ConsultingController extends \yii\web\Controller
             'consulting' => $consulting,
             'postsTitle' => $posts[0]->categoryPostsConsulting->title,
             'ajaxCategory' => $request->get('slug'),
+            'postsCount' => $postsCount,
         ]);
 
     }
@@ -163,9 +172,10 @@ class ConsultingController extends \yii\web\Controller
             ->where(['type' => $request->get('slug')])
             ->orderBy('dt_update DESC')
             ->with('consulting')
-            ->with('category')
-            ->limit(3)
-            ->all();
+            ->with('category');
+
+        $postsCount = $posts->count();
+        $posts = $posts->limit(3)->all();
 
         $consulting = $posts[0]->consulting;
 
@@ -174,6 +184,7 @@ class ConsultingController extends \yii\web\Controller
             'consulting' => $consulting,
             'postsTitle' => 'Вопрос / ответ',
             'ajaxCategory' => '',
+            'postsCount' => $postsCount,
         ]);
 
     }
@@ -186,17 +197,79 @@ class ConsultingController extends \yii\web\Controller
             ->where(['`category_faq`.`slug`' => $request->get('slug')])
             ->orderBy('dt_update DESC')
             ->with('consulting')
-            ->joinWith('category')
-            ->limit(3)
-            ->all();
+            ->joinWith('category');
+
+        $postsCount = $posts->count();
+        $posts = $posts->limit(3)->all();
 
         $consulting = $posts[0]->consulting;
 
         return $this->render('view_faq', [
             'posts' => $posts,
             'consulting' => $consulting,
-            'postsTitle' => $posts[0]->categoryPostsConsulting->title,
+            'postsTitle' => $posts[0]->category->title,
             'ajaxCategory' => $request->get('slug'),
+            'postsCount' => $postsCount,
+        ]);
+
+    }
+
+    public function actionDocument($slug)
+    {
+
+        $post = PostsDigest::find()
+            ->where(['slug' => $slug])
+            ->with('consulting')
+            ->with('categoryPostsDigest')
+            ->one();
+
+        if (empty($post)) {
+            return $this->redirect(['/consulting/consulting/index']);
+        }
+
+        return $this->render('view_post_digest', [
+            'post' => $post,
+            'activeCategory' => ArrayHelper::getColumn($post->categoryPostsDigest, 'slug'),
+        ]);
+
+    }
+
+    public function actionPost($slug)
+    {
+
+        $post = PostsConsulting::find()
+            ->where(['slug' => $slug])
+            ->with('consulting')
+            ->with('categoryPostsConsulting')
+            ->one();
+
+        if (empty($post)) {
+            return $this->redirect(['/consulting/consulting/index']);
+        }
+
+        return $this->render('view_post', [
+            'post' => $post,
+            'activeCategory' => ArrayHelper::getColumn($post->categoryPostsConsulting, 'slug'),
+        ]);
+
+    }
+
+    public function actionFaqPost($slug)
+    {
+
+        $post = Faq::find()
+            ->where(['slug' => $slug])
+            ->with('consulting')
+            ->with('category')
+            ->one();
+
+        if (empty($post)) {
+            return $this->redirect(['/consulting/consulting/index']);
+        }
+
+        return $this->render('view_post_faq', [
+            'post' => $post,
+            'activeCategory' => $post->category->slug,
         ]);
 
     }
