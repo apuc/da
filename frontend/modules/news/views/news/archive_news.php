@@ -35,12 +35,12 @@ $md = new \common\classes\Mobile_Detect();
                 <a href="">подписаться</a>
 
             </div>
-            <div class="hot-tag">
-                <a href="">Криптовалюты </a>
-                <a href="">Дональд Трамп</a>
-                <a href="">ОПЕК</a>
-                <a href="">Китай Tesla </a>
-            </div>
+            <!--<div class="hot-tag">-->
+            <!--    <a href="">Криптовалюты </a>-->
+            <!--    <a href="">Дональд Трамп</a>-->
+            <!--    <a href="">ОПЕК</a>-->
+            <!--    <a href="">Китай Tesla </a>-->
+            <!--</div>-->
         </div>
         <div class="news__wrap">
 

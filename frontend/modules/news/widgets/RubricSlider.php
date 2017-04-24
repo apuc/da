@@ -29,6 +29,7 @@ class RubricSlider extends Widget
         foreach ($catsListId as $id => $title) {
             $news[$title] = News::find()
                 ->joinWith('categoryNewsRelations')
+
                 ->where(['`category_news_relations`.`cat_id`' => $id])
                 ->limit(5)
                 ->orderBy('views DESC')

@@ -17,7 +17,7 @@
                     <div class="rubrick-slider__title">
                         <h2><?= $title; ?></h2>
                         <p><?= $firstNew->categoryNewsRelations[0]->cat->descr;?></p>
-                        <a href="" class="go-rubrick">перейти в рубрику</a>
+                        <a href="<?= Url::to(['/news/news/category','slug'=>$firstNew->categoryNewsRelations[0]->cat->slug]);?>" class="go-rubrick">перейти в рубрику</a>
                     </div>
                     <div class="rubrick-slider__item_wrap">
                         <div class="item__big">
