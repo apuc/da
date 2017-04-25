@@ -228,7 +228,7 @@ class DefaultController extends Controller
             die();
         }
 
-        $moreInterestedPosters = array_slice($interestedInPosters, 4);
+        $moreInterestedPosters = array_slice($interestedInPosters, 4, null, true);
 
         return $this->renderAjax('more_interested_in', [
             'interestedInPosters' => $moreInterestedPosters,
