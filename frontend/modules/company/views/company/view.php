@@ -190,60 +190,7 @@ $this->registerJsFile('/js/company_ajax.js', ['depends' => [\yii\web\JqueryAsset
 
             </div>
 
-            <div class="business__sidebar stock" id="business-stock-sidebar">
-
-                <h3>популярные акции</h3>
-
-                <a href="#" class="stock__link">
-
-                    <span class="stock__title"></span>
-
-                    <div class="stock__link--img">
-                        <img src="img/business/stock1-img.png" alt="">
-                    </div>
-
-                    <div class="stock__link--descr">
-
-                        <p>Скидка до 40% на лазерную эпиляцию</p>
-
-                    </div>
-
-                </a>
-
-                <a href="#" class="stock__link">
-
-                    <span class="stock__title"></span>
-
-                    <div class="stock__link--img">
-                        <img src="img/business/stock1-img.png" alt="">
-                    </div>
-
-                    <div class="stock__link--descr">
-
-                        <p>Скидка до 40% на лазерную эпиляцию</p>
-
-                    </div>
-
-                </a>
-
-                <a href="#" class="stock__link">
-
-                    <span class="stock__title"></span>
-
-                    <div class="stock__link--img">
-                        <img src="img/business/stock1-img.png" alt="">
-                    </div>
-
-                    <div class="stock__link--descr">
-
-                        <p>Скидка до 40% на лазерную эпиляцию</p>
-
-                    </div>
-
-                </a>
-
-
-            </div>
+            <?= \frontend\modules\company\widgets\HotStock::widget() ?>
 
         </div>
 

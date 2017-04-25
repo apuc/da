@@ -7,6 +7,7 @@ use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
 use common\models\db\CompanyPhoto;
 use common\models\db\KeyValue;
+use common\models\db\Stock;
 use Yii;
 use backend\modules\company\models\Company;
 use backend\modules\company\models\CompanySearch;
@@ -197,6 +198,21 @@ class CompanyController extends Controller
         return $this->render('wrc', [
             'wrcList' => ArrayHelper::map(\common\models\db\Company::find()->all(), 'id', 'name'),
             'wrc' => json_decode($wrc->value),
+        ]);
+    }
+
+    public function actionHotStock()
+    {
+        $request = Yii::$app->request;
+        $hotStock = KeyValue::findOne(['key' => 'hot_stock']);
+        if ($request->isPost) {
+            $json = json_encode($request->post()['hot_stock']);
+            $hotStock->value = $json;
+            $hotStock->save();
+        }
+        return $this->render('hot_stock', [
+            'hotStockList' => ArrayHelper::map(Stock::find()->all(), 'id', 'title'),
+            'hotStock' => json_decode($hotStock->value),
         ]);
     }
 
