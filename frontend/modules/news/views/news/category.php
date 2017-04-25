@@ -1,64 +1,173 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: apuc0
- * Date: 26.09.2016
- * Time: 13:57
- * @var $news \common\models\db\CategoryNewsRelations
- * @var $cat \common\models\db\CategoryNews
- * @var $pages \yii\data\Pagination
- */
+
 use common\classes\DateFunctions;
 use common\classes\WordFunctions;
-use yii\widgets\LinkPager;
+use yii\helpers\Html;
+use yii\grid\GridView;
+use yii\helpers\StringHelper;
+use yii\helpers\Url;
+use yii\widgets\ListView;
+use yii\widgets\Pjax;
 
-$this->title = (empty($cat->meta_title))? $cat->title : $cat->meta_title;
-
+/* @var $this yii\web\View */
+/* @var $searchModel frontend\modules\news\models\NewsSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+/**
+ * @var $cat \common\models\db\CategoryNews
+ * @var $news_5 \common\models\db\News
+ */
+//$this->title                   = Yii::t( 'news', 'News' );
+$this->params['breadcrumbs'][] = $this->title;
+$this->title = $meta_title;
+$this->registerMetaTag([
+    'name' => 'description',
+    'content' => $meta_descr,
+]);
+$md = new \common\classes\Mobile_Detect();
 ?>
-<div class="main-news" style="margin-top: 30px">
+
+<section class="news">
     <div class="container">
-        <div class="news-posts">
-            <?php foreach($news as $new): ?>
-                <div class="news-posts__item" style="height:270px;">
-                    <?php $dt = ($new['news']->dt_public != $new['news']->dt_add) ? $new['news']->dt_public : $new['news']->dt_add; ?>
-                    <!--<span class="date-news__post"><?/*= date('d', $dt) */?> <?/*= DateFunctions::getMonthShortName(date('m', $dt)) */?> <?/*= date('H:i', $dt) */?></span>-->
-                    <!--<h4 class="category"><a href="#"><?/*= $cat->title */?></a></h4>-->
-                    <a href="/news/<?= $new['news']->slug ?>">
-                        <h5 class="post-header"><?= $new['news']->title ?></h5>
-                        <div class="post-image">
-                            <img src="<?= $new['news']->photo ?>" alt="">
-                        </div>
-                        <p class="text-preview"><?= WordFunctions::crop_str_word(strip_tags($new['news']->content),15);  ?></p>
-                    </a>
-                    <a href="/news/<?= $new['news']->slug ?>" class="read-more more-news-link">Читать дальше <img src="/theme/portal-donbassa/img/scroll-arrow-to-right.svg" width="4px" height="6px"></a>
+        <div class="news-slider-index-panel">
+            <h3><?= $category->title; ?></h3>
+            <div class="buttons-wrap">
+                <a href="">подписаться</a>
 
-                    <div class="line"></div>
-                </div>
-            <?php endforeach; ?>
-            <div style="float: left;width: 100%;margin-top: 20px">
-                <?php echo LinkPager::widget([
-                    'pagination' => $pages,
-                ]); ?>
             </div>
-
+            <!--<div class="hot-tag">-->
+            <!--    <a href="">Криптовалюты </a>-->
+            <!--    <a href="">Дональд Трамп</a>-->
+            <!--    <a href="">ОПЕК</a>-->
+            <!--    <a href="">Китай Tesla </a>-->
+            <!--</div>-->
         </div>
-        <div class="main-news-prefooter">
-            <div class="social">
-                <h4 class="social-header">МЫ В КОНТАКТЕ</h4>
-                <div id="vk_groups_news"></div>
-            </div>
-            <div class="social">
-                <h4 class="social-header">МЫ В ФЕЙСБУКЕ</h4>
-                <div class="fb-page" data-href="https://www.facebook.com/da.info.pro/" data-heigh="180"
-                     data-small-header="true" data-adapt-container-width="true" data-hide-cover="true"
-                     data-show-facepile="true">
-                    <blockquote cite="https://www.facebook.com/da.info.pro/" class="fb-xfbml-parse-ignore"><a
-                            href="https://www.facebook.com/da.info.pro/">DA</a></blockquote>
+        <div class="news__wrap">
+
+            <?php
+            $simpleNewId = 0;
+            $hotNewId = 0;
+            for ($i = 0; $i <= 38; $i++):
+                if (!in_array($i, $hotNewsIndexes)):
+                    $currNew = $news[$simpleNewId]->news;
+                    if (in_array($i, $bigNewsIndexes)):
+                        ?>
+                        <div class="news__wrap_item-lg">
+                            <div class="thumb">
+                                <img src="<?= $currNew->photo; ?>" alt="">
+                                <div class="content-row">
+                                    <span><?= WordFunctions::dateWithMonts($currNew->dt_public); ?></span>
+                                    <a>Новости</a>
+                                    <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
+                                    <h2><a href="<?= Url::to([
+                                            '/news/default/view',
+                                            'slug' => $currNew->slug,
+                                        ]); ?>"><?= $currNew->title; ?></a></h2>
+                                </div>
+
+                            </div>
+                        </div>
+                    <?php else: ?>
+                        <div class="news__wrap_item-sm">
+                            <div class="thumb">
+                                <img src="<?= $currNew->photo; ?>" alt="">
+                                <div class="content-row">
+                                    <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
+                                    <a>Новости</a>
+                                </div>
+                            </div>
+                            <div class="content-item">
+                                <p><a href="<?= Url::to([
+                                        '/news/default/view',
+                                        'slug' => $currNew->slug,
+                                    ]); ?>"><?= $currNew->title; ?></a></p>
+                                <span><?= WordFunctions::dateWithMonts($currNew->dt_public); ?></span>
+                            </div>
+                        </div>
+                        <?php
+                    endif;
+                    $simpleNewId++;
+                else:
+
+                    $currHotNew = $hotNews[$hotNewId];
+                    ?>
+                    <div class=" news__wrap_item-sm-hot">
+                        <!-- thumb -->
+                        <div class="thumb">
+                            <img src="<?= $currHotNew->photo; ?>" alt="">
+                            <div class="content-row">
+                                <span><small class="view-icon"></small> <?= $currHotNew->views; ?></span>
+                                <a>Новости</a>
+                            </div>
+                        </div>
+                        <!-- thumb -->
+                        <div class="hover-wrap">
+                            <a href="" class="category">
+                                <span class="category-star"></span>
+                                ГОРЯЧЕЕ
+                            </a>
+                            <h2><a href="<?= Url::to([
+                                    '/news/default/view',
+                                    'slug' => $currHotNew->slug,
+                                ]); ?>"><?= $currHotNew->title; ?></a></h2>
+                        </div>
+                    </div>
+                    <?php
+                    $hotNewId++;
+                endif;
+            endfor; ?>
+
+
+            <div class="home-content__wrap_subscribe">
+                <div class="subscribe__wrap">
+                    <h3>ПОДПИСАТЬСЯ НА НОВОСТИ</h3>
+                    <form action="">
+                        <input type="text" placeholder="Выслать на email">
+                        <button>подписаться</button>
+                    </form>
+                    <div class="social-wrap">
+                        <h4>мы в социальных сетях</h4>
+                        <a href="" class="social-wrap__item vk">
+                            <img src="/theme/portal-donbassa/img/soc/vk.png" alt="">
+                        </a>
+                        <a href="" class="social-wrap__item fb">
+                            <img src="/theme/portal-donbassa/img/soc/fb.png" alt="">
+                        </a>
+                        <a href="" class="social-wrap__item ok">
+                            <img src="/theme/portal-donbassa/img/soc/ok-icon.png" alt="">
+                        </a>
+                        <a href="" class="social-wrap__item insta">
+                            <img src="/theme/portal-donbassa/img/soc/insta-icon.png" alt="">
+                        </a>
+                        <a href="" class="social-wrap__item twitter">
+                            <img src="/theme/portal-donbassa/img/soc/twi-icon.png" alt="">
+                        </a>
+                        <a href="" class="social-wrap__item google">
+                            <img src="/theme/portal-donbassa/img/soc/google-icon.png" alt="">
+                        </a>
+                        <a href="" class="social-wrap__item pinterest">
+                            <img src="/theme/portal-donbassa/img/soc/pinter-icon.png" alt="">
+                        </a>
+                    </div>
                 </div>
             </div>
-<!--            <div class="banner-bottom">-->
-<!--                <img src="/theme/portal-donbassa/img/banner-bottom.png" alt="">-->
-<!--            </div>-->
+        </div>
+        <div class="news__wrap_buttons">
+            <a href=""><span class="rotate-arrow"></span>рубрикатор</a>
+            <a
+                    href=""
+                    data-offset="34"
+                    csrf-token="<?= Yii::$app->getRequest()->getCsrfToken(); ?>"
+                    data-category="<?= $category->slug; ?>"
+                    class="show-more show-more-category-news-js">загрузить
+                БОЛЬШЕ</a>
+            <span href="#" class="archive-news datepicker-here datepicker-wrap">архив новостей</span>
         </div>
     </div>
-</div>
+</section>
+
+<?= \frontend\modules\news\widgets\PeopleTalk::widget(); ?>
+
+<?= \frontend\modules\news\widgets\RubricSlider::widget(); ?>
+
+
+

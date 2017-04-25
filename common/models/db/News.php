@@ -47,7 +47,10 @@ class News extends \yii\db\ActiveRecord
         return [
             [['title'], 'required'],
             [['content'], 'string'],
-            [['dt_add', 'dt_update', 'status', 'user_id', 'lang_id', 'views', 'exclude_popular', 'rss','hot_new'], 'integer'],
+            [
+                ['dt_add', 'dt_update', 'status', 'user_id', 'lang_id', 'views', 'exclude_popular', 'rss', 'hot_new'],
+                'integer',
+            ],
             [['title', 'slug', 'tags', 'photo', 'meta_title', 'meta_descr'], 'string', 'max' => 255],
             [['author'], 'string', 'max' => 64],
             [['main_slider'], 'safe'],
@@ -89,6 +92,11 @@ class News extends \yii\db\ActiveRecord
     public function getCategoryNewsRelations()
     {
         return $this->hasMany(CategoryNewsRelations::className(), ['new_id' => 'id'])->with('cat');
+    }
+
+    public function getCategory()
+    {
+        return $this->hasMany(CategoryNews::className(), ['id' => 'cat_id'])->via('categoryNewsRelations');
     }
 
     public static function mainSlider()

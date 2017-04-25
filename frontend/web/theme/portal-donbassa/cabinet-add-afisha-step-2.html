@@ -91,20 +91,19 @@
 
 <!-- end header.html-->
 
-<!-- start cabinet-consultation.html-->
+<!-- start cabinet-add-afisha-st2.html-->
 <section class="cabinet">
 
     <div class="container">
 
         <ul class="cabinet__nav">
 
-            <li><a href="#">Мои новости</a></li>
+            <li><a href="#" >Мои новости</a></li>
             <li><a href="#">Мои предприятия</a></li>
-            <li><a href="#" class="active">Мои консультации</a></li>
+            <li><a href="#">Мои консультации</a></li>
             <li><a href="#">Мои объявления</a></li>
-            <li><a href="#">Мой профиль</a></li>
+            <li><a href="#" class="active">Мой профиль</a></li>
             <li><a href="#">Мои афиши</a></li>
-            <li><a href="#">Мои фото</a></li>
             <li><a href="#">Коментарии</a></li>
             <li><a href="#">Сообщения</a></li>
 
@@ -112,84 +111,113 @@
 
         <div class="cabinet__wrapper">
 
-            <h1>Мои консультации</h1>
+            <h1>Редактирование профиля</h1>
 
             <div class="cabinet__links">
 
-                <div class="cabinet__links--full-box">
-                    <a href="#" class="cabinet__links--link active">Вопросы <span>10</span></a>
-                    <a href="#" class="cabinet__links--link">Консультации <span>10</span></a>
-                    <a href="#" class="cabinet__links--link">Статьи <span>10</span></a>
-                </div>
+              <div class="cabinet__links--box">
+
+                  <a href="#" class="cabinet__links--return">вернуться</a>
+
+                  <a href="#" class="cabinet__links--link">Выставка в АРТ ДОНБАСЕ</a>
+
+              </div>
+
+
+                <a href="#" class="show-more">Сохранить</a>
+
+                <a href="#" class="show-more"><span class="show-more__icon"></span>Добавить</a>
 
             </div>
 
             <div class="cabinet__container">
 
-                <div class="cabinet__consultation">
+                <div class="cabinet__add-company">
 
-                    <a href="#" class="cabinet__consultation--item">
+                    <form action="" class="cabinet__add-company-form">
 
-                        <h3>ООО "РОСС-ОПТ"</h3>
+                        <p class="cabinet__add-company-form--title">Категория</p>
 
-                        <p>Внешнеэкономическая деятельность (ВЭД услуги)
-                            со странами ближнего зарубежья.
-                            Внешнеэкономическая деятельность (ВЭД услуги)
-                            со странами ближнего зарубежья.</p>
+                        <select class="cabinet__add-company-form--field" name="" id="form-select">
+                            <option value="1"></option>
+                            <option value="2"></option>
+                            <option value="3"></option>
+                            <option value="4"></option>
+                            <option value="5"></option>
+                        </select>
 
-                        <div class="separator"></div>
+                        <div class="cabinet__add-company-form--block"></div>
 
-                    </a>
+                        <p class="cabinet__add-company-form--title">Название мероприятия</p>
 
-                    <a href="#" class="cabinet__consultation--item">
+                        <input class="cabinet__add-company-form--field" type="text">
 
-                        <h3>ООО "РОСС-ОПТ"</h3>
+                        <div class="cabinet__add-company-form--block"></div>
 
-                        <p>Внешнеэкономическая деятельность (ВЭД услуги)
-                            со странами ближнего зарубежья.
-                            Внешнеэкономическая деятельность (ВЭД услуги)
-                            со странами ближнего зарубежья.</p>
+                        <div class="cabinet__add-company-form--wrapper">
 
-                        <div class="separator"></div>
+                            <p class="cabinet__add-company-form--title">Адрес проведения</p>
 
-                    </a>
+                            <input class="cabinet__add-company-form--field" type="text">
 
-                    <a href="#" class="cabinet__consultation--item">
+                            <a href="#" class="show-more add-field">добавить</a>
 
-                        <h3>ООО "РОСС-ОПТ"</h3>
+                            <p class="cabinet__add-company-form--notice"></p>
 
-                        <p>Внешнеэкономическая деятельность (ВЭД услуги)
-                            со странами ближнего зарубежья.
-                            Внешнеэкономическая деятельность (ВЭД услуги)
-                            со странами ближнего зарубежья.</p>
+                        </div>
 
-                        <div class="separator"></div>
+                        <div class="cabinet__add-company-form--hover-wrapper" data-count="1">
 
-                    </a>
+                        </div>
 
-                    <a href="#" class="cabinet__consultation--item">
+                        <p class="cabinet__add-company-form--title">Обложка мероприятия</p>
 
-                        <h3>ООО "РОСС-ОПТ"</h3>
+                        <label class="cabinet__add-company-form--add-foto">
+                            <span class="button"></span>
+                            <input class="input-file" type="file">
+                        </label>
 
-                        <p>Внешнеэкономическая деятельность (ВЭД услуги)
-                            со странами ближнего зарубежья.
-                            Внешнеэкономическая деятельность (ВЭД услуги)
-                            со странами ближнего зарубежья.</p>
+                        <div class="cabinet__add-company-form--block"></div>
 
-                        <div class="separator"></div>
+                        <p class="cabinet__add-company-form--title">Дата проведения</p>
 
-                    </a>
+                        <input class="cabinet__add-company-form--field" type="text">
 
+                        <div class="cabinet__add-company-form--block"></div>
+
+                        <div class="cabinet__add-company-form--wrapper">
+
+                            <p class="cabinet__add-company-form--title">Телефон</p>
+
+                            <input class="cabinet__add-company-form--field" type="text">
+
+                            <a href="#" class="show-more add-field">добавить</a>
+
+                            <p class="cabinet__add-company-form--notice"></p>
+
+                        </div>
+
+                        <div class="cabinet__add-company-form--hover-wrapper" data-count="1">
+
+                        </div>
+
+                        <p class="cabinet__add-company-form--title">Описание</p>
+
+                        <textarea class="cabinet__add-company-form--text"></textarea>
+
+                    </form>
                 </div>
 
             </div>
+
 
         </div>
 
     </div>
 
 </section>
-<!-- end cabinet-consultation.html-->
+
+<!-- end cabinet-add-afisha-st2.html-->
 
 <!-- start footer.html-->
 <footer class="footer">

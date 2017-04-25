@@ -16,7 +16,6 @@ use yii\widgets\Pjax;
  * @var $cat \common\models\db\CategoryNews
  * @var $news_5 \common\models\db\News
  */
-
 //$this->title                   = Yii::t( 'news', 'News' );
 $this->params['breadcrumbs'][] = $this->title;
 $this->title = $meta_title;
@@ -35,12 +34,12 @@ $md = new \common\classes\Mobile_Detect();
                 <a href="">подписаться</a>
 
             </div>
-            <div class="hot-tag">
-                <a href="">Криптовалюты </a>
-                <a href="">Дональд Трамп</a>
-                <a href="">ОПЕК</a>
-                <a href="">Китай Tesla </a>
-            </div>
+            <!--<div class="hot-tag">-->
+            <!--    <a href="">Криптовалюты </a>-->
+            <!--    <a href="">Дональд Трамп</a>-->
+            <!--    <a href="">ОПЕК</a>-->
+            <!--    <a href="">Китай Tesla </a>-->
+            <!--</div>-->
         </div>
         <div class="news__wrap">
 
@@ -88,6 +87,7 @@ $md = new \common\classes\Mobile_Detect();
                     endif;
                     $simpleNewId++;
                 else:
+
                     $currHotNew = $hotNews[$hotNewId];
                     ?>
                     <div class=" news__wrap_item-sm-hot">
@@ -112,6 +112,7 @@ $md = new \common\classes\Mobile_Detect();
                         </div>
                     </div>
                     <?php
+                    $hotNewId++;
                 endif;
             endfor; ?>
 
@@ -126,25 +127,25 @@ $md = new \common\classes\Mobile_Detect();
                     <div class="social-wrap">
                         <h4>мы в социальных сетях</h4>
                         <a href="" class="social-wrap__item vk">
-                            <img src="theme/portal-donbassa/img/soc/vk.png" alt="">
+                            <img src="/theme/portal-donbassa/img/soc/vk.png" alt="">
                         </a>
                         <a href="" class="social-wrap__item fb">
-                            <img src="theme/portal-donbassa/img/soc/fb.png" alt="">
+                            <img src="/theme/portal-donbassa/img/soc/fb.png" alt="">
                         </a>
                         <a href="" class="social-wrap__item ok">
-                            <img src="theme/portal-donbassa/img/soc/ok-icon.png" alt="">
+                            <img src="/theme/portal-donbassa/img/soc/ok-icon.png" alt="">
                         </a>
                         <a href="" class="social-wrap__item insta">
-                            <img src="theme/portal-donbassa/img/soc/insta-icon.png" alt="">
+                            <img src="/theme/portal-donbassa/img/soc/insta-icon.png" alt="">
                         </a>
                         <a href="" class="social-wrap__item twitter">
-                            <img src="theme/portal-donbassa/img/soc/twi-icon.png" alt="">
+                            <img src="/theme/portal-donbassa/img/soc/twi-icon.png" alt="">
                         </a>
                         <a href="" class="social-wrap__item google">
-                            <img src="theme/portal-donbassa/img/soc/google-icon.png" alt="">
+                            <img src="/theme/portal-donbassa/img/soc/google-icon.png" alt="">
                         </a>
                         <a href="" class="social-wrap__item pinterest">
-                            <img src="theme/portal-donbassa/img/soc/pinter-icon.png" alt="">
+                            <img src="/theme/portal-donbassa/img/soc/pinter-icon.png" alt="">
                         </a>
                     </div>
                 </div>

@@ -6,7 +6,7 @@
             <?= $item->question; ?>
         </div>
         <div class="info">
-            <a href="#">Читать ответ</a>
+            <a href="<?= \yii\helpers\Url::to(['/consulting/consulting/faq-post', 'slug' => $item->slug]); ?>">Читать ответ</a>
             <span class="view">
                     <?= $item->views . ' ' . \common\classes\WordFunctions::getNumEnding($item->views,
                         [

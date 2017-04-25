@@ -105,6 +105,29 @@ class NewsController extends Controller
         }
     }
 
+    public function actionMoreCategoryNews()
+    {
+        if (Yii::$app->request->isPost) {
+            $request = Yii::$app->request->post();
+
+            $news = News::find()
+                ->joinWith('category')
+                ->where([
+                    'status' => 0,
+                    '`news`.`lang_id`' => Lang::getCurrent()['id'],
+                    'hot_new' => 0,
+                    '`category_news`.`slug`'=>Yii::$app->request->post('category')
+                ])
+                ->offset($request['offset'])
+                ->limit(16)
+                ->orderBy('dt_public DESC')
+                ->all();
+
+            return $this->renderPartial('simple_news', ['news' => $news]);
+
+        }
+    }
+
     /**
      * Displays a single News model.
      *
@@ -199,26 +222,49 @@ class NewsController extends Controller
         if (empty($cat)) {
             return $this->goHome();
         }
-        $query = CategoryNewsRelations::find()
+        $news = CategoryNewsRelations::find()
             ->leftJoin('news', '`category_news_relations`.`new_id` = `news`.`id`')
             ->where(['cat_id' => $cat->id])
             ->andWhere(['status' => 0])
             ->orderBy('`news`.`id` DESC')
-            ->with('news');
-
-        $countQuery = clone $query;
-        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
-        $pages->pageSizeParam = false;
-
-        $news = $query->offset($pages->offset)
-            ->limit($pages->limit)
+            ->with('news')
             ->all();
 
-        return $this->render('category', [
-            'news' => $news,
-            'cat' => $cat,
-            'pages' => $pages,
-        ]);
+        $hotNews = News::find()
+            ->where([
+                'status' => 0,
+                'lang_id' => Lang::getCurrent()['id'],
+                'hot_new' => 1,
+            ])
+            ->limit(5)
+            ->orderBy('dt_public DESC')
+            ->all();
+
+        $hotNewsIndexes = [5, 7, 13, 20, 22];
+        $bigNewsIndexes = [14, 28, 38];
+
+        return $this->render('category',
+            [
+                'category' => $cat,
+                'news' => $news,
+                'hotNews' => $hotNews,
+                'hotNewsIndexes' => $hotNewsIndexes,
+                'bigNewsIndexes' => $bigNewsIndexes,
+            ]);
+
+        //$countQuery = clone $query;
+        //$pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
+        //$pages->pageSizeParam = false;
+        //
+        //$news = $query->offset($pages->offset)
+        //    ->limit($pages->limit)
+        //    ->all();
+        //
+        //return $this->render('category', [
+        //    'news' => $news,
+        //    'cat' => $cat,
+        //    'pages' => $pages,
+        //]);
     }
 
     public function actionArchive($date)

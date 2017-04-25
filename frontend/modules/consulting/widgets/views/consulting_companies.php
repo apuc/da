@@ -6,7 +6,7 @@
         <ul>
             <?php foreach ($consulting as $item): ?>
                 <li>
-                    <div class="title"><a href="#"><?= $item->title;?></a></div>
+                    <div class="title"><a href="<?= \yii\helpers\Url::to(['/consulting/consulting/view', 'slug' => $item->slug]); ?>"><?= $item->title;?></a></div>
                     <div class="description"><?= strip_tags($item->descr);?>
                     </div>
                 </li>

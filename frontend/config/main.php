@@ -124,7 +124,7 @@ return [
                 'consulting'=> 'consulting/consulting',
                 'consulting/<slug>'=>'/consulting/consulting/view',
                 'faq/<slug>'=>'/consulting/consulting/faq',
-                'faq-categories/<slugcategory>'=>'/consulting/consulting/faq',
+                'faq-categories/<slugcategory>'=>'/consulting/consulting/faq-categories',
                 'faq/<slug>/<faqslug>'=>'/consulting/consulting/faqv',
                 'posts/<slug>'=>'/consulting/consulting/posts',
                 'posts-categories/<slug>'=>'/consulting/consulting/posts-categories',
@@ -133,6 +133,9 @@ return [
                 'documents-categories/<slug>'=>'/consulting/consulting/documents-categories',
                 'documents/<slug>/<catslug>/<postslug>'=>'/consulting/consulting/documentsv',
                 'documents/<slug>/<postslug>'=>'/consulting/consulting/documentsv',
+                '/document/<slug>'=>'/consulting/consulting/document',
+                '/post/<slug>'=>'/consulting/consulting/post',
+                '/faq-post/<slug>'=>'/consulting/consulting/faq-post',
                 //'ajax'=> 'ajax/default',
                 //'ajax/send_poll'=> 'ajax/default/send_poll',
             ]
