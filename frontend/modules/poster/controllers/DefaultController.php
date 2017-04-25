@@ -218,7 +218,7 @@ class DefaultController extends Controller
         }
 
     }
-
+    // загружаем больше категорий "Вас может заинтересовать"
     public function actionMoreInterestedIn()
     {
         $interestedInPostersJson = KeyValue::findOne(['key' => 'intrested_in_posters']);
@@ -232,6 +232,23 @@ class DefaultController extends Controller
 
         return $this->renderAjax('more_interested_in', [
             'interestedInPosters' => $moreInterestedPosters,
+        ]);
+    }
+    // показываем события из категории "Вас может заинтересовать"
+    public function actionInterestedInPosters()
+    {
+        $posterID = Yii::$app->request->post('posterID');
+
+        $interestedInPostersJson = KeyValue::findOne(['key' => 'intrested_in_posters']);
+        $interestedInPosters = json_decode($interestedInPostersJson->value);
+
+        $posters = Poster::find()
+            ->joinWith('categories')
+            ->where(['poster.id' => $interestedInPosters[$posterID]->posters])
+            ->all();
+
+        return $this->renderPartial('more_kino', [
+            'posters' => $posters
         ]);
     }
 
