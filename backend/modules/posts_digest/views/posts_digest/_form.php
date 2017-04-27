@@ -13,6 +13,7 @@ use mihaildev\elfinder\ElFinder;
 /* @var $this yii\web\View */
 /* @var $model backend\modules\posts_digest\models\PostsDigest */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $cats_arr array */
 ?>
 
 <div class="posts-digest-form">
@@ -79,7 +80,7 @@ use mihaildev\elfinder\ElFinder;
             <?= Html::dropDownList(
                 'categ',
                 $cats_arr,
-                ArrayHelper::map(CategoryPostsDigest::find()->where(['type'=>$model->type])->all(),'id','title'),
+                CategoryPostsDigest::getList(),
                 ['class'=>'form-control', 'id'=>'postsdigest-cat_id', 'multiple'=>'multiple']); ?>
     <?php } else { ?>
             <?= Html::dropDownList(

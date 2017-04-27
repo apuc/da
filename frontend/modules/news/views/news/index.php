@@ -15,6 +15,9 @@ use yii\widgets\Pjax;
 /**
  * @var $cat \common\models\db\CategoryNews
  * @var $news_5 \common\models\db\News
+ * @var $meta_title string
+ * @var $meta_descr string
+ * @var $hotNews \common\models\db\News
  */
 //$this->title                   = Yii::t( 'news', 'News' );
 $this->params['breadcrumbs'][] = $this->title;
@@ -112,7 +115,7 @@ $md = new \common\classes\Mobile_Detect();
                         </div>
                     </div>
                     <?php
-                    $hotNewId++;
+                    $hotNewId = $hotNewId + 1 == count($hotNews) ? 0 : $hotNewId + 1;
                 endif;
             endfor; ?>
 

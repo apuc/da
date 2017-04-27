@@ -112,7 +112,7 @@ $md = new \common\classes\Mobile_Detect();
                         </div>
                     </div>
                     <?php
-                    $hotNewId++;
+                    $hotNewId = $hotNewId + 1 == count($hotNews) ? 0 : $hotNewId + 1;
                 endif;
             endfor; ?>
 

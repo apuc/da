@@ -48,6 +48,7 @@ class NewsController extends Controller
     /**
      * Lists all News models.
      * @return mixed
+     * @throws \yii\base\InvalidParamException
      */
     public function actionIndex()
     {
@@ -74,13 +75,15 @@ class NewsController extends Controller
 
         $hotNewsIndexes = [5, 7, 13, 20, 22];
         $bigNewsIndexes = [14, 28, 38];
-
+        //Debug::prn($hotNews);
         return $this->render('index',
             [
                 'news' => $news,
                 'hotNews' => $hotNews,
                 'hotNewsIndexes' => $hotNewsIndexes,
                 'bigNewsIndexes' => $bigNewsIndexes,
+                'meta_descr' => KeyValue::getValue('news_page_meta_descr'),
+                'meta_title' => KeyValue::getValue('news_page_meta_title'),
             ]);
     }
 
@@ -250,6 +253,8 @@ class NewsController extends Controller
                 'hotNews' => $hotNews,
                 'hotNewsIndexes' => $hotNewsIndexes,
                 'bigNewsIndexes' => $bigNewsIndexes,
+                'meta_descr' => $cat->meta_descr,
+                'meta_title' => $cat->meta_title,
             ]);
 
         //$countQuery = clone $query;

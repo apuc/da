@@ -36,8 +36,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     if ( $model->parent_id == 0 ) {
                         return 'Нет';
                     }
-
-                    return CategoryFaq::find()->where( [ 'id' => $model->parent_id ] )->one()->title;
+                    $cat = CategoryFaq::find()->where( [ 'id' => $model->parent_id ] )->one();
+                    return isset($cat->title) ? $cat->title : '';
                 },
                 'filter'    => Html::activeDropDownList( $searchModel, 'parent_id', ArrayHelper::map( CategoryFaq::find()->all(), 'id', 'title' ), [
                     'class'  => 'form-control',
@@ -70,8 +70,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     if ( $model->type == '' ) {
                         return 'Нет';
                     }
-
-                    return Consulting::find()->where( [ 'slug' => $model->type ] )->one()->title;
+                    $con = Consulting::find()->where( [ 'slug' => $model->type ] )->one();
+                    return isset($con->title) ? $con->title : '';
                 },
                 'filter'    => Html::activeDropDownList( $searchModel, 'type', ArrayHelper::map( Consulting::find()->all(), 'id', 'title' ), [
                     'class'  => 'form-control',

@@ -44,8 +44,8 @@ $this->registerJsFile('/js/company_ajax.js', ['depends' => [\yii\web\JqueryAsset
                         </p>
                         <?php $phone = explode(' ', $organization->phone) ?>
                         <ul class="business__sm-item--numbers">
-                            <li><?= $phone[0] ?></li>
-                            <li> <?= $phone[1] ?></li>
+                            <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
+                            <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
                         </ul>
 
                         <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->

@@ -1,5 +1,6 @@
 <?php
 
+use common\models\db\CategoryCompany;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -32,14 +33,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'parent_id',
                 'format' => 'text',
                 'value' => function($model){
-                    $parent = \common\models\db\CategoryCompany::find()->where(['id'=>$model->parent_id])->one()->title;
+                    $parent = CategoryCompany::find()->where(['id'=>$model->parent_id])->one();
                    if(!empty($parent)){
-                       return $parent;
+                       return $parent->title;
                    }else{
                        return '';
                    }
                 },
-                'filter'=> Html::activeDropDownList($searchModel, 'parent_id', ArrayHelper::map(\common\models\db\CategoryCompany::find()->all(),'id','title'),['class'=>'form-control','prompt' => '']),
+                'filter'=> Html::activeDropDownList($searchModel, 'parent_id', ArrayHelper::map(CategoryCompany::find()->all(),'id','title'),['class'=>'form-control','prompt' => '']),
             ],
             'descr:ntext',
             [

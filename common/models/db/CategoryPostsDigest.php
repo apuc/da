@@ -3,6 +3,7 @@
 namespace common\models\db;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "category_posts_digest".
@@ -59,5 +60,10 @@ class CategoryPostsDigest extends \yii\db\ActiveRecord
             'meta_title' => Yii::t('poster', 'Meta Title'),
             'meta_descr' => Yii::t('poster', 'Meta Descr'),
         ];
+    }
+
+    public static function getList()
+    {
+        return ArrayHelper::map(self::find()->all(), 'id', 'title');
     }
 }

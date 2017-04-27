@@ -76,8 +76,8 @@ $wrc_count = 0; ?>
             </p>
             <?php $phone = explode(' ', $organizations[$pos]->phone) ?>
             <ul class="business__sm-item--numbers">
-                <li><?= $phone[0] ?></li>
-                <li> <?= $phone[1] ?></li>
+                <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
+                <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
             </ul>
 
             <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->
