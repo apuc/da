@@ -59,8 +59,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     if ( $model->user_id == 0 ) {
                         return 'Нет';
                     }
-
-                    return User::find()->where( [ 'id' => $model->user_id ] )->one()->username;
+                    $user = User::find()->where( [ 'id' => $model->user_id ] )->one();
+                    return isset($user->username) ? $user->username : '';
                 },
                 'filter'    => Html::activeDropDownList( $searchModel, 'user_id', ArrayHelper::map( User::find()->all(), 'id', 'username' ), [ 'class'  => 'form-control',
                                                                                                                                                'prompt' => ''
@@ -75,8 +75,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     if ( $model->type == '' ) {
                         return 'Нет';
                     }
-
-                    return Consulting::find()->where( [ 'slug' => $model->type ] )->one()->title;
+                    $con = Consulting::find()->where( [ 'slug' => $model->type ] )->one();
+                    return isset($con->title) ? $con->title : '';
                 },
                 'filter'    => Html::activeDropDownList( $searchModel, 'type', ArrayHelper::map( Consulting::find()->all(), 'id', 'title' ), [
                     'class'  => 'form-control',
@@ -89,7 +89,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format'    => 'text',
                 'label'     => Yii::t( 'faq', 'Category' ),
                 'value'     => function ( $model ) {
-                    return CategoryPostsConsulting::find()->where( [ 'id' => $model->cat_id ] )->one()->title;
+                    $cat = CategoryPostsConsulting::find()->where( [ 'id' => $model->cat_id ] )->one();
+                    return isset($cat->title) ? $cat->title : '';
                 },
                 'filter'    => Html::activeDropDownList( $searchModel, 'cat_id', ArrayHelper::map( CategoryPostsConsulting::find()->all(), 'id', 'title' ), [ 'class'  => 'form-control',
                                                                                                                                                   'prompt' => ''

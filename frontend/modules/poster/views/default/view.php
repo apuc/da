@@ -10,7 +10,7 @@ use common\classes\DateFunctions;
 use common\classes\WordFunctions;
 use yii\helpers\Url;
 
-$this->title = $poster->title;
+$this->title = $model->title;
 $this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 

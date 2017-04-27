@@ -141,6 +141,12 @@ class MainMenuAdmin extends Widget
                                 'active' => Yii::$app->controller->module->id === 'company_feedback',
 //                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
+                            [
+                                'label' => 'Популярные акции',
+                                'url' => Url::to(['/company/company/hot-stock']),
+                                'active' => Yii::$app->controller->module->id === 'company' && Yii::$app->controller->action->id === 'hot-stock',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
                         ],
 
                         'visible' => UserFunction::hasPermission(['Компании']),

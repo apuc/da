@@ -67,10 +67,10 @@ class Posts_digestController extends Controller {
      * Creates a new PostsDigest model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @throws \yii\base\InvalidParamException
      */
     public function actionCreate() {
         $model = new PostsDigest();
-
 
         if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
 
@@ -83,8 +83,10 @@ class Posts_digestController extends Controller {
 
             return $this->redirect( [ 'view', 'id' => $model->id ] );
         } else {
+            $cats_arr = [ ];
             return $this->render( 'create', [
                 'model' => $model,
+                'cats_arr' => $cats_arr,
             ] );
         }
     }

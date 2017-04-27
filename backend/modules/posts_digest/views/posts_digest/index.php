@@ -58,8 +58,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     if ( $model->user_id == 0 ) {
                         return 'Нет';
                     }
-
-                    return User::find()->where( [ 'id' => $model->user_id ] )->one()->username;
+                    $user = User::find()->where( [ 'id' => $model->user_id ] )->one();
+                    return isset($user->username) ? $user->username : '';
                 },
                 'filter'    => Html::activeDropDownList( $searchModel, 'user_id', ArrayHelper::map( User::find()->all(), 'id', 'username' ), [ 'class'  => 'form-control',
                                                                                                                                                'prompt' => ''

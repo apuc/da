@@ -302,7 +302,9 @@ class CompanyController extends Controller
 
         $post = Yii::$app->request->post();
         $wrc = KeyValue::getValue('we_recommend_companies');
-        $wrc = array_splice(json_decode($wrc), $post['step'] * 3);
+        $wrc = json_decode($wrc);
+        $step = isset($post['step']) ? $post['step'] * 3 : 1;
+        $wrc = array_splice($wrc, $step);
         $wrc = \common\models\db\Company::find()->where(['id' => $wrc])->all();
         $positions = [1, 4, 10];
 

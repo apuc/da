@@ -254,7 +254,7 @@ AppAsset::register($this);
 
 <?= \frontend\widgets\CompanyMain::widget(); ?>
 
-<section class="ads">
+<!--<section class="ads">
 
     <div class="container">
 
@@ -352,7 +352,7 @@ AppAsset::register($this);
 
     </div>
 
-</section>
+</section>-->
 
 <?= \frontend\widgets\MainPhotos::widget(); ?>
 

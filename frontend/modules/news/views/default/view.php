@@ -286,7 +286,7 @@ $this->registerMetaTag([
             <div class="scroll">
                 <?= \frontend\modules\news\widgets\RandomNewsByCategory::widget(['categoryId' => $category->id]); ?>
 
-                <?//= \frontend\modules\news\widgets\MostPopularNews::widget(); ?>
+                <?= \frontend\modules\news\widgets\MostPopularNews::widget(); ?>
             </div>
         </aside>
         <!-- end right_sidebar_news.html-->

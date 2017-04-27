@@ -40,4 +40,50 @@ $(document).ready(function () {
         });
         return false;
     });
+    /*============================================================
+     INTERESTED IN POSTERS
+     =============================================================*/
+    $(document).on('click', '.js-interested-in-more', function () {
+        event.preventDefault();
+
+        $.post(
+            '/poster/default/more-interested-in',
+            {
+                _csrf : $('meta[name=csrf-token]').attr("content")
+            },
+            function(data) {
+                $('.js-interested-cats').append(data);
+                $('.js-interested-in-more').remove();
+            }
+        );
+    });
+    // показываем афиши категории
+    $(document).on('click','.interested__item',function(){
+        event.preventDefault();
+        var posterCatID = $(this).attr('data-interested-index');
+
+        $.post(
+            '/poster/default/interested-in-posters',
+            {
+                posterID: posterCatID,
+                _csrf : $('meta[name=csrf-token]').attr("content"),
+            },
+            function(data) {
+                $('.js-interested-posters').html(data);
+                $('.js-interested-cats').fadeOut(200);
+                $('.js-interested-posters').fadeIn(200);
+                $('.js-interested-posters-back').show();
+                $('.js-interested-in-more').hide();
+            }
+        );
+    });
+
+    $(document).on('click','.js-interested-posters-back',function(){
+        event.preventDefault();
+
+        $(this).hide();
+        $('.js-interested-posters').fadeOut(200).html('');
+        $('.js-interested-cats').fadeIn(200);
+        $('.js-interested-in-more').show();
+    });
 });

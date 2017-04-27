@@ -13,7 +13,7 @@ use yii\helpers\Url;
 ?>
 <div class="events-day">
     <h3><?= !empty($slug) ? \common\models\db\CategoryPoster::findOne(['slug'=>$slug])->title : 'События в ближайшие дни'?></h3>
-    <div class="calendar-wrap">
+    <!--<div class="calendar-wrap">
         <ul>
             <li class="weekend">
                 <b>сб</b>
@@ -49,7 +49,7 @@ use yii\helpers\Url;
                 <span class="dot"></span>
             </li>
         </ul>
-    </div>
+    </div>-->
     <div class="events-day__wrap">
         <?php foreach ($posters as $poster): ?>
             <a href="<?= Url::to(['/poster/default/view', 'slug'=>$poster->slug]) ?>" class="item">
