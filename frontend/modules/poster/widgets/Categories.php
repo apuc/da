@@ -17,7 +17,7 @@ class Categories extends Widget
     public function run()
     {
 
-        $categories = CategoryPoster::find()->orderBy('RAND()')->limit(5)->all();
+        $categories = CategoryPoster::find()->orderBy('dt_add')->all();
 
         return $this->render('categories', [
             'categories' => $categories,
