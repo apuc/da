@@ -5,7 +5,9 @@ $this->title = (empty($post->consulting->meta_title)) ? $post->consulting->title
 $this->registerMetaTag([
     'name' => 'description',
     'content' => $post->consulting->meta_descr,
-]);; ?>
+]);
+\frontend\assets\AppAssetConsulting::register($this);
+?>
 
 
 <section class="breadcrumbs-wrap">
