@@ -160,46 +160,8 @@ AppAsset::register($this);
 
             <?= \frontend\modules\mainpage\widgets\Stock::widget() ?>
 
-            <div class="home-content__sidebar_poll">
-                <!-- <span class="red-line"></span> -->
-                <h3>Голосование</h3>
-                <h5>Выбери свой вариант</h5>
-                <form action="#">
-                    <label><p><input data-id="24" name="answer" type="radio" value="24">1. Готов(а) смотреть по ТВ</p>
-                    </label>
-                    <label><p><input data-id="25" name="answer" type="radio" value="25">2. Посещаю</p></label>
-                    <label><p><input data-id="26" name="answer" type="radio" value="26">3. Не посещаю</p></label>
-                    <label><p><input data-id="27" name="answer" type="radio" value="27">4. Ходил(а), если бы были в моем
-                            городе</p></label>
-                    <label><p><input data-id="28" name="answer" type="radio" value="28">5. Отрицательно</p></label>
-                    <button><span class="pencil"></span>Проголосовать</button>
-                </form>
-                <!--
-                <div class="pol-progress-cont">
-             <div class="answer"><p>1. Готов(а) смотреть по ТВ</p></div>
-             <div data-progress="0" class="poll-progressbar ui-progressbar ui-corner-all ui-widget ui-widget-content" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="ui-progressbar-value ui-corner-left ui-widget-header" style="display: none; width: 4px;"></div></div>
-             <span class="result">0</span>
-         </div>
-         <div class="pol-progress-cont">
-             <div class="answer"><p>2. Посещаю</p></div>
-             <div data-progress="0" class="poll-progressbar ui-progressbar ui-corner-all ui-widget ui-widget-content" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="ui-progressbar-value ui-corner-left ui-widget-header" style="display: none; width: 4px;"></div></div>
-             <span class="result">0</span>
-         </div>
-         <div class="pol-progress-cont">
-             <div class="answer"><p>3. Не посещаю</p></div>
-             <div data-progress="33" class="poll-progressbar ui-progressbar ui-corner-all ui-widget ui-widget-content" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="33"><div class="ui-progressbar-value ui-corner-left ui-widget-header" style="width: 65px;"></div></div>
-             <span class="result">1</span>
-         </div>
-         <div class="pol-progress-cont">
-             <div class="answer"><p>4. Ходил(а), если бы были в моем городе</p></div>
-             <div data-progress="66" class="poll-progressbar ui-progressbar ui-corner-all ui-widget ui-widget-content" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="66"><div class="ui-progressbar-value ui-corner-left ui-widget-header" style="width: 129px;"></div></div>
-             <span class="result">2</span>
-         </div>
-         <div class="pol-progress-cont">
-             <div class="answer"><p>5. Отрицательно</p></div>
-             <div data-progress="0" class="poll-progressbar ui-progressbar ui-corner-all ui-widget ui-widget-content" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="ui-
-                -->
-
+            <div class="home-content__sidebar_poll poll">
+                <?= \frontend\widgets\Poll::widget();?>
             </div>
 
             <?= \frontend\widgets\Consultation::widget(); ?>

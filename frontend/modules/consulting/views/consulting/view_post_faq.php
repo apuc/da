@@ -1,10 +1,12 @@
 <?php use yii\helpers\Url;
 
-$this->title = (empty($consulting->meta_title)) ? $consulting->title : $consulting->meta_title;
+$this->title = (empty($post->consulting->meta_title)) ? $post->consulting->title : $post->consulting->meta_title;
 $this->registerMetaTag([
     'name' => 'description',
-    'content' => $consulting->meta_descr,
-]);; ?>
+    'content' => $post->consulting->meta_descr,
+]);
+\frontend\assets\AppAssetConsulting::register($this);
+?>
 
 <!-- start breadcrumbs.html-->
 <section class="breadcrumbs-wrap">

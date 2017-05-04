@@ -6,6 +6,7 @@ $this->registerMetaTag([
     'name' => 'description',
     'content' => $consulting->meta_descr,
 ]);
+\frontend\assets\AppAssetConsulting::register($this);
 ?>
 
 

@@ -27,6 +27,7 @@ class Poll extends Widget {
         $user_ip = Yii::$app->request->userIP;
 
         $active_poll_id = KeyValue::find()->where( [ 'key' => 'active_poll' ] )->one()->value;
+
         $question       = Question::find()->where( [ 'id' => $active_poll_id ] )->one();
         $already_poll   = Answers::find()
                                  ->where( [
@@ -74,33 +75,6 @@ class Poll extends Widget {
                 ];
             }
 
-
-//            $answers = Answers::find()
-//                                  ->where( [ 'question_id' => $question->id ] )
-//                                  ->asArray()
-//                                  ->all();
-//
-//
-//                $sortedAnswers = [ ];
-//
-//                foreach ( $answers as $answer ) {
-//                    $sortedAnswers[ $answer['possible_answers_id'] ] = $sortedAnswers[ $answer['possible_answers_id'] ] + 1;
-//                }
-//
-//                $possible_answers = [ ];
-//                foreach ( $sortedAnswers as $key => $sortedAnswer ) {
-//                    $possible_answers[ $key ] = [
-//                        'val_per' => floor( $sortedAnswer / count( $answers ) * 100 ),
-//                        'val'     => $sortedAnswer,
-//                        'answer'  => PossibleAnswers::find()
-//                                                    ->where( [ 'id' => $key ] )
-//                                                    ->one()
-//                            ->title
-//                    ];
-//                }
-//                usort($possible_answers, function($a, $b){
-//                    return ($b['val_per'] - $a['val_per']);
-//                });
 
             return $this->render( 'poll-result', [
 
