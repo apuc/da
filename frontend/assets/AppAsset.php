@@ -48,6 +48,7 @@ class AppAsset extends AssetBundle
         '/theme/portal-donbassa/js/jquery.hc-sticky.min.js',
         '/theme/portal-donbassa/js/ajax.js',
         '/js/poll_ajax.js',
+        '/js/comments.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

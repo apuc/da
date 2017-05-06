@@ -180,4 +180,21 @@ class AjaxController extends Controller
             }
         }
     }
+
+    public function actionAddComment()
+    {
+        if (Yii::$app->request->isPost) {
+            $comment = new Comments();
+            $comment->post_type = Yii::$app->request->post('post_type');
+            $comment->post_id = Yii::$app->request->post('post_id');
+            $comment->user_id = Yii::$app->user->id;
+            $comment->content = Yii::$app->request->post('comment');
+            $comment->dt_add = time();
+            $comment->parent_id = Yii::$app->request->post('parent_id');
+
+            $comment->save();
+        }
+
+    }
+
 }

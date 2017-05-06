@@ -240,7 +240,7 @@ AppAsset::register($this);
 
         <p>Ваш комментарий</p>
 
-        <textarea class="modal-review__textarea" placeholder="Текст сообщения"></textarea>
+        <textarea id="comment" class="modal-review__textarea" placeholder="Текст сообщения"></textarea>
 
         <input id="modal-add-comment-submit" class="show-more" type="submit" value="отправить">
 

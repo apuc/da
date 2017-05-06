@@ -27,12 +27,13 @@ class Comments extends Widget
                 'post_id' => $this->postId,
                 'parent_id' => 0,
             ])
-            ->orderBy('id DESC')
+            ->orderBy('id')
             ->with('childComments')
             ->with('user')
             ->all();
 
-        return $this->render('comments', ['comments' => $comments]);
+        return $this->render('comments',
+            ['comments' => $comments, 'postType' => $this->postType, 'postId' => $this->postId]);
     }
 
 }
