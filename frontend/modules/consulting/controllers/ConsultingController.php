@@ -75,8 +75,8 @@ class ConsultingController extends \yii\web\Controller
 
         $posts = $posts->limit(3)->all();
 
-        $consulting = $posts[0]->consulting;
-
+        //$consulting = $posts[0]->consulting;
+        $consulting = Consulting::findOne(['slug'=>Yii::$app->request->get()]);
         return $this->render('view_posts_digest', [
             'posts' => $posts,
             'consulting' => $consulting,
@@ -127,7 +127,9 @@ class ConsultingController extends \yii\web\Controller
         $postsCount = $posts->count();
         $posts = $posts->limit(3)->all();
 
-        $consulting = $posts[0]->consulting;
+        //$consulting = $posts[0]->consulting;
+        $consulting = Consulting::findOne(['slug'=>Yii::$app->request->get()]);
+
 
         return $this->render('view_posts', [
             'posts' => $posts,
@@ -177,8 +179,8 @@ class ConsultingController extends \yii\web\Controller
         $postsCount = $posts->count();
         $posts = $posts->limit(3)->all();
 
-        $consulting = $posts[0]->consulting;
-
+        //$consulting = $posts[0]->consulting;
+        $consulting = Consulting::findOne(['slug'=>Yii::$app->request->get()]);
         return $this->render('view_faq', [
             'posts' => $posts,
             'consulting' => $consulting,
