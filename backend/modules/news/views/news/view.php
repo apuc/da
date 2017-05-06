@@ -57,7 +57,10 @@ $this->params['breadcrumbs'][] = $this->title;
             [                      // the owner name of the model
                 'label' => 'Автор',
                 'attribute' => 'photo',
-                'value' => \common\models\User::find()->where(['id'=>$model->user_id])->one()->username,
+                'value' => function($model){
+                    $user = \common\models\User::find()->where(['id'=>$model->user_id])->one();
+                    return !empty($user) ? $user->username : '';
+                },
             ],
             /*'status',*/
             /*'user_id',*/

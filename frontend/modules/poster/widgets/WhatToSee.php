@@ -19,7 +19,7 @@ class WhatToSee extends Widget
     {
         $posters = Poster::find()
             ->joinWith('categories')
-            ->where(['>', 'dt_event', time()])
+            /*->where(['>', 'dt_event', time()])*/
             ->andWhere(['`category_poster`.`slug`' => 'kino'])
             ->limit(5)
             ->all();

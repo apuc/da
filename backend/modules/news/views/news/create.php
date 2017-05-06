@@ -6,6 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\modules\news\models\News */
 /* @var $lang \common\models\db\Lang */
+/* @var $cats_arr array */
 
 $this->title = Yii::t('news', 'Create News');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('news', 'News'), 'url' => ['index']];
@@ -18,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $this->render('_form', [
         'model' => $model,
         'lang' => $lang,
+        'cats_arr' => [],
     ]) ?>
 
 </div>

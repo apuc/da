@@ -256,7 +256,8 @@ class DefaultController extends Controller
     {
         $step = Yii::$app->request->post('step');
         $poster = Poster::find()
-            ->where(['>', 'dt_event', time()])
+            /*->where(['>', 'dt_event', time()])*/
+            ->orderBy('dt_event DESC')
             ->limit(4)
             ->offset(((int)$step - 1) * 4)
             ->with('categories')
@@ -275,7 +276,7 @@ class DefaultController extends Controller
 
         $posters = Poster::find()
             ->joinWith('categories')
-            ->where(['>', 'dt_event', time()])
+            /*->where(['>', 'dt_event', time()])*/
             ->andWhere(['`category_poster`.`slug`' => 'kino'])
             ->limit(5)
             ->offset(((int)$step - 1) * 5)
