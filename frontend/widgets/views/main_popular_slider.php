@@ -99,7 +99,7 @@ use yii\helpers\Url;
             </div>
             <div class="js-carousel-3 owl-carousel">
                 <?php foreach ($newsSlider3 as $item): ?>
-                    <span href="<?= Url::to(['/news/default/view', 'slug'=>$item->slug]?>" class="item"><img src="img/home-content/3pic.jpg" alt="">
+                    <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug])?>" class="item"><img src="img/home-content/3pic.jpg" alt="">
                         <div class="content-item">
                             <div class="content-row">
                                 <a href="">Новости</a>
