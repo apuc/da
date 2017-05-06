@@ -16,20 +16,24 @@
             $newImageId += 4;
         } else {
             ?>
-
-            <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $new->slug]); ?>" class="tape__item">
+            <div href="" class="tape__item">
                 <span class="time"><?= date('H:i', $new->dt_public) ?></span>
+                <div class="hide-social">
+                    <a href=""><i class="fa fa-vk  fa-lg"></i></a>
+                    <a href=""><i class="fa fa-twitter fa-lg"></i></a>
+                    <a href=""><i class="fa fa-facebook fa-lg"></i></a>
+                    <a href=""><i class="fa fa-odnoklassniki  fa-lg"></i></a>
+
+                </div>
                 <span class="open-soc"><i class="fa fa-random fa-lg"></i></span>
-                <h4><?= $new->title; ?></h4>
-                <!--<p>--><?//= WordFunctions::crop_str_word( strip_tags( $new->content ), 10 );?><!--</p>-->
-                <?php //$content = explode('<div style="page-break-after: always"><span style="display:none">&nbsp;</span></div>',
-                //    $new->content);
-                //if (!empty($content[0]) && count($content) > 1):?>
-                <!--    <p>--><?//= strip_tags($content[0]); ?><!--</p>-->
-                <?php //else: ?>
-                <!--    <p>--><?//= WordFunctions::crop_str_word(strip_tags($new->content), 10); ?><!--</p>-->
-                <?php //endif; ?>
-            </a>
+                <h4>
+                    <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $new->slug]); ?>">
+                        <?= $new->title; ?>
+                    </a>
+                </h4>
+
+                <!-- <p>Донбас - 2017 названы три сценариявозможного будущего оккупированных территорий</p> -->
+            </div>
             <?php
         }
         ?>
@@ -38,5 +42,5 @@
     <?php endforeach; ?>
 
 
-    <a href="" class="more_type">смотреть все новости</a>
+    <a href="<?= \yii\helpers\Url::to(['/news/news']) ?>" class="more_type">смотреть все новости</a>
 </div>

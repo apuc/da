@@ -97,6 +97,12 @@ return [
         'company_feedback' => [
             'class' => 'backend\modules\company_feedback\Company_feedback',
         ],
+        'pages' => [
+            'class' => 'backend\modules\pages\Pages',
+        ],
+        'pages_group' => [
+            'class' => 'backend\modules\pages_group\Pages_group',
+        ],
     ],
     'components' => [
         /*'user' => [
