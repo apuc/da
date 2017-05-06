@@ -129,16 +129,16 @@ $md = new \common\classes\Mobile_Detect();
                     </form>
                     <div class="social-wrap">
                         <h4>мы в социальных сетях</h4>
-                        <a href="" class="social-wrap__item vk">
+                        <a href="https://vk.com/da_info_pro" class="social-wrap__item vk">
                             <img src="/theme/portal-donbassa/img/soc/vk.png" alt="">
                         </a>
-                        <a href="" class="social-wrap__item fb">
+                        <a href="https://www.facebook.com/da.info.pro/" class="social-wrap__item fb">
                             <img src="/theme/portal-donbassa/img/soc/fb.png" alt="">
                         </a>
-                        <a href="" class="social-wrap__item ok">
+                        <a href="https://ok.ru/da...infor" class="social-wrap__item ok">
                             <img src="/theme/portal-donbassa/img/soc/ok-icon.png" alt="">
                         </a>
-                        <a href="" class="social-wrap__item insta">
+                        <a href="https://www.instagram.com/da.info.pro/" class="social-wrap__item insta">
                             <img src="/theme/portal-donbassa/img/soc/insta-icon.png" alt="">
                         </a>
                         <a href="" class="social-wrap__item twitter">
