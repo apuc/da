@@ -54,7 +54,7 @@ class Comments extends \yii\db\ActiveRecord
 
     public function getChildComments()
     {
-        return $this->hasMany(Comments::className(), ['id' => 'parent_id']);
+        return $this->hasMany(Comments::className(), ['id' => 'parent_id'])->with('user');
     }
 
     public function getUser()

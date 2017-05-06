@@ -41,7 +41,7 @@
                 <div class="user">
                     <span>12</span>
                     <div class="user-photo">
-                        <img src="img/users-avatars/2.jpg" alt="">
+                        <img src="/theme/portal-donbassa/img/users-avatars/no-avatar.png" alt="">
                     </div>
 
                     <a href="#" class="up"></a>
@@ -60,14 +60,16 @@
                     <div class="text">
                         <?= $comment->content; ?>
                     </div>
-                    <?php if (!empty($comment->childComments)):
+                    <?php
+                    if (!empty($comment->childComments)):
                         foreach ($comment->childComments as $childComment):
                             ?>
                             <div class="child-comment">
                                 <div class="user">
                                     <span>12</span>
+
                                     <div class="user-photo">
-                                        <img src="img/users-avatars/2.jpg" alt="">
+                                        <img src="/theme/portal-donbassa/img/users-avatars/no-avatar.png" alt="">
                                     </div>
 
                                     <a href="#" class="up"></a>
@@ -75,16 +77,16 @@
                                 </div>
                                 <div class="comment">
                                     <div class="comment-info-wrapper">
-                                        <div class="user-name">Малик Янтижанов</div>
-                                        <div class="moder">Модератор</div>
+                                        <div class="user-name"><?= $childComment->user->username; ?></div>
+                                        <!--<div class="moder">Модератор</div>-->
 
                                         <div class="comment-info">
                                             <a href="#">Ответить</a>
-                                            <div class="time">16:43:12</div>
+                                            <div class="time"><?= \common\classes\WordFunctions::getTimeOrDateTime($childComment->dt_add); ?></div>
                                         </div>
                                     </div>
 
-                                    <div class="text">Попахивает рекламой?</div>
+                                    <div class="text"><?= $childComment->content ?></div>
                                 </div>
                             </div>
                             <?php

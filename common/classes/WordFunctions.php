@@ -97,17 +97,18 @@ class WordFunctions
     {
         $today = date('d.m.Y', time());
         $yesterday = date('d.m.Y', time() - 86400);
-        $dbDate = date('d.m.Y', strtotime($date));
+        $dbDate = date('d.m.Y', $date);
+        $time = date('H:i:s',$date);
 
         switch ($dbDate) {
             case $today :
-                $output = '';
+                $output = $time;
                 break;
             case $yesterday :
-                $output = 'Вчера в ';
+                $output = 'Вчера в ' . $time;
                 break;
             default :
-                $output = date('d.m', strtotime($dbDate));//date('m.d',$dbDate);
+                $output = date('d.m.Y', strtotime($dbDate)) .  ' ' . $time;//date('m.d',$dbDate);
         }
         return $output;
     }
