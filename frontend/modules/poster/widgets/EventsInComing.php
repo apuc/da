@@ -21,17 +21,18 @@ class EventsInComing extends Widget
     {
         $poster = Poster::find()
             ->joinWith('categories')
-            ->where(['>', 'dt_event', time()])
+            /*->where(['>', 'dt_event', time()])*/
             ->andFilterWhere(['`category_poster`.`slug`' => $this->slug])
-            ->limit(4)
+            ->orderBy('dt_event DESC')
+            //->limit(4)
             ->all();
-        //Debug::prn($poster);
-        if($poster){
+        Debug::prn(count($poster));
+        /*if($poster){
             return $this->render('events_in_coming', [
                 'posters' => $poster,
                 'slug' => $this->slug
             ]);
-        }
+        }*/
     }
 
 }

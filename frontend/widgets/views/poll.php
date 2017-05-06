@@ -9,12 +9,15 @@
 use yii\helpers\Html;
 
 ?>
-<h4>Голосование</h4>
+
+    <h3>Голосование</h3>
     <h5><?= $question->title; ?></h5>
     <form action="#">
-        <?php foreach ( $possible_answers as $answer ): ?>
-            <label><p><input data-id = '<?= $answer->id;?>' name="answer" type="radio" value="<?= $answer->id; ?>"><?= $answer->title; ?></p></label>
+        <?php foreach ($possible_answers as $answer): ?>
+            <label><p><input data-id='<?= $answer->id; ?>' name="answer" type="radio"
+                             value="<?= $answer->id; ?>"><?= $answer->title; ?></p></label>
         <?php endforeach; ?>
-        <input class="add-ad sbm-poll" type="submit" placeholder="Отправить">
+        <!--<input class="add-ad sbm-poll" type="submit" placeholder="Отправить">-->
+        <button class="sbm-poll"><span class="pencil"></span>Проголосовать</button>
     </form>
 

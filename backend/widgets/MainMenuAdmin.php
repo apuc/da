@@ -366,6 +366,34 @@ class MainMenuAdmin extends Widget
                         'template' => '<a href="#"><i class="fa fa-bar-chart"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
                     [
+                        'label' => 'Страницы',
+                        //'visible' => UserFunction::hasPermission(['Страницы']),
+                        'items' => [
+                            [
+                                'label' => 'Добавить',
+                                'url' => Url::to(['/pages/pages/create']),
+                                'active' => Yii::$app->controller->module->id === 'pages' && Yii::$app->controller->action->id === 'create',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                            [
+                                'label' => 'Все страницы',
+                                'url' => Url::to(['/pages/pages']),
+                                'active' => Yii::$app->controller->module->id === 'pages',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                            [
+                                'label' => 'Группы',
+                                'url' => Url::to(['/pages_group/pages_group']),
+                                'active' => Yii::$app->controller->module->id === 'pages_group',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                        ],
+                        'options' => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="#"><i class="fa fa-file-o"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                    ],
+                    [
                         'label' => 'Курсы валют',
                         // 'visible'  => UserFunction::hasPermission( [ 'Опросы' ] ),
                         'items' => [

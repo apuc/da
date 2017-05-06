@@ -37,6 +37,9 @@ return [
         'rss' => [
             'class' => 'frontend\modules\rss\Rss',
         ],
+        'pages' => [
+            'class' => 'frontend\modules\pages\Pages',
+        ],
     ],
     'components' => [
         'mymessages' => [
@@ -136,6 +139,7 @@ return [
                 '/document/<slug>'=>'/consulting/consulting/document',
                 '/post/<slug>'=>'/consulting/consulting/post',
                 '/faq-post/<slug>'=>'/consulting/consulting/faq-post',
+                'page/<slug>' => '/pages/default/view',
                 //'ajax'=> 'ajax/default',
                 //'ajax/send_poll'=> 'ajax/default/send_poll',
             ]

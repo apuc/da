@@ -32,7 +32,7 @@ $md = new \common\classes\Mobile_Detect();
 <section class="news">
     <div class="container">
         <div class="news-slider-index-panel">
-            <h3>Горяичие темы</h3>
+            <h3>Горячие темы</h3>
             <div class="buttons-wrap">
                 <a href="">подписаться</a>
 
