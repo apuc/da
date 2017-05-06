@@ -93,4 +93,25 @@ class WordFunctions
         return date('d',$time) . ' ' . self::getRuMonth()[date('m',$time)];
     }
 
+    public static function getTimeOrDateTime($date)
+    {
+        $today = date('d.m.Y', time());
+        $yesterday = date('d.m.Y', time() - 86400);
+        $dbDate = date('d.m.Y', $date);
+        $time = date('H:i:s',$date);
+
+        switch ($dbDate) {
+            case $today :
+                $output = $time;
+                break;
+            case $yesterday :
+                $output = 'Вчера в ' . $time;
+                break;
+            default :
+                $output = date('d.m.Y', strtotime($dbDate)) .  ' ' . $time;//date('m.d',$dbDate);
+        }
+        return $output;
+    }
+
+
 }
