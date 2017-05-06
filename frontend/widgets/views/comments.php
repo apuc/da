@@ -37,7 +37,7 @@
         <!--    </div>-->
         <!--</div>-->
         <?php foreach ($comments as $comment): ?>
-            <div class="comment-wrapper">
+            <div class="comment-wrapper<?= ($comment->moder_checked)? ' moder':'';?>">
                 <div class="user">
                     <span>12</span>
                     <div class="user-photo">
@@ -64,7 +64,7 @@
                     if (!empty($comment->childComments)):
                         foreach ($comment->childComments as $childComment):
                             ?>
-                            <div class="child-comment">
+                            <div class="child-comment<?= ($childComment->moder_checked)? ' moder':'';?>">
                                 <div class="user">
                                     <span>12</span>
 
