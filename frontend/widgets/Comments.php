@@ -25,6 +25,7 @@ class Comments extends Widget
             ->where([
                 'post_type' => $this->postType,
                 'post_id' => $this->postId,
+                'parent_id' => 0,
             ])
             ->orderBy('id DESC')
             ->with('childComments')
