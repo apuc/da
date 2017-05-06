@@ -1,44 +1,28 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: apuc0
- * Date: 26.09.2016
- * Time: 20:59
+ * User: warya
+ * Date: 06.05.2017
+ * Time: 11:43
  */
 
 namespace frontend\widgets;
 
-
-use common\classes\Debug;
 use yii\base\Widget;
 
-class Comments extends Widget {
-    public $post_id;
-    public $post_type;
+class Comments extends Widget
+{
 
-    public function run() {
-        $limit          = 5;
-        $count_comments = count( \common\models\db\Comments::find()
-                                         ->where( [ 'post_type' => $this->post_type, 'post_id' => $this->post_id ] )
-                                         ->all() );
+    public $pageTitle = 'Комментарии';
+    public $postType = null;
+    public $postId = null;
 
-        $comments = \common\models\db\Comments::find()
-                            ->where( [
-                                'post_type' => $this->post_type,
-                                'post_id'   => $this->post_id,
-                            ] )
-                            ->orderBy( 'dt_add DESC' )
-                            ->limit( $limit )
-                            ->all();
+    public function run()
+    {
 
-        return $this->render( 'comments', [
-            'count_comments' => $count_comments,
-            'comments'       => $comments,
-            'post_type'       => $this->post_type,
-            'post_id'       => $this->post_id,
-            'limit'          => $limit,
-        ] );
+
+
+        return $this->render('comments');
     }
-
 
 }
