@@ -2,6 +2,7 @@
 
 namespace common\models\db;
 
+use common\models\User;
 use Yii;
 
 /**
@@ -54,6 +55,11 @@ class Comments extends \yii\db\ActiveRecord
     public function getChildComments()
     {
         return $this->hasMany(Comments::className(), ['id' => 'parent_id']);
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
 }
