@@ -125,27 +125,27 @@ AppAsset::register($this);
                     </form>
                     <div class="social-wrap">
                         <h4>мы в социальных сетях</h4>
-                        <div class="social-wrap__item vk">
-                            <img src="/theme/portal-donbassa/img/soc/vk.png" alt="">
-                        </div>
-                        <div class="social-wrap__item fb">
+                        <a href="https://vk.com/da_info_pro" class="social-wrap__item vk">
+                            <img src="img/soc/vk.png" alt="">
+                        </a>
+                        <a href="https://www.facebook.com/da.info.pro/" class="social-wrap__item fb">
                             <img src="/theme/portal-donbassa/img/soc/fb.png" alt="">
-                        </div>
-                        <div class="social-wrap__item ok">
+                        </a>
+                        <a href="https://ok.ru/da...infor" class="social-wrap__item ok">
                             <img src="/theme/portal-donbassa/img/soc/ok-icon.png" alt="">
-                        </div>
-                        <div class="social-wrap__item insta">
+                        </a>
+                        <a href="https://www.instagram.com/da.info.pro/" class="social-wrap__item insta">
                             <img src="/theme/portal-donbassa/img/soc/insta-icon.png" alt="">
-                        </div>
-                        <div class="social-wrap__item twitter">
+                        </a>
+                        <a href="" class="social-wrap__item twitter">
                             <img src="/theme/portal-donbassa/img/soc/twi-icon.png" alt="">
-                        </div>
-                        <div class="social-wrap__item google">
+                        </a>
+                        <a href="" class="social-wrap__item google">
                             <img src="/theme/portal-donbassa/img/soc/google-icon.png" alt="">
-                        </div>
-                        <div class="social-wrap__item pinterest">
+                        </a>
+                        <a href="" class="social-wrap__item pinterest">
                             <img src="/theme/portal-donbassa/img/soc/pinter-icon.png" alt="">
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
