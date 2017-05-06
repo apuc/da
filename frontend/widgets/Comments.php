@@ -8,6 +8,7 @@
 
 namespace frontend\widgets;
 
+use common\classes\Debug;
 use yii\base\Widget;
 
 class Comments extends Widget
@@ -20,9 +21,17 @@ class Comments extends Widget
     public function run()
     {
 
+        $comments = \common\models\db\Comments::find()
+            ->where([
+                'post_type' => $this->postType,
+                'post_id' => $this->postId,
+            ])
+            ->orderBy('id DESC')
+            ->with('childComments')
+            ->with('user')
+            ->all();
 
-
-        return $this->render('comments');
+        return $this->render('comments', ['comments' => $comments]);
     }
 
 }

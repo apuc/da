@@ -70,6 +70,6 @@
                 } ?>
             </div>
         </div>
-        <a href="#" class="more">посмотреть больше <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+        <a href="<?= \yii\helpers\Url::to(['/poster/default/category']) ?>" class="more">посмотреть больше <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
     </div>
 </section>
