@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'slug',
                 'format' => 'html',
                 'value' => function($model){
-                    return '<a href="/page/'.$model->slug.'">Ссылка</a>';
+                    return '<a href="/page/'.$model->slug.'">Ссылка</a> - http://' . $_SERVER['SERVER_NAME'] . '/page/'.$model->slug;
                 }
             ],
             [

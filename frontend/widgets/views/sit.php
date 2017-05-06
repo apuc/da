@@ -4,7 +4,7 @@
  * User: apuc0
  * Date: 15.03.2017
  * Time: 15:07
- * @var $sit \common\models\db\SituationStatus
+ * @var $sit \common\models\db\Situation
  */
 
 ?>
@@ -17,16 +17,13 @@
     </div>
 
     <?php foreach ($sit as $s): ?>
-        <?php if (!empty($s->situation)): ?>
-            <div class="item">
-                <span class="color_checkpoint" style="background-color: <?= $s->circle ?>;border: 3px solid <?= $s->border ?>"></span>
-                <div class="item-city">
-                    <?php foreach ((array)$s->situation as $item): ?>
-                        <a href="">#<?= $item->name ?></a>
-                    <?php endforeach ?>
-                </div>
-                <p>09:49 - Курахово очередь курахово очередь</p>
+        <div class="item">
+            <span class="color_checkpoint"
+                  style="background-color: <?= $s->status->circle ?>;border: 3px solid <?= $s->status->border ?>"></span>
+            <div class="item-city">
+                    <a href="<?= $s->link ?>">#<?= $s->name ?></a>
             </div>
-        <?php endif; ?>
+            <p><?= $s->report_time ?> - <?= $s->descr ?></p>
+        </div>
     <?php endforeach; ?>
 </div>

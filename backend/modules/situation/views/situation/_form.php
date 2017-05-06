@@ -18,6 +18,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'report_time')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'link')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'descr')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'situation_status_id')

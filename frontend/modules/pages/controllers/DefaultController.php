@@ -23,11 +23,6 @@ class DefaultController extends Controller
     public function actionView($slug)
     {
         $model = Pages::findOne(['slug'=>$slug]);
-        return $this->render('view', ['model'=>$model,
-            'countComments' => $countComments,
-            'thisUserLike' => $thisUserLike,
-            'category' => $category,
-            'likes' => $likes,
-        ]);
+        return $this->render('view', ['model'=>$model]);
     }
 }
