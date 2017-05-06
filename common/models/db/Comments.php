@@ -50,4 +50,10 @@ class Comments extends \yii\db\ActiveRecord
             'dt_add' => Yii::t('comments', 'Dt Add'),
         ];
     }
+
+    public function getChildComments()
+    {
+        return $this->hasMany(Comments::className(), ['id' => 'parent_id']);
+    }
+
 }
