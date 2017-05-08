@@ -7,10 +7,12 @@
             <div class="afisha-wrap__event">
                 <h3>События в ближайшие дни</h3>
                 <?php
+                use yii\helpers\Url;
+
                 if (!empty($events)) {
                     foreach ($events as $event):
                         ?>
-                        <a href="" class="item">
+                        <a href="<?= Url::to(['/poster/default/view', 'slug'=>$event->slug]) ?>" class="item">
                             <img src="<?= $event->photo; ?>" alt="">
                             <div class="item-content">
                                 <span class="type"><?= $event->categories[0]->title; ?></span>
@@ -55,7 +57,7 @@
                 <?php
                 if (!empty(($movies))) {
                     foreach ($movies as $poster): ?>
-                        <a href="" class="item">
+                        <a href="<?= Url::to(['/poster/default/view', 'slug'=>$poster->slug]) ?>" class="item">
                             <img src="<?= $poster->photo; ?>" alt="">
                             <div class="item-content">
                                 <span class="type"><?= $poster->categories[0]->title; ?></span>
@@ -70,6 +72,6 @@
                 } ?>
             </div>
         </div>
-        <a href="<?= \yii\helpers\Url::to(['/poster/default/category']) ?>" class="more">посмотреть больше <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+        <a href="<?= Url::to(['/poster/default/category']) ?>" class="more">посмотреть больше <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
     </div>
 </section>

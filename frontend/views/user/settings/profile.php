@@ -9,6 +9,7 @@
  * file that was distributed with this source code.
  */
 
+use yii\bootstrap\BootstrapAsset;
 use yii\helpers\Html;
 
 /**
@@ -19,6 +20,9 @@ use yii\helpers\Html;
 
 $this->title = Yii::t('user', 'Profile settings');
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerCssFile('/theme/portal-donbassa_old/css/style.min.css', [
+    'depends' => [BootstrapAsset::className()]
+]);
 ?>
 
 <?= $this->render('/_alert', ['module' => Yii::$app->getModule('user')]) ?>
