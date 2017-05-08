@@ -54,10 +54,10 @@ AppAsset::register($this);
             <?= ExchangeRates::widget() ?>
             <form action="">
                 <input class="search-input" type="text" placeholder="Поиск">
-                <button>
+                <a href="#">
                     <span class="autoriz-icon"></span>
                     авторизация
-                </button>
+                </a>
             </form>
         </div>
         <?php echo \frontend\widgets\MainMenu::widget() ?>

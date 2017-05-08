@@ -66,7 +66,51 @@ AppAsset::register($this);
 </section>
 
 <?= $content;?>
-<a href="" class="fix-button"><img src="img/home-content/fix-button.png" alt=""></a>
+<a href="" class="fix-button"><img src="/theme/portal-donbassa/img/home-content/fix-button.png" alt=""></a>
+
+<footer class="footer">
+
+    <div class="container">
+
+        <div class="footer__logo">
+            <img src="/theme/portal-donbassa/img/logo.png" alt="Logo">
+        </div>
+
+
+        <div class="footer__main">
+
+            <ul class="footer__nav">
+                <li><a href="#">НОВОСТИ</a></li>
+                <li><a href="#">АФИША</a></li>
+                <li><a href="#">ДОСУГ</a></li>
+                <li><a href="#">ПРЕДПРИЯТИЯ</a></li>
+                <li><a href="#">КОНСУЛЬТАЦИИ</a></li>
+                <li><a href="#">ОБЪЯВЛЕНИЯ</a></li>
+            </ul>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicinor incididunt ut labore et dolore magn aliqua. Ut enim
+                ad minim veniam, quis nostrud exercitation
+                ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor n reprehenderit in
+                voluptate velit esse cillum dolor</p>
+
+        </div>
+
+
+        <div class="footer__social">
+
+            <div class="footer__links">
+                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+            </div>
+
+            <a href="#" class="footer__send">написать нам</a>
+
+        </div>
+
+    </div>
+
+</footer>
 
 <div class="modal-send">
 
