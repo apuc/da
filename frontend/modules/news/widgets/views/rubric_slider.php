@@ -1,4 +1,4 @@
-<section class="rubrick-slider">
+<section id="go_rubricator" class="rubrick-slider">
     <div class="container">
         <button class="toggle_mnu__rubrick">
         <span class="sandwich">
