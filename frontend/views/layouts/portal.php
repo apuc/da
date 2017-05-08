@@ -27,6 +27,10 @@ AppAsset::register($this);
     <?php $this->head() ?>
     <meta name="yandex-verification" content="6102a93fabadb2cf"/>
     <?= \frontend\widgets\Metrika::widget() ?>
+    <meta property="og:title" content="DA info"/>
+    <meta property="og:url" content="<?= Url::home(true); ?>"/>
+    <meta property="og:image" content="/theme/portal-donbassa/img/logo.png"/>
+    <meta property="og:description" content="Информационный портал города Донецка"/>
 </head>
 <body>
 <?php $this->beginBody() ?>
