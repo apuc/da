@@ -53,8 +53,12 @@ $this->registerJsFile('/js/company_ajax.js', ['depends' => [\yii\web\JqueryAsset
 
                     <div class="business__requisites--links">
 
-                        <a class="phone" href="tel:+380667778540"><?= $model->getPhones()[0] ?></a>
-                        <a class="phone" href="tel:+380667778540"><?= $model->getPhones()[1] ?></a>
+                        <a class="phone" href="tel:+380667778540">
+                            <?= isset($model->getPhones()[0]) ? $model->getPhones()[0] : '' ?>
+                        </a>
+                        <a class="phone" href="tel:+380667778540">
+                            <?= isset($model->getPhones()[1]) ? $model->getPhones()[1] : '' ?>
+                        </a>
 
                         <a href="" class="social-wrap__item vk">
                             <img src="/theme/portal-donbassa/img/soc/vk.png" alt="">
