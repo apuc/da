@@ -87,7 +87,7 @@ AppAsset::register($this);
             <span class="komunalka__icon">
               <img src="/theme/portal-donbassa/img/home-content/energy.png" alt="">
             </span>
-                        <a href="<?= Url::to(['/pages/default/view', 'slug' => 'elektrichestvo'])?>" class="komunalka__line ">электричество<span class="red-arrow"></span></a>
+                        <a href="<?= Url::to(['/pages/default/view', 'slug' => 'elektricestvo'])?>" class="komunalka__line ">электричество<span class="red-arrow"></span></a>
                     </div>
                     <div class="komunalka__item">
             <span class="komunalka__icon">
@@ -126,7 +126,7 @@ AppAsset::register($this);
                     <div class="social-wrap">
                         <h4>мы в социальных сетях</h4>
                         <a href="https://vk.com/da_info_pro" class="social-wrap__item vk">
-                            <img src="img/soc/vk.png" alt="">
+                            <img src="/theme/portal-donbassa/img/soc/vk.png" alt="">
                         </a>
                         <a href="https://www.facebook.com/da.info.pro/" class="social-wrap__item fb">
                             <img src="/theme/portal-donbassa/img/soc/fb.png" alt="">
