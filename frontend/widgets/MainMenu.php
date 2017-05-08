@@ -54,7 +54,7 @@ class MainMenu extends Widget
                     'active' => Yii::$app->controller->module->id == 'poster',
                 ],
                 [
-                    'label' => 'Консультация',
+                    'label' => 'Консультации',
                     'url' => Url::to(['/consulting']),
                     'template' => '<a href="{url}">{label}</a>',
                     'active' => Yii::$app->controller->module->id == 'mainpage1',

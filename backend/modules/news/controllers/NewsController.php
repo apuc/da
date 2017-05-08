@@ -94,6 +94,7 @@ class NewsController extends Controller {
             return $this->render( 'create', [
                 'model' => $model,
                 'lang'  => $lang,
+                'cats_arr' => [],
             ] );
         }
     }

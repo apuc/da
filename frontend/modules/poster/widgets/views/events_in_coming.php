@@ -60,7 +60,7 @@ use yii\helpers\Url;
                     <span class="type"><?= $poster->categories[0]->title ?></span>
                     <h3 style="padding-left: 0"><?= WordFunctions::crop_str_word($poster->title, 6)  ?></h3>
                     <span class="date">
-                        <?= WordFunctions::dateWithMonts($poster->dt_event) ?>, <?= date('H:i',$poster->dt_event) ?>
+                        <?= WordFunctions::dateWithMonts($poster->dt_event) ?>, <?= date('Y H:i',$poster->dt_event) ?>
                     </span>
                     <span class="place"><?= $poster->address ?></span>
                 </div>

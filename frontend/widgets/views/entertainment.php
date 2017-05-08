@@ -4,8 +4,10 @@
         <a href=""><span class="add-icon"></span>Зарегистрировать заведение</a>
     </div>
     <div class="enterprises__wrap">
-        <?php foreach ($companySmall as $item): ?>
-            <a href="" class="item-small">
+        <?php use yii\helpers\Url;
+
+        foreach ($companySmall as $item): ?>
+            <a href="<?= Url::to(['/company/company/view', 'slug'=>$item->slug]) ?>" class="item-small">
                 <div class="thumb">
                     <img src="<?= $item->photo; ?>" alt="">
                 </div>
@@ -16,7 +18,7 @@
                 </div>
             </a>
         <?php endforeach; ?>
-        <a href="" class="item-large">
+        <a href="<?= Url::to(['/company/company/view', 'slug'=>$item->slug]) ?>" class="item-large">
             <div class="thumb">
                 <img src="<?= $companyBig->photo; ?>" alt="">
             </div>
@@ -27,6 +29,6 @@
             </div>
         </a>
         <!-- close item -->
-        <a href="" class="show-enterprises">смотреть все заведения<span class="red-arrow"></span></a>
+        <a href="<?= Url::to(['/company/company']) ?>" class="show-enterprises">смотреть все заведения<span class="red-arrow"></span></a>
     </div>
 </div>

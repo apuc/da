@@ -57,7 +57,7 @@ use yii\helpers\Url;
             <?php endforeach; ?>
         </div>
 
-        <a href="#" class="more">посмотреть больше <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+        <a href="<?= Url::to(['/company/company']) ?>" class="more">посмотреть больше <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
 
     </div>
 

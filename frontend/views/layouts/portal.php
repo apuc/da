@@ -87,31 +87,31 @@ AppAsset::register($this);
             <span class="komunalka__icon">
               <img src="/theme/portal-donbassa/img/home-content/energy.png" alt="">
             </span>
-                        <a href="" class="komunalka__line ">электричество<span class="red-arrow"></span></a>
+                        <a href="<?= Url::to(['/pages/default/view', 'slug' => 'elektricestvo'])?>" class="komunalka__line ">электричество<span class="red-arrow"></span></a>
                     </div>
                     <div class="komunalka__item">
             <span class="komunalka__icon">
               <img src="/theme/portal-donbassa/img/home-content/wind.png" alt="">
             </span>
-                        <a href="" class="komunalka__line">отопление <span class="red-arrow"></span></a>
+                        <a href="<?= Url::to(['/pages/default/view', 'slug' => 'otoplenie'])?>" class="komunalka__line">отопление <span class="red-arrow"></span></a>
                     </div>
                     <div class="komunalka__item">
             <span class="komunalka__icon">
               <img src="/theme/portal-donbassa/img/home-content/gas.png" alt="">
             </span>
-                        <a href="" class="komunalka__line">газ <span class="red-arrow"></span></a>
+                        <a href="<?= Url::to(['/pages/default/view', 'slug' => 'gas'])?>" class="komunalka__line">газ <span class="red-arrow"></span></a>
                     </div>
                     <div class="komunalka__item">
             <span class="komunalka__icon">
               <img src="/theme/portal-donbassa/img/home-content/home.png" alt="">
             </span>
-                        <a href="" class="komunalka__line">жкх <span class="red-arrow"></span></a>
+                        <a href="<?= Url::to(['/pages/default/view', 'slug' => 'gkh'])?>" class="komunalka__line">жкх <span class="red-arrow"></span></a>
                     </div>
                     <div class="komunalka__item">
             <span class="komunalka__icon">
               <img src="/theme/portal-donbassa/img/home-content/water.png" alt="">
             </span>
-                        <a href="" class="komunalka__line">вода<span class="red-arrow"></span></a>
+                        <a href="<?= Url::to(['/pages/default/view', 'slug' => 'voda'])?>" class="komunalka__line">вода<span class="red-arrow"></span></a>
                     </div>
                 </div>
             </div>
@@ -125,27 +125,27 @@ AppAsset::register($this);
                     </form>
                     <div class="social-wrap">
                         <h4>мы в социальных сетях</h4>
-                        <div class="social-wrap__item vk">
+                        <a href="https://vk.com/da_info_pro" class="social-wrap__item vk">
                             <img src="/theme/portal-donbassa/img/soc/vk.png" alt="">
-                        </div>
-                        <div class="social-wrap__item fb">
+                        </a>
+                        <a href="https://www.facebook.com/da.info.pro/" class="social-wrap__item fb">
                             <img src="/theme/portal-donbassa/img/soc/fb.png" alt="">
-                        </div>
-                        <div class="social-wrap__item ok">
+                        </a>
+                        <a href="https://ok.ru/da...infor" class="social-wrap__item ok">
                             <img src="/theme/portal-donbassa/img/soc/ok-icon.png" alt="">
-                        </div>
-                        <div class="social-wrap__item insta">
+                        </a>
+                        <a href="https://www.instagram.com/da.info.pro/" class="social-wrap__item insta">
                             <img src="/theme/portal-donbassa/img/soc/insta-icon.png" alt="">
-                        </div>
-                        <div class="social-wrap__item twitter">
+                        </a>
+                        <a href="" class="social-wrap__item twitter">
                             <img src="/theme/portal-donbassa/img/soc/twi-icon.png" alt="">
-                        </div>
-                        <div class="social-wrap__item google">
+                        </a>
+                        <a href="" class="social-wrap__item google">
                             <img src="/theme/portal-donbassa/img/soc/google-icon.png" alt="">
-                        </div>
-                        <div class="social-wrap__item pinterest">
+                        </a>
+                        <a href="" class="social-wrap__item pinterest">
                             <img src="/theme/portal-donbassa/img/soc/pinter-icon.png" alt="">
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -160,46 +160,8 @@ AppAsset::register($this);
 
             <?= \frontend\modules\mainpage\widgets\Stock::widget() ?>
 
-            <div class="home-content__sidebar_poll">
-                <!-- <span class="red-line"></span> -->
-                <h3>Голосование</h3>
-                <h5>Выбери свой вариант</h5>
-                <form action="#">
-                    <label><p><input data-id="24" name="answer" type="radio" value="24">1. Готов(а) смотреть по ТВ</p>
-                    </label>
-                    <label><p><input data-id="25" name="answer" type="radio" value="25">2. Посещаю</p></label>
-                    <label><p><input data-id="26" name="answer" type="radio" value="26">3. Не посещаю</p></label>
-                    <label><p><input data-id="27" name="answer" type="radio" value="27">4. Ходил(а), если бы были в моем
-                            городе</p></label>
-                    <label><p><input data-id="28" name="answer" type="radio" value="28">5. Отрицательно</p></label>
-                    <button><span class="pencil"></span>Проголосовать</button>
-                </form>
-                <!--
-                <div class="pol-progress-cont">
-             <div class="answer"><p>1. Готов(а) смотреть по ТВ</p></div>
-             <div data-progress="0" class="poll-progressbar ui-progressbar ui-corner-all ui-widget ui-widget-content" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="ui-progressbar-value ui-corner-left ui-widget-header" style="display: none; width: 4px;"></div></div>
-             <span class="result">0</span>
-         </div>
-         <div class="pol-progress-cont">
-             <div class="answer"><p>2. Посещаю</p></div>
-             <div data-progress="0" class="poll-progressbar ui-progressbar ui-corner-all ui-widget ui-widget-content" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="ui-progressbar-value ui-corner-left ui-widget-header" style="display: none; width: 4px;"></div></div>
-             <span class="result">0</span>
-         </div>
-         <div class="pol-progress-cont">
-             <div class="answer"><p>3. Не посещаю</p></div>
-             <div data-progress="33" class="poll-progressbar ui-progressbar ui-corner-all ui-widget ui-widget-content" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="33"><div class="ui-progressbar-value ui-corner-left ui-widget-header" style="width: 65px;"></div></div>
-             <span class="result">1</span>
-         </div>
-         <div class="pol-progress-cont">
-             <div class="answer"><p>4. Ходил(а), если бы были в моем городе</p></div>
-             <div data-progress="66" class="poll-progressbar ui-progressbar ui-corner-all ui-widget ui-widget-content" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="66"><div class="ui-progressbar-value ui-corner-left ui-widget-header" style="width: 129px;"></div></div>
-             <span class="result">2</span>
-         </div>
-         <div class="pol-progress-cont">
-             <div class="answer"><p>5. Отрицательно</p></div>
-             <div data-progress="0" class="poll-progressbar ui-progressbar ui-corner-all ui-widget ui-widget-content" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="ui-
-                -->
-
+            <div class="home-content__sidebar_poll poll">
+                <?= \frontend\widgets\Poll::widget();?>
             </div>
 
             <?= \frontend\widgets\Consultation::widget(); ?>
@@ -401,6 +363,7 @@ AppAsset::register($this);
 </footer>
 
 <a href="" class="fix-button"><img src="/theme/portal-donbassa/img/home-content/fix-button.png" alt=""></a>
+
 <div class="modal-send">
 
     <span class="modal-send__close">X</span>
@@ -420,7 +383,171 @@ AppAsset::register($this);
     </form>
 
 </div>
+
+<div class="modal-callback" id="modal-callback">
+
+    <h3 class="modal-callback__title">заказать звонок</h3>
+
+    <p class="modal-callback__subtitle">Оставьте свой контактный номер телефона - мы обязательно
+        перезвоним в удобное для Вас время!</p>
+
+    <div class="separator"></div>
+
+    <form action="" class="modal-callback__form">
+
+        <p>Введите ваши данные</p>
+
+        <input class="modal-callback__field" type="text" placeholder="Имя">
+
+        <input class="modal-callback__field" type="text" placeholder="Телефон">
+
+        <input class="modal-callback__field" type="text" placeholder="Удобное время для звонка">
+
+        <input class="show-more" type="submit" value="отправить">
+
+    </form>
+
+</div>
+
+<div class="modal-callback" id="modal-send-message">
+
+    <h3 class="modal-callback__title">Написать нам</h3>
+
+    <p class="modal-callback__subtitle">Напишите нам подробно описав свою ситуацию.
+        Мы обязательно свяжемся с Вами!</p>
+
+    <div class="separator"></div>
+
+    <form action="" class="modal-callback__form">
+
+        <p>Введите ваши данные</p>
+
+        <input class="modal-callback__field" type="text" placeholder="Имя">
+
+        <input class="modal-callback__field" type="text" placeholder="Телефон">
+
+        <textarea class="modal-callback__textarea" placeholder="Текст сообщения"></textarea>
+
+        <input class="show-more" type="submit" value="отправить">
+
+    </form>
+
+</div>
+
+<div class="modal-callback" id="modal-order-delivery">
+
+    <h3 class="modal-callback__title">ЗАКАЗАТЬ ДОСТАВКУ</h3>
+
+    <p class="modal-callback__subtitle">Определите ваше местонахождение, чтобы проверить возможность доставки</p>
+
+    <div class="separator"></div>
+
+    <form action="" class="modal-callback__form">
+
+        <div class="modal-callback__first-step">
+
+            <p>Введите ваш адрес</p>
+
+            <input class="modal-callback__field" type="text" placeholder="Город">
+
+            <input class="modal-callback__field" type="text" placeholder="Улица">
+
+            <div class="modal-callback__fields">
+
+                <input class="modal-callback__sm-field" type="text" placeholder="Дом">
+
+                <input class="modal-callback__sm-field" type="text" placeholder="Кв.">
+
+            </div>
+
+            <a href="#" class="show-more">продолжить</a>
+
+        </div>
+
+        <div class="modal-callback__second-step">
+
+            <p>Введите ваши данные</p>
+
+            <input class="modal-callback__field" type="text" placeholder="Город">
+
+            <input class="modal-callback__field" type="text" placeholder="Улица">
+
+            <a href="#" class="modal-callback__trigger">Уточнить время и дату доставки</a>
+
+            <textarea class="modal-callback__textarea" placeholder="Текст сообщения"></textarea>
+
+            <a href="#" class="modal-callback__trigger">Добавить комментарий к заказу</a>
+
+            <textarea class="modal-callback__textarea" placeholder="Текст сообщения"></textarea>
+
+            <input class="show-more" type="submit" value="отправить">
+
+        </div>
+
+
+    </form>
+
+</div>
+
+<div class="modal-review" id="modal-review">
+
+    <h3 class="modal-review__title">Добавить отзыв</h3>
+
+    <p class="modal-review__subtitle">Будьте правдивы. Пишите и хорошее, и плохое, но ничего не выдумывайте.</p>
+
+    <div class="separator"></div>
+
+    <form action="" class="modal-review__form">
+
+        <p>Ваш отзыв</p>
+
+        <textarea class="modal-review__textarea" placeholder="Текст сообщения"></textarea>
+
+        <input id="modal-review-submit" class="show-more" type="submit" value="отправить">
+
+    </form>
+
+</div>
+
+<div class="modal-review-success" id="modal-review-success">
+
+    <div class="modal-review-success__img">
+        <img src="img/icons/confirm-icon.png" alt="">
+    </div>
+
+    <p class="modal-review-success__title">Ваш отзыв будет опубликован после прохождения модерации</p>
+
+    <p class="modal-review-success__notice">Пишите только сами!</p>
+
+    <p class="modal-review-success__moder">Автоматическая проверка находит любые копии и рерайты,
+        автор блокируется навсегда.</p>
+
+</div>
+
+<div class="modal-review" id="modal-add-comment">
+
+    <h3 class="modal-review__title">Добавить комментарий</h3>
+
+    <p class="modal-review__subtitle">Пишите и хорошее, и плохое.</p>
+
+    <div class="separator"></div>
+
+    <form action="" class="modal-review__form">
+
+        <p>Ваш комментарий</p>
+
+        <textarea id="comment" class="modal-review__textarea" placeholder="Текст сообщения"></textarea>
+
+        <input id="modal-add-comment-submit" class="show-more" type="submit" value="отправить">
+
+    </form>
+
+</div>
+
 <div id="overlay"></div>
+
+<div id="black-overlay"></div>
+
 <?php $this->endBody() ?>
 </body>
 </html>

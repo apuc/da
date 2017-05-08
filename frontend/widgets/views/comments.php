@@ -1,50 +1,84 @@
 <?php
-/**
- * @var $key_value array
- */
-use common\classes\DateFunctions;
-use common\models\User;
 
 ?>
-<div class="comments">
+<div class="comments-wrapper">
 
-    <div class="comments-count">
-        <span class="count-value"><?= $count_comments; ?></span>
-        <!--        <span>коментариев</span>-->
-        <span>
-            <?= \common\classes\WordFunctions::getNumEnding( $count_comments, [
-                'комментарий',
-                'комментария',
-                'комментариев'
-            ] ); ?>
-        </span>
+    <div class="after-comments">
+        <h2>Комментарии к новости</h2>
+
+        <a href="#" class="populiation">Популярные впереди</a><a data-post-type="<?= $postType; ?>"
+                                                                 data-post-id="<?= $postId; ?>"
+                                                                 data-parent-id="0"
+                                                                 href="#" class='add-comment'>Написать свой</a>
     </div>
 
-    <?php if ( ! Yii::$app->user->isGuest ) { ?>
-        <h4 class="form-title">Что Вы об этом думаете?</h4>
-        <form class="comments-form">
-            <textarea id="new-comment" cols="30" rows="10"></textarea>
-            <input id="send_comment" type="submit" value="ОТПРАВИТЬ">
-        </form>
-    <?php } else { ?>
-        <h4 class="form-title">Что бы оставлять комментарии, войдите или зарегестрируйтесь.</h4>
-    <?php }; ?>
-    <div class="comments-content">
-        <?php foreach ( $comments as $comment ): ?>
-            <div class="single-comment">
-                <span class="nickname"><?= User::find()
-                                               ->where( [ 'id' => $comment->user_id ] )
-                                               ->one()
-                        ->username; ?>
-                </span>
-                    <span
-                        class="date"><?= DateFunctions::getRealStringDate( date( 'd.m.Y', $comment->dt_add ) ) . ' ' . date( 'H:i', $comment->dt_add ); ?></span>
-                <p class="content"><?= $comment->content; ?></p>
+    <div class="comments">
+        <?php foreach ($comments as $comment): ?>
+            <div class="comment-wrapper<?= ($comment->moder_checked) ? ' moder' : ''; ?>">
+                <div class="user">
+                    <!--<span>12</span>-->
+                    <div class="user-photo">
+                        <img src="/theme/portal-donbassa/img/users-avatars/no-avatar.png" alt="">
+                    </div>
+
+                    <!--<a href="#" class="up"></a>-->
+                    <!--<a href="#" class="down"></a>-->
+                </div>
+                <div class="comment">
+                    <div class="comment-info-wrapper">
+                        <div class="user-name"><?= $comment->user->username; ?></div>
+
+                        <div class="comment-info">
+                            <a data-post-type="<?= $postType; ?>"
+                               data-post-id="<?= $postId; ?>"
+                               data-parent-id="<?= $comment->id;?>" class="add-comment" href="#">Ответить</a>
+                            <div class="time"><?= \common\classes\WordFunctions::getTimeOrDateTime($comment->dt_add); ?></div>
+                        </div>
+                    </div>
+
+                    <div class="text">
+                        <?= $comment->content; ?>
+                    </div>
+                    <?php
+                    if (!empty($comment->childComments)):
+                        foreach ($comment->childComments as $childComment):
+                            ?>
+                            <div class="child-comment<?= ($childComment->moder_checked) ? ' moder' : ''; ?>">
+                                <div class="user">
+                                    <!--<span>12</span>-->
+
+                                    <div class="user-photo">
+                                        <img src="/theme/portal-donbassa/img/users-avatars/no-avatar.png" alt="">
+                                    </div>
+
+                                    <!--<a href="#" class="up"></a>-->
+                                    <!--<a href="#" class="down"></a>-->
+                                </div>
+                                <div class="comment">
+                                    <div class="comment-info-wrapper">
+                                        <div class="user-name"><?= $childComment->user->username; ?></div>
+                                        <!--<div class="moder">Модератор</div>-->
+
+                                        <div class="comment-info">
+                                            <a data-post-type="<?= $postType; ?>"
+                                               data-post-id="<?= $postId; ?>"
+                                               data-parent-id="<?= $comment->id;?>" class="add-comment" href="#">Ответить</a>
+                                            <div class="time"><?= \common\classes\WordFunctions::getTimeOrDateTime($childComment->dt_add); ?></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text"><?= $childComment->content ?></div>
+                                </div>
+                            </div>
+                            <?php
+                        endforeach;
+                    endif; ?>
+                </div>
             </div>
         <?php endforeach; ?>
 
+        <!--<a href="#" class="load-more">загрузить БОЛЬШЕ</a>-->
+
     </div>
-    <a data-time="<?= time(); ?>" data-id="<?= $post_id; ?>" data-type="<?= $post_type; ?>" data-count="5"
-       data-limit="5"
-       class="more more-comments">Показать еще</a>
 </div>
+

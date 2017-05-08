@@ -8,6 +8,8 @@
 
 namespace frontend\widgets;
 
+use common\classes\Debug;
+use common\models\db\Situation;
 use common\models\db\SituationStatus;
 use yii\base\Widget;
 
@@ -16,7 +18,7 @@ class SituationMain extends Widget
 
     public function run()
     {
-        $sit = SituationStatus::find()->with('situation')->all();
+        $sit = Situation::find()->with('status')->all();
         return $this->render('sit', ['sit'=>$sit]);
     }
 
