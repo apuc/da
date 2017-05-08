@@ -16,7 +16,7 @@
 
         <div class="what-say__servises">
 
-            <?php if(!Yii::$app->user->isGuest): ?><a href=""><span class="comments-icon"></span>Написать отзыв</a><?php endif; ?>
+            <?php if(!Yii::$app->user->isGuest): ?><a href="#" id="add-review"><span class="comments-icon"></span>Написать отзыв</a><?php endif; ?>
 
             <a href=""><span class="mail-icon"></span>Подписаться на эту тему</a>
 
@@ -30,7 +30,7 @@
                     <span class="rew-title"><?= $feedback->company_name ?> </span>
 
                     <div class="thumb">
-                        <img src="img/home-content/what-say-1.png" alt="">
+                        <img src="/theme/portal-donbassa/img/users-avatars/no-avatar.png" alt="">
                     </div>
 
                     <div class="rew-wrap">

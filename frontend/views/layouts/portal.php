@@ -3,6 +3,8 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use common\models\db\KeyValue;
+use common\models\User;
 use frontend\widgets\ExchangeRates;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
@@ -48,16 +50,23 @@ AppAsset::register($this);
           <img src="/theme/portal-donbassa/img/header/rain-pic.png" alt="">
         </span>
                 <span class="weather-temp">
-          +11
+          <?= KeyValue::getValue('weather') ?>
         </span>
             </div>
             <?= ExchangeRates::widget() ?>
             <form action="">
                 <input class="search-input" type="text" placeholder="Поиск">
-                <a href="#">
+                <?php if(Yii::$app->user->isGuest): ?>
+                <a href="<?= Url::to(['/user/login']) ?>">
                     <span class="autoriz-icon"></span>
                     авторизация
                 </a>
+                <?php else: ?>
+                    <a href="<?= Url::to(['/user/settings/profile']) ?>">
+                        <span class="autoriz-icon"></span>
+                        <?= User::findById(Yii::$app->user->id)->username; ?>
+                    </a>
+                <?php endif; ?>
             </form>
         </div>
         <?php echo \frontend\widgets\MainMenu::widget() ?>
