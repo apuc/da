@@ -14,6 +14,8 @@
 
 use yii\helpers\Url;
 
+$this->registerJsFile('/js/news.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+
 $this->registerMetaTag([
     'name' => 'og:image',
     'content' => 'http://' . $_SERVER['HTTP_HOST'] . $model->photo,

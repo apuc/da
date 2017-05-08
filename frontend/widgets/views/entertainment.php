@@ -29,6 +29,6 @@
             </div>
         </a>
         <!-- close item -->
-        <a href="" class="show-enterprises">смотреть все заведения<span class="red-arrow"></span></a>
+        <a href="<?= Url::to(['/company/company']) ?>" class="show-enterprises">смотреть все заведения<span class="red-arrow"></span></a>
     </div>
 </div>

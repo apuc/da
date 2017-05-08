@@ -109,7 +109,7 @@ AppAsset::register($this);
     </div>
 
 </footer>
-<a href="" class="fix-button"><img src="img/home-content/fix-button.png" alt=""></a>
+<a href="" class="fix-button"><img src="/theme/portal-donbassa/img/home-content/fix-button.png" alt=""></a>
 
 <div class="modal-send">
 

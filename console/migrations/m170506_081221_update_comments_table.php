@@ -14,8 +14,6 @@ class m170506_081221_update_comments_table extends Migration
 
     public function down()
     {
-        //$this->dropForeignKey('fk-comments-parent_id','comments');
-
         $this->dropColumn('comments', 'parent_id');
         $this->dropColumn('comments', 'moder_checked');
     }

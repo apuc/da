@@ -19,20 +19,34 @@ class EventsInComing extends Widget
 
     public function run()
     {
-        $poster = Poster::find()
-            ->joinWith('categories')
-            /*->where(['>', 'dt_event', time()])*/
-            ->andFilterWhere(['`category_poster`.`slug`' => $this->slug])
-            ->orderBy('dt_event DESC')
-            //->limit(4)
-            ->all();
-        Debug::prn(count($poster));
-        /*if($poster){
+        if(empty($this->slug)){
+            $poster = Poster::find()
+                /*->joinWith('categories')*/
+                /*->where(['>', 'dt_event', time()])*/
+                /*->andFilterWhere(['`category_poster`.`slug`' => $this->slug])*/
+                ->orderBy('dt_event DESC')
+                ->limit(4)
+                ->with('categories')
+                ->all();
+        }
+        else {
+            $poster = Poster::find()
+                ->joinWith('categories')
+                /*->where(['>', 'dt_event', time()])*/
+                ->andFilterWhere(['`category_poster`.`slug`' => $this->slug])
+                ->orderBy('dt_event DESC')
+                ->limit(4)
+                ->with('categories')
+                ->all();
+        }
+
+        //Debug::prn($poster);
+        if($poster){
             return $this->render('events_in_coming', [
                 'posters' => $poster,
                 'slug' => $this->slug
             ]);
-        }*/
+        }
     }
 
 }

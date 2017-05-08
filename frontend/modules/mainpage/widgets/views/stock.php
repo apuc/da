@@ -12,8 +12,11 @@
     <h3 class="main-title">Акции</h3>
     <span class="separator"></span>
     <?php foreach ($stock as $item): ?>
-        <div class="stock__item">
+        <div class="stock__item" title="Нажми">
             <div class="stock__item_hide">
+            <span class="stock__item_close">
+              <i class="fa fa-times" aria-hidden="true"></i>
+            </span>
                 <p><?= $item->short_descr ?></p>
                 <a href="<?= $item->link ?>">подобнее <span class="red-arrow"></span></a>
             </div>
@@ -25,8 +28,8 @@
                     <p> <?= $item->dt_event ?></p>
                 </div>
                 <span class="mouse-area">
-                            <img src="/theme/portal-donbassa/img/home-content/mouse-area.png" alt="">
-                        </span>
+              <img src="/theme/portal-donbassa/img/home-content/mouse-area.png" alt="">
+            </span>
             </div>
         </div>
     <?php endforeach; ?>

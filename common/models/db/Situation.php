@@ -11,6 +11,7 @@ use Yii;
  * @property string $name
  * @property string $report_time
  * @property string $descr
+ * @property string $link
  * @property integer $situation_status_id
  */
 class Situation extends \yii\db\ActiveRecord
@@ -32,7 +33,7 @@ class Situation extends \yii\db\ActiveRecord
             [['name'], 'required'],
             [['descr'], 'string'],
             [['situation_status_id'], 'integer'],
-            [['name', 'report_time'], 'string', 'max' => 255],
+            [['name', 'report_time', 'link'], 'string', 'max' => 255],
         ];
     }
 
@@ -47,6 +48,12 @@ class Situation extends \yii\db\ActiveRecord
             'report_time' => 'Report Time',
             'descr' => 'Описание',
             'situation_status_id' => 'Статус',
+            'link' => 'Ссылка',
         ];
+    }
+
+    public function getStatus()
+    {
+        return $this->hasOne(SituationStatus::className(), ['id' => 'situation_status_id']);
     }
 }

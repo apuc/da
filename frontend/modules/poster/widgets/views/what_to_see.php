@@ -24,8 +24,8 @@ use common\classes\WordFunctions;
                 </div>
             </a>
         <?php endforeach; ?>
+        <span id="more-kino-box"></span>
     </div>
-    <span id="more-kino-box"></span>
     <a href="" id="load-more-kino" data-step="2" class="show-more">загрузить БОЛЬШЕ</a>
 </div>
 

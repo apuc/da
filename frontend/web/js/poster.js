@@ -31,7 +31,8 @@ $(document).ready(function () {
             },
             success: function (data) {
                 var res = JSON.parse(data);
-                $('#more-kino-box').append(res.html);
+                $(res.html).insertBefore('#more-kino-box');
+                //$('#more-kino-box').append(res.html);
                 $('#load-more-kino').attr('data-step', step + 1);
                 if(res.last === 1){
                     $('#load-more-kino').remove();
