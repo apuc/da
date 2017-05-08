@@ -231,6 +231,7 @@ class ConsultingController extends \yii\web\Controller
 
         return $this->render('view_post_digest', [
             'post' => $post,
+            'consulting'=> $post->consulting,
             'activeCategory' => ArrayHelper::getColumn($post->categoryPostsDigest, 'slug'),
         ]);
 
@@ -251,6 +252,7 @@ class ConsultingController extends \yii\web\Controller
 
         return $this->render('view_post', [
             'post' => $post,
+            'consulting'=> $post->consulting,
             'activeCategory' => ArrayHelper::getColumn($post->categoryPostsConsulting, 'slug'),
         ]);
 
@@ -271,6 +273,7 @@ class ConsultingController extends \yii\web\Controller
 
         return $this->render('view_post_faq', [
             'post' => $post,
+            'consulting'=> $post->consulting,
             'activeCategory' => $post->category->slug,
         ]);
 
