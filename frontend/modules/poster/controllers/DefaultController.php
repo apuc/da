@@ -237,7 +237,7 @@ class DefaultController extends Controller
     // показываем события из категории "Вас может заинтересовать"
     public function actionInterestedInPosters()
     {
-        $posterID = Yii::$app->request->post('posterID');
+        $posterID = (int) Yii::$app->request->post('posterID');
 
         $interestedInPostersJson = KeyValue::findOne(['key' => 'intrested_in_posters']);
         $interestedInPosters = json_decode($interestedInPostersJson->value);

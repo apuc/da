@@ -10,10 +10,10 @@ use common\classes\WordFunctions;
 use yii\helpers\Url;
 ?>
 <?php foreach ($posters as $poster): ?>
-    <a href="" class="item">
+    <a href="<?= Url::to(['/poster/default/view', 'slug'=>$poster->slug]) ?>" class="item">
         <img src="<?= $poster->photo ?>" alt="">
         <div class="item-content">
-            <span class="type"><?= $poster->categories[0]->title ?></span>
+            <span class="type"><?= isset($poster->categories[0]) ? $poster->categories[0]->title : false ?></span>
             <span class="name-item"><?= $poster->title ?></span>
             <span class="time">
                         <?= WordFunctions::dateWithMonts($poster->dt_event) ?>, <?= date('H:i',$poster->dt_event) ?>
