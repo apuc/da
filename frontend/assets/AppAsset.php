@@ -49,6 +49,7 @@ class AppAsset extends AssetBundle
         '/theme/portal-donbassa/js/ajax.js',
         '/js/poll_ajax.js',
         '/js/comments.js',
+        '/js/share.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
