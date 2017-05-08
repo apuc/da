@@ -54,30 +54,35 @@ $md = new \common\classes\Mobile_Detect();
                     $currNew = $news[$simpleNewId];
                     if (in_array($i, $bigNewsIndexes)):
                         ?>
-                        <div class="news__wrap_item-lg">
+                        <a href="<?= Url::to([
+                            '/news/default/view',
+                            'slug' => $currNew->slug,
+                        ]); ?>" class="news__wrap_item-lg">
                             <div class="thumb">
                                 <img src="<?= $currNew->photo; ?>" alt="">
                                 <div class="content-row">
                                     <span><?= WordFunctions::dateWithMonts($currNew->dt_public); ?></span>
-                                    <a>Новости</a>
+                                    <span>Новости</span>
                                     <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
-                                    <h2><a href="<?= Url::to([
-                                            '/news/default/view',
-                                            'slug' => $currNew->slug,
-                                        ]); ?>"><?= $currNew->title; ?></a></h2>
+                                    <h2><?= $currNew->title; ?></h2>
                                 </div>
 
                             </div>
-                        </div>
+                        </a>
                     <?php else: ?>
                         <div class="news__wrap_item-sm">
-                            <div class="thumb">
+                            <!-- thumb -->
+                            <a href="<?= Url::to([
+                                '/news/default/view',
+                                'slug' => $currNew->slug,
+                            ]); ?>" class="thumb">
                                 <img src="<?= $currNew->photo; ?>" alt="">
                                 <div class="content-row">
                                     <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
-                                    <a>Новости</a>
+                                    <span >Новости</span>
                                 </div>
-                            </div>
+                            </a>
+                            <!-- thumb -->
                             <div class="content-item">
                                 <p><a href="<?= Url::to([
                                         '/news/default/view',
@@ -93,27 +98,29 @@ $md = new \common\classes\Mobile_Detect();
 
                     $currHotNew = $hotNews[$hotNewId];
                     ?>
-                    <div class=" news__wrap_item-sm-hot">
+                    <a href="<?= Url::to([
+                        '/news/default/view',
+                        'slug' => $currHotNew->slug,
+                    ]); ?>" class=" news__wrap_item-sm-hot">
                         <!-- thumb -->
                         <div class="thumb">
                             <img src="<?= $currHotNew->photo; ?>" alt="">
                             <div class="content-row">
-                                <span><small class="view-icon"></small> <?= $currHotNew->views; ?></span>
-                                <a>Новости</a>
+                                <span><small class="view-icon"></small> 2589</span>
+                                <span>Новости</span>
                             </div>
                         </div>
                         <!-- thumb -->
                         <div class="hover-wrap">
-                            <a href="" class="category">
-                                <span class="category-star"></span>
-                                ГОРЯЧЕЕ
-                            </a>
-                            <h2><a href="<?= Url::to([
-                                    '/news/default/view',
-                                    'slug' => $currHotNew->slug,
-                                ]); ?>"><?= $currHotNew->title; ?></a></h2>
+          <span class="category">
+            <span class="category-star"></span>
+            ГОРЯЧЕЕ
+          </span>
+                            <h2><?= $currHotNew->title; ?></h2>
                         </div>
-                    </div>
+                    </a>
+
+
                     <?php
                     $hotNewId = $hotNewId + 1 == count($hotNews) ? 0 : $hotNewId + 1;
                 endif;
@@ -155,7 +162,7 @@ $md = new \common\classes\Mobile_Detect();
             </div>
         </div>
         <div class="news__wrap_buttons">
-            <a href=""><span class="rotate-arrow"></span>рубрикатор</a>
+            <a href="#go_rubricator" class="businessScroll"><span class="rotate-arrow"></span>рубрикатор</a>
             <a
                     href=""
                     data-offset="34"

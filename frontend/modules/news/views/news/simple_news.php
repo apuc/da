@@ -4,13 +4,17 @@ use yii\helpers\Url;
 
 foreach($news as $new): ?>
     <div class="news__wrap_item-sm">
-        <div class="thumb">
+        <a href="<?= Url::to([
+            '/news/default/view',
+            'slug' => $new->slug,
+        ]); ?>" class="thumb">
             <img src="<?= $new->photo; ?>" alt="">
             <div class="content-row">
                 <span><small class="view-icon"></small> <?= $new->views; ?></span>
-                <a>Новости</a>
+                <span>Новости</span>
             </div>
-        </div>
+
+        </a>
         <div class="content-item">
             <p><a href="<?= Url::to([
                     '/news/default/view',
