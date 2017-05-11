@@ -17,6 +17,10 @@ $(document).ready(function () {
             Share.popup(url);
         },
         facebook: function (purl, ptitle, pimg, text) {
+            $("meta[property='og:title']").attr('content',ptitle);
+            $("meta[property='og:image']").attr('content',pimg);
+            $("meta[property='og:description']").attr('content',text);
+
             url = 'http://www.facebook.com/sharer.php?s=100';
             url += '&p[title]=' + encodeURIComponent(ptitle);
             url += '&p[summary]=' + encodeURIComponent(text);
