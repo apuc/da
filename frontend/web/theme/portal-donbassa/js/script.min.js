@@ -774,7 +774,8 @@ $(window).scroll(function () {
     }
 });
 
-function fixedScroll(element, elementPosition, blockElement) {//функция фиксированногоблока, с селекторами элемента, его позиционирования и преграждающего блока
+/*fixed div function*/
+function fixedScroll(element, elementPosition, blockElement) {//функция фиксированного блока, с селекторами элемента, его позиционирования и преграждающего блока
     var top = $(document).scrollTop(),
         blockingElement = blockElement.offset().top,
         height = element.outerHeight();//высота элемента, включающая внутренние и внешние отступы
@@ -790,3 +791,34 @@ function fixedScroll(element, elementPosition, blockElement) {//функция �
         }
     }
 }
+/*close fixed div function*/
+
+/*set anonymous profile in div*/
+function anonymRecall() {
+    var box = $('.modal-account-rew__selector').find('.button__item'),//переменная для профиля
+        boxAnon = $('.modal-account-rew__selector').find('.button__anon-item'),//переменная для ананимного профиля
+        profileName = $('.modal-account-rew__selector').find('.button__name').text(),
+        colors = ['#A2ACF7 ', '#F8CB00 ', '#99D7F5 '];
+
+    var firstSymbol = profileName[0],//находим первый символ в массиве
+        anonymousName = firstSymbol;//добовляем его в имя анонимного пользователя
+
+    for (var i = 1; i < profileName.length; i++)//циклом идем по строке с именем пользователя начиная со второго символа
+    {
+        anonymousName += '*';//добавляем со второго символа звездочку
+    }
+
+    if ($('#anonymousRecall:checked').length === 0) {//если чекбокс не отмечен
+        box.show();//показываем профиль
+        boxAnon.hide().find('.button__anon-name').text('');//
+        $('.modal-account-rew__selector').find('.button__anon-symbol').text('');
+    } else {//если отмечен
+        var color = colors[Math.floor(Math.random()*colors.length)];
+        box.hide();
+        boxAnon.find('.button__anon-avatar').css('background-color', color);
+        $('.js-review-anon-avatar').attr('data-color', color);
+        boxAnon.show().find('.button__anon-name').text(anonymousName);
+        $('.modal-account-rew__selector').find('.button__anon-symbol').text(firstSymbol);
+    }
+}
+/*close set anonymous profile in div*/
