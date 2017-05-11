@@ -61,7 +61,7 @@ $(document).ready(function () {
     // показываем афиши категории
     $(document).on('click','.interested__item',function(){
         event.preventDefault();
-        var posterCatID = $(this).attr('data-interested-index');
+        var posterCatID = parseInt($(this).attr('data-interested-index'));
 
         $.post(
             '/poster/default/interested-in-posters',
