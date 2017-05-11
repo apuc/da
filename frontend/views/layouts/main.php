@@ -27,6 +27,10 @@ AppAsset::register($this);
     <?php $this->head() ?>
     <meta name="yandex-verification" content="6102a93fabadb2cf"/>
     <?= \frontend\widgets\Metrika::widget() ?>
+    <meta property="og:title" content="DA info"/>
+    <meta property="og:url" content="<?= Url::home(true); ?>"/>
+    <meta property="og:image" content="<?= 'http://' . $_SERVER['HTTP_HOST'] ?>"/>
+    <meta property="og:description" content="Информационный портал города Донецка"/>
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -56,7 +60,7 @@ AppAsset::register($this);
             <?= ExchangeRates::widget() ?>
             <form action="">
                 <input class="search-input" type="text" placeholder="Поиск">
-                <?php if(Yii::$app->user->isGuest): ?>
+                <?php if (Yii::$app->user->isGuest): ?>
                     <a href="<?= Url::to(['/user/login']) ?>">
                         <span class="autoriz-icon"></span>
                         авторизация
@@ -74,7 +78,7 @@ AppAsset::register($this);
     </div>
 </section>
 
-<?= $content;?>
+<?= $content; ?>
 <a href="" class="fix-button"><img src="/theme/portal-donbassa/img/home-content/fix-button.png" alt=""></a>
 
 <footer class="footer">
