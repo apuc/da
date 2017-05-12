@@ -21,10 +21,21 @@ $this->registerMetaTag([
     'content' => 'http://' . $_SERVER['HTTP_HOST'] . $model->photo,
 ]);
 $this->title = $model->meta_title;
+
+$this->registerMetaTag([
+    'name' => 'og:title',
+    'content' => $newTitle,
+]);
+$this->registerMetaTag([
+    'name' => 'og:description',
+    'content' => $newContent,
+]);
+
 $this->registerMetaTag([
     'name' => 'description',
     'content' => $model->meta_descr,
 ]);
+
 ?>
 <!-- close .header -->
 
