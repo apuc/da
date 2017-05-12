@@ -31,9 +31,9 @@ class MainPosters extends Widget
             'poster_id'
         );
         $events = \common\models\db\Poster::find()
-            /*->Where(['>=', 'dt_event', strtotime('now 00:00:00')])*/
-            ->andwhere(['id' => $categoriesPostersRelationsEvents])
-            ->orderBy('dt_event')
+            /*->where(['>=', 'dt_event', strtotime('now 00:00:00')])*/
+            ->andWhere(['id' => $categoriesPostersRelationsEvents])
+            ->orderBy('dt_event DESC')
             ->limit(4)
             ->with('categories')
             ->all();
@@ -53,9 +53,9 @@ class MainPosters extends Widget
         );
 
         $movies = \common\models\db\Poster::find()
-           /* ->Where(['>=', 'dt_event', strtotime('now 00:00:00')])*/
-            ->andwhere(['id' => $categoriesPostersRelationsMovies])
-            ->orderBy('dt_event')
+            /*->where(['>=', 'dt_event', strtotime('now 00:00:00')])*/
+            ->andWhere(['id' => $categoriesPostersRelationsMovies])
+            ->orderBy('dt_event DESC')
             ->limit(4)
             ->with('categories')
             ->all();

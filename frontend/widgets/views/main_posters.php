@@ -16,11 +16,11 @@
                             <img src="<?= $event->photo; ?>" alt="">
                             <div class="item-content">
                                 <span class="type"><?= $event->categories[0]->title; ?></span>
-                                <span class="name-item"><?= $event->title; ?></span>
-                                <span class="time">"<?= date('d',
+                                <span class="time"><?= date('d',
                                         $event->dt_event)
                                     . ' ' . \common\classes\WordFunctions::getRuMonth()[date('m', $event->dt_event)]
-                                    . ' ' . $event->start; ?>"</span>
+                                    . ' ' . $event->start; ?></span>
+                                <span class="name-item"><?= $event->title; ?></span>
                             </div>
                         </a>
                     <?php endforeach;
@@ -61,11 +61,11 @@
                             <img src="<?= $poster->photo; ?>" alt="">
                             <div class="item-content">
                                 <span class="type"><?= $poster->categories[0]->title; ?></span>
-                                <span class="name-item"><?= $poster->title; ?></span>
-                                <span class="time">"<?= date('d',
+                                <span class="time"><?= date('d',
                                         $poster->dt_event)
                                     . ' ' . \common\classes\WordFunctions::getRuMonth()[date('m', $poster->dt_event)]
-                                    . ' ' . $poster->start; ?>"</span>
+                                    . ' ' . $poster->start; ?></span>
+                                <span class="name-item"><?= $poster->title; ?></span>
                             </div>
                         </a>
                     <?php endforeach;

@@ -27,7 +27,7 @@ class RandomNewsByCategory extends Widget
             ])
             /*->andWhere(['>=', 'dt_public', (string)(time() - 86400 * 14)])*/
             ->orderBy('rand()')
-            ->limit(5)
+            ->limit(3)
             ->all();
         return $this->render("random_news_by_category", [
             'news' => $news,
