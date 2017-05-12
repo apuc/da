@@ -92,7 +92,7 @@ class DefaultController extends Controller
             'model' => $new,
             'tags' => $tags,
             'likes' => $likes,
-            'category' => $category->cat,
+            'category' => ArrayHelper::getValue($category, 'cat'),
             'countComments' => $countComments,
             'thisUserLike' => $thisUserLike,
             'newTitle' => $new_title,
