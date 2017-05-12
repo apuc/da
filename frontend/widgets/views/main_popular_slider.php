@@ -11,8 +11,8 @@ use yii\helpers\Url;
                 <?php
 
                 foreach ($newsSlider1 as $item): ?>
-                    <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug]) ?>" class="item"><img
-                                src="<?= $item->photo ?>" alt="">
+                    <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug]) ?>" class="item">
+                        <img src="<?= $item->photo ?>" alt="">
                         <div class="content-item">
                             <div class="content-row">
                                 <span>Новости</span>
@@ -28,7 +28,10 @@ use yii\helpers\Url;
 
               </span>
                             </div>
-                            <h4> <?= $item->title; ?> </h4>
+                            <div class="item__info">
+                                <h4><?= $item->title; ?></h4>
+                                <p><?= $item->content ?></p>
+                            </div>
 
                         </div>
                     </a>
@@ -36,12 +39,12 @@ use yii\helpers\Url;
             </div>
             <div class="js-carousel-2 owl-carousel" id="sync2">
                 <?php foreach ($newsSlider2 as $item): ?>
-                    <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug]) ?>" class="item"><img
-                                src="<?= $item->photo ?>" alt="">
+                    <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug]) ?>" class="item">
+                        <img src="<?= $item->photo ?>" alt="">
                         <div class="content-item">
                             <div class="content-row">
                                 <span>Новости</span>
-                                <span><small class="view-icon"></small><?= $item->views ?></span>
+                                <span><small class="view-icon"></small> <?= $item->views ?></span>
                                 <div class="hide-social">
                                     <span><i class="fa fa-vk  fa-lg"></i></span>
                                     <span><i class="fa fa-twitter fa-lg"></i></span>
@@ -51,9 +54,12 @@ use yii\helpers\Url;
                                 </div>
                                 <span class="open-soc"><i class="fa fa-random fa-lg"></i>
 
-                               </span>
+              </span>
                             </div>
-                            <h4> <?= $item->title; ?> </h4>
+                            <div class="item__info">
+                                <h4><?= $item->title; ?></h4>
+                                <p><?= $item->content ?></p>
+                            </div>
 
                         </div>
                     </a>
@@ -61,8 +67,8 @@ use yii\helpers\Url;
             </div>
             <div class="js-carousel-3 owl-carousel">
                 <?php foreach ($newsSlider3 as $item): ?>
-                    <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug]) ?>" class="item"><img
-                                src="<?= $item->photo ?>" alt="">
+                    <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug]) ?>" class="item">
+                        <img src="<?= $item->photo ?>" alt="">
                         <div class="content-item">
                             <div class="content-row">
                                 <span>Новости</span>
@@ -74,9 +80,13 @@ use yii\helpers\Url;
                                     <span><i class="fa fa-odnoklassniki  fa-lg"></i></span>
 
                                 </div>
-                                <span class="open-soc">
-                                    <i class="fa fa-random fa-lg"></i>
-                                </span>
+                                <span class="open-soc"><i class="fa fa-random fa-lg"></i>
+
+              </span>
+                                <div class="item__info">
+                                    <h4><?= $item->title; ?></h4>
+                                    <p><?= $item->content ?></p>
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -103,7 +113,8 @@ use yii\helpers\Url;
             </div>
             <div class="js-carousel-4 owl-carousel">
                 <?php foreach ($newsSlider4 as $item): ?>
-                    <div class="item"><img src="<?= $item->photo; ?>" alt=""></div>
+                    <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug]) ?>" class="item"><img src="<?= $item->photo; ?>" alt="">
+                    </a>
                 <?php endforeach; ?>
             </div>
             <div class="slider-nav">
