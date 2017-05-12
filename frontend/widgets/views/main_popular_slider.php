@@ -30,7 +30,7 @@ use yii\helpers\Url;
                             </div>
                             <div class="item__info">
                                 <h4><?= $item->title; ?></h4>
-                                <p><?= $item->content ?></p>
+                                <p><?= strip_tags($item->content) ?></p>
                             </div>
 
                         </div>
@@ -58,7 +58,7 @@ use yii\helpers\Url;
                             </div>
                             <div class="item__info">
                                 <h4><?= $item->title; ?></h4>
-                                <p><?= $item->content ?></p>
+                                <p><?= strip_tags($item->content) ?></p>
                             </div>
 
                         </div>
@@ -85,7 +85,7 @@ use yii\helpers\Url;
               </span>
                                 <div class="item__info">
                                     <h4><?= $item->title; ?></h4>
-                                    <p><?= $item->content ?></p>
+                                    <p><?= strip_tags($item->content) ?></p>
                                 </div>
                             </div>
                         </div>
