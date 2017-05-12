@@ -439,15 +439,22 @@ $(document).ready(function () {
         } 
     });
     /*close show header input field*/
-    
-    $('.open-soc').click(function (event) {
-        // $(this).next('.hide-social').slideToggle();
-        var prev = $(this).prev('.hide-social');
-        $(this).siblings('.hide-social').not(prev).slideUp("400");
-        prev.slideToggle("400");
-        return false;
-    });
 
+    /*show social links on main page*/
+    $(document).on('click', '.open-soc', function (event) {
+        event.preventDefault();
+        var prev = $(this).prev('.hide-social');
+        if($(this).hasClass('open')){
+            $(this).removeClass('open');
+            prev.hide();
+        } else {
+            $('.open-soc').removeClass('open');
+            $('.hide-social').hide();
+            $(this).addClass('open');
+            prev.css({display: 'flex'});
+        }
+    });
+    /*close show social links on main page*/
 
     /*datapicker*/
     $(".datepicker-wrap").click(function () {
