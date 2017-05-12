@@ -73,6 +73,9 @@ class DefaultController extends Controller
                 ->limit(1)
                 ->with('cat')
                 ->one();
+            if (!empty($category->cat)) {
+                $category = $category->cat;
+            }
         }
 
         //for share
@@ -92,7 +95,7 @@ class DefaultController extends Controller
             'model' => $new,
             'tags' => $tags,
             'likes' => $likes,
-            'category' => ArrayHelper::getValue($category, 'cat'),
+            'category' => $category,
             'countComments' => $countComments,
             'thisUserLike' => $thisUserLike,
             'newTitle' => $new_title,
