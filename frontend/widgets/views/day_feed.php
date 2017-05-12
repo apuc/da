@@ -15,19 +15,19 @@
             <?php
             $newImageId += 4;
         } else {
-        //For share
-            $new_url   = \yii\helpers\Url::base( true ) . \yii\helpers\Url::to();
-            $new_title = strip_tags( $new->title );
-            $new_title = preg_replace( "/\s{2,}/", " ", $new_title );
-            $new_title = str_replace( '"', "&quot;", $new_title );
-            $new_img   = 'http://' . $_SERVER['HTTP_HOST'] . $new->photo;
+            //For share
+            $new_url = \yii\helpers\Url::base(true) . '/news/' . $new->slug;
+            $new_title = strip_tags($new->title);
+            $new_title = preg_replace("/\s{2,}/", " ", $new_title);
+            $new_title = str_replace('"', "&quot;", $new_title);
+            $new_img = 'http://' . $_SERVER['HTTP_HOST'] . $new->photo;
 
-            $count_symbols = 800 - 48 - strlen( $new_url ) - strlen( $new_title ) - strlen( $new_img );
-            $new_content  = strip_tags( $new->content );
-            $new_content  = preg_replace( "/\s{2,}/", " ", $new_content );
+            //$count_symbols = 800 - 48 - strlen($new_url) - strlen($new_title) - strlen($new_img);
+            $count_symbols = 800 - 48 - strlen($new_url) - strlen($new_title) - strlen($new_img);
+            $new_content = strip_tags($new->content);
+            $new_content = preg_replace("/\s{2,}/", " ", $new_content);
 
-            $new_content = substr( $new_content, 0, $count_symbols ) . '...';
-
+            $new_content = substr($new_content, 0, $count_symbols) . '...';
             ?>
             <div href="" class="tape__item">
                 <span class="time"><?= date('H:i', $new->dt_public) ?></span>

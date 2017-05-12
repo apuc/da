@@ -75,6 +75,19 @@ class DefaultController extends Controller
                 ->one();
         }
 
+        //for share
+
+        //$new_url = \yii\helpers\Url::base(true) . '/news/' . $new->slug;
+        $new_title = strip_tags($new->title);
+        $new_title = preg_replace("/\s{2,}/", " ", $new_title);
+        $new_title = str_replace('"', "&quot;", $new_title);
+
+        $count_symbols = 400 - 48 - 100 - strlen($new_title);
+        $new_content = strip_tags($new->content);
+        $new_content = preg_replace("/\s{2,}/", " ", $new_content);
+
+        $new_content = substr($new_content, 0, $count_symbols) . '...';
+
         return $this->render('view', [
             'model' => $new,
             'tags' => $tags,
@@ -82,6 +95,8 @@ class DefaultController extends Controller
             'category' => $category->cat,
             'countComments' => $countComments,
             'thisUserLike' => $thisUserLike,
+            'newTitle' => $new_title,
+            'newContent' => $new_content,
         ]);
     }
 
