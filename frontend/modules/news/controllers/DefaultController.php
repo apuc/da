@@ -82,7 +82,7 @@ class DefaultController extends Controller
         $new_title = preg_replace("/\s{2,}/", " ", $new_title);
         $new_title = str_replace('"', "&quot;", $new_title);
 
-        $count_symbols = 800 - 48 - 100 - strlen($new_title);
+        $count_symbols = 400 - 48 - 100 - strlen($new_title);
         $new_content = strip_tags($new->content);
         $new_content = preg_replace("/\s{2,}/", " ", $new_content);
 

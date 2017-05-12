@@ -28,7 +28,6 @@
             $new_content = preg_replace("/\s{2,}/", " ", $new_content);
 
             $new_content = substr($new_content, 0, $count_symbols) . '...';
-
             ?>
             <div href="" class="tape__item">
                 <span class="time"><?= date('H:i', $new->dt_public) ?></span>
