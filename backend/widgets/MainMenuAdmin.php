@@ -465,6 +465,12 @@ class MainMenuAdmin extends Widget
                         //'template' => '<a href="#"><i class="fa fa-bar-chart"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
                     [
+                        'label' => 'Обращения',
+                        'url' => Url::to(['/contacting/contacting']),
+                         //'visible'  => UserFunction::hasPermission( [ 'Опросы' ] ),
+                        //'template' => '<a href="#"><i class="fa fa-bar-chart"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                    ],
+                    [
                         'label' => 'РОСС-ОПТ',
                         // 'visible'  => UserFunction::hasPermission( [ 'Опросы' ] ),
                         'items' => [

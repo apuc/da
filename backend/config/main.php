@@ -103,6 +103,9 @@ return [
         'pages_group' => [
             'class' => 'backend\modules\pages_group\Pages_group',
         ],
+        'contacting' => [
+            'class' => 'backend\modules\contacting\Contacting',
+        ],
     ],
     'components' => [
         /*'user' => [
@@ -139,9 +142,9 @@ return [
                 'poster' => 'poster/poster',
                 'category_poster' => 'category_poster/category_poster',
                 'polls' => 'polls/polls',
-                'entertainment'=>'entertainment/default',
-                'main-premiere'=>'poster/poster/main-premiere',
-            ]
+                'entertainment' => 'entertainment/default',
+                'main-premiere' => 'poster/poster/main-premiere',
+            ],
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',

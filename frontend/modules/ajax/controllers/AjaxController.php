@@ -5,6 +5,7 @@ namespace frontend\modules\ajax\controllers;
 use common\classes\Debug;
 use common\models\db\Answers;
 use common\models\db\Comments;
+use common\models\db\Contacting;
 use common\models\db\Faq;
 use common\models\db\PossibleAnswers;
 use common\models\db\PostsConsulting;
@@ -193,6 +194,22 @@ class AjaxController extends Controller
             $comment->parent_id = Yii::$app->request->post('parent_id');
 
             $comment->save();
+        }
+
+    }
+
+    public function actionAddContacting()
+    {
+
+        if (Yii::$app->request->isPost) {
+
+            $newContacting = new Contacting();
+            $newContacting->user_id = (!Yii::$app->user->isGuest) ? Yii::$app->user->id : null;
+            $newContacting->type = 'question';
+            $newContacting->content = Yii::$app->request->post('content');
+
+            $newContacting->save();
+
         }
 
     }
