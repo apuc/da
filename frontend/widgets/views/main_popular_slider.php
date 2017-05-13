@@ -17,16 +17,11 @@ use yii\helpers\Url;
                             <div class="content-row">
                                 <span>Новости</span>
                                 <span><small class="view-icon"></small> <?= $item->views ?></span>
-                                <div class="hide-social">
-                                    <span><i class="fa fa-vk  fa-lg"></i></span>
-                                    <span><i class="fa fa-twitter fa-lg"></i></span>
-                                    <span><i class="fa fa-facebook fa-lg"></i></span>
-                                    <span><i class="fa fa-odnoklassniki  fa-lg"></i></span>
-
-                                </div>
-                                <span class="open-soc"><i class="fa fa-random fa-lg"></i>
-
-              </span>
+                                <?= \frontend\widgets\Share::widget([
+                                    'url' => \yii\helpers\Url::base(true) . '/news/' . $item->slug,
+                                    'title' => $item->title,
+                                    'description' => $item->content,
+                                ]); ?>
                             </div>
                             <div class="item__info">
                                 <h4><?= $item->title; ?></h4>
@@ -45,16 +40,13 @@ use yii\helpers\Url;
                             <div class="content-row">
                                 <span>Новости</span>
                                 <span><small class="view-icon"></small> <?= $item->views ?></span>
-                                <div class="hide-social">
-                                    <span><i class="fa fa-vk  fa-lg"></i></span>
-                                    <span><i class="fa fa-twitter fa-lg"></i></span>
-                                    <span><i class="fa fa-facebook fa-lg"></i></span>
-                                    <span><i class="fa fa-odnoklassniki  fa-lg"></i></span>
-
-                                </div>
-                                <span class="open-soc"><i class="fa fa-random fa-lg"></i>
-
-              </span>
+                                <?= \frontend\widgets\Share::widget(
+                                    [
+                                        'url' => \yii\helpers\Url::base(true) . '/news/' . $item->slug,
+                                        'title' => $item->title,
+                                        'description' => $item->content,
+                                    ]
+                                ); ?>
                             </div>
                             <div class="item__info">
                                 <h4><?= $item->title; ?></h4>
@@ -73,16 +65,11 @@ use yii\helpers\Url;
                             <div class="content-row">
                                 <span>Новости</span>
                                 <span><small class="view-icon"></small> <?= $item->views; ?></span>
-                                <div class="hide-social">
-                                    <span><i class="fa fa-vk  fa-lg"></i></span>
-                                    <span><i class="fa fa-twitter fa-lg"></i></span>
-                                    <span><i class="fa fa-facebook fa-lg"></i></span>
-                                    <span><i class="fa fa-odnoklassniki  fa-lg"></i></span>
-
-                                </div>
-                                <span class="open-soc"><i class="fa fa-random fa-lg"></i>
-
-              </span>
+                                <?= \frontend\widgets\Share::widget([
+                                    'url' => \yii\helpers\Url::base(true) . '/news/' . $item->slug,
+                                    'title' => $item->title,
+                                    'description' => $item->content,
+                                ]); ?>
                                 <div class="item__info">
                                     <h4><?= $item->title; ?></h4>
                                     <p><?= strip_tags($item->content) ?></p>
@@ -91,29 +78,12 @@ use yii\helpers\Url;
                         </div>
                     </a>
                 <?php endforeach; ?>
-                <!--  <div class="item"><img src="/theme/portal-donbassa/img/home-content/2pic.jpg" alt="">-->
-                <!--      <div class="content-item">-->
-                <!--          <div class="content-row">-->
-                <!--              <a href="">Новости</a>-->
-                <!--              <span><small class="view-icon"></small> 2589</span>-->
-                <!--              <div class="hide-social">-->
-                <!--                  <a href=""><i class="fa fa-vk  fa-lg"></i></a>-->
-                <!--                  <a href=""><i class="fa fa-twitter fa-lg"></i></a>-->
-                <!--                  <a href=""><i class="fa fa-facebook fa-lg"></i></a>-->
-                <!--                  <a href=""><i class="fa fa-odnoklassniki  fa-lg"></i></a>-->
-                <!---->
-                <!--              </div>-->
-                <!--              <span class="open-soc"><i class="fa fa-random fa-lg"></i>-->
-                <!---->
-                <!--</span>-->
-                <!--          </div>-->
-                <!--      </div>-->
-                <!--  </div>-->
 
             </div>
             <div class="js-carousel-4 owl-carousel">
                 <?php foreach ($newsSlider4 as $item): ?>
-                    <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug]) ?>" class="item"><img src="<?= $item->photo; ?>" alt="">
+                    <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug]) ?>" class="item"><img
+                                src="<?= $item->photo; ?>" alt="">
                     </a>
                 <?php endforeach; ?>
             </div>

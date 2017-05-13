@@ -1,5 +1,4 @@
 <?php
-
 ; ?>
 
 <div class="home-content__sidebar_consultation">
