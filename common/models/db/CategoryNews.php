@@ -70,4 +70,5 @@ class CategoryNews extends \yii\db\ActiveRecord
     {
         return $this->hasMany(CategoryNewsRelations::className(), ['cat_id' => 'id'])->with('new');
     }
+
 }
