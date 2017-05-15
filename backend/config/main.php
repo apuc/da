@@ -103,6 +103,9 @@ return [
         'pages_group' => [
             'class' => 'backend\modules\pages_group\Pages_group',
         ],
+        'vk' => [
+            'class' => 'backend\modules\vk\Vk',
+        ],
     ],
     'components' => [
         /*'user' => [
