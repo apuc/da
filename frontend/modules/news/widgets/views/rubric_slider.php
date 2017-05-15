@@ -8,7 +8,8 @@
         </span>
         </button>
         <div class="rubrick-slider__wrap">
-            <?php use yii\helpers\Url;
+            <?php use common\classes\WordFunctions;
+            use yii\helpers\Url;
 
             foreach ($newsArray as $title => $news):
                 if (!empty($news[0])):
@@ -24,39 +25,40 @@
                             ]); ?>" class="go-rubrick">перейти в рубрику</a>
                         </div>
                         <div class="rubrick-slider__item_wrap">
-                            <div class="item__big">
+                            <a href="<?= Url::to([
+                                '/news/default/view',
+                                'slug' => $firstNew->slug,
+                            ]); ?>" class="item__big">
                                 <img src="<?= $firstNew->photo; ?>" alt="">
                                 <div class="item__big_content">
-                                    <h4><a href="<?= Url::to([
-                                            '/news/default/view',
-                                            'slug' => $firstNew->slug,
-                                        ]); ?>"><?= $firstNew->title; ?></a></h4>
-                                    <span class="hour-ago"><?= \common\classes\WordFunctions::FullEventDate($firstNew->dt_public); ?></span>
+                                    <h4><?= $firstNew->title; ?></h4>
+                                    <span class="hour-ago"><?= WordFunctions::FullEventDate($firstNew->dt_public); ?></span>
                                     <div class="item__content_panel">
-                                        <a href=""><span class="comments-icon"></span>31</a>
+                                        <span class="comments-icon">31</span>
                                         <span><small class="view-icon"></small> <?= $firstNew->views; ?></span>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
+
                             <?php foreach ($news as $key => $new):
                                 if ($key == 0) {
                                     continue;
                                 }
                                 ?>
-                                <div class="item__small">
+                                <a href="<?= Url::to([
+                                    '/news/default/view',
+                                    'slug' => $new->slug,
+                                ]); ?>" class="item__small">
                                     <img src="<?= $new->photo; ?>" alt="">
                                     <div class="item__small_content">
-                                        <span class="hour-ago"><?= \common\classes\WordFunctions::FullEventDate($new->dt_public); ?></span>
+                                        <span class="hour-ago"><?= WordFunctions::FullEventDate($new->dt_public); ?></span>
                                         <div class="item__content_panel">
-                                            <a href=""><span class="comments-icon"></span>31</a>
+                                            <span class="comments-icon">31</span>
                                             <span><small class="view-icon"></small> <?= $new->views; ?></span>
                                         </div>
-                                        <h4><a href="<?= Url::to([
-                                                '/news/default/view',
-                                                'slug' => $firstNew->slug,
-                                            ]); ?>"><?= $new->title; ?></a></h4>
+                                        <h4><?= $new->title; ?></h4>
                                     </div>
-                                </div>
+                                </a>
                             <?php endforeach; ?>
                         </div>
                     </div>

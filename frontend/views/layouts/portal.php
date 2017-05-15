@@ -15,6 +15,7 @@ use frontend\assets\AppAsset;
 use common\widgets\Alert;
 
 AppAsset::register($this);
+$user = Yii::$app->user->identity;
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -68,7 +69,7 @@ AppAsset::register($this);
                 <?php else: ?>
                     <a href="<?= Url::to(['/user/settings/profile']) ?>">
                         <span class="autoriz-icon"></span>
-                        <?= User::findById(Yii::$app->user->id)->username; ?>
+                        <?= $user->username; ?>
                     </a>
                 <?php endif; ?>
             </form>
@@ -129,39 +130,7 @@ AppAsset::register($this);
                 </div>
             </div>
 
-            <div class="home-content__wrap_subscribe">
-                <div class="subscribe__wrap">
-                    <h3>ПОДПИСАТЬСЯ НА НОВОСТИ</h3>
-                    <form action="">
-                        <input type="text" placeholder="Выслать на email">
-                        <button>подписаться</button>
-                    </form>
-                    <div class="social-wrap">
-                        <h4>мы в социальных сетях</h4>
-                        <a href="https://vk.com/da_info_pro" class="social-wrap__item vk">
-                            <img src="/theme/portal-donbassa/img/soc/vk.png" alt="">
-                        </a>
-                        <a href="https://www.facebook.com/da.info.pro/" class="social-wrap__item fb">
-                            <img src="/theme/portal-donbassa/img/soc/fb.png" alt="">
-                        </a>
-                        <a href="https://ok.ru/da...infor" class="social-wrap__item ok">
-                            <img src="/theme/portal-donbassa/img/soc/ok-icon.png" alt="">
-                        </a>
-                        <a href="https://www.instagram.com/da.info.pro/" class="social-wrap__item insta">
-                            <img src="/theme/portal-donbassa/img/soc/insta-icon.png" alt="">
-                        </a>
-                        <a href="" class="social-wrap__item twitter">
-                            <img src="/theme/portal-donbassa/img/soc/twi-icon.png" alt="">
-                        </a>
-                        <a href="" class="social-wrap__item google">
-                            <img src="/theme/portal-donbassa/img/soc/google-icon.png" alt="">
-                        </a>
-                        <a href="" class="social-wrap__item pinterest">
-                            <img src="/theme/portal-donbassa/img/soc/pinter-icon.png" alt="">
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <?= \frontend\widgets\Subscribe::widget() ?>
 
         </div>
 

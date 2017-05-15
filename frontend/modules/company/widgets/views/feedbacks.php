@@ -31,7 +31,8 @@
                     <span class="rew-title"><?= $feedback->company_name ?> </span>
 
                     <div class="thumb">
-                        <img src="/theme/portal-donbassa/img/users-avatars/no-avatar.png" alt="">
+                        <span>A</span>
+                        <!-- <img src="img/home-content/what-say-1.png" alt="">-->
                     </div>
 
                     <div class="rew-wrap">

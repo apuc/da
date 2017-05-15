@@ -148,7 +148,7 @@ $this->registerJsFile('/js/company_ajax.js', ['depends' => [\yii\web\JqueryAsset
 
                                     <h3><?= $model->name ?></h3>
 
-                                    <p><?= $model->meta_descr ?></p>
+                                    <!--<p><?/*= $model->meta_descr */?></p>-->
 
                                     <p class="full"><?= $item->feedback ?></p>
 

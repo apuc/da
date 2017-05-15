@@ -444,6 +444,13 @@ class MainMenuAdmin extends Widget
                         'template' => '<a href="#"><i class="fa fa-vk"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
                     [
+                        'label' => 'Подписчики',
+                        'url' => Url::to(['/subscribe/subscribe']),
+                        'template' => '<a href="{url}"><i class="fa fa-share-square-o"></i> <span>{label}</span></a>',
+                        'active' => Yii::$app->controller->module->id == 'subscribe',
+                        //'visible' => UserFunction::hasPermission(['СЕО']),
+                    ],
+                    [
                         'label' => 'СЕО',
                         'url' => Url::to(['/seo']),
                         'template' => '<a href="{url}"><i class="fa fa-line-chart"></i> <span>{label}</span></a>',

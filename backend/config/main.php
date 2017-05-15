@@ -109,6 +109,9 @@ return [
         'contacting' => [
             'class' => 'backend\modules\contacting\Contacting',
         ],
+        'subscribe' => [
+            'class' => 'backend\modules\subscribe\Subscribe',
+        ],
     ],
     'components' => [
         /*'user' => [

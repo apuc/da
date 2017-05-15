@@ -11,6 +11,7 @@ use common\models\db\PossibleAnswers;
 use common\models\db\PostsConsulting;
 use common\models\db\PostsDigest;
 use common\models\db\Question;
+use common\models\db\Subscribe;
 use frontend\widgets\Poll;
 use Yii;
 use yii\web\Controller;
@@ -212,6 +213,16 @@ class AjaxController extends Controller
 
         }
 
+    }
+
+    public function actionSubscribe()
+    {
+        if (Yii::$app->request->isGet) {
+            $subscribe = new Subscribe();
+            $subscribe->dt_add = time();
+            $subscribe->email = Yii::$app->request->get('email');
+            $subscribe->save();
+        }
     }
 
 }
