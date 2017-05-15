@@ -2,6 +2,7 @@
 
 namespace common\models\db;
 
+use common\models\User;
 use Yii;
 use yii\helpers\ArrayHelper;
 
@@ -115,4 +116,10 @@ class Company extends \yii\db\ActiveRecord
     {
         return explode(' ', $this->phone);
     }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id'=> 'user_id']);
+    }
+
 }

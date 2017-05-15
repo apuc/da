@@ -33,7 +33,7 @@ use yii\helpers\Url;
                         <div class="content-hover">
                             <h4><?= $company->name ?></h4>
                             <p><?= $company->address ?></p>
-                            <p>Телефон: <?= $company->phone ?></p>
+                            <p><?= $company->phone ?></p>
                         </div>
                     </a>
                 <?php else: ?>
@@ -49,7 +49,7 @@ use yii\helpers\Url;
                         <div class="content-hover">
                             <h4><?= $company->name ?></h4>
                             <p><?= $company->address ?> </p>
-                            <p>Телефон: <?= $company->phone ?></p>
+                            <p><?= $company->phone ?></p>
                         </div>
                     </a>
                 <?php endif; ?>

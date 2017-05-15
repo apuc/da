@@ -50,6 +50,7 @@ class AppAsset extends AssetBundle
         '/js/poll_ajax.js',
         '/js/comments.js',
         '/js/share.js',
+        '/js/main_page_ajax.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

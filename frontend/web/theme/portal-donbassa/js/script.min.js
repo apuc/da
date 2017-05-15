@@ -410,6 +410,24 @@ $(document).ready(function () {
     });
     /*close modal order delivery*/
 
+    /*open modal faq*/
+    $(document).on('click', '.ask', function () {
+        event.preventDefault();
+        $('#black-overlay').fadeIn(400,
+            function () {
+                $('#modal-faq').css('display', 'block').animate({opacity: 1}, 200);
+            });
+    });
+    $(document).on('click', '#black-overlay', function () {
+        $('#modal-faq').animate({opacity: 0}, 200,
+            function () {
+                $(this).css('display', 'none');
+                $('#black-overlay').fadeOut(400);
+            }
+        );
+    });
+    /*close modal faq*/
+    
     /* open tabs*/
     $('.page__tabs_target').click(function (event) {
         $('.page__tabs_targett').removeClass('page__tabs_active');

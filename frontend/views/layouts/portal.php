@@ -229,106 +229,6 @@ AppAsset::register($this);
 
 <?= \frontend\widgets\CompanyMain::widget(); ?>
 
-<!--<section class="ads">
-
-    <div class="container">
-
-        <h3 class="main-title">объявления</h3>
-        <span class="separator"></span>
-
-        <a href="#" class="ads__trigger">объявления</a>
-
-        <div class="ads__box">
-
-            <div class="ads__item">
-
-                <h3 class="ads__item--title">Снять посуточно</h3>
-
-                <a href="#" class="ads__item--link">Квартиры посуточно <span>2409</span></a>
-                <a href="#" class="ads__item--link">Коттеджи на сутки <span>780</span></a>
-                <a href="#" class="ads__item--link">Комнаты на сутки <span>134</span></a>
-                <a href="#" class="ads__item--link">Хостелы <span>311</span></a>
-
-            </div>
-
-            <div class="ads__descr">
-
-                <span class="ads__descr--img">
-                    <img src="/theme/portal-donbassa/img/home-content/apartment-img.png" alt="">
-                </span>
-
-                <p class="name">Коттедж 270 м² на участке 5 сот.</p>
-                <p class="price">12 000 руб. за сутки</p>
-                <span class="place">Донецк</span>
-
-            </div>
-
-            <div class="ads__item">
-
-                <h3 class="ads__item--title">Новостройки</h3>
-
-                <a href="#" class="ads__item--link">Каталог ЖКХ <span>1038</span></a>
-                <a href="#" class="ads__item--link">Сданные новостройки <span>369</span></a>
-                <a href="#" class="ads__item--link">Строящиеся новостройки <span>653</span></a>
-
-            </div>
-
-            <div class="ads__descr">
-
-                <span class="ads__descr--img">
-                    <img src="/theme/portal-donbassa/img/home-content/apartment-img.png" alt="">
-                </span>
-
-                <p class="name">Коттедж 270 м² на участке 5 сот.</p>
-                <p class="price">12 000 руб. за сутки</p>
-                <span class="place">Донецк</span>
-
-            </div>
-
-            <div class="ads__descr">
-
-                <span class="ads__descr--img">
-                    <img src="/theme/portal-donbassa/img/home-content/apartment-img.png" alt="">
-                </span>
-
-                <p class="name">Коттедж 270 м² на участке 5 сот.</p>
-                <p class="price">12 000 руб. за сутки</p>
-                <span class="place">Донецк</span>
-
-            </div>
-
-            <div class="ads__item">
-
-                <h3 class="ads__item--title">Коммерческая недвижимость</h3>
-
-                <a href="#" class="ads__item--link">Купить склад <span>161</span></a>
-                <a href="#" class="ads__item--link">Купить гараж <span>1270</span></a>
-                <a href="#" class="ads__item--link">Купить офис <span>4769</span></a>
-                <a href="#" class="ads__item--link">Арендовать офис <span>32292</span></a>
-                <a href="#" class="ads__item--link">Арендовать помещение <span>8619</span></a>
-                <a href="#" class="ads__item--link">Арендовать торговоу площадь <span>6986</span></a>
-
-            </div>
-
-            <div class="ads__map">
-
-                <h3 class="ads__map--title">Поиск на карте</h3>
-
-                <p class="ads__map--subtitle">Ищите объявления с работой, парком
-                    или родственниками</p>
-
-                <a href="#" class="ads__map--link">найти на карте</a>
-
-            </div>
-
-        </div>
-
-        <a href="#" class="more">посмотреть больше <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-
-    </div>
-
-</section>-->
-
 <?= \frontend\widgets\MainPhotos::widget(); ?>
 
 <footer class="footer">
@@ -552,6 +452,26 @@ AppAsset::register($this);
         <textarea id="comment" class="modal-review__textarea" placeholder="Текст сообщения"></textarea>
 
         <input id="modal-add-comment-submit" class="show-more" type="submit" value="отправить">
+
+    </form>
+
+</div>
+
+<div class="modal-review" id="modal-faq">
+
+    <h3 class="modal-review__title">Добавить комментарий</h3>
+
+    <p class="modal-review__subtitle">Пишите и хорошее, и плохое.</p>
+
+    <div class="separator"></div>
+
+    <form action="" class="modal-review__form">
+
+        <p>Ваш комментарий</p>
+
+        <textarea class="modal-review__textarea" placeholder="Текст сообщения"></textarea>
+
+        <input id="modal-add-comment-submit" class="show-more js-send-ask-question" type="submit" value="отправить">
 
     </form>
 
