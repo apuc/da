@@ -11,6 +11,7 @@ namespace console\controllers;
 use common\classes\Debug;
 use common\models\db\VkAuthors;
 use common\models\db\VkGroups;
+use common\models\db\VkPhoto;
 use common\models\db\VkStream;
 use common\models\VK;
 use yii\console\Controller;
@@ -36,29 +37,56 @@ class VkController extends Controller
         foreach ($groups as $group) {
             $res = $vk->getGroupWall($group->domain, ['count' => $this->count, 'extended' => 1]);
             $res = json_decode($res);
-            //$this->saveAuthors($res->response->profiles);
+            $this->saveAuthors($res->response->profiles);
             $this->saveStream($res->response->items);
         }
     }
 
     public function saveStream($items)
     {
-        if(!empty($items)){
-            foreach ((array)$items as $item){
-                $post = new VkStream();
-                $post->owner_type = $item->owner_id < 0 ? 0 : 1;
-                $post->owner_id = $item->owner_id;
-                $post->from_type = $item->from_id < 0 ? 0 : 1;
-                $post->from_id = $item->from_id;
-                $post->dt_add = $item->date;
-                $post->post_type = $item->post_type;
-                $post->text = $item->text;
-                $post->vk_id = $post->owner_id . '_' . $item->id;
-                $post->save();
-                echo 'post - ' . $post->vk_id . ' add' . "\n";
+        if (!empty($items)) {
+            foreach ((array)$items as $item) {
+                if (VkStream::find()->where(['vk_id' => $item->owner_id . '_' . $item->id])->count() == 0) {
+                    $post = new VkStream();
+                    $post->owner_type = $item->owner_id < 0 ? 0 : 1;
+                    $post->owner_id = $item->owner_id;
+                    $post->from_type = $item->from_id < 0 ? 0 : 1;
+                    $post->from_id = $item->from_id;
+                    $post->dt_add = $item->date;
+                    $post->post_type = $item->post_type;
+                    $post->text = $item->text;
+                    $post->vk_id = $post->owner_id . '_' . $item->id;
+                    $post->save();
+                    echo 'post - ' . $post->vk_id . ' add' . "\n";
+                    $this->savePhoto($item, $post->id);
+                }
             }
         }
 
+    }
+
+    public function savePhoto($item, $postId = false)
+    {
+        if(!empty($item->attachments)){
+            foreach ((array)$item->attachments as $attachment){
+                if($attachment->type === 'photo'){
+                    if(VkPhoto::find()->where(['vk_id' => $attachment->photo->id])->count() == 0){
+                        $photo = new VkPhoto();
+                        $photo->vk_id = $attachment->photo->id;
+                        $photo->vk_post_id = $item->id;
+                        $photo->post_id = $postId ?: 0;
+                        $photo->owner_id = $item->owner_id;
+                        $photo->vk_user_id = $item->from_id;
+                        $photo->access_key = $attachment->photo->access_key;
+                        $photo->photo_75 = $attachment->photo->photo_75;
+                        $photo->photo_807 = $attachment->photo->photo_807;
+                        $photo->photo_1280 = $attachment->photo->photo_1280;
+                        $photo->save();
+                        echo 'photo - ' . $photo->vk_id . ' add' . "\n";
+                    }
+                }
+            }
+        }
     }
 
     public function saveAuthors($profiles)

@@ -16,6 +16,7 @@ use Yii;
  * @property integer $post_id
  * @property integer $owner_id
  * @property string $access_key
+ * @property string $vk_post_id
  */
 class VkPhoto extends \yii\db\ActiveRecord
 {
@@ -34,7 +35,7 @@ class VkPhoto extends \yii\db\ActiveRecord
     {
         return [
             [['vk_id'], 'required'],
-            [['vk_id', 'vk_user_id', 'post_id', 'owner_id'], 'integer'],
+            [['vk_id', 'vk_user_id', 'post_id', 'owner_id', 'vk_post_id'], 'integer'],
             [['photo_75', 'photo_807', 'photo_1280', 'access_key'], 'string', 'max' => 255],
         ];
     }
@@ -54,6 +55,7 @@ class VkPhoto extends \yii\db\ActiveRecord
             'post_id' => 'Post ID',
             'owner_id' => 'Owner ID',
             'access_key' => 'Access Key',
+            'vk_post_id' => 'Vk post id',
         ];
     }
 }
