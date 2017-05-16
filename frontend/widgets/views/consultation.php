@@ -8,7 +8,7 @@
         <span class="ask-title">Задать вопрос</span>
     </a>
     <?php foreach ($faq as $item): ?>
-        <a href="<?= \yii\helpers\Url::to(['/consulting/consulting/faq','slug'=>$item->slug]);?>" class="consultation__item">
+        <a href="<?= \yii\helpers\Url::to(['/consulting/consulting/faq-post','slug'=>$item->slug]);?>" class="consultation__item">
             <div class="thumb">
                 <!--<span>A</span>-->
                 <span><?= substr($item->company->user->username, 0, 1); ?></span>
@@ -16,7 +16,7 @@
             <p><?= $item->question; ?></p>
         </a>
     <?php endforeach; ?>
-    <a href="<?= \yii\helpers\Url::to(['/consulting/consulting']); ?>" class="show-more">посмотреть больше<span
+    <a href="<?= \yii\helpers\Url::togit (['/consulting/consulting']); ?>" class="show-more">посмотреть больше<span
                 class="red-arrow"></span></a>
 </div>
 
