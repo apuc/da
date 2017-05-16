@@ -50,7 +50,31 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             // 'post_type',
-            'text:ntext',
+            [
+                'attribute' => 'text',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    $photo = \common\models\db\VkPhoto::find()->where(['post_id' => $model->id])->all();
+                    $text = $model->text;
+                    $text .= '<div>';
+                    foreach ((array)$photo as $item){
+                        if(!empty($item->photo_807)){
+                            $text .= '<span>' . Html::img($item->photo_807, ['width'=>300]) . '</span>';
+                        }
+                        elseif(!empty($item->photo_604)){
+                            $text .= '<span>' . Html::img($item->photo_604, ['width'=>300]) . '</span>';
+                        }
+                        elseif(!empty($item->photo_130)){
+                            $text .= '<span>' . Html::img($item->photo_130, ['width'=>200]) . '</span>';
+                        }
+                        else {
+                            $text .= '<span>' . Html::img($item->photo_75, ['width'=>200]) . '</span>';
+                        }
+                    }
+                    $text .= '</div>';
+                    return $text;
+                },
+            ],
             // 'from_type',
 
             ['class' => 'yii\grid\ActionColumn'],

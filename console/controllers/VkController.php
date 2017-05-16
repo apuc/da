@@ -78,9 +78,11 @@ class VkController extends Controller
                         $photo->owner_id = $item->owner_id;
                         $photo->vk_user_id = $item->from_id;
                         $photo->access_key = $attachment->photo->access_key;
-                        $photo->photo_75 = $attachment->photo->photo_75;
-                        $photo->photo_807 = $attachment->photo->photo_807;
-                        $photo->photo_1280 = $attachment->photo->photo_1280;
+                        $photo->photo_75 = isset($attachment->photo->photo_75) ? $attachment->photo->photo_75 : '';
+                        $photo->photo_130 = isset($attachment->photo->photo_130) ? $attachment->photo->photo_130 : '';
+                        $photo->photo_604 = isset($attachment->photo->photo_604) ? $attachment->photo->photo_604 : '';
+                        $photo->photo_807 = isset($attachment->photo->photo_807) ? $attachment->photo->photo_807 : '';
+                        $photo->photo_1280 = isset($attachment->photo->photo_1280) ? $attachment->photo->photo_1280 : '';
                         $photo->save();
                         echo 'photo - ' . $photo->vk_id . ' add' . "\n";
                     }
@@ -98,7 +100,7 @@ class VkController extends Controller
                     $author->first_name = $profile->first_name;
                     $author->last_name = $profile->last_name;
                     $author->sex = $profile->sex;
-                    $author->screen_name = $profile->screen_name;
+                    $author->screen_name = isset($profile->screen_name) ? $profile->screen_name : '';
                     $author->vk_id = $profile->id;
                     $author->photo = $profile->photo_100;
                     $author->save();
