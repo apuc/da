@@ -8,7 +8,7 @@
         <span class="ask-title">Задать вопрос</span>
     </a>
     <?php foreach ($faq as $item): ?>
-        <a href="" class="consultation__item">
+        <a href="<?= \yii\helpers\Url::to(['/consulting/consulting/faq','slug'=>$item->slug]);?>" class="consultation__item">
             <div class="thumb">
                 <!--<span>A</span>-->
                 <span><?= substr($item->company->user->username, 0, 1); ?></span>
