@@ -16,7 +16,7 @@
             <p><?= $item->question; ?></p>
         </a>
     <?php endforeach; ?>
-    <a href="<?= \yii\helpers\Url::togit (['/consulting/consulting']); ?>" class="show-more">посмотреть больше<span
+    <a href="<?= \yii\helpers\Url::to(['/consulting/consulting']); ?>" class="show-more">посмотреть больше<span
                 class="red-arrow"></span></a>
 </div>
 
