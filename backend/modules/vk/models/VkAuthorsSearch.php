@@ -70,6 +70,8 @@ class VkAuthorsSearch extends VkAuthors
             ->andFilterWhere(['like', 'screen_name', $this->screen_name])
             ->andFilterWhere(['like', 'photo', $this->photo]);
 
+        $query->orderBy('id DESC');
+
         return $dataProvider;
     }
 }

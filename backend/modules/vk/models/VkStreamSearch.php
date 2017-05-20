@@ -71,6 +71,8 @@ class VkStreamSearch extends VkStream
             ->andFilterWhere(['like', 'post_type', $this->post_type])
             ->andFilterWhere(['like', 'text', $this->text]);
 
+        $query->orderBy('id DESC');
+
         return $dataProvider;
     }
 }
