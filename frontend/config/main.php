@@ -40,6 +40,9 @@ return [
         'pages' => [
             'class' => 'frontend\modules\pages\Pages',
         ],
+        'search' => [
+            'class' => 'frontend\modules\search\search',
+        ],
     ],
     'components' => [
         'mymessages' => [

@@ -29,7 +29,12 @@ class MainMenuAdmin extends Widget
                     [
                         'label' => 'Главная',
                         'items' => [
-
+                            [
+                                'label' => 'Погода',
+                                'url' => Url::to(['/mainpage/mainpage/weather']),
+                                'active' => Yii::$app->controller->module->id == 'mainpage' && Yii::$app->controller->action->id == 'weather',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
                             [
                                 'label' => 'Фотографии',
                                 'url' => Url::to(['/mainpage/mainpage/photos']),
