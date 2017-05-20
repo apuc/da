@@ -2,7 +2,6 @@
 
 namespace backend\modules\mainpage\controllers;
 
-
 use common\models\db\KeyValue;
 use yii\web\Controller;
 
@@ -32,6 +31,35 @@ class MainpageController extends Controller
 
         return $this->render('photos',
             ['mainPhotos' => json_decode(KeyValue::findOne(['key' => 'main_photos'])->value)]);
+
+    }
+
+    public function actionWeather()
+    {
+        $request = \Yii::$app->request;
+        if (\Yii::$app->request->isPost) {
+            $json['header_img'] = $request->post('header_img');
+            $json['header_temp'] = $request->post('header_temp');
+            $weather = KeyValue::findOne(['key' => 'weather']);
+            $weather->value = json_encode($json);
+            $weather->save();
+
+        }
+
+        $weatherItems = [
+            'sunny' => 'Солнечно',
+            'storm' => 'Гроза',
+            'snow' => 'Снег',
+            'rain' => 'Дождь',
+            'partly_cloudy' => 'Переменная облачность',
+            'cloudy' => 'Облачно',
+            'breeze' => 'Ветер',
+        ];
+
+        return $this->render('weather', [
+            'weather' => json_decode(KeyValue::findOne(['key' => 'weather'])->value),
+            'weatherItems' => $weatherItems,
+        ]);
 
     }
 }

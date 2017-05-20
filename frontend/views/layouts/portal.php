@@ -28,7 +28,7 @@ AppAsset::register($this);
     <meta name="yandex-verification" content="6102a93fabadb2cf"/>
     <?= \frontend\widgets\Metrika::widget() ?>
     <!--<meta property="og:title" content="DA info"/>-->
-    <!--<meta property="og:url" content="--><?//= Url::home(true); ?><!--"/>-->
+    <!--<meta property="og:url" content="--><? //= Url::home(true); ?><!--"/>-->
     <meta property="og:image" content="<?= 'http://' . $_SERVER['HTTP_HOST'] ?>/theme/portal-donbassa/img/logo_da.png"/>
     <!--<meta property="og:description" content="Информационный портал города Донецка"/>-->
 </head>
@@ -49,22 +49,15 @@ AppAsset::register($this);
                     <option value="">Макеевка</option>
                 </select>
             </div>
-            <div class="weather">
-        <span class="weather-pic">
-          <img src="/theme/portal-donbassa/img/header/rain-pic.png" alt="">
-        </span>
-                <span class="weather-temp">
-          <?= KeyValue::getValue('weather') ?>
-        </span>
-            </div>
+            <?= \frontend\widgets\WeatherHeader::widget(); ?>
             <?= ExchangeRates::widget() ?>
             <form action="">
                 <input class="search-input" type="text" placeholder="Поиск">
-                <?php if(Yii::$app->user->isGuest): ?>
-                <a href="<?= Url::to(['/user/login']) ?>">
-                    <span class="autoriz-icon"></span>
-                    авторизация
-                </a>
+                <?php if (Yii::$app->user->isGuest): ?>
+                    <a href="<?= Url::to(['/user/login']) ?>">
+                        <span class="autoriz-icon"></span>
+                        авторизация
+                    </a>
                 <?php else: ?>
                     <a href="<?= Url::to(['/user/settings/profile']) ?>">
                         <span class="autoriz-icon"></span>
@@ -100,31 +93,36 @@ AppAsset::register($this);
             <span class="komunalka__icon">
               <img src="/theme/portal-donbassa/img/home-content/energy.png" alt="">
             </span>
-                        <a href="<?= Url::to(['/pages/default/view', 'slug' => 'elektricestvo'])?>" class="komunalka__line ">электричество<span class="red-arrow"></span></a>
+                        <a href="<?= Url::to(['/pages/default/view', 'slug' => 'elektricestvo']) ?>"
+                           class="komunalka__line ">электричество<span class="red-arrow"></span></a>
                     </div>
                     <div class="komunalka__item">
             <span class="komunalka__icon">
               <img src="/theme/portal-donbassa/img/home-content/wind.png" alt="">
             </span>
-                        <a href="<?= Url::to(['/pages/default/view', 'slug' => 'otoplenie'])?>" class="komunalka__line">отопление <span class="red-arrow"></span></a>
+                        <a href="<?= Url::to(['/pages/default/view', 'slug' => 'otoplenie']) ?>"
+                           class="komunalka__line">отопление <span class="red-arrow"></span></a>
                     </div>
                     <div class="komunalka__item">
             <span class="komunalka__icon">
               <img src="/theme/portal-donbassa/img/home-content/gas.png" alt="">
             </span>
-                        <a href="<?= Url::to(['/pages/default/view', 'slug' => 'gas'])?>" class="komunalka__line">газ <span class="red-arrow"></span></a>
+                        <a href="<?= Url::to(['/pages/default/view', 'slug' => 'gas']) ?>" class="komunalka__line">газ
+                            <span class="red-arrow"></span></a>
                     </div>
                     <div class="komunalka__item">
             <span class="komunalka__icon">
               <img src="/theme/portal-donbassa/img/home-content/home.png" alt="">
             </span>
-                        <a href="<?= Url::to(['/pages/default/view', 'slug' => 'gkh'])?>" class="komunalka__line">жкх <span class="red-arrow"></span></a>
+                        <a href="<?= Url::to(['/pages/default/view', 'slug' => 'gkh']) ?>" class="komunalka__line">жкх
+                            <span class="red-arrow"></span></a>
                     </div>
                     <div class="komunalka__item">
             <span class="komunalka__icon">
               <img src="/theme/portal-donbassa/img/home-content/water.png" alt="">
             </span>
-                        <a href="<?= Url::to(['/pages/default/view', 'slug' => 'voda'])?>" class="komunalka__line">вода<span class="red-arrow"></span></a>
+                        <a href="<?= Url::to(['/pages/default/view', 'slug' => 'voda']) ?>" class="komunalka__line">вода<span
+                                    class="red-arrow"></span></a>
                     </div>
                 </div>
             </div>
@@ -174,7 +172,7 @@ AppAsset::register($this);
             <?= \frontend\modules\mainpage\widgets\Stock::widget() ?>
 
             <div class="home-content__sidebar_poll poll">
-                <?= \frontend\widgets\Poll::widget();?>
+                <?= \frontend\widgets\Poll::widget(); ?>
             </div>
 
             <?= \frontend\widgets\Consultation::widget(); ?>

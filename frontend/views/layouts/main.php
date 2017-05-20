@@ -49,14 +49,7 @@ AppAsset::register($this);
                     <option value="">Макеевка</option>
                 </select>
             </div>
-            <div class="weather">
-        <span class="weather-pic">
-          <img src="/theme/portal-donbassa/img/header/rain-pic.png" alt="">
-        </span>
-                <span class="weather-temp">
-          <?= KeyValue::getValue('weather') ?>
-        </span>
-            </div>
+            <?= \frontend\widgets\WeatherHeader::widget(); ?>
             <?= ExchangeRates::widget() ?>
             <form action="">
                 <input class="search-input" type="text" placeholder="Поиск">
