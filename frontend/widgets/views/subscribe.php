@@ -29,13 +29,13 @@ $this->registerJsFile('/js/validation.js');
             <a href="https://www.instagram.com/da.info.pro/" class="social-wrap__item insta">
                 <img src="/theme/portal-donbassa/img/soc/insta-icon.png" alt="">
             </a>
-            <a href="" class="social-wrap__item twitter">
+            <a href="https://twitter.com/DA_info_pro" class="social-wrap__item twitter">
                 <img src="/theme/portal-donbassa/img/soc/twi-icon.png" alt="">
             </a>
-            <a href="" class="social-wrap__item google">
+            <a href="https://plus.google.com/u/0/communities/115639152242515279745" class="social-wrap__item google">
                 <img src="/theme/portal-donbassa/img/soc/google-icon.png" alt="">
             </a>
-            <a href="" class="social-wrap__item pinterest">
+            <a href="https://ru.pinterest.com/DA_Info_Pro/da-info-pro/" class="social-wrap__item pinterest">
                 <img src="/theme/portal-donbassa/img/soc/pinter-icon.png" alt="">
             </a>
         </div>
