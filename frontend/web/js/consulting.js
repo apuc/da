@@ -38,7 +38,7 @@ $(document).ready(function () {
         });
 
         return false;
-    })
+    });
 
     $('a.active').closest('li').find('ul').first().addClass('up-child');
     $('a.active-category').closest('ul').addClass('up-child');
@@ -56,7 +56,7 @@ $(document).ready(function () {
     // var i = 1;
     // OpenCategories(el,i);
 
-})
+});
 
 
 function OpenCategories(el,i) {

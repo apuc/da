@@ -155,45 +155,105 @@ $user = Yii::$app->user->identity;
             <?= \frontend\widgets\ExchangeRatesMain::widget() ?>
 
             <div class="home-content__sidebar_weather">
-                <h3>Погода</h3>
-                <div class="main-weather">
-                    <div class="main-weather__content">
-                        <span class="city">Донецк</span>
-                        <span class="date">пятница 20.01</span>
-                        <span class="precipitation">Облачно</span>
-                    </div>
-                    <div class="main-weather__pic">
-                        <img src="/theme/portal-donbassa/img/weather/partly_cloudy.png" alt="">
-                    </div>
-                    <span class="main-weather_temp">-8</span>
-                </div>
-                <div class="week-weather">
-                    <div class="week-weather__item">
-                        <span class="week-weather__date">сб 21.01</span>
-                        <div class="week-weather__pic">
-                            <img src="/theme/portal-donbassa/img/weather/snow_light.png" alt="">
+
+                <h3>погода</h3>
+
+                <div class="home-content__sidebar_weather__slider">
+
+                    <div class="home-content__sidebar_weather__slider--item">
+
+
+                        <div class="home-content__sidebar_weather__slider--img">
+                            <img src="/theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
                         </div>
-                        <span class="week-weather_temp">-8</span>
-                    </div>
-                    <div class="week-weather__item">
-                        <span class="week-weather__date">сб 21.01</span>
-                        <div class="week-weather__pic">
-                            <img src="/theme/portal-donbassa/img/weather/snow_light.png" alt="">
+
+                        <p class="city">Донецк</p>
+
+                        <p class="date">пятница 20.01</p>
+
+                        <p class="weather-val">Облачно</p>
+
+                        <div class="home-content__sidebar_weather__slider--icon">
+                                <span class="icon">
+                                    <img src="/theme/portal-donbassa/img/icons/wheather-icon.png" alt="">
+                                </span>
+                            <span class="degrees">25°C</span>
                         </div>
-                        <span class="week-weather_temp">-8</span>
-                    </div>
-                    <div class="week-weather__item">
-                        <span class="week-weather__date">сб 21.01</span>
-                        <div class="week-weather__pic">
-                            <img src="/theme/portal-donbassa/img/weather/snow_light.png" alt="">
+
+                        <div class="home-content__sidebar_weather__slider--content">
+
+                            <p>25°C</p>
+
+                            <p>Суббота 21.01</p>
+
                         </div>
-                        <span class="week-weather_temp">-8</span>
+
                     </div>
+
+                    <div class="home-content__sidebar_weather__slider--item">
+
+
+                        <div class="home-content__sidebar_weather__slider--img">
+                            <img src="/theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
+                        </div>
+
+                        <p class="city">Донецк</p>
+
+                        <p class="date">пятница 20.01</p>
+
+                        <p class="weather-val">Облачно</p>
+
+                        <div class="home-content__sidebar_weather__slider--icon">
+                                <span class="icon">
+                                    <img src="/theme/portal-donbassa/img/icons/wheather-icon.png" alt="">
+                                </span>
+                            <span class="degrees">25°C</span>
+                        </div>
+
+                        <div class="home-content__sidebar_weather__slider--content">
+
+                            <p>25°C</p>
+
+                            <p>Суббота 21.01</p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="home-content__sidebar_weather__slider--item">
+
+
+                        <div class="home-content__sidebar_weather__slider--img">
+                            <img src="/theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
+                        </div>
+
+                        <p class="city">Донецк</p>
+
+                        <p class="date">пятница 20.01</p>
+
+                        <p class="weather-val">Облачно</p>
+
+                        <div class="home-content__sidebar_weather__slider--icon">
+                                <span class="icon">
+                                    <img src="/theme/portal-donbassa/img/icons/wheather-icon.png" alt="">
+                                </span>
+                            <span class="degrees">25°C</span>
+                        </div>
+
+                        <div class="home-content__sidebar_weather__slider--content">
+
+                            <p>25°C</p>
+
+                            <p>Суббота 21.01</p>
+
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
-        </div>
 
-    </div>
+        </div>
 </section>
 
 <?= \frontend\widgets\MainPopularSlider::widget(); ?>
@@ -233,11 +293,7 @@ $user = Yii::$app->user->identity;
 
         <div class="footer__social">
 
-            <div class="footer__links">
-                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
-            </div>
+            <?= \frontend\widgets\FooterSocial::widget() ?>
 
             <a href="#" class="footer__send">написать нам</a>
 
