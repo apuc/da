@@ -30,7 +30,7 @@
 
             </div>
             <div class="afisha-wrap__yesterday">
-                <h3>Премьера завтра</h3>
+                <h3>Выбор редакции</h3>
                 <div class="gallery">
                     <div class="main-gallery">
                         <a class="fancybox" rel="gallery1"
