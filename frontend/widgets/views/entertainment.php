@@ -9,7 +9,7 @@ use yii\helpers\Url;
 <div class="home-content__wrap_enterprises">
     <div class="title">
         <h3 class="main-title">Где отдохнуть</h3>
-        <a href=""><span class="add-icon"></span>Зарегистрировать заведение</a>
+        <a href="<?= Url::to(['/site/design']);?>"><span class="add-icon"></span>Зарегистрировать заведение</a>
     </div>
     <div class="enterprises__wrap">
         <?php $i = 1; ?>

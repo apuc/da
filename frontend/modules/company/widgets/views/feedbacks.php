@@ -6,6 +6,7 @@
  * Time: 0:00
  * @var $feedbacks \common\models\db\CompanyFeedback
  */
+use yii\helpers\Url;
 
 ?>
 <section class="what-say">
@@ -19,7 +20,7 @@
             <?php if (!Yii::$app->user->isGuest): ?><a href="#" id="add-review"><span class="comments-icon"></span>Написать
                 отзыв</a><?php endif; ?>
 
-            <a href=""><span class="mail-icon"></span>Подписаться на эту тему</a>
+            <a href="<?= Url::to(['/site/design']);?>"><span class="mail-icon"></span>Подписаться на эту тему</a>
 
         </div>
 
@@ -44,7 +45,7 @@
                 <!-- item -->
             <?php endforeach; ?>
             <div class="more-block">
-                <a href="#" class="show-more">посмотреть все</a>
+                <a href="<?= \yii\helpers\Url::to(['/site/design']);?>" class="show-more">посмотреть все</a>
             </div>
 
         </div>
