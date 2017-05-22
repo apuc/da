@@ -19,7 +19,9 @@ $this->registerMetaTag([
             <div class="consultation-slider">
                 <?php foreach ($consultingsSlider as $item): ?>
                     <a href="<?= \yii\helpers\Url::to(['/consulting/consulting/view','slug'=>$item->slug]);?>" class="item">
-                        <img src="<?= $item->photo;?>" alt="" class="lazyOwl">
+                        <div class="item__img">
+                            <img src="<?= $item->photo;?>" alt="" class="lazyOwl">
+                        </div>
                         <p><?= $item->title;?></p>
                     </a>
                 <?php endforeach; ?>

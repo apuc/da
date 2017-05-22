@@ -103,8 +103,14 @@ return [
         'pages_group' => [
             'class' => 'backend\modules\pages_group\Pages_group',
         ],
+        'vk' => [
+            'class' => 'backend\modules\vk\Vk',
+        ],
         'contacting' => [
             'class' => 'backend\modules\contacting\Contacting',
+        ],
+        'subscribe' => [
+            'class' => 'backend\modules\subscribe\Subscribe',
         ],
     ],
     'components' => [

@@ -7,13 +7,14 @@
  * @var $posters \common\models\db\Poster
  */
 use common\classes\WordFunctions;
+use yii\helpers\Url;
 
 ?>
 <div class="what-to-see">
     <h3>Что посмотреть</h3>
     <div class="afisha-events__wrap">
         <?php foreach ($posters as $poster): ?>
-            <a href="" class="item">
+            <a href="<?= Url::to(['/poster/default/view', 'slug'=>$poster->slug]) ?>" class="item">
                 <img src="<?= $poster->photo ?>" alt="">
                 <div class="item-content">
                     <span class="type"><?= $poster->categories[0]->title ?></span>

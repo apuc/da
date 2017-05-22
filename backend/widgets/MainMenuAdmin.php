@@ -399,6 +399,34 @@ class MainMenuAdmin extends Widget
                         'template' => '<a href="#"><i class="fa fa-file-o"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
                     [
+                        'label' => 'ВК',
+                        //'visible' => UserFunction::hasPermission(['Страницы']),
+                        'items' => [
+                            [
+                                'label' => 'Группы',
+                                'url' => Url::to(['/vk/vk_groups']),
+                                'active' => Yii::$app->controller->module->id === 'vk' && Yii::$app->controller->id === 'vk_groups',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                            [
+                                'label' => 'Авторы',
+                                'url' => Url::to(['/vk/vk_authors']),
+                                'active' => Yii::$app->controller->module->id === 'vk' && Yii::$app->controller->id === 'vk_authors',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                            [
+                                'label' => 'Поток',
+                                'url' => Url::to(['/vk/vk_stream']),
+                                'active' => Yii::$app->controller->module->id === 'vk' && Yii::$app->controller->id === 'vk_stream',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                        ],
+                        'options' => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="#"><i class="fa fa-vk"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                    ],
+                    [
                         'label' => 'Курсы валют',
                         // 'visible'  => UserFunction::hasPermission( [ 'Опросы' ] ),
                         'items' => [
@@ -418,7 +446,14 @@ class MainMenuAdmin extends Widget
                         'options' => [
                             'class' => 'treeview',
                         ],
-                        'template' => '<a href="#"><i class="fa fa-money"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                        'template' => '<a href="#"><i class="fa fa-usd"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                    ],
+                    [
+                        'label' => 'Подписчики',
+                        'url' => Url::to(['/subscribe/subscribe']),
+                        'template' => '<a href="{url}"><i class="fa fa-share-square-o"></i> <span>{label}</span></a>',
+                        'active' => Yii::$app->controller->module->id == 'subscribe',
+                        //'visible' => UserFunction::hasPermission(['СЕО']),
                     ],
                     [
                         'label' => 'СЕО',

@@ -86,7 +86,7 @@ $this->registerJsFile('/js/company_ajax.js', ['depends' => [\yii\web\JqueryAsset
 
                         <?php foreach ($img as $item): ?>
 
-                            <a href="<?= $item->photo ?>" class="fancybox">
+                            <a href="<?= $item->photo ?>" data-fancybox="gallery" class="business__photos--slide">
                                 <img src="<?= $item->photo ?>" alt="">
                             </a>
 
@@ -148,7 +148,7 @@ $this->registerJsFile('/js/company_ajax.js', ['depends' => [\yii\web\JqueryAsset
 
                                     <h3><?= $model->name ?></h3>
 
-                                    <p><?= $model->meta_descr ?></p>
+                                    <!--<p><?/*= $model->meta_descr */?></p>-->
 
                                     <p class="full"><?= $item->feedback ?></p>
 

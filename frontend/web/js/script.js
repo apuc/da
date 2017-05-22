@@ -115,7 +115,7 @@ $(document).ready(function () {
     }, 123860296);
     VK.Widgets.Group("vk_groups_news", {
         mode: 3,
-         width: "auto",
+        width: "auto",
         height: "154",
         color1: 'FFFFFF',
         color2: '000000',
@@ -155,21 +155,20 @@ $(document).ready(function () {
     var el = $('.inserted').find('.active');
     var parent = 0;
     var i = 1;
-    OpenCategories(el,i);
+    OpenCategories(el, i);
 
 //comments ajax
 
 
-
 });
 
-function OpenCategories(el,i) {
+function OpenCategories(el, i) {
     el.closest('ul').slideDown();
     i++;
     if ($(el).closest('ul').hasClass('end')) {
-       return;
+        return;
     } else {
-        OpenCategories(el.parent(),i);
+        OpenCategories(el.parent(), i);
     }
 }
 
@@ -182,21 +181,21 @@ function OpenCategories(el,i) {
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
-$(document).on('click','.parent',function () {
+$(document).on('click', '.parent', function () {
 
-    if($(this).closest('li').find('ul').length > 0){
+    if ($(this).closest('li').find('ul').length > 0) {
         $(this).parent('li').find('ul').first().slideToggle().toggleClass('active');
-        
+
         return false;
     }
 
 
 })
 
-$(document).on('change','.profile-avatar',function () {
+$(document).on('change', '.profile-avatar', function () {
 
-console.log('ok');
-        readURL(this);
+    console.log('ok');
+    readURL(this);
 })
 
 function readURL(input) {
@@ -213,40 +212,40 @@ function readURL(input) {
     }
 }
 
-$('.column-list-js').columnlist({ size: 2 });
+$('.column-list-js').columnlist({size: 2});
 
-$(document).on('click','.more-comments',function () {
+$(document).on('click', '.more-comments', function () {
     $.ajax({
         type: 'POST',
         url: "/ajax/ajax/get_more_comments",
         data: {
-            date : $(this).attr('data-time'),
-            post_type : $(this).attr('data-type'),
-            count : $(this).attr('data-count'),
-            limit : $(this).attr('data-limit'),
-            post_id : $(this).attr('data-id'),
+            date: $(this).attr('data-time'),
+            post_type: $(this).attr('data-type'),
+            count: $(this).attr('data-count'),
+            limit: $(this).attr('data-limit'),
+            post_id: $(this).attr('data-id'),
         },
         success: function (data) {
 
             $('.comments-content').html($('.comments-content').html() + data);
-            $('.more-comments').attr('data-count',  +$('.more-comments').attr('data-count') + +$('.more-comments').attr('data-limit')  );
+            $('.more-comments').attr('data-count', +$('.more-comments').attr('data-count') + +$('.more-comments').attr('data-limit'));
         }
     });
 })
-$(document).on('click','#send_comment',function () {
- var comment = $('#new-comment').val();
-    if(comment != ''){
+$(document).on('click', '#send_comment', function () {
+    var comment = $('#new-comment').val();
+    if (comment != '') {
         $.ajax({
             url: "/ajax/ajax/add_comment",
             type: "POST",
             data: {
-                post_id : $('.more-comments').attr('data-id'),
-                post_type : $('.more-comments').attr('data-type'),
-                content : comment,
-            }  ,
+                post_id: $('.more-comments').attr('data-id'),
+                post_type: $('.more-comments').attr('data-type'),
+                content: comment,
+            },
             success: function (data) {
                 location.reload();
-               // console.log(data);
+                // console.log(data);
                 //$('.comments-content').html( data + $('.comments-content').html() );
             }
         });

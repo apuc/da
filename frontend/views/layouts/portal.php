@@ -15,6 +15,7 @@ use frontend\assets\AppAsset;
 use common\widgets\Alert;
 
 AppAsset::register($this);
+$user = Yii::$app->user->identity;
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -61,13 +62,19 @@ AppAsset::register($this);
                 <?php else: ?>
                     <a href="<?= Url::to(['/user/settings/profile']) ?>">
                         <span class="autoriz-icon"></span>
-                        <?= User::findById(Yii::$app->user->id)->username; ?>
+                        <?= $user->username; ?>
                     </a>
                 <?php endif; ?>
             </form>
         </div>
         <?php echo \frontend\widgets\MainMenu::widget() ?>
-
+        <button class="toggle_mnu">
+          <span class="sandwich">
+            <span class="sw-topper"></span>
+            <span class="sw-bottom"></span>
+            <span class="sw-footer"></span>
+          </span>
+        </button>
     </div>
 </section>
 
@@ -127,39 +134,7 @@ AppAsset::register($this);
                 </div>
             </div>
 
-            <div class="home-content__wrap_subscribe">
-                <div class="subscribe__wrap">
-                    <h3>ПОДПИСАТЬСЯ НА НОВОСТИ</h3>
-                    <form action="">
-                        <input type="text" placeholder="Выслать на email">
-                        <button>подписаться</button>
-                    </form>
-                    <div class="social-wrap">
-                        <h4>мы в социальных сетях</h4>
-                        <a href="https://vk.com/da_info_pro" class="social-wrap__item vk">
-                            <img src="/theme/portal-donbassa/img/soc/vk.png" alt="">
-                        </a>
-                        <a href="https://www.facebook.com/da.info.pro/" class="social-wrap__item fb">
-                            <img src="/theme/portal-donbassa/img/soc/fb.png" alt="">
-                        </a>
-                        <a href="https://ok.ru/da...infor" class="social-wrap__item ok">
-                            <img src="/theme/portal-donbassa/img/soc/ok-icon.png" alt="">
-                        </a>
-                        <a href="https://www.instagram.com/da.info.pro/" class="social-wrap__item insta">
-                            <img src="/theme/portal-donbassa/img/soc/insta-icon.png" alt="">
-                        </a>
-                        <a href="" class="social-wrap__item twitter">
-                            <img src="/theme/portal-donbassa/img/soc/twi-icon.png" alt="">
-                        </a>
-                        <a href="" class="social-wrap__item google">
-                            <img src="/theme/portal-donbassa/img/soc/google-icon.png" alt="">
-                        </a>
-                        <a href="" class="social-wrap__item pinterest">
-                            <img src="/theme/portal-donbassa/img/soc/pinter-icon.png" alt="">
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <?= \frontend\widgets\Subscribe::widget() ?>
 
         </div>
 
@@ -180,45 +155,105 @@ AppAsset::register($this);
             <?= \frontend\widgets\ExchangeRatesMain::widget() ?>
 
             <div class="home-content__sidebar_weather">
-                <h3>Погода</h3>
-                <div class="main-weather">
-                    <div class="main-weather__content">
-                        <span class="city">Донецк</span>
-                        <span class="date">пятница 20.01</span>
-                        <span class="precipitation">Облачно</span>
-                    </div>
-                    <div class="main-weather__pic">
-                        <img src="/theme/portal-donbassa/img/weather/partly_cloudy.png" alt="">
-                    </div>
-                    <span class="main-weather_temp">-8</span>
-                </div>
-                <div class="week-weather">
-                    <div class="week-weather__item">
-                        <span class="week-weather__date">сб 21.01</span>
-                        <div class="week-weather__pic">
-                            <img src="/theme/portal-donbassa/img/weather/snow_light.png" alt="">
+
+                <h3>погода</h3>
+
+                <div class="home-content__sidebar_weather__slider">
+
+                    <div class="home-content__sidebar_weather__slider--item">
+
+
+                        <div class="home-content__sidebar_weather__slider--img">
+                            <img src="/theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
                         </div>
-                        <span class="week-weather_temp">-8</span>
-                    </div>
-                    <div class="week-weather__item">
-                        <span class="week-weather__date">сб 21.01</span>
-                        <div class="week-weather__pic">
-                            <img src="/theme/portal-donbassa/img/weather/snow_light.png" alt="">
+
+                        <p class="city">Донецк</p>
+
+                        <p class="date">пятница 20.01</p>
+
+                        <p class="weather-val">Облачно</p>
+
+                        <div class="home-content__sidebar_weather__slider--icon">
+                                <span class="icon">
+                                    <img src="/theme/portal-donbassa/img/icons/wheather-icon.png" alt="">
+                                </span>
+                            <span class="degrees">25°C</span>
                         </div>
-                        <span class="week-weather_temp">-8</span>
-                    </div>
-                    <div class="week-weather__item">
-                        <span class="week-weather__date">сб 21.01</span>
-                        <div class="week-weather__pic">
-                            <img src="/theme/portal-donbassa/img/weather/snow_light.png" alt="">
+
+                        <div class="home-content__sidebar_weather__slider--content">
+
+                            <p>25°C</p>
+
+                            <p>Суббота 21.01</p>
+
                         </div>
-                        <span class="week-weather_temp">-8</span>
+
                     </div>
+
+                    <div class="home-content__sidebar_weather__slider--item">
+
+
+                        <div class="home-content__sidebar_weather__slider--img">
+                            <img src="/theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
+                        </div>
+
+                        <p class="city">Донецк</p>
+
+                        <p class="date">пятница 20.01</p>
+
+                        <p class="weather-val">Облачно</p>
+
+                        <div class="home-content__sidebar_weather__slider--icon">
+                                <span class="icon">
+                                    <img src="/theme/portal-donbassa/img/icons/wheather-icon.png" alt="">
+                                </span>
+                            <span class="degrees">25°C</span>
+                        </div>
+
+                        <div class="home-content__sidebar_weather__slider--content">
+
+                            <p>25°C</p>
+
+                            <p>Суббота 21.01</p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="home-content__sidebar_weather__slider--item">
+
+
+                        <div class="home-content__sidebar_weather__slider--img">
+                            <img src="/theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
+                        </div>
+
+                        <p class="city">Донецк</p>
+
+                        <p class="date">пятница 20.01</p>
+
+                        <p class="weather-val">Облачно</p>
+
+                        <div class="home-content__sidebar_weather__slider--icon">
+                                <span class="icon">
+                                    <img src="/theme/portal-donbassa/img/icons/wheather-icon.png" alt="">
+                                </span>
+                            <span class="degrees">25°C</span>
+                        </div>
+
+                        <div class="home-content__sidebar_weather__slider--content">
+
+                            <p>25°C</p>
+
+                            <p>Суббота 21.01</p>
+
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
-        </div>
 
-    </div>
+        </div>
 </section>
 
 <?= \frontend\widgets\MainPopularSlider::widget(); ?>
@@ -241,29 +276,24 @@ AppAsset::register($this);
         <div class="footer__main">
 
             <ul class="footer__nav">
-                <li><a href="#">НОВОСТИ</a></li>
-                <li><a href="#">АФИША</a></li>
-                <li><a href="#">ДОСУГ</a></li>
-                <li><a href="#">ПРЕДПРИЯТИЯ</a></li>
-                <li><a href="#">КОНСУЛЬТАЦИИ</a></li>
-                <li><a href="#">ОБЪЯВЛЕНИЯ</a></li>
+                <li><a href="/all-new">НОВОСТИ</a></li>
+                <li><a href="/all-poster">АФИША</a></li>
+                <li><a href="/all-company">ПРЕДПРИЯТИЯ</a></li>
+                <li><a href="/consulting">КОНСУЛЬТАЦИИ</a></li>
+                <li><a href="/site/design">ОБЪЯВЛЕНИЯ</a></li>
             </ul>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicinor incididunt ut labore et dolore magn aliqua. Ut enim
+            <p><!--Lorem ipsum dolor sit amet, consectetur adipisicinor incididunt ut labore et dolore magn aliqua. Ut enim
                 ad minim veniam, quis nostrud exercitation
                 ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor n reprehenderit in
-                voluptate velit esse cillum dolor</p>
+                voluptate velit esse cillum dolor--></p>
 
         </div>
 
 
         <div class="footer__social">
 
-            <div class="footer__links">
-                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
-            </div>
+            <?= \frontend\widgets\FooterSocial::widget() ?>
 
             <a href="#" class="footer__send">написать нам</a>
 

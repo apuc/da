@@ -38,11 +38,11 @@ class AppAsset extends AssetBundle
         '/theme/portal-donbassa/js/libs.min.js',
         '/theme/portal-donbassa/js/owl.carousel.min.js',
         '/theme/portal-donbassa/js/datepicker.min.js',
-        '/theme/portal-donbassa/js/fancybox/jquery.fancybox.js',
-        '/theme/portal-donbassa/js/fancybox/jquery.fancybox-buttons.js',
-        '/theme/portal-donbassa/js/fancybox/jquery.fancybox-media.js',
-        '/theme/portal-donbassa/js/fancybox/jquery.fancybox-thumbs.js',
-        '/theme/portal-donbassa/js/fancybox/jquery.fancybox.pack.js',
+        '/theme/portal-donbassa/js/jquery.fancybox.js',
+        //'/theme/portal-donbassa/js/fancybox/jquery.fancybox-buttons.js',
+        //'/theme/portal-donbassa/js/fancybox/jquery.fancybox-media.js',
+        //'/theme/portal-donbassa/js/fancybox/jquery.fancybox-thumbs.js',
+        //'/theme/portal-donbassa/js/fancybox/jquery.fancybox.pack.js',
         //'/js/lightbox.js',
         '/theme/portal-donbassa/js/script.min.js',
         '/theme/portal-donbassa/js/jquery.hc-sticky.min.js',
@@ -50,7 +50,8 @@ class AppAsset extends AssetBundle
         '/js/poll_ajax.js',
         '/js/comments.js',
         '/js/share.js',
-        '/js/main_page_ajax.js'
+        '/js/main.js',
+        '/js/main_page_ajax.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
