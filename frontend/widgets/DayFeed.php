@@ -8,6 +8,7 @@
 
 namespace frontend\widgets;
 
+use common\models\db\KeyValue;
 use common\models\db\Lang;
 use yii\base\Widget;
 
@@ -20,7 +21,7 @@ class DayFeed extends Widget
             'news' => \common\models\db\News::find()
                 ->where(['lang_id' => Lang::getCurrent()['id'], 'status' => 0])
                 ->orderBy('dt_public DESC')
-                ->limit(12)
+                ->limit(KeyValue::findOne(['key'=>'day_feed_count'])->value)
                 ->all(),
         ]);
     }
