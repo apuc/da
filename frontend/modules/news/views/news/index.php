@@ -34,7 +34,7 @@ $md = new \common\classes\Mobile_Detect();
         <div class="news-slider-index-panel">
             <h3>Горячие темы</h3>
             <div class="buttons-wrap">
-                <a href="">подписаться</a>
+                <a href="<?= Url::to(['/site/design']);?>">подписаться</a>
 
             </div>
             <!--<div class="hot-tag">-->

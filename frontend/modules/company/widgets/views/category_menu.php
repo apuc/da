@@ -14,7 +14,7 @@ use yii\helpers\Url;
 
 <div class="business__sidebar" id="business-sidebar">
 
-    <a href="#" class="business__sidebar--add">Добавить предприятие</a>
+    <a href="<?= Url::to(['/site/design']);?>" class="business__sidebar--add">Добавить предприятие</a>
 
     <div id="business-sidebar-main" class="business__sidebar--items">
 

@@ -92,7 +92,7 @@ $user = Yii::$app->user->identity;
             <div class="home-content__wrap_komunalka">
                 <div class="title_row">
                     <h3>комунальные тарифы</h3>
-                    <a href="" class="show-enterprises">все тарифы<span class="red-arrow"></span></a>
+                    <a href="<?= Url::to(['/site/design']);?>" class="show-enterprises">все тарифы<span class="red-arrow"></span></a>
                 </div>
                 <div class="komunalka">
 

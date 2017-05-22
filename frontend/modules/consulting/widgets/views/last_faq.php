@@ -23,7 +23,7 @@
         </div>
     <?php endforeach; ?>
 
-    <a href="#" class="ask-question">задать свой вопрос</a>
+    <a href="<?= \yii\helpers\Url::to(['/site/design']);?>" class="ask-question">задать свой вопрос</a>
 
     <a href="" id="get-more-faq" class="load-more" data-offset="3">загрузить БОЛЬШЕ</a>
 
