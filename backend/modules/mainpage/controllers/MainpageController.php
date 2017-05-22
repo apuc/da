@@ -62,4 +62,22 @@ class MainpageController extends Controller
         ]);
 
     }
+
+    public function actionSettings()
+    {
+        $request = \Yii::$app->request;
+        if (\Yii::$app->request->isPost) {
+            $dayFeedCount = KeyValue::findOne(['key' => 'day_feed_count']);
+            $dayFeedCount->value = $request->post('day_feed_count');
+
+            $dayFeedCount->save();
+        }
+
+        return $this->render('settings', [
+            'dayFeedCount' => KeyValue::findOne([
+                'key' => 'day_feed_count',
+            ])->value,
+        ]);
+
+    }
 }

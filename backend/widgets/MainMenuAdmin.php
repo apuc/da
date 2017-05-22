@@ -59,6 +59,12 @@ class MainMenuAdmin extends Widget
                                 'active' => Yii::$app->controller->module->id === 'stock' && Yii::$app->controller->action->id === 'index',
 //                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
+                            [
+                                'label' => 'Настройки',
+                                'url' => Url::to(['/mainpage/mainpage/settings']),
+                                'active' => Yii::$app->controller->module->id == 'mainpage' && Yii::$app->controller->action->id == 'settings',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
                         ],
                         'visible' => UserFunction::hasPermission(['Новости']),
                         'options' => [
