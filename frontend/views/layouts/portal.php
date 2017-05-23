@@ -100,7 +100,7 @@ $user = Yii::$app->user->identity;
             <span class="komunalka__icon">
               <img src="/theme/portal-donbassa/img/home-content/energy.png" alt="">
             </span>
-                        <a href="<?= Url::to(['/pages/default/view', 'slug' => 'elektricestvo']) ?>"
+                        <a href="<?= Url::to(['/consulting/consulting/document', 'slug' => 'elektricestvo']) ?>"
                            class="komunalka__line ">электричество<span class="red-arrow"></span></a>
                     </div>
                     <div class="komunalka__item">
