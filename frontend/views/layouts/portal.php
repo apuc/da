@@ -101,35 +101,35 @@ $user = Yii::$app->user->identity;
             <span class="komunalka__icon">
               <img src="/theme/portal-donbassa/img/home-content/energy.png" alt="">
             </span>
-                        <a href="<?= Url::to(['/pages/default/view', 'slug' => 'elektricestvo']) ?>"
+                        <a href="<?= Url::to(['/consulting/consulting/document', 'slug' => 'elektricestvo']) ?>"
                            class="komunalka__line ">электричество<span class="red-arrow"></span></a>
                     </div>
                     <div class="komunalka__item">
             <span class="komunalka__icon">
               <img src="/theme/portal-donbassa/img/home-content/wind.png" alt="">
             </span>
-                        <a href="<?= Url::to(['/pages/default/view', 'slug' => 'otoplenie']) ?>"
+                        <a href="<?= Url::to(['/consulting/consulting/document', 'slug' => 'otoplenie']) ?>"
                            class="komunalka__line">отопление <span class="red-arrow"></span></a>
                     </div>
                     <div class="komunalka__item">
             <span class="komunalka__icon">
               <img src="/theme/portal-donbassa/img/home-content/gas.png" alt="">
             </span>
-                        <a href="<?= Url::to(['/pages/default/view', 'slug' => 'gas']) ?>" class="komunalka__line">газ
+                        <a href="<?= Url::to(['/consulting/consulting/document', 'slug' => 'gaz']) ?>" class="komunalka__line">газ
                             <span class="red-arrow"></span></a>
                     </div>
                     <div class="komunalka__item">
             <span class="komunalka__icon">
               <img src="/theme/portal-donbassa/img/home-content/home.png" alt="">
             </span>
-                        <a href="<?= Url::to(['/pages/default/view', 'slug' => 'gkh']) ?>" class="komunalka__line">жкх
+                        <a href="<?= Url::to(['/consulting/consulting/document', 'slug' => 'zkh']) ?>" class="komunalka__line">жкх
                             <span class="red-arrow"></span></a>
                     </div>
                     <div class="komunalka__item">
             <span class="komunalka__icon">
               <img src="/theme/portal-donbassa/img/home-content/water.png" alt="">
             </span>
-                        <a href="<?= Url::to(['/pages/default/view', 'slug' => 'voda']) ?>" class="komunalka__line">вода<span
+                        <a href="<?= Url::to(['/consulting/consulting/document', 'slug' => 'voda']) ?>" class="komunalka__line">вода<span
                                     class="red-arrow"></span></a>
                     </div>
                 </div>
