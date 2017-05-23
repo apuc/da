@@ -18,7 +18,7 @@ class Share extends Widget
     public $title;
     public $description;
     public $image;
-
+    public $view = 'share';
     public function run()
     {
         $options = [];
@@ -37,20 +37,8 @@ class Share extends Widget
         $options['description'] = substr(preg_replace("/\s{2,}/", " ", strip_tags($this->description)), 0,
                 $countSymbols) . '...';
 
-        //$url = \yii\helpers\Url::base(true) . '/news/' . $new->slug;
-        //$new_title = strip_tags($new->title);
-        //$new_title = preg_replace("/\s{2,}/", " ", $new_title);
-        //$new_title = str_replace('"', "&quot;", $new_title);
-        //$new_img = 'http://' . $_SERVER['HTTP_HOST'] . $new->photo;
-        //
-        //
-        //$count_symbols = 800 - 48 - strlen($new_url) - strlen($new_title) - strlen($new_img);
-        //$new_content = strip_tags($new->content);
-        //$new_content = preg_replace("/\s{2,}/", " ", $new_content);
-        //
-        //$new_content = substr($new_content, 0, $count_symbols) . '...';
 
-        return $this->render('share', ['options' => $options]);
+        return $this->render($this->view, ['options' => $options]);
     }
 
 }
