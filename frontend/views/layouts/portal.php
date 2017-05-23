@@ -504,7 +504,7 @@ $user = Yii::$app->user->identity;
     </form>
 
 </div>
-
+<a id="Go_Top" style="display: inline;"><img src="/theme/portal-donbassa/img/icons/button_up.svg" alt=""></a>
 <div id="overlay"></div>
 
 <div id="black-overlay"></div>

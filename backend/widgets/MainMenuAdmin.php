@@ -60,6 +60,12 @@ class MainMenuAdmin extends Widget
 //                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
                             [
+                                'label' => 'Курсы валют',
+                                'url' => Url::to(['/exchange_rates']),
+                                'active' => Yii::$app->controller->module->id == 'exchange_rates' && Yii::$app->controller->action->id == 'index',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                            [
                                 'label' => 'Настройки',
                                 'url' => Url::to(['/mainpage/mainpage/settings']),
                                 'active' => Yii::$app->controller->module->id == 'mainpage' && Yii::$app->controller->action->id == 'settings',
