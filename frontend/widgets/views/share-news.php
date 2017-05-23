@@ -66,4 +66,3 @@
             )"><i class="fa fa-odnoklassniki  fa-lg"></i>
     </span>
 </div>
-<span class="open-soc"><i class="fa fa-random fa-lg"></i></span>

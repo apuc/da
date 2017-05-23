@@ -134,16 +134,21 @@ $this->registerMetaTag([
                     <?php endforeach; ?>
                 </div>
                 <?= \frontend\widgets\Share::widget([
-                    'url' => \yii\helpers\Url::base(true) . '/news/' . $item->slug,
+                    'url' => \yii\helpers\Url::base(true) . '/news/' . $model->slug,
                     'title' => $model->title,
                     'description' => $model->content,
-                    'view'=>'share-news'
+                    'view' => 'share-news',
+                    'image' => $model->photo,
                 ]); ?>
 
 
             </div>
 
-        <?= \frontend\widgets\Comments::widget(['pageTitle'=>'Комментарии к новости','postType'=>'news','postId'=>$model->id]);?>
+            <?= \frontend\widgets\Comments::widget([
+                'pageTitle' => 'Комментарии к новости',
+                'postType' => 'news',
+                'postId' => $model->id,
+            ]); ?>
 
         </article>
 
