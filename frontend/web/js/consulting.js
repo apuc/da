@@ -45,26 +45,22 @@ $(document).ready(function () {
 
 
     var el = $('.active-category');
-    console.log(el);
     var i = 1;
-    OpenCategories(el,i);
-    // if ($('.active').next('.inserted').find('li').length != 0) {
-    //     $('.active').next('.inserted').slideToggle();
-    // }
-    // var el = $('.inserted').find('.active');
-    // var parent = 0;
-    // var i = 1;
-    // OpenCategories(el,i);
+
+    if (el.length != 0) {
+        OpenCategories(el, i);
+    }
+
 
 });
 
 
-function OpenCategories(el,i) {
+function OpenCategories(el, i) {
     el.closest('ul').slideDown().addClass('up-child');
     i++;
     if ($(el).closest('ul').hasClass('end')) {
         return;
     } else {
-        OpenCategories(el.parent(),i);
+        OpenCategories(el.parent(), i);
     }
 }
