@@ -691,13 +691,13 @@ $(document).ready(function () {
     /*close business sidebar scroll*/
 
     /*single business sidebar scroll*/
-    var stockElement = $('#business-stock-sidebar');
+   /* var stockElement = $('#business-stock-sidebar');
     if (stockElement.length > 0) {
         var stockElementPosition = stockElement.offset().top;
         $(window).scroll(function () {
             fixedScroll(stockElement, stockElementPosition, $('.footer'));
         });
-    }
+    }*/
     /*close single business sidebar scroll*/
 
     /*show business reviews*/
@@ -888,8 +888,11 @@ $(window).scroll(function () {
     if (top < 649) {
         $('.social-wrapper').addClass('move');
         $('.social-wrapper').hcSticky();
+        $('#business-stock-sidebar').addClass('move');
+        $('#business-stock-sidebar').hcSticky();
     } else {
         $(".social-wrapper").hcSticky();
+        $('#business-stock-sidebar').hcSticky();
     }
 });
 
