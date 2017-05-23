@@ -555,7 +555,12 @@ $(document).ready(function () {
         items: 4,
         responsive: {
             0: {
-                items: 2
+                items: 1,
+                nav: false
+            },
+            660: {
+                items: 1,
+                nav: false
             },
             768: {
                 items: 3,

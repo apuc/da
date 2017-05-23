@@ -92,7 +92,8 @@ $user = Yii::$app->user->identity;
             <div class="home-content__wrap_komunalka">
                 <div class="title_row">
                     <h3>комунальные тарифы</h3>
-                    <a href="<?= Url::to(['/site/design']);?>" class="show-enterprises">все тарифы<span class="red-arrow"></span></a>
+                    <a href="<?= Url::to(['/site/design']); ?>" class="show-enterprises">все тарифы<span
+                                class="red-arrow"></span></a>
                 </div>
                 <div class="komunalka">
 
@@ -154,104 +155,7 @@ $user = Yii::$app->user->identity;
 
             <?= \frontend\widgets\ExchangeRatesMain::widget() ?>
 
-            <div class="home-content__sidebar_weather">
-
-                <h3>погода</h3>
-
-                <div class="home-content__sidebar_weather__slider">
-
-                    <div class="home-content__sidebar_weather__slider--item">
-
-
-                        <div class="home-content__sidebar_weather__slider--img">
-                            <img src="/theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
-                        </div>
-
-                        <p class="city">Донецк</p>
-
-                        <p class="date">пятница 20.01</p>
-
-                        <p class="weather-val">Облачно</p>
-
-                        <div class="home-content__sidebar_weather__slider--icon">
-                                <span class="icon">
-                                    <img src="/theme/portal-donbassa/img/icons/wheather-icon.png" alt="">
-                                </span>
-                            <span class="degrees">25°C</span>
-                        </div>
-
-                        <div class="home-content__sidebar_weather__slider--content">
-
-                            <p>25°C</p>
-
-                            <p>Суббота 21.01</p>
-
-                        </div>
-
-                    </div>
-
-                    <div class="home-content__sidebar_weather__slider--item">
-
-
-                        <div class="home-content__sidebar_weather__slider--img">
-                            <img src="/theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
-                        </div>
-
-                        <p class="city">Донецк</p>
-
-                        <p class="date">пятница 20.01</p>
-
-                        <p class="weather-val">Облачно</p>
-
-                        <div class="home-content__sidebar_weather__slider--icon">
-                                <span class="icon">
-                                    <img src="/theme/portal-donbassa/img/icons/wheather-icon.png" alt="">
-                                </span>
-                            <span class="degrees">25°C</span>
-                        </div>
-
-                        <div class="home-content__sidebar_weather__slider--content">
-
-                            <p>25°C</p>
-
-                            <p>Суббота 21.01</p>
-
-                        </div>
-
-                    </div>
-
-                    <div class="home-content__sidebar_weather__slider--item">
-
-
-                        <div class="home-content__sidebar_weather__slider--img">
-                            <img src="/theme/portal-donbassa/img/home-content/photo-img-1.png" alt="">
-                        </div>
-
-                        <p class="city">Донецк</p>
-
-                        <p class="date">пятница 20.01</p>
-
-                        <p class="weather-val">Облачно</p>
-
-                        <div class="home-content__sidebar_weather__slider--icon">
-                                <span class="icon">
-                                    <img src="/theme/portal-donbassa/img/icons/wheather-icon.png" alt="">
-                                </span>
-                            <span class="degrees">25°C</span>
-                        </div>
-
-                        <div class="home-content__sidebar_weather__slider--content">
-
-                            <p>25°C</p>
-
-                            <p>Суббота 21.01</p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
+            <?= \frontend\widgets\Weather::widget(); ?>
 
         </div>
 </section>

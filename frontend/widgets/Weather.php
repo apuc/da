@@ -1,26 +1,25 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: apuc0
- * Date: 05.10.2016
- * Time: 16:38
+ * User: warya
+ * Date: 23.05.2017
+ * Time: 13:05
  */
 
 namespace frontend\widgets;
 
 use common\classes\Debug;
+use common\classes\WordFunctions;
 use common\models\db\KeyValue;
 use yii\base\Widget;
 
-class WeatherHeader extends Widget
+class Weather extends Widget
 {
-
     public function run()
     {
         $weather = json_decode(KeyValue::findOne(['key' => 'weather'])->value, true);
-        return $this->render('weather-header', [
-            'weather' => $weather[strtotime('now 00:00:00')],
-        ]);
-    }
 
+        return $this->render('weather', ['weather' => $weather]);
+
+    }
 }

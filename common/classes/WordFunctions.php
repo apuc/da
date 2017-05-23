@@ -90,7 +90,7 @@ class WordFunctions
 
     public static function dateWithMonts($time)
     {
-        return date('d',$time) . ' ' . self::getRuMonth()[date('m',$time)];
+        return date('d', $time) . ' ' . self::getRuMonth()[date('m', $time)];
     }
 
     public static function getTimeOrDateTime($date)
@@ -98,7 +98,7 @@ class WordFunctions
         $today = date('d.m.Y', time());
         $yesterday = date('d.m.Y', time() - 86400);
         $dbDate = date('d.m.Y', $date);
-        $time = date('H:i:s',$date);
+        $time = date('H:i:s', $date);
 
         switch ($dbDate) {
             case $today :
@@ -108,10 +108,33 @@ class WordFunctions
                 $output = 'Вчера в ' . $time;
                 break;
             default :
-                $output = date('d.m.Y', strtotime($dbDate)) .  ' ' . $time;//date('m.d',$dbDate);
+                $output = date('d.m.Y', strtotime($dbDate)) . ' ' . $time;//date('m.d',$dbDate);
         }
         return $output;
     }
 
+    /**
+     * Дата в формате пятница 20.01
+     * @param $time
+     * @return mixed
+     */
+    public static function getDayOfWeekAndDayOfMonth($time)
+    {
+        $day = self::getRuWeek()[date('N', $time)];
+        return $day . ' ' . date('j', $time) . '.' . date('m', $time);
+    }
+
+    public static function getWeatherArray()
+    {
+        return [
+            'sunny' => 'Солнечно',
+            'storm' => 'Гроза',
+            'snow' => 'Снег',
+            'rain' => 'Дождь',
+            'partly_cloudy' => 'Переменная облачность',
+            'cloudy' => 'Облачно',
+            'breeze' => 'Ветер',
+        ];
+    }
 
 }
