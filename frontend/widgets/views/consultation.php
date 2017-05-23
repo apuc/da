@@ -7,11 +7,17 @@
         <span class="ask-icon"></span>
         <span class="ask-title">Задать вопрос</span>
     </a>
-    <?php foreach ($faq as $item): ?>
-        <a href="<?= \yii\helpers\Url::to(['/consulting/consulting/faq-post','slug'=>$item->slug]);?>" class="consultation__item">
+    <?php foreach ($faq as $item):
+        ?>
+        <a href="<?= \yii\helpers\Url::to(['/consulting/consulting/faq-post', 'slug' => $item->slug]); ?>"
+           class="consultation__item">
             <div class="thumb">
                 <!--<span>A</span>-->
-                <span><?= substr($item->company->user->username, 0, 1); ?></span>
+                <?php if (!empty($item->consulting->photo)): ?>
+                    <img src="<?= $item->consulting->photo; ?>" alt="">
+                <?php else: ?>
+                    <span><?= substr($item->company->user->username, 0, 1); ?></span>
+                <?php endif; ?>
             </div>
             <p><?= $item->question; ?></p>
         </a>

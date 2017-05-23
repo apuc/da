@@ -23,6 +23,7 @@ class Consultation extends Widget
                 ->where(['main_page' => 1])
                 ->with('company')
                 ->with('category')
+                ->with('consulting')
                 ->all(),
         ]);
     }
