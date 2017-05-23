@@ -37,13 +37,13 @@ use yii\helpers\Html;
 <?= Html::label('Иконка послезавтра:', 'header_img_after_tomorrow'); ?>
 
 <?= Html::dropDownList('header_img_after_tomorrow',
-    \yii\helpers\ArrayHelper::getValue($weather, [strtotime('+2 day 00:00:00'), 'header_img']), $weatherItems,
+    \yii\helpers\ArrayHelper::getValue($weather, [strtotime('+2 days 00:00:00'), 'header_img']), $weatherItems,
     ['class' => 'form-control']); ?>
 
 <?= Html::label('Температура  завтра:', 'header_temp_after_tomorrow'); ?>
 
 <?= Html::textInput('header_temp_after_tomorrow',
-    \yii\helpers\ArrayHelper::getValue($weather, [strtotime('+2 day 00:00:00'), 'header_temp']),
+    \yii\helpers\ArrayHelper::getValue($weather, [strtotime('+2 days 00:00:00'), 'header_temp']),
     ['class' => 'form-control']); ?>
 <br>
 <?php echo Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

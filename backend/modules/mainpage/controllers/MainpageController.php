@@ -72,9 +72,9 @@ class MainpageController extends Controller
             $json[strtotime('now 00:00:00')]['header_img'] = $request->post('header_img_today');
             $json[strtotime('now 00:00:00')]['header_temp'] = $request->post('header_temp_today');
             $json[strtotime('+1 day 00:00:00')]['header_img'] = $request->post('header_img_tomorrow');
-            $json[strtotime('+1 day  00:00:00')]['header_temp'] = $request->post('header_temp_after_tomorrow');
-            $json[strtotime('+2 day 00:00:00')]['header_img'] = $request->post('header_img_after_tomorrow');
-            $json[strtotime('+2 day  00:00:00')]['header_temp'] = $request->post('header_temp_after_tomorrow');
+            $json[strtotime('+1 day  00:00:00')]['header_temp'] = $request->post('header_temp_tomorrow');
+            $json[strtotime('+2 days 00:00:00')]['header_img'] = $request->post('header_img_after_tomorrow');
+            $json[strtotime('+2 days  00:00:00')]['header_temp'] = $request->post('header_temp_after_tomorrow');
 
             $weather = KeyValue::findOne(['key' => 'weather']);
             $weather->value = json_encode($json);
