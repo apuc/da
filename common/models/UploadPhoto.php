@@ -1,4 +1,5 @@
 <?php
+
 namespace common\models;
 
 use common\classes\Debug;
@@ -23,11 +24,26 @@ class UploadPhoto extends Model
     public function upload()
     {
         if ($this->validate()) {
-            
+
             $this->imageFile->saveAs($this->location . $this->imageFile->baseName . '.' . $this->imageFile->extension);
             return true;
         } else {
             return false;
         }
     }
+
+    /**
+     *
+     * @param $image
+     * @return string image
+     */
+    public static function getImageOrNoImage($image)
+    {
+        if (!empty($image) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/frontend/web' . $image)) {
+            return $image;
+        }
+
+        return '/theme/portal-donbassa/img/no-image.png';
+    }
+
 }

@@ -29,7 +29,7 @@
                                 '/news/default/view',
                                 'slug' => $firstNew->slug,
                             ]); ?>" class="item__big">
-                                <img src="<?= $firstNew->photo; ?>" alt="">
+                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($firstNew->photo); ?>" alt="">
                                 <div class="item__big_content">
                                     <h4><?= $firstNew->title; ?></h4>
                                     <span class="hour-ago"><?= WordFunctions::FullEventDate($firstNew->dt_public); ?></span>
@@ -49,7 +49,7 @@
                                     '/news/default/view',
                                     'slug' => $new->slug,
                                 ]); ?>" class="item__small">
-                                    <img src="<?= $new->photo; ?>" alt="">
+                                    <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($new->photo); ?>" alt="">
                                     <div class="item__small_content">
                                         <span class="hour-ago"><?= WordFunctions::FullEventDate($new->dt_public); ?></span>
                                         <div class="item__content_panel">

@@ -97,6 +97,13 @@ class ConsultingController extends Controller {
             }
         }
 
+    public function beforeAction($action) {
+        if($action->id = 'update') {
+            Yii::$app->request->enableCsrfValidation = false;
+        }
+        return parent::beforeAction($action);
+    }
+
     /**
      * Deletes an existing Consulting model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

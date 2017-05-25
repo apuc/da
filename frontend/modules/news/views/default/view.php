@@ -47,7 +47,7 @@ $this->registerMetaTag([
 
         <article id="article">
             <div class="thumbnail-wrapper">
-                <img class="thumbnail" src="<?= $model->photo; ?>" alt="">
+                <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($model->photo); ?>" alt="">
             </div>
 
             <div class="breadcrumbs">

@@ -16,7 +16,7 @@
 
         <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $new->slug]); ?>" class="item">
 
-            <img src="<?= $new->photo; ?>" alt="">
+            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($new->photo); ?>" alt="">
 
             <div class="content">
                 <div class="content-row">

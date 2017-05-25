@@ -8,7 +8,7 @@
         if ($key == $newImageId) {
             ?>
             <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $new->slug]); ?>" class="tape__item_pic">
-                <img src="<?= $new->photo; ?>" alt="">
+                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($new->photo); ?>" alt="">
                 <div class="tape__item_pic--content">
                     <span class="time"><?= date('d.m H:i', $new->dt_public) ?></span>
                     <p><?= $new->title; ?> </p>

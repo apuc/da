@@ -12,7 +12,7 @@ use yii\helpers\Url;
 
                 foreach ($newsSlider1 as $item): ?>
                     <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug]) ?>" class="item">
-                        <img src="<?= $item->photo ?>" alt="">
+                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->photo) ?>" alt="">
                         <div class="content-item">
                             <div class="content-row">
                                 <span>Новости</span>
@@ -35,7 +35,7 @@ use yii\helpers\Url;
             <div class="js-carousel-2 owl-carousel" id="sync2">
                 <?php foreach ($newsSlider2 as $item): ?>
                     <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug]) ?>" class="item">
-                        <img src="<?= $item->photo ?>" alt="">
+                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->photo) ?>" alt="">
                         <div class="content-item">
                             <div class="content-row">
                                 <span>Новости</span>
@@ -60,7 +60,7 @@ use yii\helpers\Url;
             <div class="js-carousel-3 owl-carousel">
                 <?php foreach ($newsSlider3 as $item): ?>
                     <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug]) ?>" class="item">
-                        <img src="<?= $item->photo ?>" alt="">
+                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->photo )?>" alt="">
                         <div class="content-item">
                             <div class="content-row">
                                 <span>Новости</span>
@@ -83,7 +83,7 @@ use yii\helpers\Url;
             <div class="js-carousel-4 owl-carousel">
                 <?php foreach ($newsSlider4 as $item): ?>
                     <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug]) ?>" class="item"><img
-                                src="<?= $item->photo; ?>" alt="">
+                                src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->photo); ?>" alt="">
                     </a>
                 <?php endforeach; ?>
             </div>
@@ -95,7 +95,7 @@ use yii\helpers\Url;
         <div class="news-slider-index-panel">
             <h3>Важные новости дня</h3>
             <div class="buttons-wrap">
-                <a href="<?= \yii\helpers\Url::to(['/site/design']);?>">подписаться</a>
+                <a href="<?= \yii\helpers\Url::to(['/site/design']); ?>">подписаться</a>
                 <a href="<?= \yii\helpers\Url::to(['/news/news']) ?>">посмотреть больше</a>
             </div>
         </div>

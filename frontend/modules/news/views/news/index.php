@@ -59,7 +59,7 @@ $md = new \common\classes\Mobile_Detect();
                             'slug' => $currNew->slug,
                         ]); ?>" class="news__wrap_item-lg">
                             <div class="thumb">
-                                <img src="<?= $currNew->photo; ?>" alt="">
+                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>" alt="">
                                 <div class="content-row">
                                     <span><?= WordFunctions::dateWithMonts($currNew->dt_public); ?></span>
                                     <span>Новости</span>
@@ -76,7 +76,7 @@ $md = new \common\classes\Mobile_Detect();
                                 '/news/default/view',
                                 'slug' => $currNew->slug,
                             ]); ?>" class="thumb">
-                                <img src="<?= $currNew->photo; ?>" alt="">
+                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>" alt="">
                                 <div class="content-row">
                                     <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
                                     <span >Новости</span>
@@ -104,7 +104,7 @@ $md = new \common\classes\Mobile_Detect();
                     ]); ?>" class=" news__wrap_item-sm-hot">
                         <!-- thumb -->
                         <div class="thumb">
-                            <img src="<?= $currHotNew->photo; ?>" alt="">
+                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($currHotNew->photo); ?>" alt="">
                             <div class="content-row">
                                 <span><small class="view-icon"></small> 2589</span>
                                 <span>Новости</span>

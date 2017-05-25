@@ -8,7 +8,7 @@ foreach($news as $new): ?>
             '/news/default/view',
             'slug' => $new->slug,
         ]); ?>" class="thumb">
-            <img src="<?= $new->photo; ?>" alt="">
+            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($new->photo); ?>" alt="">
             <div class="content-row">
                 <span><small class="view-icon"></small> <?= $new->views; ?></span>
                 <span>Новости</span>
