@@ -13,6 +13,7 @@ $this->registerMetaTag([
 ]);
 
 $this->registerJsFile('/js/company_ajax.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 
 <section class="business">

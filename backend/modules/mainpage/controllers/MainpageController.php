@@ -4,6 +4,7 @@ namespace backend\modules\mainpage\controllers;
 
 use common\classes\Debug;
 use common\models\db\KeyValue;
+use Yii;
 use yii\web\Controller;
 
 /**
@@ -11,6 +12,12 @@ use yii\web\Controller;
  */
 class MainpageController extends Controller
 {
+    public function beforeAction($action) {
+        if($action->id = 'photos') {
+            Yii::$app->request->enableCsrfValidation = false;
+        }
+        return parent::beforeAction($action);
+    }
     /**
      * Renders the index view for the module
      * @return string
