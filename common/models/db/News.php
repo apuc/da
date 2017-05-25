@@ -101,6 +101,6 @@ class News extends \yii\db\ActiveRecord
 
     public static function mainSlider()
     {
-        return self::find()->where(['main_slider' => 1]);
+        return self::find()->where(['main_slider' => 1])->orderBy('dt_add DESC');
     }
 }

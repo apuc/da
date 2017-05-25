@@ -14,6 +14,12 @@ use yii\filters\VerbFilter;
  */
 class StockController extends Controller
 {
+    public function beforeAction($action) {
+        if($action->id = 'update') {
+            Yii::$app->request->enableCsrfValidation = false;
+        }
+        return parent::beforeAction($action);
+    }
     /**
      * @inheritdoc
      */

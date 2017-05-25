@@ -14,12 +14,35 @@ class MainPopularSlider extends Widget
     {
 
         return $this->render('main_popular_slider', [
-            'newsSlider1' => News::find()->orderBy('views DESC')->limit(4)->orderBy(new Expression('rand()'))->all(),
-            'newsSlider2' => News::find()->orderBy('views DESC')->limit(4)->orderBy(new Expression('rand()'))->all(),
-            'newsSlider3' => News::find()->orderBy('views DESC')->limit(4)->orderBy(new Expression('rand()'))->all(),
-            'newsSlider4' => News::find()->orderBy('views DESC')->limit(4)->orderBy(new Expression('rand()'))->all(),
+            'newsSlider1' => News::find()
+                ->where(['>', 'dt_add', time() - (86400 * 30)])
+                ->andWhere(['exclude_popular' => 0])
+                ->orderBy('views DESC')
+                ->limit(4)
+                ->orderBy(new Expression('rand()'))
+                ->all(),
+            'newsSlider2' => News::find()
+                ->where(['>', 'dt_add', time() - (86400 * 30)])
+                ->andWhere(['exclude_popular' => 0])
+                ->orderBy('views DESC')
+                ->limit(4)
+                ->orderBy(new Expression('rand()'))
+                ->all(),
+            'newsSlider3' => News::find()
+                ->where(['>', 'dt_add', time() - (86400 * 30)])
+                ->andWhere(['exclude_popular' => 0])
+                ->orderBy('views DESC')
+                ->limit(4)
+                ->orderBy(new Expression('rand()'))
+                ->all(),
+            'newsSlider4' => News::find()
+                ->where(['>', 'dt_add', time() - (86400 * 30)])
+                ->andWhere(['exclude_popular' => 0])
+                ->orderBy('views DESC')
+                ->limit(4)
+                ->orderBy(new Expression('rand()'))
+                ->all(),
         ]);
     }
-
 
 }
