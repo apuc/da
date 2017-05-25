@@ -135,7 +135,7 @@ class AjaxController extends Controller
                 case 'digest':
 
                     $posts = PostsDigest::find()
-                        ->where(['type' => $request->post('type')])
+                        ->where(['`posts_digest`.`type`' => $request->post('type')])
                         ->orderBy('dt_update DESC')
                         ->with('consulting')
                         ->joinWith('categoryPostsDigest')
