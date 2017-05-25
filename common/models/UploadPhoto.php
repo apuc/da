@@ -39,7 +39,8 @@ class UploadPhoto extends Model
      */
     public static function getImageOrNoImage($image)
     {
-        if (!empty($image) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/frontend/web' . $image)) {
+
+        if (!empty($image) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/frontend/web' . trim($image))) {
             return $image;
         }
 
