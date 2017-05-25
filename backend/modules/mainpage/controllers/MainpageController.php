@@ -2,6 +2,7 @@
 
 namespace backend\modules\mainpage\controllers;
 
+use common\classes\Debug;
 use common\models\db\KeyValue;
 use Yii;
 use yii\web\Controller;
@@ -41,7 +42,7 @@ class MainpageController extends Controller
 
     }
 
-    public function actionWeather()
+    public function _actionWeather()
     {
         $request = \Yii::$app->request;
         if (\Yii::$app->request->isPost) {
@@ -65,6 +66,42 @@ class MainpageController extends Controller
 
         return $this->render('weather', [
             'weather' => json_decode(KeyValue::findOne(['key' => 'weather'])->value),
+            'weatherItems' => $weatherItems,
+        ]);
+
+    }
+
+    public function actionWeather()
+    {
+        $request = \Yii::$app->request;
+        if (\Yii::$app->request->isPost) {
+
+            $json[strtotime('now 00:00:00')]['header_img'] = $request->post('header_img_today');
+            $json[strtotime('now 00:00:00')]['header_temp'] = $request->post('header_temp_today');
+            $json[strtotime('+1 day 00:00:00')]['header_img'] = $request->post('header_img_tomorrow');
+            $json[strtotime('+1 day  00:00:00')]['header_temp'] = $request->post('header_temp_tomorrow');
+            $json[strtotime('+2 days 00:00:00')]['header_img'] = $request->post('header_img_after_tomorrow');
+            $json[strtotime('+2 days  00:00:00')]['header_temp'] = $request->post('header_temp_after_tomorrow');
+
+            $weather = KeyValue::findOne(['key' => 'weather']);
+            $weather->value = json_encode($json);
+            $weather->save();
+
+
+        }
+
+        $weatherItems = [
+            'sunny' => 'Солнечно',
+            'storm' => 'Гроза',
+            'snow' => 'Снег',
+            'rain' => 'Дождь',
+            'partly_cloudy' => 'Переменная облачность',
+            'cloudy' => 'Облачно',
+            'breeze' => 'Ветер',
+        ];
+
+        return $this->render('weather', [
+            'weather' => json_decode(KeyValue::findOne(['key' => 'weather'])->value,true),
             'weatherItems' => $weatherItems,
         ]);
 

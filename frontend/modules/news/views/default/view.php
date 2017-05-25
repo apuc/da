@@ -133,39 +133,22 @@ $this->registerMetaTag([
                         <a><?= $tag; ?></a>
                     <?php endforeach; ?>
                 </div>
+                <?= \frontend\widgets\Share::widget([
+                    'url' => \yii\helpers\Url::base(true) . '/news/' . $model->slug,
+                    'title' => $model->title,
+                    'description' => $model->content,
+                    'view' => 'share-news',
+                    'image' => $model->photo,
+                ]); ?>
 
-                <!-- start socials.html-->
-                <div class="social-wrapper">
-                    <a href="#" target="_blank" class="social-wrap__item vk">
-                        <img src="/theme/portal-donbassa/img/soc/vk.png" alt="vk">
-                        <span>03</span>
-                    </a>
-                    <a href="#" target="_blank" class="social-wrap__item fb">
-                        <img src="/theme/portal-donbassa/img/soc/fb.png" alt="fb">
-                        <span>12</span>
-                    </a>
-                    <a href="#" target="_blank" class="social-wrap__item ok">
-                        <img src="/theme/portal-donbassa/img/soc/ok-icon.png" alt="ok">
-                        <span>05</span>
-                    </a>
-                    <a href="#" target="_blank" class="social-wrap__item insta">
-                        <img src="/theme/portal-donbassa/img/soc/insta-icon.png" alt="instagramm">
-                        <span>63</span>
-                    </a>
-                    <a href="#" target="_blank" class="social-wrap__item google">
-                        <img src="/theme/portal-donbassa/img/soc/google-icon.png" alt="google">
-                        <span>36</span>
-                    </a>
-                    <a href="#" target="_blank" class="social-wrap__item twitter">
-                        <img src="/theme/portal-donbassa/img/soc/twi-icon.png" alt="twitter">
-                        <span>11</span>
-                    </a>
-                </div>
-                <!-- end socials.html-->
 
             </div>
 
-        <?= \frontend\widgets\Comments::widget(['pageTitle'=>'Комментарии к новости','postType'=>'news','postId'=>$model->id]);?>
+            <?= \frontend\widgets\Comments::widget([
+                'pageTitle' => 'Комментарии к новости',
+                'postType' => 'news',
+                'postId' => $model->id,
+            ]); ?>
 
         </article>
 
