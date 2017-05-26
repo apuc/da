@@ -77,6 +77,12 @@ class ConsultingController extends \yii\web\Controller
 
         //$consulting = $posts[0]->consulting;
         $consulting = Consulting::findOne(['slug'=>Yii::$app->request->get()]);
+
+
+        if(empty($consulting)){
+            return $this->redirect(['site/error']);
+        }
+
         return $this->render('view_posts_digest', [
             'posts' => $posts,
             'consulting' => $consulting,
@@ -102,6 +108,9 @@ class ConsultingController extends \yii\web\Controller
         $posts = $posts->limit(3)->all();
 
         $consulting = $posts[0]->consulting;
+        if(empty($consulting)){
+            return $this->redirect(['site/error']);
+        }
 
         return $this->render('view_posts_digest', [
             'posts' => $posts,
@@ -129,7 +138,9 @@ class ConsultingController extends \yii\web\Controller
 
         //$consulting = $posts[0]->consulting;
         $consulting = Consulting::findOne(['slug'=>Yii::$app->request->get()]);
-
+        if(empty($consulting)){
+            return $this->redirect(['site/error']);
+        }
 
         return $this->render('view_posts', [
             'posts' => $posts,
@@ -155,6 +166,9 @@ class ConsultingController extends \yii\web\Controller
         $posts = $posts->limit(3)->all();
 
         $consulting = $posts[0]->consulting;
+        if(empty($consulting)){
+            return $this->redirect(['site/error']);
+        }
 
         return $this->render('view_posts', [
             'posts' => $posts,
@@ -181,6 +195,10 @@ class ConsultingController extends \yii\web\Controller
 
         //$consulting = $posts[0]->consulting;
         $consulting = Consulting::findOne(['slug'=>Yii::$app->request->get()]);
+        if(empty($consulting)){
+            return $this->redirect(['site/error']);
+        }
+
         return $this->render('view_faq', [
             'posts' => $posts,
             'consulting' => $consulting,
@@ -205,6 +223,9 @@ class ConsultingController extends \yii\web\Controller
         $posts = $posts->limit(3)->all();
 
         $consulting = $posts[0]->consulting;
+        if(empty($consulting)){
+            return $this->redirect(['site/error']);
+        }
 
         return $this->render('view_faq', [
             'posts' => $posts,
