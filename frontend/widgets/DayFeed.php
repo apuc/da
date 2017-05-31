@@ -8,6 +8,7 @@
 
 namespace frontend\widgets;
 
+use common\classes\Debug;
 use common\models\db\KeyValue;
 use common\models\db\Lang;
 use yii\base\Widget;

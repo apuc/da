@@ -23,7 +23,7 @@ use yii\helpers\Url;
                 <?php if ($k === 1 || $k === 7 || $k === 8): ?>
                     <a  href="<?= Url::to(['/company/company/view', 'slug' => $company->slug]) ?>" class="item-large">
                         <div class="thumb">
-                            <img src="<?= $company->photo ?>" alt="">
+                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($company->photo) ?>" alt="">
                         </div>
                         <div class="content">
                             <h4><?= $company->name ?></h4>
@@ -39,7 +39,7 @@ use yii\helpers\Url;
                 <?php else: ?>
                     <a  href="<?= Url::to(['/company/company/view', 'slug' => $company->slug]) ?>"  class="item-small">
                         <div class="thumb">
-                            <img src="<?= $company->photo ?>" alt="">
+                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($company->photo) ?>" alt="">
                         </div>
                         <div class="content">
                             <h4><?= $company->name ?></h4>

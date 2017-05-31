@@ -138,7 +138,7 @@ class AjaxController extends Controller
                         ->where(['type' => $request->post('type')])
                         ->orderBy('dt_update DESC')
                         ->with('consulting')
-                        ->With('categoryPostsDigest')
+                        ->joinWith('categoryPostsDigest')
                         ->offset($request->post('offset'))
                         ->limit(3);
 

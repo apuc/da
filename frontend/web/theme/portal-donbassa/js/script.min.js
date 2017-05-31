@@ -573,8 +573,20 @@ $(document).ready(function () {
         }
     });
 
+    /*consulting accordion menu*/
+    $(document).on('click', '.accordion-menu a', function (event) {
+        event.preventDefault();
+        var list = $(this).next('ul');
+        if(list.hasClass('open')){           
+            list.removeClass('open').slideUp('400');
+        } else {           
+            list.addClass('open').slideDown('400');
+        }
+    });
+    /*close consulting accordion menu*/
 
-    $('.accordion-menu ul li a').on('click', function (event) {
+
+   /* $('.accordion-menu ul li a').on('click', function (event) {
         event.preventDefault();
         if ($(this).hasClass('section') || $(this).next("ul").length == 0) {
             location.href = $(this).attr('href');
@@ -583,7 +595,7 @@ $(document).ready(function () {
         } else {
             $(this).next("ul").toggleClass("up-child");
         }
-    });
+    });*/
 
     /*weather slider*/
     var whetherSlider = $('.home-content__sidebar_weather__slider');

@@ -31,8 +31,8 @@ class RubricSlider extends Widget
                 ->joinWith('categoryNewsRelations')
 
                 ->where(['`category_news_relations`.`cat_id`' => $id])
+                ->orderBy('dt_public DESC')
                 ->limit(5)
-                ->orderBy('views DESC')
                 ->all();
         }
 
