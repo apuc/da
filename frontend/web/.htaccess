@@ -16,3 +16,6 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 # otherwise forward it to index.php
 RewriteRule . index.php
+
+RewriteCond %{HTTP_HOST} ^www.da-info.pro$ [NC]
+RewriteRule ^(.*)$ https://da-info.pro/$1 [R=301,L]

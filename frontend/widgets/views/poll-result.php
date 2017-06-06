@@ -12,6 +12,7 @@ use yii\helpers\Html;
 
     <!-- <span class="red-line"></span> -->
     <h3>Голосование</h3>
+    <hr>
     <h5><?= $question->title; ?></h5>
 
     <?php foreach ($possible_answers as $answer):?>

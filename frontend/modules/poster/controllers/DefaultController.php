@@ -278,6 +278,7 @@ class DefaultController extends Controller
             ->joinWith('categories')
             /*->where(['>', 'dt_event', time()])*/
             ->andWhere(['`category_poster`.`slug`' => 'kino'])
+            ->orderBy('dt_event DESC')
             ->limit(5)
             ->offset(((int)$step - 1) * 5)
             ->all();

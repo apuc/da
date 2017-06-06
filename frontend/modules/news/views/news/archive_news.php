@@ -49,14 +49,14 @@ $md = new \common\classes\Mobile_Detect();
                     <div class="thumb">
                         <img src="<?= $new->photo; ?>" alt="">
                         <div class="content-row">
-                            <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
+                            <span><small class="view-icon"></small> <?= $new->views; ?></span>
                             <a>Новости</a>
                         </div>
                     </div>
                     <div class="content-item">
                         <p><a href="<?= Url::to([
                                 '/news/default/view',
-                                'slug' => $currNew->slug,
+                                'slug' => $new->slug,
                             ]); ?>"><?= $new->title; ?></a></p>
                         <span><?= WordFunctions::dateWithMonts($new->dt_public); ?></span>
                     </div>
@@ -101,113 +101,7 @@ $md = new \common\classes\Mobile_Detect();
     </div>
 </section>
 
-<section class="what-say">
-    <div class="container">
-        <h2>О чем говорят в городе</h2>
-        <div class="what-say__servises">
-            <!-- <a href=""><span class="comments-icon"></span>Задать свой вопрос</a> -->
-            <a href="<?= Url::to(['/site/design']);?>"><span class="mail-icon"></span>Подписаться на эту тему</a>
-        </div>
-        <div class="what-say__wrap">
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-                <span class="counter">99</span>
-                <div class="thumb">
-                    <img src="/theme/portal-donbassa/img/home-content/what-say-1.png" alt="">
-                </div>
-                <div class="wrapi">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p>О сколько нам открытий чудных?</p>
-                </div>
-            </a>
-            <!-- item -->
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-                <span class="counter">99</span>
-                <div class="thumb">
-                    <img src="/theme/portal-donbassa/img/home-content/what-say-1.png" alt="">
-                </div>
-                <div class="wrapi">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p>О сколько нам открытий чудных?</p>
-                </div>
-            </a>
-            <!-- item -->
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-                <span class="counter">99</span>
-                <div class="thumb">
-                    <img src="/theme/portal-donbassa/img/home-content/what-say-1.png" alt="">
-                </div>
-                <div class="wrapi">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p>О сколько нам открытий чудных?</p>
-                </div>
-            </a>
-            <!-- item -->
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-                <span class="counter">99</span>
-                <div class="thumb">
-                    <img src="/theme/portal-donbassa/img/home-content/what-say-1.png" alt="">
-                </div>
-                <div class="wrapi">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p>О сколько нам открытий чудных?</p>
-                </div>
-            </a>
-            <!-- item -->
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-                <span class="counter">99</span>
-                <div class="thumb">
-                    <img src="/theme/portal-donbassa/img/home-content/what-say-1.png" alt="">
-                </div>
-                <div class="wrapi">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p>О сколько нам открытий чудных?</p>
-                </div>
-            </a>
-            <!-- item -->
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-                <span class="counter">99</span>
-                <div class="thumb">
-                    <img src="/theme/portal-donbassa/img/home-content/what-say-1.png" alt="">
-                </div>
-                <div class="wrapi">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p>О сколько нам открытий чудных?</p>
-                </div>
-            </a>
-            <!-- item -->
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-                <span class="counter">99</span>
-                <div class="thumb">
-                    <img src="/theme/portal-donbassa/img/home-content/what-say-1.png" alt="">
-                </div>
-                <div class="wrapi">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p>О сколько нам открытий чудных?</p>
-                </div>
-            </a>
-            <!-- item -->
-            <!-- item -->
-            <a href="" class="what-say__wrap_item">
-                <span class="counter">99</span>
-                <div class="thumb">
-                    <img src="/theme/portal-donbassa/img/home-content/what-say-1.png" alt="">
-                </div>
-                <div class="wrapi">
-                    <span class="name">Кирилл Кириленко</span>
-                    <p>О сколько нам открытий чудных?</p>
-                </div>
-            </a>
-            <!-- item -->
-        </div>
-    </div>
-</section>
+<?= \frontend\modules\news\widgets\PeopleTalk::widget(); ?>
 
 <section class="rubrick-slider">
     <div class="container">

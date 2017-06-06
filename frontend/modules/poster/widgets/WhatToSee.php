@@ -21,6 +21,7 @@ class WhatToSee extends Widget
             ->joinWith('categories')
             /*->where(['>', 'dt_event', time()])*/
             ->andWhere(['`category_poster`.`slug`' => 'kino'])
+            ->orderBy('dt_event DESC')
             ->limit(5)
             ->all();
         //Debug::prn($posters);

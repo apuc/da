@@ -34,3 +34,4 @@
         </div>
     <?php endforeach; ?>
 </div>
+<button class="home-content__sidebar__button">Все акции</button>
