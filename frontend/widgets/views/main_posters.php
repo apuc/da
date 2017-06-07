@@ -33,7 +33,7 @@
                 <h3>Выбор редакции</h3>
                 <div class="gallery">
                     <div class="main-gallery">
-                        <a class="fancybox" rel="gallery1"
+                        <a class="fancybox" rel="gallery1" data-fancybox="gallery"
                            href="<?= \common\models\UploadPhoto::getImageOrNoImage($premiereImages[0]); ?>">
                             <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($premiereImages[0]); ?>" alt=""/>
                         </a>
@@ -43,7 +43,7 @@
                         <?php
                         $photos = array_slice($premiereImages, 1);
                         foreach ($photos as $photo): ?>
-                            <a class="fancybox" rel="gallery1"
+                            <a class="fancybox" rel="gallery1" data-fancybox="gallery"
                                href="<?= \common\models\UploadPhoto::getImageOrNoImage($photo); ?>">
                                 <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($photo); ?>" alt=""/>
                             </a>
