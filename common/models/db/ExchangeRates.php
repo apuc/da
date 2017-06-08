@@ -31,7 +31,7 @@ class ExchangeRates extends \yii\db\ActiveRecord
     {
         return [
             [['currencies', 'buy', 'sale'], 'required'],
-            [['type_id', 'up'], 'integer'],
+            [['type_id', 'up', 'up_sale'], 'integer'],
             [['currencies', 'buy', 'sale'], 'string', 'max' => 255],
         ];
     }
