@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model backend\modules\company\models\SocAvailable */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Soc Availables', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Социальные сети', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="soc-available-view">
@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -30,7 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'name',
-            'icon',
+            //'icon',
+            [
+                'attribute'=>'icon',
+                'value'=>function ($data){
+                        return '<img src="'.$data->icon.'">';
+                },
+                'format'=>'html'
+            ]
         ],
     ]) ?>
 

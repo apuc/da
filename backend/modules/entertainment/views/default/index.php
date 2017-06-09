@@ -17,6 +17,7 @@ use yii\helpers\Html;
 //        'multiple' => true,
 //        'style' => 'height:600px;',
 //    ]) ?>
+<?= '<pre>'.print_r($main_entertainment, true).'</pre>'?>
 <?php echo \kartik\select2\Select2::widget([
     'name' => 'main_entertainment',
     'data' => $companyList,

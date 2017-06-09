@@ -3,16 +3,16 @@
 namespace backend\modules\company\controllers;
 
 use Yii;
-use backend\modules\company\models\SocCompany;
-use backend\modules\company\models\SocCompanySearch;
+use backend\modules\company\models\SocAvailable;
+use backend\modules\company\models\SocAvailableSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * SocCompanyController implements the CRUD actions for SocCompany model.
+ * SocAvailableController implements the CRUD actions for SocAvailable model.
  */
-class SocCompanyController extends Controller
+class Soc_availableController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class SocCompanyController extends Controller
     }
 
     /**
-     * Lists all SocCompany models.
+     * Lists all SocAvailable models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new SocCompanySearch();
+        $searchModel = new SocAvailableSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class SocCompanyController extends Controller
     }
 
     /**
-     * Displays a single SocCompany model.
+     * Displays a single SocAvailable model.
      * @param integer $id
      * @return mixed
      */
@@ -57,13 +57,13 @@ class SocCompanyController extends Controller
     }
 
     /**
-     * Creates a new SocCompany model.
+     * Creates a new SocAvailable model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new SocCompany();
+        $model = new SocAvailable();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -75,7 +75,7 @@ class SocCompanyController extends Controller
     }
 
     /**
-     * Updates an existing SocCompany model.
+     * Updates an existing SocAvailable model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -94,7 +94,7 @@ class SocCompanyController extends Controller
     }
 
     /**
-     * Deletes an existing SocCompany model.
+     * Deletes an existing SocAvailable model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -107,15 +107,15 @@ class SocCompanyController extends Controller
     }
 
     /**
-     * Finds the SocCompany model based on its primary key value.
+     * Finds the SocAvailable model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return SocCompany the loaded model
+     * @return SocAvailable the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = SocCompany::findOne($id)) !== null) {
+        if (($model = SocAvailable::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

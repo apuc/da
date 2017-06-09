@@ -29,7 +29,7 @@ class SocAvailable extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'icon'], 'required'],
+//            [['name', 'icon'], 'required'],
             [['name', 'icon'], 'string', 'max' => 255],
         ];
     }
@@ -41,8 +41,8 @@ class SocAvailable extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'icon' => 'Icon',
+            'name' => 'Имя соц. сети',
+            'icon' => 'Иконка соц. сети',
         ];
     }
 

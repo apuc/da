@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel backend\modules\company\models\SocAvailableSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Soc Availables';
+$this->title = 'Социальные сети';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="soc-available-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Soc Available', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить социальную сеть', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -26,7 +26,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'name',
-            'icon',
+            //'icon',
+            [
+                'attribute'=>'icon',
+                'value'=>function ($data){
+                    return '<img src="'.$data->icon.'">';
+                },
+                'format'=>'html'
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

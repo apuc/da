@@ -34,8 +34,8 @@ class SocCompany extends \yii\db\ActiveRecord
             [['company_id'], 'required'],
             [['company_id', 'soc_type'], 'integer'],
             [['link'], 'string', 'max' => 255],
-            [['soc_type'], 'exist', 'skipOnError' => true, 'targetClass' => SocAvailable::className(), 'targetAttribute' => ['soc_type' => 'id']],
-            [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
+            //[['soc_type'], 'exist', 'skipOnError' => true, 'targetClass' => SocAvailable::className(), 'targetAttribute' => ['soc_type' => 'id']],
+           // [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
         ];
     }
 
@@ -46,9 +46,9 @@ class SocCompany extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'company_id' => 'Company ID',
-            'link' => 'Link',
-            'soc_type' => 'Soc Type',
+            'company_id' => 'Название компании',
+            'link' => 'Ссылка на соц. сеть',
+            'soc_type' => 'Тип социальной сети',
         ];
     }
 

@@ -2,17 +2,20 @@
 
 namespace backend\modules\company\controllers;
 
+use common\classes\Debug;
 use Yii;
-use backend\modules\company\models\SocAvailable;
-use backend\modules\company\models\SocAvailableSearch;
+use common\models\db\Company;
+use backend\modules\company\models\SocCompany;
+use backend\modules\company\models\SocCompanySearch;
 use yii\web\Controller;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * SocAvailableController implements the CRUD actions for SocAvailable model.
+ * SocCompanyController implements the CRUD actions for SocCompany model.
  */
-class SocAvailableController extends Controller
+class Soc_companyController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +33,12 @@ class SocAvailableController extends Controller
     }
 
     /**
-     * Lists all SocAvailable models.
+     * Lists all SocCompany models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new SocAvailableSearch();
+        $searchModel = new SocCompanySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +48,7 @@ class SocAvailableController extends Controller
     }
 
     /**
-     * Displays a single SocAvailable model.
+     * Displays a single SocCompany model.
      * @param integer $id
      * @return mixed
      */
@@ -57,15 +60,16 @@ class SocAvailableController extends Controller
     }
 
     /**
-     * Creates a new SocAvailable model.
+     * Creates a new SocCompany model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new SocAvailable();
+        $model = new SocCompany();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -75,7 +79,7 @@ class SocAvailableController extends Controller
     }
 
     /**
-     * Updates an existing SocAvailable model.
+     * Updates an existing SocCompany model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -89,12 +93,13 @@ class SocAvailableController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+
             ]);
         }
     }
 
     /**
-     * Deletes an existing SocAvailable model.
+     * Deletes an existing SocCompany model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -107,15 +112,15 @@ class SocAvailableController extends Controller
     }
 
     /**
-     * Finds the SocAvailable model based on its primary key value.
+     * Finds the SocCompany model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return SocAvailable the loaded model
+     * @return SocCompany the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = SocAvailable::findOne($id)) !== null) {
+        if (($model = SocCompany::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
