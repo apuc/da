@@ -85,6 +85,11 @@ $this->registerMetaTag([
                 <!-- end socials.html-->
 
             </div>
+            <?= \frontend\widgets\Comments::widget([
+                'pageTitle' => $model->title,
+                'postType' => 'post',
+                'postId' => $model->id,
+            ]); ?>
         </article>
 
         <!-- start right_sidebar_news.html-->

@@ -18,7 +18,7 @@ class ExchangeRatesSearch extends ExchangeRates
     public function rules()
     {
         return [
-            [['id', 'type_id', 'up'], 'integer'],
+            [['id', 'type_id', 'up', 'up_sale'], 'integer'],
             [['currencies', 'buy', 'sale'], 'safe'],
         ];
     }
