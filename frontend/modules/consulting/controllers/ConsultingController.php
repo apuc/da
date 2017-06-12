@@ -239,7 +239,6 @@ class ConsultingController extends \yii\web\Controller
 
     public function actionDocument($slug)
     {
-
         $post = PostsDigest::find()
             ->where(['slug' => $slug])
             ->with('consulting')
@@ -249,7 +248,7 @@ class ConsultingController extends \yii\web\Controller
         if (empty($post)) {
             return $this->redirect(['/consulting/consulting/index']);
         }
-
+        PostsDigest::updateAllCounters(['views' => 1], ['id' => $post->id] );
         return $this->render('view_post_digest', [
             'post' => $post,
             'consulting'=> $post->consulting,
@@ -260,7 +259,6 @@ class ConsultingController extends \yii\web\Controller
 
     public function actionPost($slug)
     {
-
         $post = PostsConsulting::find()
             ->where(['slug' => $slug])
             ->with('consulting')
