@@ -164,6 +164,18 @@ class MainMenuAdmin extends Widget
                                 'active' => Yii::$app->controller->module->id === 'company' && Yii::$app->controller->action->id === 'hot-stock',
 //                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
+                            [
+                                'label' => 'Социальные сети компаний',
+                                'url' => Url::to(['/company/soc_company']),
+                                'active' => Yii::$app->controller->module->id === 'soc_company' && Yii::$app->controller->action->id === 'soc_company',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
+                            [
+                                'label' => 'Социальные сети',
+                                'url' => Url::to(['/company/soc_available']),
+                                'active' => Yii::$app->controller->module->id === 'soc_available' && Yii::$app->controller->action->id === 'soc_available',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                            ],
                         ],
 
                         'visible' => UserFunction::hasPermission(['Компании']),

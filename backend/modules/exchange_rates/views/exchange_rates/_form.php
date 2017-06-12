@@ -24,6 +24,7 @@ use yii\widgets\ActiveForm;
         ->dropDownList(ArrayHelper::map(ExchangeRatesType::find()->all(), 'id', 'name')) ?>
 
     <?= $form->field($model, 'up')->dropDownList([1=>'Вверх',2=>'Вниз',0=>'На месте']) ?>
+    <?= $form->field($model, 'up_sale')->dropDownList([1=>'Вверх',2=>'Вниз',0=>'На месте']) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Добавить' : 'Редактировать', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

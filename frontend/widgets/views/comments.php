@@ -4,7 +4,11 @@
 <div class="comments-wrapper">
 
     <div class="after-comments">
-        <h2>Комментарии к новости</h2>
+        <?php if ($postType=='news'):?>
+            <h2>Комментарии к новости</h2>
+        <?php elseif ($postType=='post'):?>
+            <h2>Комментарии к <?= $pageTitle ?></h2>
+        <?php endif;?>
 
         <a href="#" class="populiation">Популярные впереди</a><a data-post-type="<?= $postType; ?>"
                                                                  data-post-id="<?= $postId; ?>"

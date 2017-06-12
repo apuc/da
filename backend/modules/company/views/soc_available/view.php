@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model backend\modules\exchange_rates\models\ExchangeRates */
+/* @var $model backend\modules\company\models\SocAvailable */
 
-$this->title = $model->currencies;
-$this->params['breadcrumbs'][] = ['label' => 'Курсы валют', 'url' => ['index']];
+$this->title = $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Социальные сети', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="exchange-rates-view">
+<div class="soc-available-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -28,13 +28,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            /*'id',*/
-            'currencies',
-            'buy',
-            'sale',
-            'type_id',
-            'up',
-            'up_sale'
+            'id',
+            'name',
+            //'icon',
+            [
+                'attribute'=>'icon',
+                'value'=>function ($data){
+                        return '<img src="'.$data->icon.'">';
+                },
+                'format'=>'html'
+            ]
         ],
     ]) ?>
 

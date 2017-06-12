@@ -33,7 +33,8 @@ class Comments extends Widget
             ->all();
 
         return $this->render('comments',
-            ['comments' => $comments, 'postType' => $this->postType, 'postId' => $this->postId]);
+            ['comments' => $comments, 'postType' => $this->postType, 'postId' => $this->postId,
+                'pageTitle'=>$this->pageTitle]);
     }
 
 }

@@ -1,16 +1,16 @@
 <?php
 
-namespace backend\modules\exchange_rates\models;
+namespace backend\modules\company\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\modules\exchange_rates\models\ExchangeRates;
+use backend\modules\company\models\SocCompany;
 
 /**
- * ExchangeRatesSearch represents the model behind the search form about `backend\modules\exchange_rates\models\ExchangeRates`.
+ * SocCompanySearch represents the model behind the search form about `backend\modules\company\models\SocCompany`.
  */
-class ExchangeRatesSearch extends ExchangeRates
+class SocCompanySearch extends SocCompany
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class ExchangeRatesSearch extends ExchangeRates
     public function rules()
     {
         return [
-            [['id', 'type_id', 'up', 'up_sale'], 'integer'],
-            [['currencies', 'buy', 'sale'], 'safe'],
+            [['id', 'company_id', 'soc_type'], 'integer'],
+            [['link'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class ExchangeRatesSearch extends ExchangeRates
      */
     public function search($params)
     {
-        $query = ExchangeRates::find();
+        $query = SocCompany::find();
 
         // add conditions that should always apply here
 
@@ -60,13 +60,11 @@ class ExchangeRatesSearch extends ExchangeRates
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'type_id' => $this->type_id,
-            'up' => $this->up,
+            'company_id' => $this->company_id,
+            'soc_type' => $this->soc_type,
         ]);
 
-        $query->andFilterWhere(['like', 'currencies', $this->currencies])
-            ->andFilterWhere(['like', 'buy', $this->buy])
-            ->andFilterWhere(['like', 'sale', $this->sale]);
+        $query->andFilterWhere(['like', 'link', $this->link]);
 
         return $dataProvider;
     }

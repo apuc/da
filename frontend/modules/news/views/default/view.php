@@ -46,9 +46,6 @@ $this->registerMetaTag([
     <div class="container">
 
         <article id="article">
-            <div class="thumbnail-wrapper">
-                <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($model->photo); ?>" alt="">
-            </div>
 
             <div class="breadcrumbs">
                 <a href="/">Главная</a> <span>></span> <a href="<?= Url::to([
@@ -57,11 +54,48 @@ $this->registerMetaTag([
                 ]) ?>"><?= $category->title; ?></a>
             </div>
 
+            <div class="content-info">
+                <span class="author"><?= $model->author; ?></span>
+                <span class="comments">
+                    <?= $countComments . ' ' . \common\classes\WordFunctions::getNumEnding($countComments,
+                        [
+                            'комментарий',
+                            'комментария',
+                            'комментариев',
+                        ]); ?>
+                </span>
+                <span class="views" style="color: black"><?= $model->views; ?></span>
+                <span class="data-time"><?= \common\classes\WordFunctions::FullEventDate($model->dt_public) ?>
+                </span>
+
+                <a style="cursor: pointer" csrf-token="<?= Yii::$app->request->getCsrfToken() ?>"
+                   data-id="<?= $model->id; ?>"
+                   data-type="news"
+                   class="like likes">
+
+                    <?php if (!empty($thisUserLike)): ?>
+                        <i class="like-set-icon"></i>
+                    <?php else:; ?>
+                        <i class="like-icon"></i>
+                    <?php endif; ?>
+
+                    <span class="like-counter">
+                            <?= $likes; ?>
+                        </span>
+                </a>
+
+            </div>
+
+            <div class="thumbnail-wrapper">
+                <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($model->photo); ?>" alt="">
+            </div>
+
+
             <div class="content-single-wrapper">
 
                 <h1><?= $model->title; ?></h1>
 
-                <div class="content-info">
+                <!-- <div class="content-info">
                     <span class="author"><?= $model->author; ?></span>
                     <span class="comments">
                         <?= $countComments . ' ' . \common\classes\WordFunctions::getNumEnding($countComments,
@@ -91,7 +125,7 @@ $this->registerMetaTag([
                             </span>
                     </a>
 
-                </div>
+                </div> -->
 
                 <div class="content-single">
                     <?= $model->content; ?>
@@ -164,4 +198,3 @@ $this->registerMetaTag([
 
     </div>
 </main>
-

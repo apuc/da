@@ -59,32 +59,37 @@ $this->registerMetaTag([
                 <div class="social-wrapper">
                     <a href="#" target="_blank" class="social-wrap__item vk">
                         <img src="/theme/portal-donbassa/img/soc/vk.png" alt="vk">
-                        <span>03</span>
+                        <!-- <span>03</span> -->
                     </a>
                     <a href="#" target="_blank" class="social-wrap__item fb">
                         <img src="/theme/portal-donbassa/img/soc/fb.png" alt="fb">
-                        <span>12</span>
+                        <!-- <span>12</span> -->
                     </a>
                     <a href="#" target="_blank" class="social-wrap__item ok">
                         <img src="/theme/portal-donbassa/img/soc/ok-icon.png" alt="ok">
-                        <span>05</span>
+                        <!-- <span>05</span> -->
                     </a>
                     <a href="#" target="_blank" class="social-wrap__item insta">
                         <img src="/theme/portal-donbassa/img/soc/insta-icon.png" alt="instagramm">
-                        <span>63</span>
+                        <!-- <span>63</span> -->
                     </a>
                     <a href="#" target="_blank" class="social-wrap__item google">
                         <img src="/theme/portal-donbassa/img/soc/google-icon.png" alt="google">
-                        <span>36</span>
+                        <!-- <span>36</span> -->
                     </a>
                     <a href="#" target="_blank" class="social-wrap__item twitter">
                         <img src="/theme/portal-donbassa/img/soc/twi-icon.png" alt="twitter">
-                        <span>11</span>
+                        <!-- <span>11</span> -->
                     </a>
                 </div>
                 <!-- end socials.html-->
 
             </div>
+            <?= \frontend\widgets\Comments::widget([
+                'pageTitle' => $model->title,
+                'postType' => 'post',
+                'postId' => $model->id,
+            ]); ?>
         </article>
 
         <!-- start right_sidebar_news.html-->
