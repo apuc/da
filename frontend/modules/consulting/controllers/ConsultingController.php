@@ -107,6 +107,8 @@ class ConsultingController extends \yii\web\Controller
 
         $posts = $posts->limit(3)->all();
 
+        $categoryPostsDigest = CategoryPostsDigest::find()->where(['slug' => $request->get('slug')])->one();
+
         $consulting = $posts[0]->consulting;
         if(empty($consulting)){
             return $this->redirect(['site/error']);
@@ -118,7 +120,7 @@ class ConsultingController extends \yii\web\Controller
             'postsTitle' => $consulting->title_digest,
             'ajaxCategory' => $request->get('slug'),
             'postsCount' => $postsCount,
-
+            'categoryPostsDigest' => $categoryPostsDigest,
         ]);
 
     }
@@ -166,6 +168,10 @@ class ConsultingController extends \yii\web\Controller
         $posts = $posts->limit(3)->all();
 
         $consulting = $posts[0]->consulting;
+
+        $categoryPostsConsulting = CategoryPostsConsulting::find()->where(['slug' => $request->get('slug')])->one();
+
+
         if(empty($consulting)){
             return $this->redirect(['site/error']);
         }
@@ -176,6 +182,7 @@ class ConsultingController extends \yii\web\Controller
             'postsTitle' => $posts[0]->categoryPostsConsulting->title,
             'ajaxCategory' => $request->get('slug'),
             'postsCount' => $postsCount,
+            'categoryPostsConsulting' => $categoryPostsConsulting
         ]);
 
     }
@@ -199,12 +206,15 @@ class ConsultingController extends \yii\web\Controller
             return $this->redirect(['site/error']);
         }
 
+        $faq = Faq::find()->where(['type' => $request->get('slug')])->one();
+
         return $this->render('view_faq', [
             'posts' => $posts,
             'consulting' => $consulting,
             'postsTitle' => 'Вопрос / ответ',
             'ajaxCategory' => '',
             'postsCount' => $postsCount,
+            'faq' => $faq,
         ]);
 
     }
@@ -223,6 +233,9 @@ class ConsultingController extends \yii\web\Controller
         $posts = $posts->limit(3)->all();
 
         $consulting = $posts[0]->consulting;
+
+        $categoryFaq = CategoryFaq::find()->where(['slug' => $request->get('slug')])->one();
+
         if(empty($consulting)){
             return $this->redirect(['site/error']);
         }
@@ -233,6 +246,7 @@ class ConsultingController extends \yii\web\Controller
             'postsTitle' => $posts[0]->category->title,
             'ajaxCategory' => $request->get('slug'),
             'postsCount' => $postsCount,
+            'categoryFaq' => $categoryFaq,
         ]);
 
     }
