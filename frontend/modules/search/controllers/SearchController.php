@@ -15,8 +15,10 @@ use yii\web\Controller;
 class SearchController extends Controller
 {
 
-    public function actionIndex($request)
+    public function actionIndex()
     {
+        $request = \Yii::$app->request->post('request');
+
 
         $search = new Search();
         $search->request = $request;
