@@ -8,6 +8,7 @@
 
 namespace frontend\modules\search\models;
 
+use common\classes\Debug;
 use common\models\db\Company;
 use common\models\db\Consulting;
 use common\models\db\Faq;
@@ -15,11 +16,32 @@ use common\models\db\News;
 use common\models\db\Poster;
 use common\models\db\PostsConsulting;
 use common\models\db\PostsDigest;
-use yii\base\Model;
+use common\models\db\TblViewSearch;
+use yii\data\ActiveDataProvider;
 
-class Search extends Model
+class Search extends TblViewSearch
 {
+    const CONST_NEWS = 1;
+    const CONST_POSTER = 2;
+    const CONST_COMPANY = 3;
+
     public $request;
+
+    public static function getTypes()
+    {
+        return [
+            self::CONST_NEWS => 'Новости',
+            self::CONST_POSTER => 'Афиша',
+            self::CONST_COMPANY => 'Предприятия',
+        ];
+    }
+
+    public static function getTypeLabel($type, $default = null)
+    {
+        $types = static::getTypes();
+        return isset($types[$type]) ? $types[$type] : $default;
+    }
+
 
     public function getCountResults()
     {
@@ -55,5 +77,35 @@ class Search extends Model
 
         return $results;
     }
+
+
+    public function search()
+    {
+        $query = TblViewSearch::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 15,
+                'pageSizeParam' => false,
+            ],
+        ]);
+
+
+/*Debug::prn(date('d.m.Y',1497420149));*/
+
+
+        $query->andFilterWhere(['LIKE', 'title', $this->request])
+            ->orFilterWhere(['LIKE', 'descr', $this->request]);
+        $query->andFilterWhere(['>=', 'dt_update', time() - 86400 *7]);
+
+
+        $query->orderBy('dt_update DESC');
+Debug::prn($query->createCommand()->rawSql);
+        return $dataProvider;
+    }
+
 
 }

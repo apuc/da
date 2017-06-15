@@ -20,7 +20,9 @@ class m170614_120243_create_view_search_table extends Migration
                 photo, 
                 content AS descr, 
                 dt_update, 
-                CONCAT('/news/', slug) AS url 
+                slug,
+                CONCAT('/news/', slug) AS url,
+                CONCAT(1) AS  material_type
             FROM news UNION
              
             SELECT 
@@ -29,7 +31,9 @@ class m170614_120243_create_view_search_table extends Migration
                 descr, 
                 photo, 
                 dt_update, 
-                CONCAT('/poster/', slug) AS url  
+                slug,
+                CONCAT('/poster/', slug) AS url,
+                CONCAT(2) AS  material_type 
             FROM poster UNION
              
             SELECT 
@@ -38,7 +42,9 @@ class m170614_120243_create_view_search_table extends Migration
                 descr, 
                 photo, 
                 dt_update, 
-                CONCAT('/company/', slug) AS url  
+                slug,
+                CONCAT('/company/', slug) AS url,
+                CONCAT(3) AS  material_type
             FROM company
         ")->execute();
     }

@@ -26,6 +26,14 @@ $this->registerMetaTag([
     'name' => 'description',
     'content' => $meta_descr,
 ]);
+
+
+$this->registerLinkTag([
+    'href' => Yii::$app->params['baseUrl'] . '/all-news',
+    'rel' => 'canonical',
+]);
+
+
 $md = new \common\classes\Mobile_Detect();
 ?>
 
