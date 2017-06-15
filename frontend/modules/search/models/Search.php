@@ -18,6 +18,7 @@ use common\models\db\PostsConsulting;
 use common\models\db\PostsDigest;
 use common\models\db\TblViewSearch;
 use yii\data\ActiveDataProvider;
+use yii\helpers\Url;
 
 class Search extends TblViewSearch
 {
@@ -26,6 +27,7 @@ class Search extends TblViewSearch
     const CONST_COMPANY = 3;
 
     public $request;
+    public $interval = 'week';
 
     public static function getTypes()
     {
@@ -81,6 +83,7 @@ class Search extends TblViewSearch
 
     public function search()
     {
+        Debug::prn(Url::home(true));
         $query = TblViewSearch::find();
 
         // add conditions that should always apply here
@@ -94,12 +97,16 @@ class Search extends TblViewSearch
         ]);
 
 
+        if($this->interval == 'week'){
+            $interval = time() - 86400 *7;
+        }
 /*Debug::prn(date('d.m.Y',1497420149));*/
 
 
         $query->andFilterWhere(['LIKE', 'title', $this->request])
             ->orFilterWhere(['LIKE', 'descr', $this->request]);
-        $query->andFilterWhere(['>=', 'dt_update', time() - 86400 *7]);
+
+        $query->andFilterWhere(['>=', 'dt_update', $interval]);
 
 
         $query->orderBy('dt_update DESC');

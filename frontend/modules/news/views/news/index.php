@@ -29,7 +29,7 @@ $this->registerMetaTag([
 
 
 $this->registerLinkTag([
-    'href' => Yii::$app->params['baseUrl'] . '/all-news',
+    'href' => Url::home(true) . 'all-news',
     'rel' => 'canonical',
 ]);
 
