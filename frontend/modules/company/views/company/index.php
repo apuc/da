@@ -61,14 +61,15 @@ $this->registerJsFile('/js/company_ajax.js', ['depends' => [\yii\web\JqueryAsset
                                     <span><?= $company->address ?></span>
                                 </p>
 
+                                <?php $phone = explode(' ', $company->phone) ?>
                                 <ul class="business__sm-item--numbers">
-                                    <li>+380667778540</li>
-                                    <li>+380667778540</li>
+                                    <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
+                                    <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
                                 </ul>
 
                                 <ul class="business__sm-item--numbers">
-                                    <li>+380667778540</li>
-                                    <li>+380667778540</li>
+                                    <li><?= isset($phone[2]) ? $phone[2] : '' ?></li>
+                                    <li> <?= isset($phone[3]) ? $phone[3] : '' ?></li>
                                 </ul>
 
                                 <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->
