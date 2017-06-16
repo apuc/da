@@ -17,8 +17,8 @@ class m170614_120243_create_view_search_table extends Migration
             SELECT 
                 CONCAT('news_', id) AS id, 
                 title, 
+                content AS descr,
                 photo, 
-                content AS descr, 
                 dt_update, 
                 slug,
                 CONCAT('/news/', slug) AS url,

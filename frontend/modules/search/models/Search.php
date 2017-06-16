@@ -9,16 +9,9 @@
 namespace frontend\modules\search\models;
 
 use common\classes\Debug;
-use common\models\db\Company;
-use common\models\db\Consulting;
-use common\models\db\Faq;
-use common\models\db\News;
-use common\models\db\Poster;
-use common\models\db\PostsConsulting;
-use common\models\db\PostsDigest;
 use common\models\db\TblViewSearch;
 use yii\data\ActiveDataProvider;
-use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
 
 class Search extends TblViewSearch
 {
@@ -26,8 +19,14 @@ class Search extends TblViewSearch
     const CONST_POSTER = 2;
     const CONST_COMPANY = 3;
 
+    const CONST_WEEK = 'week';
+    const CONST_YEAR = 'year';
+    const CONST_MONTH = 'month';
+    const CONST_DAY = 'day';
+
     public $request;
-    public $interval = 'week';
+    public $interval;
+    public $type;
 
     public static function getTypes()
     {
@@ -35,6 +34,10 @@ class Search extends TblViewSearch
             self::CONST_NEWS => 'Новости',
             self::CONST_POSTER => 'Афиша',
             self::CONST_COMPANY => 'Предприятия',
+            self::CONST_YEAR => 'за год',
+            self::CONST_WEEK => 'за неделю',
+            self::CONST_MONTH => 'за месяц',
+            self::CONST_DAY => 'за день',
         ];
     }
 
@@ -45,48 +48,9 @@ class Search extends TblViewSearch
     }
 
 
-    public function getCountResults()
-    {
-        $results = [];
-
-        $results['Новости'] = News::find()
-            ->where(['like', 'title', $this->request])
-            ->count();
-
-        $results['Компании'] = Company::find()
-            ->where(['like', 'name', $this->request])
-            ->count();
-
-        $results['Афиша'] = Poster::find()
-            ->where(['like', 'title', $this->request])
-            ->count();
-
-        $results['Консалтинг'] = Consulting::find()
-            ->where(['like', 'title', $this->request])
-            ->count();
-
-        $results['Вопрос / ответ'] = Faq::find()
-            ->where(['like', 'question', $this->request])
-            ->count();
-
-        $results['Статьи'] = PostsConsulting::find()
-            ->where(['like', 'title', $this->request])
-            ->count();
-
-        $results['Документы'] = PostsDigest::find()
-            ->where(['like', 'title', $this->request])
-            ->count();
-
-        return $results;
-    }
-
-
     public function search()
     {
-        Debug::prn(Url::home(true));
         $query = TblViewSearch::find();
-
-        // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -96,23 +60,47 @@ class Search extends TblViewSearch
             ],
         ]);
 
-
-        if($this->interval == 'week'){
-            $interval = time() - 86400 *7;
-        }
-/*Debug::prn(date('d.m.Y',1497420149));*/
-
-
         $query->andFilterWhere(['LIKE', 'title', $this->request])
             ->orFilterWhere(['LIKE', 'descr', $this->request]);
 
-        $query->andFilterWhere(['>=', 'dt_update', $interval]);
-
+        $query->andFilterWhere(['>=', 'dt_update', self::setInterval($this->interval)]);
+        $query->andFilterWhere(['material_type' => $this->type]);
 
         $query->orderBy('dt_update DESC');
-Debug::prn($query->createCommand()->rawSql);
+/*Debug::prn($query->createCommand()->rawSql);*/
         return $dataProvider;
     }
 
+    static function setInterval($interval)
+    {
+        $array = [
+            'week' => time() - 86400 * 7,
+            'day' => time() - 86400,
+            'year' => 31536000,
+            'month' => 2592000,
+        ];
 
+        return $array[$interval];
+    }
+
+    public function getCountMaterials()
+    {
+        $query = TblViewSearch::find();
+        $query->addSelect('material_type, COUNT(*) AS count');
+        $query->andFilterWhere(['LIKE', 'title', $this->request])
+            ->orFilterWhere(['LIKE', 'descr', $this->request]);
+
+        $query->andFilterWhere(['>=', 'dt_update', self::setInterval($this->interval)]);
+
+        $query->groupBy('material_type');
+
+        $count = $query->createCommand()->queryAll();
+
+        return ArrayHelper::map($count, 'material_type', 'count');
+    }
+
+    public function allCountSearch($countMaterials)
+    {
+        return array_sum($countMaterials);
+    }
 }

@@ -17,27 +17,30 @@ class SearchController extends Controller
 
     public function actionIndex()
     {
-        $request = \Yii::$app->request->get('request');
+        $request = \Yii::$app->request->get();
 
 
         $searchModel = new Search();
-        $searchModel->request = $request;
+
+        $searchModel->request = $request['request'];
+        $interval = (isset($request['interval'])) ? $request['interval'] : 'week';
+        $searchModel->interval = $interval;
+        $searchModel->type = (isset($request['type'])) ? $request['type'] : '';
+
         $dataProvider = $searchModel->search();
 
+        $countMaterials = $searchModel->getCountMaterials();
 
-       /* $search = new Search();*/
-
-        $resultsCount = $searchModel->getCountResults();
-
-
-        //Debug::prn($dataProvider);
+        $allCount = $searchModel->allCountSearch($countMaterials);
 
         return $this->render('index',
             [
                 'request' => $request,
-                'resultsCount' => $resultsCount,
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
+                'interval' => $interval,
+                'countMaterials' => $countMaterials,
+                'allCount' => $allCount,
             ]
         );
 
