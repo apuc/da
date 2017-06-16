@@ -7,7 +7,10 @@
  */
 use common\classes\WordFunctions;
 use frontend\modules\search\models\Search;
+use yii\helpers\Html;
 
+
+//\common\classes\Debug::prn($model['descr']);
 /*\common\classes\Debug::prn(\frontend\modules\search\models\Search::getTypeLabel($model['material_type']));*/
 ?>
 
@@ -25,7 +28,9 @@ use frontend\modules\search\models\Search;
 
         <h3><?= $model['title']; ?></h3>
         <span><?= WordFunctions::dateWithMonts($model['dt_update']); ?></span>
-        <p><?= yii\helpers\StringHelper::truncate($model['descr'],150,'...'); ?></p>
+        <!--<p><?/*= yii\helpers\StringHelper::truncate(\yii\helpers\Html::encode($model['descr']),150,'...'); */?></p>-->
+
+        <?= Html::tag('p', yii\helpers\StringHelper::truncate(strip_tags($model['descr']),150,'...')) ?>
 
     </div>
 
