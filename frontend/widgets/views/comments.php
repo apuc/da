@@ -4,11 +4,11 @@
 <div class="comments-wrapper">
 
     <div class="after-comments">
-        <?php if ($postType=='news'):?>
+        <?php if ($postType == 'news'): ?>
             <h2>Комментарии к новости</h2>
-        <?php elseif ($postType=='post'):?>
+        <?php elseif ($postType == 'page'): ?>
             <h2>Комментарии к <?= $pageTitle ?></h2>
-        <?php endif;?>
+        <?php endif; ?>
 
         <a href="#" class="populiation">Популярные впереди</a><a data-post-type="<?= $postType; ?>"
                                                                  data-post-id="<?= $postId; ?>"
@@ -35,7 +35,7 @@
                         <div class="comment-info">
                             <a data-post-type="<?= $postType; ?>"
                                data-post-id="<?= $postId; ?>"
-                               data-parent-id="<?= $comment->id;?>" class="add-comment" href="#">Ответить</a>
+                               data-parent-id="<?= $comment->id; ?>" class="add-comment" href="#">Ответить</a>
                             <div class="time"><?= \common\classes\WordFunctions::getTimeOrDateTime($comment->dt_add); ?></div>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                                         <div class="comment-info">
                                             <a data-post-type="<?= $postType; ?>"
                                                data-post-id="<?= $postId; ?>"
-                                               data-parent-id="<?= $comment->id;?>" class="add-comment" href="#">Ответить</a>
+                                               data-parent-id="<?= $comment->id; ?>" class="add-comment" href="#">Ответить</a>
                                             <div class="time"><?= \common\classes\WordFunctions::getTimeOrDateTime($childComment->dt_add); ?></div>
                                         </div>
                                     </div>

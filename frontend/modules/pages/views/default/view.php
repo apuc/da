@@ -87,7 +87,7 @@ $this->registerMetaTag([
             </div>
             <?= \frontend\widgets\Comments::widget([
                 'pageTitle' => $model->title,
-                'postType' => 'post',
+                'postType' => 'page',
                 'postId' => $model->id,
             ]); ?>
         </article>

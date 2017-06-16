@@ -45,6 +45,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     return date('Y-m-d H:i', $model->dt_add);
                 }
             ],
+            [
+                'attribute' => 'dt_update',
+                'format' => 'text',
+                'value' => function($model){
+                    return date('Y-m-d H:i', $model->dt_update);
+                }
+            ],
             // 'dt_update',
             // 'icon',
             // 'meta_title',

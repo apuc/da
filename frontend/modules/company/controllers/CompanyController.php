@@ -138,6 +138,7 @@ class CompanyController extends Controller
      */
     public function actionCreate()
     {
+        $this->goHome();
         $model = new Company();
 
         if ($model->load(Yii::$app->request->post())) {
