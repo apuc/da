@@ -27,7 +27,10 @@ if(!empty($posters)):
         <?php endforeach; ?>
         <span id="more-kino-box"></span>
     </div>
-    <a href="" id="load-more-kino" data-step="2" class="show-more">загрузить БОЛЬШЕ</a>
+
+    <?php if($countPoster > 4): ?>
+        <a href="" id="load-more-kino" data-step="2" class="show-more">загрузить БОЛЬШЕ</a>
+    <?php endif;?>
 </div>
 
 <?php endif;

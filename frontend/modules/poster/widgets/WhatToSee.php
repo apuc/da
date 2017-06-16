@@ -26,9 +26,16 @@ class WhatToSee extends Widget
             ->all();
         //Debug::prn($posters->createCommand()->rawSql);
 
+        $countPoster = Poster::find()
+            ->joinWith('categories')
+            ->where(['>=', 'dt_event', time()])
+            ->andWhere(['`category_poster`.`slug`' => 'kino'])
+            ->count();
+
         //Debug::prn($posters);
         return $this->render('what_to_see', [
-            'posters' => $posters
+            'posters' => $posters,
+            'countPoster' => $countPoster,
         ]);
     }
 }

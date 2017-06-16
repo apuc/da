@@ -69,6 +69,8 @@ use yii\helpers\Url;
             </a>
         <?php endforeach; ?>
         <span id="more-poster-box"></span>
-        <a href="" id="load-more-posters" data-step="2" class="show-more">загрузить БОЛЬШЕ</a>
+        <?php if($countPoster > 4): ?>
+            <a href="" id="load-more-posters" data-step="2" class="show-more">загрузить БОЛЬШЕ</a>
+        <?php endif;?>
     </div>
 </div>
