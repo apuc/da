@@ -26,6 +26,14 @@ $this->registerMetaTag([
     'name' => 'description',
     'content' => $meta_descr,
 ]);
+
+
+$this->registerLinkTag([
+    'href' => Url::home(true) . 'all-news',
+    'rel' => 'canonical',
+]);
+
+
 $md = new \common\classes\Mobile_Detect();
 ?>
 

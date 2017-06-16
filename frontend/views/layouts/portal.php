@@ -52,8 +52,9 @@ $user = Yii::$app->user->identity;
             </div>
             <?= \frontend\widgets\WeatherHeader::widget(); ?>
             <?= ExchangeRates::widget() ?>
-            <form action="">
-                <input class="search-input" type="text" placeholder="Поиск">
+            <form action="<?= Url::to(['/search/search/index'])?>" method="get">
+                <input class="search-input" type="text" placeholder="Поиск" name="request">
+                <!--<input type="hidden" name="_csrf" value="<?/*= Yii::$app->request->csrfToken; */?>">-->
                 <?php if (Yii::$app->user->isGuest): ?>
                     <a href="<?= Url::to(['/user/login']) ?>">
                         <span class="autoriz-icon"></span>

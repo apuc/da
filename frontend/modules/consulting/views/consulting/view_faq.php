@@ -1,7 +1,12 @@
 <?php use common\classes\WordFunctions;
 use yii\helpers\Url;
 
-$this->title = (empty($consulting->meta_title)) ? $consulting->title : $consulting->meta_title;
+$this->title = (empty($faq->meta_title)) ? $consulting->title : $faq->meta_title . ' ' . $consulting->meta_title;
+
+if(isset($categoryFaq)){
+    $this->title = (empty($categoryFaq->meta_title)) ? $consulting->title : $categoryFaq->meta_title . ' ' . $consulting->meta_title;
+}
+
 $this->registerMetaTag([
     'name' => 'description',
     'content' => $consulting->meta_descr,

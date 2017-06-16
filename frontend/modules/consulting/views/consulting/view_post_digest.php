@@ -1,9 +1,9 @@
 <?php use yii\helpers\Url;
 
-$this->title = (empty($consulting->meta_title)) ? $consulting->title : $consulting->meta_title;
+$this->title = (empty($post->meta_title)) ? $consulting->title : $post->meta_title .' '. $consulting->meta_title;
 $this->registerMetaTag([
     'name' => 'description',
-    'content' => $consulting->meta_descr,
+    'content' => $post->meta_descr,
 ]);
 \frontend\assets\AppAssetConsulting::register($this);
 ?>

@@ -43,6 +43,9 @@ return [
         'search' => [
             'class' => 'frontend\modules\search\search',
         ],
+        'board' => [
+            'class' => 'frontend\modules\board\Board',
+        ],
     ],
     'components' => [
         'mymessages' => [

@@ -15,20 +15,32 @@ use yii\web\Controller;
 class SearchController extends Controller
 {
 
-    public function actionIndex($request)
+    public function actionIndex()
     {
-
-        $search = new Search();
-        $search->request = $request;
-        $resultsCount = $search->getCountResults();
+        $request = \Yii::$app->request->get();
 
 
-        Debug::prn($resultsCount);
+        $searchModel = new Search();
+
+        $searchModel->request = $request['request'];
+        $interval = (isset($request['interval'])) ? $request['interval'] : 'week';
+        $searchModel->interval = $interval;
+        $searchModel->type = (isset($request['type'])) ? $request['type'] : '';
+
+        $dataProvider = $searchModel->search();
+
+        $countMaterials = $searchModel->getCountMaterials();
+
+        $allCount = $searchModel->allCountSearch($countMaterials);
 
         return $this->render('index',
             [
                 'request' => $request,
-                'resultsCount' => $resultsCount,
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'interval' => $interval,
+                'countMaterials' => $countMaterials,
+                'allCount' => $allCount,
             ]
         );
 

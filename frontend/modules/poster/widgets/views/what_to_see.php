@@ -8,7 +8,7 @@
  */
 use common\classes\WordFunctions;
 use yii\helpers\Url;
-
+if(!empty($posters)):
 ?>
 <div class="what-to-see">
     <h3>Что посмотреть</h3>
@@ -27,6 +27,10 @@ use yii\helpers\Url;
         <?php endforeach; ?>
         <span id="more-kino-box"></span>
     </div>
-    <a href="" id="load-more-kino" data-step="2" class="show-more">загрузить БОЛЬШЕ</a>
+
+    <?php if($countPoster > 4): ?>
+        <a href="" id="load-more-kino" data-step="2" class="show-more">загрузить БОЛЬШЕ</a>
+    <?php endif;?>
 </div>
 
+<?php endif;
