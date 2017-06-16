@@ -19,10 +19,13 @@ class WhatToSee extends Widget
     {
         $posters = Poster::find()
             ->joinWith('categories')
-            /*->where(['>', 'dt_event', time()])*/
+            ->where(['>=', 'dt_event', time()])
             ->andWhere(['`category_poster`.`slug`' => 'kino'])
+            ->orderBy('dt_event ASC')
             ->limit(5)
             ->all();
+        //Debug::prn($posters->createCommand()->rawSql);
+
         //Debug::prn($posters);
         return $this->render('what_to_see', [
             'posters' => $posters

@@ -154,7 +154,7 @@ class DefaultController extends Controller
             ->leftJoin('poster', '`category_poster_relations`.`poster_id` = `poster`.`id`')
             ->orderBy('dt_event')
             ->where(['cat_id' => $cat->id])
-            ->andWhere(['>', 'dt_event_end', time()])
+            ->andWhere(['>=', 'dt_event_end', time()])
             ->with('poster');
 
         $dataProvider = new ActiveDataProvider([
@@ -256,8 +256,8 @@ class DefaultController extends Controller
     {
         $step = Yii::$app->request->post('step');
         $poster = Poster::find()
-            /*->where(['>', 'dt_event', time()])*/
-            ->orderBy('dt_event DESC')
+            ->where(['>=', 'dt_event', time()])
+            ->orderBy('dt_event')
             ->limit(4)
             ->offset(((int)$step - 1) * 4)
             ->with('categories')
