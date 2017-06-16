@@ -14,25 +14,42 @@ use yii\helpers\Url;
     <div class="enterprises__wrap">
         <?php $i = 1; ?>
         <?php foreach ($companySmall as $item): ?>
-            <?php if ($i <= 4): ?>
-                <a href="<?= Url::to(['/company/company/view', 'slug' => $item->slug]) ?>" class="item-small">
-                    <div class="thumb">
-                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->photo); ?>" alt="">
-                    </div>
-                    <div class="content">
-                        <h4><?= $item->name; ?></h4>
-                        <!--<p>--><? //= $item->address;?><!--</p>-->
-                        <p><?= explode(';', $item->phone)[0]; ?></p>
-                    </div>
-                </a>
+            <?php if($i <= 4):?>
+                <?php if ($i <= 3): ?>
+                    <a href="<?= Url::to(['/company/company/view', 'slug' => $item->slug]) ?>" class="item-small">
+                        <div class="thumb">
+                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->photo); ?>" alt="">
+                        </div>
+                        <div class="item-small__content">
+                            <h4><?= $item->name; ?></h4>
+                            <!--<p>--><? //= $item->address;?><!--</p>-->
+                            <p><?= explode(';', $item->phone)[0]; ?></p>
+                        </div>
+                    </a>
+                <?php else: ?>
+                    <a href="<?= Url::to(['/company/company/view', 'slug' => $item->slug]) ?>" class="item-large">
+                        <div class="thumb">
+                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->photo); ?>" alt="">
+                        </div>
+                        <div class="item-small__content">
+                            <h4><?= $item->name; ?></h4>
+                            <!--<p>--><? //= $companyBig->address;?><!--</p>-->
+                            <p><?= explode(';', $item->phone)[0]; ?></p>
+                        </div>
+                    </a>
+                <?php endif; ?>
             <?php endif; ?>
             <?php $i++; ?>
         <?php endforeach; ?>
         <a href="<?= Url::to(['/company/company/view', 'slug' => $companyBig->slug]) ?>" class="item-large">
+            <div class="recommend">
+                <span class="recommend__star"></span>
+                Рекомендуем
+            </div>
             <div class="thumb">
                 <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($companyBig->photo); ?>" alt="">
             </div>
-            <div class="content">
+            <div class="item-small__content">
                 <h4><?= $companyBig->name; ?></h4>
                 <!--<p>--><? //= $companyBig->address;?><!--</p>-->
                 <p><?= explode(';', $companyBig->phone)[0]; ?></p>
