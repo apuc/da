@@ -25,9 +25,7 @@ use frontend\modules\search\models\Search;
 
         <h3><?= $model['title']; ?></h3>
         <span><?= WordFunctions::dateWithMonts($model['dt_update']); ?></span>
-        <p>… крымчане наблюдают уже в российском Крыму. Крым превращается в непонятно что и …
-            референдума.. В последнее время, в Крыму появилось очень много украинских номеров …
-            прекрасно. Фото сделаны напротив Совмина Крыма. Крымчане сейчас не могут ездить …</p>
+        <p><?= yii\helpers\StringHelper::truncate($model['descr'],150,'...'); ?></p>
 
     </div>
 
