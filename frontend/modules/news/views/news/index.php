@@ -60,6 +60,7 @@ $md = new \common\classes\Mobile_Detect();
             for ($i = 0; $i <= 38; $i++):
                 if (!in_array($i, $hotNewsIndexes)):
                     $currNew = $news[$simpleNewId];
+
                     if (in_array($i, $bigNewsIndexes)):
                         ?>
                         <a href="<?= Url::to([
@@ -70,8 +71,9 @@ $md = new \common\classes\Mobile_Detect();
                                 <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>" alt="">
                                 <div class="content-row">
                                     <span><?= WordFunctions::dateWithMonts($currNew->dt_public); ?></span>
-                                    <span>Новости</span>
+                                    <span><?= $currNew['categoryNewsRelations'][0]['cat']->title; ?></span>
                                     <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
+                                    <span><small class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currNew->id)?></span>
                                     <h2><?= $currNew->title; ?></h2>
                                 </div>
 
@@ -87,7 +89,8 @@ $md = new \common\classes\Mobile_Detect();
                                 <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>" alt="">
                                 <div class="content-row">
                                     <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
-                                    <span >Новости</span>
+                                    <span><small class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currNew->id)?></span>
+                                    <span><?= $currNew['categoryNewsRelations'][0]['cat']->title; ?></span>
                                 </div>
                             </a>
                             <!-- thumb -->
@@ -114,8 +117,9 @@ $md = new \common\classes\Mobile_Detect();
                         <div class="thumb">
                             <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($currHotNew->photo); ?>" alt="">
                             <div class="content-row">
-                                <span><small class="view-icon"></small> 2589</span>
-                                <span>Новости</span>
+                                <span><small class="view-icon"></small><?= $currHotNew->views; ?></span>
+                                <span><small class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currNew->id)?></span>
+                                <span><?= $currNew['categoryNewsRelations'][0]['cat']->title; ?></span>
                             </div>
                         </div>
                         <!-- thumb -->

@@ -61,8 +61,8 @@ class NewsController extends Controller
             ])
             ->limit(34)
             ->orderBy('dt_public DESC')
+            ->with('category')
             ->all();
-
         $hotNews = News::find()
             ->where([
                 'status' => 0,
@@ -71,6 +71,7 @@ class NewsController extends Controller
             ])
             ->limit(5)
             ->orderBy('dt_public DESC')
+            ->with('category')
             ->all();
 
         $hotNewsIndexes = [5, 7, 13, 20, 22];

@@ -103,4 +103,13 @@ class News extends \yii\db\ActiveRecord
     {
         return self::find()->where(['main_slider' => 1])->orderBy('dt_add DESC');
     }
+
+    public static function getCommentsCount($id){
+        return Comments::find()->where(['post_type' => 'news', 'post_id' => $id])->count();
+    }
+
+    public function getcategory_news_relations()
+    {
+
+    }
 }
