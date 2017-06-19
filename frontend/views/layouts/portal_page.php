@@ -34,47 +34,7 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<section class="header">
-    <div class="container">
-
-        <a href="/" class="header-logo">
-
-            <img src="/theme/portal-donbassa/img/logo.png" alt="">
-        </a>
-        <div class="header-ipanel">
-            <div class="select">
-                <select class="" name="">
-                    <option value="">Донецк</option>
-                    <option value="">Макеевка</option>
-                </select>
-            </div>
-            <?= \frontend\widgets\WeatherHeader::widget(); ?>
-            <?= ExchangeRates::widget() ?>
-            <form action="">
-                <input class="search-input" type="text" placeholder="Поиск">
-                <?php if(Yii::$app->user->isGuest): ?>
-                    <a href="<?= Url::to(['/user/login']) ?>">
-                        <span class="autoriz-icon"></span>
-                        авторизация
-                    </a>
-                <?php else: ?>
-                    <a href="<?= Url::to(['/user/settings/profile']) ?>">
-                        <span class="autoriz-icon"></span>
-                        <?= User::findById(Yii::$app->user->id)->username; ?>
-                    </a>
-                <?php endif; ?>
-            </form>
-        </div>
-        <?php echo \frontend\widgets\MainMenu::widget() ?>
-        <button class="toggle_mnu">
-          <span class="sandwich">
-            <span class="sw-topper"></span>
-            <span class="sw-bottom"></span>
-            <span class="sw-footer"></span>
-          </span>
-        </button>
-    </div>
-</section>
+<?= \frontend\widgets\ShoWHeader::widget(); ?>
 
 <?= $content;?>
 <footer class="footer">
