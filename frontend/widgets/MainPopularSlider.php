@@ -20,6 +20,7 @@ class MainPopularSlider extends Widget
                 ->orderBy('views DESC')
                 ->limit(4)
                 ->orderBy(new Expression('rand()'))
+                ->with('category')
                 ->all(),
             'newsSlider2' => News::find()
                 ->where(['>', 'dt_add', time() - (86400 * 30)])
@@ -27,6 +28,7 @@ class MainPopularSlider extends Widget
                 ->orderBy('views DESC')
                 ->limit(4)
                 ->orderBy(new Expression('rand()'))
+                ->with('category')
                 ->all(),
             'newsSlider3' => News::find()
                 ->where(['>', 'dt_add', time() - (86400 * 30)])
@@ -34,6 +36,7 @@ class MainPopularSlider extends Widget
                 ->orderBy('views DESC')
                 ->limit(4)
                 ->orderBy(new Expression('rand()'))
+                ->with('category')
                 ->all(),
             'newsSlider4' => News::find()
                 ->where(['>', 'dt_add', time() - (86400 * 30)])
@@ -41,6 +44,7 @@ class MainPopularSlider extends Widget
                 ->orderBy('views DESC')
                 ->limit(4)
                 ->orderBy(new Expression('rand()'))
+                ->with('category')
                 ->all(),
         ]);
     }

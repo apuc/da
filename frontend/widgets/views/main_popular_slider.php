@@ -17,6 +17,7 @@ use yii\helpers\Url;
                             <div class="content-row">
                                 <span>Новости</span>
                                 <span><small class="view-icon"></small> <?= $item->views ?></span>
+                                <span><small class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($item->id)?></span>
                                 <?= \frontend\widgets\Share::widget([
                                     'url' => \yii\helpers\Url::base(true) . '/news/' . $item->slug,
                                     'title' => $item->title,
@@ -40,6 +41,7 @@ use yii\helpers\Url;
                             <div class="content-row">
                                 <span>Новости</span>
                                 <span><small class="view-icon"></small> <?= $item->views ?></span>
+                                <span><small class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($item->id)?></span>
                                 <?= \frontend\widgets\Share::widget(
                                     [
                                         'url' => \yii\helpers\Url::base(true) . '/news/' . $item->slug,
@@ -65,6 +67,7 @@ use yii\helpers\Url;
                             <div class="content-row">
                                 <span>Новости</span>
                                 <span><small class="view-icon"></small> <?= $item->views; ?></span>
+                                <span><small class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($item->id)?></span>
                                 <?= \frontend\widgets\Share::widget([
                                     'url' => \yii\helpers\Url::base(true) . '/news/' . $item->slug,
                                     'title' => $item->title,
