@@ -1,19 +1,19 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: apuc0
- * Date: 15.04.2017
- * Time: 15:57
+ * User: 7
+ * Date: 19.06.2017
+ * Time: 11:34
  */
 
 namespace frontend\widgets;
 
 use yii\base\Widget;
 
-class ShowHeader extends Widget
+class ShowFooter extends Widget
 {
     public function run()
     {
-        return $this->render('header');
+        return $this->render('footer');
     }
 }

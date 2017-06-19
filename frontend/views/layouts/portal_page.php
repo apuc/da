@@ -34,7 +34,7 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<?= \frontend\widgets\ShoWHeader::widget(); ?>
+<?= \frontend\widgets\ShowHeader::widget(); ?>
 
 <?= $content;?>
 <footer class="footer">
