@@ -101,7 +101,11 @@ class News extends \yii\db\ActiveRecord
 
     public static function mainSlider()
     {
-        return self::find()->where(['main_slider' => 1])->orderBy('dt_add DESC')->with('category');
+        return self::find()
+            ->where(['main_slider' => 1])
+            ->andWhere(['<=', 'dt_public', time()])
+            ->orderBy('dt_add DESC')
+            ->with('category');
     }
 
     public static function getCommentsCount($id){
