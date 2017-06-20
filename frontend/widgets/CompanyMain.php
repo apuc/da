@@ -20,7 +20,7 @@ class CompanyMain extends Widget
         $companies = Company::find()
             /*->where(['>','dt_add',84600 * 30])*/
             ->orderBy('views DESC')
-            ->limit(9)
+            ->limit(12)
             ->all();
         return $this->render('company_main', ['companies'=>$companies]);
     }

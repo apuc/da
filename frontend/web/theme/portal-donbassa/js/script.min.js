@@ -164,7 +164,7 @@ $(document).ready(function () {
     /*company-home slider*/
     $(".company-slider__box").owlCarousel({
         loop: true,
-        margin: 5,
+        margin: 25,
         nav: true,
         navText: true,
         navigation: true,
@@ -188,12 +188,12 @@ $(document).ready(function () {
                 nav: true
             },
             1000: {
-                items: 4,
+                items: 1,
                 nav: true,
                 loop: true
             },
             1200: {
-                items: 4,
+                items: 1,
                 nav: true,
                 loop: true
             }

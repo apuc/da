@@ -28,7 +28,7 @@ class MainSlider extends Widget
                 $output = 'Сегодня в ' . date('H:i', $date);
                 break;
             case $yesterday :
-                $output = 'Вчера в ';
+                $output = 'Вчера в ' . date('H:i', $date);
                 break;
             default :
                 $output = date('d.m', strtotime($dbDate));//date('m.d',$dbDate);

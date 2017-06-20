@@ -30,7 +30,7 @@ use yii\helpers\Html;
         </div>
     <?php $k++; endforeach; ?>
     <!--<h5 class="total">Всего проголосовало: <?/*= $answers_count ; */?> чел.</h5>-->
-
+    <h5>Проголосовало <span><?= $answers_count ; ?></span></h5>
 
 <!---->
 <?php //\common\classes\Debug::prn($possible_answers); ?>

@@ -30,13 +30,24 @@ use yii\helpers\Url;
                     <a href="<?= Url::to(['/company/company/view', 'slug' => $item->slug]) ?>" class="item-large">
                         <div class="thumb">
                             <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->photo); ?>" alt="">
+                            <h4><?= $item->name; ?></h4>
                         </div>
                         <div class="item-small__content">
-                            <h4><?= $item->name; ?></h4>
-                            <!--<p>--><? //= $companyBig->address;?><!--</p>-->
-                            <p><?= explode(';', $item->phone)[0]; ?></p>
+                            <span>
+                                Адрес: <?= $companyBig->address;?>
+                            </span>
+                            <?php $phone = explode(' ', $item->phone); ?>
+
+                            <p>
+                                <?= isset($phone[0]) ? $phone[0] : '' ?>
+                            </p>
+                            <p>
+                                <?= isset($phone[1]) ? $phone[1] : '' ?>
+                            </p>
                         </div>
+
                     </a>
+
                 <?php endif; ?>
             <?php endif; ?>
             <?php $i++; ?>
@@ -48,13 +59,24 @@ use yii\helpers\Url;
             </div>
             <div class="thumb">
                 <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($companyBig->photo); ?>" alt="">
+                <h4><?= $companyBig->name; ?></h4>
             </div>
             <div class="item-small__content">
-                <h4><?= $companyBig->name; ?></h4>
-                <!--<p>--><? //= $companyBig->address;?><!--</p>-->
-                <p><?= explode(';', $companyBig->phone)[0]; ?></p>
+                            <span>
+                                Адрес: <?= $companyBig->address;?>
+                            </span>
+                <?php $phone = explode(' ', $item->phone); ?>
+
+                <p>
+                    <?= isset($phone[0]) ? $phone[0] : '' ?>
+                </p>
+                <p>
+                    <?= isset($phone[1]) ? $phone[1] : '' ?>
+                </p>
             </div>
+
         </a>
+
         <!-- close item -->
         <a href="<?= Url::to(['/company/company']) ?>" class="show-enterprises">смотреть все заведения<span
                     class="red-arrow"></span></a>
