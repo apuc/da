@@ -60,4 +60,17 @@ class CategoryFaq extends \yii\db\ActiveRecord
             'meta_descr' => Yii::t('poster', 'Meta Descr'),
         ];
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFaq()
+    {
+        return $this->hasMany(Faq::className(), ['cat_id' => 'id'])->andWhere(['main_page' => 1]);
+    }
+
+    public function getConsulting()
+    {
+        return $this->hasOne(Consulting::className(), ['slug' => 'type']);
+    }
 }

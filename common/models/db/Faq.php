@@ -84,4 +84,9 @@ class Faq extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Consulting::className(), ['slug' => 'type']);
     }
+
+    public static function getCompanyName($id)
+    {
+        return Company::find()->where(['id' => $id])->one()->name;
+    }
 }
