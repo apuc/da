@@ -53,8 +53,8 @@
                                     <div class="item__small_content">
                                         <span class="hour-ago"><?= WordFunctions::FullEventDate($new->dt_public); ?></span>
                                         <div class="item__content_panel">
-                                            <span><small class="view-icon"></small><?= $firstNew->views; ?></span>
-                                            <span><small class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($firstNew->id); ?></span>
+                                            <span><small class="view-icon"></small><?= $new->views; ?></span>
+                                            <span><small class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($new->id); ?></span>
                                         </div>
                                         <h4><?= $new->title; ?></h4>
                                     </div>
