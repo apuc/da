@@ -29,6 +29,7 @@ class MostPopularNews extends Widget
             ->andWhere(['!=', 'slug', $currentNewSlug])
             ->orderBy('views DESC')
             ->limit(2)
+            ->with('category')
             ->all();
 
         return $this->render('most_popular_news', [
