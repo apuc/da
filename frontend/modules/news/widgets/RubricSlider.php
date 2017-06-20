@@ -31,8 +31,10 @@ class RubricSlider extends Widget
                 ->joinWith('categoryNewsRelations')
 
                 ->where(['`category_news_relations`.`cat_id`' => $id])
+                ->andWhere(['<=', 'dt_public', time()])
                 ->orderBy('dt_public DESC')
                 ->limit(5)
+                ->with('category')
                 ->all();
         }
 
