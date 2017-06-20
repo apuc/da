@@ -322,4 +322,30 @@ class CompanyController extends Controller
         return VipCompanyWidget::widget();
         // return '1';
     }
+
+    public function actionGetCompany()
+    {
+        $select_categories = CategoryCompany::find()
+            ->where(['parent_id' => $_GET['catId']])
+            ->all();
+        $id_parrent_company = ArrayHelper::getColumn($select_categories, 'id');
+        $select_organizations = Company::find()
+            ->where(['status' => 0])
+            ->leftJoin('category_company_relations', '`category_company_relations`.`company_id`=`company`.`id`')
+            ->andWhere(['`category_company_relations`.`cat_id`' => $_GET['catId']])
+            ->orWhere([
+                'status' => 0,
+                '`category_company_relations`.`cat_id`' => $id_parrent_company,
+            ])
+            ->with('category_company_relations')
+            ->all();
+
+        $positions = [1, 4, 10];
+
+        return $this->renderPartial('view_category', [
+            'organizations' => $select_organizations,
+            'positions' => $positions,
+            'categ' => CategoryCompany::find()->where(['id' => $_GET['catId']])->one()
+        ]);
+    }
 }

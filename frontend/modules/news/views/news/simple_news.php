@@ -11,7 +11,8 @@ foreach($news as $new): ?>
             <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($new->photo); ?>" alt="">
             <div class="content-row">
                 <span><small class="view-icon"></small> <?= $new->views; ?></span>
-                <span>Новости</span>
+                <span><small class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($new->id)?></span>
+                <span><?= $new['categoryNewsRelations'][0]['cat']->title; ?></span>
             </div>
 
         </a>

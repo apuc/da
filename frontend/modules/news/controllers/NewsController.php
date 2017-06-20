@@ -125,6 +125,7 @@ class NewsController extends Controller
                 ->offset($request['offset'])
                 ->limit(16)
                 ->orderBy('dt_public DESC')
+                ->with('category')
                 ->all();
 
             return $this->renderPartial('simple_news', ['news' => $news]);
