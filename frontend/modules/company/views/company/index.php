@@ -50,12 +50,7 @@ $this->registerJsFile('/js/company_ajax.js', ['depends' => [\yii\web\JqueryAsset
                                 <p class="business__sm-item--title">
                                     <?= $company->name ?>
                                 </p>
-
-                                <p class="business__big-item--address">
-                                    <span>Время работы Министерства:</span>
-                                    <span>с 9:00 до 18:00 (перерыв с 13:00 до 14:00)</span>
-                                </p>
-
+                                
                                 <p class="business__sm-item--address">
                                     <span>Адрес:</span>
                                     <span><?= $company->address ?></span>
