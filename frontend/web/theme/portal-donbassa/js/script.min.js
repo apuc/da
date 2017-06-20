@@ -926,15 +926,6 @@ $(document).ready(function () {
     });
     /*close search form option select*/
 
-    /*single afisha countdown*/
-    $("#countdown").countdown({  
-            date: "16 august 2017 12:00:00",
-            format: "on",
-            languge: 'ru'
-        },
-        function () {});
-    /*close single afisha countdown*/
-
     /*go to top scroll*/
     $.fn.scrollToTop = function () {
         $(this).hide().removeAttr("href");
