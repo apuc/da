@@ -16,6 +16,7 @@ use Yii;
  * @property integer $dt_add
  * @property integer $parent_id
  * @property integer $moder_checked
+ * @property integer $published
  */
 class Comments extends \yii\db\ActiveRecord
 {
@@ -33,7 +34,7 @@ class Comments extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['post_id', 'user_id', 'dt_add', 'parent_id', 'moder_checked'], 'integer'],
+            [['post_id', 'user_id', 'dt_add', 'parent_id', 'moder_checked', 'published'], 'integer'],
             [['content'], 'string'],
             [['post_type'], 'string', 'max' => 64],
         ];
@@ -53,12 +54,13 @@ class Comments extends \yii\db\ActiveRecord
             'dt_add' => Yii::t('comments', 'Dt Add'),
             'parent_id' => Yii::t('comments', 'Parent'),
             'moder_checked' => Yii::t('comments', 'Отмечено модератором'),
+            'published' => Yii::t('comments', 'Опубликовано'),
         ];
     }
 
     public function getChildComments()
     {
-        return $this->hasMany(Comments::className(), ['parent_id' => 'id'])->with('user');
+        return $this->hasMany(Comments::className(), ['parent_id' => 'id'])->andWhere(['published' => 1])->with('user');
     }
 
     public function getUser()

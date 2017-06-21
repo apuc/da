@@ -74,7 +74,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     '3'=>'Отложена',
                 ], [ 'class' => 'form-control', 'prompt' => '' ] ),
             ],
-
+            [
+                'label' => 'Ссылка',
+                'format'    => 'raw',
+                'value'     => function ( $model ) {
+                    return Html::a('Перейти',
+                        Yii::$app->urlManagerFrontend->createUrl(['news/default/view', 'slug'=>$model->slug]),
+                        ['target' => '_blank']);
+                },
+//                'filter'    => Html::
+            ],
             // 'user_id',
             // 'lang_id',
 

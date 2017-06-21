@@ -26,10 +26,11 @@ use yii\widgets\ActiveForm;
             'categ',
             $cats_arr,
             ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title'),
-            ['class' => 'form-control', 'id' => 'categ', 'multiple' => 'multiple']
+            ['class' => 'form-control', 'id' => 'categ', 'multiple' => 'multiple', 'required' => 'required']
         );
         ?>
     </span>
+
     <br>
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 

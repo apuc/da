@@ -21,7 +21,7 @@ $(document).ready(function () {
                     parent_id: $(this).attr('data-parent-id'),
                 },
                 success: function (data) {
-                    window.location.reload();
+                    
                 }
             });
         }

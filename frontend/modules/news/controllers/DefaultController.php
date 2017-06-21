@@ -44,6 +44,7 @@ class DefaultController extends Controller
             ->where([
                 'post_type' => 'news',
                 'post_id' => $new->id,
+                'moder_checked' => 1
             ])
             ->count();
 

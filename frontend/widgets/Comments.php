@@ -26,15 +26,23 @@ class Comments extends Widget
                 'post_type' => $this->postType,
                 'post_id' => $this->postId,
                 'parent_id' => 0,
+                'published' => 1
             ])
             ->orderBy('id')
             ->with('childComments')
             ->with('user')
             ->all();
 
-        return $this->render('comments',
-            ['comments' => $comments, 'postType' => $this->postType, 'postId' => $this->postId,
-                'pageTitle'=>$this->pageTitle]);
+        $renderView = (empty($comments)) ? 'not-comments' : 'comments';
+
+        return $this->render('comments/' . $renderView,
+            [
+                'comments' => $comments,
+                'postType' => $this->postType,
+                'postId' => $this->postId,
+                'pageTitle'=>$this->pageTitle
+            ]
+        );
     }
 
 }
