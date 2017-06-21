@@ -128,7 +128,10 @@ class NewsController extends Controller
                 ->with('category')
                 ->all();
 
-            return $this->renderPartial('simple_news', ['news' => $news]);
+            return $this->renderPartial('simple_news',
+                [
+                    'news' => $news,
+                ]);
 
         }
     }
@@ -245,12 +248,14 @@ class NewsController extends Controller
             ->orderBy('dt_public DESC')
             ->all();
 
+        //Debug::prn($news);
+
         $hotNewsIndexes = [5, 7, 13, 20, 22];
         $bigNewsIndexes = [14, 28, 38];
 
         return $this->render('category',
             [
-                'category' => $cat,
+                'cat' => $cat,
                 'news' => $news,
                 'hotNews' => $hotNews,
                 'hotNewsIndexes' => $hotNewsIndexes,
@@ -287,6 +292,7 @@ class NewsController extends Controller
 
         return $this->render('archive_news', [
             'news' => $news,
+            'date' => $date,
         ]);
     }
 

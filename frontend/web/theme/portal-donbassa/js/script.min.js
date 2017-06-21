@@ -548,26 +548,29 @@ $(document).ready(function () {
     /*close show social links on main page*/
 
     /*datapicker*/
-    $(".datepicker-wrap").click(function () {
-        $(".datepicker-inline").toggle("slow");
+    $(document).on('click', '.datepicker-wrap', function () {
+            $('.datepicker-inline').slideToggle();
     });
-    // $('.datepicker-wrap').datepicker({
-    //   inline: false,
-    //     onShow: function(dp, animationCompleted){
-    //         if (!animationCompleted) {
-    //             log('start showing')
-    //         } else {
-    //             log('finished showing')
-    //         }
-    //     },
-    //     onHide: function(dp, animationCompleted){
-    //         if (!animationCompleted) {
-    //             log('start hiding')
-    //         } else {
-    //             log('finished hiding')
-    //         }
-    //     }
-    // });
+    $('.datepicker-wrap').datepicker({
+      inline: false,
+        onShow: function(dp, animationCompleted){
+            if (!animationCompleted) {
+                log('start showing')
+            } else {
+                log('finished showing')
+            }
+        },
+        onHide: function(dp, animationCompleted){
+            if (!animationCompleted) {
+                log('start hiding')
+            } else {
+                log('finished hiding')
+            }
+        },
+        onSelect: function () {
+            $('.datepicker-inline').slideToggle();
+        }
+    });
     /*datapicker*/
 
 

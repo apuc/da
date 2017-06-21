@@ -19,10 +19,10 @@ use yii\widgets\Pjax;
 
 //$this->title                   = Yii::t( 'news', 'News' );
 $this->params['breadcrumbs'][] = $this->title;
-$this->title = $meta_title;
+$this->title = 'Архив новостей за ' . date('d-m-Y', strtotime($date));
 $this->registerMetaTag([
     'name' => 'description',
-    'content' => $meta_descr,
+    'content' => 'Архив новостей за ' . date('d-m-Y', strtotime($date)),
 ]);
 $md = new \common\classes\Mobile_Detect();
 ?>
@@ -35,24 +35,48 @@ $md = new \common\classes\Mobile_Detect();
                 <a href="">подписаться</a>
 
             </div>
-            <!--<div class="hot-tag">-->
-            <!--    <a href="">Криптовалюты </a>-->
-            <!--    <a href="">Дональд Трамп</a>-->
-            <!--    <a href="">ОПЕК</a>-->
-            <!--    <a href="">Китай Tesla </a>-->
-            <!--</div>-->
+            <!--<div class="hot-tag">
+                <a href="">Криптовалюты </a>
+                <a href="">Дональд Трамп</a>
+                <a href="">ОПЕК</a>
+                <a href="">Китай Tesla </a>
+            </div>-->
         </div>
         <div class="news__wrap">
 
             <?php foreach ($news as $new): ?>
-                <div class="news__wrap_item-sm">
+                <!--<div class="news__wrap_item-sm">
                     <div class="thumb">
-                        <img src="<?= $new->photo; ?>" alt="">
+                        <img src="<?/*= $new->photo; */?>" alt="">
                         <div class="content-row">
-                            <span><small class="view-icon"></small> <?= $new->views; ?></span>
+                            <span><small class="view-icon"></small> <?/*= $new->views; */?></span>
                             <a>Новости</a>
                         </div>
                     </div>
+                    <div class="content-item">
+                        <p><a href="<?/*= Url::to([
+                                '/news/default/view',
+                                'slug' => $new->slug,
+                            ]); */?>"><?/*= $new->title; */?></a></p>
+                        <span><?/*= WordFunctions::dateWithMonts($new->dt_public); */?></span>
+                    </div>
+                </div>-->
+                <div class="news__wrap_item-sm">
+                    <!-- thumb -->
+                    <a href="<?= Url::to([
+                        '/news/default/view',
+                        'slug' => $new->slug,
+                    ]); ?>" class="thumb">
+                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($new->photo); ?>"
+                             alt="">
+                        <div class="content-row">
+                            <span><small class="view-icon"></small> <?= $new->views; ?></span>
+                            <span><small
+                                    class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($new->id) ?></span>
+                            <span><?= $new['categoryNewsRelations'][0]['cat']->title; ?></span>
+                        </div>
+                    </a>
+                    <!-- thumb -->
                     <div class="content-item">
                         <p><a href="<?= Url::to([
                                 '/news/default/view',
@@ -61,9 +85,12 @@ $md = new \common\classes\Mobile_Detect();
                         <span><?= WordFunctions::dateWithMonts($new->dt_public); ?></span>
                     </div>
                 </div>
+
             <?php endforeach; ?>
 
-            <div class="home-content__wrap_subscribe">
+            <?= \frontend\widgets\Subscribe::widget() ?>
+
+            <!--<div class="home-content__wrap_subscribe">
                 <div class="subscribe__wrap">
                     <h3>ПОДПИСАТЬСЯ НА НОВОСТИ</h3>
                     <form action="">
@@ -95,7 +122,7 @@ $md = new \common\classes\Mobile_Detect();
                         </a>
                     </div>
                 </div>
-            </div>
+            </div>-->
         </div>
 
     </div>

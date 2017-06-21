@@ -27,12 +27,10 @@ $this->registerMetaTag([
     'content' => $meta_descr,
 ]);
 
-
 $this->registerLinkTag([
     'href' => Url::home(true) . 'all-news',
     'rel' => 'canonical',
 ]);
-
 
 $md = new \common\classes\Mobile_Detect();
 ?>
@@ -42,7 +40,7 @@ $md = new \common\classes\Mobile_Detect();
         <div class="news-slider-index-panel">
             <h3>Горячие темы</h3>
             <div class="buttons-wrap">
-                <a href="<?= Url::to(['/site/design']);?>">подписаться</a>
+                <a href="<?= Url::to(['/site/design']); ?>">подписаться</a>
 
             </div>
             <!--<div class="hot-tag">-->
@@ -68,12 +66,14 @@ $md = new \common\classes\Mobile_Detect();
                             'slug' => $currNew->slug,
                         ]); ?>" class="news__wrap_item-lg">
                             <div class="thumb">
-                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>" alt="">
+                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>"
+                                     alt="">
                                 <div class="content-row">
                                     <span><?= WordFunctions::dateWithMonts($currNew->dt_public); ?></span>
                                     <span><?= $currNew['categoryNewsRelations'][0]['cat']->title; ?></span>
                                     <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
-                                    <span><small class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currNew->id)?></span>
+                                    <span><small
+                                            class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currNew->id) ?></span>
                                     <h2><?= $currNew->title; ?></h2>
                                 </div>
 
@@ -86,10 +86,12 @@ $md = new \common\classes\Mobile_Detect();
                                 '/news/default/view',
                                 'slug' => $currNew->slug,
                             ]); ?>" class="thumb">
-                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>" alt="">
+                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>"
+                                     alt="">
                                 <div class="content-row">
                                     <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
-                                    <span><small class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currNew->id)?></span>
+                                    <span><small
+                                            class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currNew->id) ?></span>
                                     <span><?= $currNew['categoryNewsRelations'][0]['cat']->title; ?></span>
                                 </div>
                             </a>
@@ -118,16 +120,17 @@ $md = new \common\classes\Mobile_Detect();
                             <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($currHotNew->photo); ?>" alt="">
                             <div class="content-row">
                                 <span><small class="view-icon"></small><?= $currHotNew->views; ?></span>
-                                <span><small class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currNew->id)?></span>
+                                <span><small
+                                        class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currNew->id) ?></span>
                                 <span><?= $currNew['categoryNewsRelations'][0]['cat']->title; ?></span>
                             </div>
                         </div>
                         <!-- thumb -->
                         <div class="hover-wrap">
-          <span class="category">
-            <span class="category-star"></span>
-            ГОРЯЧЕЕ
-          </span>
+                              <span class="category">
+                                <span class="category-star"></span>
+                                ГОРЯЧЕЕ
+                              </span>
                             <h2><?= $currHotNew->title; ?></h2>
                         </div>
                     </a>
@@ -142,12 +145,13 @@ $md = new \common\classes\Mobile_Detect();
         <div class="news__wrap_buttons">
             <a href="#go_rubricator" class="businessScroll"><span class="rotate-arrow"></span>рубрикатор</a>
             <a
-                    href=""
-                    data-offset="34"
-                    csrf-token="<?= Yii::$app->getRequest()->getCsrfToken(); ?>"
-                    class="show-more show-more-news-js">загрузить
+                href=""
+                data-offset="34"
+                csrf-token="<?= Yii::$app->getRequest()->getCsrfToken(); ?>"
+                class="show-more show-more-news-js">загрузить
                 БОЛЬШЕ</a>
-            <span href="#" class="archive-news datepicker-here datepicker-wrap">архив новостей</span>
+            <span href="#" class="archive-news datepicker-here datepicker-wrap" >архив новостей <span class="rotate-arrow"></span></span>
+
         </div>
     </div>
 </section>

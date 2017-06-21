@@ -29,7 +29,7 @@ $md = new \common\classes\Mobile_Detect();
 <section class="news">
     <div class="container">
         <div class="news-slider-index-panel">
-            <h3><?= $category->title; ?></h3>
+            <h3><?= $cat->title; ?></h3>
             <div class="buttons-wrap">
                 <a href="">подписаться</a>
 
@@ -48,33 +48,45 @@ $md = new \common\classes\Mobile_Detect();
             $hotNewId = 0;
             for ($i = 0; $i <= 38; $i++):
                 if (!in_array($i, $hotNewsIndexes)):
-                    $currNew = $news[$simpleNewId]->news;
+                    $currNew = $news[$simpleNewId]['news'];
+
                     if (in_array($i, $bigNewsIndexes)):
                         ?>
-                        <div class="news__wrap_item-lg">
+                        <a href="<?= Url::to([
+                            '/news/default/view',
+                            'slug' => $currNew->slug,
+                        ]); ?>" class="news__wrap_item-lg">
                             <div class="thumb">
-                                <img src="<?= $currNew->photo; ?>" alt="">
+                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>"
+                                     alt="">
                                 <div class="content-row">
                                     <span><?= WordFunctions::dateWithMonts($currNew->dt_public); ?></span>
-                                    <a>Новости</a>
+                                    <span><?= $cat->title; ?></span>
                                     <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
-                                    <h2><a href="<?= Url::to([
-                                            '/news/default/view',
-                                            'slug' => $currNew->slug,
-                                        ]); ?>"><?= $currNew->title; ?></a></h2>
+                                    <span><small
+                                            class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currNew->id) ?></span>
+                                    <h2><?= $currNew->title; ?></h2>
                                 </div>
 
                             </div>
-                        </div>
+                        </a>
                     <?php else: ?>
                         <div class="news__wrap_item-sm">
-                            <div class="thumb">
-                                <img src="<?= $currNew->photo; ?>" alt="">
+                            <!-- thumb -->
+                            <a href="<?= Url::to([
+                                '/news/default/view',
+                                'slug' => $currNew->slug,
+                            ]); ?>" class="thumb">
+                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>"
+                                     alt="">
                                 <div class="content-row">
                                     <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
-                                    <a>Новости</a>
+                                    <span><small
+                                            class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currNew->id) ?></span>
+                                    <span><?= $cat->title; ?></span>
                                 </div>
-                            </div>
+                            </a>
+                            <!-- thumb -->
                             <div class="content-item">
                                 <p><a href="<?= Url::to([
                                         '/news/default/view',
@@ -90,77 +102,47 @@ $md = new \common\classes\Mobile_Detect();
 
                     $currHotNew = $hotNews[$hotNewId];
                     ?>
-                    <div class=" news__wrap_item-sm-hot">
+                    <a href="<?= Url::to([
+                        '/news/default/view',
+                        'slug' => $currHotNew->slug,
+                    ]); ?>" class=" news__wrap_item-sm-hot">
                         <!-- thumb -->
                         <div class="thumb">
-                            <img src="<?= $currHotNew->photo; ?>" alt="">
+                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($currHotNew->photo); ?>" alt="">
                             <div class="content-row">
-                                <span><small class="view-icon"></small> <?= $currHotNew->views; ?></span>
-                                <a>Новости</a>
+                                <span><small class="view-icon"></small><?= $currHotNew->views; ?></span>
+                                <span><small
+                                        class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currNew->id) ?></span>
+                                <span><?= $cat->title; ?></span>
                             </div>
                         </div>
                         <!-- thumb -->
                         <div class="hover-wrap">
-                            <a href="" class="category">
+                              <span class="category">
                                 <span class="category-star"></span>
                                 ГОРЯЧЕЕ
-                            </a>
-                            <h2><a href="<?= Url::to([
-                                    '/news/default/view',
-                                    'slug' => $currHotNew->slug,
-                                ]); ?>"><?= $currHotNew->title; ?></a></h2>
+                              </span>
+                            <h2><?= $currHotNew->title; ?></h2>
                         </div>
-                    </div>
+                    </a>
+
+
                     <?php
                     $hotNewId = $hotNewId + 1 == count($hotNews) ? 0 : $hotNewId + 1;
                 endif;
             endfor; ?>
-
-
-            <div class="home-content__wrap_subscribe">
-                <div class="subscribe__wrap">
-                    <h3>ПОДПИСАТЬСЯ НА НОВОСТИ</h3>
-                    <form action="">
-                        <input type="text" placeholder="Выслать на email">
-                        <button>подписаться</button>
-                    </form>
-                    <div class="social-wrap">
-                        <h4>мы в социальных сетях</h4>
-                        <a href="" class="social-wrap__item vk">
-                            <img src="/theme/portal-donbassa/img/soc/vk.png" alt="">
-                        </a>
-                        <a href="" class="social-wrap__item fb">
-                            <img src="/theme/portal-donbassa/img/soc/fb.png" alt="">
-                        </a>
-                        <a href="" class="social-wrap__item ok">
-                            <img src="/theme/portal-donbassa/img/soc/ok-icon.png" alt="">
-                        </a>
-                        <a href="" class="social-wrap__item insta">
-                            <img src="/theme/portal-donbassa/img/soc/insta-icon.png" alt="">
-                        </a>
-                        <a href="" class="social-wrap__item twitter">
-                            <img src="/theme/portal-donbassa/img/soc/twi-icon.png" alt="">
-                        </a>
-                        <a href="" class="social-wrap__item google">
-                            <img src="/theme/portal-donbassa/img/soc/google-icon.png" alt="">
-                        </a>
-                        <a href="" class="social-wrap__item pinterest">
-                            <img src="/theme/portal-donbassa/img/soc/pinter-icon.png" alt="">
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <?= \frontend\widgets\Subscribe::widget() ?>
         </div>
         <div class="news__wrap_buttons">
-            <a href=""><span class="rotate-arrow"></span>рубрикатор</a>
+            <a href="#go_rubricator" class="businessScroll"><span class="rotate-arrow"></span>рубрикатор</a>
             <a
                     href=""
                     data-offset="34"
                     csrf-token="<?= Yii::$app->getRequest()->getCsrfToken(); ?>"
-                    data-category="<?= $category->slug; ?>"
+                    data-category="<?= $cat->slug; ?>"
                     class="show-more show-more-category-news-js">загрузить
                 БОЛЬШЕ</a>
-            <span href="#" class="archive-news datepicker-here datepicker-wrap">архив новостей</span>
+            <span href="#" class="archive-news datepicker-here datepicker-wrap" >архив новостей <span class="rotate-arrow"></span></span>
         </div>
     </div>
 </section>

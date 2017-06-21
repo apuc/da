@@ -1,3 +1,8 @@
+<?php
+use common\classes\WordFunctions;
+use yii\helpers\Url;
+?>
+
 <section id="go_rubricator" class="rubrick-slider">
     <div class="container">
         <button class="toggle_mnu__rubrick">
@@ -8,8 +13,7 @@
         </span>
         </button>
         <div class="rubrick-slider__wrap">
-            <?php use common\classes\WordFunctions;
-            use yii\helpers\Url;
+            <?php
 
             foreach ($newsArray as $title => $news):
                 if (!empty($news[0])):
@@ -18,7 +22,7 @@
                     <div class="rubrick-slider__item ">
                         <div class="rubrick-slider__title">
                             <h2><?= $title; ?></h2>
-                            <p><?= $firstNew->categoryNewsRelations[0]->cat->descr; ?></p>
+                            <p><?= $firstNew->categoryNewsRelations[0]->cat->meta_descr; ?></p>
                             <a href="<?= Url::to([
                                 '/news/news/category',
                                 'slug' => $firstNew->categoryNewsRelations[0]->cat->slug,

@@ -27,13 +27,13 @@ class AppAsset extends AssetBundle
         '/theme/portal-donbassa/css/fancybox/jquery.fancybox-buttons.css',
         '/css/lightbox.css',
         '/css/poster.css',
-        '/theme/css/jquery-ui.min.css',
+        /*'/theme/css/jquery-ui.min.css',*/
         '/theme/portal-donbassa/css/styles.min.css',
     ];
     public $js = [
         'https://api-maps.yandex.ru/2.1/?lang=ru_RU',
         '/theme/portal-donbassa/js/jquery-2.1.3.min.js',
-        '/theme/portal-donbassa/js/jquery-ui.min.js',
+        /*'/theme/portal-donbassa/js/jquery-ui.min.js',*/
         '/theme/portal-donbassa/js/map.js',
         '/theme/portal-donbassa/js/libs.min.js',
         '/theme/portal-donbassa/js/owl.carousel.min.js',
