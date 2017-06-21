@@ -44,11 +44,11 @@ class DefaultController extends Controller
             ->where([
                 'post_type' => 'news',
                 'post_id' => $new->id,
-                'moder_checked' => 1
+                'published' => 1
             ])
             ->count();
 
-        $tags = explode(',', $new->tags);
+        //$tags = explode(',', $new->tags);
 
         $likes = Likes::find()
             ->where(['post_id' => $new->id, 'post_type' => 'news'])
@@ -94,7 +94,7 @@ class DefaultController extends Controller
 
         return $this->render('view', [
             'model' => $new,
-            'tags' => $tags,
+            //'tags' => $tags,
             'likes' => $likes,
             'category' => $category,
             'countComments' => $countComments,

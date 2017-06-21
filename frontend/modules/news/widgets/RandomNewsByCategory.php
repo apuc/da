@@ -16,6 +16,7 @@ use yii\base\Widget;
 class RandomNewsByCategory extends Widget
 {
     public $categoryId;
+    public $template = 'right';
 
     public function run()
     {
@@ -31,7 +32,7 @@ class RandomNewsByCategory extends Widget
             ->addOrderBy('dt_public DESC')
             ->limit(3)
             ->all();
-        return $this->render("random_news_by_category", [
+        return $this->render('random-news-by-category/' . $this->template, [
             'news' => $news,
         ]);
 

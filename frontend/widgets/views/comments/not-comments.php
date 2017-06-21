@@ -6,12 +6,13 @@
  * Time: 12:13
  */
 ?>
-<div class="comments-wrapper">
+<!--<div class="comments-wrapper">
     <p>На данный момент коментариев нет</p>
     <p>Будь первым</p>
 
-    <a href="#"  data-post-type="<?= $postType; ?>"
-       data-post-id="<?= $postId; ?>"
+    <a href="#"  data-post-type="<?/*= $postType; */?>"
+       data-post-id="<?/*= $postId; */?>"
        data-parent-id="0"
        href="#" class="add-comment">написать нам</a>
-</div>
+</div>-->
+<a href="#" class="load-more add-comment">оставить комментарий</a>

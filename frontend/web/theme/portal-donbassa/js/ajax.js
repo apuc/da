@@ -3,7 +3,7 @@ $(document).ready(function () {
     $(document).on('click', '.likes', function () {
 
         var csrfToken = $(this).attr('csrf-token');
-
+        var elem = $(this);
         $.ajax({
             url: '/likes/like',
             type: 'POST',
@@ -14,7 +14,11 @@ $(document).ready(function () {
             },
             success: function (data) {
                 $('.like-counter').html(data);
-                $('.like-icon, .like-set-icon').toggleClass('like-set-icon').toggleClass('like-icon');
+                if(elem.hasClass('active')){
+                    elem.removeClass('active');
+                }else{
+                    elem.addClass('active');
+                }
             }
         });
     });
