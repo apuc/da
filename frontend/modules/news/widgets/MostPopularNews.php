@@ -24,8 +24,8 @@ class MostPopularNews extends Widget
         $currentNewSlug = Yii::$app->request->get()['slug'];
 
         $news = News::find()
-            ->where(['status' => 0])
-            /*->andWhere(['>=', 'dt_public', time() - (86400 * 14)])*/
+            ->where(['status' => 0, 'exclude_popular' => 0])
+            ->andWhere(['>=', 'dt_public', time() - 2592000])
             ->andWhere(['!=', 'slug', $currentNewSlug])
             ->andWhere(['>', 'views', 500])
             ->orderBy('RAND()')
