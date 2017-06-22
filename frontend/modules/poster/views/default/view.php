@@ -150,7 +150,7 @@ $this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::clas
 
             <div class="single-afisha__countdown-clock">
 
-                <ul id="countdown" data-date="<?= date('d M Y i:m', $model->dt_event); ?>">
+                <ul id="countdown" data-date="<?= date('d M Y H:i', $model->dt_event); ?>">
                     <li>
                         <p class="timeRefDays">дни</p>
                         <span class="days">00</span>

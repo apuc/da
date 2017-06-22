@@ -95,6 +95,7 @@ $(document).ready(function () {
 
         $("#countdown").countdown({
                 date: date,
+                //date: "16 august 2017 12:00:00",
                 format: "on",
                 languge: 'ru'
             },
