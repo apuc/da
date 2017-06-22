@@ -98,6 +98,7 @@ class DefaultController extends Controller
             ->where([
                 '`category_news_relations`.`cat_id`' => $category->id,
                 'status' => 0,
+                'exclude_popular' => 0
             ])
             ->andWhere(['!=', '`news`.`id`', $new->id])
             ->andWhere(['>=', 'dt_public', (string)(time() - 86400 * 7)])
