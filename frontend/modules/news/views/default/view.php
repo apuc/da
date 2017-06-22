@@ -124,12 +124,23 @@ $this->registerMetaTag([
                     <?php /*endforeach; */?>
                 </div>-->
 
-                <?= \frontend\modules\news\widgets\RandomNewsByCategory::widget(
+                <?/*= \frontend\modules\news\widgets\RandomNewsByCategory::widget(
                     [
                         'categoryId' => $category->id,
                         'template' => 'bottom',
                     ]
-                ); ?>
+                ); */?>
+
+                <?php
+                    echo \frontend\modules\news\widgets\ReadTheSame::widget(
+                        [
+                            'news' => array_slice($readTheSame, 0, 3),
+                            'template' => 'bottom',
+                        ]
+                    );
+
+                    //\common\classes\Debug::prn($readTheSame);
+                ?>
 
 
 
@@ -156,7 +167,16 @@ $this->registerMetaTag([
 
         <aside id="aside">
             <div class="scroll">
-                <?= \frontend\modules\news\widgets\RandomNewsByCategory::widget(['categoryId' => $category->id]); ?>
+                <?/*= \frontend\modules\news\widgets\RandomNewsByCategory::widget(['categoryId' => $category->id]); */?>
+                <?php
+                echo \frontend\modules\news\widgets\ReadTheSame::widget(
+                    [
+                        'news' => array_slice($readTheSame, 3),
+                    ]
+                );
+
+                //\common\classes\Debug::prn($readTheSame);
+                ?>
 
                 <?= \frontend\modules\news\widgets\MostPopularNews::widget(); ?>
             </div>

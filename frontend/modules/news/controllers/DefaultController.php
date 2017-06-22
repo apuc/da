@@ -92,6 +92,22 @@ class DefaultController extends Controller
 
         $new_content = substr($new_content, 0, $count_symbols) . '...';
 
+
+        $readTheSame = News::find()
+            ->joinWith('categoryNewsRelations')
+            ->where([
+                '`category_news_relations`.`cat_id`' => $category->id,
+                'status' => 0,
+            ])
+            ->andWhere(['!=', '`news`.`id`', $new->id])
+            ->andWhere(['>=', 'dt_public', (string)(time() - 86400 * 7)])
+            ->andWhere(['<=', 'dt_public', time()])
+            ->orderBy('rand()')
+            ->addOrderBy('dt_public DESC')
+            ->limit(6)
+            ->all();
+
+
         return $this->render('view', [
             'model' => $new,
             //'tags' => $tags,
@@ -101,6 +117,7 @@ class DefaultController extends Controller
             'thisUserLike' => $thisUserLike,
             'newTitle' => $new_title,
             'newContent' => $new_content,
+            'readTheSame' => $readTheSame,
         ]);
     }
 
