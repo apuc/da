@@ -289,4 +289,29 @@ class DefaultController extends Controller
         $data['last'] = count($posters) < 5 ? 1 : 0;
         return json_encode($data);
     }
+
+
+    public function actionMorePoster()
+    {
+        $page = Yii::$app->request->post('page');
+        $limit = Yii::$app->request->post('limit');
+        $count = Yii::$app->request->post('count');
+
+
+
+        $poster = Poster::find()
+            ->where(['popular' => 1])
+            ->andWhere(['>=', 'dt_event', time()])
+            ->orderBy('dt_event ASC')
+            ->offset(((int)$page - 1) * $limit)
+            ->limit($limit)
+            ->with('categories')
+            ->all();
+
+        $data['html'] = $this->renderPartial('more_poster_w', [
+            'posters' => $poster
+        ]);
+        $data['last'] = $count - ((int)$page - 1) * $limit <= $limit ? 1 : 0;
+        return json_encode($data);
+    }
 }

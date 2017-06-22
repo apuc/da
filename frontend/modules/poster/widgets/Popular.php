@@ -21,13 +21,19 @@ class Popular extends Widget
         $popularPosters = Poster::find()
             ->where(['popular' => 1])
             ->andWhere(['>=', 'dt_event', time()])
-            ->orderBy('RAND()')
-            ->limit(5)
+            ->orderBy('dt_event ASC')
+            ->limit(4)
             ->with('categories')
             ->all();
 
+        $popularPostersCount = Poster::find()
+            ->where(['popular' => 1])
+            ->andWhere(['>=', 'dt_event', time()])
+            ->count();
+
         return $this->render('popular', [
             'popularPosters' => $popularPosters,
+            'popularPostersCount' => $popularPostersCount,
         ]);
     }
 

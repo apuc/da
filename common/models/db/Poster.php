@@ -25,6 +25,8 @@ use Yii;
  * @property integer $dt_event_end
  * @property string $address
  * @property integer $popular
+ * @property integer $phone
+ * @property integer $metka
  */
 class Poster extends \yii\db\ActiveRecord
 {
@@ -47,7 +49,8 @@ class Poster extends \yii\db\ActiveRecord
             [['dt_event', 'dt_event_end'], 'safe'],
             [['descr', 'short_descr'], 'string'],
             [['title', 'slug', 'price', 'meta_title', 'meta_descr', 'photo', 'address'], 'string', 'max' => 255],
-            [['start'], 'string', 'max' => 512],
+            [['start', 'phone'], 'string', 'max' => 512],
+            [['metka'], 'string', 'max' => 25],
         ];
     }
 
@@ -76,6 +79,8 @@ class Poster extends \yii\db\ActiveRecord
             'rss' => Yii::t('poster', 'Rss'),
             'address' => Yii::t('poster', 'Address'),
             'popular' => Yii::t('poster', 'Popular'),
+            'phone' => Yii::t('poster', 'Phone'),
+            'metka' => Yii::t('poster', 'Metka'),
         ];
     }
 

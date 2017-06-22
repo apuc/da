@@ -1,3 +1,5 @@
+<?php if(!empty($popularPosters)): ?>
+
 <div class="what-to-see">
     <h3>Популярные спектакли сезона</h3>
     <a href="#" class="view-more">посмотреть больше</a>
@@ -13,5 +15,16 @@
             </a>
         <?php endforeach; ?>
     </div>
-    <!--<a href="" class="load-more">загрузить БОЛЬШЕ</a>-->
+    <?php if($popularPostersCount > 4): ?>
+        <a href="" class="load-more load-more-popular-poster-w"
+           csrf-token="<?= Yii::$app->request->csrfToken ?>"
+           data-page="1"
+           data-limit="4"
+           data-count-post="<?= $popularPostersCount; ?>"
+        >
+            загрузить БОЛЬШЕ
+        </a>
+    <?php endif; ?>
 </div>
+<?php
+endif;

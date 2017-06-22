@@ -33,6 +33,8 @@ class AppAsset extends AssetBundle
     public $js = [
         'https://api-maps.yandex.ru/2.1/?lang=ru_RU',
         '/theme/portal-donbassa/js/jquery-2.1.3.min.js',
+        '/theme/portal-donbassa/js/countdown.js',
+
         /*'/theme/portal-donbassa/js/jquery-ui.min.js',*/
         '/theme/portal-donbassa/js/map.js',
         '/theme/portal-donbassa/js/libs.min.js',

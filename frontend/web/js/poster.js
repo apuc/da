@@ -87,4 +87,19 @@ $(document).ready(function () {
         $('.js-interested-cats').fadeIn(200);
         $('.js-interested-in-more').show();
     });
+
+    /*single afisha countdown*/
+    if ($('#countdown').length > 0){
+
+        var date = $('#countdown').attr('data-date');
+
+        $("#countdown").countdown({
+                date: date,
+                format: "on",
+                languge: 'ru'
+            },
+            function () {});
+    }
+
+    /*close single afisha countdown*/
 });

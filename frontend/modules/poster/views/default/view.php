@@ -11,27 +11,33 @@ use common\classes\WordFunctions;
 use yii\helpers\Url;
 
 $this->title = $model->title;
+
+/*$this->registerJsFile('/theme/portal-donbassa/js/countdown.js', ['depends' => [\yii\web\JqueryAsset::className()]]);*/
+/*$this->registerJsFile('/theme/portal-donbassa/js/afisha-countdown.js', ['depends' => [\yii\web\JqueryAsset::className()]]);*/
 $this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+
+/*\common\classes\Debug::prn());*/
 ?>
 
 <?= \frontend\modules\poster\widgets\Banner::widget(); ?>
 
 <?= \frontend\modules\poster\widgets\Categories::widget(); ?>
 
-<section class="single-afisha">
+
+<!--<section class="single-afisha">
     <div class="container">
-        <p class="age"><?= $category->title; ?></p>
-        <h1 class="map-placemarks-title"><?= $model->title; ?></h1>
+        <p class="age"><?/*= $category->title; */?></p>
+        <h1 class="map-placemarks-title"><?/*= $model->title; */?></h1>
 
         <div class="afisha-content-wrapper">
 
             <div class="thumbnail-afisha">
-                <img src="<?= $model->photo; ?>" alt="">
+                <img src="<?/*= $model->photo; */?>" alt="">
             </div>
 
             <div class="afisha-content">
-                <div class="date-time"><?= WordFunctions::FullEventDate($model->dt_event); ?></div>
-                <?= $model->descr; ?>
+                <div class="date-time"><?/*= WordFunctions::FullEventDate($model->dt_event); */?></div>
+                <?/*= $model->descr; */?>
             </div>
         </div>
 
@@ -41,15 +47,15 @@ $this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::clas
             <div class="map-wrapper tabs__content active">
                 <div class="maps-info">
                     <div class="date">
-                        <div class="day"><?= date('d', $model->dt_event); ?></div>
+                        <div class="day"><?/*= date('d', $model->dt_event); */?></div>
                         <div class="weekday">
-                            <span><?= WordFunctions::getRuWeek()[date('N', $model->dt_event)]; ?></span>
-                            <span><?= WordFunctions::getRuMonth()[date('m', $model->dt_event)]; ?></span>
+                            <span><?/*= WordFunctions::getRuWeek()[date('N', $model->dt_event)]; */?></span>
+                            <span><?/*= WordFunctions::getRuMonth()[date('m', $model->dt_event)]; */?></span>
                         </div>
                     </div>
                     <div class="adress">
                         Адрес: <span class="concreate-adress">
-                            <?= $model->address; ?>
+                            <?/*= $model->address; */?>
                         </span>
                     </div>
                 </div>
@@ -103,7 +109,7 @@ $this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::clas
             </div>
         </div>
 
-        <?= \frontend\modules\poster\widgets\Popular::widget();?>
+        <?/*= \frontend\modules\poster\widgets\Popular::widget();*/?>
 
         <div class="social-wrapper">
             <a href="#" target="_blank" class="social-wrap__item vk">
@@ -133,4 +139,249 @@ $this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::clas
         </div>
 
     </div>
+</section>-->
+
+<section class="single-afisha">
+    <div class="container">
+        <h1 class="map-placemarks-title"><?= $model->title; ?></h1>
+        <div class="single-afisha__timetable"><?= WordFunctions::FullEventDate($model->dt_event); ?></div>
+        <div class="single-afisha__countdown">
+            <p>До начала осталось</p>
+
+            <div class="single-afisha__countdown-clock">
+
+                <ul id="countdown" data-date="<?= date('d M Y i:m', $model->dt_event); ?>">
+                    <li>
+                        <p class="timeRefDays">дни</p>
+                        <span class="days">00</span>
+                    </li>
+                    <li>
+                        <p class="timeRefHours">часы</p>
+                        <span class="hours">00</span>
+                    </li>
+                    <li>
+                        <p class="timeRefMinutes">минуты</p>
+                        <span class="minutes">00</span>
+                    </li>
+                    <li>
+                        <p class="timeRefSeconds">секунды</p>
+                        <span class="seconds">00</span>
+                    </li>
+                </ul>
+            </div>
+
+            <p><?= $model->metka;?></p>
+            <span class="single-afisha__countdown--views"><small class="view-icon"></small><?= $model->views; ?></span>
+        </div>
+        <div class="single-afisha__wrapper">
+            <div class="afisha-content-wrapper">
+                <div class="thumbnail-afisha">
+                    <img src="<?= $model->photo; ?>" alt="">
+                </div>
+                <div class="afisha-content">
+                    <!--<div class="date-time">4 мая 2016, в 15:00</div>-->
+                    <?= $model->descr; ?>
+                </div>
+            </div>
+
+            <div class="afisha-content-wrapper__separator"></div>
+
+            <div class="single-afisha__when">
+                <h3>Когда?</h3>
+                <p>
+                <?php
+                    if(date('d-m',$model->dt_event) == date('d-m',$model->dt_event_end)):
+                ?>
+                        <span><?= date('d',$model->dt_event) . ' '.DateFunctions::getMonthName(date('m',$model->dt_event))?></span>
+                <?php
+                    else:
+                ?>
+                        <span><?= date('d',$model->dt_event) . ' '.DateFunctions::getMonthName(date('m',$model->dt_event))?> -
+                            <?= date('d',$model->dt_event_end) . ' '.DateFunctions::getMonthName(date('m',$model->dt_event_end))?>
+                        </span>
+                <?php
+                    endif;
+                ?>
+                    <?= $model->start; ?></p>
+            </div>
+            <div class="afisha-content-wrapper__separator"></div>
+            <div class="single-afisha__place">
+                <div class="map">
+                    <div id="map" class="ymaps"></div>
+                </div>
+
+                <div class="single-afisha__place--requisites">
+
+                    <h3>Место проведения</h3>
+
+
+                    <?php if(!empty($model->phone)): ?>
+                    <div class="single-afisha__place--phones">
+                        <span class="single-afisha__place--phone"></span>
+                        <?php
+                        $phone = explode(' ', $model->phone);
+                        ?>
+                        <a href="#"><?= $phone[0]; ?></a>
+                        <a href="#"><?= $phone[1]; ?></a>
+                    </div>
+                    <?php endif; ?>
+
+                    <div class="single-afisha__place--address">
+                        <span class="single-afisha__place--placeholder"></span>
+                        <p class="concreate-adress"><?= $model->address; ?> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="maps tabs">
+            &lt;!&ndash; <ul class="tabs__caption">
+                <li class="active">
+                    <div class="date">
+                        <div class="day">03</div>
+                        <div class="weekday">
+                            <span>Пятница</span>
+                            <span>Февраля</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="date">
+                        <div class="day">21</div>
+                        <div class="weekday">
+                            <span>Понедельник</span>
+                            <span>Ноября</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="date">
+                        <div class="day">01</div>
+                        <div class="weekday">
+                            <span>Четверг</span>
+                            <span>Апреля</span>
+                        </div>
+                    </div>
+                </li>
+            </ul> &ndash;&gt;
+
+            <div class="map-wrapper tabs__content active">
+                <div class="maps-info">
+                    <div class="date">
+                        <div class="day">03</div>
+                        <div class="weekday">
+                            <span>пятница</span>
+                            <span>февраля</span>
+                        </div>
+                    </div>
+                    <div class="adress">
+                        Адрес:
+                        <span class="concreate-adress">г. Донецк, ул. Челюскинцев, 189</span>
+                    </div>
+                </div>
+                <div class="map">
+                    <h3>Адресс</h3>
+                    <div id="map" class="ymaps"></div>
+                </div>
+            </div>
+
+            <div class="map-wrapper tabs__content">
+                <div class="maps-info">
+                    <div class="date">
+                        <div class="day">21</div>
+                        <div class="weekday">
+                            <span>понедельник</span>
+                            <span>ноября</span>
+                        </div>
+                    </div>
+                    <div class="adress">
+                        Адрес: г. Донецк,
+                        ул. Фомина, 9
+                    </div>
+                </div>
+                <div class="map">
+                    <h3>Адресс</h3>
+
+                    <div id="map_2" class="ymaps"></div>
+                </div>
+            </div>
+
+            <div class="map-wrapper tabs__content">
+                <div class="maps-info">
+                    <div class="date">
+                        <div class="day">01</div>
+                        <div class="weekday">
+                            <span>Четверг</span>
+                            <span>Апреля</span>
+                        </div>
+                    </div>
+                    <div class="adress">
+                        Адрес: г. Донецк,
+                        ул. Жили-были, 75
+                    </div>
+                </div>
+                <div class="map">
+                    <h3>Адресс</h3>
+
+                    <div id="map_3" class="ymaps"></div>
+                </div>
+            </div>
+
+
+        </div>-->
+
+        <!--<div class="what-to-see">
+            <h3>Популярные спектакли сезона</h3>
+            <a href="#" class="view-more">посмотреть больше</a>
+            <div class="afisha-events__wrap">
+                <a href="" class="item">
+                    <img src="img/afishes/afisha-1.jpg" alt="">
+                    <div class="item-content">
+                        <span class="type">Концерт / Рок</span>
+                        <span class="name-item">Закон ночи</span>
+                        <span class="time">28 января 09:00</span>
+                    </div>
+                </a>
+                <a href="" class="item">
+                    <img src="img/afishes/afisha-1.jpg" alt="">
+                    <div class="item-content">
+                        <span class="type">Концерт / Рок</span>
+                        <span class="name-item">Закон ночи</span>
+                        <span class="time">28 января 09:00</span>
+                    </div>
+                </a>
+                <a href="" class="item">
+                    <img src="img/afishes/afisha-2.jpg" alt="">
+                    <div class="item-content">
+                        <span class="type">Концерт / Рок</span>
+                        <span class="name-item">Закон ночи</span>
+                        <span class="time">28 января 09:00</span>
+                    </div>
+                </a>
+                <a href="" class="item">
+                    <img src="img/afishes/afisha-1.jpg" alt="">
+                    <div class="item-content">
+                        <span class="type">Концерт / Рок</span>
+                        <span class="name-item">Закон ночи</span>
+                        <span class="time">28 января 09:00</span>
+                    </div>
+                </a>
+            </div>
+            <a href="#" class="load-more">загрузить БОЛЬШЕ</a>
+        </div>-->
+
+        <?= \frontend\modules\poster\widgets\Popular::widget();?>
+
+        <!-- start socials.html-->
+        <?= \frontend\widgets\Share::widget([
+            'url' => \yii\helpers\Url::base(true) . '/poster/' . $model->slug,
+            'title' => $model->title,
+            'description' => $model->descr,
+            'view' => 'share-news',
+            'image' => $model->photo,
+        ]); ?>
+        <!-- end socials.html-->
+
+    </div>
+
 </section>

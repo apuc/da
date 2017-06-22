@@ -106,6 +106,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'address')->textInput(); ?>
 
+    <?= $form->field($model, 'phone')->textInput(['maxlength' => true])  ?>
+
+    <?= $form->field($model, 'metka')->textInput(['maxlength' => true])  ?>
+
     <?php //if (!empty($model->dt_event_end)): ?>
     <!--    --><? //= $form->field($model, 'dt_event_end')->input('date', [
     //        'class' => 'form-control',

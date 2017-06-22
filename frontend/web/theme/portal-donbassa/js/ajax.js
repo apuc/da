@@ -74,4 +74,30 @@ $(document).ready(function () {
             window.location.href = '/news/archive/' + formattedDate;
         }
     });
+
+    //Загрузить больше популярных афиш в виджете
+    $(document).on('click', '.load-more-popular-poster-w', function () {
+        var page = $(this).attr('data-page');
+        $(this).attr('data-page',+page+1);
+        $.ajax({
+            url: '/poster/default/more-poster',
+            type: "POST",
+            data: {
+                '_csrf': $(this).attr('csrf-token'),
+                'page':$(this).attr('data-page'),
+                'limit':$(this).attr('data-limit'),
+                'count':$(this).attr('data-count-post')
+            },
+            success: function (data) {
+               /* $('.show-more-news-js').attr('data-offset',parseInt($('.show-more-news-js').attr('data-offset') )+ 16);
+                $('.home-content__wrap_subscribe').before(data);*/
+               var res = JSON.parse(data)
+                $('.afisha-events__wrap').append(res.html);
+                if(res.last === 1){
+                    $('.load-more-popular-poster-w').remove();
+                }
+            }
+        });
+        return false;
+    })
 })
