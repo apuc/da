@@ -6,4 +6,4 @@ Disallow: /cgi-bin/
 
 Host: https://da-info.pro
 
-Sitemap: http://da-info.pro/sitemap.xml
+Sitemap: https://da-info.pro/sitemap.xml
