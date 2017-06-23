@@ -220,6 +220,16 @@ $this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::clas
         <?php endif;?>
             <p><?= $model->metka;?></p>
             <span class="single-afisha__countdown--views"><small class="view-icon"></small><?= $model->views; ?></span>
+
+
+
+            <a href="#" class="like likes <?= (!empty($thisUserLike)) ? 'active' : ''?>"
+               csrf-token="<?= Yii::$app->request->getCsrfToken() ?>"
+               data-id="<?= $model->id; ?>"
+               data-type="poster">
+                <i class="like-set-icon"></i>
+                <span class="like-counter"><?= $likes; ?></span>
+            </a>
         </div>
         <div class="single-afisha__wrapper">
             <div class="afisha-content-wrapper">

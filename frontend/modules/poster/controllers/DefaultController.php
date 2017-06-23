@@ -41,6 +41,10 @@ class DefaultController extends Controller
             return $this->redirect(['site/error']);
         }
 
+        $likes = Likes::find()
+            ->where(['post_id' => $poster->id, 'post_type' => 'poster'])
+            ->count();
+
         if (!empty(Yii::$app->request->post()['category'])) {
             $category = CategoryPoster::findOne(Yii::$app->request->post()['category']);
         } else {
@@ -52,11 +56,21 @@ class DefaultController extends Controller
                 ->one();
         }
 
+        if (!Yii::$app->user->isGuest) {
+            $thisUserLike = Likes::find()
+                ->where(['post_id' => $poster->id, 'post_type' => 'poster', 'user_id' => Yii::$app->user->id])
+                ->count();
+        } else {
+            $thisUserLike = false;
+        }
+
         $poster->updateAllCounters(['views' => 1], ['id' => $poster->id]);
 
         return $this->render('view', [
             'model' => $poster,
             'category' => $category->category_poster,
+            'likes' => $likes,
+            'thisUserLike' => $thisUserLike,
         ]);
     }
 
