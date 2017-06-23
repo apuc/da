@@ -4,6 +4,7 @@ $(document).ready(function () {
         $('#modal-add-comment-submit').attr('data-post-type', $(this).attr('data-post-type'));
         $('#modal-add-comment-submit').attr('data-post-id', $(this).attr('data-post-id'));
         $('#modal-add-comment-submit').attr('data-parent-id', $(this).attr('data-parent-id'));
+        $('#comment').val('');
     })
 
     $(document).on('click', '#modal-add-comment-submit', function () {
@@ -21,7 +22,7 @@ $(document).ready(function () {
                     parent_id: $(this).attr('data-parent-id'),
                 },
                 success: function (data) {
-
+                    $('#modal-add-comment').html(data);
                 }
             });
         }

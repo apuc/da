@@ -195,6 +195,9 @@ class AjaxController extends Controller
             $comment->parent_id = Yii::$app->request->post('parent_id');
 
             $comment->save();
+
+            return $this->renderPartial('comments-success');
+
         }
 
     }

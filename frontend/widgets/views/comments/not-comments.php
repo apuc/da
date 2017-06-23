@@ -15,4 +15,9 @@
        data-parent-id="0"
        href="#" class="add-comment">написать нам</a>
 </div>-->
-<a href="#" class="load-more add-comment">оставить комментарий</a>
+<a href="#" class="load-more add-comment"
+   data-post-type="<?= $postType; ?>"
+   data-post-id="<?= $postId; ?>"
+   data-parent-id="0">
+    оставить комментарий
+</a>

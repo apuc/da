@@ -24,9 +24,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'parent_id')->textInput() ?>
 
-    <?= $form->field($model, 'moder_checked')->textInput() ?>
+    <?= $form->field($model, 'moder_checked')->dropDownList(['0' => 'Не отмечено', '1' => 'Отмечено']) ?>
 
-    <?= $form->field($model, 'published')->textInput() ?>
+    <?= $form->field($model, 'published')->dropDownList(['0' => 'Не опубликовано', '1' => 'Опубликовано']) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('comments', 'Create') : Yii::t('comments', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

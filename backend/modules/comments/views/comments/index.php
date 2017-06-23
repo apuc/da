@@ -35,7 +35,7 @@ $this->registerJs($script, yii\web\View::POS_BEGIN);*/
     </p>-->
 
     <?php
-    echo Html::a('Удалить выбранные', ['multi-delete'], [
+/*    echo Html::a('Удалить выбранные', ['multi-delete'], [
         'id' => 'btn-multi-del',
         'class' => 'btn btn-default',
         'onclick' => 'setParams()',
@@ -44,7 +44,7 @@ $this->registerJs($script, yii\web\View::POS_BEGIN);*/
             'method' => 'post',
         ],
     ]);
-    ?>
+    */?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
