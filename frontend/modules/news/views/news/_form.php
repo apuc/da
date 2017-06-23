@@ -23,8 +23,8 @@ use yii\widgets\ActiveForm;
         echo Html::dropDownList(
             'categ',
             null,
-            ArrayHelper::map( CategoryNews::find()->where( [ 'lang_id' => 1 ] )->all(), 'id', 'title' ),
-            [ 'class' => 'form-control', 'id' => 'categ' ]
+            ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title'),
+            ['class' => 'form-control', 'id' => 'news-categ_id', 'multiple' => 'multiple', 'required' => 'required']
         );
         ?>
     </span>

@@ -46,6 +46,9 @@ return [
         'board' => [
             'class' => 'frontend\modules\board\Board',
         ],
+        'personal_area' => [
+            'class' => 'frontend\modules\personal_area\PersonalArea',
+        ],
     ],
     'components' => [
         'mymessages' => [

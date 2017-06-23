@@ -30,7 +30,7 @@ $md = new \common\classes\Mobile_Detect();
 <section class="news">
     <div class="container">
         <div class="news-slider-index-panel">
-            <h3>Горяичие темы</h3>
+            <h3>Горячие темы</h3>
             <div class="buttons-wrap">
                 <a href="">подписаться</a>
 
@@ -89,40 +89,18 @@ $md = new \common\classes\Mobile_Detect();
             <?php endforeach; ?>
 
             <?= \frontend\widgets\Subscribe::widget() ?>
+        </div>
 
-            <!--<div class="home-content__wrap_subscribe">
-                <div class="subscribe__wrap">
-                    <h3>ПОДПИСАТЬСЯ НА НОВОСТИ</h3>
-                    <form action="">
-                        <input type="text" placeholder="Выслать на email">
-                        <button>подписаться</button>
-                    </form>
-                    <div class="social-wrap">
-                        <h4>мы в социальных сетях</h4>
-                        <a href="" class="social-wrap__item vk">
-                            <img src="/theme/portal-donbassa/img/soc/vk.png" alt="">
-                        </a>
-                        <a href="" class="social-wrap__item fb">
-                            <img src="/theme/portal-donbassa/img/soc/fb.png" alt="">
-                        </a>
-                        <a href="" class="social-wrap__item ok">
-                            <img src="/theme/portal-donbassa/img/soc/ok-icon.png" alt="">
-                        </a>
-                        <a href="" class="social-wrap__item insta">
-                            <img src="/theme/portal-donbassa/img/soc/insta-icon.png" alt="">
-                        </a>
-                        <a href="" class="social-wrap__item twitter">
-                            <img src="/theme/portal-donbassa/img/soc/twi-icon.png" alt="">
-                        </a>
-                        <a href="" class="social-wrap__item google">
-                            <img src="/theme/portal-donbassa/img/soc/google-icon.png" alt="">
-                        </a>
-                        <a href="" class="social-wrap__item pinterest">
-                            <img src="/theme/portal-donbassa/img/soc/pinter-icon.png" alt="">
-                        </a>
-                    </div>
-                </div>
-            </div>-->
+        <div class="news__wrap_buttons">
+            <a href="#go_rubricator" class="businessScroll" style="line-height: 37px;"><span class="rotate-arrow"></span>рубрикатор</a>
+            <!--<a
+                href=""
+                data-offset="34"
+                csrf-token="<?/*= Yii::$app->getRequest()->getCsrfToken(); */?>"
+                class="show-more show-more-news-js">загрузить
+                БОЛЬШЕ</a>-->
+            <span href="#" class="archive-news datepicker-here datepicker-wrap" >архив новостей <span class="rotate-arrow"></span></span>
+
         </div>
 
     </div>

@@ -92,7 +92,6 @@ class DefaultController extends Controller
 
         $new_content = substr($new_content, 0, $count_symbols) . '...';
 
-
         $readTheSame = News::find()
             ->joinWith('categoryNewsRelations')
             ->where([
@@ -101,7 +100,7 @@ class DefaultController extends Controller
                 'exclude_popular' => 0
             ])
             ->andWhere(['!=', '`news`.`id`', $new->id])
-            ->andWhere(['>=', 'dt_public', (string)(time() - 86400 * 7)])
+            ->andWhere(['>=', 'dt_public', (string)(time() - 86400 * 14)])
             ->andWhere(['<=', 'dt_public', time()])
             ->orderBy('rand()')
             ->addOrderBy('dt_public DESC')

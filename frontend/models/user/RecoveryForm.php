@@ -22,11 +22,16 @@ class RecoveryForm extends \dektrium\user\models\RecoveryForm
      */
     public function sendRecoveryMessage()
     {
+        $request = Yii::$app->request->post('recovery-form');
+        $user = UserDec::find()->where(['email' => $request['email']])->one();
+        if(!$user){
+            return 2;
+        }
         if ($this->validate()) {
             /** @var Token $token */
             $token = Yii::createObject([
                 'class'   => Token::className(),
-                'user_id' => $this->user->id,
+                'user_id' => $user->id,
                 'type'    => Token::TYPE_RECOVERY,
             ]);
 
@@ -34,7 +39,7 @@ class RecoveryForm extends \dektrium\user\models\RecoveryForm
                 return false;
             }
 
-            if (!$this->mailer->sendRecoveryMessage($this->user, $token)) {
+            if (!$this->mailer->sendRecoveryMessage($user, $token)) {
                 return false;
             }
 

@@ -35,10 +35,14 @@ class RecoveryController extends \dektrium\user\controllers\RecoveryController
 
         if ($model->load(Yii::$app->request->post()) && $model->sendRecoveryMessage()) {
             $this->trigger(self::EVENT_AFTER_REQUEST, $event);
-            return $this->render('recovery-msg', [
-                'title'  => Yii::t('user', 'Recovery message sent'),
-                'module' => $this->module,
-            ]);
+            if($model->sendRecoveryMessage() === 2){
+                return $this->render('not-user');
+            }else{
+                return $this->render('recovery-msg', [
+                    'title'  => Yii::t('user', 'Recovery message sent'),
+                    'module' => $this->module,
+                ]);
+            }
             //echo 123;
         }
 

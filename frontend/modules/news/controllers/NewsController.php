@@ -15,6 +15,7 @@ use yii\data\Pagination;
 use yii\data\SqlDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\validators\RequiredValidator;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -157,10 +158,24 @@ class NewsController extends Controller
      */
     public function actionCreate()
     {
-        $model = new News();
+        $model = new \frontend\modules\news\models\News();
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->status = 1;
+            $model->user_id = Yii::$app->user->getId();
+            $model->dt_public = $model->dt_update;
+            $model->save();
+
+            if (!empty(Yii::$app->request->post('categ'))) {
+                foreach ($_POST['categ'] as $cat) {
+                    $catNewRel = new CategoryNewsRelations();
+                    $catNewRel->cat_id = $cat;
+                    $catNewRel->new_id = $model->id;
+                    $catNewRel->save();
+                }
+            }
+
+            /*$model->status = 1;
             $model->user_id = Yii::$app->user->getId();
 
             if ($_FILES['News']['name']['photo']) {
@@ -180,7 +195,7 @@ class NewsController extends Controller
             $catNewRel->new_id = $model->id;
             $catNewRel->save();
 
-            return $this->redirect(['/']);
+            return $this->redirect(['/']);*/
         } else {
             return $this->render('create', [
                 'model' => $model,

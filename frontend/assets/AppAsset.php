@@ -26,7 +26,7 @@ class AppAsset extends AssetBundle
         '/theme/portal-donbassa/css/fancybox/jquery.fancybox-thumbs.css',
         '/theme/portal-donbassa/css/fancybox/jquery.fancybox-buttons.css',
         '/css/lightbox.css',
-        '/css/poster.css',
+        //'/css/poster.css',
         /*'/theme/css/jquery-ui.min.css',*/
         '/theme/portal-donbassa/css/styles.min.css',
     ];

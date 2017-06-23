@@ -22,10 +22,6 @@ class MainMenuAdmin extends Widget
                         //'visible'  => UserFunction::hasRoles( [ 'admin' ] ),
                         'visible' => UserFunction::hasPermission(['Пользователи']),
                     ],
-                    /*[
-                        'label' => 'Ссылка 2',
-                        'url' => '#'
-                    ],*/
                     [
                         'label' => 'Главная',
                         'items' => [
@@ -79,6 +75,14 @@ class MainMenuAdmin extends Widget
                         'template' => '<a href="#"><i class="fa fa-home"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
 
+                    [
+                        'label' => 'Коментарии',
+                        'url' => Url::to(['/comments/comments']),
+                        'active' => Yii::$app->controller->module->id == 'comments',
+                        'visible' => UserFunction::hasPermission(['Новости']),
+                        'template' => '<a href="{url}"><i class="fa fa-comments"></i> <span>{label}</span></a>',
+
+                    ],
                     [
                         'label' => 'Новости',
                         'items' => [

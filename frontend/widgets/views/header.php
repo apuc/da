@@ -28,7 +28,7 @@ use common\models\User;
                         авторизация
                     </a>
                 <?php else: ?>
-                    <a href="<?= Url::to(['/user/settings/profile']) ?>">
+                    <a href="<?= Url::to(['/personal_area/default/index']) ?>">
                         <span class="autoriz-icon"></span>
                         <?= Yii::$app->user->identity->username; ?>
                     </a>

@@ -142,9 +142,6 @@ $this->registerMetaTag([
                     //\common\classes\Debug::prn($readTheSame);
                 ?>
 
-
-
-
                 <?= \frontend\widgets\Share::widget([
                     'url' => \yii\helpers\Url::base(true) . '/news/' . $model->slug,
                     'title' => $model->title,
@@ -153,18 +150,13 @@ $this->registerMetaTag([
                     'image' => $model->photo,
                 ]); ?>
 
-
             </div>
-
             <?= \frontend\widgets\Comments::widget([
                 'pageTitle' => 'Комментарии к новости',
                 'postType' => 'news',
                 'postId' => $model->id,
             ]); ?>
-
         </article>
-
-
         <aside id="aside">
             <div class="scroll">
                 <?/*= \frontend\modules\news\widgets\RandomNewsByCategory::widget(['categoryId' => $category->id]); */?>

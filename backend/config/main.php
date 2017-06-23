@@ -112,6 +112,9 @@ return [
         'subscribe' => [
             'class' => 'backend\modules\subscribe\Subscribe',
         ],
+        'comments' => [
+            'class' => 'backend\modules\comments\Comments',
+        ],
     ],
     'components' => [
         /*'user' => [

@@ -303,7 +303,7 @@ class ConsultingController extends \yii\web\Controller
         if (empty($post)) {
             return $this->redirect(['/consulting/consulting/index']);
         }
-
+        Faq::updateAllCounters(['views' => 1], ['id' => $post->id] );
         return $this->render('view_post_faq', [
             'post' => $post,
             'consulting'=> $post->consulting,

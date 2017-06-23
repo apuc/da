@@ -25,14 +25,15 @@ class MostPopularNews extends Widget
 
         $news = News::find()
             ->where(['status' => 0, 'exclude_popular' => 0])
-            ->andWhere(['>=', 'dt_public', time() - 2592000])
+            ->andWhere(['>=', 'dt_public', time() - 2592000 * 3])
             ->andWhere(['!=', 'slug', $currentNewSlug])
-            ->andWhere(['>', 'views', 500])
+            ->andWhere(['>', 'views', 300])
             ->orderBy('RAND()')
             ->addOrderBy('views ASC')
             ->limit(2)
             ->with('category')
             ->all();
+//Debug::prn($news->createCommand()->rawSql);
 
         return $this->render('most_popular_news', [
             'news' => $news,

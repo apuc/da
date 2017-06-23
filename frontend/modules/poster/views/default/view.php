@@ -146,6 +146,8 @@ $this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::clas
         <h1 class="map-placemarks-title"><?= $model->title; ?></h1>
         <div class="single-afisha__timetable"><?= WordFunctions::FullEventDate($model->dt_event); ?></div>
         <div class="single-afisha__countdown">
+        <?php if($model->dt_event > time() ): ?>
+
             <p>До начала осталось</p>
 
             <div class="single-afisha__countdown-clock">
@@ -169,7 +171,53 @@ $this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::clas
                     </li>
                 </ul>
             </div>
+        <?php endif; ?>
 
+        <?php if($model->dt_event < time() && $model->dt_event_end > time()): ?>
+                <p>Мероприятие <span>уже началось</span><br>
+                    посетите нас по адресу</p>
+
+                <p class="single-afisha__rem-address"><?= $model->address; ?></p>
+        <?php endif;?>
+
+        <?php if($model->dt_event_end < time()):?>
+            <p>Мероприятие <span>закончилось</span></p>
+            <div class="single-afisha__countdown--socials">
+                <p>следите за новыми мероприятиями у нас в соц.сетях</p>
+                <div class="single-afisha__countdown--links">
+                    <a href="https://vk.com/da_info_pro" target="_blank" class="social-wrap__item vk">
+                        <img src="/theme/portal-donbassa/img/soc/vk.png" alt="">
+                    </a>
+                    <a href="https://www.facebook.com/da.info.pro/" target="_blank" class="social-wrap__item fb">
+                        <img src="/theme/portal-donbassa/img/soc/fb.png" alt="">
+                    </a>
+                    <a href="https://ok.ru/da...infor" target="_blank" class="social-wrap__item ok">
+                        <img src="/theme/portal-donbassa/img/soc/ok-icon.png" alt="">
+                    </a>
+                    <a href="https://www.instagram.com/da.info.pro/" target="_blank" class="social-wrap__item insta">
+                        <img src="/theme/portal-donbassa/img/soc/insta-icon.png" alt="">
+                    </a>
+                    <a href="https://twitter.com/DA_info_pro" target="_blank" class="social-wrap__item twitter">
+                        <img src="/theme/portal-donbassa/img/soc/twi-icon.png" alt="">
+                    </a>
+                    <a href="https://plus.google.com/u/0/communities/115639152242515279745" target="_blank" class="social-wrap__item google">
+                        <img src="/theme/portal-donbassa/img/soc/google-icon.png" alt="">
+                    </a>
+                    <a href="https://ru.pinterest.com/DA_Info_Pro/da-info-pro/" target="_blank" class="social-wrap__item pinterest">
+                        <img src="/theme/portal-donbassa/img/soc/pinter-icon.png" alt="">
+                    </a>
+                    <a href="https://t.me/DAInfo" target="_blank" class="social-wrap__item telegram">
+                        <img src="/theme/portal-donbassa/img/soc/telegram-f.png" alt="">
+                    </a>
+                    <a  href="http://da-info-pro.livejournal.com/" target="_blank" class="social-wrap__item live-journal">
+                        <img src="/theme/portal-donbassa/img/soc/livejournal-f.png" alt="">
+                    </a>
+                    <a href="https://www.linkedin.com/in/da-info-pro/recent-activity/" target="_blank" class="social-wrap__item in">
+                        <img src="/theme/portal-donbassa/img/soc/in-f.png" alt="">
+                    </a>
+                </div>
+            </div>
+        <?php endif;?>
             <p><?= $model->metka;?></p>
             <span class="single-afisha__countdown--views"><small class="view-icon"></small><?= $model->views; ?></span>
         </div>
@@ -184,9 +232,8 @@ $this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::clas
                 </div>
             </div>
 
-            <div class="afisha-content-wrapper__separator"></div>
-
             <div class="single-afisha__when">
+                <div class="afisha-content-wrapper__separator"></div>
                 <h3>Когда?</h3>
                 <p>
                 <?php
@@ -203,8 +250,24 @@ $this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::clas
                     endif;
                 ?>
                     <?= $model->start; ?></p>
+                <div class="afisha-content-wrapper__separator"></div>
             </div>
-            <div class="afisha-content-wrapper__separator"></div>
+
+            <?php if(!empty($model->price)): ?>
+
+                <div class="single-afisha__price">
+
+                    <div class="afisha-content-wrapper__separator"></div>
+
+                    <h3>Цена?</h3>
+
+                    <p><span><?= $model->price; ?></span></p>
+                    <div class="afisha-content-wrapper__separator"></div>
+                </div>
+
+            <?php endif; ?>
+
+
             <div class="single-afisha__place">
                 <div class="map">
                     <div id="map" class="ymaps"></div>
