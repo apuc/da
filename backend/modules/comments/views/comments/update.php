@@ -4,6 +4,8 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model backend\modules\comments\models\Comments */
+/* @var $news \common\models\db\News */
+/* @var $user \dektrium\user\models\User */
 
 $this->title = Yii::t('comments', 'Update {modelClass}: ', [
     'modelClass' => 'Comments',
@@ -18,6 +20,8 @@ $this->params['breadcrumbs'][] = Yii::t('comments', 'Update');
 
     <?= $this->render('_form', [
         'model' => $model,
+        'news' => $news,
+        'user' => $user,
     ]) ?>
 
 </div>

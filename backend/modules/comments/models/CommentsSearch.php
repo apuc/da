@@ -71,6 +71,8 @@ class CommentsSearch extends Comments
         $query->andFilterWhere(['like', 'post_type', $this->post_type])
             ->andFilterWhere(['like', 'content', $this->content]);
 
+        $query->orderBy('dt_add DESC');
+
         return $dataProvider;
     }
 }

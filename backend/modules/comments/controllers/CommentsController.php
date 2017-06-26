@@ -3,6 +3,8 @@
 namespace backend\modules\comments\controllers;
 
 use common\classes\Debug;
+use common\models\db\News;
+use dektrium\user\models\User;
 use Yii;
 use backend\modules\comments\models\Comments;
 use backend\modules\comments\models\CommentsSearch;
@@ -101,8 +103,13 @@ class CommentsController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+
+            $news = News::find()->all();
+            $user = User::find()->all();
             return $this->render('update', [
                 'model' => $model,
+                'news' => $news,
+                'user' => $user,
             ]);
         }
     }

@@ -6,17 +6,19 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model backend\modules\comments\models\Comments */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $news \common\models\db\News */
+/* @var $user \dektrium\user\models\User */
 ?>
 
 <div class="comments-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'post_type')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'post_type')->dropDownList(['news' => 'Новости', 'afisha' => 'Афиша']) ?>
 
-    <?= $form->field($model, 'post_id')->textInput() ?>
+    <?= $form->field($model, 'post_id')->dropDownList(\yii\helpers\ArrayHelper::map($news, 'id', 'title')) ?>
 
-    <?= $form->field($model, 'user_id')->textInput() ?>
+    <?= $form->field($model, 'user_id')->dropDownList(\yii\helpers\ArrayHelper::map($user, 'id', 'username')) ?>
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 

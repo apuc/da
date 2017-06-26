@@ -57,7 +57,7 @@ $this->registerJs($script, yii\web\View::POS_BEGIN);*/
                 }
             ],*/
 
-            'content:ntext',
+            'content:text',
             //'id',
             'post_type',
             'post_id',
