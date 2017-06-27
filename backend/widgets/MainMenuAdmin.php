@@ -1,6 +1,7 @@
 <?php
 namespace backend\widgets;
 
+use backend\modules\comments\models\Comments;
 use common\classes\UserFunction;
 use dektrium\user\models\User;
 use Yii;
@@ -80,7 +81,7 @@ class MainMenuAdmin extends Widget
                         'url' => Url::to(['/comments/comments']),
                         'active' => Yii::$app->controller->module->id == 'comments',
                         'visible' => UserFunction::hasPermission(['Коментарии']),
-                        'template' => '<a href="{url}"><i class="fa fa-comments"></i> <span>{label}</span></a>',
+                        'template' => '<a href="{url}"><i class="fa fa-comments"></i> <span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . Comments::getCountNotModerComments() . '</small></span></a>',
 
                     ],
                     [
