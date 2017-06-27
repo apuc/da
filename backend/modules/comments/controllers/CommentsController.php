@@ -114,6 +114,30 @@ class CommentsController extends Controller
         }
     }
 
+    public function actionUpdateModerChecked($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->moder_checked == 0) {
+            $model->moder_checked = 1;
+        } else {
+            $model->moder_checked = 0;
+        }
+        $model->save();
+        return $this->redirect('index');
+    }
+
+    public function actionUpdatePublished($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->published == 0) {
+            $model->published = 1;
+        } else {
+            $model->published = 0;
+        }
+        $model->save();
+        return $this->redirect('index');
+    }
+
     /**
      * Deletes an existing Comments model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

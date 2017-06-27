@@ -27,13 +27,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= DetailView::widget([
         'model' => $model,
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'nullDisplay' => '',
+            'datetimeFormat' => 'dd-MM-Y H:i',
+            'dateFormat' => 'd-MM-Y',
+            'timeFormat' => 'H-i',
+        ],
         'attributes' => [
             'id',
             'post_type',
             'post_id',
             'user_id',
             'content:ntext',
-            'dt_add',
+            [
+                'attribute' => 'dt_add',
+                'format' => 'datetime',
+            ],
             'parent_id',
             'moder_checked',
             'published',
