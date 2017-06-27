@@ -63,17 +63,16 @@ $user = Yii::$app->user->identity;
 
             <?= \frontend\modules\mainpage\widgets\Stock::widget() ?>
 
-            <div class="home-content__sidebar_poll poll">
-                <?= \frontend\widgets\Poll::widget(); ?>
-            </div>
-
-            <?= \frontend\widgets\Consultation::widget(); ?>
-
-            <?= \frontend\widgets\ExchangeRatesMain::widget() ?>
-
-            <?= \frontend\widgets\Weather::widget(); ?>
-
         </div>
+        <div class="home-content__sidebar_poll">
+            <?= \frontend\widgets\Poll::widget(); ?>
+        </div>
+
+        <?= \frontend\widgets\Consultation::widget(); ?>
+
+        <?= \frontend\widgets\ExchangeRatesMain::widget() ?>
+
+        <?= \frontend\widgets\Weather::widget(); ?>
 </section>
 
 <?= \frontend\widgets\MainPopularSlider::widget(); ?>

@@ -18,7 +18,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'post_id')->dropDownList(\yii\helpers\ArrayHelper::map($news, 'id', 'title')) ?>
 
-    <?= $form->field($model, 'user_id')->dropDownList(\yii\helpers\ArrayHelper::map($user, 'id', 'username')) ?>
+    <?= $form->field($model, 'user_id')->dropDownList(
+        \yii\helpers\ArrayHelper::map($user, 'id', 'username'),
+        ['prompt' => 'Гость']
+    ) ?>
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 

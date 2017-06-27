@@ -42,6 +42,6 @@ use common\models\User;
             </form>
         </div>
         <?php echo \frontend\widgets\MainMenu::widget() ?>
-        
+
     </div>
 </section>
