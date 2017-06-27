@@ -768,6 +768,16 @@ $(document).ready(function () {
      }*/
     /*close single business sidebar scroll*/
 
+    /*social sidebar scroll*/
+    var socialElement = $('.social-wrapper');
+    if (socialElement.length > 0) {
+        var socialElementPosition = socialElement.offset().top;
+        $(window).scroll(function () {
+            fixedScroll(socialElement, socialElementPosition, $('.comments-wrapper'));
+        });
+    }
+    /*close social sidebar scroll*/
+    
     /*show business reviews*/
     $(document).on('click', '.business__reviews--item .links__more', function () {
         event.preventDefault();
@@ -954,12 +964,12 @@ $(window).scroll(function () {
     var top = $(document).scrollTop(),
         h = $('body').css('height');
     if (top < 649) {
-        $('.social-wrapper').addClass('move');
-        $('.social-wrapper').hcSticky();
+        /*$('.social-wrapper').addClass('move');
+        $('.social-wrapper').hcSticky();*/
         $('#business-stock-sidebar').addClass('move');
         $('#business-stock-sidebar').hcSticky();
     } else {
-        $(".social-wrapper").hcSticky();
+        /*$(".social-wrapper").hcSticky();*/
         $('#business-stock-sidebar').hcSticky();
     }
 });
@@ -971,10 +981,10 @@ function fixedScroll(element, elementPosition, blockElement) {//функция �
         height = element.outerHeight();//высота элемента, включающая внутренние и внешние отступы
     if (window.innerWidth > 1200) {
         if (top > elementPosition && top < blockingElement - height) {
-            element.addClass('fixed').removeAttr("style");
+            element.addClass('fixed').removeAttr('style').removeClass('absolute');
         }
         else if (top > blockingElement - height) {
-            element.removeClass('fixed').css({'position': 'absolute', 'bottom': '50px', 'right': '0'});
+            element.removeClass('fixed').addClass('absolute')/*.css({'position': 'absolute', 'bottom': '50px', 'right': '0'})*/;
         }
         else {
             element.removeClass('fixed');

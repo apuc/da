@@ -123,11 +123,13 @@ class DefaultController extends Controller
 
     public function actionCategory()
     {
-        $query = \common\models\db\Poster::find()->orderBy('dt_event_end')->andWhere([
+        $query = \common\models\db\Poster::find()->andWhere([
             '>',
             'dt_event_end',
             time(),
-        ]);
+        ])
+            ->orderBy('dt_event_end')
+        ;
         $dataProvider = new SqlDataProvider([
             'sql' => $query->createCommand()->rawSql,
             'totalCount' => (int)$query->count(),
