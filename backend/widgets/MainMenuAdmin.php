@@ -79,7 +79,7 @@ class MainMenuAdmin extends Widget
                         'label' => 'Коментарии',
                         'url' => Url::to(['/comments/comments']),
                         'active' => Yii::$app->controller->module->id == 'comments',
-                        'visible' => UserFunction::hasPermission(['Новости']),
+                        'visible' => UserFunction::hasPermission(['Коментарии']),
                         'template' => '<a href="{url}"><i class="fa fa-comments"></i> <span>{label}</span></a>',
 
                     ],
