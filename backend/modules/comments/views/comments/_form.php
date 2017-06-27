@@ -14,15 +14,13 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'post_type')->dropDownList(['news' => 'Новости', 'afisha' => 'Афиша']) ?>
+    <?= $form->field($model, 'post_type')->dropDownList(['news' => 'Новости']) ?>
 
     <?= $form->field($model, 'post_id')->dropDownList(\yii\helpers\ArrayHelper::map($news, 'id', 'title')) ?>
 
     <?= $form->field($model, 'user_id')->dropDownList(\yii\helpers\ArrayHelper::map($user, 'id', 'username')) ?>
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'dt_add')->textInput() ?>
 
     <?= $form->field($model, 'parent_id')->textInput() ?>
 
