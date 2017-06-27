@@ -42,12 +42,6 @@ use common\models\User;
             </form>
         </div>
         <?php echo \frontend\widgets\MainMenu::widget() ?>
-        <button class="toggle_mnu">
-          <span class="sandwich">
-            <span class="sw-topper"></span>
-            <span class="sw-bottom"></span>
-            <span class="sw-footer"></span>
-          </span>
-        </button>
+        
     </div>
 </section>
