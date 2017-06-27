@@ -6,10 +6,16 @@ use common\models\User;
 <section class="header">
     <div class="container">
 
-        <a href="/" class="header-logo">
+        <?php if(Yii::$app->controller->module->id == 'mainpage'): ?>
+            <h1 class="header-logo">
+                <img src="/theme/portal-donbassa/img/logo.png" alt="">
+            </h1>
+        <?php else:?>
+            <a href="/" class="header-logo">
 
-            <img src="/theme/portal-donbassa/img/logo.png" alt="">
-        </a>
+                <img src="/theme/portal-donbassa/img/logo.png" alt="">
+            </a>
+        <?php endif;?>
         <div class="header-ipanel">
             <div class="select">
                 <select class="" name="">
