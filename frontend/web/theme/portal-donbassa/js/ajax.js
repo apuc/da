@@ -148,6 +148,9 @@ $(document).ready(function () {
     $("#news-photo").change(function () {
         readURL(this);
     });
+    $("#profile-avatar").change(function () {
+        readURL(this);
+    });
     /*$(document).on('change', '.selectCateg', function () {
         var selects = $('.selectCateg');
         var lastSelect = selects[selects.length - 1];

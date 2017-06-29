@@ -47,7 +47,10 @@ use yii\helpers\Html;
             </div>
     <?php endforeach; ?>
     <?php else: ?>
-        Новостей нет <?= Html::a('Добавить', \yii\helpers\Url::to(['/news/news/create']));?>
+        <div class="cabinet__add-element">
+            <p>Раздел пока пуст</p>
+            <?= Html::a('Добавить', \yii\helpers\Url::to(['/news/news/create']), ['class' => 'show-more']);?>
+        </div>
     <?php endif; ?>
 
 </div>

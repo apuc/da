@@ -7,11 +7,11 @@
         <img src="img/users-avatars/1.jpg" alt="">
     </div>
 
-    <a href="#" class="cabinet__avatar--edit"></a>
+    <a href="<?= \yii\helpers\Url::to('/user/settings/profile'); ?>" class="cabinet__avatar--edit"></a>
 
     <div class="cabinet__info">
 
-        <h1>Компания феникс</h1>
+        <h3><span><img src="img/cabinet/cabinet-logo.png" alt=""></span>Компания феникс</h3>
 
         <!--<p class="cabinet__pkg">Пакет расширенный</p>
 

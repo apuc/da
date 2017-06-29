@@ -38,6 +38,10 @@ return [
             'controllerMap' => [
                 'registration' => '\frontend\controllers\user\RegUserController',
                 'recovery' => '\frontend\controllers\user\RecoveryController',
+                'settings' => [
+                    'class' => '\frontend\controllers\user\SettingController',
+                    'layout' => '@frontend/views/layouts/personal_area',
+                ]
             ],
             'modelMap' => [
                 'RegistrationForm' => '\frontend\models\user\RegUserForm',
