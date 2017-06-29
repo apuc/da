@@ -10,14 +10,16 @@
     <p>На данный момент коментариев нет</p>
     <p>Будь первым</p>
 
-    <a href="#"  data-post-type="<?/*= $postType; */?>"
-       data-post-id="<?/*= $postId; */?>"
+    <a href="#"  data-post-type="<? /*= $postType; */ ?>"
+       data-post-id="<? /*= $postId; */ ?>"
        data-parent-id="0"
        href="#" class="add-comment">написать нам</a>
 </div>-->
-<a href="#" class="load-more add-comment"
-   data-post-type="<?= $postType; ?>"
-   data-post-id="<?= $postId; ?>"
-   data-parent-id="0">
-    оставить комментарий
-</a>
+<div class="comments-wrapper">
+    <a href="#" class="load-more add-comment"
+       data-post-type="<?= $postType; ?>"
+       data-post-id="<?= $postId; ?>"
+       data-parent-id="0">
+        оставить комментарий
+    </a>
+</div>
