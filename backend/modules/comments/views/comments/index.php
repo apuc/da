@@ -1,7 +1,9 @@
 <?php
 
 use common\models\db\News;
+use common\models\db\Pages;
 use common\models\User;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
@@ -74,8 +76,14 @@ $this->registerJs($script, yii\web\View::POS_BEGIN);*/
                     if ($model->post_id == 0) {
                         return 'Нет';
                     }
-                    $news = News::find()->where(['id' => $model->post_id])->one();
-                    return isset($news->id) ? $news->title : '';
+                    if ($model->post_type == 'news') {
+                        $result = News::find()->where(['id' => $model->post_id])->one();
+
+                    }
+                    if ($model->post_type == 'page') {
+                        $result = Pages::find()->where(['id' => $model->post_id])->one();
+                    }
+                    return isset($result->id) ? $result->title : '';
                 },
             ],
             // 'user_id',
@@ -90,6 +98,12 @@ $this->registerJs($script, yii\web\View::POS_BEGIN);*/
                     $user = User::find()->where(['id' => $model->user_id])->one();
                     return isset($user->username) ? $user->username : '';
                 },
+                'filter'    => Html::activeDropDownList( $searchModel,
+                    'user_id',
+                    ArrayHelper::map( User::find()->all(),
+                        'id',
+                        'username' ),
+                    [ 'class'  => 'form-control', 'prompt' => '' ] ),
             ],
             // 'dt_add',
             // 'parent_id',

@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'post_type')->dropDownList(['news' => 'Новости']) ?>
+    <?= $form->field($model, 'post_type')->dropDownList(['news' => 'Новости', 'page' => 'Страницы']) ?>
 
     <?= $form->field($model, 'post_id')->dropDownList(\yii\helpers\ArrayHelper::map($news, 'id', 'title')) ?>
 
