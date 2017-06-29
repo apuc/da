@@ -45,7 +45,7 @@ AppAsset::register($this);
 
             <div class="cabinet__owner">
 
-                <h3>Завидовский Виктор Олегович</h3>
+                <h3><?= \common\classes\UserFunction::getUserName()?></h3>
 
                 <!--<p>
                     <span></span>

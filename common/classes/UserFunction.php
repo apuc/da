@@ -8,7 +8,8 @@
 
 namespace common\classes;
 
-
+use dektrium\user\models\Profile;
+use dektrium\user\models\User;
 use Yii;
 
 class UserFunction {
@@ -32,5 +33,50 @@ class UserFunction {
         }
 
         return false;
+    }
+
+    //получить аватар пользователя
+    public static function getUser_avatar_url($id = null, $smal=true){
+        $img = 'avatar_little';
+        if(!$smal){
+            $img = 'avatar';
+        }
+
+        if(empty($id)){
+            $avatar = Profile::find()->where(['user_id' => Yii::$app->user->id])->one()->$img;
+        }
+        else{
+            $avatar = Profile::find()->where(['user_id' => $id])->one()->$img;
+        }
+
+        if(empty($avatar)){
+            if(!$smal){
+                $avatar = '/img/default_avatar_male.jpg';
+            }
+            else{
+                $avatar = '/img/default_avatar_little.jpg';
+            }
+
+        }
+
+        return($avatar);
+    }
+
+    //получить имя пользователя. вернет login, если имя не указано
+    public static function getUserName($id = null){
+        if(empty($id)){
+            $name = Profile::find()->where(['user_id' => Yii::$app->user->id])->one()->name;
+            if(empty($name)){
+                $name = User::find()->where(['id' => Yii::$app->user->id])->one()->username;
+            }
+        }
+        else{
+            $name = Profile::find()->where(['user_id' => $id])->one()->name;
+            if(empty($name)){
+                $name = User::find()->where(['id' => $id])->one()->username;
+            }
+        }
+
+        return $name;
     }
 }
