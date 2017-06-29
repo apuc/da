@@ -34,10 +34,21 @@ use common\models\User;
                         авторизация
                     </a>
                 <?php else: ?>
-                    <a href="<?= Url::to(['/personal_area/default/index']) ?>">
+                    <a id="authorized-user-profile" href="<?= Url::to(['/personal_area/default/index']) ?>">
                         <span class="autoriz-icon"></span>
                         <?= Yii::$app->user->identity->username; ?>
                     </a>
+
+                    <div class="currency-panel__submenu">
+                        <a href="<?= Url::to('/personal_area/default/index')?>">ПРОФИЛЬ</a>
+                        <a href="#">НОВОСТИ</a>
+                        <a href="#">АФИШИ</a>
+                        <a href="#">АКЦИИ</a>
+                        <a href="#">ПРЕДПРИЯТИЯ</a>
+                        <a href="#">КОМЕНТАРИИ</a>
+                        <!--<a href="#">Настройки</a>-->
+                        <a data-method="post" href="<?= Url::to(['/site/logout']) ?>">выход</a>
+                    </div>
                 <?php endif; ?>
             </form>
         </div>

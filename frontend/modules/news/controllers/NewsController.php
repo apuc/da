@@ -13,6 +13,7 @@ use common\models\db\News;
 use frontend\modules\news\models\NewsSearch;
 use yii\data\Pagination;
 use yii\data\SqlDataProvider;
+use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\validators\RequiredValidator;
@@ -41,6 +42,20 @@ class NewsController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['index', 'category', 'more-news', 'more-category-news', 'archive'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
                 ],
             ],
         ];

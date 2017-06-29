@@ -4,7 +4,7 @@
 <div class="cabinet__tollbar">
 
     <div class="cabinet__avatar">
-        <img src="img/users-avatars/1.jpg" alt="">
+        <img src="<?= \common\classes\UserFunction::getUser_avatar_url(Yii::$app->user->id, false)?>" alt="">
     </div>
 
     <a href="<?= \yii\helpers\Url::to('/user/settings/profile'); ?>" class="cabinet__avatar--edit"></a>

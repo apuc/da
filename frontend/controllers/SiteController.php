@@ -66,6 +66,16 @@ class SiteController extends Controller {
         ];
     }
 
+
+
+    public function beforeAction($action)
+    {
+        if ($action->id == 'logout') {
+            Yii::$app->controller->enableCsrfValidation = false;
+        }
+        return parent::beforeAction($action);
+    }
+
     /**
      * Displays homepage.
      *
