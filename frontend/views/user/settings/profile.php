@@ -36,8 +36,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="business__tab-content">
 
-        <!--<div id="setting-profile" class="business__tab-content&#45;&#45;wrapper">-->
-
         <?php $form = \yii\widgets\ActiveForm::begin([
                     'id' => 'profile-form',
                     'options' => ['class' => 'cabinet__add-company-form'],
@@ -60,13 +58,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <p class="cabinet__add-company-form--title">Аватар</p>
 
-        <!--<label class="cabinet__add-company-form--add-foto">
-            <span class="button"></span>
-            <input id="news-photo" class="input-file" type="file">
-            <img id="blah" src="" alt="" width="160px">
-        </label>-->
-
-
             <?php
             if (empty($model->avatar)) {
                 echo $form->field($model, 'avatar', [
@@ -86,123 +77,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 ])->label('Загрузить аватар с компютера')->fileInput();
             }
             ?>
-
         <div class="cabinet__add-company-form--block"></div>
 
-
         <?/*= $form->field($model, 'location') */?>
-
 
                 <?= \yii\helpers\Html::submitButton(Yii::t('user', 'Save'),
                             ['class' => 'cabinet__add-company-form--submit']) ?>
 
 
         <?php \yii\widgets\ActiveForm::end(); ?>
-
-
-
-        <!--<form class="cabinet__add-company-form">
-
-            <p class="cabinet__add-company-form--title">Имя пользователя</p>
-
-            <input class="cabinet__add-company-form--field" type="text">
-
-            <div class="cabinet__add-company-form--block"></div>
-
-            <p class="cabinet__add-company-form--title">Публичный E-mail</p>
-
-            <input class="cabinet__add-company-form--field" type="text">
-
-            <div class="cabinet__add-company-form--block"></div>
-
-            <p class="cabinet__add-company-form--title">Аватар</p>
-
-            <label class="cabinet__add-company-form--add-foto">
-                <span class="button"></span>
-                <input id="news-photo" class="input-file" type="file">
-                <img id="blah" src="" alt="" width="160px">
-            </label>
-
-            <div class="cabinet__add-company-form--block"></div>
-
-            <input type="submit" class="cabinet__add-company-form--submit" value="сохранить">
-
-        </form>-->
-
-        <!--   </div>-->
-
-        <!--<div id="setting-account" class="business__tab-content&#45;&#45;wrapper">-->
-
-        <!--<form class="cabinet__add-company-form">
-
-            <p class="cabinet__add-company-form--title">Логин</p>
-
-            <input class="cabinet__add-company-form--field" type="text">
-
-            <div class="cabinet__add-company-form--block"></div>
-
-            <p class="cabinet__add-company-form--title">E-mail</p>
-
-            <input class="cabinet__add-company-form--field" type="text">
-
-            <div class="cabinet__add-company-form--block"></div>
-
-            <p class="cabinet__add-company-form--title">Новый пароль</p>
-
-            <input class="cabinet__add-company-form--field" type="text">
-
-            <div class="cabinet__add-company-form--block"></div>
-
-            <div class="separator"></div>
-
-            <p class="cabinet__add-company-form--title">Текущий пароль</p>
-
-            <input class="cabinet__add-company-form--field" type="text">
-
-            <div class="cabinet__add-company-form--block"></div>
-
-            <input type="submit" class="cabinet__add-company-form--submit" value="сохранить">
-
-        </form>-->
-
-        <!--  </div>-->
-
-        <!--<div id="setting-socials" class="business__tab-content&#45;&#45;wrapper">-->
-
-        <!--<div class="cabinet__container">
-
-            <p>Вы можете подключить несколько аккаунтов, чтобы использовать их для входа</p>
-
-            <div class="row-soc">
-                                <span class="social-wrap__item vk">
-                                  <img src="img/soc/vk.png" alt="">
-                                </span>
-                <a href="#" class="row-soc__add">
-                    <span>подключить</span>
-                </a>
-
-            </div>
-
-            <div class="row-soc">
-                                <span class="social-wrap__item fb">
-                                  <img src="img/soc/fb.png" alt="">
-                                </span>
-                <a href="#" class="row-soc__add">
-                    <span>подключить</span>
-                </a>
-            </div>
-
-            <div class="row-soc">
-                                <span class="social-wrap__item ok">
-                                  <img src="img/soc/ok-icon.png" alt="">
-                                </span>
-                <a href="#" class="check-button"><span class="black-check"></span>Подключено</a>
-            </div>
-
-
-        </div>-->
-
-        <!--</div>-->
 
     </div>
 
