@@ -1,141 +1,12 @@
-<section class="cabinet">
+<?php
+$this->title = "Личный кабинет";
+?>
 
-    <div class="container">
+<?= $this->render('_user-news', ['userNews' => $userNews]); ?>
 
-        <div class="cabinet__tollbar">
+<?= \frontend\modules\personal_area\widgets\ShowVisitsUser::widget(); ?>
 
-            <div class="cabinet__avatar">
-                <img src="img/users-avatars/1.jpg" alt="">
-            </div>
-
-            <a href="#" class="cabinet__avatar--edit"></a>
-
-            <div class="cabinet__info">
-
-                <h1>Компания феникс</h1>
-
-                <p class="cabinet__pkg">Пакет расширенный</p>
-
-                <p class="cabinet__pkg-time">до <span>23.05.2015 (еще 1 месяц)</span></p>
-
-                <a href="#" class="cabinet__add-pkg"></a>
-
-                <a href="#" class="cabinet__froze-pkg">Заморозить абонемент</a>
-
-                <a href="#" class="show-more">РЕДАКТИРОВАТЬ</a>
-
-            </div>
-
-            <ul class="cabinet__list">
-                <li><a href="#" class="news">НОВОСТИ <span>258</span></a></li>
-                <li><a href="#" class="poster">АФИШИ</a></li>
-                <li><a href="#" class="stock">АКЦИИ</a></li>
-                <li><a href="#" class="configuration">Настройки</a></li>
-                <li><a href="#" class="company">ПРЕДПРИЯТИЯ <span class="add"></span></a></li>
-                <li><a href="#" class="comments">КОМЕНТАРИИ <span class="add"></span></a></li>
-                <li><a href="#" class="notice">Уведомления <span>89</span></a></li>
-            </ul>
-
-        </div>
-
-        <div class="cabinet__main">
-
-            <div class="cabinet__owner">
-
-                <h3>Завидовский Виктор Олегович</h3>
-
-                <p>
-                    <span></span>
-                    Донецк
-                </p>
-
-            </div>
-
-            <div class="cabinet__owner-tools">
-
-                <a href="#" class="active">
-
-                    <span>25</span>
-
-                    <p>подписок</p>
-
-                </a>
-
-                <a href="#">
-
-                    <span>25</span>
-
-                    <p>акций</p>
-
-                </a>
-
-                <a href="#">
-
-                    <span>125</span>
-
-                    <p>компаний</p>
-
-                </a>
-
-                <a href="#">
-
-                    <span>225</span>
-
-                    <p>отзывов</p>
-
-                </a>
-
-                <a href="#">
-
-                    <span>88825</span>
-
-                    <p>коментария</p>
-
-                </a>
-
-            </div>
-
-            <?= $this->render('_user-news', ['userNews' => $userNews]); ?>
-
-            <div class="cabinet__statistics">
-
-                <h3>Посещения</h3>
-
-                <div class="cabinet__statistics--item">
-
-                    <span>2</span>
-
-                    <p>на этой неделе</p>
-
-                </div>
-
-                <div class="cabinet__statistics--item">
-
-                    <span>3</span>
-
-                    <p>на прошлой неделе</p>
-
-                </div>
-
-                <div class="cabinet__statistics--item">
-
-                    <span>58</span>
-
-                    <p>в этом месяце</p>
-
-                </div>
-
-                <div class="cabinet__statistics--item">
-
-                    <span>368</span>
-
-                    <p>всего</p>
-
-                </div>
-
-            </div>
-
-            <div class="cabinet__inner-box">
+<div class="cabinet__inner-box">
 
                 <h3>Мои компании</h3>
 
@@ -254,8 +125,6 @@
 
             </div>
 
-        </div>
 
-    </div>
 
-</section>
+

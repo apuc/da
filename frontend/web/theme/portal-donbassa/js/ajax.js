@@ -100,4 +100,72 @@ $(document).ready(function () {
         });
         return false;
     })
+
+    $(document).on('click', '.addCategAddNewsUser', function () {
+        $('.error_cat').text('');
+        var catIdSelect = '';
+        var selects = $('.selectCateg');
+        var lastSelect = selects[selects.length - 1];
+
+        $('.selectCateg').each(function (i,e) {
+            catIdSelect += $(this).val() + ',';
+            if(i < selects.length && $(lastSelect).val() != ''){
+                //$(this).attr('disabled', true);
+                $(this).attr('readonly', true);
+            }
+        });
+
+        if($(lastSelect).val() == ''){
+            $('.error_cat').text('Выберите категорию');
+            return false;
+        }
+
+        $.ajax({
+            url: '/ajax/ajax/add-category-select',
+            type: "POST",
+            data: {
+                '_csrf': $("input[name='_csrf']").val(),
+                'catId': catIdSelect
+            },
+            success: function (data) {
+                $('.addSelectCateg').before(data);
+            }
+        });
+        return false;
+    });
+
+    $(document).on('click', '.delselectCateg', function () {
+        var elem = $(this).closest('.cabinet__add-company-form--hover-wrapper');
+        elem.remove();
+
+        var selects = $('.selectCateg');
+        var lastSelect = selects[selects.length - 1];
+        $(lastSelect).attr('readonly', false);
+
+    });
+
+
+    $("#news-photo").change(function () {
+        readURL(this);
+    });
+    /*$(document).on('change', '.selectCateg', function () {
+        var selects = $('.selectCateg');
+        var lastSelect = selects[selects.length - 1];
+        console.log(selects.length);
+    });*/
+
+
+
 })
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#blah').attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}

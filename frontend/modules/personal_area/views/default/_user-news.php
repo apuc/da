@@ -32,7 +32,7 @@ use yii\helpers\Html;
 
                 <div class="cabinet__inner-box--toolth">
 
-                    <a href="">
+                    <a data-method="post" href="<?= \yii\helpers\Url::to(['/news/news/delete', 'id' => $new->id]); ?>">
                         <img src="/theme/portal-donbassa/img/icons/cabinetd-delete-icon.png" alt="" title="Удалить">
                     </a>
                     <a href="">

@@ -1,0 +1,38 @@
+<?php
+?>
+
+<div class="cabinet__tollbar">
+
+    <div class="cabinet__avatar">
+        <img src="img/users-avatars/1.jpg" alt="">
+    </div>
+
+    <a href="#" class="cabinet__avatar--edit"></a>
+
+    <div class="cabinet__info">
+
+        <h1>Компания феникс</h1>
+
+        <!--<p class="cabinet__pkg">Пакет расширенный</p>
+
+        <p class="cabinet__pkg-time">до <span>23.05.2015 (еще 1 месяц)</span></p>
+
+        <a href="#" class="cabinet__add-pkg"></a>
+
+        <a href="#" class="cabinet__froze-pkg">Заморозить абонемент</a>
+
+        <a href="#" class="show-more">РЕДАКТИРОВАТЬ</a>-->
+
+    </div>
+
+    <ul class="cabinet__list">
+        <li><a href="#" class="news">НОВОСТИ <span>258</span></a></li>
+        <li><a href="#" class="poster">АФИШИ</a></li>
+        <li><a href="#" class="stock">АКЦИИ</a></li>
+        <li><a href="#" class="configuration">Настройки</a></li>
+        <li><a href="#" class="company">ПРЕДПРИЯТИЯ <span class="add"></span></a></li>
+        <li><a href="#" class="comments">КОМЕНТАРИИ <span class="add"></span></a></li>
+        <!--<li><a href="#" class="notice">Уведомления <span>89</span></a></li>-->
+    </ul>
+
+</div>

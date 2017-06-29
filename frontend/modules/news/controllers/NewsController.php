@@ -158,16 +158,35 @@ class NewsController extends Controller
      */
     public function actionCreate()
     {
+        $this->layout = 'personal_area';
         $model = new \frontend\modules\news\models\News();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+/*
+            Debug::prn($model);
+            Debug::prn($_FILES);*/
+
+
             $model->status = 1;
             $model->user_id = Yii::$app->user->getId();
             $model->dt_public = $model->dt_update;
+
+            if ($_FILES['News']['name']['photo']) {
+                $upphoto = New \common\models\UploadPhoto();
+                $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
+                $loc = 'media/upload/userphotos/' . date('dmY') . '/';
+                if (!is_dir($loc)) {
+                    mkdir($loc);
+                }
+                $upphoto->location = $loc;
+                $upphoto->upload();
+                $model->photo = '/' . $loc . $_FILES['News']['name']['photo'];
+            }
+
             $model->save();
 
-            if (!empty(Yii::$app->request->post('categ'))) {
-                foreach ($_POST['categ'] as $cat) {
+            if (!empty(Yii::$app->request->post('categoryId'))) {
+                foreach ($_POST['categoryId'] as $cat) {
                     $catNewRel = new CategoryNewsRelations();
                     $catNewRel->cat_id = $cat;
                     $catNewRel->new_id = $model->id;
@@ -175,6 +194,8 @@ class NewsController extends Controller
                 }
             }
 
+            Yii::$app->session->setFlash('success','Ваша новость успешно добавлена. После прохождения модерации она будет опубликована.');
+            return $this->redirect('/personal_area/default/index');
             /*$model->status = 1;
             $model->user_id = Yii::$app->user->getId();
 
@@ -234,9 +255,12 @@ class NewsController extends Controller
      */
     public function actionDelete($id)
     {
+        CategoryNewsRelations::deleteAll(['new_id' => $id]);
+
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        Yii::$app->session->setFlash('success','Ваша новость успешно удалена.');
+        return $this->redirect('/personal_area/default/index');
     }
 
     public function actionCategory($slug)

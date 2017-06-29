@@ -4,6 +4,7 @@ namespace frontend\modules\ajax\controllers;
 
 use common\classes\Debug;
 use common\models\db\Answers;
+use common\models\db\CategoryNews;
 use common\models\db\Comments;
 use common\models\db\Contacting;
 use common\models\db\Faq;
@@ -226,6 +227,30 @@ class AjaxController extends Controller
             $subscribe->email = Yii::$app->request->get('email');
             $subscribe->save();
         }
+    }
+
+
+    public function actionAddCategorySelect()
+    {
+        $catId = Yii::$app->request->post('catId');
+        $catId = explode(',', $catId);
+        array_splice($catId, -1);
+
+        $query = CategoryNews::find()
+            ->where(['lang_id' => 1]);
+        foreach ($catId as $item){
+            $query->andWhere(['!=', 'id', $item]);
+        }
+
+        $category = $query->all();
+        if(!empty($category)){
+            $html = $this->renderPartial('add-select-category', ['category' => $category]);
+        }else{
+            $html = '';
+        }
+
+        return $html;
+        //Debug::prn($category);
     }
 
 }
