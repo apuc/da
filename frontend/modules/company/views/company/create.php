@@ -10,9 +10,18 @@ $this->title = Yii::t('company', 'Create Company');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('company', 'Companies'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="company-create">
+<!--<div class="company-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?/*= Html::encode($this->title) */?></h1>
+
+    <?/*= $this->render('_form', [
+        'model' => $model,
+    ]) */?>
+
+</div>-->
+<div class="cabinet__inner-box">
+
+    <h3><?= Html::encode($this->title) ?></h3>
 
     <?= $this->render('_form', [
         'model' => $model,

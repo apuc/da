@@ -138,7 +138,9 @@ class CompanyController extends Controller
      */
     public function actionCreate()
     {
-        $this->goHome();
+        //$this->goHome();
+
+        $this->layout = "personal_area";
         $model = new Company();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -161,7 +163,9 @@ class CompanyController extends Controller
             $catCompanyRel->save();
 
             return $this->redirect(['/']);
-        } else {
+        }
+
+        else {
             return $this->render('create', [
                 'model' => $model,
             ]);

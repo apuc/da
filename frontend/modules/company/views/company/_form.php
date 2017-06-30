@@ -94,3 +94,100 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+<form class="cabinet__add-company-form">
+
+    <p class="cabinet__add-company-form--title">Категория компании</p>
+
+    <select class="cabinet__add-company-form--field" name="" id="form-select">
+        <option value="1"></option>
+        <option value="2"></option>
+        <option value="3"></option>
+        <option value="4"></option>
+        <option value="5"></option>
+    </select>
+
+    <div class="cabinet__add-company-form--block"></div>
+
+    <p class="cabinet__add-company-form--title">Название компании</p>
+
+    <input class="cabinet__add-company-form--field" type="text">
+
+    <div class="cabinet__add-company-form--block"></div>
+
+    <div class="cabinet__add-company-form--wrapper">
+
+        <p class="cabinet__add-company-form--title">Адрес компании</p>
+
+        <input class="cabinet__add-company-form--field" type="text">
+
+        <a href="#" class="cabinet__add-field"></a>
+
+    </div>
+
+    <div class="cabinet__add-company-form--hover-wrapper" data-count="1">
+
+    </div>
+
+    <p class="cabinet__add-company-form--title">Логотип компании</p>
+
+    <label class="cabinet__add-company-form--add-foto">
+        <span class="button"></span>
+        <input id="news-photo" class="input-file" type="file">
+        <img id="blah" src="" alt="" width="160px">
+    </label>
+
+    <div class="cabinet__add-company-form--block"></div>
+
+    <p class="cabinet__add-company-form--title">Сайт компании</p>
+
+    <input class="cabinet__add-company-form--field" type="text">
+
+    <div class="cabinet__add-company-form--block"></div>
+
+    <p class="cabinet__add-company-form--title">Соц. сети</p>
+
+    <div class="cabinet__add-company-form--social">
+        <a href="" class="social-wrap__item vk">
+            <img src="img/soc/vk.png" alt="">
+        </a>
+        <a href="" class="social-wrap__item fb">
+            <img src="img/soc/fb.png" alt="">
+        </a>
+        <a href="" class="social-wrap__item ok">
+            <img src="img/soc/ok-icon.png" alt="">
+        </a>
+        <a href="" class="social-wrap__item vk">
+            <img src="img/soc/vk.png" alt="">
+        </a>
+        <a href="" class="social-wrap__item fb">
+            <img src="img/soc/fb.png" alt="">
+        </a>
+        <a href="" class="social-wrap__item ok">
+            <img src="img/soc/ok-icon.png" alt="">
+        </a>
+    </div>
+
+    <div class="cabinet__add-company-form--block"></div>
+
+    <div class="cabinet__add-company-form--wrapper">
+
+        <p class="cabinet__add-company-form--title">Телефон</p>
+
+        <input class="cabinet__add-company-form--field" type="text">
+
+        <a href="#" class="cabinet__add-field"></a>
+
+    </div>
+
+    <div class="cabinet__add-company-form--hover-wrapper" data-count="1">
+
+
+    </div>
+
+    <p class="cabinet__add-company-form--title">О компании</p>
+
+    <textarea class="cabinet__add-company-form--text"></textarea>
+
+    <input type="submit" class="cabinet__add-company-form--submit" value="сохранить">
+
+</form>
