@@ -11,7 +11,7 @@
 
     <div class="cabinet__info">
 
-        <h3><span><img src="img/cabinet/cabinet-logo.png" alt=""></span>Компания феникс</h3>
+        <!--<h3><span><img src="img/cabinet/cabinet-logo.png" alt=""></span>Компания феникс</h3>-->
 
         <!--<p class="cabinet__pkg">Пакет расширенный</p>
 
@@ -26,12 +26,12 @@
     </div>
 
     <ul class="cabinet__list">
-        <li><a href="#" class="news">НОВОСТИ <span>258</span></a></li>
+        <li><a href="#" class="news">НОВОСТИ <!--<span>258</span>--></a></li>
         <li><a href="#" class="poster">АФИШИ</a></li>
         <li><a href="#" class="stock">АКЦИИ</a></li>
-        <li><a href="#" class="configuration">Настройки</a></li>
-        <li><a href="#" class="company">ПРЕДПРИЯТИЯ <span class="add"></span></a></li>
-        <li><a href="#" class="comments">КОМЕНТАРИИ <span class="add"></span></a></li>
+        <!--<li><a href="#" class="configuration">Настройки</a></li>-->
+        <li><a href="#" class="company">ПРЕДПРИЯТИЯ <!--<span class="add"></span>--></a></li>
+        <li><a href="#" class="comments">КОМЕНТАРИИ <!--<span class="add"></span>--></a></li>
         <!--<li><a href="#" class="notice">Уведомления <span>89</span></a></li>-->
     </ul>
 

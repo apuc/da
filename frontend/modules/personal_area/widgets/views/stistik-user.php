@@ -16,7 +16,7 @@
         <p>Афиш</p>
     </a>
     <a href="#">
-        <span>0</span>
+        <span><?= $company; ?></span>
         <p>компаний</p>
     </a>
     <a href="#">

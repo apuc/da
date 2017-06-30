@@ -29,7 +29,7 @@ use common\models\User;
                 <input class="search-input" type="text" placeholder="Поиск" name="request">
                 <!--<input type="hidden" name="_csrf" value="<?/*= Yii::$app->request->csrfToken; */?>">-->
                 <?php if (Yii::$app->user->isGuest): ?>
-                    <a href="<?= Url::to(['/user/login']) ?>">
+                    <a href="<?= Url::to(['/site/design']) ?>">
                         <span class="autoriz-icon"></span>
                         авторизация
                     </a>
