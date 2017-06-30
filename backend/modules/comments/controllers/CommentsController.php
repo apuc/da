@@ -44,6 +44,24 @@ class CommentsController extends Controller
         return false;*/
     }
 
+    public function actionMultiModerChecked()
+    {
+        if ($keyList = Yii::$app->request->post('keyList')) {
+            $arrKey = explode(',', $keyList);
+            Comments::updateAll(['moder_checked' => 1], ['id' => $arrKey]);
+        }
+        return $this->redirect('index');
+    }
+
+    public function actionMultiPublished()
+    {
+        if ($keyList = Yii::$app->request->post('keyList')) {
+            $arrKey = explode(',', $keyList);
+            Comments::updateAll(['published' => 1], ['id' => $arrKey]);
+        }
+        return $this->redirect('index');
+    }
+
 
     /**
      * Lists all Comments models.

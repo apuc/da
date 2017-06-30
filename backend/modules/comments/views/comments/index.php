@@ -15,19 +15,24 @@ use yii\helpers\Url;
 $this->title = Yii::t('comments', 'Comments');
 $this->params['breadcrumbs'][] = $this->title;
 
-/*$script = "
+$script = "
         function setParams(){
         console.log(123);
-            var keyList = $('#grid').yiiGridView('getSelectedRows');
+            var keyList = $('#w0').yiiGridView('getSelectedRows');
             console.log(keyList);
             
             if(keyList != '') {
-                $('#btn-multi-del').attr('data-params', JSON.stringify({keyList}));
+                $('#btn-multi-moder-checked').attr('data-params', JSON.stringify({keyList}));
             } else {
-                $('#btn-multi-del').removeAttr('data-params');
+                $('#btn-multi-moder-checked').removeAttr('data-params');
+            }
+            if(keyList != '') {
+                $('#btn-multi-published').attr('data-params', JSON.stringify({keyList}));
+            } else {
+                $('#btn-multi-published').removeAttr('data-params');
             }
         };";
-$this->registerJs($script, yii\web\View::POS_BEGIN);*/
+$this->registerJs($script, yii\web\View::POS_BEGIN);
 
 ?>
 <div class="comments-index">
@@ -39,17 +44,38 @@ $this->registerJs($script, yii\web\View::POS_BEGIN);*/
         <? /*= Html::a(Yii::t('comments', 'Create Comments'), ['create'], ['class' => 'btn btn-success']) */ ?>
     </p>-->
 
-    <?php
-    /*    echo Html::a('Удалить выбранные', ['multi-delete'], [
-            'id' => 'btn-multi-del',
-            'class' => 'btn btn-default',
-            'onclick' => 'setParams()',
-            'data' => [
-                'confirm' => 'Вы действительно хотите удалить выбранные элементы?',
-                'method' => 'post',
-            ],
-        ]);
-        */ ?>
+    <!--    --><?php
+    //       echo Html::a('Удалить выбранные', ['multi-delete'], [
+    //            'id' => 'btn-multi-del',
+    //            'class' => 'btn btn-default',
+    //            'onclick' => 'setParams()',
+    //            'data' => [
+    //                'confirm' => 'Вы действительно хотите удалить выбранные элементы?',
+    //                'method' => 'post',
+    //            ],
+    //        ]);
+    //         ?>
+
+    <?= Html::a('Отметить все', ['multi-moder-checked'], [
+        'id' => 'btn-multi-moder-checked',
+        'class' => 'btn btn-success',
+        'onclick' => 'setParams()',
+        'data' => [
+            'method' => 'post',
+        ],
+    ]);
+    ?>
+
+    <?= Html::a('Опубликовать все', ['multi-published'], [
+        'id' => 'btn-multi-published',
+        'class' => 'btn btn-success',
+        'onclick' => 'setParams()',
+        'data' => [
+            'method' => 'post',
+        ],
+    ]);
+    ?>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -57,12 +83,12 @@ $this->registerJs($script, yii\web\View::POS_BEGIN);*/
             ['class' => 'yii\grid\SerialColumn'],
 
 
-            /*[
-                /*'class' => 'yii\grid\CheckboxColumn',*/
-            /*'checkboxOptions' => function ($model, $key, $index, $column) {
-                return ['value' => $model->id];
-            }
-        ],*/
+            [
+                'class' => 'yii\grid\CheckboxColumn',
+                'checkboxOptions' => function ($model) {
+                    return ['value' => $model->id];
+                }
+            ],
 
             'content:ntext',
             //'id',
@@ -98,12 +124,12 @@ $this->registerJs($script, yii\web\View::POS_BEGIN);*/
                     $user = User::find()->where(['id' => $model->user_id])->one();
                     return isset($user->username) ? $user->username : '';
                 },
-                'filter'    => Html::activeDropDownList( $searchModel,
+                'filter' => Html::activeDropDownList($searchModel,
                     'user_id',
-                    ArrayHelper::map( User::find()->all(),
+                    ArrayHelper::map(User::find()->all(),
                         'id',
-                        'username' ),
-                    [ 'class'  => 'form-control', 'prompt' => '' ] ),
+                        'username'),
+                    ['class' => 'form-control', 'prompt' => '']),
             ],
             // 'dt_add',
             // 'parent_id',
@@ -152,6 +178,8 @@ $this->registerJs($script, yii\web\View::POS_BEGIN);*/
             ],
 
             ['class' => 'yii\grid\ActionColumn'],
+
         ],
     ]); ?>
+
 </div>
