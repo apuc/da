@@ -151,11 +151,25 @@ $(document).ready(function () {
     $("#profile-avatar").change(function () {
         readURL(this);
     });
-    /*$(document).on('change', '.selectCateg', function () {
-        var selects = $('.selectCateg');
-        var lastSelect = selects[selects.length - 1];
-        console.log(selects.length);
-    });*/
+    $("#company-photo").change(function () {
+        readURL(this);
+    });
+    $(document).on('change', '#categ_company', function () {
+        var catId = $('#categ_company').val();
+        console.log(catId);
+        $.ajax({
+            url: '/ajax/ajax/add-parent-category',
+            type: "POST",
+            data: {
+                '_csrf': $("input[name='_csrf']").val(),
+                'catId': catId
+            },
+            success: function (data) {
+                $('.addParentCategory').html(data);
+                //$('.addSelectCateg').before(data);
+            }
+        });
+    });
 
 
 

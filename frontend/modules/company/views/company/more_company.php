@@ -34,10 +34,10 @@ $wrc_count = 0; ?>
                 <?= $company->name ?>
             </p>
 
-            <p class="business__big-item--address">
+            <!--<p class="business__big-item--address">
                 <span>Время работы Министерства:</span>
                 <span>с 9:00 до 18:00 (перерыв с 13:00 до 14:00)</span>
-            </p>
+            </p>-->
 
             <p class="business__sm-item--address">
                 <span>Адрес:</span>

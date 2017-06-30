@@ -4,6 +4,7 @@ namespace frontend\modules\ajax\controllers;
 
 use common\classes\Debug;
 use common\models\db\Answers;
+use common\models\db\CategoryCompany;
 use common\models\db\CategoryNews;
 use common\models\db\Comments;
 use common\models\db\Contacting;
@@ -15,6 +16,8 @@ use common\models\db\Question;
 use common\models\db\Subscribe;
 use frontend\widgets\Poll;
 use Yii;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 use yii\web\Controller;
 
 /**
@@ -229,7 +232,6 @@ class AjaxController extends Controller
         }
     }
 
-
     public function actionAddCategorySelect()
     {
         $catId = Yii::$app->request->post('catId');
@@ -238,14 +240,14 @@ class AjaxController extends Controller
 
         $query = CategoryNews::find()
             ->where(['lang_id' => 1]);
-        foreach ($catId as $item){
+        foreach ($catId as $item) {
             $query->andWhere(['!=', 'id', $item]);
         }
 
         $category = $query->all();
-        if(!empty($category)){
+        if (!empty($category)) {
             $html = $this->renderPartial('add-select-category', ['category' => $category]);
-        }else{
+        } else {
             $html = '';
         }
 
@@ -253,4 +255,21 @@ class AjaxController extends Controller
         //Debug::prn($category);
     }
 
+    public function actionAddParentCategory()
+    {
+        $catId = Yii::$app->request->post('catId');
+
+        $html = '<p class="cabinet__add-company-form--title">Категория компании</p>';
+        $html .= Html::dropDownList(
+            'categParent',
+            null,
+            ArrayHelper::map(CategoryCompany::find()->where(['lang_id' => 1, 'parent_id' => $catId])->all(), 'id',
+                'title'),
+            ['class' => 'cabinet__add-company-form--field', 'prompt' => 'Выберите категорию']
+        );
+        $html .= '<div class="cabinet__add-company-form--block"></div>';
+
+        return $html;
+
+    }
 }

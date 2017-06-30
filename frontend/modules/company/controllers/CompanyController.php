@@ -144,7 +144,14 @@ class CompanyController extends Controller
         $model = new Company();
 
         if ($model->load(Yii::$app->request->post())) {
+            $phone = '';
+            foreach ($_POST['mytext'] as $item){
+                $phone .= $item . ' ';
+            }
+
             $model->status = 1;
+            $model->phone = $phone;
+            $model->user_id = Yii::$app->user->id;
             if ($_FILES['Company']['name']['photo']) {
                 $upphoto = New \common\models\UploadPhoto();
                 $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
@@ -158,11 +165,11 @@ class CompanyController extends Controller
             }
             $model->save();
             $catCompanyRel = new CategoryCompanyRelations();
-            $catCompanyRel->cat_id = $_POST['categ'];
+            $catCompanyRel->cat_id = $_POST['categParent'];
             $catCompanyRel->company_id = $model->id;
             $catCompanyRel->save();
 
-            return $this->redirect(['/']);
+            return $this->redirect(['/personal_area/default/index']);
         }
 
         else {
@@ -210,9 +217,11 @@ class CompanyController extends Controller
      */
     public function actionDelete($id)
     {
+        CategoryCompanyRelations::deleteAll(['company_id' => $id]);
+
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['/personal_area/default/index']);
     }
 
     /**

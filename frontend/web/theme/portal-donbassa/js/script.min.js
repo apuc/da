@@ -77,14 +77,17 @@ $(document).ready(function () {
     $(document).on('click', '#authorized-user-profile', function (event) {
        event.preventDefault();
        var submenu = $(this).closest('form').find('.currency-panel__submenu');
-       console.log( submenu );
-        if($(this).hasClass('show')){
+       /*console.log( submenu );*/
+        /*if($(this).hasClass('show')){
             $(this).removeClass('show');
             submenu.slideUp('500');
         } else {
             $(this).addClass('show');
             submenu.slideDown('500');
-        }
+        }*/
+        $(this).toggleClass('show');
+        submenu.slideToggle();
+        return false;
     });
     $(document).on('click', function (e) {
         if ($(e.target).closest('#authorized-user-profile').length != 1) {
