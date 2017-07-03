@@ -27,7 +27,7 @@ $(document).ready(function () {
         var arr = path.split(',');
         var box = $(this).closest('.imgUpload').find('.media__upload_img');
         box.html('');
-        for (var i=0;i<arr.length;i++){
+        for (var i = 0; i < arr.length; i++) {
             box.append('<img src="' + arr[i] + '" width="100px"/>');
         }
     });
@@ -141,13 +141,127 @@ $(document).ready(function () {
     });
 
     /*============================================================
-                            INTERESTED IN POSTERS
+     INTERESTED IN POSTERS
      =============================================================*/
     $(document).on('click', '.js-interested-in-delete', function () {
         if (confirm('Удалить категорию?')) {
             $(this).closest('.panel-primary').remove();
         }
     });
+
+
+
+    /*============================================================
+     COMMENTS CHECKED AND PUBLISHED
+     =============================================================*/
+    $(document).on('click', '#btn-multi-moder-checked', function () {
+        event.preventDefault();
+        var checkedInputs = $('input[name="selection[]"]:checked');
+        var keyList = [];
+        $.each(checkedInputs, function () {
+            keyList.push($(this).val());
+        });
+        console.log(keyList);
+        //var button = $(this);
+        $.ajax({
+            url: '/secure/comments/comments/multi-moder-checked-ajax',
+            data: {
+                keyList: keyList,
+                _csrf: $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'POST',
+            success: function (data) {
+                console.log(data);
+
+                $.each(data, function () {
+                    var post = $('tr[data-key="' + this.id + '"]');
+                    if (post.length > 0) {
+                        if (this.status == 1) {
+                            post.find('.moder_checked').removeClass('btn-success').addClass('btn-info').text('Отмечено');
+                        }
+
+                    }
+                });
+            }
+        });
+        return false;
+    });
+
+    $(document).on('click', '#btn-multi-published', function () {
+        event.preventDefault();
+        var checkedInputs = $('input[name="selection[]"]:checked');
+        var keyList = [];
+        $.each(checkedInputs, function () {
+            keyList.push($(this).val());
+        });
+        console.log(keyList);
+        //var button = $(this);
+        $.ajax({
+            url: '/secure/comments/comments/multi-published-ajax',
+            data: {
+                keyList: keyList,
+                _csrf: $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'POST',
+            success: function (data) {
+                console.log(data);
+
+                $.each(data, function () {
+                    var post = $('tr[data-key="' + this.id + '"]');
+                    if (post.length > 0) {
+                        if (this.status == 1) {
+                            post.find('.published').removeClass('btn-success').addClass('btn-info').text('Опубликовано');
+                        }
+                    }
+                });
+            }
+        });
+        return false;
+    });
+
+    $(document).on('click', '.moder_checked', function (event) {
+        event.preventDefault();
+        var button = $(this);
+        $.ajax({
+            url: '/secure/comments/comments/update-moder-checked-ajax',
+            data: {
+                id: button.closest('tr').attr('data-key'),
+                _csrf: $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'POST',
+            success: function (data) {
+                console.log(data);
+                if (data.status == 1) {
+                    button.removeClass('btn-success').addClass('btn-info').text('Отмечено');
+                } else {
+                    button.removeClass('btn-info').addClass('btn-success').text('Не отмечено');
+                }
+            }
+        });
+        return false;
+    });
+    $(document).on('click', '.published', function (event) {
+        event.preventDefault();
+        var button = $(this);
+        $.ajax({
+            url: '/secure/comments/comments/update-published-ajax',
+            data: {
+                id: button.closest('tr').attr('data-key'),
+                _csrf: $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'POST',
+            success: function (data) {
+                console.log(data);
+                if (data.status == 1) {
+                    button.removeClass('btn-success').addClass('btn-info').text('Опубликовано');
+                } else {
+                    button.removeClass('btn-info').addClass('btn-success').text('На модерации');
+                }
+            }
+        });
+        return false;
+    });
+
 });
 
 Share = {
