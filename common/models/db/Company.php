@@ -2,6 +2,7 @@
 
 namespace common\models\db;
 
+use common\classes\Tariff;
 use common\models\User;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -26,6 +27,7 @@ use yii\helpers\ArrayHelper;
  * @property integer $views
  * @property integer $user_id
  * @property integer $vip
+ * @property integer $tariff_id
  *
  * @property CategoryCompanyRelations[] $categoryCompanyRelations
  */
@@ -46,7 +48,7 @@ class Company extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['dt_add', 'dt_update', 'status', 'lang_id', 'views', 'user_id', 'vip'], 'integer'],
+            [['dt_add', 'dt_update', 'status', 'lang_id', 'views', 'user_id', 'vip', 'tariff_id'], 'integer'],
             [['descr'], 'string'],
             [
                 ['name', 'address', 'phone', 'email', 'photo', 'slug', 'meta_title', 'meta_descr'],
@@ -79,6 +81,7 @@ class Company extends \yii\db\ActiveRecord
             'views' => Yii::t('company', 'Views'),
             'user_id' => Yii::t('company', 'User ID'),
             'vip' => Yii::t('company', 'Vip'),
+            'tariff_id' => Yii::t('company', 'Tariff'),
         ];
     }
 
@@ -100,6 +103,11 @@ class Company extends \yii\db\ActiveRecord
     public function getCategories()
     {
         return $this->hasMany(CategoryCompany::className(), ['id' => 'cat_id'])->via('categoryCompanyRelations');
+    }
+
+    public function getTariff()
+    {
+        return $this->hasOne(\common\models\db\Tariff::className(), ['id' => 'tariff_id']);
     }
 
     public static function getList()

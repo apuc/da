@@ -2,6 +2,7 @@
 
 namespace frontend\modules\personal_area\controllers;
 
+use common\classes\Debug;
 use common\models\db\Company;
 use common\models\db\News;
 use Yii;
@@ -22,7 +23,10 @@ class DefaultController extends Controller
     {
 
         $userNews = News::find()->where(['user_id' => Yii::$app->user->id])->limit(4)->all();
-        $userCompany = Company::find()->where(['user_id' => Yii::$app->user->id])->limit(3)->all();
+        $userCompany = Company::find()->where(['user_id' => Yii::$app->user->id])->limit(3)
+            ->with('tariff')
+            ->all();
+
         return $this->render('index',
             [
                 'userNews' => $userNews,

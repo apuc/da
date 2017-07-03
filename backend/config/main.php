@@ -115,6 +115,12 @@ return [
         'comments' => [
             'class' => 'backend\modules\comments\Comments',
         ],
+        'services' => [
+            'class' => 'backend\modules\services\Services',
+        ],
+        'tariff' => [
+            'class' => 'backend\modules\tariff\Tariff',
+        ],
     ],
     'components' => [
         /*'user' => [

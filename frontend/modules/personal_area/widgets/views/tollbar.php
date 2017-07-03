@@ -4,7 +4,8 @@
 <div class="cabinet__tollbar">
 
     <div class="cabinet__avatar">
-        <img src="<?= \common\classes\UserFunction::getUser_avatar_url(Yii::$app->user->id, false)?>" alt="">
+        <?= \common\classes\UserFunction::getUser_avatar_html(Yii::$app->user->id)?>
+        <!--<img src="<?/*= \common\classes\UserFunction::getUser_avatar_url(Yii::$app->user->id, false)*/?>" alt="">-->
     </div>
 
     <a href="<?= \yii\helpers\Url::to('/user/settings/profile'); ?>" class="cabinet__avatar--edit"></a>
@@ -26,11 +27,11 @@
     </div>
 
     <ul class="cabinet__list">
-        <li><a href="#" class="news">НОВОСТИ <!--<span>258</span>--></a></li>
+        <li><a href="<?= \yii\helpers\Url::to(['/personal_area/user-news'])?>" class="news">НОВОСТИ <!--<span>258</span>--></a></li>
         <li><a href="#" class="poster">АФИШИ</a></li>
         <li><a href="#" class="stock">АКЦИИ</a></li>
         <!--<li><a href="#" class="configuration">Настройки</a></li>-->
-        <li><a href="#" class="company">ПРЕДПРИЯТИЯ <!--<span class="add"></span>--></a></li>
+        <li><a href="<?= \yii\helpers\Url::to(['/personal_area/user-company'])?>" class="company">ПРЕДПРИЯТИЯ <!--<span class="add"></span>--></a></li>
         <li><a href="#" class="comments">КОМЕНТАРИИ <!--<span class="add"></span>--></a></li>
         <!--<li><a href="#" class="notice">Уведомления <span>89</span></a></li>-->
     </ul>

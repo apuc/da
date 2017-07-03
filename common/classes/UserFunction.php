@@ -11,6 +11,7 @@ namespace common\classes;
 use dektrium\user\models\Profile;
 use dektrium\user\models\User;
 use Yii;
+use yii\helpers\Html;
 
 class UserFunction {
     public static function hasRoles( $roles, $user_id = false ) {
@@ -60,6 +61,27 @@ class UserFunction {
         }
 
         return($avatar);
+    }
+
+
+    //получить аватар пользователя
+    public static function getUser_avatar_html($id = null){
+        $img = 'avatar';
+        if(empty($id)){
+            $avatar = Profile::find()->where(['user_id' => Yii::$app->user->id])->one()->$img;
+        }
+        else{
+            $avatar = Profile::find()->where(['user_id' => $id])->one()->$img;
+        }
+
+        if(empty($avatar)){
+            $username = self::getUserName();
+            $html = '<span>' . mb_substr($username, 0,1) . '</span>' ;
+        }else{
+            $html = Html::img($avatar);
+        }
+
+        return $html;
     }
 
     //получить имя пользователя. вернет login, если имя не указано

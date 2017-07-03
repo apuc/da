@@ -29,7 +29,7 @@ use common\models\User;
                 <input class="search-input" type="text" placeholder="Поиск" name="request">
                 <!--<input type="hidden" name="_csrf" value="<?/*= Yii::$app->request->csrfToken; */?>">-->
                 <?php if (Yii::$app->user->isGuest): ?>
-                    <a href="<?= Url::to(['/site/design']) ?>">
+                    <a href="<?= Url::to(['/user/login']) ?>">
                         <span class="autoriz-icon"></span>
                         авторизация
                     </a>
@@ -41,10 +41,10 @@ use common\models\User;
 
                     <div class="currency-panel__submenu">
                         <a href="<?= Url::to('/personal_area/default/index')?>">ПРОФИЛЬ</a>
-                        <a href="#">НОВОСТИ</a>
+                        <a href="<?= \yii\helpers\Url::to(['/personal_area/user-news'])?>">НОВОСТИ</a>
                         <a href="#">АФИШИ</a>
                         <a href="#">АКЦИИ</a>
-                        <a href="#">ПРЕДПРИЯТИЯ</a>
+                        <a href="<?= \yii\helpers\Url::to(['/personal_area/user-company'])?>">ПРЕДПРИЯТИЯ</a>
                         <a href="#">КОМЕНТАРИИ</a>
                         <!--<a href="#">Настройки</a>-->
                         <a data-method="post" href="<?= Url::to(['/site/logout']) ?>">выход</a>

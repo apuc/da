@@ -14,6 +14,7 @@ use yii\helpers\Html;
             <img src="/theme/portal-donbassa/img/icons/add-pkg-icon.png" alt="">
         </span>
     </a>
+    <a href="<?= \yii\helpers\Url::to(['/personal_area/user-news'])?>" class="cabinet__inner-box--add">посмотреть <span><img src="/theme/portal-donbassa/img/icons/stat-views-icon.png" alt=""></span></a>
     <?php if(!empty($userNews)): ?>
     <?php foreach ($userNews as $new): ?>
             <div href="#" class="news__wrap_item-sm-hot">

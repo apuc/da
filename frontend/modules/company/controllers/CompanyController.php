@@ -8,7 +8,9 @@ use common\models\db\CategoryCompanyRelations;
 use common\models\db\CompanyFeedback;
 use common\models\db\CompanyPhoto;
 use common\models\db\KeyValue;
+use common\models\db\ServicesCompanyRelations;
 use common\models\db\Stock;
+use common\models\db\TariffServicesRelations;
 use frontend\widgets\VipCompanyWidget;
 use Yii;
 use frontend\modules\company\models\Company;
@@ -168,6 +170,16 @@ class CompanyController extends Controller
             $catCompanyRel->cat_id = $_POST['categParent'];
             $catCompanyRel->company_id = $model->id;
             $catCompanyRel->save();
+
+            $servisec = TariffServicesRelations::find()->where(['tariff_id' => 1])->all();
+
+            foreach ($servisec as $item){
+                $scr = new ServicesCompanyRelations();
+                $scr->services_id = $item->services_id;
+                $scr->company_id = $model->id;
+                $scr->save();
+            }
+
 
             return $this->redirect(['/personal_area/default/index']);
         }

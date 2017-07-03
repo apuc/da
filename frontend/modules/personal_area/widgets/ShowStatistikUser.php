@@ -27,7 +27,7 @@ class ShowStatistikUser extends Widget
                 'likes' => $likeCount,
                 'comments' => $commentsCount,
                 'feedback' => $feedbackCount,
-                'company' => $commentsCount,
+                'company' => $companyCount,
             ]
         );
     }

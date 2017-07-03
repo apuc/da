@@ -555,27 +555,30 @@ class MainMenuAdmin extends Widget
                         ],
                         'template' => '<a href="#"><i class="fa fa-bar-chart"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
-                    /*[
-                        'label' => 'Категории',
+
+                    [
+                        'label' => 'Тарифы и услуги',
+                        'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                         'items' => [
                             [
-                                'label' => 'Добавить',
-                                'url' => Url::to(['/category/category/create']),
-                                'active' => Yii::$app->controller->module->id == 'category' && Yii::$app->controller->action->id == 'create',
-                                'visible' => UserFunction::hasRoles(['admin']),
+                                'label' => 'Услуги',
+                                'url' => Url::to(['/services/services/index']),
+                                'active' => Yii::$app->controller->module->id == 'services',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
                             [
-                                'label' => 'Все',
-                                'url' => Url::to(['/category']),
-                                'active' => Yii::$app->controller->module->id == 'category' && Yii::$app->controller->action->id == 'index',
-                                'visible' => UserFunction::hasRoles(['admin']),
+                                'label' => 'Тарифы',
+                                'url' => Url::to(['/tariff/tariff/index']),
+                                'active' => Yii::$app->controller->module->id == 'tariff',
+//                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
                         ],
                         'options' => [
                             'class' => 'treeview',
                         ],
-                        'template' => '<a href="#"><i class="fa fa-flag"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
-                    ],*/
+                        'template' => '<a href="#"><i class="fa fa-bar-chart"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                    ],
+
                 ],
                 'activateItems' => true,
                 'activateParents' => true,
