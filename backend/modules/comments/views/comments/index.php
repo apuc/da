@@ -15,26 +15,8 @@ use yii\helpers\Url;
 $this->title = Yii::t('comments', 'Comments');
 $this->params['breadcrumbs'][] = $this->title;
 
-$script = "
-        function setParams(){
-        console.log(123);
-            var keyList = $('#w0').yiiGridView('getSelectedRows');
-            console.log(keyList);
-            
-            if(keyList != '') {
-                $('#btn-multi-moder-checked').attr('data-params', JSON.stringify({keyList}));
-            } else {
-                $('#btn-multi-moder-checked').removeAttr('data-params');
-            }
-            if(keyList != '') {
-                $('#btn-multi-published').attr('data-params', JSON.stringify({keyList}));
-            } else {
-                $('#btn-multi-published').removeAttr('data-params');
-            }
-        };";
-$this->registerJs($script, yii\web\View::POS_BEGIN);
-
 ?>
+
 <div class="comments-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -56,23 +38,15 @@ $this->registerJs($script, yii\web\View::POS_BEGIN);
     //        ]);
     //         ?>
 
-    <?= Html::a('Отметить все', ['multi-moder-checked'], [
+    <?= Html::a('Отметить все', ['multi-moder-checked-ajax'], [
         'id' => 'btn-multi-moder-checked',
         'class' => 'btn btn-success',
-        'onclick' => 'setParams()',
-        'data' => [
-            'method' => 'post',
-        ],
     ]);
     ?>
 
-    <?= Html::a('Опубликовать все', ['multi-published'], [
+    <?= Html::a('Опубликовать все', ['multi-published-ajax'], [
         'id' => 'btn-multi-published',
         'class' => 'btn btn-success',
-        'onclick' => 'setParams()',
-        'data' => [
-            'method' => 'post',
-        ],
     ]);
     ?>
 
@@ -143,13 +117,14 @@ $this->registerJs($script, yii\web\View::POS_BEGIN);
                         $btn = Html::a(
                             'Не отмечено',
                             Url::to(['update-moder-checked', 'id' => $model->id]),
-                            ['class' => 'btn btn-success']
+                            ['class' => 'btn btn-success moder_checked']
                         );
                     } else {
                         $btn = Html::a(
                             'Отмечено',
                             Url::to(['update-moder-checked', 'id' => $model->id]),
-                            ['class' => 'btn btn-info']);
+                            ['class' => 'btn btn-info moder_checked']
+                        );
                     }
                     return $btn;
                 },
@@ -165,12 +140,14 @@ $this->registerJs($script, yii\web\View::POS_BEGIN);
                         $btn = Html::a(
                             'На модерации',
                             Url::to(['update-published', 'id' => $model->id]),
-                            ['class' => 'btn btn-success']);
+                            ['class' => 'btn btn-success published']
+                        );
                     } else {
                         $btn = Html::a(
                             'Опубликовано',
                             Url::to(['update-published', 'id' => $model->id]),
-                            ['class' => 'btn btn-info']);
+                            ['class' => 'btn btn-info published']
+                        );
                     }
                     return $btn;
                 },

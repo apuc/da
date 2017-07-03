@@ -8,6 +8,7 @@ use dektrium\user\models\User;
 use Yii;
 use backend\modules\comments\models\Comments;
 use backend\modules\comments\models\CommentsSearch;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -44,22 +45,46 @@ class CommentsController extends Controller
         return false;*/
     }
 
-    public function actionMultiModerChecked()
+    public function actionMultiModerCheckedAjax()
     {
-        if ($keyList = Yii::$app->request->post('keyList')) {
-            $arrKey = explode(',', $keyList);
-            Comments::updateAll(['moder_checked' => 1], ['id' => $arrKey]);
+        $response = [];
+        if (Yii::$app->request->isAjax) {
+            $post = Yii::$app->request->post();
+            foreach ($post['keyList'] as $item) {
+                $model = Comments::findOne($item);
+                if ($model->moder_checked == 0) {
+                    $model->moder_checked = 1;
+                }
+                $model->save();
+                $response[] = [
+                    'id' => $item,
+                    'status' => $model->moder_checked
+                ];
+            }
         }
-        return $this->redirect('index');
+        Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
+        return $response;
     }
 
-    public function actionMultiPublished()
+    public function actionMultiPublishedAjax()
     {
-        if ($keyList = Yii::$app->request->post('keyList')) {
-            $arrKey = explode(',', $keyList);
-            Comments::updateAll(['published' => 1], ['id' => $arrKey]);
+        $response = [];
+        if (Yii::$app->request->isAjax) {
+            $post = Yii::$app->request->post();
+            foreach ($post['keyList'] as $item) {
+                $model = Comments::findOne($item);
+                if ($model->published == 0) {
+                    $model->published = 1;
+                }
+                $model->save();
+                $response[] = [
+                    'id' => $item,
+                    'status' => $model->published
+                ];
+            }
         }
-        return $this->redirect('index');
+        Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
+        return $response;
     }
 
 
@@ -67,7 +92,8 @@ class CommentsController extends Controller
      * Lists all Comments models.
      * @return mixed
      */
-    public function actionIndex()
+    public
+    function actionIndex()
     {
         $searchModel = new CommentsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -83,8 +109,12 @@ class CommentsController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public
+    function actionView($id)
     {
+        Url::remember();
+
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -95,7 +125,8 @@ class CommentsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public
+    function actionCreate()
     {
         $model = new Comments();
 
@@ -114,7 +145,8 @@ class CommentsController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public
+    function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
@@ -132,28 +164,47 @@ class CommentsController extends Controller
         }
     }
 
-    public function actionUpdateModerChecked($id)
+
+    public
+    function actionUpdateModerCheckedAjax()
     {
-        $model = $this->findModel($id);
-        if ($model->moder_checked == 0) {
-            $model->moder_checked = 1;
-        } else {
-            $model->moder_checked = 0;
+        if (Yii::$app->request->isAjax) {
+            $post = Yii::$app->request->post();
+            $model = $this->findModel($post['id']);
+            if ($model->moder_checked == 0) {
+                $model->moder_checked = 1;
+            } else {
+                $model->moder_checked = 0;
+            }
+            $model->save();
+
+            Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
+            return [
+                'id' => $post['id'],
+                'status' => $model->moder_checked
+            ];
         }
-        $model->save();
-        return $this->redirect('index');
     }
 
-    public function actionUpdatePublished($id)
+    public
+    function actionUpdatePublishedAjax()
     {
-        $model = $this->findModel($id);
-        if ($model->published == 0) {
-            $model->published = 1;
-        } else {
-            $model->published = 0;
+        if (Yii::$app->request->isAjax) {
+            $post = Yii::$app->request->post();
+            $model = $this->findModel($post['id']);
+            if ($model->published == 0) {
+                $model->published = 1;
+            } else {
+                $model->published = 0;
+            }
+            $model->save();
+
+            Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
+            return [
+                'id' => $post['id'],
+                'status' => $model->published
+            ];
         }
-        $model->save();
-        return $this->redirect('index');
     }
 
     /**
@@ -162,7 +213,8 @@ class CommentsController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public
+    function actionDelete($id)
     {
         $this->findModel($id)->delete();
 
@@ -176,7 +228,8 @@ class CommentsController extends Controller
      * @return Comments the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected
+    function findModel($id)
     {
         if (($model = Comments::findOne($id)) !== null) {
             return $model;
