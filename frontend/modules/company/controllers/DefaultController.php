@@ -26,8 +26,10 @@ class DefaultController extends Controller {
         return $this->render( 'index' );
     }
 
-    public function actionView() {
-        $company = \common\models\db\Company::find()->where( [ 'slug' => $_GET['slug'] ] )->one();
+    public function actionView($slug) {
+        return $this->redirect(['/company/company/view', 'slug' => $slug]);
+
+        /*$company = \common\models\db\Company::find()->where( [ 'slug' => $_GET['slug'] ] )->one();
         if ( empty( $company ) ) {
             return $this->redirect( [ 'site/error' ] );
         }
@@ -64,7 +66,7 @@ class DefaultController extends Controller {
             'most_popular_company' => $most_popular_company,
             'count_likes'          => $count_likes,
             'user_set_like'        => $user_set_like,
-        ] );
+        ] );*/
     }
 
     public function actionSetTariffCompany($id)
