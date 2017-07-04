@@ -230,7 +230,7 @@ class CompanyController extends Controller
     public function actionDelete($id)
     {
         CategoryCompanyRelations::deleteAll(['company_id' => $id]);
-
+        ServicesCompanyRelations::deleteAll(['company_id' => $id]);
         $this->findModel($id)->delete();
 
         return $this->redirect(['/personal_area/default/index']);

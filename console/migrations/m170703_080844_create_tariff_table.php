@@ -15,9 +15,10 @@ class m170703_080844_create_tariff_table extends Migration
         $this->createTable('tariff', [
             'id' => $this->primaryKey(),
             'name' => $this->string(255)->notNull(),
-            'descr' => $this->text(1000),
+            'descr' => $this->text(),
             'price' => $this->integer(11)->notNull(),
-            'published' => $this->integer(1)->defaultValue(0)
+            'published' => $this->integer(1)->defaultValue(0),
+            'icon' => $this->string(255)->notNull(),
         ]);
     }
 

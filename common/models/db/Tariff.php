@@ -12,6 +12,7 @@ use Yii;
  * @property string $descr
  * @property integer $price
  * @property integer $published
+ * @property string $icon
  *
  * @property TariffServicesRelations[] $tariffServicesRelations
  */
@@ -31,10 +32,10 @@ class Tariff extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'price'], 'required'],
+            [['name', 'price', 'icon'], 'required'],
             [['descr'], 'string'],
             [['price', 'published'], 'integer'],
-            [['name'], 'string', 'max' => 255],
+            [['name', 'icon'], 'string', 'max' => 255],
         ];
     }
 
@@ -49,6 +50,7 @@ class Tariff extends \yii\db\ActiveRecord
             'descr' => 'Descr',
             'price' => 'Price',
             'published' => 'Published',
+            'icon' => 'Icon',
         ];
     }
 

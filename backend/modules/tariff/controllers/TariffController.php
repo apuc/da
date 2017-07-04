@@ -94,9 +94,9 @@ class TariffController extends Controller
 
        // Debug::prn($_POST);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
+            \common\models\db\TariffServicesRelations::deleteAll(['tariff_id' => $id]);
             if(!empty(Yii::$app->request->post('services_id'))){
-                \common\models\db\TariffServicesRelations::deleteAll(['tariff_id' => $id]);
+
                 foreach (Yii::$app->request->post('services_id') as $item) {
                     $tsr = new TariffServicesRelations();
                     $tsr->tariff_id = $model->id;
