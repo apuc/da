@@ -957,8 +957,7 @@ $(document).ready(function () {
         event.preventDefault();
        removeField($(this));
     });
-    /*close add form fields in user cabinet*/
-    
+    /*close add form fields in user cabinet*/    
 
     /*show cabinet menu*/
     $(document).on('click', '.cabinet__wrapper > h1', function () {
@@ -1004,6 +1003,24 @@ $(document).ready(function () {
        } */
     });
     /*close mobile cabinet toolbar*/
+    
+    /*show cabinet tariff description*/
+    $(document).on('click', '.cabinet__packages--about', function (event) {
+       event.preventDefault();
+       var target = $(this).attr('href'),
+           targetBlock = $(target);
+        
+        if($(this).hasClass('show')){
+            targetBlock.slideUp();
+            $(this).removeClass('show');
+        } else {
+            $('.cabinet__packages--about').removeClass('show');
+            $('.cabinet__packages--hover-block').slideUp();
+            targetBlock.slideDown();
+            $(this).addClass('show');
+        }              
+    });
+    /*close script*/
     
     /*search form option select*/
     $(document).on('click', '.js-search-option', function (event) {
