@@ -23,7 +23,7 @@
         <span>0</span>
         <p>отзывов</p>
     </a>
-    <a href="#">
+    <a href="<?= \yii\helpers\Url::to(['/personal_area/user-comments'])?>">
         <span><?= $comments?></span>
         <p>коментария</p>
     </a>

@@ -45,7 +45,7 @@ use common\models\User;
                         <a href="#">АФИШИ</a>
                         <a href="#">АКЦИИ</a>
                         <a href="<?= \yii\helpers\Url::to(['/personal_area/user-company'])?>">ПРЕДПРИЯТИЯ</a>
-                        <a href="#">КОМЕНТАРИИ</a>
+                        <a href="<?= \yii\helpers\Url::to(['/personal_area/user-comments'])?>">КОМЕНТАРИИ</a>
                         <!--<a href="#">Настройки</a>-->
                         <a data-method="post" href="<?= Url::to(['/site/logout']) ?>">выход</a>
                     </div>
