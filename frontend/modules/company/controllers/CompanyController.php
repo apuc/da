@@ -121,6 +121,9 @@ class CompanyController extends Controller
     public function actionView($slug)
     {
         $model = \common\models\db\Company::findOne(['slug' => $slug]);
+        if (empty($model)) {
+            return $this->redirect(['site/error']);
+        }
         $stoke = Stock::find()->where(['company_id' => $model->id])->limit(3)->all();
         $feedback = CompanyFeedback::find()->where(['company_id' => $model->id])->with('user')->all();
         $img = CompanyPhoto::findAll(['company_id' => $model->id]);
