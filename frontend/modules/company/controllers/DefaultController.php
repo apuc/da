@@ -3,7 +3,9 @@
 namespace frontend\modules\company\controllers;
 
 use backend\modules\company\models\Company;
+use common\classes\Debug;
 use common\models\db\CategoryCompanyRelations;
+use common\models\db\CompanyTariffOrder;
 use common\models\db\Likes;
 use common\models\db\Tariff;
 use Yii;
@@ -76,5 +78,21 @@ class DefaultController extends Controller {
                 'tariff' => $tariff,
             ]
         );
+    }
+
+    public function actionToOrder($companyId, $tariffId)
+    {
+        $cto = new CompanyTariffOrder;
+        $cto->company_id = $companyId;
+        $cto->tariff_id = $tariffId;
+        $cto->save();
+
+        return $this->redirect('success-tariff');
+    }
+
+    public function actionSuccessTariff()
+    {
+        $this->layout = 'personal_area';
+        return $this->render('success-tariff');
     }
 }

@@ -1010,14 +1010,14 @@ $(document).ready(function () {
        var target = $(this).attr('href'),
            targetBlock = $(target);
         
-        if($(this).hasClass('show')){
+        if($(this).hasClass('open')){
             targetBlock.slideUp();
-            $(this).removeClass('show');
+            $(this).removeClass('open');
         } else {
-            $('.cabinet__packages--about').removeClass('show');
+            $('.cabinet__packages--about').removeClass('open');
             $('.cabinet__packages--hover-block').slideUp();
             targetBlock.slideDown();
-            $(this).addClass('show');
+            $(this).addClass('open');
         }              
     });
     /*close script*/

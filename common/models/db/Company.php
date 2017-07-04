@@ -28,6 +28,7 @@ use yii\helpers\ArrayHelper;
  * @property integer $user_id
  * @property integer $vip
  * @property integer $tariff_id
+ * @property integer $dt_end_tariff
  *
  * @property CategoryCompanyRelations[] $categoryCompanyRelations
  */
@@ -48,7 +49,7 @@ class Company extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['dt_add', 'dt_update', 'status', 'lang_id', 'views', 'user_id', 'vip', 'tariff_id'], 'integer'],
+            [['dt_add', 'dt_update', 'status', 'lang_id', 'views', 'user_id', 'vip', 'tariff_id', 'dt_end_tariff'], 'integer'],
             [['descr'], 'string'],
             [
                 ['name', 'address', 'phone', 'email', 'photo', 'slug', 'meta_title', 'meta_descr'],
