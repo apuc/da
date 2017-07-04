@@ -3,7 +3,7 @@
 
 
 <div class="cabinet__owner-tools">
-    <a href="#">
+    <a href="<?= \yii\helpers\Url::to(['/personal_area/user-likes/index'])?>">
         <span><?= $likes; ?></span>
         <p>лайков</p>
     </a>
@@ -15,7 +15,7 @@
         <span>0</span>
         <p>Афиш</p>
     </a>
-    <a href="#">
+    <a href="<?= \yii\helpers\Url::to(['/personal_area/user-company/index'])?>">
         <span><?= $company; ?></span>
         <p>компаний</p>
     </a>
