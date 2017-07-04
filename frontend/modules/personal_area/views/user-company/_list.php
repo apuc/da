@@ -37,7 +37,7 @@
 
             <!--<p class="cabinet__pkg-block--period">до <span>23.05.2015 (еще 1 месяц)</span></p>-->
 
-            <a href="#" class="cabinet__like-block--company-edit">сменить тариф</a>
+            <a href="<?= \yii\helpers\Url::to(['/company/default/set-tariff-company', 'id' => $model['id']])?>" class="cabinet__like-block--company-edit">сменить тариф</a>
         <?php endif; ?>
 
     </div>

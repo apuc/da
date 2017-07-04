@@ -48,10 +48,83 @@ class m170703_090626_filing_servises_table extends Migration
                 'name_serv' => 'count_phone',
                 'val' => '-'
             ]);
+        $this->insert('services',
+            [
+                'name' => 'Возможность добавить в контактную информацию сайт и группы',
+                'price' => 100,
+                'name_serv' => 'group_link',
+                'val' => '1'
+            ]);
+
+        $this->insert('services',
+            [
+                'name' => 'Ограничения по фото компании - 5',
+                'price' => 100,
+                'name_serv' => 'count_photo',
+                'val' => '5'
+            ]);
+        $this->insert('services',
+            [
+                'name' => 'Ограничения по фото компании - 20',
+                'price' => 100,
+                'name_serv' => 'count_photo',
+                'val' => '20'
+            ]);
+        $this->insert('services',
+            [
+                'name' => 'Ограничения по фото компании - 100',
+                'price' => 100,
+                'name_serv' => 'count_photo',
+                'val' => '100'
+            ]);
+
+        $this->insert('services',
+            [
+                'name' => 'Ограничения по акциям ( 1 )',
+                'price' => 100,
+                'name_serv' => 'count_stock',
+                'val' => '1'
+            ]);
+        $this->insert('services',
+            [
+                'name' => 'Ограничения по акциям ( 5 )',
+                'price' => 100,
+                'name_serv' => 'count_stock',
+                'val' => '5'
+            ]);
+        $this->insert('services',
+            [
+                'name' => 'Ограничения по акциям ( без ограничений )',
+                'price' => 100,
+                'name_serv' => 'count_stock',
+                'val' => '-'
+            ]);
 
         $this->insert('tariff',
             [
-                'name' => 'Бесплатный тариф',
+                'id' => 1,
+                'name' => 'Начальный',
+                'price' => 0,
+                'published' => 1
+            ]);
+        $this->insert('tariff',
+            [
+                'id' => 2,
+                'name' => 'Бизнес',
+                'price' => 0,
+                'published' => 1
+            ]);
+        $this->insert('tariff',
+            [
+                'id' => 3,
+                'name' => 'Максимальный',
+                'price' => 0,
+                'published' => 1
+            ]);
+        $this->insert('tariff',
+            [
+                'id' => 4,
+                'name' => 'Продвинутый',
                 'price' => 0,
                 'published' => 1
             ]);
@@ -59,6 +132,7 @@ class m170703_090626_filing_servises_table extends Migration
 
     public function down()
     {
+        $this->delete('tariff');
         $this->delete('services');
     }
 

@@ -5,6 +5,7 @@ namespace frontend\modules\company\controllers;
 use backend\modules\company\models\Company;
 use common\models\db\CategoryCompanyRelations;
 use common\models\db\Likes;
+use common\models\db\Tariff;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -62,5 +63,18 @@ class DefaultController extends Controller {
             'count_likes'          => $count_likes,
             'user_set_like'        => $user_set_like,
         ] );
+    }
+
+    public function actionSetTariffCompany($id)
+    {
+        $this->layout = "personal_area";
+
+        $tariff = Tariff::find()->all();
+
+        return $this->render('set-tariff',
+            [
+                'tariff' => $tariff,
+            ]
+        );
     }
 }
