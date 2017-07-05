@@ -174,14 +174,14 @@ class CompanyController extends Controller
             $catCompanyRel->company_id = $model->id;
             $catCompanyRel->save();
 
-            $servisec = TariffServicesRelations::find()->where(['tariff_id' => 1])->all();
+            /*$servisec = TariffServicesRelations::find()->where(['tariff_id' => 1])->all();
 
             foreach ($servisec as $item){
                 $scr = new ServicesCompanyRelations();
                 $scr->services_id = $item->services_id;
                 $scr->company_id = $model->id;
                 $scr->save();
-            }
+            }*/
 
 
             return $this->redirect(['/personal_area/default/index']);

@@ -172,7 +172,27 @@ $(document).ready(function () {
     });
 
 
+    //Калькулятор тарифа
+    $(document).on('click', '.services-select', function () {
+        var price = 0;
+        var count = 0;
+        var id = '';
+        var url = $('.servise-individual-order').attr('data-href');
+        $('.services-select').each(function () {
+            if ($(this).prop('checked')) {
+                price += parseInt($(this).attr('price'));
+                count++;
+                id += $(this).attr('service-id') + ',';
+            }
+        });
 
+        $('.summ-select-services').html(price);
+        $('.count-select-services').html(count);
+
+        url += '&price=' + price + '&servicesId=' + id;
+
+        $('.servise-individual-order').attr('href', url);
+    });
 })
 
 function readURL(input) {

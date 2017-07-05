@@ -11,6 +11,7 @@ use Yii;
  * @property integer $company_id
  * @property integer $tariff_id
  * @property integer $dt_end_tariff
+ * @property string $price
  */
 class CompanyTariffOrder extends \yii\db\ActiveRecord
 {
@@ -30,6 +31,7 @@ class CompanyTariffOrder extends \yii\db\ActiveRecord
         return [
             [['company_id', 'tariff_id'], 'required'],
             [['company_id', 'tariff_id', 'dt_end_tariff'], 'integer'],
+            [['price'], 'string'],
         ];
     }
 
@@ -40,9 +42,10 @@ class CompanyTariffOrder extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'company_id' => 'Company ID',
-            'tariff_id' => 'Tariff ID',
-            'dt_end_tariff' => 'Dt End Tariff',
+            'company_id' => 'Компания',
+            'tariff_id' => 'Тариф',
+            'dt_end_tariff' => 'Дата окончания тарифа',
+            'price' => 'Сумма',
         ];
     }
 }

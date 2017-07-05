@@ -8,7 +8,7 @@ $this->title = 'Заказы компаний на изменения тариф
 ?>
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
-    'filterModel' => $searchModel,
+    //'filterModel' => $searchModel,
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
 
@@ -39,6 +39,7 @@ $this->title = 'Заказы компаний на изменения тариф
                 }
             },
         ],
+        'price'
 
     ],
 ]); ?>

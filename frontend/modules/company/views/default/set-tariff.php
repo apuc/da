@@ -31,38 +31,80 @@ $this->title = "Выбор тарифа для компании";
         <?php $count++; endforeach; ?>
 
         <?php foreach ($tariff as $item): ?>
-            <div id="stock<?= $item->id; ?>" class="cabinet__packages--hover-block">
+            <?php
+            $services =  \common\models\db\TariffServicesRelations::find()
+                ->where(['tariff_id' => $item->id])
+                ->with('services')
+                ->all();
+            ?>
 
-                <h3>Подключив тариф <span><?= $item->name; ?></span> вы получите:</h3>
-                <?php
-                   $services =  \common\models\db\TariffServicesRelations::find()
-                       ->where(['tariff_id' => $item->id])
-                        ->with('services')
-                        ->all();
-                //\common\classes\Debug::prn($services);
+            <?php /*\common\classes\Debug::prn($services); */?>
 
-                ?>
+            <?php if($item->id != 4): ?>
+                <div id="stock<?= $item->id; ?>" class="cabinet__packages--hover-block">
+                    <h3>Подключив тариф <span><?= $item->name; ?></span> вы получите:</h3>
 
+                    <ul>
+                        <?php foreach ($services as $val): ?>
+                            <li><span class="descr"><?= $val['services']->name?></span><span class="val"><?= $val['services']->price?></span></li>
+                        <?php endforeach; ?>
 
-                <ul>
-                    <?php foreach ($services as $val): ?>
-                        <li><span class="descr"><?= $val['services']->name?></span><span class="val"><?= $val['services']->price?></span></li>
-                    <?php endforeach; ?>
+                        <li><span class="descr">Цена тарифа</span><span class="val"><?= $item->price; ?> руб/мес</span></li>
+                    </ul>
+                    <a href="<?= \yii\helpers\Url::to(
+                        [
+                            '/company/default/to-order',
+                            'companyId' => Yii::$app->request->get('id'),
+                            'tariffId' => $item->id,
+                            'price' => $item->price,
+                        ])
+                    ?>"
+                       class="cabinet__packages--buy">заказать</a>
+                </div>
+            <?php else: ?>
+                <div id="stock<?= $item->id; ?>" class="cabinet__packages--hover-block">
 
-                    <li><span class="descr">Цена тарифа</span><span class="val"><?= $item->price; ?> руб/мес</span></li>
-                </ul>
+                    <h3>Настройте тариф <span><?= $item->name?></span>:</h3>
 
-                <a href="<?= \yii\helpers\Url::to(
-                    [
-                        '/company/default/to-order',
-                        'companyId' => Yii::$app->request->get('id'),
-                        'tariffId' => $item->id,
-                    ])
-                ?>"
-                   class="cabinet__packages--buy">заказать</a>
+                    <ul>
+                        <?php foreach ($services as $val): ?>
+                        <li>
+                            <input
+                                service-id="<?= $val['services']->id;?>"
+                                price="<?= $val['services']->price;?>"
+                                type="checkbox"
+                                name="custom-type"
+                                id="<?= $val['services']->id;?>"
+                                class="checkbox services-select"
+                            >
+                            <label for="<?= $val['services']->id; ?>" class="forcheck">
+                                <span class="checked"></span>
+                                <span class="descr"><?= $val['services']->name; ?></span>
+                            </label>
+                            <span class="val"><?= $val['services']->price; ?> руб.</span>
+                        </li>
+                        <?php endforeach; ?>
+                        <li>
+                            <span class="descr">Выбрано услуг</span>
+                            <span class="val"><span class="count-select-services">0</span></span>
+                            <span class="descr">Цена тарифа</span>
+                            <span class="val"><span class="summ-select-services">0</span> руб</span>
+                        </li>
+                    </ul>
 
-            </div>
+                    <a
+                        data-href="<?= \yii\helpers\Url::to(
+                            [
+                                '/company/default/to-order',
+                                'companyId' => Yii::$app->request->get('id'),
+                                'tariffId' => $item->id,
+                            ])
+                        ?>"
 
+                        href="#" class="cabinet__packages--buy servise-individual-order">заказать</a>
+
+                </div>
+            <?php endif; ?>
         <?php endforeach; ?>
 
 

@@ -7,7 +7,9 @@ use common\classes\Debug;
 use common\models\db\CategoryCompanyRelations;
 use common\models\db\CompanyTariffOrder;
 use common\models\db\Likes;
+use common\models\db\ServicesCompanyRelations;
 use common\models\db\Tariff;
+use common\models\db\TariffServicesRelations;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -84,10 +86,37 @@ class DefaultController extends Controller {
 
     public function actionToOrder($companyId, $tariffId)
     {
+
+        //Debug::prn($_GET);
+        $request = Yii::$app->request->get();
+
         $cto = new CompanyTariffOrder;
         $cto->company_id = $companyId;
         $cto->tariff_id = $tariffId;
+        $cto->price = $request['price'];
         $cto->save();
+
+        ServicesCompanyRelations::deleteAll(['company_id' => $companyId]);
+        if($tariffId != 4) {
+            $servisec = TariffServicesRelations::find()->where(['tariff_id' => $tariffId])->all();
+
+            foreach ($servisec as $item) {
+                $scr = new ServicesCompanyRelations();
+                $scr->services_id = $item->services_id;
+                $scr->company_id = $companyId;
+                $scr->save();
+            }
+        }else{
+            $servId = explode(',', $request['servicesId']);
+            foreach ($servId as $item){
+                if(!empty($item)){
+                    $scr = new ServicesCompanyRelations();
+                    $scr->services_id = $item;
+                    $scr->company_id = $companyId;
+                    $scr->save();
+                }
+            }
+        }
 
         return $this->redirect('success-tariff');
     }
