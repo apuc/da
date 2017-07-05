@@ -128,6 +128,12 @@ class MainMenuAdmin extends Widget
 //                                'visible' => UserFunction::hasRoles( [ 'admin', 'author' ] ),
                             ],
                             [
+                                'label' => 'Заявки',
+                                'url' => Url::to(['/company/order-tariff/index']),
+                                'active' => Yii::$app->controller->module->id == 'company' && Yii::$app->controller->action->id == 'index',
+//                                'visible' => UserFunction::hasRoles( [ 'admin', 'author' ] ),
+                            ],
+                            [
                                 'label' => 'Все',
                                 'url' => Url::to(['/company']),
                                 'active' => Yii::$app->controller->module->id == 'company' && Yii::$app->controller->action->id == 'index',

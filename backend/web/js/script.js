@@ -262,6 +262,42 @@ $(document).ready(function () {
         return false;
     });
 
+
+    $(document).on('click', '.to_plug--tariff', function () {
+        var id = $(this).attr('data-id');
+        var companyId = $(this).attr('company-id');
+        var tariffId = $(this).attr('tariff-id');
+
+        $('#info--order--tariff').attr('data-id', id);
+        $('#info--order--tariff').attr('company-id', companyId);
+        $('#info--order--tariff').attr('tariff-id', tariffId);
+
+        return false;
+    });
+
+    $(document).on('click', '#info--order--tariff', function () {
+
+        var id = $(this).attr('data-id');
+        var companyId = $(this).attr('company-id');
+        var tariffId = $(this).attr('tariff-id');
+        var timeEnd = $('#dt_end_tariff').val();
+
+        $.ajax({
+            url: '/secure/company/order-tariff/to-plug-tariff',
+            data: {
+                id: id,
+                companyId: companyId,
+                tariffId: tariffId,
+                timeEnd: timeEnd,
+                _csrf: $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'POST',
+            success: function (data) {
+                console.log(data);
+            }
+        });
+
+    });
 });
 
 Share = {

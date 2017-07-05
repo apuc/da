@@ -108,7 +108,7 @@ use yii\helpers\Html;
                     <?php endif; ?>
 
                     <?php if($item->status == 0): ?>
-                        <p class="cabinet__pkg-block--type"><?= $item['tariff']->name?></p>
+                        <p class="cabinet__pkg-block--type">Тариф <?= $item['tariff']->name?></p>
 
                         <!--<p class="cabinet__pkg-block--period">до <span>23.05.2015 (еще 1 месяц)</span></p>-->
 

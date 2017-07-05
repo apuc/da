@@ -33,9 +33,9 @@
         <?php endif; ?>
 
         <?php if($model['status'] == 0): ?>
-            <p class="cabinet__pkg-block--type"><?= $model['tariff']->name?></p>
+            <p class="cabinet__pkg-block--type">Тариф <?= $model['tariff']->name?></p>
 
-            <!--<p class="cabinet__pkg-block--period">до <span>23.05.2015 (еще 1 месяц)</span></p>-->
+            <p class="cabinet__pkg-block--period"><?= \common\classes\DateFunctions::getTimeCompany($model['dt_end_tariff']); ?></p>
 
             <a href="<?= \yii\helpers\Url::to(['/company/default/set-tariff-company', 'id' => $model['id']])?>" class="cabinet__like-block--company-edit">сменить тариф</a>
         <?php endif; ?>

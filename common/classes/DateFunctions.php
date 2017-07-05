@@ -83,4 +83,21 @@ class DateFunctions
         return $output;
     }
 
+
+    public static function getTimeCompany($date)
+    {
+        if($date == 0){
+            return 'навсегда';
+        }
+        else{
+            return 'до <span>' . date('d.m.Y', $date) .' (еще '. self::countEndTariff($date) .')</span>';
+        }
+    }
+
+    public static function countEndTariff($date)
+    {
+        $rez = $date - time();
+        return date("j \д\н\е\й", $rez);
+    }
+
 }
