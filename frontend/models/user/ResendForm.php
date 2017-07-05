@@ -9,7 +9,9 @@
 namespace frontend\models\user;
 
 
+use common\classes\Debug;
 use dektrium\user\models\Token;
+use dektrium\user\models\User;
 use Yii;
 
 class ResendForm extends \dektrium\user\models\ResendForm
@@ -24,14 +26,18 @@ class ResendForm extends \dektrium\user\models\ResendForm
         if (!$this->validate()) {
             return false;
         }
+//        Debug::prn($_POST);
+        $request = Yii::$app->request->post();
+//Debug::prn($request ['resend-form']['email']);
+        $user_id = User::find()->where(['email' => $request['resend-form']['email']])->one();
         /** @var Token $token */
         $token = Yii::createObject([
             'class'   => Token::className(),
-            'user_id' => $this->user->id,
+            'user_id' => $user_id->id,
             'type'    => Token::TYPE_CONFIRMATION,
         ]);
         $token->save(false);
-        $this->mailer->sendConfirmationMessage($this->user, $token);
+        $this->mailer->sendConfirmationMessage($user_id, $token);
 
 
         return true;
