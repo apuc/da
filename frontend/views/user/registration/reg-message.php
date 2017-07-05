@@ -30,7 +30,7 @@ use yii\helpers\Html;
             почте, проверьте Спам.</p>
         <div class="activation__actions">
             <a href="http://www.<?= $link; ?>" class="more_type">проверить e-mail</a>
-            <?= Html::a('Отправить еще раз', \yii\helpers\Url::toRoute('/resend'), ['class' => 'more_type']) ?>
+            <?= Html::a('Отправить еще раз', \yii\helpers\Url::toRoute('/user/registration/resend'), ['class' => 'more_type']) ?>
         </div>
     </div>
 </section>
