@@ -6,7 +6,7 @@ class m170703_082701_add_column_tariff_id_company_table extends Migration
 {
     public function safeUp()
     {
-        $this->addColumn('company', 'tariff_id', $this->integer(11)->defaultValue(1));
+        $this->addColumn('company', 'tariff_id', $this->integer(11)->defaultValue(0));
     }
 
     public function safeDown()
