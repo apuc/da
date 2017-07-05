@@ -16,24 +16,6 @@ use Yii;
 
 class RegUserForm extends RegistrationForm
 {
-    public function register()
-    {
-        if (!$this->validate()) {
-            return false;
-        }
 
-        /** @var User $user */
-        $user = Yii::createObject(User::className());
-        $user->setScenario('register');
-        $this->loadAttributes($user);
-
-        if (!$user->register()) {
-            return false;
-        }
-
-
-
-        return true;
-    }
 
 }
