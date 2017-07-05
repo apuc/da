@@ -33,11 +33,16 @@
         <?php endif; ?>
 
         <?php if($model['status'] == 0): ?>
-            <p class="cabinet__pkg-block--type">Тариф <?= $model['tariff']->name?></p>
+            <?php if($model['tariff_id'] == 0): ?>
+                <a href="<?= \yii\helpers\Url::to(['/company/default/set-tariff-company', 'id' => $model['id']])?>" class="show-more">Подключить тариф</a>
+            <?php else: ?>
+                <p class="cabinet__pkg-block--type">Тариф <?= $item['tariff']->name?></p>
 
-            <p class="cabinet__pkg-block--period"><?= \common\classes\DateFunctions::getTimeCompany($model['dt_end_tariff']); ?></p>
+                <p class="cabinet__pkg-block--period"><?= \common\classes\DateFunctions::getTimeCompany($model['dt_end_tariff']); ?></p>
 
-            <a href="<?= \yii\helpers\Url::to(['/company/default/set-tariff-company', 'id' => $model['id']])?>" class="cabinet__like-block--company-edit">сменить тариф</a>
+                <a href="<?= \yii\helpers\Url::to(['/company/default/set-tariff-company', 'id' => $model['id']])?>" class="cabinet__like-block--company-edit">сменить тариф</a>
+            <?php endif; ?>
+
         <?php endif; ?>
 
     </div>
