@@ -105,28 +105,32 @@ class m170703_090626_filing_servises_table extends Migration
                 'id' => 1,
                 'name' => 'Начальный',
                 'price' => 0,
-                'published' => 1
+                'published' => 1,
+                'icon' => '0'
             ]);
         $this->insert('tariff',
             [
                 'id' => 2,
                 'name' => 'Бизнес',
                 'price' => 0,
-                'published' => 1
+                'published' => 1,
+                'icon' => '0'
             ]);
         $this->insert('tariff',
             [
                 'id' => 3,
                 'name' => 'Максимальный',
                 'price' => 0,
-                'published' => 1
+                'published' => 1,
+                'icon' => '0'
             ]);
         $this->insert('tariff',
             [
                 'id' => 4,
                 'name' => 'Продвинутый',
                 'price' => 0,
-                'published' => 1
+                'published' => 1,
+                'icon' => '0'
             ]);
     }
 
