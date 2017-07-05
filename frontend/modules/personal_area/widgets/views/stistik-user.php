@@ -7,11 +7,11 @@
         <span><?= $likes; ?></span>
         <p>лайков</p>
     </a>
-    <a href="#">
+    <a class="disabled" href="#">
         <span>0</span>
         <p>акций</p>
     </a>
-    <a href="#">
+    <a class="disabled" href="#">
         <span>0</span>
         <p>Афиш</p>
     </a>
@@ -19,7 +19,7 @@
         <span><?= $company; ?></span>
         <p>компаний</p>
     </a>
-    <a href="#">
+    <a class="disabled" href="#">
         <span>0</span>
         <p>отзывов</p>
     </a>

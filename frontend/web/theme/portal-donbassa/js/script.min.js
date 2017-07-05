@@ -533,9 +533,9 @@ $(document).ready(function () {
     /* close tabs */
 
     /* komunalka */
-    $(".komunalka__item").hover(function (e) {
+    $('.komunalka__item').hover(function (e) {
         e.preventDefault();
-        $(".komunalka__item").removeClass('komunalka__line_active');
+        $('.komunalka__item').removeClass('komunalka__line_active');
         $(this).addClass('komunalka__line_active');
     });
     /* komunalka */
@@ -791,7 +791,7 @@ $(document).ready(function () {
      fixedScroll(stockElement, stockElementPosition, $('.footer'));
      });
      }*/
-    /*close single business sidebar scroll*/
+    /*close single business sidebar scroll*/    
 
     /*social sidebar scroll*/
     var socialElement = $('.social-wrapper');
@@ -802,6 +802,16 @@ $(document).ready(function () {
         });
     }
     /*close social sidebar scroll*/
+
+    /*parser sidebar scroll*/
+    var parserElement = $('#parser-sidebar');
+    if (parserElement.length > 0) {
+        var parserElementPosition = parserElement.offset().top;
+        $(window).scroll(function () {
+            fixedScroll(parserElement, parserElementPosition, $('.footer'));
+        });
+    }
+    /*close single business sidebar scroll*/
     
     /*show business reviews*/
     $(document).on('click', '.business__reviews--item .links__more', function () {
@@ -1069,6 +1079,19 @@ $(document).ready(function () {
         readURL(this);
     });
     /*close show upload img prev in cabinet*/
+
+    /*show parser text*/
+    $(document).on('click', '.parser__element--more', function () {
+        event.preventDefault();
+        var text = $(this).prev('.parser__element--descr');
+        
+        if(text.length > 0){            
+            $(this).hide();
+            text.removeClass('parser__element--descr').addClass('parser__element--text-show');
+        }
+    });
+    /*close*/
+
 });
 
 $(window).scroll(function () {
