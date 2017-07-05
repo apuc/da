@@ -1,9 +1,2 @@
 User-agent: *
-
-Disallow: /secure/
-
-Disallow: /cgi-bin/
-
-Host: https://da-info.pro
-
-Sitemap: https://da-info.pro/sitemap.xml
+Disallow: /

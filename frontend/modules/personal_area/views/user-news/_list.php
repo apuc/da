@@ -21,7 +21,7 @@
         <span class="views"><?= $model->views; ?></span>
 
         <a class="cabinet__like-block--company-edit">редактировать</a>
-        <a data-method="post" href="<?= \yii\helpers\Url::to(['/news/news/delete', 'id' => $models['id']]); ?>" class="cabinet__like-block--company-remove">удалить</a>
+        <a data-method="post" href="<?= \yii\helpers\Url::to(['/news/news/delete', 'id' => $model['id']]); ?>" class="cabinet__like-block--company-remove">удалить</a>
 
     </div>
 
