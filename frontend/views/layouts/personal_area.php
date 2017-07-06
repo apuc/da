@@ -45,7 +45,7 @@ AppAsset::register($this);
 
             <div class="cabinet__owner">
                 <a href="#" id="cabinet--mobile-trigger" class="cabinet__trigger">
-                    <img src="/theme/portal-donbassa/icons/arrow-right.png" alt="">
+                    <img src="/theme/portal-donbassa/img/icons/arrow-right.png" alt="">
                 </a>
                 <h3><?= \common\classes\UserFunction::getUserName()?></h3>
 
