@@ -50,11 +50,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <p class="cabinet__add-company-form--title">Имя пользователя</p>
         <?= $form->field($model, 'name')->textInput(['class' => 'cabinet__add-company-form--field'])->label(false); ?>
-        <div class="cabinet__add-company-form--block"></div>
+        <!--<div class="cabinet__add-company-form--block"></div>-->
 
         <p class="cabinet__add-company-form--title">Публичный E-mail</p>
         <?= $form->field($model, 'public_email')->textInput(['class' => 'cabinet__add-company-form--field'])->label(false) ?>
-        <div class="cabinet__add-company-form--block"></div>
+        <!--<div class="cabinet__add-company-form--block"></div>-->
 
         <p class="cabinet__add-company-form--title">Аватар</p>
 
@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ])->label('Загрузить аватар с компютера')->fileInput();
             }
             ?>
-        <div class="cabinet__add-company-form--block"></div>
+       <!-- <div class="cabinet__add-company-form--block"></div>-->
 
         <?/*= $form->field($model, 'location') */?>
 
