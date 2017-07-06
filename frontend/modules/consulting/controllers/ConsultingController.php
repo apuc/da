@@ -108,12 +108,14 @@ class ConsultingController extends \yii\web\Controller
         $posts = $posts->limit(3)->all();
 
         $categoryPostsDigest = CategoryPostsDigest::find()->where(['slug' => $request->get('slug')])->one();
+        if(empty($posts)){
+            return $this->redirect(['site/error']);
+        }
 
         $consulting = $posts[0]->consulting;
         if(empty($consulting)){
             return $this->redirect(['site/error']);
         }
-
         return $this->render('view_posts_digest', [
             'posts' => $posts,
             'consulting' => $consulting,
