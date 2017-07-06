@@ -206,11 +206,37 @@ class CompanyController extends Controller
     public function actionUpdate($id)
     {
         $this->layout = "personal_area";
-        $model = $this->findModel($id);
+        $model = Company::find()->where(['id' => $id])->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
-            Debug::prn($_POST);
+            $phone = '';
+            foreach ($_POST['mytext'] as $item){
+                $phone .= $item . ' ';
+            }
+
+            $model->status = 1;
+            $model->phone = $phone;
+            $model->user_id = Yii::$app->user->id;
+
+            if (!empty($_FILES['Company']['name']['photo'])) {
+                $upphoto = New \common\models\UploadPhoto();
+                $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
+                $loc = 'media/upload/userphotos/' . date('dmY') . '/';
+                if (!is_dir($loc)) {
+                    mkdir($loc);
+                }
+                $upphoto->location = $loc;
+                $upphoto->upload();
+                $model->photo = '/' . $loc . $_FILES['Company']['name']['photo'];
+            }else{
+                $model->photo = $_POST['photo'];
+            }
+            $model->save();
+            $catCompanyRel = new CategoryCompanyRelations();
+            $catCompanyRel->cat_id = $_POST['categParent'];
+            $catCompanyRel->company_id = $model->id;
+            $catCompanyRel->save();
 
             /*CategoryCompanyRelations::deleteAll(['company_id' => $model->id]);
             $catCompanyRel = new CategoryCompanyRelations();
@@ -218,7 +244,8 @@ class CompanyController extends Controller
             $catCompanyRel->company_id = $model->id;
             $catCompanyRel->save();*/
 
-            return $this->redirect(['view', 'id' => $model->id]);
+            Yii::$app->session->setFlash('success','Ваше предприятие успешно сохранено. После прохождения модерации оно будет опубликовано.');
+            return $this->redirect(['/personal_area/default/index']);
         } else {
             $companyRel = CategoryCompanyRelations::find()->where(['company_id' => $id])->one();
 

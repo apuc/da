@@ -21,6 +21,9 @@ use yii\widgets\ActiveForm;
         ],
     ]);
 ?>
+
+<?= $form->field($model, 'slug')->hiddenInput()->label(false); ?>
+    <input type="hidden" name="photo" id="" value="<?= $model->photo; ?>">
     <p class="cabinet__add-company-form--title">Категория компании</p>
 <?php
 echo Html::dropDownList(
