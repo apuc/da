@@ -97,7 +97,8 @@ class DateFunctions
     public static function countEndTariff($date)
     {
         $rez = $date - time();
-        return date("j \д\н\е\й", $rez);
+        $rez = $rez / 84600;
+        return (int)$rez;
     }
 
 }

@@ -9,7 +9,7 @@
         <h3 class="cabinet__like-block--company-name"><?= $model['name']; ?></h3>
 
         <a href="#" class="cabinet__like-block--company-edit">редактировать</a>
-        <a href="#" class="cabinet__like-block--company-remove">удалить </a>
+        <a data-method="post" href="<?= \yii\helpers\Url::to(['/company/company/delete', 'id' => $model['id']]) ?>" class="cabinet__like-block--company-remove">удалить </a>
 
         <p class="cabinet__like-block--company-address"><?= $model['address']; ?></p>
 
@@ -36,7 +36,7 @@
             <?php if($model['tariff_id'] == 0): ?>
                 <a href="<?= \yii\helpers\Url::to(['/company/default/set-tariff-company', 'id' => $model['id']])?>" class="show-more">Подключить тариф</a>
             <?php else: ?>
-                <p class="cabinet__pkg-block--type">Тариф <?= $item['tariff']->name?></p>
+                <p class="cabinet__pkg-block--type">Тариф <?= $model['tariff']->name?></p>
 
                 <p class="cabinet__pkg-block--period"><?= \common\classes\DateFunctions::getTimeCompany($model['dt_end_tariff']); ?></p>
 

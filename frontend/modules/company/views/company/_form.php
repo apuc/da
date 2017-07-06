@@ -124,7 +124,7 @@ use yii\widgets\ActiveForm;
 
         <input class="cabinet__add-company-form--field" name="mytext[]" type="text">
 
-        <a href="#" class="cabinet__add-field"></a>
+        <!--<a href="#" class="cabinet__add-field"></a>-->
 
     </div>
 
