@@ -83,11 +83,16 @@ echo Html::dropDownList(
         <p class="cabinet__add-company-form--title">Телефон</p>
         <?php $phone = explode(' ', $model->phone);
        // \common\classes\Debug::prn($phone);
-        ?>
-        <input class="cabinet__add-company-form--field" name="mytext[]" type="text">
+        foreach ($phone as $item):?>
+            <?php if(!empty($item) ):?>
+                <input value="<?= $item; ?>" class="cabinet__add-company-form--field" name="mytext[]" type="text">
+            <?php endif; ?>
+
+        <?php endforeach; ?>
+
 
         <?php if(!$model->isNewRecord):?>
-            <a href="#" class="cabinet__add-field"></a>
+           <!-- <a href="#" class="cabinet__add-field"></a>-->
         <?php endif;?>
     </div>
 
