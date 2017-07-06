@@ -21,7 +21,7 @@ $this->title = 'Мои новости';
             'tag' => 'div',
             'class' => 'cabinet__like-block',
         ],
-        'emptyText' => '<div class="cabinet__add-element"><p>Раздел пока пуст</p><a href="#" class="show-more">добавить</a></div>',
+        'emptyText' => '<div class="cabinet__add-element"><p>Раздел пока пуст</p><a href="'. \yii\helpers\Url::to(['/news/news/create']) .'" class="show-more">добавить</a></div>',
         'emptyTextOptions' => [
             'tag' => 'div',
         ],

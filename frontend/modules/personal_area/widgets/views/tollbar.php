@@ -3,10 +3,10 @@
 
 <div class="cabinet__tollbar">
 
-    <div class="cabinet__avatar">
+    <a href="<?= \yii\helpers\Url::to(['/personal_area/default/index'])?>" class="cabinet__avatar">
         <?= \common\classes\UserFunction::getUser_avatar_html(Yii::$app->user->id)?>
         <!--<img src="<?/*= \common\classes\UserFunction::getUser_avatar_url(Yii::$app->user->id, false)*/?>" alt="">-->
-    </div>
+    </a>
 
     <a href="<?= \yii\helpers\Url::to('/user/settings/profile'); ?>" class="cabinet__avatar--edit"></a>
 

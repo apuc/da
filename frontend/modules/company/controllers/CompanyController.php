@@ -148,7 +148,7 @@ class CompanyController extends Controller
         $this->layout = "personal_area";
         $model = new Company();
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $phone = '';
             foreach ($_POST['mytext'] as $item){
                 $phone .= $item . ' ';
@@ -183,7 +183,7 @@ class CompanyController extends Controller
                 $scr->save();
             }*/
 
-
+            Yii::$app->session->setFlash('success','Ваше предприятие успешно добавлено. После прохождения модерации оно будет опубликовано.');
             return $this->redirect(['/personal_area/default/index']);
         }
 

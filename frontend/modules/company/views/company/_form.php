@@ -135,13 +135,27 @@ use yii\widgets\ActiveForm;
 
     <p class="cabinet__add-company-form--title">О компании</p>
 
-<?php echo $form->field($model, 'descr')->widget(CKEditor::className(), [
+
+    <?php if($model->isNewRecord){
+            echo $form->field($model, 'descr')->textarea(
+                [
+                    'class' => 'cabinet__add-company-form--text',
+                    'row' => 25,
+                    'column' => 100
+                ]
+            )->label(false);
+        }
+
+
+    ?>
+
+<?php /*echo $form->field($model, 'descr')->widget(CKEditor::className(), [
 //        'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
 //            'preset' => 'full',
 //            'inline' => false,
 //            'path' => 'frontend/web/media/upload',
 //        ]),
-])->label(false); ?>
+])->label(false); */?>
 
 
 <?= Html::submitButton($model->isNewRecord ? Yii::t('company', 'Create') : Yii::t('company', 'Update'), ['class' => 'cabinet__add-company-form--submit']) ?>

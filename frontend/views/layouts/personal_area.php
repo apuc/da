@@ -36,7 +36,7 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <?= \frontend\widgets\ShowHeader::widget(); ?>
-
+<?= Alert::widget() ?>
 <section class="cabinet">
     <div class="container">
         <?= \frontend\modules\personal_area\widgets\ShowPersonalAreaTollbar::widget(); ?>
@@ -44,7 +44,9 @@ AppAsset::register($this);
         <div class="cabinet__main">
 
             <div class="cabinet__owner">
-
+                <a href="#" id="cabinet--mobile-trigger" class="cabinet__trigger">
+                    <img src="/theme/portal-donbassa/icons/arrow-right.png" alt="">
+                </a>
                 <h3><?= \common\classes\UserFunction::getUserName()?></h3>
 
                 <!--<p>
