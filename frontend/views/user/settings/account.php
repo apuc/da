@@ -96,7 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <p class="cabinet__add-company-form--title">Новый пароль</p>
         <?= $form->field($model, 'new_password')->passwordInput(['class' => 'cabinet__add-company-form--field'])->label(false) ?>
-        
+
         <div class="separator"></div>
 
         <p class="cabinet__add-company-form--title">Текущий пароль</p>
