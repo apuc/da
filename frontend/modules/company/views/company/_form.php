@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
     <?php
     echo Html::dropDownList(
         'categ',
-        $sel,
+        null,
         ArrayHelper::map(CategoryCompany::find()->where(['lang_id' => 1, 'parent_id' => '0'])->all(),'id','title'),
         ['class'=>'cabinet__add-company-form--field', 'id'=>'categ_company', 'prompt' => 'Выберите категорию']
     );

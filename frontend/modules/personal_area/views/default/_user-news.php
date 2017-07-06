@@ -31,19 +31,19 @@ use yii\helpers\Html;
                         <!--</a>--></h2>
                 </div>
 
-                <div class="cabinet__inner-box--toolth">
+                <!--<div class="cabinet__inner-box--toolth">
 
-                    <a data-method="post" href="<?= \yii\helpers\Url::to(['/news/news/delete', 'id' => $new->id]); ?>">
+                    <a data-method="post" href="<?/*= \yii\helpers\Url::to(['/news/news/delete', 'id' => $new->id]); */?>">
                         <img src="/theme/portal-donbassa/img/icons/cabinetd-delete-icon.png" alt="" title="Удалить">
                     </a>
                     <a href="">
                         <img src="/theme/portal-donbassa/img/icons/cabinet-edit-icon.png" alt="" title="Редактировать">
                     </a>
-                    <a target="_blank" href="<?= \yii\helpers\Url::to(['/news/default/view', 'slug' => $new->slug]); ?>">
+                    <a target="_blank" href="<?/*= \yii\helpers\Url::to(['/news/default/view', 'slug' => $new->slug]); */?>">
                         <img src="/theme/portal-donbassa/img/icons/cabinet-show-icon.png" alt="" title="Посмотреть">
                     </a>
 
-                </div>
+                </div>-->
 
             </div>
     <?php endforeach; ?>
