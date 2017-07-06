@@ -5,19 +5,20 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\company\models\Company */
 
-$this->title = Yii::t('company', 'Update {modelClass}: ', [
-    'modelClass' => 'Company',
-]) . $model->name;
+$this->title = 'Вы редактируете: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('company', 'Companies'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('company', 'Update');
 ?>
-<div class="company-update">
+<div class="cabinet__inner-box">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
+    <?= $this->render('_form-update', [
         'model' => $model,
+        'selectCat' => $selectCat,
+        'companyRel' => $companyRel,
+        'selectParentCat' => $selectParentCat,
     ]) ?>
 
 </div>

@@ -205,19 +205,31 @@ class CompanyController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->layout = "personal_area";
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            CategoryCompanyRelations::deleteAll(['company_id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            Debug::prn($_POST);
+
+            /*CategoryCompanyRelations::deleteAll(['company_id' => $model->id]);
             $catCompanyRel = new CategoryCompanyRelations();
             $catCompanyRel->cat_id = $_POST['categ'];
             $catCompanyRel->company_id = $model->id;
-            $catCompanyRel->save();
+            $catCompanyRel->save();*/
 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            $companyRel = CategoryCompanyRelations::find()->where(['company_id' => $id])->one();
+
+            $selectParentCat = CategoryCompany::find()->where(['id' => $companyRel->cat_id])->one();
+            $selectCat = CategoryCompany::find()->where(['id' => $selectParentCat->parent_id])->one();
+
             return $this->render('update', [
                 'model' => $model,
+                'selectCat' => $selectCat,
+                'companyRel' => $companyRel,
+                'selectParentCat' => $selectParentCat,
             ]);
         }
     }

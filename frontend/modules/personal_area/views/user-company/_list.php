@@ -8,7 +8,7 @@
 
         <h3 class="cabinet__like-block--company-name"><?= $model['name']; ?></h3>
 
-        <a href="#" class="cabinet__like-block--company-edit">редактировать</a>
+        <a href="<?= \yii\helpers\Url::to(['/company/company/update', 'id' => $model['id']]) ?>" class="cabinet__like-block--company-edit">редактировать</a>
         <a data-method="post" href="<?= \yii\helpers\Url::to(['/company/company/delete', 'id' => $model['id']]) ?>" class="cabinet__like-block--company-remove">удалить </a>
 
         <p class="cabinet__like-block--company-address"><?= $model['address']; ?></p>

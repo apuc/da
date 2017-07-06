@@ -25,21 +25,11 @@ use yii\widgets\ActiveForm;
     <?php
     echo Html::dropDownList(
         'categ',
-        null,
+        $sel,
         ArrayHelper::map(CategoryCompany::find()->where(['lang_id' => 1, 'parent_id' => '0'])->all(),'id','title'),
         ['class'=>'cabinet__add-company-form--field', 'id'=>'categ_company', 'prompt' => 'Выберите категорию']
     );
     ?>
-
-
-    <!--<select class="cabinet__add-company-form--field" name="" id="form-select">
-        <option value="1"></option>
-        <option value="2"></option>
-        <option value="3"></option>
-        <option value="4"></option>
-        <option value="5"></option>
-    </select>-->
-
     <div class="cabinet__add-company-form--block"></div>
 
 
@@ -60,23 +50,13 @@ use yii\widgets\ActiveForm;
     </div>
     <p class="cabinet__add-company-form--title">Логотип компании</p>
 
-    <?php
-    if (empty($model->photo)) {
-        echo $form->field($model, 'photo', [
+    <?php echo $form->field($model, 'photo', [
             'template' => '<label class="cabinet__add-company-form--add-foto">
                                         <span class="button"></span>
                                         {input}
                                         <img id="blah" src="" alt="" width="160px">
                                         </label>'
         ])->label(false)->fileInput();
-    } else {
-        echo $form->field($model, 'photo', [
-            'template' => '{label}<div class="selectAvatar">
-                                        <span>Нажмите для выбора</span>
-                                        <img id="blah" src="' . $model->photo . '" alt="" width="160px">
-                                        {input}</div>'
-        ])->label(false)->fileInput();
-    }
     ?>
 
     <!--<label class="cabinet__add-company-form--add-foto">
@@ -124,29 +104,18 @@ use yii\widgets\ActiveForm;
 
         <input class="cabinet__add-company-form--field" name="mytext[]" type="text">
 
-        <!--<a href="#" class="cabinet__add-field"></a>-->
-
     </div>
 
-    <div class="cabinet__add-company-form--hover-wrapper" data-count="1">
-
-
-    </div>
+    <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>
 
     <p class="cabinet__add-company-form--title">О компании</p>
-
-
-    <?php if($model->isNewRecord){
-            echo $form->field($model, 'descr')->textarea(
-                [
-                    'class' => 'cabinet__add-company-form--text',
-                    'row' => 25,
-                    'column' => 100
-                ]
-            )->label(false);
-        }
-
-
+   <?php
+        echo $form->field($model, 'descr')->textarea(
+            [
+                'class' => 'cabinet__add-company-form--text',
+                'maxlength' => 100
+            ]
+        )->label(false);
     ?>
 
 <?php /*echo $form->field($model, 'descr')->widget(CKEditor::className(), [
@@ -158,5 +127,5 @@ use yii\widgets\ActiveForm;
 ])->label(false); */?>
 
 
-<?= Html::submitButton($model->isNewRecord ? Yii::t('company', 'Create') : Yii::t('company', 'Update'), ['class' => 'cabinet__add-company-form--submit']) ?>
+<?= Html::submitButton('Сохранить', ['class' => 'cabinet__add-company-form--submit']) ?>
 <?php ActiveForm::end(); ?>

@@ -13,3 +13,7 @@
     background: #1c760c!important;
     color: #fff;
 }
+
+.field-company-descr{
+    width: calc(100% - 165px);
+}
