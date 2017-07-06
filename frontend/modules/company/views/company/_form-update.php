@@ -43,7 +43,6 @@ echo Html::dropDownList(
                         ['class' => 'cabinet__add-company-form--field selectCateg', 'prompt' => 'Выберите категорию']
 
                     )?>
-                    <a href="#" class="cabinet__remove-pkg delselectCateg"></a>
             <p class="cabinet__add-company-form--notice"></p>
         </div>
         <br />
@@ -52,7 +51,7 @@ echo Html::dropDownList(
 
 
     <p class="cabinet__add-company-form--title">Название компании</p>
-<?= $form->field($model, 'name')->textInput(['maxlength' => true, 'class' => 'cabinet__add-company-form--field'])->label(false) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'class' => 'cabinet__add-company-form--field'])->label(false) ?>
     <div class="cabinet__add-company-form--block"></div>
 
 
@@ -78,12 +77,13 @@ echo Html::dropDownList(
 
     <div class="cabinet__add-company-form--block"></div>
 
-    <div class="cabinet__add-company-form--block"></div>
 
     <div class="cabinet__add-company-form--wrapper">
 
         <p class="cabinet__add-company-form--title">Телефон</p>
-
+        <?php $phone = explode(' ', $model->phone);
+       // \common\classes\Debug::prn($phone);
+        ?>
         <input class="cabinet__add-company-form--field" name="mytext[]" type="text">
 
         <?php if(!$model->isNewRecord):?>
