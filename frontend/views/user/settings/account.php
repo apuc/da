@@ -88,15 +88,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <p class="cabinet__add-company-form--title">Логин</p>
         <?= $form->field($model, 'username')->textInput(['class' => 'cabinet__add-company-form--field'])->label(false) ?>
-        <div class="cabinet__add-company-form--block"></div>
+
 
         <p class="cabinet__add-company-form--title">E-mail</p>
         <?= $form->field($model, 'email')->textInput(['class' => 'cabinet__add-company-form--field'])->label(false) ?>
-        <div class="cabinet__add-company-form--block"></div>
+
 
         <p class="cabinet__add-company-form--title">Новый пароль</p>
         <?= $form->field($model, 'new_password')->passwordInput(['class' => 'cabinet__add-company-form--field'])->label(false) ?>
-        <div class="cabinet__add-company-form--block"></div>
+        
         <div class="separator"></div>
 
         <p class="cabinet__add-company-form--title">Текущий пароль</p>
