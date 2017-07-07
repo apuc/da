@@ -19,7 +19,7 @@ class WhatToSee extends Widget
     {
         $posters = Poster::find()
             ->joinWith('categories')
-            ->where(['>=', 'dt_event', time()])
+            ->where(['>=', 'dt_event_end', time()])
             ->andWhere(['`category_poster`.`slug`' => 'kino'])
             ->orderBy('dt_event ASC')
             ->limit(5)
@@ -28,7 +28,7 @@ class WhatToSee extends Widget
 
         $countPoster = Poster::find()
             ->joinWith('categories')
-            ->where(['>=', 'dt_event', time()])
+            ->where(['>=', 'dt_event_end', time()])
             ->andWhere(['`category_poster`.`slug`' => 'kino'])
             ->count();
 

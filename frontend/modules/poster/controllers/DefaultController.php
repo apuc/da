@@ -123,7 +123,7 @@ class DefaultController extends Controller
 
     public function actionCategory()
     {
-        $query = \common\models\db\Poster::find()->andWhere([
+       /* $query = \common\models\db\Poster::find()->andWhere([
             '>',
             'dt_event_end',
             time(),
@@ -136,11 +136,11 @@ class DefaultController extends Controller
             'pagination' => [
                 'pageSize' => 12,
             ],
-        ]);
+        ]);*/
 
         return $this->render('category2', [
             'category' => CategoryPoster::find()->orderBy('id DESC')->all(),
-            'dataProvider' => $dataProvider,
+            //'dataProvider' => $dataProvider,
             'meta_title' => KeyValue::findOne(['key' => 'poster_page_meta_title'])->value,
             'meta_descr' => KeyValue::findOne(['key' => 'poster_page_meta_descr'])->value,
         ]);
