@@ -29,7 +29,9 @@ $this->title = "Выбор тарифа для компании";
             </div>
 
         <?php $count++; endforeach; ?>
-
+        <p class="cabinet__packages--notification">Нет, не нужно, я вооспользуюсь
+            <a href="<?= \yii\helpers\Url::to(['/personal_area/user-company'])?>">бесплатным</a>
+            размещением</p>
         <?php foreach ($tariff as $item): ?>
             <?php
             $services =  \common\models\db\TariffServicesRelations::find()
@@ -46,7 +48,7 @@ $this->title = "Выбор тарифа для компании";
 
                     <ul>
                         <?php foreach ($services as $val): ?>
-                            <li><span class="descr"><?= $val['services']->name?></span><span class="val"><?= $val['services']->price?></span></li>
+                            <li><span class="descr"><?= $val['services']->name?></span><span class="val"><?/*= $val['services']->price*/?></span></li>
                         <?php endforeach; ?>
 
                         <li><span class="descr">Цена тарифа</span><span class="val"><?= $item->price; ?> руб/мес</span></li>

@@ -1020,7 +1020,7 @@ $(document).ready(function () {
         var target = $(this).attr('href'),
             targetBlock = $(target),
             top = $('.cabinet__packages--notification').offset().top;
-            console.log( top );
+            /*console.log( top );*/
 
         if ($(this).hasClass('open')) {
             targetBlock.slideUp();
@@ -1030,7 +1030,9 @@ $(document).ready(function () {
             $('.cabinet__packages--hover-block').slideUp();
             targetBlock.slideDown();
             $(this).addClass('open');
-            $('html, body').animate({scrollTop: top}, 'slow');
+            if($('.cabinet__packages--notification').length > 0){
+                $('html, body').animate({scrollTop: top}, 'slow');
+            }            
         }
         
     });

@@ -75,7 +75,7 @@ class DefaultController extends Controller {
     {
         $this->layout = "personal_area";
 
-        $tariff = Tariff::find()->all();
+        $tariff = Tariff::find()->where(['published' => 1])->all();
 
         return $this->render('set-tariff',
             [

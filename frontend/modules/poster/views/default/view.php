@@ -144,7 +144,25 @@ $this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::clas
 <section class="single-afisha">
     <div class="container">
         <h1 class="map-placemarks-title"><?= $model->title; ?></h1>
-        <div class="single-afisha__timetable"><?= WordFunctions::FullEventDate($model->dt_event); ?></div>
+        <div class="single-afisha__timetable">
+
+            <?php
+            if(date('d-m',$model->dt_event) == date('d-m',$model->dt_event_end)):
+                ?>
+                <?= date('d',$model->dt_event) . ' '.DateFunctions::getMonthName(date('m',$model->dt_event))?>
+                <?php
+            else:
+                ?>
+                <?= date('d',$model->dt_event) . ' '.DateFunctions::getMonthName(date('m',$model->dt_event))?> -
+                    <?= date('d',$model->dt_event_end) . ' '.DateFunctions::getMonthName(date('m',$model->dt_event_end))?>
+                <?php
+            endif;
+            ?>
+
+
+            <?/*= WordFunctions::FullEventDate($model->dt_event); */?>
+
+        </div>
         <div class="single-afisha__countdown">
         <?php if($model->dt_event > time() ): ?>
 

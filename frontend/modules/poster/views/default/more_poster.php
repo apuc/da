@@ -6,6 +6,7 @@
  * Time: 15:17
  * @var $posters \common\models\db\Poster
  */
+use common\classes\DateFunctions;
 use common\classes\WordFunctions;
 use yii\helpers\Url;
 
@@ -21,7 +22,21 @@ use yii\helpers\Url;
             </span>
             <h3 style="padding-left: 0"><?= WordFunctions::crop_str_word($poster->title, 6)  ?></h3>
             <span class="date">
-                        <?= WordFunctions::dateWithMonts($poster->dt_event) ?>, <?= date('Y H:i',$poster->dt_event) ?>
+                        <?php
+                        if(date('d-m',$poster->dt_event) == date('d-m',$poster->dt_event_end)):
+                            ?>
+                            <?= date('d',$poster->dt_event) . ' '.DateFunctions::getMonthName(date('m',$poster->dt_event))?>
+                            <?php
+                        else:
+                            ?>
+                            <?= date('d',$poster->dt_event) . ' '.DateFunctions::getMonthName(date('m',$poster->dt_event))?> -
+                            <?= date('d',$poster->dt_event_end) . ' '.DateFunctions::getMonthName(date('m',$poster->dt_event_end))?>
+                            <?php
+                        endif;
+                        ?>
+
+
+                <?/*= WordFunctions::dateWithMonts($poster->dt_event) */?><!--, --><?/*= $poster->start; */?>
                     </span>
             <span class="place"><?= $poster->address ?></span>
         </div>
