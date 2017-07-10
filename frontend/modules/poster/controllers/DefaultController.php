@@ -272,10 +272,10 @@ class DefaultController extends Controller
     {
         $step = Yii::$app->request->post('step');
         $poster = Poster::find()
-            ->where(['>=', 'dt_event', time()])
+            ->where(['>=', 'dt_event_end', time()])
             ->orderBy('dt_event')
-            ->limit(4)
             ->offset(((int)$step - 1) * 4)
+            ->limit(4)
             ->with('categories')
             ->all();
 

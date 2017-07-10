@@ -252,6 +252,8 @@ class CompanyController extends Controller
             $selectParentCat = CategoryCompany::find()->where(['id' => $companyRel->cat_id])->one();
             $selectCat = CategoryCompany::find()->where(['id' => $selectParentCat->parent_id])->one();
 
+            Debug::prn($model);
+
             return $this->render('update', [
                 'model' => $model,
                 'selectCat' => $selectCat,

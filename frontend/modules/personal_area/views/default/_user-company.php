@@ -85,7 +85,7 @@ use yii\helpers\Html;
 
                     <h3 class="cabinet__like-block--company-name"><?= $item->name?></h3>
 
-                    <a href="" class="cabinet__like-block--company-edit">редактировать</a>
+                    <a href="<?= \yii\helpers\Url::to(['/company/company/update', 'id' => $item->id]) ?>" class="cabinet__like-block--company-edit">редактировать</a>
                     <a data-method="post" href="<?= \yii\helpers\Url::to(['/company/company/delete', 'id' => $item->id]) ?>" class="cabinet__like-block--company-remove">удалить</a>
                     <p class="cabinet__like-block--company-address"><?= $item->address; ?></p>
 
@@ -115,7 +115,8 @@ use yii\helpers\Html;
 
                         <p class="cabinet__pkg-block--period"><?= \common\classes\DateFunctions::getTimeCompany($item->dt_end_tariff); ?></p>
 
-                        <a href="#" class="cabinet__like-block--company-edit">сменить тариф</a>
+                        <!--<a href="#" class="cabinet__like-block--company-edit">сменить тариф</a>-->
+                        <a href="<?= \yii\helpers\Url::to(['/company/default/set-tariff-company', 'id' => $item->id])?>" class="cabinet__like-block--company-edit">сменить тариф</a>
                         <?php endif; ?>
                     <?php endif; ?>
 
