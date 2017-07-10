@@ -22,8 +22,13 @@ class DefaultController extends Controller
     public function actionIndex()
     {
 
-        $userNews = News::find()->where(['user_id' => Yii::$app->user->id])->limit(4)->all();
-        $userCompany = Company::find()->where(['user_id' => Yii::$app->user->id])->limit(3)
+        $userNews = News::find()
+            ->where(['user_id' => Yii::$app->user->id])
+            ->orderBy('dt_update DESC')
+            ->limit(4)->all();
+        $userCompany = Company::find()
+            ->where(['user_id' => Yii::$app->user->id])->limit(3)
+            ->orderBy('dt_update DESC')
             ->with('tariff')
             ->all();
 

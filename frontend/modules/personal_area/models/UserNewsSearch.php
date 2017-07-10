@@ -32,6 +32,8 @@ class UserNewsSearch extends News
         $query->andWhere([
             'user_id' => $params['user_id'],
         ]);
+        $query->orderBy('dt_update DESC');
+
 
         return $dataProvider;
     }

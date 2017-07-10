@@ -32,7 +32,7 @@ class UserLikesSearch extends Likes
         $query->andWhere([
             'user_id' => $params['user_id'],
         ]);
-
+        $query->orderBy('dt_add DESC');
         return $dataProvider;
     }
 }

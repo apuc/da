@@ -34,6 +34,8 @@ class UserCompanySearch extends Company
             'user_id' => $params['user_id'],
         ]);
 
+        $query->orderBy('dt_update DESC');
+
 
         $query->with('tariff');
         return $dataProvider;
