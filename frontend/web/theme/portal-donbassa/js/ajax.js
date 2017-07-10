@@ -111,7 +111,8 @@ $(document).ready(function () {
             catIdSelect += $(this).val() + ',';
             if(i < selects.length && $(lastSelect).val() != ''){
                 //$(this).attr('disabled', true);
-                $(this).attr('readonly', true);
+                //$(this).attr('readonly', true);
+                $(this).addClass('disabled');
             }
         });
 
@@ -140,8 +141,8 @@ $(document).ready(function () {
 
         var selects = $('.selectCateg');
         var lastSelect = selects[selects.length - 1];
-        $(lastSelect).attr('readonly', false);
-
+        //$(lastSelect).attr('readonly', false);
+        $(lastSelect).removeClass('disabled');
     });
 
 

@@ -37,7 +37,7 @@ $this->registerMetaTag([
                 <?php foreach ($posts as $post): ?>
                     <div class="law">
                         <div class="title"><?= $post->consulting->title; ?>
-                            / <?= $post->categoryPostsDigest[0]->title; ?></div>
+                            / <?= (!empty($post->categoryPostsDigest[0]->title)) ? $post->categoryPostsDigest[0]->title : '' ; ?></div>
                         <div class="data-time"><?= \common\classes\WordFunctions::FullEventDate($post->dt_add); ?></div>
                         <div class="title-law"><?= $post->title; ?></div>
                         <div class="text"><?= WordFunctions::crop_str_word(strip_tags($post->content), 50); ?>

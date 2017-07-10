@@ -77,8 +77,7 @@ class ConsultingController extends \yii\web\Controller
 
         //$consulting = $posts[0]->consulting;
         $consulting = Consulting::findOne(['slug'=>Yii::$app->request->get()]);
-
-
+        //Debug::prn($posts);
         if(empty($consulting)){
             return $this->redirect(['site/error']);
         }
