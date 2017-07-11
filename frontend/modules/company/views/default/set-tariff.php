@@ -51,7 +51,7 @@ $this->title = "Выбор тарифа для компании";
                             <li><span class="descr"><?= $val['services']->name?></span><span class="val"><?/*= $val['services']->price*/?></span></li>
                         <?php endforeach; ?>
 
-                        <li><span class="descr">Цена тарифа</span><span class="val"><?= $item->price; ?> руб/мес</span></li>
+                        <li><span class="descr">Цена тарифа</span><span class="val"><?= $item->price; ?> руб/год</span></li>
                     </ul>
                     <a href="<?= \yii\helpers\Url::to(
                         [
@@ -90,7 +90,7 @@ $this->title = "Выбор тарифа для компании";
                             <span class="descr">Выбрано услуг</span>
                             <span class="val"><span class="count-select-services">0</span></span>
                             <span class="descr">Цена тарифа</span>
-                            <span class="val"><span class="summ-select-services">0</span> руб</span>
+                            <span class="val"><span class="summ-select-services">0</span> руб/год</span>
                         </li>
                     </ul>
 

@@ -913,7 +913,7 @@ $(document).ready(function () {
         var wrapper = $(this).closest('.cabinet__add-company-form--wrapper').next('.cabinet__add-company-form--hover-wrapper'),//влок в который добовляются поля
         // addedBox = $(this).closest('.cabinet__add-company-form').find('.cabinet__add-company-form--wrapper').html(),//элементы, которые добавляются
             count = wrapper.attr('data-count'),//счетчик
-            maxCount = $(this).attr('max-count');//максимальное количество полей
+            maxCount = parseInt($(this).attr('max-count'));//максимальное количество полей
         /*console.log( maxCount );*/
         /* console.log( addedBox );*/
         if (count < maxCount) { //условие 

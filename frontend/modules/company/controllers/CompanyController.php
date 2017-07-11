@@ -238,11 +238,30 @@ class CompanyController extends Controller
             $catCompanyRel->company_id = $model->id;
             $catCompanyRel->save();
 
-            /*CategoryCompanyRelations::deleteAll(['company_id' => $model->id]);
-            $catCompanyRel = new CategoryCompanyRelations();
-            $catCompanyRel->cat_id = $_POST['categ'];
-            $catCompanyRel->company_id = $model->id;
-            $catCompanyRel->save();*/
+            //Debug::prn($_FILES);
+            $i = 0;
+            if(!empty($_FILES['fileCompanyPhoto']['name'][0])){
+                if (!file_exists('media/upload/userphotos/' . date('dmY') . '/' . $model->id)) {
+                    mkdir('media/upload/userphotos/' . date('dmY') . '/' . $model->id . '/');
+                }
+                if (!file_exists('media/upload/userphotos/' . date('dmY') . '/' . $model->id . '/' .date('Y-m-d'))) {
+                    mkdir('media/upload/userphotos/' . date('dmY') . '/' . $model->id . '/' . date('Y-m-d'));
+                }
+
+                $dir = 'media/upload/userphotos/' . date('dmY') . '/' . $model->id . '/'. date('Y-m-d') . '/';
+
+                foreach ($_FILES['fileCompanyPhoto']['name'] as $file) {
+
+                    move_uploaded_file($_FILES['fileCompanyPhoto']['tmp_name'][$i], $dir.$file);
+
+                    $companyPhoto = new CompanyPhoto;
+                    $companyPhoto->company_id = $model->id;
+                    $companyPhoto->photo = '/' . $dir . $file;
+                    $companyPhoto->save();
+                    $i++;
+
+                }
+            }
 
             Yii::$app->session->setFlash('success','Ваше предприятие успешно сохранено. После прохождения модерации оно будет опубликовано.');
             return $this->redirect(['/personal_area/default/index']);
@@ -252,14 +271,28 @@ class CompanyController extends Controller
             $selectParentCat = CategoryCompany::find()->where(['id' => $companyRel->cat_id])->one();
             $selectCat = CategoryCompany::find()->where(['id' => $selectParentCat->parent_id])->one();
 
-            Debug::prn($model);
+            $img = CompanyPhoto::find()->where(['company_id' => $id])->all();
+            if($model->dt_end_tariff > time() || $model->dt_end_tariff == 0) {
+                //Debug::prn($model);
 
-            return $this->render('update', [
-                'model' => $model,
-                'selectCat' => $selectCat,
-                'companyRel' => $companyRel,
-                'selectParentCat' => $selectParentCat,
-            ]);
+                $services = ServicesCompanyRelations::find()
+                    ->where(['company_id' => $id])
+                    ->with('services')
+                    ->all();
+
+                $services = ArrayHelper::getColumn($services, 'services');
+
+               $services = ArrayHelper::map($services, 'name_serv', 'val');
+Debug::prn($services);
+                return $this->render('update', [
+                    'model' => $model,
+                    'selectCat' => $selectCat,
+                    'companyRel' => $companyRel,
+                    'selectParentCat' => $selectParentCat,
+                    'services' => $services,
+                    'img' => $img,
+                ]);
+            }
         }
     }
 

@@ -2,10 +2,12 @@
 
 use common\models\db\CategoryCompany;
 use common\models\db\Lang;
+use kartik\file\FileInput;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\InputFile;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -94,33 +96,97 @@ echo Html::dropDownList(
         <?php endforeach; ?>
 
 
-        <?php if(!$model->isNewRecord):?>
-           <!-- <a href="#" class="cabinet__add-field"></a>-->
-        <?php endif;?>
+
+        <a href="#" class="cabinet__add-field" max-count="<?= (isset($services['count_phone']) ? $services['count_phone'] : ''); ?>"></a>
+
     </div>
 
     <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>
 
     <p class="cabinet__add-company-form--title">О компании</p>
-<?php if($model->isNewRecord){
-    echo $form->field($model, 'descr')->textarea(
-        [
-            'class' => 'cabinet__add-company-form--text',
-            'maxlength' => 100
-        ]
-    )->label(false);
-}
-else{
-    echo $form->field($model, 'descr')->textarea(
-        [
-            'class' => 'cabinet__add-company-form--text',
-            'maxlength' => 100
-        ]
-    )->label(false);
+<?php
+    if(isset($services['count_text'])) {
+        if($services['count_text'] != '-'){
+            echo $form->field($model, 'descr')->textarea(
+                [
+                    'class' => 'cabinet__add-company-form--text',
+                    'maxlength' => $services['count_text']
+                ]
+            )->label(false);
+        }else{
+            echo $form->field($model, 'descr')->widget(CKEditor::className(), [
+            //        'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
+            //            'preset' => 'full',
+            //            'inline' => false,
+            //            'path' => 'frontend/web/media/upload',
+            //        ]),
+            ])->label(false);
+        }
+
+    }else{
+        echo $form->field($model, 'descr')->textarea(
+            [
+                'class' => 'cabinet__add-company-form--text',
+                'maxlength' => 100
+            ]
+        )->label(false);
+    }
+
+?>
+
+
+<?php
+
+//echo '<label class="control-label">Добавить фото</label>';
+
+if(isset($services['count_photo'])){
+    ?>
+    <p class="cabinet__add-company-form--title">Загрузите фотографии вашей компании</p>
+    <?php
+    $preview = [];
+    $previewConfig = [];
+    if(!empty($img)){
+        foreach($img as $i){
+            $preview[] = "<img src='$i->photo' class='file-preview-image'>";
+            $previewConfig[] = [
+                'caption' => '',
+                'url' => '/secure/about/default/delete_file?id=' . $i->id
+            ];
+        }
+    }
+
+
+    echo FileInput::widget([
+        'name' => 'fileCompanyPhoto[]',
+        'id' => 'input-5',
+        'attribute' => 'attachment_1',
+        'value' => '@frontend/media/img/1.png',
+        'options' => [
+            'multiple' => true,
+            'showCaption' => false,
+            'showUpload' => false,
+            'uploadAsync'=> false,
+        ],
+        'pluginOptions' => [
+            'uploadUrl' => Url::to(['/site/upload_file']),
+            'language' => "ru",
+            'previewClass' => 'hasEdit',
+            'uploadAsync'=> false,
+            'showUpload' => false,
+            'dropZoneEnabled' => false,
+            'overwriteInitial' => false,
+            'maxFileCount' => $services['count_photo'],
+            'maxFileSize'=> 2000,
+            'initialPreview' => $preview,
+            'initialPreviewConfig' => $previewConfig
+        ],
+    ]);
 }
 
 
 ?>
+
+
 
 <?php /*echo $form->field($model, 'descr')->widget(CKEditor::className(), [
 //        'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
