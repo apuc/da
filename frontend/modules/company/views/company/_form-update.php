@@ -42,7 +42,7 @@ echo Html::dropDownList(
         <div class="cabinet__add-company-form--hover-wrapper" >
             <p class="cabinet__add-company-form--title">Категория</p>
                     <?= Html::dropDownList(
-                        'categoryId[]',
+                        'categParent',
                         $selectParentCat->id,
                         ArrayHelper::map(CategoryCompany::find()->where(['parent_id' => $selectCat->id])->all(), 'id', 'title'),
                         ['class' => 'cabinet__add-company-form--field selectCateg', 'prompt' => 'Выберите категорию']
