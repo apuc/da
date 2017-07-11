@@ -304,7 +304,7 @@ class CompanyController extends Controller
                 $typeSeti = SocAvailable::find()->all();
 
                 $socCompany = SocCompany::find()->where(['company_id' => $id])->all();
-Debug::prn($services);
+//Debug::prn($services);
 
                 return $this->render('update', [
                     'model' => $model,
