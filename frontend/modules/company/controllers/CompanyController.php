@@ -245,14 +245,14 @@ class CompanyController extends Controller
                 if (!is_dir($loc)) {
                     mkdir($loc);
                 }
-                if (!file_exists('/media/upload/userphotos/' . date('dmY') . '/' . $model->id)) {
-                    mkdir('/media/upload/userphotos/' . date('dmY') . '/' . $model->id . '/');
+                if (!file_exists('media/upload/userphotos/' . date('dmY') . '/' . $model->id)) {
+                    mkdir('media/upload/userphotos/' . date('dmY') . '/' . $model->id . '/');
                 }
-                if (!file_exists('/media/upload/userphotos/' . date('dmY') . '/' . $model->id . '/' .date('Y-m-d'))) {
-                    mkdir('/media/upload/userphotos/' . date('dmY') . '/' . $model->id . '/' . date('Y-m-d'));
+                if (!file_exists('media/upload/userphotos/' . date('dmY') . '/' . $model->id . '/' .date('Y-m-d'))) {
+                    mkdir('media/upload/userphotos/' . date('dmY') . '/' . $model->id . '/' . date('Y-m-d'));
                 }
 
-                $dir = '/media/upload/userphotos/' . date('dmY') . '/' . $model->id . '/'. date('Y-m-d') . '/';
+                $dir = 'media/upload/userphotos/' . date('dmY') . '/' . $model->id . '/'. date('Y-m-d') . '/';
 
                 foreach ($_FILES['fileCompanyPhoto']['name'] as $file) {
 
@@ -260,7 +260,7 @@ class CompanyController extends Controller
 
                     $companyPhoto = new CompanyPhoto;
                     $companyPhoto->company_id = $model->id;
-                    $companyPhoto->photo = $dir . $file;
+                    $companyPhoto->photo = '/' . $dir . $file;
                     $companyPhoto->save();
                     $i++;
 
