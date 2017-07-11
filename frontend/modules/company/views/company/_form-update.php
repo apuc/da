@@ -91,6 +91,7 @@ echo Html::dropDownList(
         foreach ($phone as $item):?>
             <?php if(!empty($item) ):?>
                 <input value="<?= $item; ?>" class="cabinet__add-company-form--field" name="mytext[]" type="text">
+                <a href="#" class="cabinet__remove-pkg"></a>
             <?php endif; ?>
 
         <?php endforeach; ?>
@@ -102,6 +103,35 @@ echo Html::dropDownList(
     </div>
 
     <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>
+
+
+    <p class="cabinet__add-company-form--title">Email компании</p>
+    <?= $form->field($model, 'email')->textInput(['maxlength' => true, 'class' => 'cabinet__add-company-form--field'])->label(false) ?>
+    <div class="cabinet__add-company-form--block"></div>
+
+
+    <p class="cabinet__add-company-form--title">Соц. сети компании</p>
+    <div class="cabinet__add-company-form--social">
+        <?php
+        if($services['group_link'] == 1){
+
+            foreach ($typeSeti as $type){
+                ?>
+                <div class="cabinet__add-company-form--social-element">
+                            <span class="social-wrap__item">
+                                <img src="<?= $type->icon ?>" alt="">
+                            </span>
+                    <span class="social-name"><?= $type->name; ?></span>
+                    <input type="text" value="<?= $socCompany[$type->id]->link?>" name="socicon[<?= $type->id?>][]" class="social-way">
+                </div>
+                <?php
+            }
+        }
+        ?>
+
+    </div>
+
+
 
     <p class="cabinet__add-company-form--title">О компании</p>
 <?php
@@ -150,7 +180,7 @@ if(isset($services['count_photo'])){
             $preview[] = "<img src='$i->photo' class='file-preview-image'>";
             $previewConfig[] = [
                 'caption' => '',
-                'url' => '/secure/about/default/delete_file?id=' . $i->id
+                'url' => '/company/company/delete-img?id=' . $i->id
             ];
         }
     }

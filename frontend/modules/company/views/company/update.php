@@ -21,6 +21,8 @@ $this->params['breadcrumbs'][] = Yii::t('company', 'Update');
         'selectParentCat' => $selectParentCat,
         'services' => $services,
         'img' => $img,
+        'typeSeti' => $typeSeti,
+        'socCompany' => $socCompany,
     ]) ?>
 
 </div>

@@ -9,6 +9,8 @@ use common\models\db\CompanyFeedback;
 use common\models\db\CompanyPhoto;
 use common\models\db\KeyValue;
 use common\models\db\ServicesCompanyRelations;
+use common\models\db\SocAvailable;
+use common\models\db\SocCompany;
 use common\models\db\Stock;
 use common\models\db\TariffServicesRelations;
 use frontend\widgets\VipCompanyWidget;
@@ -267,6 +269,17 @@ class CompanyController extends Controller
                 }
             }
 
+            if(!empty($_POST['socicon'])){
+                SocCompany::deleteAll(['company_id' => $id]);
+                foreach ($_POST['socicon'] as $key=>$value){
+
+                    $socCompany = new SocCompany();
+                    $socCompany->company_id = $id;
+                    $socCompany->link = $value[0];
+                    $socCompany->soc_type = $key;
+                    $socCompany->save();
+                }
+            }
             Yii::$app->session->setFlash('success','Ваше предприятие успешно сохранено. После прохождения модерации оно будет опубликовано.');
             return $this->redirect(['/personal_area/default/index']);
         } else {
@@ -287,7 +300,12 @@ class CompanyController extends Controller
                 $services = ArrayHelper::getColumn($services, 'services');
 
                $services = ArrayHelper::map($services, 'name_serv', 'val');
+
+                $typeSeti = SocAvailable::find()->all();
+
+                $socCompany = SocCompany::find()->where(['company_id' => $id])->all();
 Debug::prn($services);
+
                 return $this->render('update', [
                     'model' => $model,
                     'selectCat' => $selectCat,
@@ -295,6 +313,8 @@ Debug::prn($services);
                     'selectParentCat' => $selectParentCat,
                     'services' => $services,
                     'img' => $img,
+                    'typeSeti' => $typeSeti,
+                    'socCompany' => ArrayHelper::index($socCompany, 'soc_type'),
                 ]);
             }
         }
@@ -453,5 +473,11 @@ Debug::prn($services);
             'positions' => $positions,
             'categ' => CategoryCompany::find()->where(['id' => $_GET['catId']])->one()
         ]);
+    }
+
+    public function actionDeleteImg()
+    {
+        CompanyPhoto::deleteAll(['id' => $_GET['id']]);
+        echo 1;
     }
 }
