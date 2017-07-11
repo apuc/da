@@ -241,6 +241,10 @@ class CompanyController extends Controller
             //Debug::prn($_FILES);
             $i = 0;
             if(!empty($_FILES['fileCompanyPhoto']['name'][0])){
+                $loc = 'media/upload/userphotos/' . date('dmY') . '/';
+                if (!is_dir($loc)) {
+                    mkdir($loc);
+                }
                 if (!file_exists('/media/upload/userphotos/' . date('dmY') . '/' . $model->id)) {
                     mkdir('/media/upload/userphotos/' . date('dmY') . '/' . $model->id . '/');
                 }
