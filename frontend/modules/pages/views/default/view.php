@@ -41,7 +41,7 @@ $this->registerMetaTag([
                 <h1><?= $model->title; ?></h1>
 
                 <div class="content-info">
-                    <span class="data-time"><?= \common\classes\WordFunctions::FullEventDate($model->dt_add) ?>
+                    <span class="data-time"><?= \common\classes\WordFunctions::FullEventDate($model->dt_update) ?>
                     </span>
 
                 </div>
@@ -51,7 +51,7 @@ $this->registerMetaTag([
                 </div>
 
                 <div class="content-info">
-                    <span class="data-time"><?= \common\classes\WordFunctions::FullEventDate($model->dt_add) ?></span>
+                    <span class="data-time"><?= \common\classes\WordFunctions::FullEventDate($model->dt_update) ?></span>
                 </div>
 
 
