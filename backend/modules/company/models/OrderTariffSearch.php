@@ -27,7 +27,7 @@ class OrderTariffSearch extends CompanyTariffOrder
             ],
         ]);
 
-
+        $query->with('tariff');
         return $dataProvider;
     }
 }

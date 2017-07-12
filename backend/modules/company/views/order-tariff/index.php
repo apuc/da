@@ -4,27 +4,49 @@ use yii\helpers\Html;
 use yii\jui\DatePicker;
 
 $this->title = 'Заказы компаний на изменения тарифов';
-
 ?>
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
-    //'filterModel' => $searchModel,
+    'filterModel' => $searchModel,
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
 
-        'company_id',
-        'tariff_id',
-        'dt_end_tariff',
+        //'company_id',
+        [
+            'attribute' => 'company_id',
+            'format' => 'raw',
+            'value'     => function ( $model ) {
+
+                return $this->render('_company-info', ['id' => $model->company_id]);
+            },
+        ],
+
+        //'tariff_id',
+        [
+            'attribute' => 'tariff_id',
+            'format' => 'raw',
+            'value'     => function ( $model ) {
+                return $model['tariff']->name;
+                //return $this->render('_company-info', ['id' => $model->company_id]);
+            },
+        ],
+        //'dt_end_tariff',
+        [
+            'attribute'=>'dt_end_tariff',
+            'format' => 'raw', // Доступные модификаторы - date:datetime:time
+            'value' => function ($model){
+                if($model->dt_end_tariff == 0){
+                    return 'Тариф еще не подключен';
+                }else{
+                    return date('d.m.Y', $model->dt_end_tariff);
+                }
+            }
+        ],
         [
             'label' => 'Подключить',
             'format' => 'raw',
             'value' => function($model){
                 if($model->dt_end_tariff == 0){
-
-                    /*return '<button class="btn btn-success to_plug--tariff" data-toggle="modal" data-target="#myModal">
-                        Подключить
-                    </button>';*/
-
                     return Html::button('Подключить',
                         [
                             'class' => 'btn btn-success to_plug--tariff',
@@ -39,8 +61,13 @@ $this->title = 'Заказы компаний на изменения тариф
                 }
             },
         ],
-        'price'
+        'price',
 
+        [
+            'class' => 'yii\grid\ActionColumn',
+
+            'template' => '{delete}',
+        ],
     ],
 ]); ?>
 
