@@ -50,7 +50,17 @@ use yii\widgets\ActiveForm;
 
     ]); ?>
 
-    <?= $form->field($model, 'company_id')->dropDownList(Company::getList()) ?>
+    
+    <?= $form->field($model, 'company_id')->widget(\kartik\select2\Select2::className(),
+        [
+            'data' => Company::getList(),
+            'options' => ['placeholder' => 'выберите компанию'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);
+
+     ?>
 
     <?= $form->field($model, 'dt_event')->textInput(['maxlength' => true]) ?>
 
