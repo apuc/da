@@ -26,9 +26,9 @@ class Poll extends Widget
     {
 
         $user_ip = Yii::$app->request->userIP;
-
+       // echo $user_ip;
         $active_poll_id = KeyValue::find()->where(['key' => 'active_poll'])->one()->value;
-
+       // echo $active_poll_id;
         $question = Question::find()->where(['id' => $active_poll_id])->one();
         $already_poll = Answers::find()
             ->where([
