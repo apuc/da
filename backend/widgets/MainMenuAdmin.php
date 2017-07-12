@@ -2,6 +2,7 @@
 namespace backend\widgets;
 
 use backend\modules\comments\models\Comments;
+use common\classes\CompanyFunction;
 use common\classes\UserFunction;
 use dektrium\user\models\User;
 use Yii;
@@ -12,6 +13,8 @@ class MainMenuAdmin extends Widget
 {
     public function run()
     {
+        $companyCountModer = CompanyFunction::getCompanyCountModer();
+        $CompanyTariffOrderCount = CompanyFunction::getCompanyOrderTarif();
         echo \yii\widgets\Menu::widget(
             [
                 'items' => [
@@ -131,12 +134,14 @@ class MainMenuAdmin extends Widget
                                 'label' => 'Заявки',
                                 'url' => Url::to(['/company/order-tariff/index']),
                                 'active' => Yii::$app->controller->module->id == 'company' && Yii::$app->controller->action->id == 'index',
+                                'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-yellow">' . $CompanyTariffOrderCount . '</small></span></a>',
 //                                'visible' => UserFunction::hasRoles( [ 'admin', 'author' ] ),
                             ],
                             [
                                 'label' => 'Все',
                                 'url' => Url::to(['/company']),
                                 'active' => Yii::$app->controller->module->id == 'company' && Yii::$app->controller->action->id == 'index',
+                                'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $companyCountModer . '</small></span></a>',
 //                                'visible' => UserFunction::hasRoles( [ 'admin' ] ),
                             ],
                             [
@@ -193,7 +198,15 @@ class MainMenuAdmin extends Widget
                         'options' => [
                             'class' => 'treeview',
                         ],
-                        'template' => '<a href="#"><i class="fa fa-building-o"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                        'template' => '
+                            <a href="#">
+                                    <i class="fa fa-building-o"></i> 
+                                    <span>{label}</span> 
+                                      <span class="pull-right-container">
+                                          <small class="label pull-right bg-yellow">'. $CompanyTariffOrderCount .'</small>
+                                          <span class="label bg-red pull-right">'. $companyCountModer .'</span>
+                                      </span>  
+                            </a>',
                     ],
                     [
                         'label' => 'Афиша',
