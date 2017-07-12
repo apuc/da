@@ -8,6 +8,7 @@ use common\models\db\CategoryNews;
 use common\models\db\CategoryNewsRelations;
 use common\models\db\KeyValue;
 use common\models\db\Lang;
+use frontend\controllers\MainController;
 use Yii;
 use common\models\db\News;
 use frontend\modules\news\models\NewsSearch;
@@ -28,7 +29,7 @@ use yii\helpers\Url;
 /**
  * NewsController implements the CRUD actions for News model.
  */
-class NewsController extends Controller
+class NewsController extends MainController
 {
     public $layout = 'portal_page';
 
@@ -280,6 +281,9 @@ class NewsController extends Controller
 
     public function actionCategory($slug)
     {
+        if( Yii::$app->request->get('page')){
+            throw new \yii\web\HttpException(404 ,'Страница не найдена.');
+        }
         $cat = \backend\modules\category\models\CategoryNews::getBySlug($slug);
         if (empty($cat)) {
             return $this->goHome();

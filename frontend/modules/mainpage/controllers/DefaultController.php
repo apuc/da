@@ -8,6 +8,7 @@ use common\models\db\Company;
 use common\models\db\KeyValue;
 use common\models\db\Lang;
 use common\models\db\News;
+use frontend\controllers\MainController;
 use yii\web\Controller;
 
 /**
