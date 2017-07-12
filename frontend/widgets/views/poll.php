@@ -18,6 +18,10 @@ use yii\helpers\Html;
                              value="<?= $answer->id; ?>"><?= $answer->title; ?></p></label>
         <?php endforeach; ?>
         <!--<input class="add-ad sbm-poll" type="submit" placeholder="Отправить">-->
+        <?php if (Yii::$app->user->isGuest): ?>
+        <h5>Голосовать могут только авторизованные пользователи</h5>
+        <?php else: ?>
         <button class="sbm-poll"><span class="pencil"></span>Проголосовать</button>
+        <?php endif; ?>
     </form>
 
