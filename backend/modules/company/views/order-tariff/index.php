@@ -19,6 +19,16 @@ $this->title = 'Заказы компаний на изменения тариф
 
                 return $this->render('_company-info', ['id' => $model->company_id]);
             },
+            'options' => ['width' => '300'],
+            'filter' => \kartik\select2\Select2::widget([
+                'model' => $searchModel,
+                'attribute' => 'company_id',
+                'data' => \yii\helpers\ArrayHelper::map($company, 'id', 'name'),
+                'options' => ['placeholder' => 'выберите компанию'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ])
         ],
 
         //'tariff_id',
@@ -29,18 +39,20 @@ $this->title = 'Заказы компаний на изменения тариф
                 return $model['tariff']->name;
                 //return $this->render('_company-info', ['id' => $model->company_id]);
             },
+            'filter'    => Html::activeDropDownList( $searchModel, 'tariff_id', $tariff, [ 'class' => 'form-control', 'prompt' => '' ] ),
         ],
         //'dt_end_tariff',
         [
             'attribute'=>'dt_end_tariff',
-            'format' => 'raw', // Доступные модификаторы - date:datetime:time
+            'format' => 'raw',
             'value' => function ($model){
                 if($model->dt_end_tariff == 0){
                     return 'Тариф еще не подключен';
                 }else{
                     return date('d.m.Y', $model->dt_end_tariff);
                 }
-            }
+            },
+            'filter' => ''
         ],
         [
             'label' => 'Подключить',
@@ -61,7 +73,10 @@ $this->title = 'Заказы компаний на изменения тариф
                 }
             },
         ],
-        'price',
+        [
+            'attribute' => 'price',
+            'filter' => ''
+        ],
 
         [
             'class' => 'yii\grid\ActionColumn',

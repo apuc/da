@@ -13,7 +13,7 @@ use yii\data\ActiveDataProvider;
 
 class OrderTariffSearch extends CompanyTariffOrder
 {
-    public function search()
+    public function search($params)
     {
         $query = CompanyTariffOrder::find();
 
@@ -22,9 +22,18 @@ class OrderTariffSearch extends CompanyTariffOrder
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 5,
+                'pageSize' => 20,
                 'pageSizeParam' => false,
             ],
+        ]);
+        $this->load($params);
+
+        $query->andFilterWhere([
+            'tariff_id' => $this->tariff_id,
+        ]);
+
+        $query->andFilterWhere([
+            'company_id' => $this->company_id,
         ]);
 
         $query->with('tariff');

@@ -13,18 +13,24 @@ use backend\modules\company\models\OrderTariffSearch;
 use common\classes\Debug;
 use common\models\db\Company;
 use common\models\db\CompanyTariffOrder;
+use common\models\db\Tariff;
+use Yii;
 use yii\base\Controller;
+use yii\helpers\ArrayHelper;
 
 class OrderTariffController extends Controller
 {
     public function actionIndex()
     {
         $searchModel = new OrderTariffSearch();
-        $dataProvider = $searchModel->search();
-
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $tariff = Tariff::find()->all();
+        $company = Company::find()->all();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'tariff' => ArrayHelper::map($tariff, 'id', 'name'),
+            'company' => $company,
         ]);
     }
 
