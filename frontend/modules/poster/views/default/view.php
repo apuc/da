@@ -307,14 +307,14 @@ $this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::clas
 
 
                     <?php if(!empty($model->phone)): ?>
-                    <div class="single-afisha__place--phones">
-                        <span class="single-afisha__place--phone"></span>
-                        <?php
-                        $phone = explode(' ', $model->phone);
-                        ?>
-                        <a href="#"><?= $phone[0]; ?></a>
-                        <a href="#"><?= $phone[1]; ?></a>
-                    </div>
+                        <div class="single-afisha__place--phones">
+                            <span class="single-afisha__place--phone"></span>
+                            <?php
+                            $phone = explode(' ', $model->phone);
+                            ?>
+                            <a href="#"><?= isset($phone[0]) ? $phone[0] : '' ?></a>
+                            <a href="#"><?= isset($phone[1]) ? $phone[1] : '' ?></a>
+                        </div>
                     <?php endif; ?>
 
                     <div class="single-afisha__place--address">

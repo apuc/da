@@ -48,4 +48,9 @@ class CompanyTariffOrder extends \yii\db\ActiveRecord
             'price' => 'Сумма',
         ];
     }
+
+    public function getTariff()
+    {
+        return $this->hasOne(\common\models\db\Tariff::className(), ['id' => 'tariff_id']);
+    }
 }

@@ -34,7 +34,7 @@ use yii\helpers\Url;
                         </div>
                         <div class="item-small__content">
                             <span>
-                                Адрес: <?= $companyBig->address;?>
+                                Адрес: <?= $item->address;?>
                             </span>
                             <?php $phone = explode(' ', $item->phone); ?>
 
@@ -65,7 +65,7 @@ use yii\helpers\Url;
                             <span>
                                 Адрес: <?= $companyBig->address;?>
                             </span>
-                <?php $phone = explode(' ', $item->phone); ?>
+                <?php $phone = explode(' ', $companyBig->phone); ?>
 
                 <p>
                     <?= isset($phone[0]) ? $phone[0] : '' ?>
