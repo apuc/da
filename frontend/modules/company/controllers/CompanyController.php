@@ -18,6 +18,7 @@ use Yii;
 use frontend\modules\company\models\Company;
 use frontend\modules\company\models\CompanySearch;
 use yii\data\Pagination;
+use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\Controller;
@@ -30,6 +31,7 @@ use yii\web\UploadedFile;
  */
 class CompanyController extends Controller
 {
+
     public $layout = 'portal_page';
 
     /**
@@ -42,6 +44,20 @@ class CompanyController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view', 'category', 'view-category', 'get_categ', 'get_sub_categ', 'get_company_by_categ', 'get-more-company', 'startwidgetcompany', 'get-company'],
+                        'roles' => ['?'],
+                    ],
                 ],
             ],
         ];
