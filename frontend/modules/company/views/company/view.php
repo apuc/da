@@ -53,7 +53,7 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                     </div>-->
 
                     <div class="business__requisites--links">
-
+                        <span class="views"><?= $model->views; ?> просмотров</span>
                         <a class="phone" href="tel:+380667778540">
                             <?= isset($model->getPhones()[0]) ? $model->getPhones()[0] : '' ?>
                         </a>
