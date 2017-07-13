@@ -283,7 +283,7 @@ class ConsultingController extends \yii\web\Controller
         if (empty($post)) {
             return $this->redirect(['/consulting/consulting/index']);
         }
-
+        $post->updateCounters(['views' => 1]);
         return $this->render('view_post', [
             'post' => $post,
             'consulting'=> $post->consulting,
