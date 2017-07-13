@@ -1122,7 +1122,25 @@ $(document).ready(function () {
         }       
     });
     /*close*/
-    
+
+    /*show fixed right toolbar*/
+    $(document).on('click', '.fix-button__trigger', function () {
+       var rigthToolbar = $(this).parent();        
+       if($(this).hasClass('open-fix-toolbar')){
+           $(this).removeClass('open-fix-toolbar');
+           rigthToolbar.removeClass('show-fix-menu');
+       } else {
+           $(this).addClass('open-fix-toolbar');
+           rigthToolbar.addClass('show-fix-menu');
+       }
+    });
+    $(document).on('click', function (e) {
+        if ($(e.target).closest('.fix-button').length != 1) {
+            $('.fix-button').removeClass('show-fix-menu');
+            $('.fix-button__trigger').removeClass('open-fix-toolbar');
+        }
+    });
+    /*close*/
 });
 
 $(window).scroll(function () {
