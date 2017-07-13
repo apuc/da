@@ -6,6 +6,7 @@ use common\classes\Debug;
 use common\models\db\Company;
 use common\models\db\News;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 
 /**
@@ -13,6 +14,20 @@ use yii\web\Controller;
  */
 class DefaultController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
 
     public $layout = 'personal_area';
     /**

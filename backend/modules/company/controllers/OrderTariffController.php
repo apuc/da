@@ -15,11 +15,28 @@ use common\models\db\Company;
 use common\models\db\CompanyTariffOrder;
 use common\models\db\Tariff;
 use Yii;
-use yii\base\Controller;
+use yii\web\Controller;
+use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
 
 class OrderTariffController extends Controller
 {
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
+
     public function actionIndex()
     {
         $searchModel = new OrderTariffSearch();
@@ -56,5 +73,13 @@ class OrderTariffController extends Controller
                 'id' => $request['id']
             ]
         );
+    }
+
+    public function actionDelete($id)
+    {
+        CompanyTariffOrder::deleteAll(['id' => $id]);
+        return $this->redirect('index');
+
+
     }
 }
