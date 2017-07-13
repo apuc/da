@@ -459,12 +459,12 @@ class CompanyController extends Controller
         ]);
     }
 
-    public static function actionStartwidgetcompany()
+    /*public static function actionStartwidgetcompany()
     {
-        //return \frontend\modules\mainpage\widgets\Company::widget();
+
         return VipCompanyWidget::widget();
-        // return '1';
-    }
+
+    }*/
 
     public function actionGetCompany()
     {
