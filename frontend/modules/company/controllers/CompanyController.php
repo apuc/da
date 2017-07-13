@@ -93,6 +93,7 @@ class CompanyController extends Controller
         $query = CategoryCompanyRelations::find()
             ->leftJoin('company', '`category_company_relations`.`company_id` = `company`.`id`')
             ->where(['cat_id' => ($cat->parent_id == 0) ? $cats : $cat->id])
+            ->andWhere(['`company`.`status`' => 0])
             ->orderBy('`company`.`id` DESC')
             ->groupBy('`company`.`id`')
             ->with('company');
@@ -363,7 +364,7 @@ class CompanyController extends Controller
         }
         $organizations = Company::find()
             ->joinWith('categories')
-            ->where(['cat_id' => $cat->id])
+            ->where(['cat_id' => $cat->id, 'status' => 0])
             ->all();
 
         $positions = [1, 4, 10];
