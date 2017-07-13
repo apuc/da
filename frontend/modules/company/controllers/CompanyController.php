@@ -146,6 +146,7 @@ class CompanyController extends Controller
         $stoke = Stock::find()->where(['company_id' => $model->id])->limit(3)->all();
         $feedback = CompanyFeedback::find()->where(['company_id' => $model->id])->with('user')->all();
         $img = CompanyPhoto::findAll(['company_id' => $model->id]);
+        $model->updateCounters(['views' => 1 ]);
         return $this->render('view', [
             'model' => $model,
             'stock' => $stoke,
