@@ -25,6 +25,8 @@ class Poll extends Widget
     public function run()
     {
 
+
+
         $user_ip = Yii::$app->request->userIP;
        // echo $user_ip;
         $active_poll_id = KeyValue::find()->where(['key' => 'active_poll'])->one()->value;
@@ -36,7 +38,7 @@ class Poll extends Widget
                 'question_id' => $question->id,
             ])
             ->one();
-        if (empty($already_poll)) {
+        if (empty($already_poll)|| (Yii::$app->user->isGuest)) {
 
             $possible_answers = PossibleAnswers::find()
                 ->where(['question' => $question->id])
