@@ -60,7 +60,7 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                         <a class="phone" href="tel:+380667778540">
                             <?= isset($model->getPhones()[1]) ? $model->getPhones()[1] : '' ?>
                         </a>
-
+                            <?php $model->updateCounters(['views' => 1 ]) ?>
                         <a href="" class="social-wrap__item vk">
                             <img src="/theme/portal-donbassa/img/soc/vk.png" alt="">
                         </a>
