@@ -39,6 +39,9 @@ class DefaultController extends Controller
         if (empty($new)) {
             return $this->redirect(['site/error']);
         }
+       if($new['status'] == '1'){
+           throw new \yii\web\HttpException(404 ,'Страница не найдена.');
+       }
 
         $countComments = Comments::find()
             ->where([
