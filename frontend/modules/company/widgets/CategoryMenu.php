@@ -30,7 +30,12 @@ class CategoryMenu extends Widget
                 'slug' => $item->slug,
             ];
         }
-        $parent_category = array_chunk($company, count($company) / 2);
+        $counter_arr = 0;
+        if((count($company)%2) != 0){ $counter_arr=count($company)+1; }
+        else{ $counter_arr=count($company); }
+
+        $parent_category = array_chunk($company, $counter_arr/2);
+
         return $this->render('category_menu', [
             'parent_category' => $parent_category,
             'sub_category_by_parent' => $sub_category_by_parent,
