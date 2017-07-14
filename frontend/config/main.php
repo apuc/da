@@ -56,7 +56,9 @@ return [
                 'frontend\models\sitemap\CategoryNews',
                 'frontend\models\sitemap\CategoryCompany',
                 'frontend\models\sitemap\News',
-                'frontend\models\sitemap\Company'
+                'frontend\models\sitemap\Company',
+                'frontend\models\sitemap\CategoryPoster',
+                'frontend\models\sitemap\Poster'
                 /*'backend\modules\category\models\Category',
                 'backend\modules\adsmanager\models\Adsmanager',
                 'backend\modules\news\models\News',*/
@@ -77,6 +79,11 @@ return [
                 ],
                 [
                     'loc' => '/all-company',
+                    'lastmod' => '2016-11-06T19:38:59+03:00',
+                    'priority' => 1,
+                ],
+                [
+                    'loc' => '/all-poster',
                     'lastmod' => '2016-11-06T19:38:59+03:00',
                     'priority' => 1,
                 ],
