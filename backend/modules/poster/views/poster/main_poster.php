@@ -55,7 +55,7 @@ use yii\helpers\Html;
         echo \kartik\select2\Select2::widget(
             [
                 'name' => 'afisha_id',
-                'value' => $main_posters->afisha_id,
+                'value' => (!empty($main_posters->afisha_id)) ? $main_posters->afisha_id : '',
                 'data' => \yii\helpers\ArrayHelper::map(\common\models\db\Poster::find()->all(), 'id', 'title'),
                 'options' => ['placeholder' => 'Выберите афишу'],
                 'pluginOptions' => [
