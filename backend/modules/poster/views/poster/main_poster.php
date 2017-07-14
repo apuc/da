@@ -49,6 +49,21 @@ use yii\helpers\Html;
     <?php echo Html::label('Описание', 'main_poster', ['class' => 'control-label']) ?>
     <?= Html::textarea('description', $main_posters->description, ['class' => 'form-control']); ?>
     <br>
+
+    <?php echo Html::label('Выберите афишу', 'main_poster', ['class' => 'control-label']) ?>
+    <?php
+        echo \kartik\select2\Select2::widget(
+            [
+                'name' => 'afisha_id',
+                'value' => $main_posters->afisha_id,
+                'data' => \yii\helpers\ArrayHelper::map(\common\models\db\Poster::find()->all(), 'id', 'title'),
+                'options' => ['placeholder' => 'Выберите афишу'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ])
+    ?>
+    <br>
     <?php echo Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     <?php echo Html::endForm() ?>
 </div>

@@ -167,16 +167,17 @@ class PosterController extends Controller
     public function actionMainPremiere()
     {
         $request = Yii::$app->request->post();
-        if (isset($request['poster_images'][0])) {
-            $json['main_posters'] = $request['poster_images'][0];
-            $json['description'] = $request['description'];
-            $main_poster = KeyValue::findOne(['key' => 'main_posters']);
-            $main_poster->value = json_encode($json);
-            $main_poster->save();
+         if (isset($request['poster_images'][0])) {
+             $json['main_posters'] = $request['poster_images'][0];
+             $json['description'] = $request['description'];
+             $json['afisha_id'] = $request['afisha_id'];
+             $main_poster = KeyValue::findOne(['key' => 'main_posters']);
+             $main_poster->value = json_encode($json);
+             $main_poster->save();
 
-        }
-        $key_val = KeyValue::find()->where(['key' => 'main_posters'])->one();
-        $main_posters = json_decode($key_val->value);
+         }
+         $key_val = KeyValue::find()->where(['key' => 'main_posters'])->one();
+         $main_posters = json_decode($key_val->value);
 
         return $this->render('main_poster', [
             'key_val' => ArrayHelper::map($key_val, 'key', 'value'),
