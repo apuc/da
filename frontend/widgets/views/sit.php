@@ -13,7 +13,7 @@
     <span class="color-zebra"></span>
     <div class="title">
         <h2>Ситауция на блокпостах</h2>
-        <a href="">Все пункты пропуска<span class="rect-icon"></span></a>
+        <!--<a href="">Все пункты пропуска<span class="rect-icon"></span></a>-->
     </div>
 
     <?php foreach ($sit as $s): ?>
