@@ -21,7 +21,7 @@
             <?= \frontend\widgets\FooterSocial::widget() ?>
             <a href="#" class="footer__send">написать нам</a>
 
-            <a href="" class="footer__send-mail">Наша почта: da.info.pro@gmail.com</a>
+            <a href="mailto:da.info.pro@gmail.com" class="footer__send-mail">Наша почта: da.info.pro@gmail.com</a>
         </div>
     </div>
 </footer>
