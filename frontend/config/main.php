@@ -52,8 +52,12 @@ return [
         'sitemap' => [
             'class' => 'himiklab\sitemap\Sitemap',
             'models' => [
-                /*// your models
-                'backend\modules\category\models\Category',
+                // your models
+                'frontend\models\sitemap\CategoryNews',
+                'frontend\models\sitemap\CategoryCompany',
+                'frontend\models\sitemap\News',
+                'frontend\models\sitemap\Company'
+                /*'backend\modules\category\models\Category',
                 'backend\modules\adsmanager\models\Adsmanager',
                 'backend\modules\news\models\News',*/
 

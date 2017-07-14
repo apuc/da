@@ -51,7 +51,8 @@
                     </div>
                 </div>
                 <p><?= $premiereDescription;?></p>
-                <a href="<?= Url::to(['/poster/default/view', 'slug'=>$poster->slug]) ?>">Подробнее</a>
+
+                <a class="show-more"href="<?= Url::to(['/poster/default/view', 'slug'=>$poster->slug]) ?>">посмотреть</a>
             </div>
             <div class="afisha-wrap__look">
                 <h3>Что посмотреть</h3>

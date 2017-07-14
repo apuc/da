@@ -29,7 +29,7 @@ class ViewsUpdateAllCountersController extends Controller
             ->all();
 
         foreach ($news as $item){
-            $randNumber = rand(30,100);
+            $randNumber = rand(1,10);
             News::updateAllCounters(['views' => $randNumber], ['id' => $item->id]);
             echo 'ID новсти - ' . $item->id .  ' Увеличено на ' . $randNumber . "\n";
         }
@@ -39,7 +39,7 @@ class ViewsUpdateAllCountersController extends Controller
     {
         $company = Company::find()->where(['status' => 0])->all();
         foreach ($company as $item){
-            $randNumber = rand(10,50);
+            $randNumber = rand(1,10);
             Company::updateAllCounters(['views' => $randNumber], ['id' => $item->id]);
             echo 'ID компании - ' . $item->id .  ' Увеличено на ' . $randNumber . "\n";
         }
