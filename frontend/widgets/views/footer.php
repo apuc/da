@@ -24,4 +24,6 @@
             <a href="mailto:da.info.pro@gmail.com" class="footer__send-mail">Наша почта: da.info.pro@gmail.com</a>
         </div>
     </div>
+
+    <?= \frontend\widgets\ShowAddToSitePanel::widget(); ?>
 </footer>

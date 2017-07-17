@@ -62,7 +62,7 @@ AppAsset::register($this);
         </div>
     </div>
 </section>
-<a href="" class="fix-button"><img src="/theme/portal-donbassa/img/home-content/fix-button.png" alt=""></a>
+<!--<a href="" class="fix-button"><img src="/theme/portal-donbassa/img/home-content/fix-button.png" alt=""></a>-->
 
 <?= \frontend\widgets\ShowFooter::widget(); ?>
 

@@ -38,7 +38,7 @@ AppAsset::register($this);
 
 <?= $content;?>
 <?= \frontend\widgets\ShowFooter::widget(); ?>
-<a href="" class="fix-button"><img src="/theme/portal-donbassa/img/home-content/fix-button.png" alt=""></a>
+<!--<a href="" class="fix-button"><img src="/theme/portal-donbassa/img/home-content/fix-button.png" alt=""></a>-->
 
 <div class="modal-send">
 
