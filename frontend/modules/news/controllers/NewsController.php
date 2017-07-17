@@ -29,7 +29,7 @@ use yii\helpers\Url;
 /**
  * NewsController implements the CRUD actions for News model.
  */
-class NewsController extends MainController
+class NewsController extends Controller
 {
     public $layout = 'portal_page';
 
