@@ -387,6 +387,11 @@ class MainMenuAdmin extends Widget
                                 'active' => Yii::$app->controller->module->id === 'vk' && Yii::$app->controller->id === 'vk_authors',
                             ],
                             [
+                                'label' => 'Комментарии',
+                                'url' => Url::to(['/vk/vk_comments']),
+                                'active' => Yii::$app->controller->module->id === 'vk' && Yii::$app->controller->id === 'vk_comments',
+                            ],
+                            [
                                 'label' => 'Поток',
                                 'url' => Url::to(['/vk/vk_stream']),
                                 'active' => Yii::$app->controller->module->id === 'vk' && Yii::$app->controller->id === 'vk_stream',

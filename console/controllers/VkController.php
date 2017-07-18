@@ -9,7 +9,9 @@
 namespace console\controllers;
 
 use common\classes\Debug;
+use common\models\db\Comments;
 use common\models\db\VkAuthors;
+use common\models\db\VkComments;
 use common\models\db\VkGroups;
 use common\models\db\VkPhoto;
 use common\models\db\VkStream;
@@ -20,6 +22,7 @@ class VkController extends Controller
 {
 
     public $count = 50;
+    public $vk;
 
     public function actionIndex()
     {
@@ -28,14 +31,14 @@ class VkController extends Controller
 
     public function actionGetStream()
     {
-        $vk = new VK([
+        $this->vk = new VK([
             'client_id' => '6029267',
             'client_secret' => '0QKWLW7n6XumtJV7VJ6h',
             'access_token' => '90fc0cc0178c0130800af68e6051952c869b88a713b1d787982d39c70660a561c8378c432e8c6dcdb077a',
         ]);
         $groups = VkGroups::find()->where(['status' => 1])->all();
         foreach ($groups as $group) {
-            $res = $vk->getGroupWall($group->domain, ['count' => $this->count, 'extended' => 1]);
+            $res = $this->vk->getGroupWall($group->domain, ['count' => $this->count, 'extended' => 1]);
             $res = json_decode($res);
             $this->saveAuthors($res->response->profiles);
             $this->saveStream($res->response->items);
@@ -59,27 +62,30 @@ class VkController extends Controller
                     $post->save();
                     echo 'post - ' . $post->vk_id . ' add' . "\n";
                     $this->savePhoto($item, $post->id);
+                    $this->saveComments($item->owner_id, $item->id, $post->id);
                 }
             }
         }
 
     }
 
-    public function savePhoto($item, $postId = false)
+    public function savePhoto($item, $postId = false, $commentId = false)
     {
-        if(!empty($item->attachments)){
-            foreach ((array)$item->attachments as $attachment){
-                if($attachment->type === 'photo'){
-                    if(VkPhoto::find()->where(['vk_id' => $attachment->photo->id])->count() == 0){
+        if (!empty($item->attachments)) {
+            foreach ((array)$item->attachments as $attachment) {
+                if ($attachment->type === 'photo') {
+                    if (VkPhoto::find()->where(['vk_id' => $attachment->photo->id])->count() == 0) {
                         $photo = new VkPhoto();
                         $photo->vk_id = $attachment->photo->id;
                         $photo->vk_post_id = $item->id;
                         $photo->post_id = $postId ?: 0;
+                        $photo->comment_id = $commentId ?: 0;
                         $photo->owner_id = $item->owner_id;
                         $photo->vk_user_id = $item->from_id;
                         $photo->access_key = $attachment->photo->access_key;
                         $photo->photo_75 = isset($attachment->photo->photo_75) ? $attachment->photo->photo_75 : '';
                         $photo->photo_130 = isset($attachment->photo->photo_130) ? $attachment->photo->photo_130 : '';
+                        $photo->photo_512 = isset($attachment->sticke->photo_512) ? $attachment->sticke->photo_512 : '';
                         $photo->photo_604 = isset($attachment->photo->photo_604) ? $attachment->photo->photo_604 : '';
                         $photo->photo_807 = isset($attachment->photo->photo_807) ? $attachment->photo->photo_807 : '';
                         $photo->photo_1280 = isset($attachment->photo->photo_1280) ? $attachment->photo->photo_1280 : '';
@@ -107,6 +113,39 @@ class VkController extends Controller
                     echo 'user - ' . $profile->id . ' add' . "\n";
                 }
             }
+        }
+    }
+
+    public function actionSaveComments()
+    {
+        $vk = new VK([
+            'client_id' => '6029267',
+            'client_secret' => '0QKWLW7n6XumtJV7VJ6h',
+            'access_token' => '90fc0cc0178c0130800af68e6051952c869b88a713b1d787982d39c70660a561c8378c432e8c6dcdb077a',
+        ]);
+        $res = $vk->getPostComments(-3855883, 16599, ['extended' => 1, 'count' => 100]);
+        $res = json_decode($res);
+        Debug::prn($res->response);
+    }
+
+    public function saveComments($ownerId, $postId, $postSysId)
+    {
+        $res = $this->vk->getPostComments($ownerId, $postId, ['extended' => 1, 'count' => 100]);
+        $res = json_decode($res);
+        if(!empty($res->response->items)){
+            foreach ((array)$res->response->items as $item){
+                $comm = new VkComments();
+                $comm->vk_id = $ownerId . '_' . $postId . '_' . $item->id;
+                $comm->from_id = $item->from_id;
+                $comm->owner_id = $ownerId;
+                $comm->post_id = $postSysId;
+                $comm->dt_add = $item->date;
+                $comm->text = $item->text;
+                $comm->save();
+                echo 'comment - ' . $comm->vk_id . ' add' . "\n";
+                $this->savePhoto($item, $postSysId, $comm->id);
+            }
+            $this->saveAuthors($res->response->profiles);
         }
     }
 

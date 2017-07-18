@@ -6,6 +6,7 @@
  * Date: 12.05.2017
  * Time: 22:13
  */
+
 namespace common\models;
 
 class VK
@@ -63,6 +64,13 @@ class VK
     {
         $data['domain'] = $domain;
         return $this->request('wall.get', $data);
+    }
+
+    public function getPostComments($group, $postId, $data = [])
+    {
+        $data['owner_id'] = $group;
+        $data['post_id'] = $postId;
+        return $this->request('wall.getComments', $data);
     }
 
 }
