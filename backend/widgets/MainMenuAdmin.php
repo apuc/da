@@ -4,6 +4,7 @@ namespace backend\widgets;
 use backend\modules\comments\models\Comments;
 use common\classes\CompanyFunction;
 use common\classes\UserFunction;
+use common\models\db\News;
 use dektrium\user\models\User;
 use Yii;
 use yii\base\Widget;
@@ -15,6 +16,7 @@ class MainMenuAdmin extends Widget
     {
         $companyCountModer = CompanyFunction::getCompanyCountModer();
         $CompanyTariffOrderCount = CompanyFunction::getCompanyOrderTarif();
+        $countNews = News::find()->where(['status' => 1])->count();
         echo \yii\widgets\Menu::widget(
             [
                 'items' => [
@@ -64,7 +66,7 @@ class MainMenuAdmin extends Widget
                                 'active' => Yii::$app->controller->module->id == 'mainpage' && Yii::$app->controller->action->id == 'settings',
                             ],
                         ],
-                        'visible' => UserFunction::hasPermission(['Новости']),
+                        'visible' => UserFunction::hasPermission(['Главная']),
                         'options' => [
                             'class' => 'treeview',
                         ],
@@ -91,6 +93,7 @@ class MainMenuAdmin extends Widget
                                 'label' => 'Все',
                                 'url' => Url::to(['/news']),
                                 'active' => Yii::$app->controller->module->id == 'news' && Yii::$app->controller->action->id == 'index',
+                                'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countNews . '</small></span></a>',
                             ],
                             [
                                 'label' => 'Категории',
@@ -107,7 +110,17 @@ class MainMenuAdmin extends Widget
                         'options' => [
                             'class' => 'treeview',
                         ],
-                        'template' => '<a href="#"><i class="fa fa-newspaper-o"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                        /*'template' => '<a href="#"><i class="fa fa-newspaper-o"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',*/
+
+                        'template' => '
+                            <a href="#">
+                                    <i class="fa fa-building-o"></i> 
+                                    <span>{label}</span> 
+                                      <span class="pull-right-container">
+                                          <span class="label bg-red pull-right">'. $countNews .'</span>
+                                      </span>  
+                            </a>',
+
                     ],
                     [
                         'label' => 'Компании',
@@ -371,6 +384,7 @@ class MainMenuAdmin extends Widget
                         'options' => [
                             'class' => 'treeview',
                         ],
+                        'visible' => UserFunction::hasPermission(['Страницы']),
                         'template' => '<a href="#"><i class="fa fa-file-o"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
                     [
@@ -400,10 +414,12 @@ class MainMenuAdmin extends Widget
                         'options' => [
                             'class' => 'treeview',
                         ],
+                        'visible' => UserFunction::hasPermission(['ВК']),
                         'template' => '<a href="#"><i class="fa fa-vk"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
                     [
                         'label' => 'Курсы валют',
+                        'visible' => UserFunction::hasPermission(['Курсы валют']),
                         'items' => [
                             [
                                 'label' => 'Типы',
@@ -426,6 +442,7 @@ class MainMenuAdmin extends Widget
                         'url' => Url::to(['/subscribe/subscribe']),
                         'template' => '<a href="{url}"><i class="fa fa-share-square-o"></i> <span>{label}</span></a>',
                         'active' => Yii::$app->controller->module->id == 'subscribe',
+                        'visible' => UserFunction::hasPermission(['Подписчики']),
                     ],
                     [
                         'label' => 'СЕО',
@@ -441,15 +458,16 @@ class MainMenuAdmin extends Widget
                         'active' => Yii::$app->controller->module->id == 'key_value',
                         'visible' => UserFunction::hasPermission(['Переменные']),
                     ],
-                    [
+                    /*[
                         'label' => 'Языки',
                         'url' => Url::to(['/lang']),
                         'template' => '<a href="{url}"><i class="fa fa-language"></i> <span>{label}</span></a>',
                         'active' => Yii::$app->controller->module->id == 'lang',
                         'visible' => UserFunction::hasPermission(['Языки']),
-                    ],
+                    ],*/
                     [
                         'label' => 'Ситуации',
+                        'visible' => UserFunction::hasPermission(['Ситуации']),
                         'items' => [
                             [
                                 'label' => 'Статусы',
@@ -470,10 +488,12 @@ class MainMenuAdmin extends Widget
                     [
                         'label' => 'О чем говорят в городе',
                         'url' => Url::to(['/people_talk/people-talk']),
+                        'visible' => UserFunction::hasPermission(['О чем говорят в городе']),
                     ],
                     [
                         'label' => 'Обращения',
                         'url' => Url::to(['/contacting/contacting']),
+                        'visible' => UserFunction::hasPermission(['Обращения']),
                     ],
                     [
                         'label' => 'РОСС-ОПТ',
@@ -487,12 +507,13 @@ class MainMenuAdmin extends Widget
                         'options' => [
                             'class' => 'treeview',
                         ],
+                        'visible' => UserFunction::hasPermission(['РОСС-ОПТ']),
                         'template' => '<a href="#"><i class="fa fa-bar-chart"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
 
                     [
                         'label' => 'Тарифы и услуги',
-                        'visible' => UserFunction::hasRoles( [ 'admin' ] ),
+                        'visible' => UserFunction::hasPermission(['Тарифы и услуги']),
                         'items' => [
                             [
                                 'label' => 'Услуги',

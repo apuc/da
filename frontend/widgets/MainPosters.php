@@ -62,12 +62,14 @@ class MainPosters extends Widget
 
         $premiere = json_decode(KeyValue::find()->where(['key' => 'main_posters'])->one()->value);
 
+        $poster = \common\models\db\Poster::find()->where(['id' => $premiere->afisha_id])->one();
         return $this->render('main_posters',
             [
                 'events' => $events,
                 'movies' => $movies,
                 'premiereImages' => explode(',',$premiere->main_posters),
                 'premiereDescription' => $premiere->description,
+                'poster' => $poster,
             ]);
     }
 

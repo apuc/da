@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'post_id',
             [
                 'attribute' => 'post_id',
-                'format' => 'text',
+                'format' => 'raw',
                 'label' => Yii::t('comments', 'Post ID'),
                 'value' => function ($model) {
                     if ($model->post_id == 0) {
@@ -78,12 +78,19 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                     if ($model->post_type == 'news') {
                         $result = News::find()->where(['id' => $model->post_id])->one();
+                        $html =  Html::a($result->title,
+                            Yii::$app->urlManagerFrontend->createUrl(['news/default/view', 'slug'=>$result->slug]),
+                            ['target' => '_blank']);
 
                     }
                     if ($model->post_type == 'page') {
                         $result = Pages::find()->where(['id' => $model->post_id])->one();
+
+                        $html =  Html::a($result->title,
+                            Yii::$app->urlManagerFrontend->createUrl(['page/' . $result->slug]),
+                            ['target' => '_blank']);
                     }
-                    return isset($result->id) ? $result->title : '';
+                    return $html;
                 },
             ],
             // 'user_id',

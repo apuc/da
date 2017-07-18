@@ -12,7 +12,7 @@ use yii\helpers\Url;
             <span class="komunalka__icon">
               <img src="/theme/portal-donbassa/img/home-content/energy.png" alt="">
             </span>
-            <a href="<?= Url::to(['/consulting/consulting/document', 'slug' => 'elektricestvo']) ?>" class="komunalka__line ">
+            <a href="<?= Url::to(['/consulting/consulting/document', 'slug' => 'tarify-na-elektroenergiu-dla-naselenia']) ?>" class="komunalka__line ">
                 <span>электричество</span>
                 <span class="red-arrow"></span>
             </a>
@@ -21,7 +21,7 @@ use yii\helpers\Url;
             <span class="komunalka__icon">
               <img src="/theme/portal-donbassa/img/home-content/wind.png" alt="">
             </span>
-            <a href="<?= Url::to(['/consulting/consulting/document', 'slug' => 'otoplenie']) ?>" class="komunalka__line">
+            <a href="<?= Url::to(['/consulting/consulting/documents-categories', 'slug' => 'zkh']) ?>" class="komunalka__line">
                 <span>отопление</span>
                 <span class="red-arrow"></span>
             </a>
@@ -30,7 +30,7 @@ use yii\helpers\Url;
             <span class="komunalka__icon">
               <img src="/theme/portal-donbassa/img/home-content/gas.png" alt="">
             </span>
-            <a href="<?= Url::to(['/consulting/consulting/document', 'slug' => 'gaz']) ?>" class="komunalka__line">
+            <a href="<?= Url::to(['/consulting/consulting/document', 'slug' => 'tarify-na-gaz-v-dnr']) ?>" class="komunalka__line">
                 <span>газ </span>
                 <span class="red-arrow"></span>
             </a>
@@ -39,7 +39,7 @@ use yii\helpers\Url;
             <span class="komunalka__icon">
               <img src="/theme/portal-donbassa/img/home-content/home.png" alt="">
             </span>
-            <a href="<?= Url::to(['/consulting/consulting/document', 'slug' => 'zkh']) ?>" class="komunalka__line">
+            <a href="<?= Url::to(['/consulting/consulting/documents-categories', 'slug' => 'zkh']) ?>" class="komunalka__line">
                 <span>жкх</span>
                 <span class="red-arrow"></span>
             </a>
@@ -48,26 +48,26 @@ use yii\helpers\Url;
                         <span class="komunalka__icon">
                           <img src="/theme/portal-donbassa/img/home-content/water.png" alt="">
                         </span>
-            <a href="<?= Url::to(['/consulting/consulting/document', 'slug' => 'voda']) ?>" class="komunalka__line"><span>вода</span><span class="red-arrow"></span></a>
+            <a href="<?= Url::to(['/consulting/consulting/document', 'slug' => 'vodosnabzenie-i-vodootvedenie']) ?>" class="komunalka__line"><span>вода</span><span class="red-arrow"></span></a>
         </div>
         <div class="komunalka__item">
                         <span class="komunalka__icon">
                           <img src="/theme/portal-donbassa/img/home-content/internet.png" alt="">
                         </span>
-            <a href="<?= Url::to(['/site/design']); ?>" class="komunalka__line">
+            <a href="<?= Url::to(['/consulting/consulting/documents-categories', 'slug' => 'internet-i-mobilnaa-svaz']); ?>" class="komunalka__line">
                 <span>интернет</span><span class="red-arrow"></span></a>
         </div>
         <div class="komunalka__item">
                         <span class="komunalka__icon">
                           <img src="/theme/portal-donbassa/img/home-content/phone.png" alt="">
                         </span>
-            <a href="<?= Url::to(['/site/design']); ?>" class="komunalka__line"><span>связь</span><span class="red-arrow"></span></a>
+            <a href="<?= Url::to(['/consulting/consulting/documents-categories', 'slug' => 'internet-i-mobilnaa-svaz']); ?>" class="komunalka__line"><span>связь</span><span class="red-arrow"></span></a>
         </div>
         <div class="komunalka__item">
                         <span class="komunalka__icon">
                           <img src="/theme/portal-donbassa/img/home-content/transport.png" alt="">
                         </span>
-            <a href="<?= Url::to(['/site/design']); ?>" class="komunalka__line"><span>транспорт</span><span class="red-arrow"></span></a>
+            <a href="<?= Url::to(['/consulting/consulting/documents-categories', 'slug' => 'transport-2']); ?>" class="komunalka__line"><span>транспорт</span><span class="red-arrow"></span></a>
         </div>
     </div>
 </div>

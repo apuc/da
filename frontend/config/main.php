@@ -49,6 +49,48 @@ return [
         'personal_area' => [
             'class' => 'frontend\modules\personal_area\PersonalArea',
         ],
+        'sitemap' => [
+            'class' => 'himiklab\sitemap\Sitemap',
+            'models' => [
+                // your models
+                'frontend\models\sitemap\CategoryNews',
+                'frontend\models\sitemap\CategoryCompany',
+                'frontend\models\sitemap\News',
+                'frontend\models\sitemap\Company',
+                'frontend\models\sitemap\CategoryPoster',
+                'frontend\models\sitemap\Poster'
+                /*'backend\modules\category\models\Category',
+                'backend\modules\adsmanager\models\Adsmanager',
+                'backend\modules\news\models\News',*/
+
+                // or configuration for creating a behavior
+            ],
+            'urls'=> [
+                // your additional urls
+                [
+                    'loc' => '/',
+                    'lastmod' => '2016-11-06T19:38:59+03:00',
+                    'priority' => 1,
+                ],
+                [
+                    'loc' => '/all-news',
+                    'lastmod' => '2016-11-06T19:38:59+03:00',
+                    'priority' => 1,
+                ],
+                [
+                    'loc' => '/all-company',
+                    'lastmod' => '2016-11-06T19:38:59+03:00',
+                    'priority' => 1,
+                ],
+                [
+                    'loc' => '/all-poster',
+                    'lastmod' => '2016-11-06T19:38:59+03:00',
+                    'priority' => 1,
+                ],
+            ],
+            'enableGzip' => true, // default is false
+            'cacheExpire' => 1, // 1 second. Default is 24 hours
+        ],
     ],
     'components' => [
         'mymessages' => [
@@ -151,6 +193,9 @@ return [
                 'page/<slug>' => '/pages/default/view',
                 //'ajax'=> 'ajax/default',
                 //'ajax/send_poll'=> 'ajax/default/send_poll',
+
+
+                ['pattern' => 'sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
             ]
         ],
         'mailer' => [

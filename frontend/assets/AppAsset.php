@@ -30,9 +30,9 @@ class AppAsset extends AssetBundle
         /*'/theme/css/jquery-ui.min.css',*/
         '/theme/portal-donbassa/css/styles.min.css',
 
-        '/js/jquery-ui-1.12.1/jquery-ui.min.css',
+        /*'/js/jquery-ui-1.12.1/jquery-ui.min.css',
         '/js/jquery-ui-1.12.1/jquery-ui.structure.min.css',
-        '/js/jquery-ui-1.12.1/jquery-ui.theme.min.css',
+        '/js/jquery-ui-1.12.1/jquery-ui.theme.min.css',*/
 
     ];
     public $js = [
@@ -54,7 +54,7 @@ class AppAsset extends AssetBundle
         '/theme/portal-donbassa/js/script.min.js',
         '/theme/portal-donbassa/js/jquery.hc-sticky.min.js',
         '/theme/portal-donbassa/js/ajax.js',
-        'js/jquery-ui-1.12.1/jquery-ui.min.js',
+        /*'js/jquery-ui-1.12.1/jquery-ui.min.js',*/
 //
 
         '/js/poll_ajax.js',

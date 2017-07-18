@@ -18,6 +18,7 @@ use Yii;
 use frontend\modules\company\models\Company;
 use frontend\modules\company\models\CompanySearch;
 use yii\data\Pagination;
+use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\Controller;
@@ -30,6 +31,7 @@ use yii\web\UploadedFile;
  */
 class CompanyController extends Controller
 {
+
     public $layout = 'portal_page';
 
     /**
@@ -42,6 +44,20 @@ class CompanyController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view', 'category', 'view-category', 'get_categ', 'get_sub_categ', 'get_company_by_categ', 'get-more-company', 'startwidgetcompany', 'get-company'],
+                        'roles' => ['?'],
+                    ],
                 ],
             ],
         ];
@@ -130,6 +146,7 @@ class CompanyController extends Controller
         $stoke = Stock::find()->where(['company_id' => $model->id])->limit(3)->all();
         $feedback = CompanyFeedback::find()->where(['company_id' => $model->id])->with('user')->all();
         $img = CompanyPhoto::findAll(['company_id' => $model->id]);
+        $model->updateCounters(['views' => 1 ]);
         return $this->render('view', [
             'model' => $model,
             'stock' => $stoke,
@@ -443,12 +460,12 @@ class CompanyController extends Controller
         ]);
     }
 
-    public static function actionStartwidgetcompany()
+    /*public static function actionStartwidgetcompany()
     {
-        //return \frontend\modules\mainpage\widgets\Company::widget();
+
         return VipCompanyWidget::widget();
-        // return '1';
-    }
+
+    }*/
 
     public function actionGetCompany()
     {
