@@ -16,7 +16,7 @@ use yii\helpers\Html; ?>
             ]);
         ?>
         <p class="cabinet__add-company-form--title">Категория</p>
-        <div class="cabinet__add-company-form--select-wrapper">
+        <div class="cabinet__add-company-form--select-wrapper-cat">
             <?= \kartik\select2\Select2::widget(
                 [
                     'name' => 'cat[]',
@@ -32,8 +32,6 @@ use yii\helpers\Html; ?>
 
                 ])?>
         </div>
-
-        <div class="cabinet__add-company-form--block"></div>
 
         <p class="cabinet__add-company-form--title">Название мероприятия</p>
 
