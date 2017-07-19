@@ -12,6 +12,8 @@ use common\models\db\Poster;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\data\SqlDataProvider;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
@@ -23,6 +25,34 @@ use yii\web\Controller;
 class DefaultController extends Controller
 {
     public $layout = 'portal_page';
+
+
+
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['index', 'view', 'category', 'archive_category', 'single_category', 'single_archive_category', 'updposterdt_event', 'updposterdt_event_end', 'more-interested-in', 'interested-in-posters', 'get-more-poster', 'get-more-kino', 'more-poster'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                ],
+            ],
+        ];
+    }
 
     /**
      * Renders the index view for the module
@@ -74,7 +104,7 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function _actionView($slug)
+    /*public function _actionView($slug)
     {
         $poster = Poster::find()->where(['slug' => $slug])->one();
 
@@ -119,7 +149,7 @@ class DefaultController extends Controller
             'count_likes' => $count_likes,
             'user_set_like' => $user_set_like,
         ]);
-    }
+    }*/
 
     public function actionCategory()
     {
@@ -329,5 +359,32 @@ class DefaultController extends Controller
         ]);
         $data['last'] = $count - ((int)$page - 1) * $limit <= $limit ? 1 : 0;
         return json_encode($data);
+    }
+
+    //Добавление афиши
+    public function actionCreate()
+    {
+        $this->layout = 'personal_area';
+        $model = new \backend\modules\poster\models\Poster();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            $model->dt_event = strtotime($model->dt_event);
+            $model->dt_event_end = strtotime($model->dt_event_end);
+            $model->save();
+
+            foreach ($_POST['cat'] as $cat) {
+                $catNewRel = new CategoryPosterRelations();
+                $catNewRel->cat_id = $cat;
+                $catNewRel->poster_id = $model->id;
+                $catNewRel->save();
+            }
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+                'categoriesSelected' => [],
+            ]);
+        }
     }
 }

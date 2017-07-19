@@ -160,12 +160,12 @@ class NewsController extends Controller
      *
      * @return mixed
      */
-    public function actionView($id)
+   /* public function actionView($id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
-    }
+    }*/
 
     /**
      * Creates a new News model.

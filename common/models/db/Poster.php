@@ -27,6 +27,7 @@ use Yii;
  * @property integer $popular
  * @property integer $phone
  * @property integer $metka
+ * @property integer $user_id
  */
 class Poster extends \yii\db\ActiveRecord
 {
@@ -45,8 +46,8 @@ class Poster extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'dt_event', 'dt_event_end'], 'required'],
-            [['dt_add', 'dt_update', 'views', 'status', 'rss', 'popular'], 'integer'],
-            [['dt_event', 'dt_event_end'], 'safe'],
+            [['dt_add', 'dt_update', 'views', 'status', 'rss', 'popular', 'user_id'], 'integer'],
+            [['dt_event', 'dt_event_end', 'user_id'], 'safe'],
             [['descr', 'short_descr'], 'string'],
             [['title', 'slug', 'price', 'meta_title', 'meta_descr', 'photo', 'address'], 'string', 'max' => 255],
             [['start', 'phone'], 'string', 'max' => 512],
@@ -81,6 +82,7 @@ class Poster extends \yii\db\ActiveRecord
             'popular' => Yii::t('poster', 'Popular'),
             'phone' => Yii::t('poster', 'Phone'),
             'metka' => Yii::t('poster', 'Metka'),
+            'user_id' => Yii::t('poster', 'user_id'),
         ];
     }
 
