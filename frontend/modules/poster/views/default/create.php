@@ -16,7 +16,7 @@ use yii\helpers\Html; ?>
             ]);
         ?>
         <p class="cabinet__add-company-form--title">Категория</p>
-        <div class="cabinet__add-company-form--field">
+        <div class="cabinet__add-company-form--select-wrapper">
             <?= \kartik\select2\Select2::widget(
                 [
                     'name' => 'cat[]',
@@ -82,32 +82,36 @@ use yii\helpers\Html; ?>
         <div class="cabinet__add-company-form--block"></div>
 
         <p class="cabinet__add-company-form--title">Дата начала события</p>
-        <?php echo \kartik\datetime\DateTimePicker::widget([
-        'name' => 'Poster[dt_event]',
-        'options' => ['placeholder' => 'Выберете дату события'],
-        'convertFormat' => false,
-        'value' => date('d-m-Y H:i', (!empty($model->dt_event) ? $model->dt_event : time())),
-        'pluginOptions' => [
-        'format' => 'dd-mm-yyyy H:i ',
-        'startDate' => '01-Mar-2016 12:00 AM',
-        'todayHighlight' => true,
-        ],
-        ]); ?>
+        <div class="cabinet__add-company-form--select-wrapper">
+            <?php echo \kartik\datetime\DateTimePicker::widget([
+            'name' => 'Poster[dt_event]',
+            'options' => ['placeholder' => 'Выберете дату события'],
+            'convertFormat' => false,
+            'value' => date('d-m-Y H:i', (!empty($model->dt_event) ? $model->dt_event : time())),
+            'pluginOptions' => [
+            'format' => 'dd-mm-yyyy H:i ',
+            'startDate' => '01-Mar-2016 12:00 AM',
+            'todayHighlight' => true,
+            ],
+            ]); ?>
+        </div>
         <div class="cabinet__add-company-form--block"></div>
 
 
         <p class="cabinet__add-company-form--title">Дата окончания события</p>
-        <?php echo \kartik\datetime\DateTimePicker::widget([
-        'name' => 'Poster[dt_event_end]',
-        'options' => ['placeholder' => 'Выберете дату окончания события'],
-        'convertFormat' => false,
-        'value' => date('d-m-Y H:i', (!empty($model->dt_event_end) ? $model->dt_event_end : time())),
-        'pluginOptions' => [
-        'format' => 'dd-mm-yyyy H:i ',
-        'startDate' => '01-Mar-2016 12:00 AM',
-        'todayHighlight' => true,
-        ],
-        ]); ?>
+        <div class="cabinet__add-company-form--select-wrapper">
+            <?php echo \kartik\datetime\DateTimePicker::widget([
+            'name' => 'Poster[dt_event_end]',
+            'options' => ['placeholder' => 'Выберете дату окончания события'],
+            'convertFormat' => false,
+            'value' => date('d-m-Y H:i', (!empty($model->dt_event_end) ? $model->dt_event_end : time())),
+            'pluginOptions' => [
+            'format' => 'dd-mm-yyyy H:i ',
+            'startDate' => '01-Mar-2016 12:00 AM',
+            'todayHighlight' => true,
+            ],
+            ]); ?>
+        </div>
         <div class="cabinet__add-company-form--block"></div>
 
 
