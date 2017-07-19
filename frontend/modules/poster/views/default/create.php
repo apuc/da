@@ -16,21 +16,22 @@ use yii\helpers\Html; ?>
             ]);
         ?>
         <p class="cabinet__add-company-form--title">Категория</p>
-        <?= \kartik\select2\Select2::widget(
-            [
-                'name' => 'cat[]',
-                'data' => \yii\helpers\ArrayHelper::map($categoryPoster, 'id', 'title'),
-                'options' => [
-                    'placeholder' => 'выберите компанию',
-                    'id' => 'form-select',
-                    'multiple' => true
-                ],
-                'pluginOptions' => [
-                    'allowClear' => true
-                ],
+        <div class="cabinet__add-company-form--field">
+            <?= \kartik\select2\Select2::widget(
+                [
+                    'name' => 'cat[]',
+                    'data' => \yii\helpers\ArrayHelper::map($categoryPoster, 'id', 'title'),
+                    'options' => [
+                        'placeholder' => 'выберите компанию',
+                        'id' => 'form-select',
+                        'multiple' => true
+                    ],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
 
-            ])?>
-
+                ])?>
+        </div>
 
         <div class="cabinet__add-company-form--block"></div>
 
