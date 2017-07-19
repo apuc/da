@@ -799,7 +799,7 @@ $(document).ready(function () {
     if (socialElement.length > 0) {
         var socialElementPosition = socialElement.offset().top;
         $(window).scroll(function () {
-            fixedScroll(socialElement, socialElementPosition, $('.comments-wrapper'));
+            fixedScroll(socialElement, socialElementPosition, $('.footer'));
         });
     }
     /*close social sidebar scroll*/

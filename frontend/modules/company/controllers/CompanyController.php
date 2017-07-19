@@ -2,6 +2,7 @@
 
 namespace frontend\modules\company\controllers;
 
+use common\classes\CompanyFunction;
 use common\classes\Debug;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
@@ -147,11 +148,25 @@ class CompanyController extends Controller
         $feedback = CompanyFeedback::find()->where(['company_id' => $model->id])->with('user')->all();
         $img = CompanyPhoto::findAll(['company_id' => $model->id]);
         $model->updateCounters(['views' => 1 ]);
+        $services = [];
+        if($model->dt_end_tariff > time() || $model->dt_end_tariff == 0) {
+            $services = CompanyFunction::getServiceCompany($model->id);
+        }
+
+        $typeSeti = SocAvailable::find()->all();
+
+        $socCompany = SocCompany::find()->where(['company_id' => $model->id])->all();
+
+        $socCompany = ArrayHelper::index($socCompany, 'soc_type');
+
         return $this->render('view', [
             'model' => $model,
             'stock' => $stoke,
             'feedback' => $feedback,
             'img' => $img,
+            'services' => $services,
+            'typeSeti' => $typeSeti,
+            'socCompany' => $socCompany,
         ]);
     }
 
@@ -308,21 +323,12 @@ class CompanyController extends Controller
 
             $img = CompanyPhoto::find()->where(['company_id' => $id])->all();
             if($model->dt_end_tariff > time() || $model->dt_end_tariff == 0) {
-                //Debug::prn($model);
-
-                $services = ServicesCompanyRelations::find()
-                    ->where(['company_id' => $id])
-                    ->with('services')
-                    ->all();
-
-                $services = ArrayHelper::getColumn($services, 'services');
-
-               $services = ArrayHelper::map($services, 'name_serv', 'val');
+                $services = CompanyFunction::getServiceCompany($id);
 
                 $typeSeti = SocAvailable::find()->all();
 
                 $socCompany = SocCompany::find()->where(['company_id' => $id])->all();
-//Debug::prn($services);
+
 
                 return $this->render('update', [
                     'model' => $model,
