@@ -113,7 +113,7 @@ echo Html::dropDownList(
     <p class="cabinet__add-company-form--title">Соц. сети компании</p>
     <div class="cabinet__add-company-form--social">
         <?php
-        if($services['group_link'] == 1){
+        if(isset($services['group_link']) && $services['group_link'] == 1){
 
             foreach ($typeSeti as $type){
                 ?>

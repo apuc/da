@@ -155,6 +155,9 @@ $(document).ready(function () {
     $("#company-photo").change(function () {
         readURL(this);
     });
+    $("#poster-photo").change(function () {
+        readURL(this);
+    });
     $(document).on('change', '#categ_company', function () {
         var catId = $('#categ_company').val();
         console.log(catId);

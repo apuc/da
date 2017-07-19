@@ -369,7 +369,8 @@ class DefaultController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
-            $model->dt_event = strtotime($model->dt_event);
+            Debug::prn($model);
+           /* $model->dt_event = strtotime($model->dt_event);
             $model->dt_event_end = strtotime($model->dt_event_end);
             $model->save();
 
@@ -379,11 +380,14 @@ class DefaultController extends Controller
                 $catNewRel->poster_id = $model->id;
                 $catNewRel->save();
             }
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id]);*/
         } else {
+
+            $categoryPoster = CategoryPoster::find()->all();
+
             return $this->render('create', [
                 'model' => $model,
-                'categoriesSelected' => [],
+                'categoryPoster' => $categoryPoster
             ]);
         }
     }
