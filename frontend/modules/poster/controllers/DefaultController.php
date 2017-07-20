@@ -385,14 +385,7 @@ class DefaultController extends Controller
             $model->user_id = Yii::$app->user->id;
             $model->meta_title = $model->title . ' - Афиша на DA-info';
             $model->meta_descr = \yii\helpers\StringHelper::truncate($model->descr, 250) . ' - Афиша на DA-info';
-
-
-            foreach ($_POST['cat'] as $cat) {
-                $catNewRel = new CategoryPosterRelations();
-                $catNewRel->cat_id = $cat;
-                $catNewRel->poster_id = $model->id;
-                $catNewRel->save();
-            }
+            
             if ($_FILES['Poster']['name']['photo']) {
                 $upphoto = New \common\models\UploadPhoto();
                 $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
@@ -406,7 +399,12 @@ class DefaultController extends Controller
             }
 
             $model->save();
-
+            foreach ($_POST['cat'] as $cat) {
+                $catNewRel = new CategoryPosterRelations();
+                $catNewRel->cat_id = $cat;
+                $catNewRel->poster_id = $model->id;
+                $catNewRel->save();
+            }
             Yii::$app->session->setFlash('success','Ваша афиша успешно добавлена. После прохождения модерации она будет опубликована.');
             return $this->redirect('/personal_area/default/index');
         } else {
