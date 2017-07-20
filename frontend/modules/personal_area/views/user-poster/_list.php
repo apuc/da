@@ -21,7 +21,7 @@
     <span class="views"><?= $model->views; ?></span>
 
     <?php if($model['dt_event'] > time()):?>
-        <a class="cabinet__like-block--company-edit">редактировать</a>
+        <a href="<?= \yii\helpers\Url::to(['/poster/default/update', 'id' => $model['id']]); ?>" class="cabinet__like-block--company-edit">редактировать</a>
         <a data-method="post" href="<?= \yii\helpers\Url::to(['/poster/default/delete', 'id' => $model['id']]); ?>" class="cabinet__like-block--company-remove">удалить</a>
     <?php endif; ?>
 

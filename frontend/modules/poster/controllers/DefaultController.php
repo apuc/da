@@ -385,7 +385,7 @@ class DefaultController extends Controller
             $model->user_id = Yii::$app->user->id;
             $model->meta_title = $model->title . ' - Афиша на DA-info';
             $model->meta_descr = \yii\helpers\StringHelper::truncate($model->descr, 250) . ' - Афиша на DA-info';
-            
+
             if ($_FILES['Poster']['name']['photo']) {
                 $upphoto = New \common\models\UploadPhoto();
                 $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
@@ -414,6 +414,64 @@ class DefaultController extends Controller
             return $this->render('create', [
                 'model' => $model,
                 'categoryPoster' => $categoryPoster
+            ]);
+        }
+    }
+
+    //Редактирование афиши
+    public function actionUpdate($id)
+    {
+
+        $this->layout = 'personal_area';
+        $model = \backend\modules\poster\models\Poster::find()->where(['id' => $id])->one();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            $phone = '';
+            foreach ($_POST['mytext'] as $item){
+                $phone .= $item . ' ';
+            }
+
+            $model->status = 1;
+            $model->phone = $phone;
+            $model->dt_event = strtotime($model->dt_event);
+            $model->dt_event_end = strtotime($model->dt_event_end);
+            $model->user_id = Yii::$app->user->id;
+            $model->meta_title = $model->title . ' - Афиша на DA-info';
+            $model->meta_descr = \yii\helpers\StringHelper::truncate($model->descr, 250) . ' - Афиша на DA-info';
+
+            if (!empty($_FILES['Poster']['name']['photo'])) {
+                $upphoto = New \common\models\UploadPhoto();
+                $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
+                $loc = 'media/upload/userphotos/' . date('dmY') . '/';
+                if (!is_dir($loc)) {
+                    mkdir($loc);
+                }
+                $upphoto->location = $loc;
+                $upphoto->upload();
+                $model->photo = '/' . $loc . $_FILES['Poster']['name']['photo'];
+            }else{
+                $model->photo = $_POST['img'];
+            }
+
+            $model->save();
+            CategoryPosterRelations::deleteAll(['poster_id' => $id]);
+            foreach ($_POST['cat'] as $cat) {
+                $catNewRel = new CategoryPosterRelations();
+                $catNewRel->cat_id = $cat;
+                $catNewRel->poster_id = $model->id;
+                $catNewRel->save();
+            }
+            Yii::$app->session->setFlash('success','Ваша афиша успешно измененна. После прохождения модерации она будет опубликована.');
+            return $this->redirect('/personal_area/default/index');
+        } else {
+
+            $categoryPoster = CategoryPoster::find()->all();
+            $categorySelect = CategoryPosterRelations::find()->where(['poster_id' => $id])->all();
+            return $this->render('update', [
+                'model' => $model,
+                'categoryPoster' => $categoryPoster,
+                'categorySelect' => $categorySelect
             ]);
         }
     }
