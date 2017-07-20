@@ -18,6 +18,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
 use yii\web\Controller;
+use yii\web\UploadedFile;
 
 /**
  * Default controller for the `poster` module
@@ -369,10 +370,21 @@ class DefaultController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
-            Debug::prn($model);
-           /* $model->dt_event = strtotime($model->dt_event);
+            Debug::prn($_FILES);
+
+            $phone = '';
+            foreach ($_POST['mytext'] as $item){
+                $phone .= $item . ' ';
+            }
+
+            $model->status = 1;
+            $model->phone = $phone;
+            $model->dt_event = strtotime($model->dt_event);
             $model->dt_event_end = strtotime($model->dt_event_end);
-            $model->save();
+            $model->user_id = Yii::$app->user->id;
+            $model->meta_title = $model->title . ' - Афиша на DA-info';
+            $model->meta_descr = \yii\helpers\StringHelper::truncate($model->descr, 250) . ' - Афиша на DA-info';
+
 
             foreach ($_POST['cat'] as $cat) {
                 $catNewRel = new CategoryPosterRelations();
@@ -380,7 +392,22 @@ class DefaultController extends Controller
                 $catNewRel->poster_id = $model->id;
                 $catNewRel->save();
             }
-            return $this->redirect(['view', 'id' => $model->id]);*/
+            if ($_FILES['Poster']['name']['photo']) {
+                $upphoto = New \common\models\UploadPhoto();
+                $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
+                $loc = 'media/upload/userphotos/' . date('dmY') . '/';
+                if (!is_dir($loc)) {
+                    mkdir($loc);
+                }
+                $upphoto->location = $loc;
+                $upphoto->upload();
+                $model->photo = '/' . $loc . $_FILES['Poster']['name']['photo'];
+            }
+
+            $model->save();
+
+            Yii::$app->session->setFlash('success','Ваша афиша успешно добавлена. После прохождения модерации она будет опубликована.');
+            return $this->redirect('/personal_area/default/index');
         } else {
 
             $categoryPoster = CategoryPoster::find()->all();

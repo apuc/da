@@ -121,7 +121,7 @@ use yii\helpers\Html; ?>
 
             <p class="cabinet__add-company-form--title">Телефон</p>
 
-            <input class="cabinet__add-company-form--field" type="text">
+            <input class="cabinet__add-company-form--field" name="mytext[]" type="text">
 
             <a href="#" class="cabinet__add-field" max-count="3"></a>
 
@@ -132,8 +132,8 @@ use yii\helpers\Html; ?>
         </div>
 
         <p class="cabinet__add-company-form--title">Описание</p>
-        <?= $form->field( $model, 'descr' )->textarea(['maxlength' => true, 'class' => 'cabinet__add-company-form--field'])->label(false); ?>
-        <div class="cabinet__add-company-form--block"></div>
+        <textarea id="poster-descr" class="cabinet__add-company-form--text" name="Poster[descr]" aria-invalid="false"></textarea>
+        <!--<div class="cabinet__add-company-form--block"></div>-->
 
     <?= Html::submitButton( 'Сохранить', [ 'class' => 'cabinet__add-company-form--submit' ] ) ?>
     <?php ActiveForm::end(); ?>
