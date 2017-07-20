@@ -5,6 +5,7 @@ use backend\modules\comments\models\Comments;
 use common\classes\CompanyFunction;
 use common\classes\UserFunction;
 use common\models\db\News;
+use common\models\db\Poster;
 use dektrium\user\models\User;
 use Yii;
 use yii\base\Widget;
@@ -17,6 +18,8 @@ class MainMenuAdmin extends Widget
         $companyCountModer = CompanyFunction::getCompanyCountModer();
         $CompanyTariffOrderCount = CompanyFunction::getCompanyOrderTarif();
         $countNews = News::find()->where(['status' => 1])->count();
+        $countPoster = Poster::find()->where(['status' => 1])->count();
+
         echo \yii\widgets\Menu::widget(
             [
                 'items' => [
@@ -206,6 +209,7 @@ class MainMenuAdmin extends Widget
                                 'label' => 'Все',
                                 'url' => Url::to(['/poster']),
                                 'active' => Yii::$app->controller->module->id == 'poster' && Yii::$app->controller->action->id == 'index',
+                                'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label bg-red pull-right">' . $countPoster . '</small></span></a>',
                             ],
                             [
                                 'label' => 'Категории',
@@ -238,7 +242,14 @@ class MainMenuAdmin extends Widget
                         'options' => [
                             'class' => 'treeview',
                         ],
-                        'template' => '<a href="#"><i class="fa fa-university"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                        'template' => '
+                            <a href="#">
+                                    <i class="fa fa-university"></i> 
+                                    <span>{label}</span> 
+                                      <span class="pull-right-container">
+                                          <span class="label bg-red pull-right">'. $countPoster .'</span>
+                                      </span>  
+                            </a>',
                     ],
                     [
                         'label' => 'Консалтинг',

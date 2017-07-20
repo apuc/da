@@ -68,7 +68,7 @@ use yii\widgets\ActiveForm;
 
     <? /*= $form->field($model, 'views')->textInput() */ ?>
 
-    <? /*= $form->field($model, 'status')->textInput() */ ?>
+
 
     <?php //if (!empty($model->dt_event)): ?>
     <!--    --><? //= $form->field($model, 'dt_event')->input('datetime',
@@ -129,6 +129,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'popular')->checkbox() ?>
 
+    <?= $form->field($model, 'status')->dropDownList([
+        '0' => 'Опубликована',
+        '1' => 'На модерации',
+    ])->label('Статус') ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('poster', 'Create') : Yii::t('poster', 'Update'),
             ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
