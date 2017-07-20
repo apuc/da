@@ -42,7 +42,7 @@ use common\models\User;
                     <div class="currency-panel__submenu">
                         <a href="<?= Url::to('/personal_area/default/index')?>">ПРОФИЛЬ</a>
                         <a href="<?= \yii\helpers\Url::to(['/personal_area/user-news'])?>">НОВОСТИ</a>
-                        <a class="disabled" href="#">АФИШИ</a>
+                        <a href="<?= \yii\helpers\Url::to(['/personal_area/user-poster'])?>">АФИШИ</a>
                         <a class="disabled" href="#">АКЦИИ</a>
                         <a href="<?= \yii\helpers\Url::to(['/personal_area/user-company'])?>">ПРЕДПРИЯТИЯ</a>
                         <a href="<?= \yii\helpers\Url::to(['/personal_area/user-comments'])?>">КОМЕНТАРИИ</a>

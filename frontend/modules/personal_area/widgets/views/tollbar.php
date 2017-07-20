@@ -28,7 +28,7 @@
 
     <ul class="cabinet__list">
         <li><a href="<?= \yii\helpers\Url::to(['/personal_area/user-news'])?>" class="news">НОВОСТИ <!--<span>258</span>--></a></li>
-        <li><a href="#" class="poster disabled">АФИШИ</a></li>
+        <li><a href="<?= \yii\helpers\Url::to(['/personal_area/user-poster'])?>" class="poster">АФИШИ</a></li>
         <li><a href="#" class="stock disabled">АКЦИИ</a></li>
         <!--<li><a href="#" class="configuration">Настройки</a></li>-->
         <li><a href="<?= \yii\helpers\Url::to(['/personal_area/user-company'])?>" class="company">ПРЕДПРИЯТИЯ <!--<span class="add"></span>--></a></li>

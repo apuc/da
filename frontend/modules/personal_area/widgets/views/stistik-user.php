@@ -11,8 +11,8 @@
         <span>0</span>
         <p>акций</p>
     </a>
-    <a class="disabled" href="#">
-        <span>0</span>
+    <a href="<?= \yii\helpers\Url::to(['/personal_area/user-poster'])?>">
+        <span><?= $poster; ?></span>
         <p>Афиш</p>
     </a>
     <a href="<?= \yii\helpers\Url::to(['/personal_area/user-company/index'])?>">
