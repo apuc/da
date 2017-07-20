@@ -71,6 +71,9 @@ class DefaultController extends Controller
         if (empty($poster)) {
             return $this->redirect(['site/error']);
         }
+        if($poster['status'] == '1'){
+            throw new \yii\web\HttpException(404 ,'Страница не найдена.');
+        }
 
         $likes = Likes::find()
             ->where(['post_id' => $poster->id, 'post_type' => 'poster'])
