@@ -373,8 +373,6 @@ class DefaultController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
-            Debug::prn($_FILES);
-
             $phone = '';
             foreach ($_POST['mytext'] as $item){
                 $phone .= $item . ' ';
@@ -420,5 +418,13 @@ class DefaultController extends Controller
                 'categoryPoster' => $categoryPoster
             ]);
         }
+    }
+
+    //Удаление афиши (меняем статус на 2)
+    public function actionDelete($id)
+    {
+        Poster::updateAll(['status' => 2], ['id' => $id]);
+        Yii::$app->session->setFlash('success','Ваша афиша успешно удалена.');
+        return $this->redirect('/personal_area/user-poster');
     }
 }

@@ -32,6 +32,8 @@ class UserPosterSearch extends Poster
         $query->andWhere([
             'user_id' => $params['user_id'],
         ]);
+
+        $query->andWhere(['!=', 'status', 2]);
         $query->orderBy('dt_update DESC');
 
 

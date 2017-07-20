@@ -20,8 +20,18 @@
 
     <span class="views"><?= $model->views; ?></span>
 
-    <a class="cabinet__like-block--company-edit">редактировать</a>
-    <a data-method="post" href="<?= \yii\helpers\Url::to(['/news/news/delete', 'id' => $model['id']]); ?>" class="cabinet__like-block--company-remove">удалить</a>
+    <?php if($model['dt_event'] > time()):?>
+        <a class="cabinet__like-block--company-edit">редактировать</a>
+        <a data-method="post" href="<?= \yii\helpers\Url::to(['/poster/default/delete', 'id' => $model['id']]); ?>" class="cabinet__like-block--company-remove">удалить</a>
+    <?php endif; ?>
+
+    <?php if($model['dt_event_end'] < time()):?>
+        <a data-method="post" href="<?= \yii\helpers\Url::to(['/poster/default/delete', 'id' => $model['id']]); ?>" class="cabinet__like-block--company-remove">удалить</a>
+    <?php endif; ?>
+
+    <?php if($model['dt_event'] < time() && $model['dt_event_end'] > time()): ?>
+        <p>Управление афишей запрещено т.к. мероприятие сейчас идет</p>
+    <?php endif;?>
 
 </div>
 
