@@ -121,6 +121,9 @@ return [
         'tariff' => [
             'class' => 'backend\modules\tariff\Tariff',
         ],
+        'site_error' => [
+            'class' => 'backend\modules\site_error\SiteError',
+        ],
     ],
     'components' => [
         /*'user' => [

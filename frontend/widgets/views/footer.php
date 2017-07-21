@@ -27,3 +27,23 @@
 
     <?= \frontend\widgets\ShowAddToSitePanel::widget(); ?>
 </footer>
+
+
+<div class="modal-callback" id="error-message">
+
+    <h3 class="modal-callback__title">Сооощите нам об ошибке на сайте</h3>
+
+    <div class="separator"></div>
+
+    <form action="" class="modal-callback__form">
+        <input type="hidden" name="user_id" value="<?= (empty(Yii::$app->user->id) ? 0 : Yii::$app->user->id)?>" id="">
+        <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken; ?>">
+        <input type="hidden" name="url" value="<?=  \yii\helpers\Url::canonical(); ?>">
+
+        <textarea class="modal-callback__textarea" placeholder="Текст сообщения"></textarea>
+
+        <input class="show-more" type="submit" value="отправить">
+
+    </form>
+
+</div>

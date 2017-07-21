@@ -12,3 +12,9 @@
     </ul>
 
 </div>
+
+<div id="send-error-message" class="fix-button-msg-error">
+    <div class="fix-button__notice">
+        <img src="/theme/portal-donbassa/img/home-content/mistake-bg.png" alt="">
+    </div>
+</div>

@@ -431,6 +431,24 @@ $(document).ready(function () {
         );
     });
     /*close message modal*/
+    
+    /*modal about error*/
+    $(document).on('click', '#send-error-message', function () {
+        event.preventDefault();
+        $('#black-overlay').fadeIn(400,
+            function () {
+                $('#error-message').css('display', 'block').animate({opacity: 1}, 200);
+            });
+    });
+    $(document).on('click', '#black-overlay', function () {
+        $('#error-message').animate({opacity: 0}, 200,
+            function () {
+                $(this).css('display', 'none');
+                $('#black-overlay').fadeOut(400);
+            }
+        );
+    });
+    /*close modal about error*/
 
     /*open modal order delivery*/
     $(document).on('click', '#order-delivery', function () {
