@@ -40,9 +40,9 @@
         <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken; ?>">
         <input type="hidden" name="url" value="<?=  \yii\helpers\Url::canonical(); ?>">
 
-        <textarea class="modal-callback__textarea" placeholder="Текст сообщения"></textarea>
+        <textarea class="modal-callback__textarea" name="text-error" placeholder="Текст сообщения"></textarea>
 
-        <input class="show-more" type="submit" value="отправить">
+        <input class="show-more" id="send-error-site" type="submit" value="отправить">
 
     </form>
 

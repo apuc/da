@@ -13,6 +13,7 @@ use common\models\db\PossibleAnswers;
 use common\models\db\PostsConsulting;
 use common\models\db\PostsDigest;
 use common\models\db\Question;
+use common\models\db\SiteError;
 use common\models\db\Subscribe;
 use frontend\widgets\Poll;
 use Yii;
@@ -271,5 +272,21 @@ class AjaxController extends Controller
 
         return $html;
 
+    }
+
+    //отправка сообщения об ошибке
+    public function actionSendErrorMsg()
+    {
+        $request = Yii::$app->request->post();
+        $error = new SiteError();
+        $error->url = $request['url'];
+        $error->user_id = $request['user_id'];
+        $error->msg = $request['text'];
+        $error->dt_add = time();
+        $error->save();
+        if (isset($error->id)){
+            return 1;
+        }
+        return 0;
     }
 }

@@ -16,7 +16,8 @@ class m170721_123320_create_site_error_table extends Migration
             'id' => $this->primaryKey(),
             'user_id' => $this->integer(11),
             'url' => $this->string(255)->notNull(),
-            'msg' => $this->text()
+            'msg' => $this->text(),
+            'dt_add' => $this->integer()
         ]);
     }
 

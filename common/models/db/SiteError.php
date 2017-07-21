@@ -11,6 +11,7 @@ use Yii;
  * @property integer $user_id
  * @property string $url
  * @property string $msg
+ * @property integer $dt_add
  */
 class SiteError extends \yii\db\ActiveRecord
 {
@@ -28,7 +29,7 @@ class SiteError extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id'], 'integer'],
+            [['user_id', 'dt_add'], 'integer'],
             [['url'], 'required'],
             [['msg'], 'string'],
             [['url'], 'string', 'max' => 255],
@@ -45,6 +46,7 @@ class SiteError extends \yii\db\ActiveRecord
             'user_id' => 'User ID',
             'url' => 'Url',
             'msg' => 'Msg',
+            'dt_add' => 'Dt Add',
         ];
     }
 }
