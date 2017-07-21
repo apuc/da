@@ -186,7 +186,7 @@ class NewsController extends Controller
             $model->user_id = Yii::$app->user->getId();
             $model->dt_public = $model->dt_update;
             $model->meta_title = $model->title;
-            $model->meta_descr =  \yii\helpers\StringHelper::truncate($model->content, 250);
+            $model->meta_descr =  \yii\helpers\StringHelper::truncate(strip_tags($model->content), 250);
 
             if ($_FILES['News']['name']['photo']) {
                 $upphoto = New \common\models\UploadPhoto();
