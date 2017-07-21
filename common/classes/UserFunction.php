@@ -66,6 +66,10 @@ class UserFunction {
 
     //получить аватар пользователя
     public static function getUser_avatar_html($id = null){
+        if ($id == 0){
+            return '<span>Г</span>' ;
+        }
+
         $img = 'avatar';
         if(empty($id)){
             $avatar = Profile::find()->where(['user_id' => Yii::$app->user->id])->one()->$img;
