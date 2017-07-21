@@ -191,8 +191,8 @@ class CompanyController extends Controller
             $model->status = 1;
             $model->phone = $phone;
             $model->user_id = Yii::$app->user->id;
-            $model->meta_title = $model->name;
-            $model->meta_descr =  \yii\helpers\StringHelper::truncate($model->descr, 250);
+
+            
             if ($_FILES['Company']['name']['photo']) {
                 $upphoto = New \common\models\UploadPhoto();
                 $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
