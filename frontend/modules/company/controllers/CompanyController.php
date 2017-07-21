@@ -188,10 +188,11 @@ class CompanyController extends Controller
             foreach ($_POST['mytext'] as $item){
                 $phone .= $item . ' ';
             }
-
             $model->status = 1;
             $model->phone = $phone;
             $model->user_id = Yii::$app->user->id;
+            $model->meta_title = $model->name;
+            $model->meta_descr =  \yii\helpers\StringHelper::truncate($model->descr, 250);
             if ($_FILES['Company']['name']['photo']) {
                 $upphoto = New \common\models\UploadPhoto();
                 $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
@@ -268,6 +269,7 @@ class CompanyController extends Controller
                 $model->photo = $_POST['photo'];
             }
             $model->save();
+
             $catCompanyRel = new CategoryCompanyRelations();
             $catCompanyRel->cat_id = $_POST['categParent'];
             $catCompanyRel->company_id = $model->id;
