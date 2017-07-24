@@ -9,7 +9,6 @@ use common\models\db\KeyValue;
 use common\models\db\Lang;
 use common\models\db\News;
 use frontend\controllers\MainController;
-use himiklab\ipgeobase\IpGeoBase;
 use yii\web\Controller;
 
 /**
@@ -25,8 +24,6 @@ class DefaultController extends Controller {
 
     public function actionIndex() {
 
-        $IpGeoBase = new IpGeoBase();
-        $IpGeoBase->updateDB();
         return $this->render( 'index',
             [
                 'meta_title' => KeyValue::findOne( [ 'key' => 'main_page_meta_title' ] )->value,
