@@ -39,3 +39,14 @@
                     ],
                 ];
             }
+
+ДЛЯ ПОДНЯТИЯ ГОРОДОВ И РЕГИОНОВ
+
+    1) выполнить пиграцию yii migrate/up --migrationPath=@vendor/himiklab/yii2-ipgeobase-component/migrations
+    2) В любом контроллере добавить код и запустить этот контроллер
+    
+            $IpGeoBase = new IpGeoBase();
+            $IpGeoBase->updateDB();
+            
+            
+    3) Убрать изменения вконтроллере
