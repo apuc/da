@@ -216,7 +216,7 @@ $(document).ready(function () {
                 }else{
                     $('#error-message').html('<h3 class="modal-callback__title">Ваше сообщени об ошибке не отправлено.</h3>')
                 }
-                
+
                 /*$('.addParentCategory').html(data);*/
                 //$('.addSelectCateg').before(data);
             }
