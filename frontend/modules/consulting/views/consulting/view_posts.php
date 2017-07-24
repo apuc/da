@@ -41,7 +41,7 @@ $this->registerMetaTag([
                         </div>
                         <div class="info"><a href="<?= Url::to(['/consulting/consulting/post','slug'=>$post->slug]);?>">Читать ответ</a><span
                                     class="view"><?= $post->views; ?> <?= WordFunctions::getNumEnding($post->views,
-                                    ['просмотр', 'просмтора', 'просмотров']); ?></span></div>
+                                    ['просмотр', 'просмотра', 'просмотров']); ?></span></div>
                     </div>
                 <?php endforeach; ?>
                 <?php if ($postsCount > 3): ?>
