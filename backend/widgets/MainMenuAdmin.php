@@ -2,6 +2,7 @@
 namespace backend\widgets;
 
 use backend\modules\comments\models\Comments;
+use backend\modules\site_error\models\SiteError;
 use common\classes\CompanyFunction;
 use common\classes\UserFunction;
 use common\models\db\News;
@@ -19,6 +20,7 @@ class MainMenuAdmin extends Widget
         $CompanyTariffOrderCount = CompanyFunction::getCompanyOrderTarif();
         $countNews = News::find()->where(['status' => 1])->count();
         $countPoster = Poster::find()->where(['status' => 1])->count();
+        $countError = SiteError::find()->count();
 
         echo \yii\widgets\Menu::widget(
             [
@@ -537,6 +539,16 @@ class MainMenuAdmin extends Widget
                         ],
                         'template' => '<a href="#"><i class="fa fa-bar-chart"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
+                    [
+                        'label' => 'Ошибки',
+                        'url' => Url::to(['/site_error/error/index']),
+                        'visible' => UserFunction::hasPermission(['Ошибки']),
+                        'options' => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="{url}"><i class="fa fa-comments"></i> <span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countError . '</small></span></a>',
+                    ],
+
 
                 ],
                 'activateItems' => true,
