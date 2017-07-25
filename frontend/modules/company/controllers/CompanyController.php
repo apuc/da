@@ -4,6 +4,7 @@ namespace frontend\modules\company\controllers;
 
 use common\classes\CompanyFunction;
 use common\classes\Debug;
+use common\classes\GeobaseFunction;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
 use common\models\db\CompanyFeedback;
@@ -227,6 +228,7 @@ class CompanyController extends Controller
         else {
             return $this->render('create', [
                 'model' => $model,
+                'city' => GeobaseFunction::getArrayCityRegion(),
             ]);
         }
     }
@@ -342,6 +344,7 @@ class CompanyController extends Controller
                     'img' => $img,
                     'typeSeti' => $typeSeti,
                     'socCompany' => ArrayHelper::index($socCompany, 'soc_type'),
+                    'city' => GeobaseFunction::getArrayCityRegion(),
                 ]);
             }
         }
