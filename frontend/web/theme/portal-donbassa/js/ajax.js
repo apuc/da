@@ -158,6 +158,9 @@ $(document).ready(function () {
     $("#poster-photo").change(function () {
         readURL(this);
     });
+    $("#stock-photo").change(function () {
+        readURL(this);
+    });
     $(document).on('change', '#categ_company', function () {
         var catId = $('#categ_company').val();
         console.log(catId);

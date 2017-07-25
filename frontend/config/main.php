@@ -49,6 +49,10 @@ return [
         'personal_area' => [
             'class' => 'frontend\modules\personal_area\PersonalArea',
         ],
+        'promotions' => [
+            'class' => 'frontend\modules\promotions\Promotions',
+        ],
+
         'sitemap' => [
             'class' => 'himiklab\sitemap\Sitemap',
             'models' => [
@@ -193,7 +197,6 @@ return [
                 'page/<slug>' => '/pages/default/view',
                 //'ajax'=> 'ajax/default',
                 //'ajax/send_poll'=> 'ajax/default/send_poll',
-
 
                 ['pattern' => 'sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
             ]

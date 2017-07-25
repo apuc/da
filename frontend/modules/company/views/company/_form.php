@@ -21,6 +21,7 @@ use yii\widgets\ActiveForm;
         ],
     ]);
 ?>
+
     <p class="cabinet__add-company-form--title">Категория компании</p>
     <?php
     echo Html::dropDownList(

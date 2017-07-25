@@ -8,7 +8,7 @@
         <li><a href="<?= \yii\helpers\Url::to(['/company/company/create'])?>" class="fix-button__list--company">Предприятие</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/news/news/create'])?>" class="fix-button__list--news">Новость</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/poster/default/create'])?>" class="fix-button__list--poster">Афиша</a></li>
-        <li><a href="#" class="fix-button__list--stock disabled">Акция</a></li>
+        <li><a href="<?= \yii\helpers\Url::to(['/promotions/promotions/create'])?>" class="fix-button__list--stock">Акция</a></li>
     </ul>
 
 </div>

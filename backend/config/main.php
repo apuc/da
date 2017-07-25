@@ -162,6 +162,7 @@ return [
                 'polls' => 'polls/polls',
                 'entertainment' => 'entertainment/default',
                 'main-premiere' => 'poster/poster/main-premiere',
+                'promotions' => 'promotions'
             ],
         ],
 
