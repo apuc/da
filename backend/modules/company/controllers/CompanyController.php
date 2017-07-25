@@ -134,6 +134,7 @@ class CompanyController extends Controller
                 'model' => $model,
                 'companyPhotos' => $companyPhotos,
                 'companyPhotosStr' => $companyPhotosStr,
+                'city' => GeobaseFunction::getArrayCityRegion(),
             ]);
         }
     }

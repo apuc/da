@@ -70,7 +70,7 @@ use yii\widgets\ActiveForm;
         'name' => 'Company[city_id]',
         'attribute' => 'state_2',
         'data' => $city,
-        'value' => '' ,
+        'value' => $model->city_id,
         //'data' => ['Донецкая область' => ['1'=>'Don','2'=>'Gorl'], 'Rostovskaya' => ['5'=>'rostov']],
         'options' => ['placeholder' => 'Начните вводить Ваш город ...'],
         'pluginOptions' => [
@@ -79,22 +79,6 @@ use yii\widgets\ActiveForm;
     ]);
     ?>
 
-    <?php
-        if($model->isNewRecord){
-        $model->user_id = 1;
-        }
-    ?>
-
-    <?= $form->field($model, 'user_id')->widget(Select2::className(),
-        [
-            'attribute' => 'state_2',
-            'data' => ArrayHelper::map(\dektrium\user\models\User::find()->all(), 'id', 'username'),
-            'options' => ['placeholder' => 'Начните вводить логин пользователя ...'],
-            'pluginOptions' => [
-                'allowClear' => true
-            ],
-        ]
-    );?>
 
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
@@ -168,6 +152,23 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'meta_descr')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'vip')->dropDownList([0 => 'Стандарт', 1 => 'VIP'], ['class' => 'form-control']) ?>
+
+    <?php
+    if($model->isNewRecord){
+        $model->user_id = 1;
+    }
+    ?>
+
+    <?= $form->field($model, 'user_id')->widget(Select2::className(),
+        [
+            'attribute' => 'state_2',
+            'data' => ArrayHelper::map(\dektrium\user\models\User::find()->all(), 'id', 'username'),
+            'options' => ['placeholder' => 'Начните вводить логин пользователя ...'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]
+    );?>
 
     <?= $form->field($model, 'status')->dropDownList([
         0 => 'Опубликована',
