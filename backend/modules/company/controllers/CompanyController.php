@@ -3,6 +3,7 @@
 namespace backend\modules\company\controllers;
 
 use common\classes\Debug;
+use common\classes\GeobaseFunction;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
 use common\models\db\CompanyPhoto;
@@ -85,9 +86,9 @@ class CompanyController extends Controller
 
         //Debug::prn($_POST);
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->user_id = Yii::$app->user->getId();
-            $model->save();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            /*$model->user_id = Yii::$app->user->getId();*/
+            /*$model->save();*/
             $cats_ids = explode(',', $_POST['cats']);
             foreach ($cats_ids as $cats_id) {
                 $catCompanyRel = new CategoryCompanyRelations();
@@ -99,6 +100,7 @@ class CompanyController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'city' => GeobaseFunction::getArrayCityRegion(),
             ]);
         }
     }

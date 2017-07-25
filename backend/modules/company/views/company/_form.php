@@ -4,6 +4,7 @@ use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
 use common\models\db\Lang;
 use kartik\file\FileInput;
+use kartik\select2\Select2;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\InputFile;
 use yii\helpers\ArrayHelper;
@@ -63,6 +64,37 @@ use yii\widgets\ActiveForm;
     <?php endif ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
+    <label class="control-label" for="company-city_id">Начните вводить Ваш город</label>
+    <?= Select2::widget([
+        'name' => 'Company[city_id]',
+        'attribute' => 'state_2',
+        'data' => $city,
+        'value' => '' ,
+        //'data' => ['Донецкая область' => ['1'=>'Don','2'=>'Gorl'], 'Rostovskaya' => ['5'=>'rostov']],
+        'options' => ['placeholder' => 'Начните вводить Ваш город ...'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]);
+    ?>
+
+    <?php
+        if($model->isNewRecord){
+        $model->user_id = 1;
+        }
+    ?>
+
+    <?= $form->field($model, 'user_id')->widget(Select2::className(),
+        [
+            'attribute' => 'state_2',
+            'data' => ArrayHelper::map(\dektrium\user\models\User::find()->all(), 'id', 'username'),
+            'options' => ['placeholder' => 'Начните вводить логин пользователя ...'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]
+    );?>
 
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
