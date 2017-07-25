@@ -142,7 +142,7 @@ class CompanyController extends Controller
     public function actionView($slug)
     {
         $model = \common\models\db\Company::findOne(['slug' => $slug]);
-        if (empty($model)) {
+        if (empty($model) || $model->status == 1) {
             return $this->redirect(['site/error']);
         }
         $stoke = Stock::find()->where(['company_id' => $model->id])->limit(3)->all();

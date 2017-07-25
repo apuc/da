@@ -6,6 +6,8 @@
  * @var $img \common\models\db\CompanyPhoto
  */
 
+use common\classes\GeobaseFunction;
+
 $this->title = $model->meta_title;
 $this->registerMetaTag([
     'name' => 'description',
@@ -40,7 +42,17 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
 
                         <h3><?= $model->name ?></h3>
                         <!--<p><?/*= $model['meta_descr'] */?></p>-->
-                        <p class="concreate-adress"><?= $model->address ?></p>
+
+                        <?php
+                            if($model->region_id != 0){
+                                $address = GeobaseFunction::getRegionName($model->region_id) . ', ' .GeobaseFunction::getCityName($model->city_id) . ', ' . $model->address ;
+                            }
+                            else{
+                                $address = $model->address;
+                            }
+                        ?>
+
+                        <p class="concreate-adress"><?= $address;  ?></p>
 
                     </div>
                     <?php if(!empty($model->email)):?>

@@ -9,6 +9,7 @@
 namespace common\classes;
 
 use common\models\db\GeobaseCity;
+use common\models\db\GeobaseRegion;
 
 class GeobaseFunction
 {
@@ -45,5 +46,15 @@ class GeobaseFunction
         }
 
         return $data;
+    }
+
+    public static function getRegionName($id){
+        $region = GeobaseRegion::find()->where(['id' => $id])->one();
+        return $region->name;
+    }
+
+    public static function getCityName($id){
+        $city = GeobaseCity::find()->where(['id' => $id])->one();
+        return $city->name;
     }
 }
