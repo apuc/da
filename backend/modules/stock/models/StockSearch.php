@@ -73,6 +73,8 @@ class StockSearch extends Stock
             ->andFilterWhere(['like', 'dt_event', $this->dt_event])
             ->andFilterWhere(['like', 'link', $this->link]);
 
+        $query->orderBy('dt_add DESC');
+
         return $dataProvider;
     }
 }
