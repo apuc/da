@@ -11,6 +11,7 @@ use dektrium\user\models\User;
 use Yii;
 use yii\base\Widget;
 use yii\helpers\Url;
+use common\models\db\Stock;
 
 class MainMenuAdmin extends Widget
 {
@@ -21,6 +22,7 @@ class MainMenuAdmin extends Widget
         $countNews = News::find()->where(['status' => 1])->count();
         $countPoster = Poster::find()->where(['status' => 1])->count();
         $countError = SiteError::find()->count();
+        $countPromotions = Stock::find()->where(['status' => 1])->count();
 
         echo \yii\widgets\Menu::widget(
             [
@@ -55,11 +57,7 @@ class MainMenuAdmin extends Widget
                                 'url' => Url::to(['/main-premiere']),
                                 'active' => Yii::$app->controller->module->id == 'poster' && Yii::$app->controller->action->id == 'main-premiere',
                             ],
-                            [
-                                'label' => 'Акции',
-                                'url' => Url::to(['/stock/stock']),
-                                'active' => Yii::$app->controller->module->id === 'stock' && Yii::$app->controller->action->id === 'index',
-                            ],
+
                             [
                                 'label' => 'Курсы валют',
                                 'url' => Url::to(['/exchange_rates']),
@@ -77,7 +75,13 @@ class MainMenuAdmin extends Widget
                         ],
                         'template' => '<a href="#"><i class="fa fa-home"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
-
+                    [
+                        'label' => 'Акции',
+                        'url' => Url::to(['/stock/stock']),
+                        'active' => Yii::$app->controller->module->id === 'stock',
+                        'visible' => UserFunction::hasPermission(['Акции']),
+                        'template' => '<a href="{url}"><i class="fa fa-credit-card"></i> <span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countPromotions . '</small></span></a>',
+                    ],
                     [
                         'label' => 'Коментарии',
                         'url' => Url::to(['/comments/comments']),

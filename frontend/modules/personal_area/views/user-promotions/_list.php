@@ -2,9 +2,9 @@
 
     <div class="cabinet__pkg-descr">
 
-        <div class="cabinet__like-block--stock-photo">
-            <img src="<?= $model['photo']?>" alt="">
-        </div>
+        <a href="" class="cabinet__like-block--photo">
+            <img src="<?= $model['photo']; ?>" alt="">
+        </a>
 
         <h3 class="cabinet__like-block--company-name"><?= $model['title']; ?></h3>
 
