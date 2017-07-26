@@ -5,14 +5,14 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\news\models\News */
 
-$this->title = Yii::t('news', 'Вы редактируете новость: ', [
+$this->title = Yii::t('news', 'Вы редактируете новость:  ', [
     'modelClass' => 'News',
 ]) . $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('news', 'News'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('news', 'Update');
 ?>
-<div class="news-update">
+<div class="cabinet__inner-box">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

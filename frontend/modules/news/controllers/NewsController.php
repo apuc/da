@@ -303,9 +303,8 @@ class NewsController extends Controller
             return $this->redirect('/personal_area/default/index');
         }
         else{
-
-            $fullNew = News::find()->where(['id'=>$id])->one(); // Надо упростить!
-            $img = $fullNew->photo;// сразу надо получать картинку, типа (SELECT 'photo' FROM 'news' WHERE 'id'=$id)
+            $newsPhoto= News::find()->select(['photo'])->where(['id'=>$id])->one();
+            $img = $newsPhoto->photo;
             $newsRel=CategoryNewsRelations::find()->where(['new_id'=>$id])->one();;
             $selectCat= CategoryNews::find()->where(['id'=>$newsRel->cat_id])->one();
 

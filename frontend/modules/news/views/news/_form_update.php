@@ -62,14 +62,14 @@ use yii\widgets\ActiveForm;
                                     <img id="blah" src="" alt="" width="160px">
                                     </label>'
             ])->label(false)->fileInput();
-        } else {
-            echo $form->field($model, 'photo', [
-                'template' => '{label}<div class="selectAvatar">
-                                    <span>Нажмите для выбора</span>
-                                    <img id="blah" src="' . $model->photo . '" alt="" width="160px">
-                                    {input}</div>'
-            ])->label(false)->fileInput();
-        }
+
+        } echo $form->field($model, 'photo', [
+    'template' => '<label class="cabinet__add-company-form--add-foto">
+                                        <span class="button"></span>
+                                        {input}
+                                        <img id="blah" src="' . $model->photo . '" alt="" width="160px">
+                                        </label>'
+])->label(false)->fileInput();
         ?>
 
 
