@@ -552,7 +552,26 @@ class MainMenuAdmin extends Widget
                         ],
                         'template' => '<a href="{url}"><i class="fa fa-comments"></i> <span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countError . '</small></span></a>',
                     ],
-
+                    [
+                        'label' => 'ГЕО',
+                        'visible' => UserFunction::hasPermission(['ГЕО']),
+                        'items' => [
+                            [
+                                'label' => 'Области',
+                                'url' => Url::to(['/region/region/index']),
+                                'active' => Yii::$app->controller->module->id == 'region',
+                            ],
+                            [
+                                'label' => 'Города',
+                                'url' => Url::to(['/city/city/index']),
+                                'active' => Yii::$app->controller->module->id == 'city',
+                            ],
+                        ],
+                        'options' => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="#"><i class="fa fa-bar-chart"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                    ],
 
                 ],
                 'activateItems' => true,
