@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property string $name
+ * @property integer $status
  */
 class GeobaseRegion extends \yii\db\ActiveRecord
 {
@@ -27,7 +28,7 @@ class GeobaseRegion extends \yii\db\ActiveRecord
     {
         return [
             [['id', 'name'], 'required'],
-            [['id'], 'integer'],
+            [['id', 'status'], 'integer'],
             [['name'], 'string', 'max' => 50],
             [['id'], 'unique'],
         ];
@@ -41,6 +42,7 @@ class GeobaseRegion extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'status' => 'Status',
         ];
     }
 }

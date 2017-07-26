@@ -12,6 +12,7 @@ use Yii;
  * @property integer $region_id
  * @property double $latitude
  * @property double $longitude
+ * @property integer $status
  */
 class GeobaseCity extends \yii\db\ActiveRecord
 {
@@ -30,7 +31,7 @@ class GeobaseCity extends \yii\db\ActiveRecord
     {
         return [
             [['id', 'name', 'region_id', 'latitude', 'longitude'], 'required'],
-            [['id', 'region_id'], 'integer'],
+            [['id', 'region_id', 'status'], 'integer'],
             [['latitude', 'longitude'], 'number'],
             [['name'], 'string', 'max' => 50],
             [['id'], 'unique'],
@@ -44,10 +45,11 @@ class GeobaseCity extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'region_id' => 'Region ID',
-            'latitude' => 'Latitude',
-            'longitude' => 'Longitude',
+            'name' => 'Город',
+            'region_id' => 'Регион',
+            'latitude' => 'Широта',
+            'longitude' => 'Долгота',
+            'status' => 'Статус',
         ];
     }
 }

@@ -34,6 +34,7 @@ class GeobaseFunction
                 '`geobase_region`.`id` as region_id'
             ])
             ->leftJoin('`geobase_region`', '`geobase_region`.`id` = `geobase_city`.`region_id`')
+            ->where(['`geobase_region`.`status`' => 1, '`geobase_city`.`status`' => 1])
             ->orderBy('`geobase_region`.`name`')
             ->addOrderBy('`geobase_city`.`name`')
             ->asArray()

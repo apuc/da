@@ -124,6 +124,12 @@ return [
         'site_error' => [
             'class' => 'backend\modules\site_error\SiteError',
         ],
+        'region' => [
+            'class' => 'backend\modules\region\Region',
+        ],
+        'city' => [
+            'class' => 'backend\modules\city\City',
+        ],
     ],
     'components' => [
         /*'user' => [
