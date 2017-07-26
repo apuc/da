@@ -254,7 +254,7 @@ class CompanyController extends Controller
                 $phone .= $item . ' ';
             }
 
-            $model->status = 1;
+            $model->status = 2;
             $model->phone = $phone;
             $model->user_id = Yii::$app->user->id;
 
@@ -360,10 +360,13 @@ class CompanyController extends Controller
      */
     public function actionDelete($id)
     {
-        CategoryCompanyRelations::deleteAll(['company_id' => $id]);
+        /*CategoryCompanyRelations::deleteAll(['company_id' => $id]);
         ServicesCompanyRelations::deleteAll(['company_id' => $id]);
-        $this->findModel($id)->delete();
+        $this->findModel($id)->delete();*/
 
+        Company::updateAll(['status' => 3], ['id' => $id]);
+
+        Yii::$app->session->setFlash('success','Ваше предприятие успешно удалено.');
         return $this->redirect(['/personal_area/default/index']);
     }
 

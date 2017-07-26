@@ -9,7 +9,7 @@
         <h3 class="cabinet__like-block--company-name"><?= $model['name']; ?></h3>
 
         <a href="<?= \yii\helpers\Url::to(['/company/company/update', 'id' => $model['id']]) ?>" class="cabinet__like-block--company-edit">редактировать</a>
-        <a data-method="post" href="<?= \yii\helpers\Url::to(['/company/company/delete', 'id' => $model['id']]) ?>" class="cabinet__like-block--company-remove">удалить </a>
+        <a data-method="post" data-confirm="Вы уверены, что хотите удалить этот элемент?" href="<?= \yii\helpers\Url::to(['/company/company/delete', 'id' => $model['id']]) ?>" class="cabinet__like-block--company-remove">удалить </a>
 
         <p class="cabinet__like-block--company-address"><?= $model['address']; ?></p>
 
@@ -25,7 +25,7 @@
 
     <div class="cabinet__pkg-block">
 
-        <?php if($model['status'] == 1): ?>
+        <?php if($model['status'] == 1 || $model['status'] == 2): ?>
             <h3>Предприятие <span>на модерации</span></h3>
             <p class="notice">Ваше предприятие будет
                 опубликована как только пройдет
