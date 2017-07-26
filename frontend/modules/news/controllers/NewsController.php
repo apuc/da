@@ -188,6 +188,14 @@ class NewsController extends Controller
             $model->meta_title = $model->title;
             $model->meta_descr =  \yii\helpers\StringHelper::truncate(strip_tags($model->content), 250);
 
+            /*echo "<p>POST array:</p>";
+            var_dump($_POST);
+            echo "<p>POST ['photo']</p>";
+            var_dump($_POST['News']['photo']);
+            echo "<p>FILE array:</p>";
+            var_dump($_FILES);
+            die();*/
+
             if ($_FILES['News']['name']['photo']) {
                 $upphoto = New \common\models\UploadPhoto();
                 $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
@@ -200,6 +208,9 @@ class NewsController extends Controller
                 $model->photo = '/' . $loc . $_FILES['News']['name']['photo'];
             }
 
+            /*echo "<p>FILES array for method create:</p>";
+            var_dump($_FILES['News']['name']['photo']);
+            die();*/
             $model->save();
 
             if (!empty(Yii::$app->request->post('categoryId'))) {
@@ -251,14 +262,54 @@ class NewsController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->layout = 'personal_area';
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+     
+            $model->status = 1;
+            $model->user_id = Yii::$app->user->getId();
+            $model->dt_public = $model->dt_update;
+            $model->meta_title = $model->title;
+            $model->meta_descr = \yii\helpers\StringHelper::truncate(strip_tags($model->content), 250);
+
+            if (!empty($_FILES['News']['name']['photo'])) {
+                $upphoto = New \common\models\UploadPhoto();
+                $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
+                $loc = 'media/upload/userphotos/' . date('dmY') . '/';
+                if (!is_dir($loc)) {
+                    mkdir($loc);
+                }
+                $upphoto->location = $loc;
+                $upphoto->upload();
+                $model->photo = '/' . $loc . $_FILES['News']['name']['photo'];
+            }
+            else{
+               $model->photo = $_POST['photo'];
+            }
+
+            $model->save();
+
+            if (!empty(Yii::$app->request->post('categoryId'))) {
+                foreach ($_POST['categoryId'] as $cat) {
+                    $catNewRel = new CategoryNewsRelations();
+                    $catNewRel->cat_id = $cat;
+                    $catNewRel->new_id = $model->id;
+                    $catNewRel->save();
+                }
+            }
+
+            Yii::$app->session->setFlash('success','Ваша новость успешно сохранена. После прохождения модерации она будет опубликована.');
+            return $this->redirect('/personal_area/default/index');
+        }
+        else{
+
+            $fullNew = News::find()->where(['id'=>$id])->one(); // Надо упростить!
+            $img = $fullNew->photo;// сразу надо получать картинку, типа (SELECT 'photo' FROM 'news' WHERE 'id'=$id)
+            $newsRel=CategoryNewsRelations::find()->where(['new_id'=>$id])->one();;
+            $selectCat= CategoryNews::find()->where(['id'=>$newsRel->cat_id])->one();
+
+            return $this->render('update',['model' => $model,'selectCat'=>$selectCat, 'img'=>$img]);
         }
     }
 
