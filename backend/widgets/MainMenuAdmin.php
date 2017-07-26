@@ -566,6 +566,11 @@ class MainMenuAdmin extends Widget
                                 'url' => Url::to(['/city/city/index']),
                                 'active' => Yii::$app->controller->module->id == 'city',
                             ],
+                            [
+                                'label' => 'IP адреса',
+                                'url' => Url::to(['/geobase_ip/geobase-ip/index']),
+                                'active' => Yii::$app->controller->module->id == 'geobase_ip',
+                            ],
                         ],
                         'options' => [
                             'class' => 'treeview',

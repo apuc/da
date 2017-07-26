@@ -130,6 +130,9 @@ return [
         'city' => [
             'class' => 'backend\modules\city\City',
         ],
+        'geobase_ip' => [
+            'class' => 'backend\modules\geobase_ip\GeobaseIp',
+        ],
     ],
     'components' => [
         /*'user' => [

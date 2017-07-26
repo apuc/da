@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 <div class="city-form">
 
     <?php $form = ActiveForm::begin(); ?>
-    
+
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'region_id')->widget(\kartik\select2\Select2::className(),
