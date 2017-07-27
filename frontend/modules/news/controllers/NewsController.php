@@ -266,7 +266,7 @@ class NewsController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-     
+
             $model->status = 1;
             $model->user_id = Yii::$app->user->getId();
             $model->dt_public = $model->dt_update;
@@ -283,32 +283,47 @@ class NewsController extends Controller
                 $upphoto->location = $loc;
                 $upphoto->upload();
                 $model->photo = '/' . $loc . $_FILES['News']['name']['photo'];
-            }
-            else{
-               $model->photo = $_POST['photo'];
+            } else {
+                $model->photo = $_POST['photo'];
             }
 
             $model->save();
+            $oldSelectCategNews = CategoryNewsRelations::find()->where(['new_id' => $id])->all();
 
-            if (!empty(Yii::$app->request->post('categoryId'))) {
+            if (!empty(Yii::$app->request->post('categoryId')) && (!empty($oldSelectCategNews))) {
+
+                CategoryNewsRelations::deleteAll(['new_id' => $model->id]);
                 foreach ($_POST['categoryId'] as $cat) {
+
                     $catNewRel = new CategoryNewsRelations();
                     $catNewRel->cat_id = $cat;
                     $catNewRel->new_id = $model->id;
                     $catNewRel->save();
                 }
             }
-
             Yii::$app->session->setFlash('success','Ваша новость успешно сохранена. После прохождения модерации она будет опубликована.');
             return $this->redirect('/personal_area/default/index');
         }
         else{
             $newsPhoto= News::find()->select(['photo'])->where(['id'=>$id])->one();
             $img = $newsPhoto->photo;
-            $newsRel=CategoryNewsRelations::find()->where(['new_id'=>$id])->one();;
-            $selectCat= CategoryNews::find()->where(['id'=>$newsRel->cat_id])->one();
+            $selectCat_arr = Array();
+            $i=0;
+            $newsRel_1 = CategoryNewsRelations::find()->where(['new_id' => $id])->all();
+            //var_dump($newsRel_1);
+            foreach ($newsRel_1 as $item){
+                $selectCat_arr[$i]= CategoryNews::find()->where(['id'=>$item->cat_id])->one();
+                $i++;
+            }
+               // echo"select array <br>";
+           // var_dump($selectCat_arr);
+          //  echo "<br>selectCat:<br>";
 
-            return $this->render('update',['model' => $model,'selectCat'=>$selectCat, 'img'=>$img]);
+
+            $newsRel=CategoryNewsRelations::find()->where(['new_id'=>$id])->one();
+            $selectCat= CategoryNews::find()->where(['id'=>$newsRel->cat_id])->one();
+           // var_dump($selectCat);
+            return $this->render('update',['model' => $model,'selectCat'=>$selectCat_arr, 'img'=>$img]);
         }
     }
 
