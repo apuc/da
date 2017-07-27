@@ -12,6 +12,6 @@ foreach ($posts as $post): ?>
                     href="<?= \yii\helpers\Url::to(['/consulting/consulting/faq-post', 'slug' => $post->slug]); ?>">Читать
                 ответ</a><span
                     class="view"><?= $post->views; ?> <?= WordFunctions::getNumEnding($post->views,
-                    ['просмотр', 'просмтора', 'просмотров']); ?></span></div>
+                    ['просмотр', 'просмотра', 'просмотров']); ?></span></div>
     </div>
 <?php endforeach; ?>

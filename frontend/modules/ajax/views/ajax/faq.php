@@ -9,11 +9,7 @@
             <a href="<?= \yii\helpers\Url::to(['/consulting/consulting/faq-post', 'slug' => $item->slug]); ?>">Читать ответ</a>
             <span class="view">
                     <?= $item->views . ' ' . \common\classes\WordFunctions::getNumEnding($item->views,
-                        [
-                            'просмотр',
-                            'просмотра',
-                            'просмотров',
-                        ]); ?>
+                        ['просмотр', 'просмотра', 'просмотров']); ?>
                 </span>
         </div>
     </div>
