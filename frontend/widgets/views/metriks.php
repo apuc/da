@@ -6,6 +6,7 @@
  * Time: 15:33
  */
 ?>
+<?php  if(Yii::$app->request->getUserIP() != '127.0.0.1'):?>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     (function (d, w, c) {
@@ -46,3 +47,4 @@
     ga('send', 'pageview');
 
 </script>
+<?php endif; ?>
