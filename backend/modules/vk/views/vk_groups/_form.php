@@ -14,6 +14,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'domain')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'vk_id')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'status')->dropDownList([1=>'Активна', 0 => 'Не активна']) ?>

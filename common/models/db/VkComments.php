@@ -52,4 +52,9 @@ class VkComments extends \yii\db\ActiveRecord
             'text' => 'Text',
         ];
     }
+
+    public function getAuthor()
+    {
+        return $this->hasOne(VkAuthors::className(), ['vk_id' => 'from_id']);
+    }
 }

@@ -91,6 +91,9 @@ return [
             'enableGzip' => true, // default is false
             'cacheExpire' => 1, // 1 second. Default is 24 hours
         ],
+        'stream' => [
+            'class' => 'frontend\modules\stream\Stream',
+        ],
     ],
     'components' => [
         'mymessages' => [

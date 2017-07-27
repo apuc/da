@@ -40,7 +40,11 @@ class VkPhoto extends \yii\db\ActiveRecord
         return [
             [['vk_id'], 'required'],
             [['vk_id', 'vk_user_id', 'post_id', 'comment_id', 'owner_id', 'vk_post_id'], 'integer'],
-            [['photo_75', 'photo_807', 'photo_1280', 'access_key', 'photo_130', 'photo_604', 'photo_512'], 'string', 'max' => 255],
+            [
+                ['photo_75', 'photo_807', 'photo_1280', 'access_key', 'photo_130', 'photo_604', 'photo_512'],
+                'string',
+                'max' => 255,
+            ],
         ];
     }
 
@@ -65,5 +69,30 @@ class VkPhoto extends \yii\db\ActiveRecord
             'access_key' => 'Access Key',
             'vk_post_id' => 'Vk post id',
         ];
+    }
+
+    public function getLargePhoto()
+    {
+        if (!empty($this->photo_1280)) {
+            return $this->photo_1280;
+        }
+
+        if(!empty($this->photo_807)) {
+            return $this->photo_807;
+        }
+
+        if(!empty($this->photo_604)) {
+            return $this->photo_604;
+        }
+
+        if(!empty($this->photo_512)) {
+            return $this->photo_512;
+        }
+
+        if(!empty($this->photo_130)) {
+            return $this->photo_130;
+        }
+
+        return $this->photo_75;
     }
 }

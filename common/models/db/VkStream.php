@@ -57,4 +57,29 @@ class VkStream extends \yii\db\ActiveRecord
             'from_type' => 'From Type',
         ];
     }
+
+    public function getPhoto()
+    {
+        return $this->hasMany(VkPhoto::className(), ['post_id' => 'id']);
+    }
+
+    public function getComments()
+    {
+        return $this->hasMany(VkComments::className(), ['post_id' => 'id'])->with('author');
+    }
+
+    public function getAuthor()
+    {
+        return $this->hasOne(VkAuthors::className(), ['vk_id' => 'from_id']);
+    }
+
+    public function getGroup()
+    {
+        return $this->hasOne(VkGroups::className(), ['vk_id' => 'from_id']);
+    }
+
+    public static function getPosts($limit = 10, $offset = 0)
+    {
+        return self::find()->limit($limit)->offset($offset)->with('photo', 'comments', 'author', 'group')->all();
+    }
 }
