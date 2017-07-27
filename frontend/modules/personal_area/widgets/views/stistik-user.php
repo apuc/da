@@ -7,12 +7,12 @@
         <span><?= $likes; ?></span>
         <p>лайков</p>
     </a>
-    <a class="disabled" href="#">
-        <span>0</span>
+    <a href="<?= \yii\helpers\Url::to(['/personal_area/user-promotions'])?>">
+        <span><?= $promotions?></span>
         <p>акций</p>
     </a>
-    <a class="disabled" href="#">
-        <span>0</span>
+    <a href="<?= \yii\helpers\Url::to(['/personal_area/user-poster'])?>">
+        <span><?= $poster; ?></span>
         <p>Афиш</p>
     </a>
     <a href="<?= \yii\helpers\Url::to(['/personal_area/user-company/index'])?>">

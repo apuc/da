@@ -100,6 +100,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'main_slider')->checkbox(); ?>
 
     <?= $form->field($model, 'hot_new')->checkbox(); ?>
+
+    <?= $form->field($model, 'show_error')->checkbox(); ?>
     <br>
 
     <div class="form-group">

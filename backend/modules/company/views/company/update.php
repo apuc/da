@@ -21,7 +21,8 @@ $this->params['breadcrumbs'][] = Yii::t('company', 'Update');
     <?= $this->render('_form', [
         'model' => $model,
         'companyPhotos' => $companyPhotos,
-        'companyPhotosStr' => $companyPhotosStr
+        'companyPhotosStr' => $companyPhotosStr,
+        'city' => $city,
     ]) ?>
 
 </div>

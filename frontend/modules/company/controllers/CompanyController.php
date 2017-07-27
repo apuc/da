@@ -2,7 +2,9 @@
 
 namespace frontend\modules\company\controllers;
 
+use common\classes\CompanyFunction;
 use common\classes\Debug;
+use common\classes\GeobaseFunction;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
 use common\models\db\CompanyFeedback;
@@ -140,18 +142,32 @@ class CompanyController extends Controller
     public function actionView($slug)
     {
         $model = \common\models\db\Company::findOne(['slug' => $slug]);
-        if (empty($model)) {
+        if (empty($model) || $model->status == 1) {
             return $this->redirect(['site/error']);
         }
         $stoke = Stock::find()->where(['company_id' => $model->id])->limit(3)->all();
         $feedback = CompanyFeedback::find()->where(['company_id' => $model->id])->with('user')->all();
         $img = CompanyPhoto::findAll(['company_id' => $model->id]);
         $model->updateCounters(['views' => 1 ]);
+        $services = [];
+        if($model->dt_end_tariff > time() || $model->dt_end_tariff == 0) {
+            $services = CompanyFunction::getServiceCompany($model->id);
+        }
+
+        $typeSeti = SocAvailable::find()->all();
+
+        $socCompany = SocCompany::find()->where(['company_id' => $model->id])->all();
+
+        $socCompany = ArrayHelper::index($socCompany, 'soc_type');
+
         return $this->render('view', [
             'model' => $model,
             'stock' => $stoke,
             'feedback' => $feedback,
             'img' => $img,
+            'services' => $services,
+            'typeSeti' => $typeSeti,
+            'socCompany' => $socCompany,
         ]);
     }
 
@@ -173,10 +189,12 @@ class CompanyController extends Controller
             foreach ($_POST['mytext'] as $item){
                 $phone .= $item . ' ';
             }
-
             $model->status = 1;
             $model->phone = $phone;
             $model->user_id = Yii::$app->user->id;
+            $model->meta_title = $model->name;
+            $model->meta_descr =  \yii\helpers\StringHelper::truncate($model->descr, 250);
+            
             if ($_FILES['Company']['name']['photo']) {
                 $upphoto = New \common\models\UploadPhoto();
                 $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
@@ -210,6 +228,7 @@ class CompanyController extends Controller
         else {
             return $this->render('create', [
                 'model' => $model,
+                'city' => GeobaseFunction::getArrayCityRegion(),
             ]);
         }
     }
@@ -235,7 +254,7 @@ class CompanyController extends Controller
                 $phone .= $item . ' ';
             }
 
-            $model->status = 1;
+            $model->status = 2;
             $model->phone = $phone;
             $model->user_id = Yii::$app->user->id;
 
@@ -253,6 +272,7 @@ class CompanyController extends Controller
                 $model->photo = $_POST['photo'];
             }
             $model->save();
+
             $catCompanyRel = new CategoryCompanyRelations();
             $catCompanyRel->cat_id = $_POST['categParent'];
             $catCompanyRel->company_id = $model->id;
@@ -308,21 +328,12 @@ class CompanyController extends Controller
 
             $img = CompanyPhoto::find()->where(['company_id' => $id])->all();
             if($model->dt_end_tariff > time() || $model->dt_end_tariff == 0) {
-                //Debug::prn($model);
-
-                $services = ServicesCompanyRelations::find()
-                    ->where(['company_id' => $id])
-                    ->with('services')
-                    ->all();
-
-                $services = ArrayHelper::getColumn($services, 'services');
-
-               $services = ArrayHelper::map($services, 'name_serv', 'val');
+                $services = CompanyFunction::getServiceCompany($id);
 
                 $typeSeti = SocAvailable::find()->all();
 
                 $socCompany = SocCompany::find()->where(['company_id' => $id])->all();
-//Debug::prn($services);
+
 
                 return $this->render('update', [
                     'model' => $model,
@@ -333,6 +344,7 @@ class CompanyController extends Controller
                     'img' => $img,
                     'typeSeti' => $typeSeti,
                     'socCompany' => ArrayHelper::index($socCompany, 'soc_type'),
+                    'city' => GeobaseFunction::getArrayCityRegion(),
                 ]);
             }
         }
@@ -348,10 +360,13 @@ class CompanyController extends Controller
      */
     public function actionDelete($id)
     {
-        CategoryCompanyRelations::deleteAll(['company_id' => $id]);
+        /*CategoryCompanyRelations::deleteAll(['company_id' => $id]);
         ServicesCompanyRelations::deleteAll(['company_id' => $id]);
-        $this->findModel($id)->delete();
+        $this->findModel($id)->delete();*/
 
+        Company::updateAll(['status' => 3], ['id' => $id]);
+
+        Yii::$app->session->setFlash('success','Ваше предприятие успешно удалено.');
         return $this->redirect(['/personal_area/default/index']);
     }
 

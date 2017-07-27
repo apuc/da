@@ -2,13 +2,16 @@
 namespace backend\widgets;
 
 use backend\modules\comments\models\Comments;
+use backend\modules\site_error\models\SiteError;
 use common\classes\CompanyFunction;
 use common\classes\UserFunction;
 use common\models\db\News;
+use common\models\db\Poster;
 use dektrium\user\models\User;
 use Yii;
 use yii\base\Widget;
 use yii\helpers\Url;
+use common\models\db\Stock;
 
 class MainMenuAdmin extends Widget
 {
@@ -17,6 +20,10 @@ class MainMenuAdmin extends Widget
         $companyCountModer = CompanyFunction::getCompanyCountModer();
         $CompanyTariffOrderCount = CompanyFunction::getCompanyOrderTarif();
         $countNews = News::find()->where(['status' => 1])->count();
+        $countPoster = Poster::find()->where(['status' => 1])->count();
+        $countError = SiteError::find()->count();
+        $countPromotions = Stock::find()->where(['status' => 1])->count();
+
         echo \yii\widgets\Menu::widget(
             [
                 'items' => [
@@ -50,11 +57,7 @@ class MainMenuAdmin extends Widget
                                 'url' => Url::to(['/main-premiere']),
                                 'active' => Yii::$app->controller->module->id == 'poster' && Yii::$app->controller->action->id == 'main-premiere',
                             ],
-                            [
-                                'label' => 'Акции',
-                                'url' => Url::to(['/stock/stock']),
-                                'active' => Yii::$app->controller->module->id === 'stock' && Yii::$app->controller->action->id === 'index',
-                            ],
+
                             [
                                 'label' => 'Курсы валют',
                                 'url' => Url::to(['/exchange_rates']),
@@ -72,7 +75,13 @@ class MainMenuAdmin extends Widget
                         ],
                         'template' => '<a href="#"><i class="fa fa-home"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
-
+                    [
+                        'label' => 'Акции',
+                        'url' => Url::to(['/stock/stock']),
+                        'active' => Yii::$app->controller->module->id === 'stock',
+                        'visible' => UserFunction::hasPermission(['Акции']),
+                        'template' => '<a href="{url}"><i class="fa fa-credit-card"></i> <span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countPromotions . '</small></span></a>',
+                    ],
                     [
                         'label' => 'Коментарии',
                         'url' => Url::to(['/comments/comments']),
@@ -206,6 +215,7 @@ class MainMenuAdmin extends Widget
                                 'label' => 'Все',
                                 'url' => Url::to(['/poster']),
                                 'active' => Yii::$app->controller->module->id == 'poster' && Yii::$app->controller->action->id == 'index',
+                                'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label bg-red pull-right">' . $countPoster . '</small></span></a>',
                             ],
                             [
                                 'label' => 'Категории',
@@ -238,7 +248,14 @@ class MainMenuAdmin extends Widget
                         'options' => [
                             'class' => 'treeview',
                         ],
-                        'template' => '<a href="#"><i class="fa fa-university"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                        'template' => '
+                            <a href="#">
+                                    <i class="fa fa-university"></i> 
+                                    <span>{label}</span> 
+                                      <span class="pull-right-container">
+                                          <span class="label bg-red pull-right">'. $countPoster .'</span>
+                                      </span>  
+                            </a>',
                     ],
                     [
                         'label' => 'Консалтинг',
@@ -524,6 +541,40 @@ class MainMenuAdmin extends Widget
                                 'label' => 'Тарифы',
                                 'url' => Url::to(['/tariff/tariff/index']),
                                 'active' => Yii::$app->controller->module->id == 'tariff',
+                            ],
+                        ],
+                        'options' => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="#"><i class="fa fa-bar-chart"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                    ],
+                    [
+                        'label' => 'Ошибки',
+                        'url' => Url::to(['/site_error/error/index']),
+                        'visible' => UserFunction::hasPermission(['Ошибки']),
+                        'options' => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="{url}"><i class="fa fa-comments"></i> <span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countError . '</small></span></a>',
+                    ],
+                    [
+                        'label' => 'ГЕО',
+                        'visible' => UserFunction::hasPermission(['ГЕО']),
+                        'items' => [
+                            [
+                                'label' => 'Области',
+                                'url' => Url::to(['/region/region/index']),
+                                'active' => Yii::$app->controller->module->id == 'region',
+                            ],
+                            [
+                                'label' => 'Города',
+                                'url' => Url::to(['/city/city/index']),
+                                'active' => Yii::$app->controller->module->id == 'city',
+                            ],
+                            [
+                                'label' => 'IP адреса',
+                                'url' => Url::to(['/geobase_ip/geobase-ip/index']),
+                                'active' => Yii::$app->controller->module->id == 'geobase_ip',
                             ],
                         ],
                         'options' => [

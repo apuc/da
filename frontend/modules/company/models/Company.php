@@ -30,6 +30,10 @@ class Company extends \common\models\db\Company
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['dt_update'],
                 ],
             ],
+            'region_id' => [
+                'class' => 'common\behaviors\SaveRegionId',
+                'in_attribute' => 'city_id',
+            ],
         ];
     }
     /**

@@ -121,6 +121,18 @@ return [
         'tariff' => [
             'class' => 'backend\modules\tariff\Tariff',
         ],
+        'site_error' => [
+            'class' => 'backend\modules\site_error\SiteError',
+        ],
+        'region' => [
+            'class' => 'backend\modules\region\Region',
+        ],
+        'city' => [
+            'class' => 'backend\modules\city\City',
+        ],
+        'geobase_ip' => [
+            'class' => 'backend\modules\geobase_ip\GeobaseIp',
+        ],
     ],
     'components' => [
         /*'user' => [
@@ -159,6 +171,7 @@ return [
                 'polls' => 'polls/polls',
                 'entertainment' => 'entertainment/default',
                 'main-premiere' => 'poster/poster/main-premiere',
+                'stock' => 'stock/stock'
             ],
         ],
 

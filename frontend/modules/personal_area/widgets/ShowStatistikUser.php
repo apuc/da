@@ -12,6 +12,8 @@ use common\models\db\Comments;
 use common\models\db\Company;
 use common\models\db\CompanyFeedback;
 use common\models\db\Likes;
+use common\models\db\Poster;
+use common\models\db\Stock;
 use yii\base\Widget;
 
 class ShowStatistikUser extends Widget
@@ -22,12 +24,17 @@ class ShowStatistikUser extends Widget
         $commentsCount = Comments::find()->where(['user_id' => \Yii::$app->user->id])->count();
         $feedbackCount = CompanyFeedback::find()->where(['user_id' => \Yii::$app->user->id])->count();
         $companyCount = Company::find()->where(['user_id' => \Yii::$app->user->id])->count();
+        $posterCount = Poster::find()->where(['user_id' => \Yii::$app->user->id])->count();
+        $promotionsCount = Stock::find()->where(['user_id' => \Yii::$app->user->id])->count();
+
         return $this->render('stistik-user',
             [
                 'likes' => $likeCount,
                 'comments' => $commentsCount,
                 'feedback' => $feedbackCount,
                 'company' => $companyCount,
+                'poster' => $posterCount,
+                'promotions' => $promotionsCount,
             ]
         );
     }

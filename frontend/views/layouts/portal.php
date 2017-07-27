@@ -28,10 +28,6 @@ $user = Yii::$app->user->identity;
     <?php $this->head() ?>
     <meta name="yandex-verification" content="6102a93fabadb2cf"/>
     <?= \frontend\widgets\Metrika::widget() ?>
-    <!--<meta property="og:title" content="DA info"/>-->
-    <!--<meta property="og:url" content="--><? //= Url::home(true); ?><!--"/>-->
-    <meta property="og:image" content="<?= 'http://' . $_SERVER['HTTP_HOST'] ?>/theme/portal-donbassa/img/logo_da.png"/>
-    <!--<meta property="og:description" content="Информационный портал города Донецка"/>-->
 </head>
 <body>
 <?php $this->beginBody() ?>

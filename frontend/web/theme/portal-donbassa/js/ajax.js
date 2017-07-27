@@ -155,6 +155,12 @@ $(document).ready(function () {
     $("#company-photo").change(function () {
         readURL(this);
     });
+    $("#poster-photo").change(function () {
+        readURL(this);
+    });
+    $("#stock-photo").change(function () {
+        readURL(this);
+    });
     $(document).on('change', '#categ_company', function () {
         var catId = $('#categ_company').val();
         console.log(catId);
@@ -193,6 +199,32 @@ $(document).ready(function () {
         url += '&price=' + price + '&servicesId=' + id;
 
         $('.servise-individual-order').attr('href', url);
+    });
+
+    //Отправка сообщения об ошибке
+    $(document).on('click', '#send-error-site', function () {
+        event.preventDefault();
+        $.ajax({
+            url: '/ajax/ajax/send-error-msg',
+            type: "POST",
+            data: {
+                '_csrf': $("input[name='_csrf']").val(),
+                'url': $("input[name='url']").val(),
+                'user_id': $("input[name='user_id']").val(),
+                'text': $("textarea[name='text-error']").val()
+            },
+            success: function (data) {
+                if(data == 1){
+                    $('#error-message').html('<h3 class="modal-callback__title">Спасибо. Мы исправим все ближайшее время</h3>')
+                }else{
+                    $('#error-message').html('<h3 class="modal-callback__title">Ваше сообщени об ошибке не отправлено.</h3>')
+                }
+
+                /*$('.addParentCategory').html(data);*/
+                //$('.addSelectCateg').before(data);
+            }
+        });
+        return false;
     });
 })
 

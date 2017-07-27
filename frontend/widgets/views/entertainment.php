@@ -30,9 +30,10 @@ use yii\helpers\Url;
                     <a href="<?= Url::to(['/company/company/view', 'slug' => $item->slug]) ?>" class="item-large">
                         <div class="thumb">
                             <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->photo); ?>" alt="">
-                            <h4><?= $item->name; ?></h4>
+
                         </div>
                         <div class="item-small__content">
+                            <h4><?= $item->name; ?></h4>
                             <span>
                                 Адрес: <?= $item->address;?>
                             </span>
@@ -59,9 +60,10 @@ use yii\helpers\Url;
             </div>
             <div class="thumb">
                 <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($companyBig->photo); ?>" alt="">
-                <h4><?= $companyBig->name; ?></h4>
+
             </div>
             <div class="item-small__content">
+                <h4><?= $companyBig->name; ?></h4>
                             <span>
                                 Адрес: <?= $companyBig->address;?>
                             </span>

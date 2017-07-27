@@ -42,7 +42,8 @@ class DefaultController extends Controller
             ->orderBy('dt_update DESC')
             ->limit(4)->all();
         $userCompany = Company::find()
-            ->where(['user_id' => Yii::$app->user->id])->limit(3)
+            ->where(['user_id' => Yii::$app->user->id, 'status' => [1,0]])
+            ->limit(3)
             ->orderBy('dt_update DESC')
             ->with('tariff')
             ->all();

@@ -30,7 +30,7 @@ class Share extends Widget
                 strip_tags($this->title)
             )
         );
-        $options['image'] = 'http://' . $_SERVER['HTTP_HOST'] . $this->image;
+        $options['image'] = 'https://' . $_SERVER['HTTP_HOST'] . $this->image;
 
         $countSymbols = 800 - 48 - strlen($options['url']) - strlen($options['title']) - strlen($options['image']);
 

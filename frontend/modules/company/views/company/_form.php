@@ -2,6 +2,7 @@
 
 use common\models\db\CategoryCompany;
 use common\models\db\Lang;
+use kartik\select2\Select2;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\InputFile;
 use yii\helpers\ArrayHelper;
@@ -21,6 +22,7 @@ use yii\widgets\ActiveForm;
         ],
     ]);
 ?>
+
     <p class="cabinet__add-company-form--title">Категория компании</p>
     <?php
     echo Html::dropDownList(
@@ -40,6 +42,21 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'class' => 'cabinet__add-company-form--field'])->label(false) ?>
     <div class="cabinet__add-company-form--block"></div>
 
+    <p class="cabinet__add-company-form--title">Город компании</p>
+    <div class="cabinet__add-company-form--select-wrapper">
+        <?= Select2::widget([
+            'name' => 'Company[city_id]',
+            'attribute' => 'state_2',
+            'data' => $city,
+            'value' => $model->city_id,
+            //'data' => ['Донецкая область' => ['1'=>'Don','2'=>'Gorl'], 'Rostovskaya' => ['5'=>'rostov']],
+            'options' => ['placeholder' => 'Начните вводить город ...'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);
+        ?>
+    </div>
 
     <div class="cabinet__add-company-form--wrapper">
         <p class="cabinet__add-company-form--title">Адрес компании</p>

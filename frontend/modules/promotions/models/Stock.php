@@ -1,0 +1,108 @@
+<?php
+
+namespace frontend\modules\promotions\models;
+
+use Yii;
+use yii\db\ActiveRecord;
+use common\models\db\ServicesCompanyRelations;
+use common\models\db\Company;
+use common\classes\Debug;
+
+
+class Stock extends \common\models\db\Stock
+{
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['dt_add', 'dt_update'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['dt_update'],
+                ],
+            ],
+        ];
+    }
+
+    public function rules()
+    {
+        $rules = parent::rules();
+        $rules[] = ['company_id', 'required', 'message' => 'Необходимо выбрать компанию'];
+        return $rules;
+    }
+
+    /*
+     * Метод возвращает массив, ключом которого является id предприятия,
+     * а значением - оставшееся количество акция для этих предприятий
+     */
+    public function beforeCreate()
+    {
+        $company = Company::find()
+            ->where(['user_id' => Yii::$app->user->id])
+            ->asArray()
+            ->all();
+
+        $service_id = [26, 27, 28];
+
+        foreach ($company as $comp)
+        {
+            $company_id[] = $comp['id'];
+        }
+
+        $services = ServicesCompanyRelations::find()
+            ->where(['in', 'company_id', $company_id] )
+            ->with('services')
+            ->andWhere(['in', 'services_id', $service_id])
+            ->asArray()
+            ->all();
+
+        if($this->dateMonth())
+        {
+            $date = strtotime('first day of this month');
+        }else $date = time() - 86400*31;
+
+        foreach ($company_id as $id)
+        {
+            $promotion_count[$id] = Stock::find()
+                ->where(['company_id' => $id])
+                ->andWhere(['>', 'dt_add', $date])
+                ->count();
+        }
+
+        foreach ($services as $service)
+        {
+
+            if($service['services']['val'] === '-')
+            {
+                $back_count[$service['company_id']] = '-';
+            }else
+            {
+                $back_count[$service['company_id']] = $service['services']['val'] - $promotion_count[$service['company_id']];
+                if($back_count[$service['company_id']] <= 0)
+                {
+                    unset($back_count[$service['company_id']]);
+                }
+            }
+
+        }
+
+
+        //$service_promotion_count[$service['company_id']] = $service['services']['val'];
+
+
+        return $back_count;
+    }
+
+    public function dateMonth()
+    {
+        $date = date_create(date('Y-m-d',Stock::find()
+            ->where(['user_id' => Yii::$app->user->id])
+            ->min('dt_add')));
+        $dateNow = date_create(date('Y-m-d', time()));
+        $date_diff = date_diff($date, $dateNow);
+
+        if($date_diff->m >= 1) return 1;
+        else return 0;
+
+    }
+}

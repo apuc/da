@@ -32,6 +32,7 @@ class UserCompanySearch extends Company
 
         $query->andWhere([
             'user_id' => $params['user_id'],
+            'status' => [1,0,2]
         ]);
 
         $query->orderBy('dt_update DESC');

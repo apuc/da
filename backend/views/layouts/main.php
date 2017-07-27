@@ -53,11 +53,7 @@ AppAsset::register( $this );
                 <?= \backend\widgets\Login::widget(); ?>
             </section><!-- /.content -->
         </div><!-- /.content-wrapper -->
-        <footer class="main-footer contentLoginAdmin">
-            <div class="pull-right hidden-xs">
-            </div>
-            <strong>&copy; My Company <?= date( 'Y' ) ?></strong>
-        </footer>
+
     <?php else: ?>
 
         <header class="main-header">
@@ -110,11 +106,7 @@ AppAsset::register( $this );
                 <?= $content ?>
             </section><!-- /.content -->
         </div><!-- /.content-wrapper -->
-        <footer class="main-footer contentLoginAdmin">
-            <div class="pull-right hidden-xs">
-            </div>
-            <strong>&copy; My Company <?= date( 'Y' ) ?></strong>
-        </footer>
+
 
         <?php
         //Yii::$app->getResponse()->redirect(Yii::$app->urlManagerFrontend->createUrl(Url::base()));
@@ -125,7 +117,11 @@ AppAsset::register( $this );
         /*return $this->redirect(Yii::$app->urlManagerFrontend->createUrl(Url::base())); */ ?>
     <?php endif ?>
 
-
+    <footer class="main-footer contentLoginAdmin">
+        <div class="pull-right hidden-xs">
+        </div>
+        <strong>&copy; DA-Info <?= date( 'Y' ) ?></strong>
+    </footer>
     <!--<div class="wrap">
     <?php
     /*    NavBar::begin([

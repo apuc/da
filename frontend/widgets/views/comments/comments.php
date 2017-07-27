@@ -24,7 +24,7 @@
             <div class="comment-wrapper <?= ($comment->moder_checked) ? ' moder' : ''; ?>">
                 <div class="user">
                     <div class="user-photo">
-                        <img src="/theme/portal-donbassa/img/users-avatars/no-avatar.png" alt="">
+                        <?= \common\classes\UserFunction::getUser_avatar_html((!empty($comment->user_id)) ? $comment->user_id : 0)?>
                     </div>
 
                 </div>
@@ -54,12 +54,13 @@
 
                     <?php if(!empty($comment['childComments'])):
                         foreach ($comment['childComments'] as $childComment):
+                            // \common\classes\Debug::prn($childComment->user_id);
                     ?>
                         <div class="child-comment">
                             <div class="user">
 
                                 <div class="user-photo">
-                                    <img src="/theme/portal-donbassa/img/users-avatars/no-avatar.png" alt="">
+                                    <?= \common\classes\UserFunction::getUser_avatar_html((!empty($childComment->user_id)) ? $childComment->user_id : 0)?>
                                 </div>
 
 

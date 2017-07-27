@@ -23,6 +23,7 @@ class EventsInComing extends Widget
             $poster = Poster::find()
                 /*->joinWith('categories')*/
                 ->where(['>=', 'dt_event_end', time()])
+                ->andWhere(['status' => 0])
                 /*->andFilterWhere(['`category_poster`.`slug`' => $this->slug])*/
                 ->orderBy('dt_event ')
                 ->limit(4)
@@ -31,12 +32,14 @@ class EventsInComing extends Widget
 
             $countPoster = Poster::find()
                 ->where(['>=', 'dt_event_end', time()])
+                ->andWhere(['status' => 0])
                 ->count();
         }
         else {
             $poster = Poster::find()
                 ->joinWith('categories')
                 ->where(['>=', 'dt_event_end', time()])
+                ->andWhere(['status' => 0])
                 ->andFilterWhere(['`category_poster`.`slug`' => $this->slug])
                 ->orderBy('dt_event ')
                 ->limit(4)
@@ -46,6 +49,7 @@ class EventsInComing extends Widget
             $countPoster = Poster::find()
                 ->joinWith('categories')
                 ->where(['>=', 'dt_event_end', time()])
+                ->andWhere(['status' => 0])
                 ->andFilterWhere(['`category_poster`.`slug`' => $this->slug])
                 ->count();
         }

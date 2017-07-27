@@ -38,7 +38,9 @@
     </a>
 
 
-    <?php foreach ($faq as $item):
+    <?php use yii\helpers\Url;
+
+    foreach ($faq as $item):
        /* \common\classes\Debug::prn($item['consulting']);*/
         //\common\classes\Debug::prn($item['faq']);
         ?>
@@ -147,8 +149,8 @@
 
         </div>
 
-    </a>
+    </a>-->
 
-    <a href="" class="show-more">посмотреть больше<span class="red-arrow"></span></a>-->
+    <a href="<?= Url::to(['/consulting/consulting']); ?>" class="show-more">посмотреть больше<span class="red-arrow"></span></a>
 
 </div>

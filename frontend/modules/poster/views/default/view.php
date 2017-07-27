@@ -323,155 +323,24 @@ $this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::clas
                     </div>
                 </div>
             </div>
+
+            <!-- start socials.html-->
+            <?= \frontend\widgets\Share::widget([
+                'url' => \yii\helpers\Url::base(true) . '/poster/' . $model->slug,
+                'title' => $model->title,
+                'description' => $model->descr,
+                'view' => 'share-news',
+                'image' => $model->photo,
+            ]); ?>
+            <!-- end socials.html-->
+
         </div>
 
-        <!--<div class="maps tabs">
-            &lt;!&ndash; <ul class="tabs__caption">
-                <li class="active">
-                    <div class="date">
-                        <div class="day">03</div>
-                        <div class="weekday">
-                            <span>Пятница</span>
-                            <span>Февраля</span>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="date">
-                        <div class="day">21</div>
-                        <div class="weekday">
-                            <span>Понедельник</span>
-                            <span>Ноября</span>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="date">
-                        <div class="day">01</div>
-                        <div class="weekday">
-                            <span>Четверг</span>
-                            <span>Апреля</span>
-                        </div>
-                    </div>
-                </li>
-            </ul> &ndash;&gt;
 
-            <div class="map-wrapper tabs__content active">
-                <div class="maps-info">
-                    <div class="date">
-                        <div class="day">03</div>
-                        <div class="weekday">
-                            <span>пятница</span>
-                            <span>февраля</span>
-                        </div>
-                    </div>
-                    <div class="adress">
-                        Адрес:
-                        <span class="concreate-adress">г. Донецк, ул. Челюскинцев, 189</span>
-                    </div>
-                </div>
-                <div class="map">
-                    <h3>Адресс</h3>
-                    <div id="map" class="ymaps"></div>
-                </div>
-            </div>
-
-            <div class="map-wrapper tabs__content">
-                <div class="maps-info">
-                    <div class="date">
-                        <div class="day">21</div>
-                        <div class="weekday">
-                            <span>понедельник</span>
-                            <span>ноября</span>
-                        </div>
-                    </div>
-                    <div class="adress">
-                        Адрес: г. Донецк,
-                        ул. Фомина, 9
-                    </div>
-                </div>
-                <div class="map">
-                    <h3>Адресс</h3>
-
-                    <div id="map_2" class="ymaps"></div>
-                </div>
-            </div>
-
-            <div class="map-wrapper tabs__content">
-                <div class="maps-info">
-                    <div class="date">
-                        <div class="day">01</div>
-                        <div class="weekday">
-                            <span>Четверг</span>
-                            <span>Апреля</span>
-                        </div>
-                    </div>
-                    <div class="adress">
-                        Адрес: г. Донецк,
-                        ул. Жили-были, 75
-                    </div>
-                </div>
-                <div class="map">
-                    <h3>Адресс</h3>
-
-                    <div id="map_3" class="ymaps"></div>
-                </div>
-            </div>
-
-
-        </div>-->
-
-        <!--<div class="what-to-see">
-            <h3>Популярные спектакли сезона</h3>
-            <a href="#" class="view-more">посмотреть больше</a>
-            <div class="afisha-events__wrap">
-                <a href="" class="item">
-                    <img src="img/afishes/afisha-1.jpg" alt="">
-                    <div class="item-content">
-                        <span class="type">Концерт / Рок</span>
-                        <span class="name-item">Закон ночи</span>
-                        <span class="time">28 января 09:00</span>
-                    </div>
-                </a>
-                <a href="" class="item">
-                    <img src="img/afishes/afisha-1.jpg" alt="">
-                    <div class="item-content">
-                        <span class="type">Концерт / Рок</span>
-                        <span class="name-item">Закон ночи</span>
-                        <span class="time">28 января 09:00</span>
-                    </div>
-                </a>
-                <a href="" class="item">
-                    <img src="img/afishes/afisha-2.jpg" alt="">
-                    <div class="item-content">
-                        <span class="type">Концерт / Рок</span>
-                        <span class="name-item">Закон ночи</span>
-                        <span class="time">28 января 09:00</span>
-                    </div>
-                </a>
-                <a href="" class="item">
-                    <img src="img/afishes/afisha-1.jpg" alt="">
-                    <div class="item-content">
-                        <span class="type">Концерт / Рок</span>
-                        <span class="name-item">Закон ночи</span>
-                        <span class="time">28 января 09:00</span>
-                    </div>
-                </a>
-            </div>
-            <a href="#" class="load-more">загрузить БОЛЬШЕ</a>
-        </div>-->
 
         <?= \frontend\modules\poster\widgets\Popular::widget();?>
 
-        <!-- start socials.html-->
-        <?= \frontend\widgets\Share::widget([
-            'url' => \yii\helpers\Url::base(true) . '/poster/' . $model->slug,
-            'title' => $model->title,
-            'description' => $model->descr,
-            'view' => 'share-news',
-            'image' => $model->photo,
-        ]); ?>
-        <!-- end socials.html-->
+
 
     </div>
 

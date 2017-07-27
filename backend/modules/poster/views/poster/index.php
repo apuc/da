@@ -49,7 +49,31 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'price',
             // 'start',
             // 'views',
-            // 'status',
+            [
+                'attribute' => 'status',
+                'format'    => 'text',
+                'value'     => function ( $model ) {
+                    $st = 0;
+                    switch ( $model->status ) {
+                        case 0:
+                            $st = 'Опубликована';
+                            break;
+                        case 1:
+                            $st = 'На модерации';
+                            break;
+                        case 2:
+                            $st = 'Удалено пользователем';
+                            break;
+                    }
+
+                    return $st;
+                },
+                'filter'    => Html::activeDropDownList( $searchModel, 'status', [
+                    '0' => 'Опубликована',
+                    '1' => 'На модерации',
+                    '2' => 'Удалено',
+                ], [ 'class' => 'form-control', 'prompt' => '' ] ),
+            ],
             // 'meta_title',
             // 'meta_descr',
 

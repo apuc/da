@@ -12,10 +12,13 @@ use common\models\db\Poster;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\data\SqlDataProvider;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
 use yii\web\Controller;
+use yii\web\UploadedFile;
 
 /**
  * Default controller for the `poster` module
@@ -23,6 +26,34 @@ use yii\web\Controller;
 class DefaultController extends Controller
 {
     public $layout = 'portal_page';
+
+
+
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['index', 'view', 'category', 'archive_category', 'single_category', 'single_archive_category', 'updposterdt_event', 'updposterdt_event_end', 'more-interested-in', 'interested-in-posters', 'get-more-poster', 'get-more-kino', 'more-poster'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                ],
+            ],
+        ];
+    }
 
     /**
      * Renders the index view for the module
@@ -39,6 +70,9 @@ class DefaultController extends Controller
 
         if (empty($poster)) {
             return $this->redirect(['site/error']);
+        }
+        if($poster['status'] == '1'){
+            throw new \yii\web\HttpException(404 ,'Страница не найдена.');
         }
 
         $likes = Likes::find()
@@ -74,7 +108,7 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function _actionView($slug)
+    /*public function _actionView($slug)
     {
         $poster = Poster::find()->where(['slug' => $slug])->one();
 
@@ -119,7 +153,7 @@ class DefaultController extends Controller
             'count_likes' => $count_likes,
             'user_set_like' => $user_set_like,
         ]);
-    }
+    }*/
 
     public function actionCategory()
     {
@@ -329,5 +363,124 @@ class DefaultController extends Controller
         ]);
         $data['last'] = $count - ((int)$page - 1) * $limit <= $limit ? 1 : 0;
         return json_encode($data);
+    }
+
+    //Добавление афиши
+    public function actionCreate()
+    {
+        $this->layout = 'personal_area';
+        $model = new \backend\modules\poster\models\Poster();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            $phone = '';
+            foreach ($_POST['mytext'] as $item){
+                $phone .= $item . ' ';
+            }
+
+            $model->status = 1;
+            $model->phone = $phone;
+            $model->dt_event = strtotime($model->dt_event);
+            $model->dt_event_end = strtotime($model->dt_event_end);
+            $model->user_id = Yii::$app->user->id;
+            $model->meta_title = $model->title . ' - Афиша на DA-info';
+            $model->meta_descr = \yii\helpers\StringHelper::truncate($model->descr, 250) . ' - Афиша на DA-info';
+
+            if ($_FILES['Poster']['name']['photo']) {
+                $upphoto = New \common\models\UploadPhoto();
+                $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
+                $loc = 'media/upload/userphotos/' . date('dmY') . '/';
+                if (!is_dir($loc)) {
+                    mkdir($loc);
+                }
+                $upphoto->location = $loc;
+                $upphoto->upload();
+                $model->photo = '/' . $loc . $_FILES['Poster']['name']['photo'];
+            }
+
+            $model->save();
+            foreach ($_POST['cat'] as $cat) {
+                $catNewRel = new CategoryPosterRelations();
+                $catNewRel->cat_id = $cat;
+                $catNewRel->poster_id = $model->id;
+                $catNewRel->save();
+            }
+            Yii::$app->session->setFlash('success','Ваша афиша успешно добавлена. После прохождения модерации она будет опубликована.');
+            return $this->redirect('/personal_area/default/index');
+        } else {
+
+            $categoryPoster = CategoryPoster::find()->all();
+
+            return $this->render('create', [
+                'model' => $model,
+                'categoryPoster' => $categoryPoster
+            ]);
+        }
+    }
+
+    //Редактирование афиши
+    public function actionUpdate($id)
+    {
+
+        $this->layout = 'personal_area';
+        $model = \backend\modules\poster\models\Poster::find()->where(['id' => $id])->one();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            $phone = '';
+            foreach ($_POST['mytext'] as $item){
+                $phone .= $item . ' ';
+            }
+
+            $model->status = 1;
+            $model->phone = $phone;
+            $model->dt_event = strtotime($model->dt_event);
+            $model->dt_event_end = strtotime($model->dt_event_end);
+            $model->user_id = Yii::$app->user->id;
+            $model->meta_title = $model->title . ' - Афиша на DA-info';
+            $model->meta_descr = \yii\helpers\StringHelper::truncate($model->descr, 250) . ' - Афиша на DA-info';
+
+            if (!empty($_FILES['Poster']['name']['photo'])) {
+                $upphoto = New \common\models\UploadPhoto();
+                $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
+                $loc = 'media/upload/userphotos/' . date('dmY') . '/';
+                if (!is_dir($loc)) {
+                    mkdir($loc);
+                }
+                $upphoto->location = $loc;
+                $upphoto->upload();
+                $model->photo = '/' . $loc . $_FILES['Poster']['name']['photo'];
+            }else{
+                $model->photo = $_POST['img'];
+            }
+
+            $model->save();
+            CategoryPosterRelations::deleteAll(['poster_id' => $id]);
+            foreach ($_POST['cat'] as $cat) {
+                $catNewRel = new CategoryPosterRelations();
+                $catNewRel->cat_id = $cat;
+                $catNewRel->poster_id = $model->id;
+                $catNewRel->save();
+            }
+            Yii::$app->session->setFlash('success','Ваша афиша успешно измененна. После прохождения модерации она будет опубликована.');
+            return $this->redirect('/personal_area/default/index');
+        } else {
+
+            $categoryPoster = CategoryPoster::find()->all();
+            $categorySelect = CategoryPosterRelations::find()->where(['poster_id' => $id])->all();
+            return $this->render('update', [
+                'model' => $model,
+                'categoryPoster' => $categoryPoster,
+                'categorySelect' => $categorySelect
+            ]);
+        }
+    }
+
+    //Удаление афиши (меняем статус на 2)
+    public function actionDelete($id)
+    {
+        Poster::updateAll(['status' => 2], ['id' => $id]);
+        Yii::$app->session->setFlash('success','Ваша афиша успешно удалена.');
+        return $this->redirect('/personal_area/user-poster');
     }
 }

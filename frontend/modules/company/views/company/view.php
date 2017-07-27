@@ -6,6 +6,8 @@
  * @var $img \common\models\db\CompanyPhoto
  */
 
+use common\classes\GeobaseFunction;
+
 $this->title = $model->meta_title;
 $this->registerMetaTag([
     'name' => 'description',
@@ -14,6 +16,7 @@ $this->registerMetaTag([
 
 $this->registerJsFile('/js/company_ajax.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+//\common\classes\Debug::prn($services);
 ?>
 
 <section class="business">
@@ -24,52 +27,64 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
 
             <div class="business__content business__single-content">
 
-                <h3 class="business__subtitle">Предприятия / <?= $model->name ?></h3>
+                <h3 class="business__subtitle">Предприятия / <?= $model->name ?>
+                    <span class="business__status">
+                    <span class="views"><?= $model->views; ?> просмотров</span>
+                    </span>
+
+                </h3>
 
                 <div class="business__requisites">
-
                     <div class="business__requisites--avatar">
-
                         <img src="<?= $model->photo ?>" alt="">
-
                     </div>
-
                     <div class="business__requisites--address">
 
                         <h3><?= $model->name ?></h3>
                         <!--<p><?/*= $model['meta_descr'] */?></p>-->
-                        <p class="concreate-adress"><?= $model->address ?></p>
+
+                        <?php
+                            if($model->region_id != 0){
+                                $address = GeobaseFunction::getRegionName($model->region_id) . ', ' .GeobaseFunction::getCityName($model->city_id) . ', ' . $model->address ;
+                            }
+                            else{
+                                $address = $model->address;
+                            }
+                        ?>
+
+                        <p class="concreate-adress"><?= $address;  ?></p>
 
                     </div>
+                    <?php if(!empty($model->email)):?>
+                        <div class="business__requisites--site">
 
-                    <!--<div class="business__requisites--site">
+                            <a href="" target="_blank"><span><?= $model->email; ?></span>
+                                <span><img src="/theme/portal-donbassa//img/icons/golink-icon.png" alt=""></span>
+                            </a>
+                            <!--<p>Описание этой ссылки,
+                                подробности</p>-->
 
-                        <a href="#" target="_blank"><span>www. site-web.com</span>
-                            <span><img src="img/icons/golink-icon.png" alt=""></span>
-                        </a>
-                        <p>Описание этой ссылки,
-                            подробности</p>
-
-                    </div>-->
-
+                        </div>
+                    <?php endif;?>
                     <div class="business__requisites--links">
-                        <span class="views"><?= $model->views; ?> просмотров</span>
                         <a class="phone" href="tel:+380667778540">
                             <?= isset($model->getPhones()[0]) ? $model->getPhones()[0] : '' ?>
                         </a>
                         <a class="phone" href="tel:+380667778540">
                             <?= isset($model->getPhones()[1]) ? $model->getPhones()[1] : '' ?>
                         </a>
-                        <a href="" class="social-wrap__item vk">
-                            <img src="/theme/portal-donbassa/img/soc/vk.png" alt="">
-                        </a>
-                        <a href="" class="social-wrap__item fb">
-                            <img src="/theme/portal-donbassa/img/soc/fb.png" alt="">
-                        </a>
-                        <a href="" class="social-wrap__item ok">
-                            <img src="/theme/portal-donbassa/img/soc/ok-icon.png" alt="">
-                        </a>
 
+                        <?php if(isset($services['group_link']) && $services['group_link'] == 1):
+
+                            foreach ($typeSeti as $type){
+                            ?>
+                                <a href="<?= $socCompany[$type->id]->link?>" target="_blank" class="social-wrap__item vk">
+                                    <img src="<?= $type->icon ?>" alt="">
+                                </a>
+                            <?php
+                        }
+
+                        endif; ?>
                     </div>
 
 
@@ -96,9 +111,11 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                 <?php endif; ?>
 
                 <div class="business__descr" id="about">
-
-                    <?= $model->descr ?>
-
+                    <?php if(isset($services['count_text']) && $services['count_text'] != '-'):?>
+                        <?= \yii\helpers\StringHelper::truncate($model->descr, $services['count_text']); ?>
+                    <?php else: ?>
+                        <?= $model->descr; ?>
+                    <?php endif; ?>
                 </div>
                 <?php if (!empty($stock)): ?>
                     <div class="business__stocks" id="stock">
@@ -194,7 +211,8 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
 
             </div>
 
-            <?= \frontend\modules\company\widgets\HotStock::widget() ?>
+            <?/*= \frontend\modules\company\widgets\HotStock::widget() */?>
+            <?= \frontend\widgets\ShowRightRecommend::widget(); ?>
 
         </div>
 

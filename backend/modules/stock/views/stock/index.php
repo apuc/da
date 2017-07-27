@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use common\classes\Debug;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\stock\models\StockSearch */
@@ -18,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -37,7 +39,27 @@ $this->params['breadcrumbs'][] = $this->title;
             //'descr:ntext',
             // 'dt_add',
             // 'dt_update',
-            // 'status',
+            [
+                'attribute' => 'status',
+                'format'    => 'text',
+                'value'     => function ( $model ) {
+                    $st = 0;
+                    switch ( $model->status ) {
+                        case 0:
+                            $st = 'Опубликована';
+                            break;
+                        case 1:
+                            $st = 'На модерации';
+                            break;
+                    }
+
+                    return $st;
+                },
+                'filter'    => Html::activeDropDownList( $searchModel, 'status', [
+                    '0' => 'Опубликована',
+                    '1' => 'На модерации',
+                ], [ 'class' => 'form-control', 'prompt' => 'Выбрать статус...' ] ),
+            ],
             // 'dt_event',
             // 'link',
             // 'main',
