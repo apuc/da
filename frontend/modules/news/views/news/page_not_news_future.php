@@ -12,7 +12,11 @@
             <p class="dev__notice">Но вы можете узнать все самые свежие
                 новости первыми</p>
 
-            <a href="#" class="show-more">сообщить о битой ссылке</a>
+            <div class="news__wrap_buttons">
+                
+                <span href="#" class=" show-more archive-news datepicker-here datepicker-wrap" >архив новостей </span>
+
+            </div>
 
         </div>
 
