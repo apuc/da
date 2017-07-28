@@ -323,20 +323,19 @@ class DefaultController extends Controller
     public function actionGetMoreKino()
     {
         $step = Yii::$app->request->post('step');
-
         $posters = Poster::find()
             ->joinWith('categories')
-            /*->where(['>', 'dt_event', time()])*/
+            ->where(['>=', 'dt_event_end', time()])
             ->andWhere(['`category_poster`.`slug`' => 'kino'])
             ->orderBy('dt_event DESC')
-            ->limit(5)
-            ->offset(((int)$step - 1) * 5)
+            ->offset(((int)$step - 1) * 4)
+            ->limit(4)
             ->all();
 
         $data['html'] = $this->renderPartial('more_kino', [
             'posters' => $posters
         ]);
-        $data['last'] = count($posters) < 5 ? 1 : 0;
+        $data['last'] = count($posters) < 4 ? 1 : 0;
         return json_encode($data);
     }
 
