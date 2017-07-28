@@ -161,7 +161,7 @@ $(document).ready(function () {
         elem.remove();
         var selects = $('.selectCateg');
         var lastSelect = selects[selects.length - 1];
-
+        $('.selectCateg').removeClass('disabled');
         $('.selectCateg').each(function (i,e) {
             catIdSelect += $(this).val() + ',';
         });
