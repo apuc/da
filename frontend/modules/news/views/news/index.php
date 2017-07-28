@@ -143,14 +143,14 @@ $md = new \common\classes\Mobile_Detect();
             <?= \frontend\widgets\Subscribe::widget() ?>
         </div>
         <div class="news__wrap_buttons">
-            <a href="#go_rubricator" class="businessScroll"><span class="rotate-arrow"></span>рубрикатор</a>
+            <a href="#go_rubricator" class="businessScroll">рубрикатор</a>
             <a
                 href=""
                 data-offset="34"
                 csrf-token="<?= Yii::$app->getRequest()->getCsrfToken(); ?>"
                 class="show-more show-more-news-js">загрузить
                 БОЛЬШЕ</a>
-            <span href="#" class="archive-news datepicker-here datepicker-wrap" >архив новостей <span class="rotate-arrow"></span></span>
+            <span href="#" class="archive-news datepicker-here datepicker-wrap" >архив новостей </span>
 
         </div>
     </div>
