@@ -3,12 +3,15 @@
 use common\classes\WordFunctions;
 use common\classes\DateFunctions;
 use yii\helpers\Url;
+
+$this->title = 'Архив афиш за '.$date;
 ?>
 <section class="afisha-events">
     <div class="container">
 
         <div class="events-day">
             <div class="events-day__wrap">
+
                 <?if($model):?>
                 <?php foreach ($model as $poster): ?>
                     <a href="<?= Url::to(['/poster/default/view', 'slug'=>$poster->slug]) ?>" class="item">

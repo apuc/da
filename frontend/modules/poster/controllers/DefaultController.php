@@ -486,12 +486,12 @@ class DefaultController extends Controller
 
     public function actionArchive($date)
     {
-        $date = strtotime($date);
-        $model = Poster::find()->where(['>=', 'dt_event_end', $date])
-            ->andWhere(['<=', 'dt_event', $date])
+        $date_time = strtotime($date);
+        $model = Poster::find()->where(['>=', 'dt_event_end', $date_time])
+            ->andWhere(['<=', 'dt_event', $date_time])
             ->andWhere(['status' => 0])
             ->all();
         //Debug::prn($model);
-        return $this->render('archive_poster', ['model' => $model]);
+        return $this->render('archive_poster', ['model' => $model, 'date' => $date]);
     }
 }
