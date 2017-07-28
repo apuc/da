@@ -27,7 +27,7 @@ use common\classes\Debug;
 
             </div>
 
-            <?Debug::prn(\frontend\widgets\NewsPageError::widget()); ?>
+            <?= \frontend\widgets\NewsPageError::widget()); ?>
 
             <?= \frontend\widgets\StockErrorPage::widget(); ?>
 
