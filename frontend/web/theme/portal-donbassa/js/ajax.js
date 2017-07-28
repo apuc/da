@@ -75,6 +75,15 @@ $(document).ready(function () {
         }
     });
 
+    $('#poster_archive').datepicker({
+        dateFormat: 'yyyy-mm-dd',
+        onSelect: function (formattedDate, date, inst) {
+
+            console.log(formattedDate);
+            window.location.href = '/poster/archive/' + formattedDate;
+        }
+    });
+
     //Загрузить больше популярных афиш в виджете
     $(document).on('click', '.load-more-popular-poster-w', function () {
         var page = $(this).attr('data-page');

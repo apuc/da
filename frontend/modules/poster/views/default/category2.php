@@ -76,5 +76,6 @@ $this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::clas
             <a href="" class="show-more">загрузить БОЛЬШЕ</a>
         </div>-->
         <?= \frontend\modules\poster\widgets\InterestedIn::widget() ?>
+
     </div>
 </section>

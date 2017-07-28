@@ -483,4 +483,15 @@ class DefaultController extends Controller
         Yii::$app->session->setFlash('success','Ваша афиша успешно удалена.');
         return $this->redirect('/personal_area/user-poster');
     }
+
+    public function actionArchive($date)
+    {
+        $date = strtotime($date);
+        $model = Poster::find()->where(['>=', 'dt_event_end', $date])
+            ->andWhere(['<=', 'dt_event', $date])
+            ->andWhere(['status' => 0])
+            ->all();
+        //Debug::prn($model);
+        return $this->render('archive_poster', ['model' => $model]);
+    }
 }

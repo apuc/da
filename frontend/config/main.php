@@ -179,6 +179,7 @@ return [
                 'all-poster-archive' => 'poster/default/archive_category',
                 'poster/category/<slug>' => 'poster/default/single_category',
                 'poster-archive/category/<slug>' => 'poster/default/single_archive_category',
+                'poster/archive/<date>' => 'poster/default/archive',
                 'consulting'=> 'consulting/consulting',
                 'consulting/<slug>'=>'/consulting/consulting/view',
                 'faq/<slug>'=>'/consulting/consulting/faq',

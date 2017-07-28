@@ -85,9 +85,12 @@ use yii\helpers\Url;
                 </div>
             </a>
         <?php endforeach; ?>
-        <span id="more-poster-box"></span>
-        <?php if($countPoster > 4): ?>
-            <a href="" id="load-more-posters" data-step="2" class="show-more">загрузить БОЛЬШЕ</a>
-        <?php endif;?>
+        <div class="news__wrap_buttons">
+            <span id="more-poster-box"></span>
+            <?php if($countPoster > 4): ?>
+                <a href="" id="load-more-posters" data-step="2" class="show-more">загрузить БОЛЬШЕ</a>
+            <?php endif;?>
+                <span id="poster_archive" href="#" class="archive-news datepicker-here datepicker-wrap" >архив афиш <span class="rotate-arrow"></span></span>
+        </div>
     </div>
 </div>
