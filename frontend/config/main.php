@@ -176,7 +176,7 @@ return [
                 'company/category/<slug>' => 'company/company/view-category',
                 'poster/<slug>' => 'poster/default/view',
                 'all-poster' => 'poster/default/category',
-                'all-poster-archive' => 'poster/default/archive_category',
+                'all-poster-archive' => 'site/error',
                 'poster/category/<slug>' => 'poster/default/single_category',
                 'poster-archive/category/<slug>' => 'poster/default/single_archive_category',
                 'poster/archive/<date>' => 'poster/default/archive',
