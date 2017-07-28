@@ -65,7 +65,7 @@ $fl= 0;
                 echo Html::dropDownList('categoryId[]',
                     $item->id,
                     ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title'),
-                    ['class' => 'cabinet__add-company-form--field selectCateg disabled', 'prompt' => 'Выберите категорию']
+                    ['class' => 'cabinet__add-company-form--field selectCateg', 'prompt' => 'Выберите категорию']
 
                 )?>
                 <a href="#" class="cabinet__remove-pkg delselectCateg"></a>
