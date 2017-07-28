@@ -90,7 +90,7 @@ use yii\helpers\Url;
             <?php if($countPoster > 4): ?>
                 <a href="" id="load-more-posters" data-step="2" class="show-more">загрузить БОЛЬШЕ</a>
             <?php endif;?>
-                <span id="poster_archive" href="#" class="archive-news datepicker-here datepicker-wrap" >архив афиш <span class="rotate-arrow"></span></span>
+                <span id="poster_archive" href="#" class="archive-news datepicker-here datepicker-wrap" >архив афиш </span>
         </div>
     </div>
 </div>

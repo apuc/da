@@ -11,6 +11,7 @@ $date = strtotime($date);
     <div class="container">
 
         <div class="events-day">
+            <h3><?= $this->title; ?></h3>
             <div class="events-day__wrap">
 
                 <?if($model):?>
@@ -59,6 +60,7 @@ $date = strtotime($date);
             </div>
         </div>
 
-
+        <?= \frontend\modules\poster\widgets\InterestedIn::widget() ?>
     </div>
+
 </section>
