@@ -64,4 +64,6 @@ class Stock extends \yii\db\ActiveRecord
             'company_id' => 'Компания',
         ];
     }
+
+
 }

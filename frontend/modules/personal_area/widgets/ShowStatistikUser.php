@@ -25,7 +25,7 @@ class ShowStatistikUser extends Widget
         $feedbackCount = CompanyFeedback::find()->where(['user_id' => \Yii::$app->user->id])->count();
         $companyCount = Company::find()->where(['user_id' => \Yii::$app->user->id])->count();
         $posterCount = Poster::find()->where(['user_id' => \Yii::$app->user->id])->count();
-        $promotionsCount = Stock::find()->where(['user_id' => \Yii::$app->user->id])->count();
+        $promotionsCount = Stock::find()->where(['user_id' => \Yii::$app->user->id,])->andWhere(['in', 'status', [0,1]])->count();
 
         return $this->render('stistik-user',
             [

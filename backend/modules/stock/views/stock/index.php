@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::img($model->photo, ['width'=>'100px']);
                 }
             ],
-            'short_descr:ntext',
+            'descr:ntext',
             //'descr:ntext',
             // 'dt_add',
             // 'dt_update',
@@ -51,6 +51,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         case 1:
                             $st = 'На модерации';
                             break;
+                        case 2:
+                            $st = 'Удалена';
+                            break;
                     }
 
                     return $st;
@@ -58,6 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter'    => Html::activeDropDownList( $searchModel, 'status', [
                     '0' => 'Опубликована',
                     '1' => 'На модерации',
+                    '2' => 'Удалена'
                 ], [ 'class' => 'form-control', 'prompt' => 'Выбрать статус...' ] ),
             ],
             // 'dt_event',

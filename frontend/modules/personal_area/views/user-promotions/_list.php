@@ -1,51 +1,60 @@
+<a href="" class="cabinet__like-block--section">Акции</a>
 
+<a href="" class="cabinet__like-block--photo">
+    <img src="<?= $model['photo']; ?>" alt="">
+</a>
+
+<a href="<?= \yii\helpers\Url::to([$model->link])?>" class="cabinet__like-block--comment-descr"><?= $model['title']; ?></a>
+
+<!--<span class="views">></span>-->
+
+<div class="cabinet__pkg-block">
+
+    <?php if($model['status'] == '0'): ?>
+        <h3>Акция <span>опубликована</span></h3>
+    <?php endif; ?>
+
+    <?php if($model['status'] == '1'): ?>
+        <h3>Акция <span>на модерации</span></h3>
+    <?php endif; ?>
+
+
+
+    <a href="<?= \yii\helpers\Url::to(['/promotions/promotions/update', 'id' => $model['id']])?>" class="cabinet__like-block--company-edit">редактировать</a>
+    <a data-method="post" href="<?= \yii\helpers\Url::to(['/promotions/promotions/delete', 'id' => $model['id']]); ?>" data-confirm="Вы уверены, что хотите удалить этот элемент?" class="cabinet__like-block--company-remove">удалить</a>
+
+</div>
+<p class="cabinet__like-block--company-views">Дата проведения: <?= $model['dt_event'];?></p>
+<p class="cabinet__like-block--company-views">Добавлено компанией: <?= $model['company']->name;?></p>
+<!--
 
     <div class="cabinet__pkg-descr">
 
         <a href="" class="cabinet__like-block--photo">
-            <img src="<?= $model['photo']; ?>" alt="">
+            <img src="<?/*= $model['photo']; */?>" alt="">
         </a>
 
-        <h3 class="cabinet__like-block--company-name"><?= $model['title']; ?></h3>
+        <h3 class="cabinet__like-block--company-name"><?/*= $model['title']; */?></h3>
 
-        <a href="<?= \yii\helpers\Url::to(['/promotions/promotions/update', 'id' => $model['id']]) ?>" class="cabinet__like-block--company-edit">редактировать</a>
-        <a data-method="post" href="<?= \yii\helpers\Url::to(['/promotions/promotions/delete', 'id' => $model['id']]) ?>" class="cabinet__like-block--company-remove">удалить </a>
+        <a href="<?/*= \yii\helpers\Url::to(['/promotions/promotions/update', 'id' => $model['id']]) */?>" class="cabinet__like-block--company-edit">редактировать</a>
+        <a data-method="post" href="<?/*= \yii\helpers\Url::to(['/promotions/promotions/delete', 'id' => $model['id']]) */?>" class="cabinet__like-block--company-remove">удалить </a>
 
-        <p class="cabinet__like-block--company-address"><?= $model['company_id']; ?></p>
+        <p class="cabinet__like-block--company-address"><?/*= \yii\helpers\StringHelper::truncate($model['descr'], 200)*/?></p>
 
-        <p class="cabinet__like-block--company-views">Количество посетителей
-
-            <span class="views"><?//= $model['views']; ?></span>
-            <!--<span class="date">30 дней:</span>-->
-        </p>
-
+        <div class="cabinet__like-block--company-views">
+            <p>Дата проведения:
+                <span><?/*= $model['dt_event']*/?></span>
+            </p>
+            <p>Добавлено компанией:
+                <span><?/*=  $model['company']->name; */?></span>
+            </p>
+        </div>
 
 
     </div>
 
     <div class="cabinet__pkg-block">
 
-        <?php if($model['status'] == 1): ?>
-            <h3>Акция <span>на модерации</span></h3>
-            <p class="notice">Ваша акция будет
-                опубликована как только пройдет
-                модерацию</p>
-        <?php endif; ?>
-
-        <?php if($model['status'] == 0): ?>
-            <?php// if($model['tariff_id'] == 0): ?>
-                <a href="<?= \yii\helpers\Url::to(['/company/default/set-tariff-company', 'id' => $model['id']])?>" class="show-more">Подключить тариф</a>
-            <?php// else: ?>
-                <p class="cabinet__pkg-block--type">Тариф <?//= //$model['tariff']->name?></p>
-
-                <p class="cabinet__pkg-block--period"><?//= \common\classes\DateFunctions::getTimeCompany($model['dt_end_tariff']); ?></p>
-
-                <a href="<?= \yii\helpers\Url::to(['/company/default/set-tariff-company', 'id' => $model['id']])?>" class="cabinet__like-block--company-edit">сменить тариф</a>
-            <?php// endif; ?>
-
-        <?php endif; ?>
-
-    </div>
 
 
 

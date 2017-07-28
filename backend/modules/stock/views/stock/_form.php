@@ -66,7 +66,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'link')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'status')->dropDownList(['1' => 'Неопубликовано', '0' => 'Опубликовано']) ?>
+    <?= $form->field($model, 'status')->dropDownList(['1' => 'Неопубликовано', '0' => 'Опубликовано', '2' => 'Удалено']) ?>
 
     <?= $form->field($model, 'main')->dropDownList(['1' => 'Да', '0' => 'Нет']) ?>
 
