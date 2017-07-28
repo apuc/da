@@ -28,13 +28,11 @@ if ($exception->statusCode == 404){
                     и ответим на все вопросы</p>-->
                 <a href="#" id="send-error-message" class="show-more">сообщить о битой ссылке</a>
             </div>
-
-            <div class="dev__photo">
-                <img src="/theme/portal-donbassa/img/content/404-banner.png" alt="">
-            </div>
-
+            
             <div class="dev__elements">
-
+                <div class="dev__photo">
+                    <img src="/theme/portal-donbassa/img/content/404-banner.png" alt="">
+                </div>
                 <?= \frontend\widgets\NewsPageError::widget(); ?>
 
                 <?= \frontend\widgets\StockErrorPage::widget(); ?>
