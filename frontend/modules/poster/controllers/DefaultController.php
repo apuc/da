@@ -46,7 +46,7 @@ class DefaultController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['index', 'view', 'category', 'archive_category', 'single_category', 'single_archive_category', 'updposterdt_event', 'updposterdt_event_end', 'more-interested-in', 'interested-in-posters', 'get-more-poster', 'get-more-kino', 'more-poster'],
+                        'actions' => ['index', 'view', 'category', 'archive_category', 'single_category', 'single_archive_category', 'updposterdt_event', 'updposterdt_event_end', 'more-interested-in', 'interested-in-posters', 'get-more-poster', 'get-more-kino', 'more-poster', 'archive'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
