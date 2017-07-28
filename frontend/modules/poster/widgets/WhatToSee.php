@@ -22,7 +22,7 @@ class WhatToSee extends Widget
             ->where(['>=', 'dt_event_end', time()])
             ->andWhere(['`category_poster`.`slug`' => 'kino'])
             ->orderBy('dt_event ASC')
-            ->limit(5)
+            ->limit(4)
             ->all();
         //Debug::prn($posters->createCommand()->rawSql);
 
