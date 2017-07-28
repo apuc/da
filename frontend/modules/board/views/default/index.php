@@ -117,16 +117,21 @@
                 </div>
 
                 <div class="commercial__ads">
-
+                    <?php foreach ($ads as $item): ?>
                     <div class="average-ad-item">
 
                         <a href="#" class="average-ad-item-thumb">
-                            <img src="img/business/single-business1.png" alt="">
+                            <?php if(!empty($item->adsImgs)): ?>
+                                <img src="<?= $item->adsImgs[0]->img_thumb; ?>" alt="">
+                            <?php else: ?>
+                                <img src="http://rub-on.ru/img/no-img.png" alt="">
+                            <?php endif; ?>
                         </a>
 
                         <div class="average-ad-item-content">
 
-                                <span class="average-ad-price">1 500                                    <span class="rubl-icon">
+                                <span class="average-ad-price"><?= number_format($item->price, 0, '.', ' '); ?>
+                                    <span class="rubl-icon">
 										<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 510.127 510.127">
 											<path d="M34.786,428.963h81.158v69.572c0,3.385,1.083,6.156,3.262,8.322c2.173,2.18,4.951,3.27,8.335,3.27h60.502
 												c3.14,0,5.857-1.09,8.152-3.27c2.295-2.166,3.439-4.938,3.439-8.322v-69.572h182.964c3.377,0,6.156-1.076,8.334-3.256
@@ -141,7 +146,7 @@
 										</svg>
 									</span>
                                 </span>
-                            <a href="/ads/router-tp-link-940n-novyj" class="average-ad-title">Роутер Tp link 940n НОВЫЙ</a>
+                            <a href="<?= \yii\helpers\Url::to(['view', 'slug' => $item->slug, 'id' => $item->id]); ?>" class="average-ad-title"><?= $item->title?></a>
                             <p class="average-ad-geo">
                                 <span class="geo-space"></span>
                                 <a class="addressAds" href="/search?regionFilter=21">ДНР</a> |
@@ -154,73 +159,13 @@
                             </div>
                         </div>
                     </div>
+                    <?php endforeach;?>
 
                 </div>
 
             </div>
 
-            <div class="business__sidebar stock" id="commercial-stock-sidebar">
-
-                <h3>Лучшие предложения</h3>
-
-                <a href="#" class="stock__item">
-                    <div class="stock__item_visible">
-                        <div class="thumb">
-                            <img src="img/home-content/stock-pic-1.png" alt="">
-                            <span class="time-icon"></span>
-                        </div>
-                        <div class="stock__item_label">
-                            <p>Грандиозное снижение цен на шкафы - 20%</p>
-                        </div>
-                        <div class="content">
-                            <p> Акция проходит
-                                <small>с 01.01.2017</small>
-                            </p>
-                            <!-- <a href="">подробнее</a>-->
-                        </div>
-
-                    </div>
-                </a>
-
-                <a href="#" class="stock__item">
-                    <div class="stock__item_visible">
-                        <div class="thumb">
-                            <img src="img/home-content/stock-pic-1.png" alt="">
-                            <span class="time-icon"></span>
-                        </div>
-                        <div class="stock__item_label">
-                            <p>Грандиозное снижение цен на шкафы - 20%</p>
-                        </div>
-                        <div class="content">
-                            <p> Акция проходит
-                                <small>с 01.01.2017</small>
-                            </p>
-                            <!-- <a href="">подробнее</a>-->
-                        </div>
-
-                    </div>
-                </a>
-
-                <a href="#" class="stock__item">
-                    <div class="stock__item_visible">
-                        <div class="thumb">
-                            <img src="img/home-content/stock-pic-1.png" alt="">
-                            <span class="time-icon"></span>
-                        </div>
-                        <div class="stock__item_label">
-                            <p>Грандиозное снижение цен на шкафы - 20%</p>
-                        </div>
-                        <div class="content">
-                            <p> Акция проходит
-                                <small>с 01.01.2017</small>
-                            </p>
-                            <!-- <a href="">подробнее</a>-->
-                        </div>
-
-                    </div>
-                </a>
-
-            </div>
+            <?= \frontend\widgets\ShowRightRecommend::widget(); ?>
 
         </div>
 
