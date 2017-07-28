@@ -144,7 +144,7 @@ $(document).ready(function () {
         var lastSelect = selects[selects.length - 1];
         console.log('lastSelect:',lastSelect);
         //$(lastSelect).attr('readonly', false);
-      //  $(lastSelect).removeClass('disabled');
+        $(lastSelect).removeClass('disabled');
     });
 
     $(document).on('click', '.delNewsSelectCateg', function () {
