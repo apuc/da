@@ -5,6 +5,7 @@ use common\classes\DateFunctions;
 use yii\helpers\Url;
 
 $this->title = 'Архив афиш за '.$date;
+$date = strtotime($date);
 ?>
 <section class="afisha-events">
     <div class="container">
@@ -47,8 +48,10 @@ $this->title = 'Архив афиш за '.$date;
                     </a>
                 <?php endforeach; ?>
 
+                <?elseif($date > time()):?>
+                   <?= $this->render('archive_poster_null_future')?>
                 <?else:?>
-                    <h3>В этот день событий не было</h3>
+                   <?= $this->render('archive_poster_null_past')?>
                 <?endif;?>
                 <div class="news__wrap_buttons">
                     <span id="poster_archive" href="#" class="archive-news datepicker-here datepicker-wrap" >архив афиш <span class="rotate-arrow"></span></span>
