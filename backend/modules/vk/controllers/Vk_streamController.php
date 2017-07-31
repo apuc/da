@@ -3,10 +3,13 @@
 namespace backend\modules\vk\controllers;
 
 use common\classes\Debug;
+use common\models\db\VkComments;
 use Yii;
 use backend\modules\vk\models\VkStream;
 use backend\modules\vk\models\VkStreamSearch;
+use yii\helpers\Json;
 use yii\web\Controller;
+use yii\web\JsonResponseFormatter;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -132,5 +135,13 @@ class Vk_streamController extends Controller
         }
 
         //return $this->redirect(['index']);
+    }
+
+    public function actionGetComments()
+    {
+        $comments = VkComments::find()->where(['post_id' => Yii::$app->request->post('id')])->all();
+        if($comments) return Json::encode($comments);
+        else return Json::encode(0);
+
     }
 }
