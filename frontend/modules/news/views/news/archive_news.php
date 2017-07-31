@@ -8,6 +8,7 @@ use yii\helpers\StringHelper;
 use yii\helpers\Url;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
+use common\classes\Debug;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\modules\news\models\NewsSearch */
@@ -43,7 +44,7 @@ $md = new \common\classes\Mobile_Detect();
             </div>-->
         </div>
         <div class="news__wrap">
-
+        <?if($news):?>
             <?php foreach ($news as $new): ?>
                 <!--<div class="news__wrap_item-sm">
                     <div class="thumb">
@@ -87,6 +88,11 @@ $md = new \common\classes\Mobile_Detect();
                 </div>
 
             <?php endforeach; ?>
+            <?elseif(strtotime($date) > time()):?>
+            <?= $this->render('page_not_news_future')?>
+            <?else:?>
+            <?= $this->render('page_not_news_past')?>
+            <?endif;?>
 
             <?= \frontend\widgets\Subscribe::widget() ?>
         </div>

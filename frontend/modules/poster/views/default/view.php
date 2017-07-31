@@ -12,6 +12,30 @@ use yii\helpers\Url;
 
 $this->title = $model->title;
 
+
+$this->registerMetaTag([
+    'name' => 'og:image',
+    'content' => 'http://' . $_SERVER['HTTP_HOST'] . $model->photo,
+]);
+$this->title = $model->meta_title;
+
+$this->registerMetaTag([
+    'name' => 'og:title',
+    'content' => $model->meta_title,
+]);
+$this->registerMetaTag([
+    'name' => 'og:description',
+    'content' => $model->meta_descr,
+]);
+
+$this->registerMetaTag([
+    'name' => 'description',
+    'content' => $model->meta_descr,
+]);
+
+
+
+
 /*$this->registerJsFile('/theme/portal-donbassa/js/countdown.js', ['depends' => [\yii\web\JqueryAsset::className()]]);*/
 /*$this->registerJsFile('/theme/portal-donbassa/js/afisha-countdown.js', ['depends' => [\yii\web\JqueryAsset::className()]]);*/
 $this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
@@ -287,7 +311,7 @@ $this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::clas
 
                     <div class="afisha-content-wrapper__separator"></div>
 
-                    <h3>Цена?</h3>
+                    <h3>Цена:</h3>
 
                     <p><span><?= $model->price; ?></span></p>
                     <div class="afisha-content-wrapper__separator"></div>

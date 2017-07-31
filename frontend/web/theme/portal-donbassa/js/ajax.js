@@ -97,6 +97,15 @@ $(document).ready(function () {
         }
     });
 
+    $('#poster_archive').datepicker({
+        dateFormat: 'yyyy-mm-dd',
+        onSelect: function (formattedDate, date, inst) {
+
+            console.log(formattedDate);
+            window.location.href = '/poster/archive/' + formattedDate;
+        }
+    });
+
     //Загрузить больше популярных афиш в виджете
     $(document).on('click', '.load-more-popular-poster-w', function () {
         var page = $(this).attr('data-page');
@@ -131,6 +140,7 @@ $(document).ready(function () {
 
         $('.selectCateg').each(function (i,e) {
             catIdSelect += $(this).val() + ',';
+            console.log(catIdSelect);
             if(i < selects.length && $(lastSelect).val() != ''){
                 //$(this).attr('disabled', true);
                 //$(this).attr('readonly', true);
@@ -160,13 +170,36 @@ $(document).ready(function () {
     $(document).on('click', '.delselectCateg', function () {
         var elem = $(this).closest('.cabinet__add-company-form--hover-wrapper');
         elem.remove();
-
         var selects = $('.selectCateg');
+        console.log('Selects variable:',selects);
         var lastSelect = selects[selects.length - 1];
+        console.log('lastSelect:',lastSelect);
         //$(lastSelect).attr('readonly', false);
         $(lastSelect).removeClass('disabled');
     });
 
+    $(document).on('click', '.delNewsSelectCateg', function () {
+        var elem = $(this).closest('.cabinet__add-company-form--hover-wrapper');
+        elem.remove();
+        var selects = $('.selectCateg');
+        var lastSelect = selects[selects.length - 1];
+        $('.selectCateg').removeClass('disabled');
+        $('.selectCateg').each(function (i,e) {
+            catIdSelect += $(this).val() + ',';
+        });
+        $.ajax({
+            url: '/ajax/ajax/add-category-select',
+            type: "POST",
+            data: {
+                '_csrf': $("input[name='_csrf']").val(),
+                'catId': catIdSelect
+            },
+            success: function (data) {
+                $('.addSelectCateg').before(data);
+            }
+        });
+        return false;
+    });
 
     $("#news-photo").change(function () {
         readURL(this);

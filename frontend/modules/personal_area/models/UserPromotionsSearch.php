@@ -33,7 +33,8 @@ class UserPromotionsSearch extends Stock
         $query->andWhere([
             'user_id' => $params['user_id'],
         ]);
-
+        $query->andWhere(['in', 'status', [0, 1]]);
+        $query->with('company');
         $query->orderBy('dt_update DESC');
 
         return $dataProvider;

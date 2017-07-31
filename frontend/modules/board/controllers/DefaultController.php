@@ -18,10 +18,10 @@ class DefaultController extends Controller
     public function actionIndex()
     {
 
-        Debug::prn(Yii::$app->request->userIP);
-        Debug::prn($_SERVER);
+        /*Debug::prn(Yii::$app->request->userIP);
+        Debug::prn($_SERVER);*/
 
-       /* $ads = file_get_contents(Yii::$app->params['site-api'] . '/ads/index?limit=2&expand=adsImgs,adsFieldsValues');
+        $ads = file_get_contents(Yii::$app->params['site-api'] . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region');
         $cat = file_get_contents(Yii::$app->params['site-api'] . '/category?parent=0');
 
         return $this->render('index',
@@ -29,7 +29,7 @@ class DefaultController extends Controller
                 'ads' => json_decode($ads),
                 'category' => json_decode($cat),
             ]
-        );*/
+        );
     }
 
     public function actionView($slug, $id)

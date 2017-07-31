@@ -133,4 +133,9 @@ class Company extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id'=> 'user_id']);
     }
 
+    public function getStock()
+    {
+        return $this->hasMany(Stock::className(), ['id' => 'company_id']);
+    }
+
 }

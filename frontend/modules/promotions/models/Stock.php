@@ -66,6 +66,7 @@ class Stock extends \common\models\db\Stock
             $promotion_count[$id] = Stock::find()
                 ->where(['company_id' => $id])
                 ->andWhere(['>', 'dt_add', $date])
+                ->andWhere(['in', 'status', [0,1]])
                 ->count();
         }
 
@@ -104,5 +105,10 @@ class Stock extends \common\models\db\Stock
         if($date_diff->m >= 1) return 1;
         else return 0;
 
+    }
+
+    public function getCompany()
+    {
+        return $this->hasOne(Company::className(), ['id' => 'company_id']);
     }
 }

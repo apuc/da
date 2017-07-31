@@ -21,15 +21,22 @@ use yii\widgets\ActiveForm;
             'enctype' => 'multipart/form-data',
         ],
     ]);
+/*echo"<br><br>result:   <br>";
+var_dump($selectCat[1]);*/
+$fl= 0;
 ?>
 
 <?= $form->field($model, 'slug')->hiddenInput()->label(false); ?>
     <input type="hidden" name="photo" id="" value="<?= $model->photo; ?>">
+
+    <?php   if(!empty($selectCat)):?>
+    <? foreach ($selectCat as $item):?>
+        <? if(count($selectCat) == 1):?>
     <div class="cabinet__add-company-form--wrapper">
         <p class="cabinet__add-company-form--title">Категория</p>
-        <?= Html::dropDownList(
-            'categoryId[]',
-            $selectCat->id,
+        <?php
+        echo Html::dropDownList('categoryId[]',
+            $item->id,
             ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title'),
             ['class' => 'cabinet__add-company-form--field selectCateg', 'prompt' => 'Выберите категорию']
 
@@ -37,8 +44,57 @@ use yii\widgets\ActiveForm;
         <a href="#" class="cabinet__add-pkg addCategAddNewsUser"></a>
         <span class="error_cat"></span>
     </div>
+        <? elseif ($fl == 0):?>
+            <div class="cabinet__add-company-form--wrapper">
+                <p class="cabinet__add-company-form--title">Категория</p>
+                <?php
+                echo Html::dropDownList('categoryId[]',
+                    $item->id,
+                    ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title'),
+                    ['class' => 'cabinet__add-company-form--field selectCateg ', 'prompt' => 'Выберите категорию']
 
+                )?>
+                <a href="#" class="cabinet__add-pkg addCategAddNewsUser"></a>
+                <span class="error_cat"></span>
+            </div>
+      <!--  <?/*elseif ($fl<(count($selectCat)-1)):*/?>
+
+            <div class="cabinet__add-company-form--hover-wrapper">
+                <p class="cabinet__add-company-form--title">Категория</p>
+                <?php
+/*                echo Html::dropDownList('categoryId[]',
+                    $item->id,
+                    ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title'),
+                    ['class' => 'cabinet__add-company-form--field selectCateg', 'prompt' => 'Выберите категорию']
+
+                )*/?>
+                <a href="#" class="cabinet__remove-pkg delselectCateg"></a>
+                <p class="cabinet__add-company-form--notice"></p>
+                <span class="error_cat"></span>
+            </div>-->
+            <?else:?>
+            <div class="cabinet__add-company-form--hover-wrapper">
+                <p class="cabinet__add-company-form--title">Категория</p>
+                <?php
+                echo Html::dropDownList('categoryId[]',
+                    $item->id,
+                    ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title'),
+                    ['class' => 'cabinet__add-company-form--field selectCateg', 'prompt' => 'Выберите категорию']
+
+                )?>
+                <a href="#" class="cabinet__remove-pkg delNewsSelectCateg"></a>
+                <p class="cabinet__add-company-form--notice"></p>
+                <span class="error_cat"></span>
+            </div>
+            <?endif;?>
+        <? $fl+=1; ?>
+
+        <? endforeach; $fl = 0; ?>
     <span class="addSelectCateg"></span>
+    <? endif; ?>
+
+
+
 
     <!--<div class="cabinet__add-company-form--hover-wrapper" data-count="1">
 
@@ -95,5 +151,5 @@ use yii\widgets\ActiveForm;
            ]),*/
     ] )->label(false); ?>
 
-<?= Html::submitButton( $model->isNewRecord ? Yii::t( 'news', 'Create' ) : Yii::t( 'news', 'Update' ), [ 'class' => 'cabinet__add-company-form--submit' ] ) ?>
+<?= Html::submitButton( $model->isNewRecord ? Yii::t( 'news', 'Create' ) : Yii::t( 'news', 'Сохранить' ), [ 'class' => 'cabinet__add-company-form--submit' ] ) ?>
 <?php ActiveForm::end(); ?>

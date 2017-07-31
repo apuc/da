@@ -46,7 +46,7 @@ class DefaultController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['index', 'view', 'category', 'archive_category', 'single_category', 'single_archive_category', 'updposterdt_event', 'updposterdt_event_end', 'more-interested-in', 'interested-in-posters', 'get-more-poster', 'get-more-kino', 'more-poster'],
+                        'actions' => ['index', 'view', 'category', 'archive_category', 'single_category', 'single_archive_category', 'updposterdt_event', 'updposterdt_event_end', 'more-interested-in', 'interested-in-posters', 'get-more-poster', 'get-more-kino', 'more-poster', 'archive'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -322,21 +322,24 @@ class DefaultController extends Controller
 
     public function actionGetMoreKino()
     {
-        $step = Yii::$app->request->post('step');
+        $step = (int)Yii::$app->request->post('step');
+
+        $step = ($step - 1) * 4;
 
         $posters = Poster::find()
             ->joinWith('categories')
-            /*->where(['>', 'dt_event', time()])*/
+            /*->where(['<=', 'dt_event_end', time()])*/
+            ->andWhere(['>=', 'dt_event_end', time()])
             ->andWhere(['`category_poster`.`slug`' => 'kino'])
-            ->orderBy('dt_event DESC')
-            ->limit(5)
-            ->offset(((int)$step - 1) * 5)
+            ->orderBy('dt_event ASC')
+            ->offset($step)
+            ->limit(4)
             ->all();
 
         $data['html'] = $this->renderPartial('more_kino', [
             'posters' => $posters
         ]);
-        $data['last'] = count($posters) < 5 ? 1 : 0;
+        $data['last'] = count($posters) < 4 ? 1 : 0;
         return json_encode($data);
     }
 
@@ -482,5 +485,16 @@ class DefaultController extends Controller
         Poster::updateAll(['status' => 2], ['id' => $id]);
         Yii::$app->session->setFlash('success','Ваша афиша успешно удалена.');
         return $this->redirect('/personal_area/user-poster');
+    }
+
+    public function actionArchive($date)
+    {
+        $date_time = strtotime($date);
+        $model = Poster::find()->where(['>=', 'dt_event_end', $date_time])
+            ->andWhere(['<=', 'dt_event', $date_time])
+            ->andWhere(['status' => 0])
+            ->all();
+        //Debug::prn($model);
+        return $this->render('archive_poster', ['model' => $model, 'date' => $date]);
     }
 }

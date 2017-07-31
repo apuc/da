@@ -16,19 +16,23 @@ if ($exception->statusCode == 404){
             <h1 class="dev__mistake">Ошибка</h1>
             <div class="dev__wrapper">
                 <span class="dev__banner">404</span>
-                <p class="dev__notice">Такой страницы не существует,
+                <p class="dev__notice">
+                    Такой страницы не существует, но вы можете<br />
+                    - вернуться на <a href="/">главную</a><br />
+                    - найти выгодное акционное предложение ниже на странице<br />
+                    - высказать свое мнение об этой ошибке, кликнув по кнопке<br />
+                </p>
+                    <!--Такой страницы не существует,
                     но вы можете вернуься на <a href="/">главную</a>
                     или оставьте заявку ─ мы перезвоним Вам
-                    и ответим на все вопросы</p>
+                    и ответим на все вопросы</p>-->
                 <a href="#" id="send-error-message" class="show-more">сообщить о битой ссылке</a>
             </div>
-
-            <div class="dev__photo">
-                <img src="/theme/portal-donbassa/img/content/404-banner.png" alt="">
-            </div>
-
+            
             <div class="dev__elements">
-
+                <div class="dev__photo">
+                    <img src="/theme/portal-donbassa/img/content/404-banner.png" alt="">
+                </div>
                 <?= \frontend\widgets\NewsPageError::widget(); ?>
 
                 <?= \frontend\widgets\StockErrorPage::widget(); ?>
