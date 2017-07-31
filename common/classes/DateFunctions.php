@@ -8,11 +8,11 @@
 
 namespace common\classes;
 
-
 class DateFunctions
 {
 
-    static function getMonthName($m){
+    static function getMonthName($m)
+    {
         switch ($m) {
             case '01':
                 return "января";
@@ -41,7 +41,8 @@ class DateFunctions
         }
     }
 
-    static function getMonthShortName($m){
+    static function getMonthShortName($m)
+    {
         switch ($m) {
             case '01':
                 return "янв";
@@ -69,28 +70,37 @@ class DateFunctions
                 return "дек";
         }
     }
-    public static function getRealStringDate( $date ) {
+
+    public static function getRealStringDate($date)
+    {
         $today = date('d.m.Y', time());
         $yesterday = date('d.m.Y', time() - 86400);
         $dbDate = date('d.m.Y', strtotime($date));
 
-        switch ($dbDate)
-        {
-            case $today : $output = 'Сегодня в'; break;
-            case $yesterday : $output = 'Вчера в '; break;
-            default : $output = date('d.m',strtotime($dbDate));//date('m.d',$dbDate);
+        switch ($dbDate) {
+            case $today :
+                $output = 'Сегодня в';
+                break;
+            case $yesterday :
+                $output = 'Вчера в ';
+                break;
+            default :
+                $output = date('d.m', strtotime($dbDate));//date('m.d',$dbDate);
         }
         return $output;
     }
 
+    public static function getGetNiceDate($date)
+    {
+        return date('d', $date) . ' ' . static::getMonthShortName(date('m', $date)) . ' ' . date('Y', $date);
+    }
 
     public static function getTimeCompany($date)
     {
-        if($date == 0){
+        if ($date == 0) {
             return 'навсегда';
-        }
-        else{
-            return 'до <span>' . date('d.m.Y', $date) .' (еще '. self::countEndTariff($date) .')</span>';
+        } else {
+            return 'до <span>' . date('d.m.Y', $date) . ' (еще ' . self::countEndTariff($date) . ')</span>';
         }
     }
 

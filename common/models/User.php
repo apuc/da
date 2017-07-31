@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\models\db\Likes;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
@@ -200,5 +201,11 @@ class User extends ActiveRecord implements IdentityInterface
     public static function getList()
     {
         return ArrayHelper::map(self::find()->all(), 'id', 'username');
+    }
+
+    public static function hasLike($type, $id)
+    {
+        $like = Likes::find()->where(['post_type' => $type, 'post_id' => $id, 'user_id' => Yii::$app->user->id]);
+        return $like->count() > 0;
     }
 }

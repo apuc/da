@@ -3,16 +3,16 @@
 namespace backend\modules\vk\controllers;
 
 use Yii;
-use backend\modules\vk\models\VkStream;
-use backend\modules\vk\models\VkStreamSearch;
+use backend\modules\vk\models\VkComments;
+use backend\modules\vk\models\VkCommentsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * Vk_streamController implements the CRUD actions for VkStream model.
+ * Vk_commentsController implements the CRUD actions for VkComments model.
  */
-class Vk_streamController extends Controller
+class Vk_commentsController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class Vk_streamController extends Controller
     }
 
     /**
-     * Lists all VkStream models.
+     * Lists all VkComments models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new VkStreamSearch();
+        $searchModel = new VkCommentsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class Vk_streamController extends Controller
     }
 
     /**
-     * Displays a single VkStream model.
+     * Displays a single VkComments model.
      * @param integer $id
      * @return mixed
      */
@@ -57,13 +57,13 @@ class Vk_streamController extends Controller
     }
 
     /**
-     * Creates a new VkStream model.
+     * Creates a new VkComments model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new VkStream();
+        $model = new VkComments();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -75,7 +75,7 @@ class Vk_streamController extends Controller
     }
 
     /**
-     * Updates an existing VkStream model.
+     * Updates an existing VkComments model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -94,7 +94,7 @@ class Vk_streamController extends Controller
     }
 
     /**
-     * Deletes an existing VkStream model.
+     * Deletes an existing VkComments model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -107,28 +107,18 @@ class Vk_streamController extends Controller
     }
 
     /**
-     * Finds the VkStream model based on its primary key value.
+     * Finds the VkComments model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return VkStream the loaded model
+     * @return VkComments the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = VkStream::findOne($id)) !== null) {
+        if (($model = VkComments::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-    }
-
-    public function actionSetStatus()
-    {
-        if(Yii::$app->request->get('id') !== null){
-            $id = Yii::$app->request->get('id');
-            $status = Yii::$app->request->get('status');
-            \common\models\db\VkStream::updateAll(['status' => $status], ['id' => $id]);
-        }
-        return $this->redirect(['index']);
     }
 }

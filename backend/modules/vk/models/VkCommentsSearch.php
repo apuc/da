@@ -5,12 +5,12 @@ namespace backend\modules\vk\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\modules\vk\models\VkStream;
+use backend\modules\vk\models\VkComments;
 
 /**
- * VkStreamSearch represents the model behind the search form about `backend\modules\vk\models\VkStream`.
+ * VkCommentsSearch represents the model behind the search form about `backend\modules\vk\models\VkComments`.
  */
-class VkStreamSearch extends VkStream
+class VkCommentsSearch extends VkComments
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class VkStreamSearch extends VkStream
     public function rules()
     {
         return [
-            [['id', 'from_id', 'owner_id', 'owner_type', 'dt_add', 'from_type'], 'integer'],
-            [['vk_id', 'post_type', 'text'], 'safe'],
+            [['id', 'from_id', 'owner_id', 'post_id', 'dt_add'], 'integer'],
+            [['vk_id', 'text'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class VkStreamSearch extends VkStream
      */
     public function search($params)
     {
-        $query = VkStream::find();
+        $query = VkComments::find();
 
         // add conditions that should always apply here
 
@@ -62,16 +62,12 @@ class VkStreamSearch extends VkStream
             'id' => $this->id,
             'from_id' => $this->from_id,
             'owner_id' => $this->owner_id,
-            'owner_type' => $this->owner_type,
+            'post_id' => $this->post_id,
             'dt_add' => $this->dt_add,
-            'from_type' => $this->from_type,
         ]);
 
         $query->andFilterWhere(['like', 'vk_id', $this->vk_id])
-            ->andFilterWhere(['like', 'post_type', $this->post_type])
             ->andFilterWhere(['like', 'text', $this->text]);
-
-        $query->orderBy('dt_add DESC');
 
         return $dataProvider;
     }
