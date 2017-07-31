@@ -31,6 +31,7 @@ class CategoryNewsRelations extends \yii\db\ActiveRecord
     {
         return [
             [['cat_id', 'new_id'], 'integer'],
+            [['cat_id'], 'required'],
             [['new_id'], 'exist', 'skipOnError' => true, 'targetClass' => News::className(), 'targetAttribute' => ['new_id' => 'id']],
             [['cat_id'], 'exist', 'skipOnError' => true, 'targetClass' => CategoryNews::className(), 'targetAttribute' => ['cat_id' => 'id']],
         ];
