@@ -16,6 +16,7 @@ use common\models\db\VkGroups;
 use common\models\db\VkPhoto;
 use common\models\db\VkStream;
 use common\models\VK;
+use himiklab\ipgeobase\IpGeoBase;
 use yii\console\Controller;
 
 class VkController extends Controller
@@ -132,8 +133,8 @@ class VkController extends Controller
     {
         $res = $this->vk->getPostComments($ownerId, $postId, ['extended' => 1, 'count' => 100]);
         $res = json_decode($res);
-        if(!empty($res->response->items)){
-            foreach ((array)$res->response->items as $item){
+        if (!empty($res->response->items)) {
+            foreach ((array)$res->response->items as $item) {
                 $comm = new VkComments();
                 $comm->vk_id = $ownerId . '_' . $postId . '_' . $item->id;
                 $comm->from_id = $item->from_id;
@@ -147,6 +148,12 @@ class VkController extends Controller
             }
             $this->saveAuthors($res->response->profiles);
         }
+    }
+
+    public function actionGetGeoBase()
+    {
+        $IpGeoBase = new IpGeoBase();
+        $IpGeoBase->updateDB();
     }
 
 }

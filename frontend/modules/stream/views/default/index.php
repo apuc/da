@@ -2,6 +2,10 @@
 /**
  * @var $model \common\models\db\VkStream
  */
+use common\classes\DateFunctions;
+use common\models\User;
+use frontend\widgets\ShowRightRecommend;
+
 ?>
 
 <section class="parser">
@@ -31,10 +35,10 @@
                     <li><a href="#">ВК <span>1026</span></a></li>
                 </ul>
 
-                <div class="parser__wrapper">
+                <div class="parser__wrapper stream-wrapper">
 
                     <?php foreach ($model as $item): ?>
-                        <div class="parser__element">
+                        <div class="parser__element <?= $item->id ?>">
 
                             <a href="#" class="parser__element--author">
 
@@ -57,7 +61,7 @@
                                     <?php endif; ?>
                                 </div>
 
-                                <span class="date">12 июн в 13:21</span>
+                                <span class="date"><?= DateFunctions::getGetNiceDate($item->dt_add) ?></span>
 
                             </a>
 
@@ -71,9 +75,9 @@
                             <?php if (!empty($item->text)): ?>
 
                                 <p class="parser__element--descr"><?= $item->text ?></p>
-
-                                <a href="#" class="parser__element--more">читать далее</a>
-
+                                <?php if (mb_strlen($item->text) > 131): ?>
+                                    <a href="#" class="parser__element--more">читать далее</a>
+                                <?php endif; ?>
                             <?php endif; ?>
 
                             <?php if (!empty($item->photo)): ?>
@@ -85,12 +89,15 @@
 
                             <div class="parser__element--tools">
 
-                                <a href="#" class="like">
+                                <a href="#" class="like likes <?= User::hasLike('stream', $item->id) ? 'active' : '' ?>"
+                                   csrf-token="<?= Yii::$app->request->getCsrfToken() ?>"
+                                   data-id="<?= $item->id; ?>"
+                                   data-type="stream">
                                     <i class="like-set-icon"></i>
-                                    <span class="like-counter">22</span>
+                                    <span class="like-counter"><?= $item->getLikesCount() ?></span>
                                 </a>
 
-                                <a href="#" class="views">450</a>
+                                <a href="#" class="views"><?= $item->views ?></a>
 
                                 <a href="#" class="comments">
                                     <?= count($item->comments) ?>
@@ -118,56 +125,63 @@
 
                         </div>
                     <?php endforeach; ?>
+                <span class="stream-flag"></span>
+                </div>
+
+                <div class="parser__more">
+
+                    <a href="#"  class="show-more show-more-stream" data-step="1" csrf-token="<?= Yii::$app->request->getCsrfToken() ?>">загрузить еще</a>
 
                 </div>
 
-
             </div>
 
-            <div id="parser-sidebar" class="business__sidebar stock">
+            <?= ShowRightRecommend::widget() ?>
 
-                <h3>что посмотреть?</h3>
-
-                <a href="#" class="business__sm-item">
-
-                    <div class="recommend">
-                        <span class="recommend__star"></span>
-                        Рекомендуем
-                    </div>
-
-                    <div class="business__sm-item--img">
-                        <img src="img/business/business-sm.png" alt="">
-                    </div>
-
-                    <p class="business__sm-item--title">Региональный центр восстановления позвоночника и
-                        реабилитации</p>
-
-                    <!--<p class="business__sm-item&#45;&#45;address">
-                        <span>Адрес:</span>
-                        <span>г. Донецк, проспект Мира, 8а</span>
-                    </p>-->
-
-                    <ul class="business__sm-item--numbers">
-                        <li>+380667778540</li>
-                        <li>+380667778540</li>
-                    </ul>
-
-                    <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->
-                    <p class="business__sm-item--views">569</p>
-
-                </a>
-
-                <h3>оставайся с нами</h3>
-
-                <script type="text/javascript" src="//vk.com/js/api/openapi.js?146"></script>
-
-                <!-- VK Widget -->
-                <div id="vk_groups"></div>
-                <script type="text/javascript">
-                    VK.Widgets.Group("vk_groups", {mode: 3, width: "260", height: "296"}, 20003922);
-                </script>
-
-            </div>
+            <!--<div id="parser-sidebar" class="business__sidebar stock">-->
+            <!---->
+            <!--    <h3>что посмотреть?</h3>-->
+            <!---->
+            <!--    <a href="#" class="business__sm-item">-->
+            <!---->
+            <!--        <div class="recommend">-->
+            <!--            <span class="recommend__star"></span>-->
+            <!--            Рекомендуем-->
+            <!--        </div>-->
+            <!---->
+            <!--        <div class="business__sm-item--img">-->
+            <!--            <img src="img/business/business-sm.png" alt="">-->
+            <!--        </div>-->
+            <!---->
+            <!--        <p class="business__sm-item--title">Региональный центр восстановления позвоночника и-->
+            <!--            реабилитации</p>-->
+            <!---->
+            <!--        <!--<p class="business__sm-item&#45;&#45;address">-->
+            <!--            <span>Адрес:</span>-->
+            <!--            <span>г. Донецк, проспект Мира, 8а</span>-->
+            <!--        </p>-->-->
+            <!---->
+            <!--        <ul class="business__sm-item--numbers">-->
+            <!--            <li>+380667778540</li>-->
+            <!--            <li>+380667778540</li>-->
+            <!--        </ul>-->
+            <!---->
+            <!--        <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->-->
+            <!--        <p class="business__sm-item--views">569</p>-->
+            <!---->
+            <!--    </a>-->
+            <!---->
+            <!--    <h3>оставайся с нами</h3>-->
+            <!---->
+            <!--    <script type="text/javascript" src="//vk.com/js/api/openapi.js?146"></script>-->
+            <!---->
+            <!--    <!-- VK Widget -->-->
+            <!--    <div id="vk_groups"></div>-->
+            <!--    <script type="text/javascript">-->
+            <!--        VK.Widgets.Group("vk_groups", {mode: 3, width: "260", height: "296"}, 20003922);-->
+            <!--    </script>-->
+            <!---->
+            <!--</div>-->
 
         </div>
 

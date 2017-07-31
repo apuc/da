@@ -16,6 +16,9 @@ use Yii;
  * @property string $post_type
  * @property string $text
  * @property integer $from_type
+ * @property integer $status
+ * @property integer $views
+ * @property integer $likes
  */
 class VkStream extends \yii\db\ActiveRecord
 {
@@ -34,7 +37,7 @@ class VkStream extends \yii\db\ActiveRecord
     {
         return [
             [['vk_id'], 'required'],
-            [['from_id', 'owner_id', 'owner_type', 'dt_add', 'from_type'], 'integer'],
+            [['from_id', 'owner_id', 'owner_type', 'dt_add', 'from_type', 'status', 'views', 'likes'], 'integer'],
             [['text'], 'string'],
             [['vk_id', 'post_type'], 'string', 'max' => 255],
         ];
@@ -55,6 +58,9 @@ class VkStream extends \yii\db\ActiveRecord
             'post_type' => 'Post Type',
             'text' => 'Text',
             'from_type' => 'From Type',
+            'status' => 'Статус',
+            'views' => 'Просмотры',
+            'likes' => 'Лайки',
         ];
     }
 
@@ -78,8 +84,19 @@ class VkStream extends \yii\db\ActiveRecord
         return $this->hasOne(VkGroups::className(), ['vk_id' => 'from_id']);
     }
 
+    public function getLikesCount()
+    {
+        return Likes::find()->where(['post_type' => 'stream', 'post_id' => $this->id])->count();
+    }
+
     public static function getPosts($limit = 10, $offset = 0)
     {
-        return self::find()->limit($limit)->offset($offset)->with('photo', 'comments', 'author', 'group')->all();
+        return self::find()
+            ->where(['status' => 1])
+            ->orderBy('dt_add DESC')
+            ->limit($limit)
+            ->offset($offset)
+            ->with('photo', 'comments', 'author', 'group')
+            ->all();
     }
 }

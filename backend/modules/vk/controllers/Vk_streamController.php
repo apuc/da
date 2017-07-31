@@ -121,4 +121,14 @@ class Vk_streamController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function actionSetStatus()
+    {
+        if(Yii::$app->request->get('id') !== null){
+            $id = Yii::$app->request->get('id');
+            $status = Yii::$app->request->get('status');
+            \common\models\db\VkStream::updateAll(['status' => $status], ['id' => $id]);
+        }
+        return $this->redirect(['index']);
+    }
 }

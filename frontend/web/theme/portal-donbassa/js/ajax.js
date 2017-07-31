@@ -21,6 +21,7 @@ $(document).ready(function () {
                 }
             }
         });
+        return false;
     });
 
     $(document).on('click', '.show-more-news-js', function () {
@@ -43,6 +44,27 @@ $(document).ready(function () {
 
         return false;
     })
+
+    $(document).on('click', '.show-more-stream', function (e) {
+        var csrfToken = $(this).attr('csrf-token');
+        var step = $(this).attr('data-step');
+
+        $.ajax({
+            url: '/stream/default/load-more',
+            type: "POST",
+            data: {
+                '_csrf': csrfToken,
+                'step':step
+            },
+            success: function (data) {
+                $('.show-more-stream').attr('data-step', parseInt($('.show-more-stream').attr('data-step') )+ 1);
+                //$('.stream-wrapper').append(data);
+                $(data).insertBefore('.stream-flag');
+
+            }
+        });
+        return false;
+    });
 
     $(document).on('click', '.show-more-category-news-js', function () {
 

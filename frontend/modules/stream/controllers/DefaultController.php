@@ -22,4 +22,14 @@ class DefaultController extends Controller
         //Debug::prn($model);
         return $this->render('index', ['model' => $model]);
     }
+
+    public function actionLoadMore()
+    {
+        if($step = \Yii::$app->request->post('step') !== null){
+            $model = VkStream::getPosts(10, $step * 10);
+            //Debug::prn($model);
+            return $this->renderPartial('more-stream', ['model' => $model]);
+        }
+        return false;
+    }
 }

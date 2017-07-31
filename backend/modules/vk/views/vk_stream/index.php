@@ -25,8 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'vk_id',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    $groupId = $model->owner_id * -1;
-                    $domain = \common\models\db\VkGroups::find()->where(['vk_id' => $groupId])->one();
+                    $domain = \common\models\db\VkGroups::find()->where(['vk_id' => $model->owner_id])->one();
                     if ($domain) {
                         return Html::a('Ссылка',
                             'https://vk.com/' . $domain->domain . '?w=wall' . $model->vk_id,
@@ -54,22 +53,31 @@ $this->params['breadcrumbs'][] = $this->title;
                     $photo = \common\models\db\VkPhoto::find()->where(['post_id' => $model->id])->all();
                     $text = $model->text;
                     $text .= '<div>';
-                    foreach ((array)$photo as $item){
-                        if(!empty($item->photo_807)){
-                            $text .= '<span>' . Html::img($item->photo_807, ['width'=>300]) . '</span>';
-                        }
-                        elseif(!empty($item->photo_604)){
-                            $text .= '<span>' . Html::img($item->photo_604, ['width'=>300]) . '</span>';
-                        }
-                        elseif(!empty($item->photo_130)){
-                            $text .= '<span>' . Html::img($item->photo_130, ['width'=>200]) . '</span>';
-                        }
-                        else {
-                            $text .= '<span>' . Html::img($item->photo_75, ['width'=>200]) . '</span>';
+                    foreach ((array)$photo as $item) {
+                        if (!empty($item->photo_807)) {
+                            $text .= '<span>' . Html::img($item->photo_807, ['width' => 300]) . '</span>';
+                        } elseif (!empty($item->photo_604)) {
+                            $text .= '<span>' . Html::img($item->photo_604, ['width' => 300]) . '</span>';
+                        } elseif (!empty($item->photo_130)) {
+                            $text .= '<span>' . Html::img($item->photo_130, ['width' => 200]) . '</span>';
+                        } else {
+                            $text .= '<span>' . Html::img($item->photo_75, ['width' => 200]) . '</span>';
                         }
                     }
                     $text .= '</div>';
                     return $text;
+                },
+            ],
+            [
+                'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    if($model->status === 0){
+                        return Html::a('Опубликовать', ['/vk/vk_stream/set-status', 'id' => $model->id, 'status' => 1]);
+                    }
+                    if($model->status === 1){
+                        return Html::a('Снять публикацию', ['/vk/vk_stream/set-status', 'id' => $model->id, 'status' => 0]);
+                    }
                 },
             ],
             // 'from_type',
