@@ -4,7 +4,7 @@
  * @var $category
  */
 
-
+\common\classes\Debug::prn($ads);
 ?>
 
 <?php
@@ -149,8 +149,8 @@
                             <a href="<?= \yii\helpers\Url::to(['view', 'slug' => $item->slug, 'id' => $item->id]); ?>" class="average-ad-title"><?= $item->title?></a>
                             <p class="average-ad-geo">
                                 <span class="geo-space"></span>
-                                <a class="addressAds" href="/search?regionFilter=21">ДНР</a> |
-                                <a class="addressAds" href="/search?cityFilter=394">Донецк</a>
+                                <a class="addressAds" href="#"><?= $item['region']->name?></a> |
+                                <a class="addressAds" href="#"><?= $item['city']->name?></a>
                             </p>
                             <div class="bottom-content">
                                 <p class="average-ad-time">10 июля 2017 г. в 6:21</p>
