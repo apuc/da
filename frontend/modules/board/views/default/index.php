@@ -118,6 +118,7 @@
 
                 <div class="commercial__ads">
                     <?php foreach ($ads as $item): ?>
+
                     <div class="average-ad-item">
 
                         <a href="#" class="average-ad-item-thumb">
@@ -149,11 +150,12 @@
                             <a href="<?= \yii\helpers\Url::to(['view', 'slug' => $item->slug, 'id' => $item->id]); ?>" class="average-ad-title"><?= $item->title?></a>
                             <p class="average-ad-geo">
                                 <span class="geo-space"></span>
-                                <a class="addressAds" href="#"><?= $item['region']->name?></a> |
-                                <a class="addressAds" href="#"><?= $item['city']->name?></a>
+                                <a class="addressAds" href="#"><?= $item->region->name?></a> |
+                                <a class="addressAds" href="#"><?= $item->city->name?></a>
                             </p>
                             <div class="bottom-content">
-                                <p class="average-ad-time">10 июля 2017 г. в 6:21</p>
+                                <p class="average-ad-time"><?= \common\classes\DataTime::time($item->dt_update); ?></p>
+
                                 <a href="/obyavleniya/elektronika" class="average-ad-category">Электроника</a>
                                 <span class="separatorListCategory">|</span>                                                                        <a href="/obyavleniya/aksessuaryi-i-komplektuyuschie" class="average-ad-category">Аксессуары и комплектующие</a>
                             </div>
