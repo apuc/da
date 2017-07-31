@@ -73,10 +73,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function ($model) {
                     if($model->status === 0){
-                        return Html::a('Опубликовать', ['/vk/vk_stream/set-status', 'id' => $model->id, 'status' => 1]);
+                        return Html::a('Опубликовать', ['#'], ['data-id' => $model->id, 'data-status' => 1, 'class' => 'publish']);
                     }
                     if($model->status === 1){
-                        return Html::a('Снять публикацию', ['/vk/vk_stream/set-status', 'id' => $model->id, 'status' => 0]);
+                        return Html::a('Снять публикацию', ['#'], ['data-id' => $model->id, 'data-status' => 0, 'class' => 'publish']);
                     }
                 },
             ],

@@ -10,7 +10,33 @@ $(document).ready(function () {
         showMeridian: false
     });
 
+    $(".publish").click(function (e) {
+        e.preventDefault();
 
+        var id = $(this).data('id');
+        var status = $(this).data('status');
+        //var status_reverse = (status == 1) ? 0: 1;
+        var a = $(this);
+        $.ajax({
+            type: 'POST',
+            url: "/secure/vk/vk_stream/set-status",
+            data: {'id':id,'status':status},
+            success: function () {
+
+              if (a.data('status') == 1)
+              {
+                  a.text('Снять публикацию');
+                  console.log();
+              }
+              /*    a.text() = 'Снять публикацию';
+                  a.data('status') = 0;
+              }else {
+                  a.text('Опубликовать');
+                  a.data('status') = 1;
+              }*/
+            }
+        });
+    });
     // $(document).on('change','.itemImg',function(){
     //     var path = $('.itemImg').val();
     //     $('.media__upload_img').html('<img src="' +path + '" width="100px"/> <br>');

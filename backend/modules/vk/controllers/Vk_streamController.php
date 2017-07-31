@@ -2,6 +2,7 @@
 
 namespace backend\modules\vk\controllers;
 
+use common\classes\Debug;
 use Yii;
 use backend\modules\vk\models\VkStream;
 use backend\modules\vk\models\VkStreamSearch;
@@ -124,11 +125,12 @@ class Vk_streamController extends Controller
 
     public function actionSetStatus()
     {
-        if(Yii::$app->request->get('id') !== null){
-            $id = Yii::$app->request->get('id');
-            $status = Yii::$app->request->get('status');
+        if(Yii::$app->request->post('id') !== null){
+            $id = Yii::$app->request->post('id');
+            $status = Yii::$app->request->post('status');
             \common\models\db\VkStream::updateAll(['status' => $status], ['id' => $id]);
         }
-        return $this->redirect(['index']);
+
+        //return $this->redirect(['index']);
     }
 }
