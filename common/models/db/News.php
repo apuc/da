@@ -32,6 +32,7 @@ use Yii;
  */
 class News extends \yii\db\ActiveRecord
 {
+    public $categoryId;
     /**
      * @inheritdoc
      */
@@ -46,7 +47,7 @@ class News extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'content'], 'required'],
+            [['title', 'content', 'categoryId'], 'required'],
             [['content'], 'string'],
             [
                 ['dt_add', 'dt_update', 'status', 'user_id', 'lang_id', 'views', 'exclude_popular', 'rss', 'hot_new', 'show_error'],
@@ -85,6 +86,7 @@ class News extends \yii\db\ActiveRecord
             'author' => Yii::t('news', 'Author'),
             'hot_new' => Yii::t('news', 'Hot new'),
             'show_error' => Yii::t('news', 'Show_error'),
+            'categoryId' => Yii::t('news', 'Category'),
         ];
     }
 

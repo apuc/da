@@ -21,8 +21,7 @@ use yii\widgets\ActiveForm;
             'enctype' => 'multipart/form-data',
         ],
     ]);
-/*echo"<br><br>result:   <br>";
-var_dump($selectCat[1]);*/
+
 $fl= 0;
 ?>
 
@@ -35,12 +34,11 @@ $fl= 0;
     <div class="cabinet__add-company-form--wrapper">
         <p class="cabinet__add-company-form--title">Категория</p>
         <?php
-        echo Html::dropDownList('categoryId[]',
-            $item->id,
-            ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title'),
-            ['class' => 'cabinet__add-company-form--field selectCateg', 'prompt' => 'Выберите категорию']
+        $items= ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title');
+        $param = ['options' =>[ $item->id => ['Selected' => true]],'class' => 'cabinet__add-company-form--field selectCateg', 'prompt' => 'Выберите категорию',];
+        echo $form->field($model, 'categoryId[]')->dropDownList($items, $param)->label(false);
 
-        )?>
+        ?>
         <a href="#" class="cabinet__add-pkg addCategAddNewsUser"></a>
         <span class="error_cat"></span>
     </div>
@@ -48,12 +46,11 @@ $fl= 0;
             <div class="cabinet__add-company-form--wrapper">
                 <p class="cabinet__add-company-form--title">Категория</p>
                 <?php
-                echo Html::dropDownList('categoryId[]',
-                    $item->id,
-                    ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title'),
-                    ['class' => 'cabinet__add-company-form--field selectCateg ', 'prompt' => 'Выберите категорию']
+                $items= ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title');
+                $param = ['options' =>[ $item->id => ['Selected' => true]],'class' => 'cabinet__add-company-form--field selectCateg', 'prompt' => 'Выберите категорию'];
+                echo $form->field($model, 'categoryId[]')->dropDownList($items, $param)->label(false);
 
-                )?>
+               ?>
                 <a href="#" class="cabinet__add-pkg addCategAddNewsUser"></a>
                 <span class="error_cat"></span>
             </div>
@@ -76,12 +73,10 @@ $fl= 0;
             <div class="cabinet__add-company-form--hover-wrapper">
                 <p class="cabinet__add-company-form--title">Категория</p>
                 <?php
-                echo Html::dropDownList('categoryId[]',
-                    $item->id,
-                    ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title'),
-                    ['class' => 'cabinet__add-company-form--field selectCateg', 'prompt' => 'Выберите категорию']
-
-                )?>
+                $items= ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title');
+                $param = ['options' =>[ $item->id => ['Selected' => true]],'class' => 'cabinet__add-company-form--field selectCateg', 'prompt' => 'Выберите категорию'];
+                echo $form->field($model, 'categoryId[]')->dropDownList($items, $param)->label(false);
+                ?>
                 <a href="#" class="cabinet__remove-pkg delNewsSelectCateg"></a>
                 <p class="cabinet__add-company-form--notice"></p>
                 <span class="error_cat"></span>
@@ -93,12 +88,6 @@ $fl= 0;
     <span class="addSelectCateg"></span>
     <? endif; ?>
 
-
-
-
-    <!--<div class="cabinet__add-company-form--hover-wrapper" data-count="1">
-
-    </div>-->
 
     <p class="cabinet__add-company-form--title">Заголовок новости</p>
     <?= $form->field( $model, 'title' )->textInput(['maxlength' => true, 'class' => 'cabinet__add-company-form--field'])->label(false); ?>
@@ -129,15 +118,6 @@ $fl= 0;
         ?>
 
 
-
-
-
-
-
-    <!--<label class="cabinet__add-company-form--add-foto">
-        <span class="button"></span>
-        <input class="input-file" type="file">
-    </label>-->
 
     <div class="cabinet__add-company-form--block"></div>
 

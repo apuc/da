@@ -168,13 +168,12 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '.delselectCateg', function () {
+        var catIdSelect = '';
         var elem = $(this).closest('.cabinet__add-company-form--hover-wrapper');
         elem.remove();
         var selects = $('.selectCateg');
         console.log('Selects variable:',selects);
         var lastSelect = selects[selects.length - 1];
-        console.log('lastSelect:',lastSelect);
-        //$(lastSelect).attr('readonly', false);
         $(lastSelect).removeClass('disabled');
     });
 
