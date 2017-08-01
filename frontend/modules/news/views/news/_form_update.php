@@ -47,7 +47,7 @@ $fl= 0;
                 <p class="cabinet__add-company-form--title">Категория</p>
                 <?php
                 $items= ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title');
-                $param = ['options' =>[ $item->id => ['Selected' => true]],'class' => 'cabinet__add-company-form--field selectCateg', 'prompt' => 'Выберите категорию'];
+                $param = ['options' =>[ $item->id => ['Selected' => true]],'class' => 'cabinet__add-company-form--field selectCateg disabled', 'prompt' => 'Выберите категорию'];
                 echo $form->field($model, 'categoryId[]')->dropDownList($items, $param)->label(false);
 
                ?>
@@ -74,7 +74,7 @@ $fl= 0;
                 <p class="cabinet__add-company-form--title">Категория</p>
                 <?php
                 $items= ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title');
-                $param = ['options' =>[ $item->id => ['Selected' => true]],'class' => 'cabinet__add-company-form--field selectCateg', 'prompt' => 'Выберите категорию'];
+                $param = ['options' =>[ $item->id => ['Selected' => true]],'class' => 'cabinet__add-company-form--field selectCateg disabled', 'prompt' => 'Выберите категорию'];
                 echo $form->field($model, 'categoryId[]')->dropDownList($items, $param)->label(false);
                 ?>
                 <a href="#" class="cabinet__remove-pkg delNewsSelectCateg"></a>
@@ -82,7 +82,7 @@ $fl= 0;
                 <span class="error_cat"></span>
             </div>
             <?endif;?>
-        <? $fl+=1; ?>
+        <? $fl++; ?>
 
         <? endforeach; $fl = 0; ?>
     <span class="addSelectCateg"></span>

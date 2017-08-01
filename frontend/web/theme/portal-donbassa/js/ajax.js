@@ -178,15 +178,18 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '.delNewsSelectCateg', function () {
+        var catIdSelect = '';
         var elem = $(this).closest('.cabinet__add-company-form--hover-wrapper');
         elem.remove();
         var selects = $('.selectCateg');
         var lastSelect = selects[selects.length - 1];
-        $('.selectCateg').removeClass('disabled');
+        var last_select = $('.selectCateg:last');
+       // console.log(last_select);
+        last_select.removeClass('disabled');
         $('.selectCateg').each(function (i,e) {
             catIdSelect += $(this).val() + ',';
         });
-        $.ajax({
+       /* $.ajax({
             url: '/ajax/ajax/add-category-select',
             type: "POST",
             data: {
@@ -196,7 +199,7 @@ $(document).ready(function () {
             success: function (data) {
                 $('.addSelectCateg').before(data);
             }
-        });
+        });*/
         return false;
     });
 
