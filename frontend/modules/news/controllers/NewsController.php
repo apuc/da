@@ -180,6 +180,7 @@ class NewsController extends Controller
 /*
             Debug::prn($model);
             Debug::prn($_FILES);*/
+            //Debug::prn($_POST);
 
 
             $model->status = 1;
@@ -187,14 +188,6 @@ class NewsController extends Controller
             $model->dt_public = $model->dt_update;
             $model->meta_title = $model->title;
             $model->meta_descr =  \yii\helpers\StringHelper::truncate(strip_tags($model->content), 250);
-
-            /*echo "<p>POST array:</p>";
-            var_dump($_POST);
-            echo "<p>POST ['photo']</p>";
-            var_dump($_POST['News']['photo']);
-            echo "<p>FILE array:</p>";
-            var_dump($_FILES);
-            die();*/
 
             if ($_FILES['News']['name']['photo']) {
                 $upphoto = New \common\models\UploadPhoto();
@@ -207,14 +200,12 @@ class NewsController extends Controller
                 $upphoto->upload();
                 $model->photo = '/' . $loc . $_FILES['News']['name']['photo'];
             }
-
+            $model->save();
             /*echo "<p>FILES array for method create:</p>";
             var_dump($_FILES['News']['name']['photo']);
             die();*/
-            $model->save();
-
-            if (!empty(Yii::$app->request->post('categoryId'))) {
-                foreach ($_POST['categoryId'] as $cat) {
+            if (!empty($_POST['News']['categoryId'])) {
+                foreach ($_POST['News']['categoryId'] as $cat) {
                     $catNewRel = new CategoryNewsRelations();
                     $catNewRel->cat_id = $cat;
                     $catNewRel->new_id = $model->id;
@@ -262,6 +253,7 @@ class NewsController extends Controller
      */
     public function actionUpdate($id)
     {
+
         $this->layout = 'personal_area';
         $model = $this->findModel($id);
 
@@ -290,10 +282,10 @@ class NewsController extends Controller
             $model->save();
             $oldSelectCategNews = CategoryNewsRelations::find()->where(['new_id' => $id])->all();
 
-            if (!empty(Yii::$app->request->post('categoryId')) && (!empty($oldSelectCategNews))) {
+            if (!empty($_POST['News']['categoryId']) && (!empty($oldSelectCategNews))) {
 
                 CategoryNewsRelations::deleteAll(['new_id' => $model->id]);
-                foreach ($_POST['categoryId'] as $cat) {
+                foreach ($_POST['News']['categoryId'] as $cat) {
 
                     $catNewRel = new CategoryNewsRelations();
                     $catNewRel->cat_id = $cat;
@@ -301,31 +293,30 @@ class NewsController extends Controller
                     $catNewRel->save();
                 }
             }
+
             Yii::$app->session->setFlash('success','Ваша новость успешно сохранена. После прохождения модерации она будет опубликована.');
             return $this->redirect('/personal_area/default/index');
         }
         else{
+
             $newsPhoto= News::find()->select(['photo'])->where(['id'=>$id])->one();
             $img = $newsPhoto->photo;
             $selectCat_arr = Array();
             $i=0;
             $newsRel_1 = CategoryNewsRelations::find()->where(['new_id' => $id])->all();
-            //var_dump($newsRel_1);
+
             foreach ($newsRel_1 as $item){
                 $selectCat_arr[$i]= CategoryNews::find()->where(['id'=>$item->cat_id])->one();
                 $i++;
             }
-               // echo"select array <br>";
-           // var_dump($selectCat_arr);
-          //  echo "<br>selectCat:<br>";
-
-
             $newsRel=CategoryNewsRelations::find()->where(['new_id'=>$id])->one();
             $selectCat= CategoryNews::find()->where(['id'=>$newsRel->cat_id])->one();
            // var_dump($selectCat);
             return $this->render('update',['model' => $model,'selectCat'=>$selectCat_arr, 'img'=>$img]);
         }
     }
+
+
 
     /**
      * Deletes an existing News model.
