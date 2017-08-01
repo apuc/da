@@ -16,13 +16,6 @@ $form = ActiveForm::begin(
     <?php $items= ArrayHelper::map($category, 'id', 'title');
     $param = ['class' => 'cabinet__add-company-form--field selectCateg', 'prompt' => 'Выберите категорию'];
     echo $form->field($model, 'categoryId[]')->dropDownList($items, $param)->label(false); ?>
-   <!-- --><?/*= Html::dropDownList(
-        'categoryId[]',
-        null,
-        ArrayHelper::map($category, 'id', 'title'),
-        ['class' => 'cabinet__add-company-form--field selectCateg', 'prompt' => 'Выберите категорию']
-
-    )*/?>
     <a href="#" class="cabinet__remove-pkg delselectCateg"></a>
     <p class="cabinet__add-company-form--notice"></p>
 </div>

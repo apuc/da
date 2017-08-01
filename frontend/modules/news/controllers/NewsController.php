@@ -279,7 +279,7 @@ class NewsController extends Controller
 
             $model->save();
             $oldSelectCategNews = CategoryNewsRelations::find()->where(['new_id' => $id])->all();
-            
+
             if (!empty($_POST['News']['categoryId']) && (!empty($oldSelectCategNews))) {
 
                 CategoryNewsRelations::deleteAll(['new_id' => $model->id]);
