@@ -6,6 +6,7 @@ use common\classes\DateFunctions;
 use common\models\User;
 use frontend\widgets\ShowRightRecommend;
 
+$this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
 
 <section class="parser">
@@ -41,7 +42,7 @@ use frontend\widgets\ShowRightRecommend;
                     <?php foreach ($model as $item): ?>
                         <div class="parser__element grid-item <?= $item->id ?>">
 
-                            <a href="<?= \yii\helpers\Url::to('')?>" class="parser__element--author">
+                            <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'id' => $item->id])?>" class="parser__element--author">
 
                                 <div class="avatar">
                                     <?php if (!empty($item->author)): ?>
@@ -126,7 +127,7 @@ use frontend\widgets\ShowRightRecommend;
 
                         </div>
                     <?php endforeach; ?>
-                <span class="stream-flag"></span>
+                <!--<span class="stream-flag"></span>-->
                 </div>
 
                 <div class="parser__more">

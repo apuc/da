@@ -52,6 +52,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function ($model) {
                     $photo = \common\models\db\VkPhoto::find()->where(['post_id' => $model->id])->all();
+                    $text = '';
+
                     if(strlen($model->text) > 200)
                     {
 
@@ -61,9 +63,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         $text .= '<div class="readMore" style="display: none">'.substr($model->text, strlen($string)).'</div>';
                     }
 
-
-
                     $text .= '<div>';
+
                     foreach ((array)$photo as $item) {
                         if (!empty($item->photo_807)) {
                             $text .= '<span>' . Html::img($item->photo_807, ['width' => 300]) . '</span>';

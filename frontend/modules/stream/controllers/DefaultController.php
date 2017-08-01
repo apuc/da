@@ -3,6 +3,7 @@
 namespace frontend\modules\stream\controllers;
 
 use common\classes\Debug;
+use common\models\db\VkComments;
 use common\models\db\VkStream;
 use yii\web\Controller;
 
@@ -35,6 +36,23 @@ class DefaultController extends Controller
 
     public function actionView($id)
     {
-        Debug::prn($id);
+        $model = VkStream::find()->with('comments', 'author', 'group')
+            ->where(['id' => $id])
+            ->one();
+        $model->views += 1;
+        $model->save();
+
+        $interested = VkStream::find()->with('comments', 'author', 'group')
+            ->where(['status' => 1])
+            ->andWhere(['<>', 'id', $id])
+            ->orderBy('dt_add DESC')
+            ->limit(10)
+            ->offset(0)
+            ->all();
+
+        return $this->render('view', [
+            'model' => $model,
+            'interested' => $interested
+        ]);
     }
 }
