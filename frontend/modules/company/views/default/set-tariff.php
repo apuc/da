@@ -35,7 +35,7 @@ $this->title = "Выбор тарифа для компании";
                    class="cabinet__packages--buy">заказать</a>
                 <?else:?>
                 <a  id="buy4" href="#stock4"
-                   class="cabinet__packages--buy">заказать</a>
+                   class="cabinet__packages--buy cabinet__packages--about">заказать</a>
                 <?endif;?>
             </div>
 
