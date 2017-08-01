@@ -1177,12 +1177,13 @@ $(document).ready(function () {
     /*close*/
     
     /*parsr grid*/
-    $('.parser__wrapper').masonry({
-        // options...
-        itemSelector: '.grid-item',        
-        columnWidth: '.grid-sizer'
-    });
-
+    if($('.parser__wrapper').length > 0){
+        $('.parser__wrapper').masonry({
+            // options...
+            itemSelector: '.grid-item',
+            columnWidth: '.grid-sizer'
+        });
+    }
     /*close*/
 });
 
