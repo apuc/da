@@ -10,7 +10,79 @@ $(document).ready(function () {
         showMeridian: false
     });
 
+    $(".more").on('click', function (e) {
+        e.preventDefault();
+        var text = $(this).prev('div').text();
+        text = text.substring(0, text.length - 3);
+        $(this).prev('div').text('');
+        $(this).prev('div').text(text + $(this).next().next(".readMore").text());
+        $(this).next(".closeMore").css('display', '');
+        $(this).css('display', 'none');
+    });
 
+    $(".comments-stream").on('click', function (e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+        var string = '';
+        var date = new Date();
+        $.ajax({
+            type: 'POST',
+            url: "/secure/vk/vk_stream/get-comments",
+            dataType: 'json',
+            data: {'id': id},
+            success: function (html) {
+                $(".content-comments").html('');
+                if(html){
+                    for (comment in html)
+                    {
+                        string += '<tr>';
+                        string += '<td>'+html[comment]['from_id']+'</td>';
+                        string += '<td>'+html[comment]['text']+'</td>';
+                        string += '<td>'+html[comment]['dt_add']+'</td>';
+                        string += '</tr>';
+                    }
+                    $(".content-comments").append(string);
+                }else $(".content-comments").append('<tr><td><h3>Комментариев пока нет..</h3></td></tr>');
+
+                $("#myModal").modal('show');
+            }
+        });
+    });
+
+    $(".closeMore").on('click', function (e) {
+        e.preventDefault();
+        var  i = $(this).next(".readMore").text().length;
+        var text = $(this).prev().prev('div').text();
+        i = $(this).prev().prev('div').text().length - i;
+        $(this).prev().prev('div').text('');
+        $(this).prev().prev('div').text(text.slice(0, i)+'...');
+        $(this).prev().css('display', '');
+        $(this).css('display', 'none');
+    });
+
+    $(".publish").click(function () {
+        var id = $(this).data('id');
+        var status = $(this).data('status');
+        var a = $(this);
+
+        $.ajax({
+            type: 'POST',
+            url: "/secure/vk/vk_stream/set-status",
+            data: {'id':id,'status':status},
+            success: function () {
+
+              if (a.data('status') == 1)
+              {
+                  a.text('Снять публикацию');
+                  a.data('status', 0);
+              }else {
+                  a.text('Опубликовать');
+                  a.data('status' , 1);
+              }
+            }
+        });
+        return false;
+    });
     // $(document).on('change','.itemImg',function(){
     //     var path = $('.itemImg').val();
     //     $('.media__upload_img').html('<img src="' +path + '" width="100px"/> <br>');

@@ -35,10 +35,11 @@ use frontend\widgets\ShowRightRecommend;
                     <li><a href="#">ВК <span>1026</span></a></li>
                 </ul>
 
-                <div class="parser__wrapper stream-wrapper">
+                <div class="parser__wrapper">
+                    <div class="grid-sizer"></div>
 
                     <?php foreach ($model as $item): ?>
-                        <div class="parser__element <?= $item->id ?>">
+                        <div class="parser__element grid-item <?= $item->id ?>">
 
                             <a href="#" class="parser__element--author">
 
@@ -89,7 +90,7 @@ use frontend\widgets\ShowRightRecommend;
 
                             <div class="parser__element--tools">
 
-                                <a href="#" class="like likes <?= User::hasLike('stream', $item->id) ? 'active' : '' ?>"
+                                <a href="#" class="like <?= User::hasLike('stream', $item->id) ? 'active' : '' ?>"
                                    csrf-token="<?= Yii::$app->request->getCsrfToken() ?>"
                                    data-id="<?= $item->id; ?>"
                                    data-type="stream">
