@@ -201,9 +201,7 @@ class NewsController extends Controller
                 $model->photo = '/' . $loc . $_FILES['News']['name']['photo'];
             }
             $model->save();
-            /*echo "<p>FILES array for method create:</p>";
-            var_dump($_FILES['News']['name']['photo']);
-            die();*/
+
             if (!empty($_POST['News']['categoryId'])) {
                 foreach ($_POST['News']['categoryId'] as $cat) {
                     $catNewRel = new CategoryNewsRelations();
@@ -281,7 +279,7 @@ class NewsController extends Controller
 
             $model->save();
             $oldSelectCategNews = CategoryNewsRelations::find()->where(['new_id' => $id])->all();
-
+            
             if (!empty($_POST['News']['categoryId']) && (!empty($oldSelectCategNews))) {
 
                 CategoryNewsRelations::deleteAll(['new_id' => $model->id]);
