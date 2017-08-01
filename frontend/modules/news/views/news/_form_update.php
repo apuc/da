@@ -54,21 +54,18 @@ $fl= 0;
                 <a href="#" class="cabinet__add-pkg addCategAddNewsUser"></a>
                 <span class="error_cat"></span>
             </div>
-      <!--  <?/*elseif ($fl<(count($selectCat)-1)):*/?>
+        <?elseif ($fl == (count($selectCat)-1)):?>
 
             <div class="cabinet__add-company-form--hover-wrapper">
                 <p class="cabinet__add-company-form--title">Категория</p>
                 <?php
-/*                echo Html::dropDownList('categoryId[]',
-                    $item->id,
-                    ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title'),
-                    ['class' => 'cabinet__add-company-form--field selectCateg', 'prompt' => 'Выберите категорию']
-
-                )*/?>
+                $items= ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title');
+                $param = ['options' =>[ $item->id => ['Selected' => true]],'class' => 'cabinet__add-company-form--field selectCateg', 'prompt' => 'Выберите категорию'];
+                echo $form->field($model, 'categoryId[]')->dropDownList($items, $param)->label(false);?>
                 <a href="#" class="cabinet__remove-pkg delselectCateg"></a>
                 <p class="cabinet__add-company-form--notice"></p>
                 <span class="error_cat"></span>
-            </div>-->
+            </div>
             <?else:?>
             <div class="cabinet__add-company-form--hover-wrapper">
                 <p class="cabinet__add-company-form--title">Категория</p>

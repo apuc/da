@@ -3,7 +3,7 @@
  * @var $key_val array
  */
 use yii\helpers\Html;
-
+$this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 <div class="interested_in-form">
     <?= Html::beginForm(['/poster/poster/interested-in'], 'post', ['class' => 'form-horizontal']) ?>
