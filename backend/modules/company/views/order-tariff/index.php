@@ -5,6 +5,9 @@ use yii\jui\DatePicker;
 
 $this->title = 'Заказы компаний на изменения тарифов';
 ?>
+
+<?$this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => \yii\web\JqueryAsset::className()])?>
+
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,

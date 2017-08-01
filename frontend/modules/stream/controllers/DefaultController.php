@@ -32,4 +32,9 @@ class DefaultController extends Controller
         }
         return false;
     }
+
+    public function actionView($id)
+    {
+        Debug::prn($id);
+    }
 }

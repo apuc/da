@@ -73,6 +73,8 @@ class OrderTariffController extends Controller
                 'id' => $request['id']
             ]
         );
+
+        $this->redirect('/secure/company/order-tariff');
     }
 
     public function actionDelete($id)

@@ -41,7 +41,7 @@ use frontend\widgets\ShowRightRecommend;
                     <?php foreach ($model as $item): ?>
                         <div class="parser__element grid-item <?= $item->id ?>">
 
-                            <a href="#" class="parser__element--author">
+                            <a href="<?= \yii\helpers\Url::to('')?>" class="parser__element--author">
 
                                 <div class="avatar">
                                     <?php if (!empty($item->author)): ?>
@@ -159,14 +159,14 @@ use frontend\widgets\ShowRightRecommend;
             <!--        <!--<p class="business__sm-item&#45;&#45;address">-->
             <!--            <span>Адрес:</span>-->
             <!--            <span>г. Донецк, проспект Мира, 8а</span>-->
-            <!--        </p>-->-->
+            <!--        </p>-->
             <!---->
             <!--        <ul class="business__sm-item--numbers">-->
             <!--            <li>+380667778540</li>-->
             <!--            <li>+380667778540</li>-->
             <!--        </ul>-->
             <!---->
-            <!--        <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->-->
+            <!--        <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->
             <!--        <p class="business__sm-item--views">569</p>-->
             <!---->
             <!--    </a>-->
@@ -175,7 +175,7 @@ use frontend\widgets\ShowRightRecommend;
             <!---->
             <!--    <script type="text/javascript" src="//vk.com/js/api/openapi.js?146"></script>-->
             <!---->
-            <!--    <!-- VK Widget -->-->
+            <!--    <!-- VK Widget -->
             <!--    <div id="vk_groups"></div>-->
             <!--    <script type="text/javascript">-->
             <!--        VK.Widgets.Group("vk_groups", {mode: 3, width: "260", height: "296"}, 20003922);-->
