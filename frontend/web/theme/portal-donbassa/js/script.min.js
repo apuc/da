@@ -1175,6 +1175,15 @@ $(document).ready(function () {
         $('.commercial__trigger .commercial__trigger--title').html(listText).attr('data-id', listAttr);
     });
     /*close*/
+    
+    /*parsr grid*/
+    $('.parser__wrapper').masonry({
+        // options...
+        itemSelector: '.grid-item',        
+        columnWidth: '.grid-sizer'
+    });
+
+    /*close*/
 });
 
 $(window).scroll(function () {

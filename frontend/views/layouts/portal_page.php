@@ -184,7 +184,7 @@ AppAsset::register($this);
 <div class="modal-review-success" id="modal-review-success">
 
     <div class="modal-review-success__img">
-        <img src="img/icons/confirm-icon.png" alt="">
+        <img src="/theme/portal-donbassa/img/icons/confirm-icon.png" alt="">
     </div>
 
     <p class="modal-review-success__title">Ваш отзыв будет опубликован после прохождения модерации</p>

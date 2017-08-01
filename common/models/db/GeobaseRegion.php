@@ -27,10 +27,9 @@ class GeobaseRegion extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'name'], 'required'],
+            [['name'], 'required'],
             [['id', 'status'], 'integer'],
             [['name'], 'string', 'max' => 50],
-            [['id'], 'unique'],
         ];
     }
 
