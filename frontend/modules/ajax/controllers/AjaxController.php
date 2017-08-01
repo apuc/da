@@ -14,6 +14,7 @@ use common\models\db\PostsConsulting;
 use common\models\db\PostsDigest;
 use common\models\db\Question;
 use common\models\db\SiteError;
+use common\models\db\News;
 use common\models\db\Subscribe;
 use frontend\widgets\Poll;
 use Yii;
@@ -236,9 +237,10 @@ class AjaxController extends Controller
     public function actionAddCategorySelect()
     {
         $catId = Yii::$app->request->post('catId');
+      //  var_dump($catId);
         $catId = explode(',', $catId);
         array_splice($catId, -1);
-
+        $model = new \frontend\modules\news\models\News();
         $query = CategoryNews::find()
             ->where(['lang_id' => 1]);
         foreach ($catId as $item) {
@@ -246,8 +248,10 @@ class AjaxController extends Controller
         }
 
         $category = $query->all();
+        //echo "<br> Categories ajax: <br>";
+       // var_dump($category);
         if (!empty($category)) {
-            $html = $this->renderPartial('add-select-category', ['category' => $category]);
+            $html = $this->renderPartial('add-select-category', ['category' => $category, 'model' => $model]);
         } else {
             $html = '';
         }

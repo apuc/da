@@ -2,6 +2,7 @@
 
 namespace backend\modules\vk\controllers;
 
+use backend\modules\vk\models\VkAuthors;
 use common\classes\Debug;
 use common\models\db\VkComments;
 use Yii;
@@ -133,13 +134,25 @@ class Vk_streamController extends Controller
             $status = Yii::$app->request->post('status');
             \common\models\db\VkStream::updateAll(['status' => $status], ['id' => $id]);
         }
-
-        //return $this->redirect(['index']);
     }
 
     public function actionGetComments()
     {
-        $comments = VkComments::find()->where(['post_id' => Yii::$app->request->post('id')])->all();
+        $comments = VkComments::find()->with('author')
+            ->where(['post_id' => Yii::$app->request->post('id')])
+            ->asArray()
+            ->orderBy('dt_add')
+            ->all();
+        foreach ($comments as &$comment)
+        {
+            $comment['dt_add'] = date('H:i:s d-m-y ', $comment['dt_add']);
+            if(!$comment['author'])
+            {
+                $comment['author']['name'] = 'Группа';
+                $comment['author']['link'] = 'club'.substr($comment['from_id'], 1, strlen($comment['from_id']));
+            }
+        }
+
         if($comments) return Json::encode($comments);
         else return Json::encode(0);
 

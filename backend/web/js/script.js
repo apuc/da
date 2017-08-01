@@ -20,6 +20,8 @@ $(document).ready(function () {
         $(this).css('display', 'none');
     });
 
+
+
     $(".comments-stream").on('click', function (e) {
         e.preventDefault();
         var id = $(this).data('id');
@@ -33,17 +35,23 @@ $(document).ready(function () {
             success: function (html) {
                 $(".content-comments").html('');
                 if(html){
+
                     for (comment in html)
                     {
+
                         string += '<tr>';
-                        string += '<td>'+html[comment]['from_id']+'</td>';
+                        string += (html[comment]['author'].id)
+                            ? '<td class="col-sm-2"><img src="'+html[comment]['author'].photo+'" class="img-rounded">'
+                            +'<a href="https://vk.com/' + html[comment]['author'].screen_name + '" target="_blank">'
+                            + html[comment]['author'].first_name +' '+ html[comment]['author'].last_name + '</a></img></td>'
+                            :'<td><a href="https://vk.com/'+html[comment]['author'].link+'" target="_blank">'
+                            + html[comment]['author'].name + '</a></td>';
                         string += '<td>'+html[comment]['text']+'</td>';
-                        string += '<td>'+html[comment]['dt_add']+'</td>';
+                        string += '<td class="col-sm-1">'+html[comment]['dt_add']+'</td>';
                         string += '</tr>';
                     }
                     $(".content-comments").append(string);
                 }else $(".content-comments").append('<tr><td><h3>Комментариев пока нет..</h3></td></tr>');
-
                 $("#myModal").modal('show');
             }
         });
