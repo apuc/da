@@ -10,6 +10,7 @@ use yii\grid\GridView;
 $this->title = 'Vk Streams';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?$this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => \yii\web\JqueryAsset::className()])?>
 <div class="vk-stream-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -105,7 +106,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div id="myModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <table class="table">
+            <table class="table table-responsive">
                 <thead>
                 <th>Пользователь</th>
                 <th>Комментарий</th>

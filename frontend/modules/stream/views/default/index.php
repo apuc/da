@@ -136,7 +136,6 @@ use frontend\widgets\ShowRightRecommend;
                 </div>
 
             </div>
-
             <?= ShowRightRecommend::widget() ?>
 
             <!--<div id="parser-sidebar" class="business__sidebar stock">-->
