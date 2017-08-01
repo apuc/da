@@ -4,7 +4,7 @@
  * @var $category
  */
 
-\common\classes\Debug::prn($ads);
+//\common\classes\Debug::prn($ads);
 ?>
 
 <?php
@@ -118,6 +118,8 @@
 
                 <div class="commercial__ads">
                     <?php foreach ($ads as $item): ?>
+                    <?php /*\frontend\modules\board\models\BoardFunction::getCategoryById($item->category_id,[])*/?>
+
 
                     <div class="average-ad-item">
 
@@ -156,8 +158,15 @@
                             <div class="bottom-content">
                                 <p class="average-ad-time"><?= \common\classes\DataTime::time($item->dt_update); ?></p>
 
-                                <a href="/obyavleniya/elektronika" class="average-ad-category">Электроника</a>
-                                <span class="separatorListCategory">|</span>                                                                        <a href="/obyavleniya/aksessuaryi-i-komplektuyuschie" class="average-ad-category">Аксессуары и комплектующие</a>
+                                <?php
+                                $listcat = \frontend\modules\board\models\BoardFunction::getCategoryById($item->category_id,[]);
+                                $listcat = array_reverse($listcat);
+                                $k = 1;
+                                foreach ($listcat as $val): ?>
+                                    <a href="<?= \yii\helpers\Url::toRoute(['/obyavleniya/' . $val->slug]); ?>"
+                                       class="average-ad-category"><?= $val->name; ?></a>
+                                    <?= ($k == count($listcat)) ? '' : '<span class="separatorListCategory">|</span>' ?>
+                                    <?php $k++; endforeach ?>                                                                  <a href="/obyavleniya/aksessuaryi-i-komplektuyuschie" class="average-ad-category">Аксессуары и комплектующие</a>
                             </div>
                         </div>
                     </div>
