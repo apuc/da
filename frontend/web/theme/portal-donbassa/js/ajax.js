@@ -61,8 +61,7 @@ $(document).ready(function () {
             success: function (data) {
                 var res = JSON.parse(data);
                     $('.show-more-stream').attr('data-step', parseInt($('.show-more-stream').attr('data-step') )+ 1);
-                    $("#first-column").append(res.first_column);
-                    $("#second-column").append(res.second_column);
+                    $(".parser__wrapper").append(res.render);
                 if(!res.count) $(".show-more-stream").hide();
             }
         });
