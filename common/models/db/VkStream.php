@@ -99,4 +99,11 @@ class VkStream extends \yii\db\ActiveRecord
             ->with('photo', 'comments', 'author', 'group')
             ->all();
     }
+
+    public static function getPublishedCount()
+    {
+        return self::find()
+            ->where(['status' => 1])
+            ->count();
+    }
 }

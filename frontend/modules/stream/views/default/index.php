@@ -5,7 +5,6 @@
 use common\classes\DateFunctions;
 use common\models\User;
 use frontend\widgets\ShowRightRecommend;
-
 $this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
 
@@ -32,8 +31,8 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii
                 </div>
 
                 <ul class="parser__top-nav">
-                    <li><a href="#">Все материалы <span>4034</span></a></li>
-                    <li><a href="#">ВК <span>1026</span></a></li>
+                    <li><a href="#">Все материалы <span><?= $count?></span></a></li>
+                    <li><a href="#">ВК <span><?= $count?></span></a></li>
                 </ul>
 
                 <div class="parser__wrapper">

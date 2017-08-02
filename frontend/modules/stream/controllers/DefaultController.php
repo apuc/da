@@ -22,7 +22,13 @@ class DefaultController extends Controller
         $model = VkStream::getPosts();
        // Debug::prn($model);
         $result = $this->getColumns($model);
-        return $this->render('index', ['model1' => $result[1], 'model2' => $result[2]]);
+        $count = VkStream::getPublishedCount();
+        return $this->render('index', [
+            'model1' => $result[1],
+            'model2' => $result[2],
+            'count' => $count,
+            'time' => 0
+        ]);
     }
 
     public function actionLoadMore()
@@ -76,5 +82,10 @@ class DefaultController extends Controller
             $i++;
         }
         return $result;
+    }
+
+    public function actionPjax()
+    {
+        return date('H:i:s');
     }
 }
