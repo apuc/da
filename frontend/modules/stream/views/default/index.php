@@ -91,7 +91,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii
 
                             <div class="parser__element--tools">
 
-                                <a href="#" class="like <?= User::hasLike('stream', $item->id) ? 'active' : '' ?>"
+                                <a href="#" class="like likes <?= User::hasLike('stream', $item->id) ? 'active' : '' ?>"
                                    csrf-token="<?= Yii::$app->request->getCsrfToken() ?>"
                                    data-id="<?= $item->id; ?>"
                                    data-type="stream">
@@ -112,11 +112,11 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii
                                 <?php if (!empty($item->comments)): ?>
                                     <?php foreach ($item->comments as $comment): ?>
                                         <div class="avatar">
-                                            <img src="<?= $comment->author->photo ?>" alt="">
+                                            <img src="<?= $comment->author['photo'] ?>" alt="">
                                         </div>
 
                                         <div class="name">
-                                            <?= $comment->author->first_name . ' ' . $comment->author->last_name ?>
+                                            <?= $comment->author['first_name'] . ' ' . $comment->author['last_name'] ?>
                                         </div>
 
                                         <p><?= $comment->text ?></p>
@@ -127,7 +127,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii
 
                         </div>
                     <?php endforeach; ?>
-                <!--<span class="stream-flag"></span>-->
+                <span class="stream-flag"></span>
                 </div>
 
                 <div class="parser__more">

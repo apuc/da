@@ -4,6 +4,7 @@ $(document).ready(function () {
 
         var csrfToken = $(this).attr('csrf-token');
         var elem = $(this);
+
         $.ajax({
             url: '/likes/like',
             type: 'POST',
@@ -13,7 +14,8 @@ $(document).ready(function () {
                 '_csrf': csrfToken,
             },
             success: function (data) {
-                $('.like-counter').html(data);
+                //$('.like-counter').html(data);
+                elem.children('.like-counter').html(data);
                 if(elem.hasClass('active')){
                     elem.removeClass('active');
                 }else{

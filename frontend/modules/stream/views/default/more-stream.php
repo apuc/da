@@ -10,9 +10,8 @@ use common\classes\DateFunctions;
 use common\models\User;
 
 ?>
-
 <?php foreach ($model as $item): ?>
-    <div class="parser__element <?= $item->id ?>">
+    <div class="parser__element grid-item <?= $item->id ?>">
 
         <a href="#" class="parser__element--author">
 

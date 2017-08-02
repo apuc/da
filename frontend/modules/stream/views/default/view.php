@@ -42,6 +42,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii
                         <a href="#" class="parser__element--author">
 
                             <div class="avatar">
+
                                 <?php if (!empty($model->author)): ?>
                                     <img src="<?= $model->author->photo ?>" alt="">
                                 <?php endif; ?>
@@ -81,7 +82,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii
 
                         <div class="parser__element--tools">
 
-                            <a href="#" class="like <?= User::hasLike('stream', $model->id) ? 'active' : '' ?>"
+                            <a href="#" class="like likes <?= User::hasLike('stream', $model->id) ? 'active' : '' ?>"
                                csrf-token="<?= Yii::$app->request->getCsrfToken() ?>"
                                data-id="<?= $model->id; ?>"
                                data-type="stream">
@@ -98,13 +99,12 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii
                         <div class="parser__element--comments-block">
                             <?php if (!empty($model->comments)): ?>
                                 <?php foreach ($model->comments as $comment): ?>
-
                                     <div class="avatar">
-                                        <img src="<?= $comment->author->photo ?>" alt="">
+                                        <img src="<?= $comment->author['photo']?>" alt="">
                                     </div>
 
                                     <div class="name">
-                                        <?= $comment->author->first_name . ' ' . $comment->author->last_name ?>
+                                        <?= $comment->author['first_name'] . ' ' . $comment->author['last_name'] ?>
                                     </div>
 
                                     <p><?= $comment->text ?></p>
@@ -115,7 +115,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii
 
                 </div>
 
-                <h3 class="parser__title">Самое интереснове по теме</h3>
+                <h3 class="parser__title">Самое интересное по теме</h3>
 
                 <div class="parser__wrapper">
                         <div class="grid-sizer"></div>
