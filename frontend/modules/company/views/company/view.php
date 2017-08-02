@@ -183,9 +183,16 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                                 <?php endforeach; ?>
                             <?php endif; ?>
                             <div class="what-say__servises">
-
-                                <a href="#" id="add-review"><span class="comments-icon"></span>Написать свой отзыв</a>
-
+                                <?php if (!Yii::$app->user->isGuest): ?>
+                                    <a href="#" id="add-review"
+                                       data-id="<?= $model->id?>"
+                                       data-name="<?= $model->name?>"
+                                    ><span class="comments-icon"></span>Написать свой отзыв</a>
+                                <?php
+                                    else:
+                                ?>
+                                    <a href="<?= \yii\helpers\Url::to(['/user/login'])?>"><span class="comments-icon"></span>Авторизируйтесь чтобы оставить отзыв</a>
+                                <?php endif; ?>
                                 <!--<form action="" class="business__form">
 
                                     <textarea class="business__form&#45;&#45;textarea" placeholder="Текст сообщения"></textarea>

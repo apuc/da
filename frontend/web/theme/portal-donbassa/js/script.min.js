@@ -1124,6 +1124,10 @@ $(document).ready(function () {
     });    
     /*close*/
 
+    /*parser container*/
+
+    /*close*/
+
     /*show shop toolbar menu*/
     $(document).on('click', '#shop-toolbar-trigger', function () {
         event.preventDefault();
