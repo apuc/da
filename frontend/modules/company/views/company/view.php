@@ -74,15 +74,19 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                             <?= isset($model->getPhones()[1]) ? $model->getPhones()[1] : '' ?>
                         </a>
 
-                        <?php if(isset($services['group_link']) && $services['group_link'] == 1):
+                        <?php /*\common\classes\Debug::prn($socCompany);*/?>
+                        <?php if(isset($services['group_link']) && $services['group_link'] == 1 && !empty($socCompany)):
 
-                            foreach ($typeSeti as $type){
-                            ?>
-                                <a href="<?= $socCompany[$type->id]->link?>" target="_blank" class="social-wrap__item vk">
-                                    <img src="<?= $type->icon ?>" alt="">
-                                </a>
-                            <?php
-                        }
+                                foreach ($typeSeti as $type){
+                                    if(isset($socCompany[$type->id]->link)):
+                                ?>
+                                    <a href="<?= $socCompany[$type->id]->link?>" target="_blank" class="social-wrap__item vk">
+                                        <img src="<?= $type->icon ?>" alt="">
+                                    </a>
+                                <?php
+                                    endif;
+
+                                }
 
                         endif; ?>
                     </div>
