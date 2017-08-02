@@ -85,7 +85,7 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                                     </a>
                                 <?php
                                     endif;
-                                
+
                                 }
 
                         endif; ?>

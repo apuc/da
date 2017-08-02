@@ -283,6 +283,11 @@ $(document).ready(function () {
         });
         return false;
     });
+
+    //Отправка коментария о компании
+    $(document).on('click', '#modal-review-submit', function () {
+        alert(134);
+    });
 })
 
 function readURL(input) {
