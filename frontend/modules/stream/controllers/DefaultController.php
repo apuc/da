@@ -20,17 +20,22 @@ class DefaultController extends Controller
     public function actionIndex()
     {
         $model = VkStream::getPosts();
-        //Debug::prn($model);
+       // Debug::prn($model);
         $result = $this->getColumns($model);
-        return $this->render('index', ['model' => $model]);
+        return $this->render('index', ['model1' => $result[1], 'model2' => $result[2]]);
     }
 
     public function actionLoadMore()
     {
-        if($step = \Yii::$app->request->post('step') !== null){
-            $model = VkStream::getPosts(10, $step * 10);
+        $s = [];
 
-           return $this->renderPartial('more-stream', ['model' => $model]);
+        if($step = \Yii::$app->request->post('step') !== null){
+            $model = VkStream::getPosts(10, \Yii::$app->request->post('step') * 10);
+            $result = $this->getColumns($model);
+            $s['first_column'] = $this->renderPartial('more-stream', ['model' => $result[1]]);
+            $s['second_column'] = $this->renderPartial('more-stream', ['model' => $result[2]]);
+            //Debug::prn($step);
+           return  json_encode($s);
         }
         return false;
     }
@@ -50,11 +55,12 @@ class DefaultController extends Controller
             ->limit(10)
             ->offset(0)
             ->all();
-       // $result = $this->getColumns($interested);
+        $interested = $this->getColumns($interested);
 
         return $this->render('view', [
             'model' => $model,
-            'interested' => $interested
+            'interested1' => $interested[1],
+            'interested2' => $interested[2]
         ]);
     }
 

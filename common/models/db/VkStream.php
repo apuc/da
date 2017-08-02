@@ -93,7 +93,7 @@ class VkStream extends \yii\db\ActiveRecord
     {
         return self::find()
             ->where(['status' => 1])
-            ->orderBy('dt_add DESC')
+            ->orderBy('`vk_stream`.`dt_add` DESC')
             ->limit($limit)
             ->offset($offset)
             ->with('photo', 'comments', 'author', 'group')
