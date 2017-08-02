@@ -46,6 +46,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     return date('Y-m-d H:i', $model->dt_add);
                 },
             ],
+            [
+                'attribute' => 'status',
+                'format' => 'text',
+                'value' => function ($model) {
+                    return ($model->status == 0) ? 'Не опубликован' : 'Опубликован';
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'status', [0 => 'Не опубликован', 1 => 'Опубликован'], ['class' => 'form-control', 'prompt' => '']),
+            ],
             // 'dt_update',
 
             ['class' => 'yii\grid\ActionColumn'],
