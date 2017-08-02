@@ -73,3 +73,10 @@
     background: #179cde url(../theme/portal-donbassa/img/soc/telegram-f.png) no-repeat 50% 50%;
     background-size: 59%;
 }
+
+span.feedback_error {
+    display: block;
+    text-align: center;
+    color: red;
+    font-size: 18px;
+}

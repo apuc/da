@@ -15,6 +15,7 @@ use Yii;
  * @property integer $dt_add
  * @property integer $dt_update
  * @property integer $company_id
+ * @property integer $status
  */
 class CompanyFeedback extends \yii\db\ActiveRecord
 {
@@ -33,7 +34,7 @@ class CompanyFeedback extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'feedback', 'company_id'], 'required'],
-            [['user_id', 'dt_add', 'dt_update', 'company_id'], 'integer'],
+            [['user_id', 'dt_add', 'dt_update', 'company_id', 'status'], 'integer'],
             [['feedback'], 'string'],
             [['company_name'], 'string', 'max' => 255],
         ];
@@ -52,6 +53,7 @@ class CompanyFeedback extends \yii\db\ActiveRecord
             'dt_add' => 'Дата добавления',
             'dt_update' => 'Дата редактирования',
             'company_id' => 'Компания',
+            'status' => 'Статус',
         ];
     }
 

@@ -299,13 +299,12 @@ $(document).ready(function () {
     $(document).on('click', '#modal-review-submit', function (e) {
         var text = $("textarea[name='text_feedback']").val(),
             id = $("input[name='company_id']").val(),
-            name = $("input[name='name']").val();
-        console.log(text);
+            name = $("input[name='company_name']").val();
         if(text != ''){
             e.preventDefault();
             $.ajax({
                 type: 'POST',
-                url: "/mainpage/default/request_stailing/",
+                url: "/company/default/feedback/",
                 data: {
                     '_csrf': $("input[name='_csrf']").val(),
                     'id': id,
@@ -325,10 +324,6 @@ $(document).ready(function () {
             });
             return false;
         }else{
-            $('#modal-review-submit').unbind();
-            $('#modal-review-submit').off();
-            window.stop();
-            e.preventDefault();
             $('.feedback_error').text('Вы не оставили отзыв');
             return false;
         }

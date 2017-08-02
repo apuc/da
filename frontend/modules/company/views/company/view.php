@@ -137,14 +137,14 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                                     <div class="business__reviews--item">
 
                                         <div class="business__reviews--avatar">
-                                            <img src="img/home-content/what-say-1.png" alt="">
+                                            <?= \common\classes\UserFunction::getUser_avatar_html($item['user']->id); ?>
                                         </div>
 
                                         <div class="descr">
 
-                                            <span class="date"><?= date('H:i d-m-Y') ?></span>
+                                            <span class="date"><?= date('H:i d-m-Y', $item->dt_add) ?></span>
 
-                                            <h3><?= $model->name ?></h3>
+                                            <h3><?= \common\classes\UserFunction::getUserName($item['user']->id) ?></h3>
 
                                             <!--<p><?/*= $model->meta_descr */?></p>-->
 
@@ -152,33 +152,12 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
 
                                         </div>
 
-                                        <div class="links">
+                                        <!--<div class="links">
 
                                             <a href="#" class="links__more">Читать весь отзыв</a>
 
-                                            <!--<a href="" class="social-wrap__item vk">
-                                                <img src="img/soc/vk.png" alt="">
-                                            </a>
-                                            <a href="" class="social-wrap__item fb">
-                                                <img src="img/soc/fb.png" alt="">
-                                            </a>
-                                            <a href="" class="social-wrap__item ok">
-                                                <img src="img/soc/ok-icon.png" alt="">
-                                            </a>
-                                            <a href="" class="social-wrap__item insta">
-                                                <img src="img/soc/insta-icon.png" alt="">
-                                            </a>
-                                            <a href="" class="social-wrap__item twitter">
-                                                <img src="img/soc/twi-icon.png" alt="">
-                                            </a>
-                                            <a href="" class="social-wrap__item google">
-                                                <img src="img/soc/google-icon.png" alt="">
-                                            </a>
-                                            <a href="" class="social-wrap__item pinterest">
-                                                <img src="img/soc/pinter-icon.png" alt="">
-                                            </a>-->
 
-                                        </div>
+                                        </div>-->
                                     </div>
                                 <?php endforeach; ?>
                             <?php endif; ?>
