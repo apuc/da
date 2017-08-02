@@ -291,9 +291,51 @@ $(document).ready(function () {
         return false;
     });
 
+    //Получение данных о компани и передача их в форму для отправки коментария
+    $(document).on('click', '#add-review', function () {
+        var id = $(this).attr('data-id'),
+            name = $(this).attr('data-name');
+        $("input[name='company_name']").val(name);
+        $("input[name='company_id']").val(id);
+
+    });
     //Отправка коментария о компании
-    $(document).on('click', '#modal-review-submit', function () {
-        alert(134);
+    $(document).on('click', '#modal-review-submit', function (e) {
+        var text = $("textarea[name='text_feedback']").val(),
+            id = $("input[name='company_id']").val(),
+            name = $("input[name='name']").val();
+        console.log(text);
+        if(text != ''){
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: "/mainpage/default/request_stailing/",
+                data: {
+                    '_csrf': $("input[name='_csrf']").val(),
+                    'id': id,
+                    'name' : name,
+                    'text' : text
+                },
+                success: function (data) {
+                    //console.log(data);
+                    /*$('.form').html(data);*/
+                    $('#modal-review').animate({opacity: 0}, 200,
+                        function () {
+                            $(this).css('display', 'none');
+                            $('#modal-review-success').css('display', 'block').animate({opacity: 1}, 200);
+                        }
+                    );
+                }
+            });
+            return false;
+        }else{
+            $('#modal-review-submit').unbind();
+            $('#modal-review-submit').off();
+            window.stop();
+            e.preventDefault();
+            $('.feedback_error').text('Вы не оставили отзыв');
+            return false;
+        }
     });
 })
 

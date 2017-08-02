@@ -60,10 +60,12 @@
 
         <p>Ваш отзыв</p>
 
-        <textarea class="modal-review__textarea" placeholder="Текст сообщения"></textarea>
+        <textarea class="modal-review__textarea" name="text_feedback" maxlength="1000" placeholder="Текст сообщения"></textarea>
 
+        <input type="hidden" name="company_name">
+        <input type="hidden" name="company_id">
         <input id="modal-review-submit" class="show-more" type="submit" value="отправить">
-
+        <span class="feedback_error"></span>
     </form>
 
 </div>
