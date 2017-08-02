@@ -29,13 +29,15 @@ class DefaultController extends Controller
     {
         $s = [];
 
-        if($step = \Yii::$app->request->post('step') !== null){
+        if(\Yii::$app->request->post('step') !== null){
             $model = VkStream::getPosts(10, \Yii::$app->request->post('step') * 10);
-            $result = $this->getColumns($model);
-            $s['first_column'] = $this->renderPartial('more-stream', ['model' => $result[1]]);
-            $s['second_column'] = $this->renderPartial('more-stream', ['model' => $result[2]]);
-            //Debug::prn($step);
-           return  json_encode($s);
+                $result = $this->getColumns($model);
+                $s['first_column'] = $this->renderPartial('more-stream', ['model' => $result[1]]);
+                $s['second_column'] = $this->renderPartial('more-stream', ['model' => $result[2]]);
+                $s['count'] = (count($model) < 10) ? 0 : 1;
+                //Debug::prn($step);
+                return  json_encode($s);
+
         }
         return false;
     }

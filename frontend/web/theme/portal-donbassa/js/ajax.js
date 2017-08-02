@@ -59,15 +59,11 @@ $(document).ready(function () {
                 'step':step
             },
             success: function (data) {
-                //console.log(data);
                 var res = JSON.parse(data);
-                $('.show-more-stream').attr('data-step', parseInt($('.show-more-stream').attr('data-step') )+ 1);
-                //$('.stream-wrapper').append(data);
-                //$(data).insertBefore('.stream-flag');
-                //console.log(res);
-                $("#first-column").append(res.first_column);
-                $("#second-column").append(res.second_column);
-
+                    $('.show-more-stream').attr('data-step', parseInt($('.show-more-stream').attr('data-step') )+ 1);
+                    $("#first-column").append(res.first_column);
+                    $("#second-column").append(res.second_column);
+                if(!res.count) $(".show-more-stream").hide();
             }
         });
         return false;
