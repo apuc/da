@@ -22,6 +22,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'company_name')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'status')->dropDownList(['0' => 'Не опубликовано', '1' => 'Опубликовано']) ?>
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Добавить' : 'Редактировать', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

@@ -20,7 +20,7 @@
 
     </ul>
 
-    <div class="header-menu__sub">
+    <!--<div class="header-menu__sub">
 
         <button class="header-menu__sub_button">
             <span></span>
@@ -35,5 +35,5 @@
             <li><a href="">Пункт4</a></li>
             <li><a href="">Пункт5</a></li>
         </ul>
-    </div>
+    </div>-->
 </nav>

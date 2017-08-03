@@ -64,8 +64,8 @@
 
         <input type="hidden" name="company_name">
         <input type="hidden" name="company_id">
-        <input id="modal-review-submit" class="show-more" type="submit" value="отправить">
         <span class="feedback_error"></span>
+        <input id="modal-review-submit" class="show-more" type="submit" value="отправить">
     </form>
 
 </div>

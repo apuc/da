@@ -18,7 +18,7 @@ class CompanyFeedbackSearch extends CompanyFeedback
     public function rules()
     {
         return [
-            [['id', 'user_id', 'dt_add', 'dt_update', 'company_id'], 'integer'],
+            [['id', 'user_id', 'dt_add', 'dt_update', 'company_id', 'status'], 'integer'],
             [['company_name', 'feedback'], 'safe'],
         ];
     }
@@ -63,6 +63,7 @@ class CompanyFeedbackSearch extends CompanyFeedback
             'user_id' => $this->user_id,
             'dt_add' => $this->dt_add,
             'dt_update' => $this->dt_update,
+            'status' => $this->status,
         ]);
 
         $query->andFilterWhere(['like', 'company_name', $this->company_name])

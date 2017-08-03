@@ -484,7 +484,7 @@ $(document).ready(function () {
             }
         );
     });
-    $(document).on('click', '#modal-review-submit', function (event) {
+   /* $(document).on('click', '#modal-review-submit', function (event) {
         event.preventDefault();
         $('#modal-review').animate({opacity: 0}, 200,
             function () {
@@ -492,7 +492,7 @@ $(document).ready(function () {
                 $('#modal-review-success').css('display', 'block').animate({opacity: 1}, 200);
             }
         );
-    });
+    });*/
     $(document).on('click', '#black-overlay', function () {
         $('#modal-review-success').animate({opacity: 0}, 200,
             function () {
