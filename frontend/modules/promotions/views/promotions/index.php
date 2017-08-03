@@ -14,13 +14,19 @@ $this->registerJsFile('/js/stock.js', ['depends' => [\yii\web\JqueryAsset::class
             <h3 class="business__title">Акции</h3>
             <div class="stock__content business__single-content">
                 <?php
+                $k = 1;
                 foreach ($stock as $item):  ?>
-                    <?php if($item->recommended == 1):?>
+                    <?php if(in_array($k, $placeStock)):?>
                         <div class="stock__big-item stockBlock" data-id="<?= $item->id; ?>">
                             <div class="stock__sm-item--header">
                                 <?php
-
-                                ?>
+                                if($item->recommended == 1 ):
+                                    ?>
+                                    <div class="recommend">
+                                        <span class="recommend__star"></span>
+                                        Рекомендуем
+                                    </div>
+                                <?php endif; ?>
                                 <a href="<?= \yii\helpers\Url::to(['/company/company/view', 'slug' => $item['company']->slug] ); ?>" class="title"><?= $item['company']->name ?></a>
                                 <a href="#" class="like likes <?= User::hasLike('stock', $item->id) ? 'active' : '' ?>"
                                    csrf-token="<?= Yii::$app->request->getCsrfToken() ?>"
@@ -35,7 +41,7 @@ $this->registerJsFile('/js/stock.js', ['depends' => [\yii\web\JqueryAsset::class
                             </a>
                             <a href="<?= $item->link ?>" target="_blank" class="stock__sm-item--descr stockView">
                                 <p><?= $item->short_descr ?></p>
-                                <span class="views">3 000</span>
+                                <span class="views"><?= $item->view; ?></span>
                             </a>
                             <a href="<?= $item->link ?>" target="_blank"  class="stock__sm-item--time stockView">
                                 <p><?= $item->dt_event ?></p>
@@ -43,6 +49,14 @@ $this->registerJsFile('/js/stock.js', ['depends' => [\yii\web\JqueryAsset::class
                         </div>
                     <?php else:?>
                         <div class="stock__sm-item stockBlock" data-id="<?= $item->id; ?>">
+                            <?php
+                                if($item->recommended == 1 ):
+                            ?>
+                                <div class="recommend">
+                                    <span class="recommend__star"></span>
+                                    Рекомендуем
+                                </div>
+                            <?php endif; ?>
                             <div class="stock__sm-item--header">
                                 <a href="<?= \yii\helpers\Url::to(['/company/company/view', 'slug' => $item['company']->slug] ); ?>" class="title"><?= $item['company']->name ?></a>
                                 <a href="#" class="like likes <?= User::hasLike('stock', $item->id) ? 'active' : '' ?>"
@@ -65,7 +79,7 @@ $this->registerJsFile('/js/stock.js', ['depends' => [\yii\web\JqueryAsset::class
                             </a>
                         </div>
                     <?php endif; ?>
-                <?php endforeach; ?>
+                <?php $k++; endforeach; ?>
 
                 <div class="news__wrap_buttons">
                     <a href=""

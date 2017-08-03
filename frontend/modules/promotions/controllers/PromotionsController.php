@@ -49,9 +49,10 @@ class PromotionsController extends Controller
             ->limit(9)
             ->with('company')
             ->all();
-
+        $placeStock = [2, 6, 7];
         return $this->render('index', [
             'stock' => $stock,
+            'placeStock' => $placeStock
         ]);
     }
 
@@ -66,9 +67,10 @@ class PromotionsController extends Controller
             ->limit(9)
             ->with('company')
             ->all();
-
+        $placeStock = [2, 6, 7];
         return $this->renderPartial('read-more', [
             'stock' => $stock,
+            'placeStock' => $placeStock
         ]);
     }
 
