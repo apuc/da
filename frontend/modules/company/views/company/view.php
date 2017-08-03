@@ -97,7 +97,7 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                 <ul class="business__tab-links">
                     <li class="tab"><a href="#about-company" class="active">О компании</a></li>
                     <li class="tab"><a href="#reviews">Отзывы</a></li>
-                    <li class="tab"><a href="#stock">Акции</a></li>
+                    <li class="tab"><a href="#stocks">Акции</a></li>
                 </ul>
 
 
@@ -183,187 +183,32 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                             </div>
                         </div>
                     </div>
-
-
-                    <div id="stocks" class="business__tab-content--wrapper">
-
-                       <div class="stock__sm-item">
-
-                            <div class="stock__sm-item--img">
-
-                                <span class="views">3 000 просмотров</span>
-
-                                <img src="img/business/stock1-img.png" alt="">
-
-                            </div>
-
-                            <div class="stock__sm-item--descr">
-
-                                <p>Скидка до 40% на лазерную эпиляцию</p>
-
-                            </div>
-
-                            <div class="stock__sm-item--time">
-
-                                <p>Акция проходит с 01.01.2017 до 28.02.2017.</p>
-
-                            </div>
-
+                    
+                    <div class="business__tab-content--wrapper" id="stocks">
+                        <h3 class="section-title">Наши акции</h3>
+                        <div class="business__stocks--box">
+                        <?php if (!empty($stock)): ?>
+                            <?php foreach ($stock as $item): ?>
+                                <div class="stock__sm-item">
+                                    <div class="stock__sm-item--img">
+                                        <span class="views"><?= $item->view?> просмотров</span>
+                                        <img src="<?= $item->photo ?>" alt="">
+                                    </div>
+                                    <div class="stock__sm-item--descr">
+                                        <p><?= $item->title ?></p>
+                                    </div>
+                                    <div class="stock__sm-item--time">
+                                        <p><?= $item->dt_event ?></p>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                         </div>
-
-                        <!--<div class="stock__big-item">
-
-                           <div class="stock__big-item--img">
-
-                               <span class="views">3 000 просмотров</span>
-
-                               <img src="img/business/stock1-img.png" alt="">
-
-                           </div>
-
-                           <div class="stock__big-item--descr">
-
-                               <p>Скидка до 40% на лазерную эпиляцию</p>
-
-                           </div>
-
-                           <div class="stock__big-item--time">
-
-                               <p>Акция проходит с 01.01.2017 до 28.02.2017.</p>
-
-                           </div>
-
-                       </div>
-
-                       <div class="stock__sm-item">
-
-                           <div class="stock__sm-item--img">
-
-                               <span class="views">3 000 просмотров</span>
-
-                               <img src="img/business/stock1-img.png" alt="">
-
-                           </div>
-
-                           <div class="stock__sm-item--descr">
-
-                               <p>Скидка до 40% на лазерную эпиляцию</p>
-
-                           </div>
-
-                           <div class="stock__sm-item--time">
-
-                               <p>Акция проходит с 01.01.2017 до 28.02.2017.</p>
-
-                           </div>
-
-                       </div>
-
-                       <div class="stock__big-item">
-
-                           <div class="stock__big-item--img">
-
-                               <span class="views">3 000 просмотров</span>
-
-                               <img src="img/business/stock1-img.png" alt="">
-
-                           </div>
-
-                           <div class="stock__big-item--descr">
-
-                               <p>Скидка до 40% на лазерную эпиляцию</p>
-
-                           </div>
-
-                           <div class="stock__big-item--time">
-
-                               <p>Акция проходит с 01.01.2017 до 28.02.2017.</p>
-
-                           </div>
-
-                       </div>
-
-                       <div class="stock__sm-item">
-
-                           <div class="stock__sm-item--img">
-
-                               <span class="views">3 000 просмотров</span>
-
-                               <img src="img/business/stock1-img.png" alt="">
-
-                           </div>
-
-                           <div class="stock__sm-item--descr">
-
-                               <p>Скидка до 40% на лазерную эпиляцию</p>
-
-                           </div>
-
-                           <div class="stock__sm-item--time">
-
-                               <p>Акция проходит с 01.01.2017 до 28.02.2017.</p>
-
-                           </div>
-
-                       </div>
-
-                       <div class="stock__sm-item">
-
-                           <div class="stock__sm-item--img">
-
-                               <span class="views">3 000 просмотров</span>
-
-                               <img src="img/business/stock1-img.png" alt="">
-
-                           </div>
-
-                           <div class="stock__sm-item--descr">
-
-                               <p>Скидка до 40% на лазерную эпиляцию</p>
-
-                           </div>
-
-                           <div class="stock__sm-item--time">
-
-                               <p>Акция проходит с 01.01.2017 до 28.02.2017.</p>
-
-                           </div>
-
-                       </div>-->
-
                     </div>
-
                 </div>
 
 
-                <?php if (!empty($stock)): ?>
-                    <div class="business__stocks" id="stock">
 
-                        <h3 class="section-title">Наши акции</h3>
-
-                        <div class="separator"></div>
-
-                        <div class="business__stocks--box">
-
-                            <?php foreach ($stock as $item): ?>
-
-                                <div class="business__stocks--item">
-
-                                    <div class="business__stocks--img">
-                                        <img src="<?= $item->photo ?>" alt="">
-                                    </div>
-
-                                    <p><?= $item->title ?></p>
-                                    <p><?= $item->dt_event ?></p>
-
-                                </div>
-
-                            <?php endforeach; ?>
-
-                        </div>
-
-                    </div>
-                <?php endif; ?>
 
 
 
