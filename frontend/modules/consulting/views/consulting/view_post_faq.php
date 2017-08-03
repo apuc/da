@@ -33,7 +33,7 @@ $this->registerMetaTag([
             ]); ?>
         </div>
         <div class="search"><input type="text" placeholder="Поиск">
-            <button>Найти</button>
+            <button class="search-consulting-post">Найти</button>
         </div>
         <article id="article">
             <h2><?= $post->question; ?></h2>

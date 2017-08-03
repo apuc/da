@@ -40,6 +40,22 @@ $(document).ready(function () {
        }
     });
 
+    $(document).on('click', '.search-consulting-post', function () {
+       // console.log('aaa');
+       var q = $(this).prev().val();
+        $.ajax({
+            url: '/consulting/consulting/search-post',
+            type: "get",
+            data: {
+                'q':q
+            },
+            success: function (data) {
+                $('.laws').html('');
+                $('.laws').append(data);
+            }
+        });
+    });
+
     $(document).on('click', '.show-more-news-js', function () {
 
         var csrfToken = $(this).attr('csrf-token');
