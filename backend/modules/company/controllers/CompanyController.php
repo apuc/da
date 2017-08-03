@@ -8,7 +8,10 @@ use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
 use common\models\db\CompanyPhoto;
 use common\models\db\KeyValue;
+use common\models\db\Services;
+use common\models\db\ServicesCompanyRelations;
 use common\models\db\Stock;
+use common\models\db\TariffServicesRelations;
 use Yii;
 use backend\modules\company\models\Company;
 use backend\modules\company\models\CompanySearch;
@@ -86,16 +89,22 @@ class CompanyController extends Controller
 
         //Debug::prn($_POST);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             /*$model->user_id = Yii::$app->user->getId();*/
             /*$model->save();*/
+            //Debug::prn($model->tariff_id);
+            //Debug::prn(Yii::$app->request->post());
+            if(!$model->setTariff()) $model->save();
+
             $cats_ids = explode(',', $_POST['cats']);
             foreach ($cats_ids as $cats_id) {
                 $catCompanyRel = new CategoryCompanyRelations();
                 $catCompanyRel->cat_id = $cats_id;
                 $catCompanyRel->company_id = $model->id;
                 $catCompanyRel->save();
+
             }
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -119,7 +128,18 @@ class CompanyController extends Controller
         $companyPhotos = ArrayHelper::getColumn($companyPhotos, 'photo');
         $companyPhotosStr = implode(',', $companyPhotos);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            if($model->tariff_id)
+            {
+                ServicesCompanyRelations::deleteAll(['company_id' => $model->id]);
+                $model->setTariff();
+            }else{
+                $model->tariff_id = 0;
+                $model->dt_end_tariff = 0;
+                $model->save();
+            }
+
             CompanyPhoto::deleteAll(['company_id' => $model->id]);
 
             if(Yii::$app->request->post('company-photos'))
@@ -237,6 +257,14 @@ class CompanyController extends Controller
     public function actionUploadFile()
     {
 
+    }
+
+    public function actionGetServices()
+    {
+        return $this->renderPartial('checkbox-services', [
+            'model' => Services::find()->asArray()->all()
+        ]);
+        //Debug::prn();
     }
 
 }

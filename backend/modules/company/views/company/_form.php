@@ -11,12 +11,14 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+use yii\jui\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model backend\modules\company\models\Company */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $companyPhotos array */
 /* @var $companyPhotosStr string */
+$this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
 
 <div class="company-form">
@@ -79,7 +81,52 @@ use yii\widgets\ActiveForm;
     ]);
     ?>
 
+    <?= $form->field($model, 'tariff_id')->dropDownList(
+        ArrayHelper::map(\common\models\db\Tariff::find()->all(), 'id','name'),
+        ['prompt' => 'Выберите тариф']) ?>
 
+    <div class="set-services-of-tariff">
+        <?if($model->tariff_id == 4):?>
+            <? $serviceChecked = \common\models\db\ServicesCompanyRelations::find()->where(['company_id' => $model->id])
+                ->asArray()
+                ->all()?>
+            <? $checked = ArrayHelper::getColumn($serviceChecked, 'services_id')?>
+            <? $services = \common\models\db\Services::find()->asArray()->all() ?>
+
+            <?foreach ($services as $service):?>
+                <div class="checkbox">
+                    <label><input type="checkbox" name="services[][services_id]" value="<?= $service['id']?>"
+                        <?if (in_array($service['id'], $checked)):?>
+                            checked
+                        <?endif;?>
+                        ><?= $service['name']?></label>
+                </div>
+                <?endforeach;?>
+        <?endif;?>
+    </div>
+
+    <?php if (Yii::$app->controller->action->id === 'create'): ?>
+    <?= DatePicker::widget([
+        //'model' => $model,
+        'name' => 'dt_end_tariff',
+        'id' => 'dt_end_tariff',
+        'attribute' => 'from_date',
+        'language' => 'ru',
+        'dateFormat' => 'dd-MM-yyyy',
+    ]);
+    ?>
+        <?else:?>
+        <?= DatePicker::widget([
+            //'model' => $model,
+            'name' => 'dt_end_tariff',
+            'id' => 'dt_end_tariff',
+            'attribute' => 'from_date',
+            'language' => 'ru',
+            'value' => $model->dt_end_tariff,
+            'dateFormat' => 'dd-MM-yyyy',
+        ]);
+        ?>
+<?endif;?>
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>

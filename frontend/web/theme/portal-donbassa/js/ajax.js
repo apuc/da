@@ -26,6 +26,20 @@ $(document).ready(function () {
         return false;
     });
 
+    $(document).on('change', '#company-tariff_id', function () {
+        $('.set-services-of-tariff').html('')
+       if($(this).val() == 4)
+       {
+           $.ajax({
+               url: '/secure/company/company/get-services',
+               type: "get",
+               success: function (data) {
+                   $('.set-services-of-tariff').append(data);
+               }
+           });
+       }
+    });
+
     $(document).on('click', '.show-more-news-js', function () {
 
         var csrfToken = $(this).attr('csrf-token');
