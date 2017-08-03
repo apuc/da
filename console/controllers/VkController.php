@@ -81,7 +81,7 @@ class VkController extends Controller
                         $photo->vk_post_id = $item->id;
                         $photo->post_id = $postId ?: 0;
                         $photo->comment_id = $commentId ?: 0;
-                        $photo->owner_id = $item->owner_id;
+                        $photo->owner_id = isset($item->owner_id) ? $item->owner_id : 0;
                         $photo->vk_user_id = $item->from_id;
                         $photo->access_key = $attachment->photo->access_key;
                         $photo->photo_75 = isset($attachment->photo->photo_75) ? $attachment->photo->photo_75 : '';
