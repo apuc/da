@@ -5,7 +5,9 @@
 use common\classes\DateFunctions;
 use common\models\User;
 use frontend\widgets\ShowRightRecommend;
+
 $this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii\web\JqueryAsset::className()]);
+$this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
 
 <section class="parser">
@@ -20,7 +22,8 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii
 
                 <div class="parser__top-counter">
 
-                    <a href="#">Показать <span class="counter">89</span> новых записи</a>
+                    <a href="<?= \yii\helpers\Url::to(['/stream/default'])?>">Показать
+                        <span class="counter counter-stream-new" data-count="<?= $count?>" csrf-token="<?= Yii::$app->request->getCsrfToken() ?>">0</span> новых записи</a>
 
                 </div>
 
@@ -32,7 +35,8 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii
 
                 <ul class="parser__top-nav">
                     <li><a href="#">Все материалы <span><?= $count?></span></a></li>
-                    <li><a href="#">ВК <span><?= $count?></span></a></li>
+                    <li><a href="<?= \yii\helpers\Url::to(['/stream/default'])?>">ВК
+                            <span><?=$count?></span></a></li>
                 </ul>
 
                 <div class="parser__wrapper">

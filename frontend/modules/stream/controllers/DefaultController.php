@@ -6,12 +6,20 @@ use common\classes\Debug;
 use common\models\db\VkComments;
 use common\models\db\VkStream;
 use yii\web\Controller;
+use yii\web\Cookie;
 
 /**
  * Default controller for the `stream` module
  */
 class DefaultController extends Controller
 {
+    public function beforeAction($action)
+    {
+       if($action == 'get-new-post')
+           $this->enableCsrfValidation = false ;
+       return true;
+    }
+
     /**
      * Renders the index view for the module
      * @return string
@@ -22,26 +30,33 @@ class DefaultController extends Controller
         $model = VkStream::getPosts();
        // Debug::prn($model);
         //$result = $this->getColumns($model);
+
+        //Debug::prn($max_id);
         $count = VkStream::getPublishedCount();
+        $this->setPublishedCount();
+
         return $this->render('index', [
             'model' => $model,
             'count' => $count,
-            'time' => 0
+            'newCount' => 0
         ]);
     }
 
     public function actionLoadMore()
     {
-
         if(\Yii::$app->request->post('step') !== null){
-            $model = VkStream::getPosts(10, \Yii::$app->request->post('step') * 10);
-               /* $result = $this->getColumns($model);
+            $models = VkStream::getPosts(10, \Yii::$app->request->post('step') * 10);
+               /*$result = $this->getColumns($model);
                 $s['first_column'] = $this->renderPartial('more-stream', ['model' => $result[1]]);
                 $s['second_column'] = $this->renderPartial('more-stream', ['model' => $result[2]]);
-                $s['count'] = (count($model) < 10) ? 0 : 1;*/
-                //Debug::prn($step);
-                $result['render'] = $this->renderPartial('more-stream', ['model' => $model]);
-                $result['count'] = (count($model) < 10) ? 0 : 1;
+                $s['count'] = (count($model) < 10) ? 0 : 1;
+                //Debug::prn($step);*/
+               foreach ($models as $model)
+               {
+                   $result['render'][] = $this->renderPartial('more-stream', ['item' => $model]);
+               }
+
+                $result['count'] = (count($models) < 10) ? 0 : 1;
                 return  json_encode($result);
 
         }
@@ -64,12 +79,13 @@ class DefaultController extends Controller
             ->offset(0)
             ->all();
         //$interested = $this->getColumns($interested);
-        $count = VkStream::getPublishedCount();
+        //$count = VkStream::getPublishedCount();
+        $this->setPublishedCount();
 
         return $this->render('view', [
             'model' => $model,
             'interested' => $interested,
-            'count' => $count
+            'count' => VkStream::getPublishedCount()
         ]);
     }
 
@@ -85,8 +101,19 @@ class DefaultController extends Controller
         return $result;
     }
 
-    public function actionPjax()
+    public function actionGetNewPost()
     {
-        return date('H:i:s');
+        $countNew = VkStream::getPublishedCount() - \Yii::$app->request->post('count');
+
+        return ($countNew > 0) ? $countNew : 0 ;
+    }
+
+    public function setPublishedCount()
+    {
+        $count = VkStream::getPublishedCount();
+        \Yii::$app->response->cookies->add(new Cookie([
+            'name' => 'count',
+            'value' => $count
+        ]));
     }
 }

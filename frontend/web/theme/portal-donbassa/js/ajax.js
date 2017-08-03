@@ -50,7 +50,7 @@ $(document).ready(function () {
     $(document).on('click', '.show-more-stream', function (e) {
         var csrfToken = $(this).attr('csrf-token');
         var step = $(this).attr('data-step');
-
+        //console.log($(".parser__wrapper").css('height').slice(0, -2) > 1850);
         $.ajax({
             url: '/stream/default/load-more',
             type: "POST",
@@ -61,7 +61,12 @@ $(document).ready(function () {
             success: function (data) {
                 var res = JSON.parse(data);
                     $('.show-more-stream').attr('data-step', parseInt($('.show-more-stream').attr('data-step') )+ 1);
-                    $(".parser__wrapper").append(res.render);
+                    for (result in res.render)
+                    {
+                        $(".parser__wrapper").append(res.render[result]);
+                        //console.log(res.render[result]);
+                    }
+                    //$(".parser__wrapper").append(res.render);
                 if(!res.count) $(".show-more-stream").hide();
             }
         });
