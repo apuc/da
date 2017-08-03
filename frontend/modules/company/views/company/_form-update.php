@@ -138,7 +138,7 @@ echo Html::dropDownList(
                                 <img src="<?= $type->icon ?>" alt="">
                             </span>
                     <span class="social-name"><?= $type->name; ?></span>
-                    <input type="text" value="<?= $socCompany[$type->id]->link?>" name="socicon[<?= $type->id?>][]" class="social-way">
+                    <input type="text" value="<?= !empty($socCompany[$type->id]->link) ? $socCompany[$type->id]->link : ''?>" name="socicon[<?= $type->id?>][]" class="social-way">
                 </div>
                 <?php
             }

@@ -5,7 +5,7 @@
 use common\classes\DateFunctions;
 use common\models\User;
 use frontend\widgets\ShowRightRecommend;
-
+$this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
 
 <section class="parser">
@@ -31,16 +31,17 @@ use frontend\widgets\ShowRightRecommend;
                 </div>
 
                 <ul class="parser__top-nav">
-                    <li><a href="#">Все материалы <span>4034</span></a></li>
-                    <li><a href="#">ВК <span>1026</span></a></li>
+                    <li><a href="#">Все материалы <span><?= $count?></span></a></li>
+                    <li><a href="#">ВК <span><?= $count?></span></a></li>
                 </ul>
 
-                <div class="parser__wrapper stream-wrapper">
+                <div class="parser__wrapper">
 
-                    <?php foreach ($model as $item): ?>
+
+                        <?php foreach ($model as $item): ?>
                         <div class="parser__element <?= $item->id ?>">
 
-                            <a href="#" class="parser__element--author">
+                            <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'id' => $item->id])?>" class="parser__element--author">
 
                                 <div class="avatar">
                                     <?php if (!empty($item->author)): ?>
@@ -110,11 +111,11 @@ use frontend\widgets\ShowRightRecommend;
                                 <?php if (!empty($item->comments)): ?>
                                     <?php foreach ($item->comments as $comment): ?>
                                         <div class="avatar">
-                                            <img src="<?= $comment->author->photo ?>" alt="">
+                                            <img src="<?= $comment->author['photo'] ?>" alt="">
                                         </div>
 
                                         <div class="name">
-                                            <?= $comment->author->first_name . ' ' . $comment->author->last_name ?>
+                                            <?= $comment->author['first_name'] . ' ' . $comment->author['last_name'] ?>
                                         </div>
 
                                         <p><?= $comment->text ?></p>
@@ -125,7 +126,9 @@ use frontend\widgets\ShowRightRecommend;
 
                         </div>
                     <?php endforeach; ?>
-                <span class="stream-flag"></span>
+
+
+              <!--  <span class="stream-flag"></span>-->
                 </div>
 
                 <div class="parser__more">
@@ -135,7 +138,6 @@ use frontend\widgets\ShowRightRecommend;
                 </div>
 
             </div>
-
             <?= ShowRightRecommend::widget() ?>
 
             <!--<div id="parser-sidebar" class="business__sidebar stock">-->
@@ -159,14 +161,14 @@ use frontend\widgets\ShowRightRecommend;
             <!--        <!--<p class="business__sm-item&#45;&#45;address">-->
             <!--            <span>Адрес:</span>-->
             <!--            <span>г. Донецк, проспект Мира, 8а</span>-->
-            <!--        </p>-->-->
+            <!--        </p>-->
             <!---->
             <!--        <ul class="business__sm-item--numbers">-->
             <!--            <li>+380667778540</li>-->
             <!--            <li>+380667778540</li>-->
             <!--        </ul>-->
             <!---->
-            <!--        <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->-->
+            <!--        <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->
             <!--        <p class="business__sm-item--views">569</p>-->
             <!---->
             <!--    </a>-->
@@ -175,7 +177,7 @@ use frontend\widgets\ShowRightRecommend;
             <!---->
             <!--    <script type="text/javascript" src="//vk.com/js/api/openapi.js?146"></script>-->
             <!---->
-            <!--    <!-- VK Widget -->-->
+            <!--    <!-- VK Widget -->
             <!--    <div id="vk_groups"></div>-->
             <!--    <script type="text/javascript">-->
             <!--        VK.Widgets.Group("vk_groups", {mode: 3, width: "260", height: "296"}, 20003922);-->

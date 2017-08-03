@@ -10,6 +10,7 @@ use yii\grid\GridView;
 $this->title = 'Vk Streams';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?$this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => \yii\web\JqueryAsset::className()])?>
 <div class="vk-stream-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -51,8 +52,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function ($model) {
                     $photo = \common\models\db\VkPhoto::find()->where(['post_id' => $model->id])->all();
-                    $text = $model->text;
+                    $text = '';
+
+                    if(strlen($model->text) > 200)
+                    {
+
+                        $string = mb_substr($model->text, 0, 200);
+                        $text = '<div>'.$string.'...</div>'.Html::a('Читать далее',['#'], ['class' => 'more']).
+                                Html::a('Скрыть',['#'], ['class' => 'closeMore', 'style' => 'display: none']);
+                        $text .= '<div class="readMore" style="display: none">'.substr($model->text, strlen($string)).'</div>';
+                    }
+
                     $text .= '<div>';
+
                     foreach ((array)$photo as $item) {
                         if (!empty($item->photo_807)) {
                             $text .= '<span>' . Html::img($item->photo_807, ['width' => 300]) . '</span>';
@@ -73,16 +85,37 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function ($model) {
                     if($model->status === 0){
-                        return Html::a('Опубликовать', ['/vk/vk_stream/set-status', 'id' => $model->id, 'status' => 1]);
+                        return Html::a('Опубликовать', ['#'], ['data-id' => $model->id, 'data-status' => 1, 'class' => 'publish']);
                     }
                     if($model->status === 1){
-                        return Html::a('Снять публикацию', ['/vk/vk_stream/set-status', 'id' => $model->id, 'status' => 0]);
+                        return Html::a('Снять публикацию', ['#'], ['data-id' => $model->id, 'data-status' => 0, 'class' => 'publish']);
                     }
                 },
             ],
-            // 'from_type',
+            [
+                'attribute' => 'Comments',
+                'format' => 'raw',
+                'value' => function($model){
+                    return Html::a('Комментарии', ['#'], ['class' => 'comments-stream', 'data-id' => $model->id]);
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+</div>
+<div id="myModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <table class="table table-responsive">
+                <thead>
+                <th>Пользователь</th>
+                <th>Комментарий</th>
+                <th>Дата</th>
+                </thead>
+                <tbody class="content-comments">
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

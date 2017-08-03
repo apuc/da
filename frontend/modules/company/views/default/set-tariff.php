@@ -23,9 +23,20 @@ $this->title = "Выбор тарифа для компании";
 
                 <p>ХОТИТЕ УЗНАТЬ
                     <a href="#stock<?= $item->id; ?>" class="cabinet__packages--about">ПОДРОБНЕЕ?</a></p>
-
-                <a href="#" class="cabinet__packages--buy">заказать</a>
-
+                <?if($item->id != 4):?>
+                <a href="<?= \yii\helpers\Url::to(
+                    [
+                        '/company/default/to-order',
+                        'companyId' => Yii::$app->request->get('id'),
+                        'tariffId' => $item->id,
+                        'price' => $item->price,
+                    ])
+                ?>"
+                   class="cabinet__packages--buy">заказать</a>
+                <?else:?>
+                <a  id="buy4" href="#stock4"
+                   class="cabinet__packages--buy cabinet__packages--about">заказать</a>
+                <?endif;?>
             </div>
 
         <?php $count++; endforeach; ?>

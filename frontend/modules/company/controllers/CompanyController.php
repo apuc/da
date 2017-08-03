@@ -146,7 +146,8 @@ class CompanyController extends Controller
             return $this->redirect(['site/error']);
         }
         $stoke = Stock::find()->where(['company_id' => $model->id])->limit(3)->all();
-        $feedback = CompanyFeedback::find()->where(['company_id' => $model->id])->with('user')->all();
+        $feedback = CompanyFeedback::find()->where(['company_id' => $model->id, 'status' => 1])->with('user')->all();
+        //Debug::prn($feedback);
         $img = CompanyPhoto::findAll(['company_id' => $model->id]);
         $model->updateCounters(['views' => 1 ]);
         $services = [];

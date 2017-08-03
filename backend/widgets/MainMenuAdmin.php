@@ -2,6 +2,7 @@
 namespace backend\widgets;
 
 use backend\modules\comments\models\Comments;
+use backend\modules\company_feedback\models\CompanyFeedback;
 use backend\modules\site_error\models\SiteError;
 use common\classes\CompanyFunction;
 use common\classes\UserFunction;
@@ -23,6 +24,7 @@ class MainMenuAdmin extends Widget
         $countPoster = Poster::find()->where(['status' => 1])->count();
         $countError = SiteError::find()->count();
         $countPromotions = Stock::find()->where(['status' => 1])->count();
+        $countFeedback = CompanyFeedback::find()->where(['status' => 0])->count();
 
         echo \yii\widgets\Menu::widget(
             [
@@ -175,6 +177,7 @@ class MainMenuAdmin extends Widget
                                 'label' => 'Отзывы',
                                 'url' => Url::to(['/company_feedback/company_feedback']),
                                 'active' => Yii::$app->controller->module->id === 'company_feedback',
+                                'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-blue">' . $countFeedback . '</small></span></a>',
                             ],
                             [
                                 'label' => 'Популярные акции',
@@ -200,6 +203,7 @@ class MainMenuAdmin extends Widget
                                       <span class="pull-right-container">
                                           <small class="label pull-right bg-yellow">'. $CompanyTariffOrderCount .'</small>
                                           <span class="label bg-red pull-right">'. $companyCountModer .'</span>
+                                          <small class="label pull-right bg-blue">' . $countFeedback . '</small>
                                       </span>  
                             </a>',
                     ],

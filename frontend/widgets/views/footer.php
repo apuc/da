@@ -47,3 +47,40 @@
     </form>
 
 </div>
+
+<div class="modal-review" id="modal-review">
+
+    <h3 class="modal-review__title">Добавить отзыв</h3>
+
+    <p class="modal-review__subtitle">Будьте правдивы. Пишите и хорошее, и плохое, но ничего не выдумывайте.</p>
+
+    <div class="separator"></div>
+
+    <form action="" class="modal-review__form">
+
+        <p>Ваш отзыв</p>
+
+        <textarea class="modal-review__textarea" name="text_feedback" maxlength="1000" placeholder="Текст сообщения"></textarea>
+
+        <input type="hidden" name="company_name">
+        <input type="hidden" name="company_id">
+        <span class="feedback_error"></span>
+        <input id="modal-review-submit" class="show-more" type="submit" value="отправить">
+    </form>
+
+</div>
+
+<div class="modal-review-success" id="modal-review-success">
+
+    <div class="modal-review-success__img">
+        <img src="/theme/portal-donbassa/img/icons/confirm-icon.png" alt="">
+    </div>
+
+    <p class="modal-review-success__title">Ваш отзыв будет опубликован после прохождения модерации</p>
+
+    <p class="modal-review-success__notice">Пишите только сами!</p>
+
+    <p class="modal-review-success__moder">Автоматическая проверка находит любые копии и рерайты,
+        автор блокируется навсегда.</p>
+
+</div>

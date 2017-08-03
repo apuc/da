@@ -120,6 +120,21 @@ class CompanyController extends Controller
         $companyPhotosStr = implode(',', $companyPhotos);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            CompanyPhoto::deleteAll(['company_id' => $model->id]);
+
+            if(Yii::$app->request->post('company-photos'))
+            {
+                $compPhotos = explode(',', Yii::$app->request->post('company-photos'));
+
+                foreach ($compPhotos as $compPhoto)
+                {
+                    $company_photo = New CompanyPhoto();
+                    $company_photo->company_id = $model->id;
+                    $company_photo->photo = $compPhoto;
+                    $company_photo->save();
+                }
+            }
+
             CategoryCompanyRelations::deleteAll(['company_id' => $model->id]);
             $cats_ids = explode(',', $_POST['cats']);
             foreach ($cats_ids as $cats_id) {

@@ -10,11 +10,10 @@ use common\classes\DateFunctions;
 use common\models\User;
 
 ?>
-
 <?php foreach ($model as $item): ?>
     <div class="parser__element <?= $item->id ?>">
 
-        <a href="#" class="parser__element--author">
+        <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'id' => $item->id])?>" class="parser__element--author">
 
             <div class="avatar">
                 <?php if (!empty($item->author)): ?>

@@ -30,11 +30,10 @@ class GeobaseCity extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'name', 'region_id', 'latitude', 'longitude'], 'required'],
+            [['name', 'region_id', 'latitude', 'longitude'], 'required'],
             [['id', 'region_id', 'status'], 'integer'],
             [['latitude', 'longitude'], 'number'],
             [['name'], 'string', 'max' => 50],
-            [['id'], 'unique'],
         ];
     }
 

@@ -74,15 +74,19 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                             <?= isset($model->getPhones()[1]) ? $model->getPhones()[1] : '' ?>
                         </a>
 
-                        <?php if(isset($services['group_link']) && $services['group_link'] == 1):
+                        <?php /*\common\classes\Debug::prn($socCompany);*/?>
+                        <?php if(isset($services['group_link']) && $services['group_link'] == 1 && !empty($socCompany)):
 
-                            foreach ($typeSeti as $type){
-                            ?>
-                                <a href="<?= $socCompany[$type->id]->link?>" target="_blank" class="social-wrap__item vk">
-                                    <img src="<?= $type->icon ?>" alt="">
-                                </a>
-                            <?php
-                        }
+                                foreach ($typeSeti as $type){
+                                    if(isset($socCompany[$type->id]->link)):
+                                ?>
+                                    <a href="<?= $socCompany[$type->id]->link?>" target="_blank" class="social-wrap__item vk">
+                                        <img src="<?= $type->icon ?>" alt="">
+                                    </a>
+                                <?php
+                                    endif;
+
+                                }
 
                         endif; ?>
                     </div>
@@ -90,33 +94,248 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
 
                 </div>
 
-                <ul class="business__scroll-links">
-                    <li><a href="#about" class="businessScroll">О компании</a></li>
-                    <li><a href="#reviews" class="businessScroll">Отзывы</a></li>
-                    <li><a href="#stock" class="businessScroll">Акции</a></li>
+                <ul class="business__tab-links">
+                    <li class="tab"><a href="#about-company" class="active">О компании</a></li>
+                    <li class="tab"><a href="#reviews">Отзывы</a></li>
+                    <li class="tab"><a href="#stock">Акции</a></li>
                 </ul>
 
-                <?php if (!empty($img)): ?>
-                    <div class="business__photos">
 
-                        <?php foreach ($img as $item): ?>
+                <div class="business__tab-content">
 
-                            <a href="<?= $item->photo ?>" data-fancybox="gallery" class="business__photos--slide">
-                                <img src="<?= $item->photo ?>" alt="">
-                            </a>
+                    <div id="about-company" class="business__tab-content--wrapper">
 
-                        <?php endforeach; ?>
+                        <?php if (!empty($img)): ?>
+                            <div class="business__photos">
+
+                                <?php foreach ($img as $item): ?>
+
+                                    <a href="<?= $item->photo ?>" data-fancybox="gallery" class="business__photos--slide">
+                                        <img src="<?= $item->photo ?>" alt="">
+                                    </a>
+
+                                <?php endforeach; ?>
+
+                            </div>
+                        <?php endif; ?>
+
+                        <div class="business__descr">
+                            <?php if(isset($services['count_text']) && $services['count_text'] != '-'):?>
+                                <?= \yii\helpers\StringHelper::truncate($model->descr, $services['count_text']); ?>
+                            <?php else: ?>
+                                <?= $model->descr; ?>
+                            <?php endif; ?>
+                        </div>
 
                     </div>
-                <?php endif; ?>
 
-                <div class="business__descr" id="about">
-                    <?php if(isset($services['count_text']) && $services['count_text'] != '-'):?>
-                        <?= \yii\helpers\StringHelper::truncate($model->descr, $services['count_text']); ?>
-                    <?php else: ?>
-                        <?= $model->descr; ?>
-                    <?php endif; ?>
+                    <div id="reviews" class="business__tab-content--wrapper">
+                        <div class="business__reviews">
+                            <?php if (!empty($feedback)): ?>
+
+                                <?php foreach ($feedback as $item): ?>
+                                    <div class="business__reviews--item">
+
+                                        <div class="business__reviews--avatar">
+                                            <?= \common\classes\UserFunction::getUser_avatar_html($item['user']->id); ?>
+                                        </div>
+
+                                        <div class="descr">
+
+                                            <span class="date"><?= date('H:i d-m-Y', $item->dt_add) ?></span>
+
+                                            <h3><?= \common\classes\UserFunction::getUserName($item['user']->id) ?></h3>
+
+                                            <!--<p><?/*= $model->meta_descr */?></p>-->
+
+                                            <p class="full"><?= $item->feedback ?></p>
+
+                                        </div>
+
+                                        <!--<div class="links">
+
+                                            <a href="#" class="links__more">Читать весь отзыв</a>
+
+
+                                        </div>-->
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                            <div class="what-say__servises">
+                                <?php if (!Yii::$app->user->isGuest): ?>
+                                    <a href="#" id="add-review"
+                                       data-id="<?= $model->id?>"
+                                       data-name="<?= $model->name?>"
+                                    ><span class="comments-icon"></span>Написать свой отзыв</a>
+                                <?php
+                                    else:
+                                ?>
+                                    <a href="<?= \yii\helpers\Url::to(['/user/login'])?>"><span class="comments-icon"></span>Авторизируйтесь чтобы оставить отзыв</a>
+                                <?php endif; ?>
+                                <!--<form action="" class="business__form">
+
+                                    <textarea class="business__form&#45;&#45;textarea" placeholder="Текст сообщения"></textarea>
+
+                                    <input class="show-more" type="submit" value="отправит">
+
+                                </form>-->
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="stocks" class="business__tab-content--wrapper">
+
+                       <div class="stock__sm-item">
+
+                            <div class="stock__sm-item--img">
+
+                                <span class="views">3 000 просмотров</span>
+
+                                <img src="img/business/stock1-img.png" alt="">
+
+                            </div>
+
+                            <div class="stock__sm-item--descr">
+
+                                <p>Скидка до 40% на лазерную эпиляцию</p>
+
+                            </div>
+
+                            <div class="stock__sm-item--time">
+
+                                <p>Акция проходит с 01.01.2017 до 28.02.2017.</p>
+
+                            </div>
+
+                        </div>
+
+                        <!--<div class="stock__big-item">
+
+                           <div class="stock__big-item--img">
+
+                               <span class="views">3 000 просмотров</span>
+
+                               <img src="img/business/stock1-img.png" alt="">
+
+                           </div>
+
+                           <div class="stock__big-item--descr">
+
+                               <p>Скидка до 40% на лазерную эпиляцию</p>
+
+                           </div>
+
+                           <div class="stock__big-item--time">
+
+                               <p>Акция проходит с 01.01.2017 до 28.02.2017.</p>
+
+                           </div>
+
+                       </div>
+
+                       <div class="stock__sm-item">
+
+                           <div class="stock__sm-item--img">
+
+                               <span class="views">3 000 просмотров</span>
+
+                               <img src="img/business/stock1-img.png" alt="">
+
+                           </div>
+
+                           <div class="stock__sm-item--descr">
+
+                               <p>Скидка до 40% на лазерную эпиляцию</p>
+
+                           </div>
+
+                           <div class="stock__sm-item--time">
+
+                               <p>Акция проходит с 01.01.2017 до 28.02.2017.</p>
+
+                           </div>
+
+                       </div>
+
+                       <div class="stock__big-item">
+
+                           <div class="stock__big-item--img">
+
+                               <span class="views">3 000 просмотров</span>
+
+                               <img src="img/business/stock1-img.png" alt="">
+
+                           </div>
+
+                           <div class="stock__big-item--descr">
+
+                               <p>Скидка до 40% на лазерную эпиляцию</p>
+
+                           </div>
+
+                           <div class="stock__big-item--time">
+
+                               <p>Акция проходит с 01.01.2017 до 28.02.2017.</p>
+
+                           </div>
+
+                       </div>
+
+                       <div class="stock__sm-item">
+
+                           <div class="stock__sm-item--img">
+
+                               <span class="views">3 000 просмотров</span>
+
+                               <img src="img/business/stock1-img.png" alt="">
+
+                           </div>
+
+                           <div class="stock__sm-item--descr">
+
+                               <p>Скидка до 40% на лазерную эпиляцию</p>
+
+                           </div>
+
+                           <div class="stock__sm-item--time">
+
+                               <p>Акция проходит с 01.01.2017 до 28.02.2017.</p>
+
+                           </div>
+
+                       </div>
+
+                       <div class="stock__sm-item">
+
+                           <div class="stock__sm-item--img">
+
+                               <span class="views">3 000 просмотров</span>
+
+                               <img src="img/business/stock1-img.png" alt="">
+
+                           </div>
+
+                           <div class="stock__sm-item--descr">
+
+                               <p>Скидка до 40% на лазерную эпиляцию</p>
+
+                           </div>
+
+                           <div class="stock__sm-item--time">
+
+                               <p>Акция проходит с 01.01.2017 до 28.02.2017.</p>
+
+                           </div>
+
+                       </div>-->
+
+                    </div>
+
                 </div>
+
+
                 <?php if (!empty($stock)): ?>
                     <div class="business__stocks" id="stock">
 
@@ -146,62 +365,7 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                     </div>
                 <?php endif; ?>
 
-                <?php if (!empty($feedback)): ?>
-                    <div class="business__reviews" id="reviews">
 
-                        <h3 class="section-title">Отзывы о компании</h3>
-
-                        <div class="separator"></div>
-                        <?php foreach ($feedback as $item): ?>
-                            <div class="business__reviews--item">
-
-                                <div class="business__reviews--avatar">
-                                    <img src="img/home-content/what-say-1.png" alt="">
-                                </div>
-
-                                <div class="descr">
-
-                                    <span class="date"><?= date('H:i d-m-Y') ?></span>
-
-                                    <h3><?= $model->name ?></h3>
-
-                                    <!--<p><?/*= $model->meta_descr */?></p>-->
-
-                                    <p class="full"><?= $item->feedback ?></p>
-
-                                </div>
-
-                                <div class="links">
-
-                                    <a href="#" class="links__more">Читать весь отзыв</a>
-
-                                    <!--<a href="" class="social-wrap__item vk">
-                                        <img src="img/soc/vk.png" alt="">
-                                    </a>
-                                    <a href="" class="social-wrap__item fb">
-                                        <img src="img/soc/fb.png" alt="">
-                                    </a>
-                                    <a href="" class="social-wrap__item ok">
-                                        <img src="img/soc/ok-icon.png" alt="">
-                                    </a>
-                                    <a href="" class="social-wrap__item insta">
-                                        <img src="img/soc/insta-icon.png" alt="">
-                                    </a>
-                                    <a href="" class="social-wrap__item twitter">
-                                        <img src="img/soc/twi-icon.png" alt="">
-                                    </a>
-                                    <a href="" class="social-wrap__item google">
-                                        <img src="img/soc/google-icon.png" alt="">
-                                    </a>
-                                    <a href="" class="social-wrap__item pinterest">
-                                        <img src="img/soc/pinter-icon.png" alt="">
-                                    </a>-->
-
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
 
                 <div class="business__location">
 

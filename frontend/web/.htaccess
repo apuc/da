@@ -20,5 +20,5 @@ RewriteRule . index.php
 RewriteCond %{HTTP_HOST} ^www.da-info.pro$ [NC]
 RewriteRule ^(.*)$ https://da-info.pro/$1 [R=301,L]
 
-RewriteCond %{HTTP} =on
+RewriteCond %{HTTPS} on
 RewriteRule ^(.*)$ https://da-info.pro/$1 [R=301,L]

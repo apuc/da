@@ -3,6 +3,7 @@
 namespace frontend\modules\company\controllers;
 
 use backend\modules\company\models\Company;
+use backend\modules\company_feedback\models\CompanyFeedback;
 use common\classes\Debug;
 use common\models\db\CategoryCompanyRelations;
 use common\models\db\CompanyTariffOrder;
@@ -125,5 +126,18 @@ class DefaultController extends Controller {
     {
         $this->layout = 'personal_area';
         return $this->render('success-tariff');
+    }
+
+    public function actionFeedback()
+    {
+        $request = Yii::$app->request->post();
+
+        $feedback = new CompanyFeedback();
+        $feedback->feedback = $request['text'];
+        $feedback->company_name = $request['name'];
+        $feedback->company_id = $request['id'];
+        $feedback->user_id = Yii::$app->user->id;
+        $feedback->save();
+
     }
 }

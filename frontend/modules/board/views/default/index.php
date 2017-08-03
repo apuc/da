@@ -4,7 +4,7 @@
  * @var $category
  */
 
-\common\classes\Debug::prn($ads);
+//\common\classes\Debug::prn($ads);
 ?>
 
 <?php
@@ -118,6 +118,9 @@
 
                 <div class="commercial__ads">
                     <?php foreach ($ads as $item): ?>
+                    <?php /*\frontend\modules\board\models\BoardFunction::getCategoryById($item->category_id,[])*/?>
+
+
                     <div class="average-ad-item">
 
                         <a href="#" class="average-ad-item-thumb">
@@ -149,13 +152,21 @@
                             <a href="<?= \yii\helpers\Url::to(['view', 'slug' => $item->slug, 'id' => $item->id]); ?>" class="average-ad-title"><?= $item->title?></a>
                             <p class="average-ad-geo">
                                 <span class="geo-space"></span>
-                                <a class="addressAds" href="#"><?= $item['region']->name?></a> |
-                                <a class="addressAds" href="#"><?= $item['city']->name?></a>
+                                <a class="addressAds" href="#"><?= $item->region->name?></a> |
+                                <a class="addressAds" href="#"><?= $item->city->name?></a>
                             </p>
                             <div class="bottom-content">
-                                <p class="average-ad-time">10 июля 2017 г. в 6:21</p>
-                                <a href="/obyavleniya/elektronika" class="average-ad-category">Электроника</a>
-                                <span class="separatorListCategory">|</span>                                                                        <a href="/obyavleniya/aksessuaryi-i-komplektuyuschie" class="average-ad-category">Аксессуары и комплектующие</a>
+                                <p class="average-ad-time"><?= \common\classes\DataTime::time($item->dt_update); ?></p>
+
+                                <?php
+                                $listcat = \frontend\modules\board\models\BoardFunction::getCategoryById($item->category_id,[]);
+                                $listcat = array_reverse($listcat);
+                                $k = 1;
+                                foreach ($listcat as $val): ?>
+                                    <a href="<?= \yii\helpers\Url::toRoute(['/obyavleniya/' . $val->slug]); ?>"
+                                       class="average-ad-category"><?= $val->name; ?></a>
+                                    <?= ($k == count($listcat)) ? '' : '<span class="separatorListCategory">|</span>' ?>
+                                    <?php $k++; endforeach ?>                                                                  <a href="/obyavleniya/aksessuaryi-i-komplektuyuschie" class="average-ad-category">Аксессуары и комплектующие</a>
                             </div>
                         </div>
                     </div>
