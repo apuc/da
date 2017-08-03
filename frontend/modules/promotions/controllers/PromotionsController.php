@@ -30,12 +30,12 @@ class PromotionsController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                    /*
+
                     [
-                        'actions' => [0],
+                        'actions' => ['index'],
                         'allow' => true,
                         'roles' => ['?'],
-                    ],*/
+                    ],
                 ],
             ],
         ];
@@ -43,8 +43,40 @@ class PromotionsController extends Controller
 
     public function actionIndex()
     {
-        $stock = Stock::find()->where(['status' => 0])->all();
-        return $this->render('index', ['stock' => $stock]);
+        $stock = Stock::find()
+            ->where(['status' => 0])
+            ->orderBy('dt_update DESC')
+            ->limit(9)
+            ->with('company')
+            ->all();
+
+        return $this->render('index', [
+            'stock' => $stock,
+        ]);
+    }
+
+    public function actionReadMoreStock()
+    {
+        $request = Yii::$app->request->post();
+
+        $stock = Stock::find()
+            ->where(['status' => 0])
+            ->orderBy('dt_update DESC')
+            ->offset($request['page'] * 9)
+            ->limit(9)
+            ->with('company')
+            ->all();
+
+        return $this->renderPartial('read-more', [
+            'stock' => $stock,
+        ]);
+    }
+
+    public function actionUpdateView()
+    {
+        //Debug::prn(Yii::$app->request->post('id'));
+        Stock::updateAllCounters([ 'view' => 1 ], [ 'id' => Yii::$app->request->post('id') ]);
+
     }
 
     public function actionCreate()

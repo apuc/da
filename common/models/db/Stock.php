@@ -21,6 +21,7 @@ use Yii;
  * @property integer $company_id
  * @property integer $user_id
  * @property integer $recommended
+ * @property integer $view
  */
 class Stock extends \yii\db\ActiveRecord
 {
@@ -40,7 +41,7 @@ class Stock extends \yii\db\ActiveRecord
         return [
             [['title', 'link'], 'required'],
             [['short_descr', 'descr'], 'string'],
-            [['dt_add', 'dt_update', 'status', 'main', 'company_id', 'user_id', 'recommended'], 'integer'],
+            [['dt_add', 'dt_update', 'status', 'main', 'company_id', 'user_id', 'recommended', 'view'], 'integer'],
             [['title', 'photo', 'dt_event', 'link'], 'string', 'max' => 255],
         ];
     }
