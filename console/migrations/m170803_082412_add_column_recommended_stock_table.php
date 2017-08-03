@@ -7,11 +7,13 @@ class m170803_082412_add_column_recommended_stock_table extends Migration
     public function up()
     {
         $this->addColumn('stock', 'recommended', $this->integer(2)->defaultValue(0));
+        $this->addColumn('stock', 'view', $this->integer(11)->defaultValue(0));
     }
 
     public function down()
     {
         $this->dropColumn('stock', 'recommended');
+        $this->dropColumn('stock', 'view');
     }
 
     /*public function safeUp()

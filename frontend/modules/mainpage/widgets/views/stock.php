@@ -28,7 +28,7 @@
             </div>
 
         </div>-->
-        <a href="<?= $item->link ?>" class="stock__item">
+        <a href="<?= $item->link ?>" target="_blank" class="stock__item">
             <div class="stock__item_visible">
                 <div class="thumb">
                     <img src="<?= $item->photo ?>" alt="">
@@ -47,4 +47,4 @@
         </a>
     <?php endforeach; ?>
 </div>
-<button class="home-content__sidebar__button">Все акции</button>
+<a href="<?= \yii\helpers\Url::to(['/promotions/promotions/index'])?>" class="home-content__sidebar__button">Все акции</a>

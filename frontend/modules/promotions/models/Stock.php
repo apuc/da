@@ -2,6 +2,7 @@
 
 namespace frontend\modules\promotions\models;
 
+use common\models\db\Likes;
 use Yii;
 use yii\db\ActiveRecord;
 use common\models\db\ServicesCompanyRelations;
@@ -110,5 +111,10 @@ class Stock extends \common\models\db\Stock
     public function getCompany()
     {
         return $this->hasOne(Company::className(), ['id' => 'company_id']);
+    }
+
+    public function getLikesCount()
+    {
+        return Likes::find()->where(['post_type' => 'stock', 'post_id' => $this->id])->count();
     }
 }

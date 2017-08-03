@@ -17,6 +17,7 @@
         <li><a href="<?= \yii\helpers\Url::to(['/site/design'])?>">Объявления</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/all-poster'])?>">Афиша</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/consulting'])?>">Консультации</a></li>
+        <li><a href="<?= \yii\helpers\Url::to(['/promotions'])?>">Акции</a></li>
 
     </ul>
 
