@@ -3,13 +3,19 @@ use common\models\User;
 ?>
 
 <?php
+$k = 1;
 foreach ($stock as $item):  ?>
-    <?php if($item->recommended == 1):?>
+    <?php if(in_array($k, $placeStock)):?>
         <div class="stock__big-item stockBlock" data-id="<?= $item->id; ?>">
             <div class="stock__sm-item--header">
                 <?php
-
-                ?>
+                if($item->recommended == 1 ):
+                    ?>
+                    <div class="recommend">
+                        <span class="recommend__star"></span>
+                        Рекомендуем
+                    </div>
+                <?php endif; ?>
                 <a href="<?= \yii\helpers\Url::to(['/company/company/view', 'slug' => $item['company']->slug] ); ?>" class="title"><?= $item['company']->name ?></a>
                 <a href="#" class="like likes <?= User::hasLike('stock', $item->id) ? 'active' : '' ?>"
                    csrf-token="<?= Yii::$app->request->getCsrfToken() ?>"
@@ -24,7 +30,7 @@ foreach ($stock as $item):  ?>
             </a>
             <a href="<?= $item->link ?>" target="_blank" class="stock__sm-item--descr stockView">
                 <p><?= $item->short_descr ?></p>
-                <span class="views"><?= $item->view?></span>
+                <span class="views"><?= $item->view; ?></span>
             </a>
             <a href="<?= $item->link ?>" target="_blank"  class="stock__sm-item--time stockView">
                 <p><?= $item->dt_event ?></p>
@@ -32,6 +38,14 @@ foreach ($stock as $item):  ?>
         </div>
     <?php else:?>
         <div class="stock__sm-item stockBlock" data-id="<?= $item->id; ?>">
+            <?php
+            if($item->recommended == 1 ):
+                ?>
+                <div class="recommend">
+                    <span class="recommend__star"></span>
+                    Рекомендуем
+                </div>
+            <?php endif; ?>
             <div class="stock__sm-item--header">
                 <a href="<?= \yii\helpers\Url::to(['/company/company/view', 'slug' => $item['company']->slug] ); ?>" class="title"><?= $item['company']->name ?></a>
                 <a href="#" class="like likes <?= User::hasLike('stock', $item->id) ? 'active' : '' ?>"
@@ -47,11 +61,11 @@ foreach ($stock as $item):  ?>
             </a>
             <a href="<?= $item->link ?>" target="_blank" class="stock__sm-item--descr stockView">
                 <p><?= $item->short_descr ?></p>
-                <span class="views"><?= $item->view?></span>
+                <span class="views"><?= $item->view; ?></span>
             </a>
             <a href="<?= $item->link ?>" target="_blank"  class="stock__sm-item--time stockView">
                 <p><?= $item->dt_event ?></p>
             </a>
         </div>
     <?php endif; ?>
-<?php endforeach; ?>
+    <?php $k++; endforeach; ?>
