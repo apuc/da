@@ -41,6 +41,12 @@ class PromotionsController extends Controller
         ];
     }
 
+    public function actionIndex()
+    {
+        $stock = Stock::find()->where(['status' => 0])->all();
+        return $this->render('index', ['stock' => $stock]);
+    }
+
     public function actionCreate()
     {
         $this->layout = "personal_area";

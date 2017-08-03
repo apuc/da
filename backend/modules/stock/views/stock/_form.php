@@ -69,6 +69,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'status')->dropDownList(['1' => 'Неопубликовано', '0' => 'Опубликовано', '2' => 'Удалено']) ?>
 
     <?= $form->field($model, 'main')->dropDownList(['1' => 'Да', '0' => 'Нет']) ?>
+    <?= $form->field($model, 'recommended')->dropDownList(['1' => 'Да', '0' => 'Нет']) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Добавить' : 'Редактировать', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
