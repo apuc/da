@@ -63,11 +63,20 @@ $(document).ready(function () {
                     $('.show-more-stream').attr('data-step', parseInt($('.show-more-stream').attr('data-step') )+ 1);
                     for (result in res.render)
                     {
-                        $(".parser__wrapper").append(res.render[result]);
+                        if($("#first-column").css('height').slice(0, -2) > $("#second-column").css('height').slice(0, -2))
+                        {
+                            $("#second-column").append(res.render[result]);
+                        }else $("#first-column").append(res.render[result]);
+
                         //console.log(res.render[result]);
                     }
                     //$(".parser__wrapper").append(res.render);
-                if(!res.count) $(".show-more-stream").hide();
+                if(!res.count)
+                {
+                    $(".show-more-stream").hide();
+                    $(".counter-stream-new").text('0');
+                    timerUpdate('false');
+                }
             }
         });
         return false;

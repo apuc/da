@@ -29,14 +29,15 @@ class DefaultController extends Controller
     {
         $model = VkStream::getPosts();
        // Debug::prn($model);
-        //$result = $this->getColumns($model);
+        $result = $this->getColumns($model);
 
         //Debug::prn($max_id);
         $count = VkStream::getPublishedCount();
         $this->setPublishedCount();
 
         return $this->render('index', [
-            'model' => $model,
+            'model1' => $result[1],
+            'model2' => $result[2],
             'count' => $count,
             'newCount' => 0
         ]);
@@ -78,13 +79,14 @@ class DefaultController extends Controller
             ->limit(10)
             ->offset(0)
             ->all();
-        //$interested = $this->getColumns($interested);
+        $interested = $this->getColumns($interested);
         //$count = VkStream::getPublishedCount();
         $this->setPublishedCount();
 
         return $this->render('view', [
             'model' => $model,
-            'interested' => $interested,
+            'interested1' => $interested[1],
+            'interested2' => $interested[2],
             'count' => VkStream::getPublishedCount()
         ]);
     }
