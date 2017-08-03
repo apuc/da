@@ -43,7 +43,8 @@ class Stock extends \common\models\db\Stock
             ->asArray()
             ->all();
 
-        $service_id = [26, 27, 28];
+        //id ограничейний по акциям
+        $service_id = [11, 12, 13];
 
         foreach ($company as $comp)
         {
@@ -73,7 +74,6 @@ class Stock extends \common\models\db\Stock
 
         foreach ($services as $service)
         {
-
             if($service['services']['val'] === '-')
             {
                 $back_count[$service['company_id']] = '-';
@@ -87,11 +87,7 @@ class Stock extends \common\models\db\Stock
             }
 
         }
-
-
-        //$service_promotion_count[$service['company_id']] = $service['services']['val'];
-
-
+       
         return $back_count;
     }
 
