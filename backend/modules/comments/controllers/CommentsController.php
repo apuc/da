@@ -2,6 +2,7 @@
 
 namespace backend\modules\comments\controllers;
 
+use common\behaviors\AccessSecure;
 use common\classes\Debug;
 use common\models\db\News;
 use dektrium\user\models\User;
@@ -24,6 +25,15 @@ class CommentsController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessSecure::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use common\behaviors\AccessSecure;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -19,7 +20,7 @@ class SiteController extends Controller
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessSecure::className(),
                 'rules' => [
                     [
                         'actions' => ['login', 'error'],
