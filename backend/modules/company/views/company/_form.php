@@ -104,17 +104,17 @@ $this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\we
                 <?endforeach;?>
         <?endif;?>
     </div>
-
+    <label>Дата окончания тарифа</label>
     <?php if (Yii::$app->controller->action->id === 'create'): ?>
-    <?= DatePicker::widget([
-        //'model' => $model,
-        'name' => 'dt_end_tariff',
-        'id' => 'dt_end_tariff',
-        'attribute' => 'from_date',
-        'language' => 'ru',
-        'dateFormat' => 'dd-MM-yyyy',
-    ]);
-    ?>
+            <?= DatePicker::widget([
+                //'model' => $model,
+                'name' => 'dt_end_tariff',
+                'id' => 'dt_end_tariff',
+                'attribute' => 'from_date',
+                'language' => 'ru',
+                'dateFormat' => 'dd-MM-yyyy',
+            ]);
+            ?>
         <?else:?>
         <?= DatePicker::widget([
             //'model' => $model,
@@ -216,6 +216,17 @@ $this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\we
             ],
         ]
     );?>
+
+
+    <?= $form->field($model, 'recommended')->dropDownList([
+        0 => 'Нет',
+        1 => 'Да',
+    ]) ?>
+
+    <?= $form->field($model, 'main')->dropDownList([
+        0 => 'Нет',
+        1 => 'Да',
+    ]) ?>
 
     <?= $form->field($model, 'status')->dropDownList([
         0 => 'Опубликована',

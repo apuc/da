@@ -8,11 +8,13 @@ class m170803_142107_add_column_recommended_company_table extends Migration
     public function up()
     {
         $this->addColumn('company', 'recommended', $this->integer(2)->defaultValue(0));
+        $this->addColumn('company', 'main', $this->integer(2)->defaultValue(0));
     }
 
     public function down()
     {
         $this->dropColumn('company', 'recommended');
+        $this->dropColumn('company', 'main');
     }
 
     /*public function safeUp()
