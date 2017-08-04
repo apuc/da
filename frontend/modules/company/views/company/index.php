@@ -45,7 +45,7 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                                         Рекомендуем
                                     </div>
 
-                                    <img src="<?= $company->photo ?>" alt="">
+                                    <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($company->photo); ?>" alt="">
                                 </div>
 
                                 <p class="business__sm-item--title">
