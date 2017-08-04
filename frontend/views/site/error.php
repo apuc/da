@@ -9,9 +9,14 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 $this->title = $name;
+
 if ($exception->statusCode == 404){
     ?>
-    <section class="dev">
+    <?php if($this->context->module->catchAll):?>
+        Тех работы
+
+    <?php else: ?>
+        <section class="dev">
         <div class="container">
             <h1 class="dev__mistake">Ошибка</h1>
             <div class="dev__wrapper">
@@ -49,6 +54,7 @@ if ($exception->statusCode == 404){
         </div>
 
     </section>
+    <?php endif; ?>
     <?php
 }else{
 ?>
