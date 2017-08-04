@@ -79,7 +79,7 @@ class DefaultController extends Controller
 
         $interested = VkStream::find()->with('photo', 'comments', 'author', 'group')
             ->where(['status' => 1])
-            ->andWhere(['<>', 'slug', $slug])
+            ->andWhere(['<', 'dt_add', $model->dt_add])
             ->orderBy('dt_add DESC')
             ->limit(10)
             ->offset(0)

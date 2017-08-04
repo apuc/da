@@ -1,4 +1,4 @@
-function timerUpdate(flag) {
+/*function timerUpdate(flag) {
     if(flag != 'false')
     {
         setInterval(function () {
@@ -17,4 +17,4 @@ function timerUpdate(flag) {
     }else clearInterval(1);
 }
 
-timerUpdate('true');
+timerUpdate('true');*/

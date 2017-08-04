@@ -106,7 +106,7 @@ $(document).ready(function () {
                 {
                     $(".show-more-stream").hide();
                     $(".counter-stream-new").text('0');
-                    timerUpdate('false');
+                    //timerUpdate('false');
                 }
             }
         });

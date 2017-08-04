@@ -4,7 +4,11 @@ use frontend\widgets\ShowRightRecommend;
 use common\models\User;
 use common\classes\Debug;
 
-$this->title = '';
+$this->title = $model->title.' | da-info';
+$this->registerMetaTag([
+    'name' => 'description',
+    'content' => $model->meta_descr,
+]);
 
 $this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii\web\JqueryAsset::className()]);
 $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAsset::className()]);
@@ -15,16 +19,16 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
     <div class="container">
 
-        <h3 class="parser__title">О чем говорят в городе</h3>
+        <h3 class="parser__title"><?= $model->title?></h3>
 
         <div class="business__wrapper">
 
             <div class="business__content">
 
-                <div class="parser__top-counter">
+                <!--<div class="parser__top-counter">
 
-                    <a href="<?= \yii\helpers\Url::to(['/stream/default'])?>">Показать
-                        <span class="counter counter-stream-new" data-count="<?= $count?>">0</span> новых записи</a>
+                    <a href="<?/*= \yii\helpers\Url::to(['/stream/default'])*/?>">Показать
+                        <span class="counter counter-stream-new" data-count="<?/*= $count*/?>">0</span> новых записи</a>
 
                 </div>
 
@@ -32,7 +36,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
                     <a href="#">Подписаться на эту тему</a>
 
-                </div>
+                </div>-->
 
                 <ul class="parser__top-nav">
                     <li><a href="#">Все материалы <span><?= $count?></span></a></li>
@@ -131,7 +135,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                     <h3>Такого поста не существует</h3>
                     <? endif; ?>
 
-                <h3 class="parser__title">Самое интересное по теме</h3>
+                <h3 class="parser__title">Смотрите далее: </h3>
 
                 <div class="parser__wrapper">
 
@@ -234,7 +238,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                         <?php endforeach; ?>
                     </div>
                     <?else:?>
-                        <h3>Записей пока нет</h3>
+                        <?$error = 'Больше записей нет'?>
                     <?endif;?>
 
                     <?if (!empty($interested2)):?>
@@ -338,8 +342,12 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
                     <?else:?>
 
-                    <h3>Записей пока нет</h3>
+                        <?$error = 'Больше записей нет'?>
 
+                    <?endif;?>
+
+                    <?if(empty($interested1) && empty($interested2)): ?>
+                        <h3><?= $error?></h3>
                     <?endif;?>
                         <!--<span class="stream-flag"></span>-->
                 </div>

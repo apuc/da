@@ -21,10 +21,10 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
             <div class="business__content">
 
-                <div class="parser__top-counter">
+                <!--<div class="parser__top-counter">
 
-                    <a href="<?= \yii\helpers\Url::to(['/stream/default'])?>">Показать
-                        <span class="counter counter-stream-new" data-count="<?= $count?>" csrf-token="<?= Yii::$app->request->getCsrfToken() ?>">0</span> новых записи</a>
+                    <a href="<?/*= \yii\helpers\Url::to(['/stream/default'])*/?>">Показать
+                        <span class="counter counter-stream-new" data-count="<?/*= $count*/?>" csrf-token="<?/*= Yii::$app->request->getCsrfToken() */?>">0</span> новых записи</a>
 
                 </div>
 
@@ -32,7 +32,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
                     <a href="#">Подписаться на эту тему</a>
 
-                </div>
+                </div>-->
 
                 <ul class="parser__top-nav">
                     <li><a href="#">Все материалы <span><?= $count?></span></a></li>
