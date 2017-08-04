@@ -37,8 +37,8 @@ class VkStream extends \yii\db\ActiveRecord
     {
         return [
             [['vk_id'], 'required'],
-            [['from_id', 'owner_id', 'owner_type', 'dt_add', 'from_type', 'status', 'views', 'likes'], 'integer'],
-            [['text'], 'string'],
+            [['from_id', 'owner_id', 'owner_type', 'dt_add', 'from_type', 'status', 'views', 'likes', 'comment_status'], 'integer'],
+            [['text', 'slug', 'title', 'meta_descr'], 'string'],
             [['vk_id', 'post_type'], 'string', 'max' => 255],
         ];
     }
@@ -61,6 +61,10 @@ class VkStream extends \yii\db\ActiveRecord
             'status' => 'Статус',
             'views' => 'Просмотры',
             'likes' => 'Лайки',
+            'title' => 'Заголовок',
+            'slug' => 'Slug',
+            'meta_descr' => 'Мета описание',
+            'comment_status' => 'Публиковать комментарии'
         ];
     }
 

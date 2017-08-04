@@ -203,6 +203,8 @@ return [
                 //'ajax/send_poll'=> 'ajax/default/send_poll',
                 'promotions' => '/promotions/promotions/index',
                 ['pattern' => 'sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
+                'stream' => 'stream/default/index',
+                'stream/<slug>' => 'stream/default/view',
             ]
         ],
         'mailer' => [

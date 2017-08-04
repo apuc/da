@@ -2,22 +2,17 @@
 
 namespace backend\modules\vk\controllers;
 
-use backend\modules\vk\models\VkAuthors;
-use common\classes\Debug;
-use common\models\db\VkComments;
 use Yii;
 use backend\modules\vk\models\VkStream;
 use backend\modules\vk\models\VkStreamSearch;
-use yii\helpers\Json;
 use yii\web\Controller;
-use yii\web\JsonResponseFormatter;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * Vk_streamController implements the CRUD actions for VkStream model.
+ * Vk_publishedController implements the CRUD actions for VkStream model.
  */
-class Vk_streamController extends Controller
+class Vk_publishedController extends Controller
 {
     /**
      * @inheritdoc
@@ -41,7 +36,7 @@ class Vk_streamController extends Controller
     public function actionIndex()
     {
         $searchModel = new VkStreamSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, ['in', 'status', [0, 1]]);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, ['status' => 1]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -125,45 +120,5 @@ class Vk_streamController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-    }
-
-    public function actionSetStatus()
-    {
-        if(Yii::$app->request->post('id') !== null){
-            $id = Yii::$app->request->post('id');
-            $status = Yii::$app->request->post('status');
-            \common\models\db\VkStream::updateAll(['status' => $status], ['id' => $id]);
-        }
-    }
-
-    public function actionGetComments()
-    {
-        $comments = VkComments::find()->with('author')
-            ->where(['post_id' => Yii::$app->request->post('id')])
-            ->asArray()
-            ->orderBy('dt_add')
-            ->all();
-        foreach ($comments as &$comment)
-        {
-            $comment['dt_add'] = date('H:i:s d-m-y ', $comment['dt_add']);
-            if(!$comment['author'])
-            {
-                $comment['author']['name'] = 'Группа';
-                $comment['author']['link'] = 'club'.substr($comment['from_id'], 1, strlen($comment['from_id']));
-            }
-        }
-
-        if($comments) return Json::encode($comments);
-        else return Json::encode(0);
-
-    }
-
-    public function actionDelComment()
-    {
-        $model = VkComments::findOne(Yii::$app->request->post('id'));
-
-        if($model->delete())
-            return true;
-        else return false;
     }
 }

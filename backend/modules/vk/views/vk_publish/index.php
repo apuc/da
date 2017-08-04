@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         $string = mb_substr($model->text, 0, 200);
                         $text = '<div>'.$string.'...</div>'.Html::a('Читать далее',['#'], ['class' => 'more']).
-                                Html::a('Скрыть',['#'], ['class' => 'closeMore', 'style' => 'display: none']);
+                            Html::a('Скрыть',['#'], ['class' => 'closeMore', 'style' => 'display: none']);
                         $text .= '<div class="readMore" style="display: none">'.substr($model->text, strlen($string)).'</div>';
                     }
 
@@ -84,17 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    /*if($model->status === 0){
-                        return Html::a('На публикацию', ['#'], ['data-id' => $model->id, 'data-status' => 2, 'class' => 'btn btn-success']);
-                    }
-                    if($model->status === 1){
-                        return Html::a('В корзину', ['#'], ['data-id' => $model->id, 'data-status' => 3, 'class' => 'btn btn-danger']);
-                    }*/
-
-                    return
-                        Html::a('На публикацию', ['#'], ['data-id' => $model->id, 'data-status' => 2, 'class' => 'btn btn-success stream_edit']).
-                        Html::a('В корзину', ['#'], ['data-id' => $model->id, 'data-status' => 3, 'class' => 'btn btn-danger stream_edit']);
-
+                    return Html::a('Опубликовать', ['/vk/vk_publish/update', 'id' => $model->id], ['class' => 'btn btn-success']);
                 },
             ],
             [
@@ -102,7 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function($model){
                     return Html::a('Комментарии', ['#'], ['class' => 'comments-stream', 'data-id' => $model->id]).
-                     '('.\common\models\db\VkComments::find()->where(['post_id' => $model->id])->count().')';
+                        '('.\common\models\db\VkComments::find()->where(['post_id' => $model->id])->count().')';
                 }
             ],
 
