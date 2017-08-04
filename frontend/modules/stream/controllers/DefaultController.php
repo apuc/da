@@ -35,11 +35,12 @@ class DefaultController extends Controller
         $count = VkStream::getPublishedCount();
         $this->setPublishedCount();
 
+
+
         return $this->render('index', [
             'model1' => $result[1],
             'model2' => $result[2],
-            'count' => $count,
-            'newCount' => 0
+            'count' => $count
         ]);
     }
 
@@ -64,17 +65,21 @@ class DefaultController extends Controller
         return false;
     }
 
-    public function actionView($id)
+    public function actionView($slug)
     {
         $model = VkStream::find()->with('photo', 'comments', 'author', 'group')
-            ->where(['id' => $id])
+            ->where(['slug' => $slug])
             ->one();
-        $model->views += 1;
-        $model->save();
+        if(!empty($model))
+        {
+            $model->views += 1;
+            $model->save();
+        }
+
 
         $interested = VkStream::find()->with('photo', 'comments', 'author', 'group')
             ->where(['status' => 1])
-            ->andWhere(['<>', 'id', $id])
+            ->andWhere(['<>', 'slug', $slug])
             ->orderBy('dt_add DESC')
             ->limit(10)
             ->offset(0)
@@ -94,13 +99,18 @@ class DefaultController extends Controller
     public function getColumns($data)
     {
         $i = 1;
-        foreach ($data as $d)
+        if(!empty($data))
         {
-            if($i % 2 == 0) $result[2][] = $d;
-            else $result[1][] = $d;
-            $i++;
+            foreach ($data as $d)
+            {
+                if($i % 2 == 0) $result[2][] = $d;
+                else $result[1][] = $d;
+                $i++;
+            }
+            $result[2] = (isset($result[2]))? $result[2] : 0;
+            return $result;
         }
-        return $result;
+        return false;
     }
 
     public function actionGetNewPost()

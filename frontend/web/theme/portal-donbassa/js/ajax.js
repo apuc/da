@@ -56,6 +56,7 @@ $(document).ready(function () {
         });
     });
 
+
     $(document).on('click', '.show-more-news-js', function () {
 
         var csrfToken = $(this).attr('csrf-token');

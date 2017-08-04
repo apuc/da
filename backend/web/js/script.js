@@ -20,8 +20,6 @@ $(document).ready(function () {
         $(this).css('display', 'none');
     });
 
-
-
     $(".comments-stream").on('click', function (e) {
         e.preventDefault();
         var id = $(this).data('id');
@@ -48,6 +46,7 @@ $(document).ready(function () {
                             + html[comment]['author'].name + '</a></td>';
                         string += '<td>'+html[comment]['text']+'</td>';
                         string += '<td class="col-sm-1">'+html[comment]['dt_add']+'</td>';
+                        string += '<td><a href="#" data-id="'+html[comment]['id']+'" class="delete_comments"><span class="glyphicon glyphicon-trash"></span></a></td>'
                         string += '</tr>';
                     }
                     $(".content-comments").append(string);
@@ -66,6 +65,59 @@ $(document).ready(function () {
         $(this).prev().prev('div').text(text.slice(0, i)+'...');
         $(this).prev().css('display', '');
         $(this).css('display', 'none');
+    });
+
+    $(document).on('click', '.delete_from_basket', function () {
+        var id = $(this).data('id');
+        var tr = $(this).closest('tr');
+
+        $.ajax({
+            type: 'POST',
+            url: "/secure/vk/vk_basket/delete",
+            data: {'id':id},
+            success: function (data) {
+                if(data)
+                {
+                    tr.html('');
+                }
+            }
+        });
+
+        return false;
+    })
+
+    $(document).on('click', '.stream_edit', function () {
+        var id = $(this).data('id');
+        var status = $(this).data('status');
+        var tr = $(this).closest('tr');
+
+        $.ajax({
+            type: 'POST',
+            url: "/secure/vk/vk_stream/set-status",
+            data: {'id':id,'status':status},
+            success: function () {
+                tr.html('');
+            }
+        });
+        return false;
+    });
+
+    $(document).on('click', '.delete_comments', function () {
+        var id = $(this).data('id');
+        var tr = $(this).closest('tr');
+
+        $.ajax({
+            type: 'POST',
+            url: "/secure/vk/vk_stream/del-comment",
+            data: {'id':id},
+            success: function (data) {
+                if(data)
+                {
+                    tr.html('');
+                }
+            }
+        });
+        return false;
     });
 
     $(".publish").click(function () {

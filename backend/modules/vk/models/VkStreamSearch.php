@@ -39,7 +39,7 @@ class VkStreamSearch extends VkStream
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $condition = null)
     {
         $query = VkStream::find();
 
@@ -56,6 +56,8 @@ class VkStreamSearch extends VkStream
             // $query->where('0=1');
             return $dataProvider;
         }
+
+        $query->andWhere($condition);
 
         // grid filtering conditions
         $query->andFilterWhere([

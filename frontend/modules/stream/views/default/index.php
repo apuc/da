@@ -6,6 +6,7 @@ use common\classes\DateFunctions;
 use common\models\User;
 use frontend\widgets\ShowRightRecommend;
 
+$this->title = 'В соцсетях';
 $this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii\web\JqueryAsset::className()]);
 $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
@@ -14,7 +15,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
     <div class="container">
 
-        <h3 class="parser__title">О чем говорят в городе</h3>
+        <h3 class="parser__title">Тем временем в соцсетях</h3>
 
         <div class="business__wrapper">
 
@@ -35,17 +36,17 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
                 <ul class="parser__top-nav">
                     <li><a href="#">Все материалы <span><?= $count?></span></a></li>
-                    <li><a href="<?= \yii\helpers\Url::to(['/stream/default'])?>">ВК
+                    <li><a href="<?= \yii\helpers\Url::to(['/stream'])?>">ВК
                             <span><?=$count?></span></a></li>
                 </ul>
 
                 <div class="parser__wrapper">
-
+                <?if (!empty($model1)): ?>
                     <div id="first-column" class="parser__column">
                         <?php foreach ($model1 as $item): ?>
                         <div class="parser__element <?= $item->id ?>">
 
-                            <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'id' => $item->id])?>" class="parser__element--author">
+                            <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug])?>" class="parser__element--author">
 
                                 <div class="avatar">
                                     <?php if (!empty($item->author)): ?>
@@ -103,12 +104,17 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                 </a>
 
                                 <a href="#" class="views"><?= $item->views ?></a>
-
+                                <? if ($item->comment_status == 0):?>
+                                    <?$count = 0?>
+                                <? else:?>
+                                    <?$count = count($item->comments)?>
+                                <?endif;?>
                                 <a href="#" class="comments">
-                                    <?= count($item->comments) ?>
+                                    <?= $count ?>
                                 </a>
 
                             </div>
+                            <? if ($item->comment_status != 0): ?>
 
                             <div class="parser__element--comments-block">
 
@@ -127,16 +133,22 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                 <?php endif; ?>
 
                             </div>
+                            <?endif;?>
 
                         </div>
                     <?php endforeach; ?>
                     </div>
 
+                    <?else:?>
+                        <h3>Записей пока нет</h3>
+                    <?endif;?>
+
+                    <? if (!empty($model2)): ?>
                     <div id="second-column" class="parser__column">
                         <?php foreach ($model2 as $item): ?>
                             <div class="parser__element <?= $item->id ?>">
 
-                                <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'id' => $item->id])?>" class="parser__element--author">
+                                <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug])?>" class="parser__element--author">
 
                                     <div class="avatar">
                                         <?php if (!empty($item->author)): ?>
@@ -195,12 +207,17 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
                                     <a href="#" class="views"><?= $item->views ?></a>
 
+                                    <? if ($item->comment_status == 0):?>
+                                        <?$count = 0?>
+                                    <? else:?>
+                                        <?$count = count($item->comments)?>
+                                    <?endif;?>
                                     <a href="#" class="comments">
-                                        <?= count($item->comments) ?>
+                                        <?= $count ?>
                                     </a>
 
                                 </div>
-
+                                <? if ($item->comment_status != 0): ?>
                                 <div class="parser__element--comments-block">
 
                                     <?php if (!empty($item->comments)): ?>
@@ -218,11 +235,16 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                     <?php endif; ?>
 
                                 </div>
+                                <?endif;?>
 
                             </div>
                         <?php endforeach; ?>
                     </div>
 
+
+                    <?else:?>
+                    <h3>Записей пока нет</h3>
+                    <?endif;?>
               <!--  <span class="stream-flag"></span>-->
                 </div>
 

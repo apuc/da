@@ -4,6 +4,7 @@ namespace backend\widgets;
 use backend\modules\comments\models\Comments;
 use backend\modules\company_feedback\models\CompanyFeedback;
 use backend\modules\site_error\models\SiteError;
+use backend\modules\vk\models\VkStream;
 use common\classes\CompanyFunction;
 use common\classes\UserFunction;
 use common\models\db\News;
@@ -25,6 +26,10 @@ class MainMenuAdmin extends Widget
         $countError = SiteError::find()->count();
         $countPromotions = Stock::find()->where(['status' => 1])->count();
         $countFeedback = CompanyFeedback::find()->where(['status' => 0])->count();
+        $countModerStream = VkStream::find()->where(['status' => 0])->count();
+        $countPublishStream = VkStream::find()->where(['status' => 2])->count();
+        $countPublishedStream = VkStream::find()->where(['status' => 1])->count();
+        $countBasketStream = VkStream::find()->where(['status' => 3])->count();
 
         echo \yii\widgets\Menu::widget(
             [
@@ -430,6 +435,25 @@ class MainMenuAdmin extends Widget
                                 'label' => 'Поток',
                                 'url' => Url::to(['/vk/vk_stream']),
                                 'active' => Yii::$app->controller->module->id === 'vk' && Yii::$app->controller->id === 'vk_stream',
+                                'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countModerStream . '</small></span></a>',
+                            ],
+                            [
+                                'label' => 'На публикацию',
+                                'url' => Url::to(['/vk/vk_publish']),
+                                'active' => Yii::$app->controller->module->id === 'vk' && Yii::$app->controller->id === 'vk_publish',
+                                'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countPublishStream . '</small></span></a>',
+                            ],
+                            [
+                                'label' => 'Корзина',
+                                'url' => Url::to(['/vk/vk_basket']),
+                                'active' => Yii::$app->controller->module->id === 'vk' && Yii::$app->controller->id === 'vk_basket',
+                                'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countBasketStream . '</small></span></a>',
+                            ],
+                            [
+                                'label' => 'Опубликованные',
+                                'url' => Url::to(['/vk/vk_published']),
+                                'active' => Yii::$app->controller->module->id === 'vk' && Yii::$app->controller->id === 'vk_published',
+                                'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countPublishedStream . '</small></span></a>',
                             ],
                         ],
                         'options' => [

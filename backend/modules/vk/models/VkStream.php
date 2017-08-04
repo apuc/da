@@ -10,5 +10,16 @@ namespace backend\modules\vk\models;
 
 class VkStream extends \common\models\db\VkStream
 {
+    public function behaviors()
+    {
+        return [
+            'slug' => [
+                'class' => 'common\behaviors\Slug',
+                'in_attribute' => 'title',
+                'out_attribute' => 'slug',
+                'translit' => true
+            ],
+        ];
+    }
 
 }
