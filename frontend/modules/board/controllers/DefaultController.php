@@ -42,4 +42,33 @@ class DefaultController extends Controller
             ]
         );
     }
+
+    public function actionCreate()
+    {
+        if(Yii::$app->request->post()){
+
+            $sURL = Yii::$app->params['site-api'] . '/ads/create'; // URL-адрес POST
+
+            unset($_POST['_csrf']);
+
+            $sPD = http_build_query($_POST); // Данные POST
+            $aHTTP = [
+                'http' => // Обертка, которая будет использоваться
+                    [
+                        'method'  => 'POST', // Метод запроса
+                        // Ниже задаются заголовки запроса
+                        'header'  => 'Content-type: application/x-www-form-urlencoded',
+                        'content' => $sPD,
+                    ]
+            ];
+            $context = stream_context_create($aHTTP);
+            $contents = file_get_contents($sURL, false, $context);
+            echo $contents;
+        }
+
+
+
+
+        return $this->render('add-form-ads');
+    }
 }
