@@ -313,4 +313,18 @@ class ConsultingController extends \yii\web\Controller
 
     }
 
+    public function actionSearchPost()
+    {
+        $q = Yii::$app->request->get('q');
+        $result = PostsConsulting::find()->where(['or', ['LIKE', 'title', $q],['LIKE', 'content', $q]])
+            ->all();
+        $count = count($result);
+
+        return $this->renderPartial('search_view', [
+            'posts' => $result,
+            'q' => $q,
+            'count' => $count
+        ]);
+    }
+
 }

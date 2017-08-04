@@ -38,6 +38,7 @@ class Stock extends \common\models\db\Stock
      */
     public function beforeCreate()
     {
+        //Получение всех предприятий данного пользователя
         $company = Company::find()
             ->where(['user_id' => Yii::$app->user->id])
             ->asArray()
@@ -51,6 +52,7 @@ class Stock extends \common\models\db\Stock
             $company_id[] = $comp['id'];
         }
 
+        //Получение компаний у которых подключена услуга акции
         $services = ServicesCompanyRelations::find()
             ->where(['in', 'company_id', $company_id] )
             ->with('services')
@@ -87,10 +89,11 @@ class Stock extends \common\models\db\Stock
             }
 
         }
-       
+
         return $back_count;
     }
 
+    //Метод проверяет прошёл ли месяц после добавления акции
     public function dateMonth()
     {
         $date = date_create(date('Y-m-d',Stock::find()
