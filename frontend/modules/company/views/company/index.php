@@ -36,16 +36,16 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                         <?php if (in_array($pos, $positions, true)): ?>
                             <?php $company = isset($wrc[$wrc_count]) ? $wrc[$wrc_count] : $organizations[$pos] ?>
                             <a href="<?= Url::to(['/company/company/view', 'slug' => $company->slug]) ?>"
-                               class="business__big-item">
-
+                               class="business__big-item <?= ($company->recommended == 1) ? 'favorite' : ''?>">
+                                <div class="recommend">
+                                    <span class="recommend__star"></span>
+                                    Рекомендуем
+                                </div>
                                 <div class="business__sm-item--img">
 
-                                    <div class="recommend">
-                                        <span class="recommend__star"></span>
-                                        Рекомендуем
-                                    </div>
 
-                                    <img src="<?= $company->photo ?>" alt="">
+
+                                    <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($company->photo); ?>" alt="">
                                 </div>
 
                                 <p class="business__sm-item--title">
@@ -76,10 +76,13 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                             $wrc_count++; ?>
                         <?php else: ?>
                             <a href="<?= Url::to(['/company/company/view', 'slug' => $organizations[$pos]->slug]) ?>"
-                               class="business__sm-item">
-
+                               class="business__sm-item <?= ($organizations[$pos]->recommended == 1) ? 'favorite' : ''?>">
+                                <div class="recommend">
+                                    <span class="recommend__star"></span>
+                                    Рекомендуем
+                                </div>
                                 <div class="business__sm-item--img">
-                                    <img src="<?= $organizations[$pos]->photo ?>" alt="">
+                                    <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($organizations[$pos]->photo); ?>" alt="">
                                 </div>
 
                                 <p class="business__sm-item--title">

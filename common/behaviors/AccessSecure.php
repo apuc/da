@@ -63,7 +63,7 @@ class AccessSecure extends ActionFilter
     public function beforeAction($action)
     {
 
-        if (Yii::$app->user->isGuest || UserFunction::getRole_user()['admin']){
+        if (Yii::$app->user->isGuest || UserFunction::getPermissionUser()){
             $user = $this->user;
             $request = Yii::$app->getRequest();
             /* @var $rule AccessRule */

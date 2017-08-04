@@ -55,7 +55,7 @@ use yii\helpers\Url;
         <?php foreach ($posters as $poster): ?>
             <a href="<?= Url::to(['/poster/default/view', 'slug'=>$poster->slug]) ?>" class="item">
                 <div class="thumb">
-                    <img src="<?= $poster->photo ?>" alt="">
+                    <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($poster->photo); ?>" alt="">
                 </div>
                 <div class="contents">
                     <span class="type">

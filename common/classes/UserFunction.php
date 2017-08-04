@@ -36,6 +36,16 @@ class UserFunction {
         return false;
     }
 
+    public static function getPermissionUser()
+    {
+        $permissions = Yii::$app->authManager->getPermissionsByUser(Yii::$app->user->id);
+        if(!empty($permissions)){
+            return true;
+        }
+        return false;
+    }
+
+
     //получить аватар пользователя
     public static function getUser_avatar_url($id = null, $smal=true){
         $img = 'avatar_little';

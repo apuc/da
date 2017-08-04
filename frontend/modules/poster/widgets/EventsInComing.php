@@ -26,7 +26,7 @@ class EventsInComing extends Widget
                 ->andWhere(['status' => 0])
                 /*->andFilterWhere(['`category_poster`.`slug`' => $this->slug])*/
                 ->orderBy('dt_event ')
-                ->limit(4)
+                ->limit(12)
                 ->with('categories')
                 ->all();
 
@@ -42,7 +42,7 @@ class EventsInComing extends Widget
                 ->andWhere(['status' => 0])
                 ->andFilterWhere(['`category_poster`.`slug`' => $this->slug])
                 ->orderBy('dt_event ')
-                ->limit(4)
+                ->limit(12)
                 ->with('categories')
                 ->all();
 

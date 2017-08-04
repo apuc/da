@@ -18,16 +18,17 @@ $wrc_count = 0; ?>
 <?php while($pos < 12): ?>
     <?php if (in_array($pos, $positions, true)): ?>
         <?php $company = isset($wrc[$wrc_count]) ? $wrc[$wrc_count] : $organizations[$pos] ?>
-        <a href="<?= Url::to(['/company/company/view', 'slug' => $company->slug]) ?>" class="business__big-item">
-
+        <a href="<?= Url::to(['/company/company/view', 'slug' => $company->slug]) ?>"
+           class="business__big-item <?= ($company->recommended == 1) ? 'favorite' : ''?>">
+            <div class="recommend">
+                <span class="recommend__star"></span>
+                Рекомендуем
+            </div>
             <div class="business__sm-item--img">
 
-                <div class="recommend">
-                    <span class="recommend__star"></span>
-                    Рекомендуем
-                </div>
 
-                <img src="<?= $company->photo ?>" alt="">
+
+                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($company->photo); ?>" alt="">
             </div>
 
             <p class="business__sm-item--title">
@@ -44,14 +45,15 @@ $wrc_count = 0; ?>
                 <span><?= $company->address ?></span>
             </p>
 
+            <?php $phone = explode(' ', $company->phone) ?>
             <ul class="business__sm-item--numbers">
-                <li>+380667778540</li>
-                <li>+380667778540</li>
+                <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
+                <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
             </ul>
 
             <ul class="business__sm-item--numbers">
-                <li>+380667778540</li>
-                <li>+380667778540</li>
+                <li><?= isset($phone[2]) ? $phone[2] : '' ?></li>
+                <li> <?= isset($phone[3]) ? $phone[3] : '' ?></li>
             </ul>
 
             <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->
@@ -60,10 +62,14 @@ $wrc_count = 0; ?>
         </a>
         <?php $pos += 2;$wrc_count++; ?>
     <?php else: ?>
-        <a href="<?= Url::to(['/company/company/view', 'slug' => $organizations[$pos]->slug]) ?>" class="business__sm-item">
-
+        <a href="<?= Url::to(['/company/company/view', 'slug' => $organizations[$pos]->slug]) ?>"
+           class="business__sm-item <?= ($organizations[$pos]->recommended == 1) ? 'favorite' : ''?>">
+            <div class="recommend">
+                <span class="recommend__star"></span>
+                Рекомендуем
+            </div>
             <div class="business__sm-item--img">
-                <img src="<?= $organizations[$pos]->photo ?>" alt="">
+                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($organizations[$pos]->photo); ?>" alt="">
             </div>
 
             <p class="business__sm-item--title">

@@ -18,8 +18,9 @@ class CompanyMain extends Widget
     public function run()
     {
         $companies = Company::find()
-            /*->where(['>','dt_add',84600 * 30])*/
-            ->orderBy('views DESC')
+            ->where(['status' => 0, 'main' => 1])
+            //->orderBy('views DESC')
+            ->orderBy('RAND()')
             ->limit(12)
             ->all();
         return $this->render('company_main', ['companies'=>$companies]);

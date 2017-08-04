@@ -23,11 +23,13 @@ class MostPopularNews extends Widget
     {
         $currentNewSlug = Yii::$app->request->get()['slug'];
 
+        $params = \Yii::$app->params;
+
         $news = News::find()
             ->where(['status' => 0, 'exclude_popular' => 0])
-            ->andWhere(['>=', 'dt_public', time() - 2592000 * 3])
+            ->andWhere(['>=', 'dt_public', time() - 2592000 * $params['countMonth']])
             ->andWhere(['!=', 'slug', $currentNewSlug])
-            ->andWhere(['>', 'views', 300])
+            ->andWhere(['>', 'views', $params['countView']])
             ->orderBy('RAND()')
             ->addOrderBy('views ASC')
             ->limit(2)
