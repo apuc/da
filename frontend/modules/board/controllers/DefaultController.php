@@ -11,6 +11,15 @@ use yii\web\Controller;
  */
 class DefaultController extends Controller
 {
+    public $siteApi;
+
+    public function beforeAction($action)
+    {
+        $this->siteApi = Yii::$app->params['site-api'];
+        return parent::beforeAction($action);
+    }
+
+
     /**
      * Renders the index view for the module
      * @return string
@@ -21,8 +30,8 @@ class DefaultController extends Controller
         /*Debug::prn(Yii::$app->request->userIP);
         Debug::prn($_SERVER);*/
 
-        $ads = file_get_contents(Yii::$app->params['site-api'] . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds');
-        $cat = file_get_contents(Yii::$app->params['site-api'] . '/category?parent=0');
+        $ads = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds');
+        $cat = file_get_contents($this->siteApi . '/category?parent=0');
 
         return $this->render('index',
             [
@@ -34,7 +43,7 @@ class DefaultController extends Controller
 
     public function actionView($slug, $id)
     {
-        $ads = file_get_contents(Yii::$app->params['site-api'] . '/ads/' . $id . '?expand=adsImgs,adsFieldsValues');
+        $ads = file_get_contents($this->siteApi . '/ads/' . $id . '?expand=adsImgs,adsFieldsValues');
 
         return $this->render('view',
             [
@@ -47,7 +56,7 @@ class DefaultController extends Controller
     {
         if(Yii::$app->request->post()){
 
-            $sURL = Yii::$app->params['site-api'] . '/ads/create'; // URL-адрес POST
+            $sURL = $this->siteApi . '/ads/create'; // URL-адрес POST
 
             unset($_POST['_csrf']);
 
@@ -66,9 +75,18 @@ class DefaultController extends Controller
             echo $contents;
         }
 
-
-
-
         return $this->render('add-form-ads');
+    }
+
+    public function actionGetChildrenCategory()
+    {
+        $cat = file_get_contents($this->siteApi . '/category?parent=' . Yii::$app->request->post('catId'));
+        if($cat != '[]'){
+            return $this->renderPartial('children-category/category', ['cat' => json_decode($cat)]);
+        }
+        else{
+            Debug::prn($cat);
+        }
+
     }
 }
