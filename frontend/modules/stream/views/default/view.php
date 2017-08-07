@@ -88,6 +88,14 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                href="<?= $model->photo[0]->getLargePhoto() ?>">
                                 <img src="<?= $model->photo[0]->getLargePhoto() ?>" alt="">
                             </a>
+
+                        <?php elseif (!empty($model->gif)): ?>
+                           <?foreach ($model->gif as $gif):?>
+                            <a data-fancybox="gallery" class="parser__element--photo"
+                               href="<?= $gif->gif_link?>">
+                                <img src="<?= $gif->gif_link?>" alt="">
+                            </a>
+                            <?endforeach;?>
                         <?php endif; ?>
 
                         <div class="parser__element--tools">
@@ -103,33 +111,38 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                             if ($model->comment_status == 0):
                             $countComment = 0;
                             else:
-                            $countComment = count($model->comments);
+                            $countComment =2;// count($comment[$model->id]);
                             endif;
                             ?>
-                            <a href="#" class="comments"><?= $countComment?></a>
+                            <a href="#" class="comments count-comments"><?= $countComment?></a>
 
                             <a href="#" class="views"><?= $model->views?></a>
 
                         </div>
                         <?if ($model->comment_status != 0):?>
-                        <div class="parser__element--comments-block">
-                            <?php if (!empty($model->comments)): ?>
-                                <?php foreach ($model->comments as $comment): ?>
-                                    <div class="avatar">
-                                        <img src="<?= $comment->author['photo']?>" alt="">
-                                    </div>
+                            <div class="parser__element--comments-block">
 
-                                    <div class="name">
-                                        <?= $comment->author['first_name'] . ' ' . $comment->author['last_name'] ?>
-                                    </div>
+                                <?php if (!empty($comment[$model->id])): ?>
+                                    <?php foreach ($comment[$model->id] as $comment_item): ?>
+                                        <div class="avatar">
+                                            <img src="<?= $comment_item['avatar'] ?>" alt="">
+                                        </div>
 
-                                    <p><?= $comment->text ?></p>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
+                                        <div class="name">
+                                            <?= $comment_item['username'] ?>
+                                        </div>
 
-                    </div>
+                                        <p><?= $comment_item['text'] ?></p>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+
+                            </div>
                         <?endif;?>
-
+                        <?= \frontend\widgets\CommentsStream::widget([
+                            'pageTitle' => 'Комментарии к ВК',
+                            'postType' => 'vk_post',
+                            'postId' => $model->id,
+                        ]); ?>
                 </div>
                     <? else: ?>
                     <h3>Такого поста не существует</h3>
@@ -190,6 +203,11 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                        href="<?= $item->photo[0]->getLargePhoto() ?>">
                                         <img src="<?= $item->photo[0]->getLargePhoto() ?>" alt="">
                                     </a>
+                                <?php elseif (!empty($item->gif)): ?>
+                                    <a data-fancybox="gallery" class="parser__element--photo"
+                                       href="<?= $item->gif[0]->getLargePreview()?>">
+                                        <img src="<?= $item->gif[0]->getLargePreview()?>" alt="">
+                                    </a>
                                 <?php endif; ?>
 
                                 <div class="parser__element--tools">
@@ -209,29 +227,29 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                         if ($item->comment_status == 0):?>
                                            <?= 0?>
                                         <?else:?>
-                                           <?= count($item->comments);?>
+                                            <?= (isset($comment[$item->id])) ? count($comment[$item->id]) : 0?>
                                         <?endif;?>
                                     </a>
 
                                 </div>
                                 <? if ($item->comment_status != 0): ?>
-                                <div class="parser__element--comments-block">
+                                    <div class="parser__element--comments-block">
 
-                                    <?php if (!empty($item->comments)): ?>
-                                        <?php foreach ($item->comments as $comment): ?>
-                                            <div class="avatar">
-                                                <img src="<?= $comment->author['photo'] ?>" alt="">
-                                            </div>
+                                        <?php if (!empty($comment[$item->id])): ?>
+                                            <?php foreach ($comment[$item->id] as $comment_item): ?>
+                                                <div class="avatar">
+                                                    <img src="<?= $comment_item['avatar'] ?>" alt="">
+                                                </div>
 
-                                            <div class="name">
-                                                <?= $comment->author['first_name'] . ' ' . $comment->author['last_name'] ?>
-                                            </div>
+                                                <div class="name">
+                                                    <?= $comment_item['username'] ?>
+                                                </div>
 
-                                            <p><?= $comment->text ?></p>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
+                                                <p><?= $comment_item['text'] ?></p>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
 
-                                </div>
+                                    </div>
                                 <?endif;?>
 
                             </div>
@@ -292,6 +310,12 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                    href="<?= $item->photo[0]->getLargePhoto() ?>">
                                     <img src="<?= $item->photo[0]->getLargePhoto() ?>" alt="">
                                 </a>
+
+                            <?php elseif (!empty($item->gif)): ?>
+                                <a data-fancybox="gallery" class="parser__element--photo"
+                                   href="<?= $item->gif[0]->getLargePreview()?>">
+                                    <img src="<?= $item->gif[0]->getLargePreview()?>" alt="">
+                                </a>
                             <?php endif; ?>
 
                             <div class="parser__element--tools">
@@ -311,29 +335,29 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                     if ($item->comment_status == 0):?>
                                         <?= 0?>
                                     <?else:?>
-                                        <?= count($item->comments);?>
+                                        <?= (isset($comment[$item->id])) ? count($comment[$item->id]) : 0?>
                                     <?endif;?>
                                 </a>
 
                             </div>
                             <?if ($item->comment_status) :?>
-                            <div class="parser__element--comments-block">
+                                <div class="parser__element--comments-block">
 
-                                <?php if (!empty($item->comments)): ?>
-                                    <?php foreach ($item->comments as $comment): ?>
-                                        <div class="avatar">
-                                            <img src="<?= $comment->author['photo'] ?>" alt="">
-                                        </div>
+                                    <?php if (!empty($comment[$item->id])): ?>
+                                        <?php foreach ($comment[$item->id] as $comment_item): ?>
+                                            <div class="avatar">
+                                                <img src="<?= $comment_item['avatar'] ?>" alt="">
+                                            </div>
 
-                                        <div class="name">
-                                            <?= $comment->author['first_name'] . ' ' . $comment->author['last_name'] ?>
-                                        </div>
+                                            <div class="name">
+                                                <?= $comment_item['username'] ?>
+                                            </div>
 
-                                        <p><?= $comment->text ?></p>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
+                                            <p><?= $comment_item['text'] ?></p>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
 
-                            </div>
+                                </div>
                             <?endif;?>
 
                         </div>

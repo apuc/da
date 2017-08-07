@@ -113,6 +113,33 @@ $(document).ready(function () {
         return false;
     });
 
+    $(document).on('click', '.send-comment', function () {
+        var message = $(this).prev().val();
+        var csrf = $('.show-more-stream').attr('csrf-token');
+
+        $.ajax({
+            url: '/stream/default/set-comment',
+            type: "POST",
+            data: {
+                '_csrf': csrf,
+                'message':message,
+            },
+            success: function (data) {
+                $('.send-comment').prev().val('');
+                $('.coments-block-item').append(data);
+                $('.count-comments').text(Number($('.count-comments').text()) + 1);
+                $('.count-comments').addClass('show-comments');
+                $('.coments-block-item').css('display', 'block');
+                //console.log(Number($('.count-comments').text()) + 1);
+            },
+            error: function () {
+                $('.coments-block-item').append('<p class="text-danger">Произошла ошибка</p>');
+            }
+        });
+
+        return false;
+    });
+
     $(document).on('click', '.show-more-category-news-js', function () {
 
         var csrfToken = $(this).attr('csrf-token');
