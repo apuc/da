@@ -50,11 +50,14 @@ class DefaultController extends Controller
 
     public function actionLoadMore()
     {
+        $dt_add = \Yii::$app->request->post('dt_add');
+
         if(\Yii::$app->request->post('step') !== null){
-            $models = VkStream::getPosts(10, \Yii::$app->request->post('step') * 10);
+            $models = VkStream::getPosts(10, \Yii::$app->request->post('step') * 10, $dt_add);
 
                foreach ($models as $model)
                {
+                   $model->getAllComments();
                    $result['render'][] = $this->renderPartial('more-stream', ['item' => $model]);
                }
 

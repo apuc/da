@@ -81,13 +81,15 @@ $(document).ready(function () {
     $(document).on('click', '.show-more-stream', function (e) {
         var csrfToken = $(this).attr('csrf-token');
         var step = $(this).attr('data-step');
+        var dt_add = $(this).attr('data-dt');
         //console.log($(".parser__wrapper").css('height').slice(0, -2) > 1850);
         $.ajax({
             url: '/stream/default/load-more',
             type: "POST",
             data: {
                 '_csrf': csrfToken,
-                'step':step
+                'step':step,
+                'dt_add': dt_add
             },
             success: function (data) {
                 var res = JSON.parse(data);

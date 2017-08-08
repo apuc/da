@@ -105,16 +105,30 @@ class VkStream extends \yii\db\ActiveRecord
         return Likes::find()->where(['post_type' => 'stream', 'post_id' => $this->id])->count();
     }
 
-    public static function getPosts($limit = 10, $offset = 0)
+    public static function getPosts($limit = 10, $offset = 0, $dt_add = null)
     {
+       if(!$dt_add) $dt_add = time();
+
         return self::find()
             ->where(['status' => 1])
+            ->andWhere(['<', 'dt_add', $dt_add])
             ->orderBy('`vk_stream`.`dt_add` DESC')
             ->limit($limit)
             ->offset($offset)
-            ->with('gif', 'photo', 'comments', 'author', 'group')
+            ->with('gif', 'photo', 'author', 'group')
             ->all();
 
+    }
+
+    public static function getInterestedPosts($limit = 10, $offset = 0, $dt_add = null)
+    {
+        return self::find()->with('gif', 'photo', 'author', 'group')
+            ->where(['status' => 1])
+            ->andWhere(['<', 'dt_add', $dt_add])
+            ->orderBy('dt_add DESC')
+            ->limit($limit)
+            ->offset($offset)
+            ->all();
     }
 
     public static function getPublishedCount()
@@ -129,6 +143,7 @@ class VkStream extends \yii\db\ActiveRecord
         $vk_comments = VkComments::find()->with('author')->where(['post_id' => $this->id])->all();
         $comments = Comments::find()->where(['post_id' => $this->id])
             ->andWhere(['post_type' => 'vk_post'])
+            ->andWhere(['published' => 1])
             ->all();
         //Debug::prn($this->comment_status);
         if($this->comment_status != 0)

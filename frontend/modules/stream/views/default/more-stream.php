@@ -13,7 +13,7 @@ use common\models\User;
 <?php /*foreach ($model as $item): */?>
     <div class="parser__element <?= $item->id ?>">
 
-        <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'id' => $item->id])?>" class="parser__element--author">
+        <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug])?>" class="parser__element--author">
 
             <div class="avatar">
                 <?php if (!empty($item->author)): ?>
@@ -73,27 +73,27 @@ use common\models\User;
             <a href="#" class="views"><?= $item->views ?></a>
 
             <a href="#" class="comments">
-                <?= count($item->comments) ?>
+                <?= ($item->comment_status) ? count($item->all_comments) : 0  ?>
             </a>
 
         </div>
-
+    <?if ($item->comment_status) :?>
         <div class="parser__element--comments-block">
 
-            <?php if (!empty($item->comments)): ?>
-                <?php foreach ($item->comments as $comment): ?>
+            <?php if (!empty($item->all_comments)): ?>
+                <?php foreach ($item->all_comments as $comment_item): ?>
                     <div class="avatar">
-                        <img src="<?= $comment->author->photo ?>" alt="">
+                        <img src="<?= $comment_item['avatar'] ?>" alt="">
                     </div>
 
                     <div class="name">
-                        <?= $comment->author->first_name . ' ' . $comment->author->last_name ?>
+                        <?= $comment_item['username'] ?>
                     </div>
 
-                    <p><?= $comment->text ?></p>
+                    <p><?= $comment_item['text'] ?></p>
                 <?php endforeach; ?>
             <?php endif; ?>
-
+<?endif;?>
         </div>
 
     </div>
