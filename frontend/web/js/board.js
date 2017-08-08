@@ -18,6 +18,7 @@ $(document).ready(function () {
 
     //Испенение подкатегории
     $(document).on('change', '.childrenCategorySelect', function () {
+        $(this).nextAll().remove();
         $.ajax({
             url: '/board/default/get-children-category',
             type: 'POST',
