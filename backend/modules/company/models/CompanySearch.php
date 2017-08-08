@@ -45,10 +45,10 @@ class CompanySearch extends Company
         $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
         $query = Company::find();
         //Debug::prn($query->where(['user_id' => Yii::$app->user->id]));
-        $query->andWhere(['user_id' => Yii::$app->user->id]);
+
         if(isset($role['Редактор компаний']))
         {
-
+            $query->andWhere(['user_id' => Yii::$app->user->id]);
         }
         // add conditions that should always apply here
 

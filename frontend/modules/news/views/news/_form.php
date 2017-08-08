@@ -28,14 +28,14 @@ use yii\widgets\ActiveForm;
        <?php
        $items= ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title');
        $param = ['class' => 'cabinet__add-company-form--field selectCateg', 'prompt' => 'Выберите категорию'];
-       echo $form->field($model, 'categoryId[]')->dropDownList($items, $param)->label(false);
-       /*= Html::dropDownList(
+       //echo $form->field($model, 'categoryId[]')->dropDownList($items, $param)->label(false);
+       echo Html::dropDownList(
             'categoryId[]',
             null,
             ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title'),
             ['class' => 'cabinet__add-company-form--field selectCateg', 'prompt' => 'Выберите категорию']
 
-        )*/
+        )
         ?>
         <a href="#" class="cabinet__add-pkg addCategAddNewsUser"></a>
         <span class="error_cat"></span>
