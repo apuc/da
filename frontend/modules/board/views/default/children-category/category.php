@@ -1,4 +1,5 @@
 <?php
+echo \yii\helpers\Html::label('Подкатегория');
 echo \yii\helpers\Html::dropDownList(
     'childrenCategory[]',
     null,

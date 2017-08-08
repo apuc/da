@@ -5,7 +5,7 @@
  */
 
 $this->registerJsFile('/js/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-$this->registerJsFile('/theme/portal-donbassa/js/ads-filter.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+//$this->registerJsFile('/theme/portal-donbassa/js/ads-filter.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 //\common\classes\Debug::prn($ads);
 ?>
 
@@ -37,31 +37,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/ads-filter.js', ['depends' => [
 
             <div class="commercial__content">
 
-                <div class="commercial__category">
-
-                    <div class="commercial__trigger">
-
-                            <span class="commercial__trigger--title" data-id="0">
-                                    Категории</span>
-                        <span class="commercial__trigger--icon"></span>
-
-                    </div>
-
-                    <ul class="commercial__category-list">
-                        <?php foreach ($category as $item): ?>
-                            <li data-id="<?= $item->id;?>"><?= $item->name; ?></li>
-                        <?php endforeach;?>
-                    </ul>
-
-                </div>
-
-                <form id="commercial-ads-search-form" class="commercial__search-form">
-
-                    <input type="text">
-
-                    <input class="commercial__content--submit" type="submit" value="Найти">
-
-                </form>
+                <?= \frontend\modules\board\widgets\ShowFilterTop::widget(); ?>
 
                 <?= \frontend\modules\board\widgets\ShowFilterLeft::widget(); ?>
 

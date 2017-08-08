@@ -31,12 +31,11 @@ class DefaultController extends Controller
         Debug::prn($_SERVER);*/
 
         $ads = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds');
-        $cat = file_get_contents($this->siteApi . '/category?parent=0');
+
 
         return $this->render('index',
             [
                 'ads' => json_decode($ads),
-                'category' => json_decode($cat),
             ]
         );
     }
@@ -101,5 +100,11 @@ class DefaultController extends Controller
 
             }
         }
+    }
+
+    public function actionShowCityList()
+    {
+        $city = file_get_contents($this->siteApi . '/city?region=' . Yii::$app->request->post('id'));
+
     }
 }
