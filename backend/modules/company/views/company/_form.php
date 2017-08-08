@@ -216,7 +216,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\we
             ],
         ]
     );?>
-    <p class="cabinet__add-company-form--title">Соц. сети компании</p>
+    <p class="cabinet__add-company-form--title"><b>Соц. сети компании</b></p>
     <div class="cabinet__add-company-form--social">
 
     <?foreach ($typeSeti as $type):?>
@@ -225,7 +225,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\we
                                 <img src="<?= $type->icon ?>" alt="">
                             </span>
             <span class="social-name"><?= $type->name; ?></span>
-            <input type="text" value="" name="socicon[<?= $type->id?>][]" class="social-way">
+            <input type="text" value="<?= !empty($socCompany[$type->id]->link) ? $socCompany[$type->id]->link : ''?>" name="socicon[<?= $type->id?>][]" class="social-way">
         </div>
     <?endforeach;?>
     </div>

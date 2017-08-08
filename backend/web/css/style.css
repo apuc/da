@@ -1,3 +1,15 @@
+.cabinet__add-company-form--social-element .social-wrap__item img {
+    width: 12px;
+    height: 12px;
+    -o-object-fit: contain;
+    object-fit: contain;
+    position: relative;
+    top: 33%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
 .media__upload_img{
     margin-bottom: 10px;
     float: left;

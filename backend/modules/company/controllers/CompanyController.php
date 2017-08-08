@@ -112,6 +112,17 @@ class CompanyController extends Controller
                 $catCompanyRel->save();
             }
 
+            if(!empty($_POST['socicon'])){
+                //SocCompany::deleteAll(['company_id' => $id]);
+                foreach ($_POST['socicon'] as $key=>$value){
+                    $socCompany = new SocCompany();
+                    $socCompany->company_id = $model->id;
+                    $socCompany->link = $value[0];
+                    $socCompany->soc_type = $key;
+                    $socCompany->save();
+                }
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -135,6 +146,10 @@ class CompanyController extends Controller
         $companyPhotos = CompanyPhoto::findAll(['company_id' => $id]);
         $companyPhotos = ArrayHelper::getColumn($companyPhotos, 'photo');
         $companyPhotosStr = implode(',', $companyPhotos);
+        $typeSeti = SocAvailable::find()->all();
+        $socCompany = SocCompany::find()->where(['company_id' => $model->id])->all();
+        //Debug::prn($socCompany);
+        $socCompany = ArrayHelper::index($socCompany, 'soc_type');
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
@@ -171,6 +186,18 @@ class CompanyController extends Controller
                 $catCompanyRel->company_id = $model->id;
                 $catCompanyRel->save();
             }
+
+            if(!empty($_POST['socicon'])){
+                SocCompany::deleteAll(['company_id' => $id]);
+                foreach ($_POST['socicon'] as $key=>$value){
+                    $socCompany = new SocCompany();
+                    $socCompany->company_id = $id;
+                    $socCompany->link = $value[0];
+                    $socCompany->soc_type = $key;
+                    $socCompany->save();
+                }
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -178,6 +205,8 @@ class CompanyController extends Controller
                 'companyPhotos' => $companyPhotos,
                 'companyPhotosStr' => $companyPhotosStr,
                 'city' => GeobaseFunction::getArrayCityRegion(),
+                'typeSeti' => $typeSeti,
+                'socCompany' => $socCompany
             ]);
         }
     }
