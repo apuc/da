@@ -2,9 +2,12 @@
 
 namespace frontend\modules\stream\controllers;
 
+use backend\modules\comments\models\Comments;
 use common\classes\Debug;
 use common\models\db\VkComments;
 use common\models\db\VkStream;
+use common\models\User;
+use frontend\models\user\Profile;
 use yii\web\Controller;
 use yii\web\Cookie;
 
@@ -28,18 +31,24 @@ class DefaultController extends Controller
     public function actionIndex()
     {
         $model = VkStream::getPosts();
-       // Debug::prn($model);
+
+       $comment = $this->commentsItem($model);
+        //Debug::prn($comment);
+
+        //$this->getComments($model);
         $result = $this->getColumns($model);
 
         //Debug::prn($max_id);
         $count = VkStream::getPublishedCount();
         $this->setPublishedCount();
+        //Debug::prn($comment);
 
 
 
         return $this->render('index', [
             'model1' => $result[1],
             'model2' => $result[2],
+            'comment' => $comment,
             'count' => $count
         ]);
     }
@@ -84,6 +93,8 @@ class DefaultController extends Controller
             ->limit(10)
             ->offset(0)
             ->all();
+        $comment = $this->commentsItem($interested);
+
         $interested = $this->getColumns($interested);
         //$count = VkStream::getPublishedCount();
         $this->setPublishedCount();
@@ -92,7 +103,8 @@ class DefaultController extends Controller
             'model' => $model,
             'interested1' => $interested[1],
             'interested2' => $interested[2],
-            'count' => VkStream::getPublishedCount()
+            'count' => VkStream::getPublishedCount(),
+            'comment' => $comment
         ]);
     }
 
@@ -127,5 +139,84 @@ class DefaultController extends Controller
             'name' => 'count',
             'value' => $count
         ]));
+    }
+
+    public function actionSetComment()
+    {
+        $profile = Profile::findOne(['user_id' => \Yii::$app->user->identity->id]);
+        //Debug::prn();
+        $message = \Yii::$app->request->post('message');
+
+        return $this->renderPartial('comment', [
+            'message' => $message,
+            'avatar' => $profile->avatar_little,
+        ]);
+    }
+
+    public function getComments($vk_comments = null, $comments = null)
+    {
+        $comment_result =[];
+        if($vk_comments)
+        {
+            foreach ($vk_comments as $comment)
+            {
+                $comment_result[] = [
+                    'username' => $comment->author->first_name.' '.$comment->author->last_name,
+                    'avatar' => $comment->author->photo,
+                    'text' => $comment->text,
+                ];
+            }
+        }
+
+        if($comments)
+        {
+            foreach ($comments as $comment)
+            {
+                $photo = Profile::find()->select('avatar')->where(['user_id' => $comment->user_id])
+                    ->asArray()
+                    ->one();
+
+                $username = User::find()->select('username')->where(['id' => $comment->user_id])
+                    ->asArray()
+                    ->one();
+
+                $comment_result[] =
+                    [
+                        'username' => $username['username'],
+                        'avatar' => $photo['avatar'],
+                        'text' => $comment->content
+                    ];
+            }
+        }
+
+       return $comment_result;
+    }
+
+    public function commentsItem($model)
+    {
+        if(is_array($model))
+        {
+            foreach ($model as $item)
+            {
+                $comments = Comments::find()->where(['post_id' => $item->id])
+                    ->andWhere(['post_type' => 'vk_post'])
+                    ->andWhere(['published' => 1])
+                    ->all();
+
+                if($item->comment_status != 0)
+                {
+                    if(!empty($comments) && !empty($item->comments))
+                    {
+                        $comment[$item->id] = $this->getComments($item->comments, $comments);
+                    }elseif (!empty($item->comments))
+                    {
+                        $comment[$item->id] =  $this->getComments($item->comments);
+                    }else $comment[$item->id] =  $this->getComments(null, $comments);
+                }
+
+            }
+        }
+
+        return $comment;
     }
 }

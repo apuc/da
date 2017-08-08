@@ -2,6 +2,8 @@
 
 namespace common\models\db;
 
+use common\classes\Debug;
+use common\models\VK;
 use Yii;
 
 /**
@@ -73,6 +75,11 @@ class VkStream extends \yii\db\ActiveRecord
         return $this->hasMany(VkPhoto::className(), ['post_id' => 'id']);
     }
 
+    public function getGif()
+    {
+        return $this->hasMany(VkGif::className(), ['post_id' => 'id']);
+    }
+
     public function getComments()
     {
         return $this->hasMany(VkComments::className(), ['post_id' => 'id'])->with('author');
@@ -100,8 +107,9 @@ class VkStream extends \yii\db\ActiveRecord
             ->orderBy('`vk_stream`.`dt_add` DESC')
             ->limit($limit)
             ->offset($offset)
-            ->with('photo', 'comments', 'author', 'group')
+            ->with('gif', 'photo', 'comments', 'author', 'group')
             ->all();
+
     }
 
     public static function getPublishedCount()
