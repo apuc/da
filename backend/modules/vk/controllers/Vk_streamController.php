@@ -41,7 +41,7 @@ class Vk_streamController extends Controller
     public function actionIndex()
     {
         $searchModel = new VkStreamSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, ['in', 'status', [0, 1]]);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, ['status' => 0]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

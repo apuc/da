@@ -114,7 +114,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                 <? if ($item->comment_status == 0):?>
                                     <?$count = 0?>
                                 <? else:?>
-                                    <?$count = (isset($comment[$item->id]))? count($comment[$item->id]) : 0?>
+                                    <?$count = (isset($item->all_comments))? count($item->all_comments) : 0?>
                                 <?endif;?>
                                 <a href="#" class="comments">
                                     <?= $count ?>
@@ -125,8 +125,8 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
                             <div class="parser__element--comments-block">
 
-                                <?php if (!empty($comment[$item->id])): ?>
-                                    <?php foreach ($comment[$item->id] as $comment_item): ?>
+                                <?php if (!empty($item->all_comments)): ?>
+                                    <?php foreach ($item->all_comments as $comment_item): ?>
                                         <div class="avatar">
                                             <img src="<?= $comment_item['avatar'] ?>" alt="">
                                         </div>
@@ -223,11 +223,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                     <? if ($item->comment_status == 0):?>
                                         <?$count = 0?>
                                     <? else:?>
-                                        <?$count = (isset($comment[$item->id])) ? count($comment[$item->id]) : 0?>
-                                        <?  ?>
-
-
-
+                                        <?$count = (isset($item->all_comments)) ? count($item->all_comments) : 0?>
                                     <?endif;?>
                                     <a href="#" class="comments">
                                         <?= $count ?>
@@ -238,8 +234,8 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                 <? if ($item->comment_status != 0): ?>
                                     <div class="parser__element--comments-block">
 
-                                        <?php if (!empty($comment[$item->id])): ?>
-                                            <?php foreach ($comment[$item->id] as $comment_item): ?>
+                                        <?php if (!empty($item->all_comments)): ?>
+                                            <?php foreach ($item->all_comments as $comment_item): ?>
                                                 <div class="avatar">
                                                     <img src="<?= $comment_item['avatar'] ?>" alt="">
                                                 </div>
@@ -268,7 +264,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
                 <div class="parser__more">
 
-                    <a href="#"  class="show-more show-more-stream" data-step="1" csrf-token="<?= Yii::$app->request->getCsrfToken() ?>">загрузить еще</a>
+                    <a href="#"  class="show-more show-more-stream" data-dt="" data-step="1" csrf-token="<?= Yii::$app->request->getCsrfToken() ?>">загрузить еще</a>
 
                 </div>
 
