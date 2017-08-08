@@ -5,6 +5,9 @@ namespace common\models\db;
 use common\classes\Debug;
 use common\models\VK;
 use Yii;
+use \backend\modules\vk\models\VkComments;
+use frontend\models\user\Profile;
+use common\models\User;
 
 /**
  * This is the model class for table "vk_stream".
@@ -24,6 +27,8 @@ use Yii;
  */
 class VkStream extends \yii\db\ActiveRecord
 {
+    public $all_comments;
+
     /**
      * @inheritdoc
      */
@@ -117,5 +122,59 @@ class VkStream extends \yii\db\ActiveRecord
         return self::find()
             ->where(['status' => 1])
             ->count();
+    }
+
+    public function getAllComments()
+    {
+        $vk_comments = VkComments::find()->with('author')->where(['post_id' => $this->id])->all();
+        $comments = Comments::find()->where(['post_id' => $this->id])
+            ->andWhere(['post_type' => 'vk_post'])
+            ->all();
+        //Debug::prn($this->comment_status);
+        if($this->comment_status != 0)
+        {
+            if(!empty($comments) && !empty($vk_comments))
+            {
+                $this->all_comments = $this->setAllComments($vk_comments, $comments);
+            }elseif (!empty($vk_comments))
+            {
+                $this->all_comments =  $this->setAllComments($vk_comments);
+            }else $this->all_comments =  $this->setAllComments(null, $comments);
+        }
+    }
+
+    public function setAllComments($vk_comments, $comments = null)
+    {
+        $comment_result = [];
+        if ($vk_comments) {
+            foreach ($vk_comments as $comment) {
+                $comment_result[] = [
+                    'username' => $comment->author->first_name . ' ' . $comment->author->last_name,
+                    'avatar' => $comment->author->photo,
+                    'text' => $comment->text,
+                ];
+            }
+        }
+
+        if ($comments) {
+            foreach ($comments as $comment) {
+                $photo = Profile::find()->select('avatar')->where(['user_id' => $comment->user_id])
+                    ->asArray()
+                    ->one();
+
+                $username = User::find()->select('username')->where(['id' => $comment->user_id])
+                    ->asArray()
+                    ->one();
+
+                $comment_result[] =
+                    [
+                        'username' => $username['username'],
+                        'avatar' => $photo['avatar'],
+                        'text' => $comment->content
+                    ];
+            }
+        }
+        //Debug::prn($comment_result);
+        return $comment_result;
     }
 }
