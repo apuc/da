@@ -120,17 +120,6 @@ class VkStream extends \yii\db\ActiveRecord
 
     }
 
-    public static function getInterestedPosts($limit = 10, $offset = 0, $dt_add = null)
-    {
-        return self::find()->with('gif', 'photo', 'author', 'group')
-            ->where(['status' => 1])
-            ->andWhere(['<', 'dt_add', $dt_add])
-            ->orderBy('dt_add DESC')
-            ->limit($limit)
-            ->offset($offset)
-            ->all();
-    }
-
     public static function getPublishedCount()
     {
         return self::find()
