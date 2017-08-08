@@ -617,6 +617,13 @@ class MainMenuAdmin extends Widget
                         ],
                         'template' => '<a href="#"><i class="fa fa-bar-chart"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
+                    [
+                        'label' => 'Теги',
+                        'url' => Url::to(['/tags/tags']),
+                        'template' => '<a href="{url}"><i class="fa fa-users"></i> <span>{label}</span></a>',
+                        'active' => Yii::$app->controller->module->id == 'tags' || Yii::$app->controller->module->id == 'tags',
+                        'visible' => UserFunction::hasPermission(['Теги']),
+                    ],
 
                 ],
                 'activateItems' => true,

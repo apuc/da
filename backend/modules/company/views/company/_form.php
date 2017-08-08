@@ -67,6 +67,21 @@ $this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\we
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
+    <label class="control-label" for="company-city_id">Начните вводить теги</label>
+    <?= Select2::widget([
+        'name' => 'Tags',
+        'data' => ArrayHelper::map($tags, 'id', 'tag'),
+        'value' => $tags_selected,
+        //'data' => ['Донецкая область' => ['1'=>'Don','2'=>'Gorl'], 'Rostovskaya' => ['5'=>'rostov']],
+        'options' => ['placeholder' => 'Начните вводить теги ...', 'multiple' => true],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]);
+    ?>
+
+    <? //\common\classes\Debug::prn(ArrayHelper::map($tags, 'id', 'tag')) ?>
+
     <label class="control-label" for="company-city_id">Начните вводить Ваш город</label>
     <?= Select2::widget([
         'name' => 'Company[city_id]',

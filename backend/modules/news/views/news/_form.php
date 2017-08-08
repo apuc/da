@@ -7,6 +7,7 @@ use mihaildev\elfinder\InputFile;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model backend\modules\news\models\News */
@@ -33,6 +34,19 @@ use yii\widgets\ActiveForm;
 
     <br>
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+
+    <label class="control-label" for="company-city_id">Начните вводить теги</label>
+    <?= Select2::widget([
+        'name' => 'Tags',
+        'data' => ArrayHelper::map($tags, 'id', 'tag'),
+        'value' => $tags_selected,
+        //'data' => ['Донецкая область' => ['1'=>'Don','2'=>'Gorl'], 'Rostovskaya' => ['5'=>'rostov']],
+        'options' => ['placeholder' => 'Начните вводить теги ...', 'multiple' => true],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]);
+    ?>
 
     <? /*= $form->field($model, 'content')->textarea(['rows' => 6]) */ ?>
     <?php echo $form->field($model, 'content')->widget(CKEditor::className(), [

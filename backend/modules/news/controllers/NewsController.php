@@ -3,6 +3,7 @@
 namespace backend\modules\news\controllers;
 
 use backend\modules\category\models\CategoryNews;
+use backend\modules\tags\models\TagsRelation;
 use common\classes\Debug;
 use common\models\db\CategoryNewsRelations;
 use common\models\db\Lang;
@@ -14,6 +15,7 @@ use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\modules\tags\models\Tags;
 
 /**
  * NewsController implements the CRUD actions for News model.
@@ -80,6 +82,7 @@ class NewsController extends Controller
     {
         $model = new News();
         $lang = Lang::find()->all();
+        $tags = Tags::find()->asArray()->all();
 
         if ($model->load(Yii::$app->request->post())) {
             //Debug::prn($_POST['News']['dt_public']);
@@ -101,12 +104,23 @@ class NewsController extends Controller
                 $catNewRel->new_id = $model->id;
                 $catNewRel->save();
             }
+
+            if(!empty(Yii::$app->request->post('Tags')))
+            {
+                foreach (Yii::$app->request->post('Tags') as $tag)
+                {
+                    $tags = New TagsRelation();
+                    $tags->saveTagsRel($tag, $model->id, 'news');
+                }
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
                 'lang' => $lang,
                 'cats_arr' => [],
+                'tags' => $tags
             ]);
         }
     }
@@ -125,6 +139,12 @@ class NewsController extends Controller
         $lang = Lang::find()->all();
         $cats = CategoryNewsRelations::find()->where(['new_id' => $id])->all();
         $cats_arr = [];
+        $tags = Tags::find()->asArray()->all();
+        $tags_selected =ArrayHelper::getColumn(TagsRelation::find()->select('tag_id')
+            ->where(['post_id' => $id, 'type' => 'news'])
+            ->asArray()
+            ->all(), 'tag_id');
+
         foreach ($cats as $cat_item) {
             $cats_arr[] = $cat_item->cat_id;
         }
@@ -161,12 +181,24 @@ class NewsController extends Controller
                 $catNewRel->save();
             }
 
+            if(!empty(Yii::$app->request->post('Tags')))
+            {
+                TagsRelation::deleteAll(['post_id' => $id, 'type' => 'news']);
+                foreach (Yii::$app->request->post('Tags') as $tag)
+                {
+                    $tags = New TagsRelation();
+                    $tags->saveTagsRel($tag, $id, 'news');
+                }
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
                 'lang' => $lang,
                 'cats_arr' => $cats_arr,
+                'tags' => $tags,
+                'tags_selected' => $tags_selected
             ]);
         }
     }

@@ -3,6 +3,8 @@
 namespace backend\modules\company\controllers;
 
 use backend\modules\company\models\SocAvailable;
+use backend\modules\tags\models\Tags;
+use backend\modules\tags\models\TagsRelation;
 use common\classes\Debug;
 use common\classes\GeobaseFunction;
 use common\classes\UserFunction;
@@ -94,7 +96,7 @@ class CompanyController extends Controller
         $socCompany = SocCompany::find()->where(['company_id' => $model->id])->all();
         //Debug::prn($socCompany);
         $socCompany = ArrayHelper::index($socCompany, 'soc_type');
-
+        $tags = Tags::find()->asArray()->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             /*$model->user_id = Yii::$app->user->getId();*/
@@ -123,12 +125,22 @@ class CompanyController extends Controller
                 }
             }
 
+            if(!empty(Yii::$app->request->post('Tags')))
+            {
+                foreach (Yii::$app->request->post('Tags') as $tag)
+                {
+                    $tags = New TagsRelation();
+                    $tags->saveTagsRel($tag, $model->id, 'company');
+                }
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
                 'city' => GeobaseFunction::getArrayCityRegion(),
-                'typeSeti' => $typeSeti
+                'typeSeti' => $typeSeti,
+                'tags' => $tags
             ]);
         }
     }
@@ -150,6 +162,13 @@ class CompanyController extends Controller
         $socCompany = SocCompany::find()->where(['company_id' => $model->id])->all();
         //Debug::prn($socCompany);
         $socCompany = ArrayHelper::index($socCompany, 'soc_type');
+        $tags = Tags::find()->asArray()->all();
+        $tags_selected =ArrayHelper::getColumn(TagsRelation::find()->select('tag_id')
+            ->where(['post_id' => $id, 'type' => 'company'])
+            ->asArray()
+            ->all(), 'tag_id');
+
+        //Debug::prn(ArrayHelper::getColumn($tags_selected, 'tag_id'));
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
@@ -197,6 +216,16 @@ class CompanyController extends Controller
                     $socCompany->save();
                 }
             }
+            //Debug::prn(Yii::$app->request->post('Tags'));
+            if(!empty(Yii::$app->request->post('Tags')))
+            {
+                TagsRelation::deleteAll(['post_id' => $id, 'type' => 'company']);
+                foreach (Yii::$app->request->post('Tags') as $tag)
+                {
+                    $tags = New TagsRelation();
+                    $tags->saveTagsRel($tag, $id, 'company');
+                }
+            }
 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -206,7 +235,9 @@ class CompanyController extends Controller
                 'companyPhotosStr' => $companyPhotosStr,
                 'city' => GeobaseFunction::getArrayCityRegion(),
                 'typeSeti' => $typeSeti,
-                'socCompany' => $socCompany
+                'socCompany' => $socCompany,
+                'tags' => $tags,
+                'tags_selected' => $tags_selected
             ]);
         }
     }
