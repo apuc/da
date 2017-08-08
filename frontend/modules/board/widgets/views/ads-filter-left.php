@@ -1,6 +1,6 @@
 <div class="commercial__content-sidebar">
 
-    <form class="commercial__sidebar-filter">
+    <form id="filterform" class="commercial__sidebar-filter" method="get" action="<?= \yii\helpers\Url::to(['search'])?>">
 
         <span class="commercial__sidebar-filter--children-category">
 
@@ -49,6 +49,12 @@
 
             </div>
         </div>
+
+
+        <input type="hidden" name="regionFilter">
+        <input type="hidden" name="cityFilter">
+        <input type="hidden" name="mainCat">
+        <input type="hidden" name="textFilter">
 
         <input class="commercial__sidebar-filter--submit" type="submit" value="применить">
 

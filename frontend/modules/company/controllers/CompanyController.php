@@ -251,8 +251,10 @@ class CompanyController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             $phone = '';
-            foreach ($_POST['mytext'] as $item){
-                $phone .= $item . ' ';
+            if(!empty($_POST['mytext'])){
+                foreach ($_POST['mytext'] as $item){
+                    $phone .= $item . ' ';
+                }
             }
 
             $model->status = 2;

@@ -91,7 +91,7 @@ $this->registerJsFile('/js/board.js', ['depends' => [\yii\web\JqueryAsset::class
                                     <a href="<?= \yii\helpers\Url::toRoute(['/obyavleniya/' . $val->slug]); ?>"
                                        class="average-ad-category"><?= $val->name; ?></a>
                                     <?= ($k == count($listcat)) ? '' : '<span class="separatorListCategory">|</span>' ?>
-                                    <?php $k++; endforeach ?>                                                                  <a href="/obyavleniya/aksessuaryi-i-komplektuyuschie" class="average-ad-category">Аксессуары и комплектующие</a>
+                                    <?php $k++; endforeach ?>
                             </div>
                         </div>
                     </div>

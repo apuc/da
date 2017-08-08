@@ -106,5 +106,15 @@ class DefaultController extends Controller
     {
         $city = file_get_contents($this->siteApi . '/city?region=' . Yii::$app->request->post('id'));
 
+        return $this->renderPartial('children-category/city-list', ['city' => json_decode($city)]);
+    }
+
+    public function actionSearch()
+    {
+       // Debug::prn(Yii::$app->request->get());
+
+        $ads = file_get_contents($this->siteApi . '/ads/search?=' . http_build_query( Yii::$app->request->get() ) );
+
+        Debug::prn($ads);
     }
 }

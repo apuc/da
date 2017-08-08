@@ -2,6 +2,8 @@ $(document).ready(function () {
 
     //Клик по глвной категории
     $(document).on('click', '.commercial__category-list li', function () {
+        var idCat = $(this).data('id');
+        $("input[name='mainCat']").val(idCat);
         $.ajax({
             url: '/board/default/get-children-category',
             type: 'POST',
@@ -16,7 +18,7 @@ $(document).ready(function () {
 
     });
 
-    //Изпенение подкатегории
+    //Изменение подкатегории
     $(document).on('change', '.childrenCategorySelect', function () {
         $(this).nextAll().remove();
         $.ajax({
@@ -83,6 +85,18 @@ $(document).ready(function () {
 
 
     /*$(document).on('click', '.selectRegion', function(){*/
+
+    //Отправляем всегда левую форму фильтра
+    $(document).on('click', '.searchForm', function () {
+        document.getElementById('filterform').submit();
+        return false;
+    });
+
+    $(document).on('change', '.textSearch', function () {
+        var text = $(this).val();
+        $("input[name='textFilter']").val(text);
+    });
+
 
     //Выбор региона
     $('.selectRegion').click(function () {

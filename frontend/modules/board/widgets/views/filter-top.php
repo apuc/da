@@ -42,19 +42,10 @@
 
     <div class="city-list">
 
-        <ul>
-            <span class="republic selectCity" city-id="999">Буйнакск</span>
-            <span class="republic selectCity" city-id="3012">Каспийск</span>
-            <span class="republic selectCity" city-id="1456">Кизляр</span>
-            <span class="republic selectCity" city-id="1827">Махачкала</span>
-            <span class="republic selectCity" city-id="2513">Хасавюрт</span>
-        </ul>
+
 
     </div>
 
-    <input type="hidden" name="regionFilter">
-    <input type="hidden" name="cityFilter">
-    <input type="hidden" name="mainCat">
-    <input type="hidden" name="textFilter">
+
     <button class="button-search searchForm">Найти</button>
 </form>
