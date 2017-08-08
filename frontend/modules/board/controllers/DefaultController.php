@@ -80,13 +80,15 @@ class DefaultController extends Controller
 
     public function actionGetChildrenCategory()
     {
-        $cat = file_get_contents($this->siteApi . '/category?parent=' . Yii::$app->request->post('catId'));
-        if($cat != '[]'){
-            return $this->renderPartial('children-category/category', ['cat' => json_decode($cat)]);
-        }
-        else{
-            Debug::prn($cat);
-        }
+        if(!empty(Yii::$app->request->post('catId'))) {
+            $cat = file_get_contents($this->siteApi . '/category?parent=' . Yii::$app->request->post('catId'));
 
+            if($cat != '[]'){
+                return $this->renderPartial('children-category/category', ['cat' => json_decode($cat)]);
+            }
+            else{
+                Debug::prn($cat);
+            }
+        }
     }
 }
