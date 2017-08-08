@@ -620,7 +620,7 @@ class MainMenuAdmin extends Widget
                     [
                         'label' => 'Теги',
                         'url' => Url::to(['/tags/tags']),
-                        'template' => '<a href="{url}"><i class="fa fa-users"></i> <span>{label}</span></a>',
+                        'template' => '<a href="{url}"><i class="fa fa-tags"></i> <span>{label}</span></a>',
                         'active' => Yii::$app->controller->module->id == 'tags' || Yii::$app->controller->module->id == 'tags',
                         'visible' => UserFunction::hasPermission(['Теги']),
                     ],
