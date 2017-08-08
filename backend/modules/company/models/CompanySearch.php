@@ -2,6 +2,7 @@
 
 namespace backend\modules\company\models;
 
+use common\classes\Debug;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -41,8 +42,14 @@ class CompanySearch extends Company
      */
     public function search($params)
     {
+        $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
         $query = Company::find();
+        //Debug::prn($query->where(['user_id' => Yii::$app->user->id]));
+        $query->andWhere(['user_id' => Yii::$app->user->id]);
+        if(isset($role['Редактор компаний']))
+        {
 
+        }
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -56,6 +63,9 @@ class CompanySearch extends Company
             // $query->where('0=1');
             return $dataProvider;
         }
+
+
+
 
         // grid filtering conditions
         $query->andFilterWhere([

@@ -2,8 +2,10 @@
 
 namespace backend\modules\company\controllers;
 
+use backend\modules\company\models\SocAvailable;
 use common\classes\Debug;
 use common\classes\GeobaseFunction;
+use common\classes\UserFunction;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
 use common\models\db\CompanyPhoto;
@@ -12,6 +14,7 @@ use common\models\db\Services;
 use common\models\db\ServicesCompanyRelations;
 use common\models\db\Stock;
 use common\models\db\TariffServicesRelations;
+use backend\modules\company\models\SocCompany;
 use Yii;
 use backend\modules\company\models\Company;
 use backend\modules\company\models\CompanySearch;
@@ -86,14 +89,19 @@ class CompanyController extends Controller
     public function actionCreate()
     {
         $model = new Company();
+        $typeSeti = SocAvailable::find()->all();
 
-        //Debug::prn($_POST);
+        $socCompany = SocCompany::find()->where(['company_id' => $model->id])->all();
+        //Debug::prn($socCompany);
+        $socCompany = ArrayHelper::index($socCompany, 'soc_type');
+
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             /*$model->user_id = Yii::$app->user->getId();*/
             /*$model->save();*/
             //Debug::prn($model->tariff_id);
             //Debug::prn(Yii::$app->request->post());
+            if(UserFunction::hasRoles(['Редактор компаний'])) $model->user_id = Yii::$app->user->id;
             if(!$model->setTariff()) $model->save();
 
             $cats_ids = explode(',', $_POST['cats']);
@@ -102,7 +110,6 @@ class CompanyController extends Controller
                 $catCompanyRel->cat_id = $cats_id;
                 $catCompanyRel->company_id = $model->id;
                 $catCompanyRel->save();
-
             }
 
             return $this->redirect(['view', 'id' => $model->id]);
@@ -110,6 +117,7 @@ class CompanyController extends Controller
             return $this->render('create', [
                 'model' => $model,
                 'city' => GeobaseFunction::getArrayCityRegion(),
+                'typeSeti' => $typeSeti
             ]);
         }
     }
