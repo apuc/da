@@ -81,7 +81,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
                         <h3 class="parser__element--title"></h3>
 
-                        <p class="parser__element--descr"><?= $model->text?> </p>
+                        <p class="parser__element--descr"><?= nl2br($model->text)?> </p>
 
                         <?php if (!empty($model->photo)): ?>
                             <a data-fancybox="gallery" class="parser__element--photo"
