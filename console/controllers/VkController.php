@@ -201,8 +201,27 @@ class VkController extends Controller
         foreach ($groups as $group) {
             $res = $this->vk->request('groups.getById', ['group_id' => $group->domain]);
             $res = json_decode($res);
-            Debug::prn($res);
+            $this->saveGroupInfo($res->response[0], $groups);
         }
+        //Debug::prn($res);
+    }
+
+    public function saveGroupInfo($group_info, $groups = null)
+    {
+        $groups = (!$groups)? : VkGroups::find()->where(['status' => 1])->all();
+        foreach ($groups as $group)
+        {
+            if($group->vk_id * -1 == $group_info->id)
+            {
+                $group->photo_50 = $group_info->photo_50;
+                $group->photo_100 = $group_info->photo_100;
+                $group->photo_200 = $group_info->photo_200;
+                $group->save();
+                //Debug::prn($group);
+            }
+
+        }
+
     }
 
     public function actionGetGeoBase()

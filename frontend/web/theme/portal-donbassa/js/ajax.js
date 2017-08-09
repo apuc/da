@@ -96,10 +96,13 @@ $(document).ready(function () {
                     $('.show-more-stream').attr('data-step', parseInt($('.show-more-stream').attr('data-step') )+ 1);
                     for (result in res.render)
                     {
-                        if($("#first-column").css('height').slice(0, -2) > $("#second-column").css('height').slice(0, -2))
+                        if(Number($("#first-column").css('height').slice(0, -2)) > Number($("#second-column").css('height').slice(0, -2)))
                         {
                             $("#second-column").append(res.render[result]);
-                        }else $("#first-column").append(res.render[result]);
+                        }else
+                            {
+                                $("#first-column").append(res.render[result]);
+                            }
 
                         //console.log(res.render[result]);
                     }

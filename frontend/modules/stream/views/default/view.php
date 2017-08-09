@@ -39,7 +39,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                 </div>-->
 
                 <ul class="parser__top-nav">
-                    <li><a href="#">Все материалы <span><?= $count?></span></a></li>
+                    <li><a href="<?= \yii\helpers\Url::to(['/stream'])?>">Все материалы <span><?= $count?></span></a></li>
                     <li><a href="<?= \yii\helpers\Url::to(['/stream'])?>">ВК
                             <span><?= $count?></span></a></li>
                 </ul>
@@ -57,7 +57,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                     <img src="<?= $model->author->photo ?>" alt="">
                                 <?php endif; ?>
                                 <?php if (!empty($model->group)): ?>
-
+                                        <img src="<?= $model->group->getPhoto() ?>" alt="">
                                 <?php endif; ?>
                             </div>
 
@@ -165,7 +165,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                             <img src="<?= $item->author->photo ?>" alt="">
                                         <?php endif; ?>
                                         <?php if (!empty($item->group)): ?>
-
+                                            <img src="<?= $item->group->getPhoto() ?>" alt="">
                                         <?php endif; ?>
                                     </div>
 
@@ -194,7 +194,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
                                     <p class="parser__element--descr"><?= $item->text ?></p>
                                     <?php if (mb_strlen($item->text) > 131): ?>
-                                        <a href="#" class="parser__element--more">читать далее</a>
+                                        <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug])?>" class="parser__element--more">читать далее</a>
                                     <?php endif; ?>
                                 <?php endif; ?>
 
@@ -272,7 +272,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                         <img src="<?= $item->author->photo ?>" alt="">
                                     <?php endif; ?>
                                     <?php if (!empty($item->group)): ?>
-
+                                        <img src="<?= $item->group->getPhoto() ?>" alt="">
                                     <?php endif; ?>
                                 </div>
 
@@ -301,7 +301,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
                                 <p class="parser__element--descr"><?= $item->text ?></p>
                                 <?php if (mb_strlen($item->text) > 131): ?>
-                                    <a href="#" class="parser__element--more">читать далее</a>
+                                    <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug])?>" class="parser__element--more">читать далее</a>
                                 <?php endif; ?>
                             <?php endif; ?>
 

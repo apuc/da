@@ -1106,7 +1106,7 @@ $(document).ready(function () {
     /*close show upload img prev in cabinet*/
 
     /*show parser text*/
-    $(document).on('click', '.parser__element--more', function () {
+    /*$(document).on('click', '.parser__element--more', function () {
         event.preventDefault();
         var text = $(this).prev('.parser__element--descr');
 
@@ -1114,7 +1114,7 @@ $(document).ready(function () {
             $(this).hide();
             text.removeClass('parser__element--descr').addClass('parser__element--text-show');
         }
-    });
+    });*/
     $(document).on('click', '.parser__element--tools > .comments', function () {
         event.preventDefault();
         var comments = $(this).closest('.parser__element--tools').next();

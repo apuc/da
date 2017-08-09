@@ -9,6 +9,8 @@
 
 namespace common\models;
 
+use common\classes\Debug;
+
 class VK
 {
 
