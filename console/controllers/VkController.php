@@ -31,13 +31,18 @@ class VkController extends Controller
         echo 'test';
     }
 
-    public function actionGetStream()
+    private function getVk()
     {
         $this->vk = new VK([
             'client_id' => '6029267',
             'client_secret' => '0QKWLW7n6XumtJV7VJ6h',
             'access_token' => '90fc0cc0178c0130800af68e6051952c869b88a713b1d787982d39c70660a561c8378c432e8c6dcdb077a',
         ]);
+    }
+
+    public function actionGetStream()
+    {
+        $this->getVk();
         $groups = VkGroups::find()->where(['status' => 1])->all();
         foreach ($groups as $group) {
             $res = $this->vk->getGroupWall($group->domain, ['count' => $this->count, 'extended' => 1]);
@@ -186,6 +191,17 @@ class VkController extends Controller
                 $this->saveGif($item, $postSysId, $comm->id);
             }
             $this->saveAuthors($res->response->profiles);
+        }
+    }
+
+    public function actionGetGroupInfo()
+    {
+        $this->getVk();
+        $groups = VkGroups::find()->where(['status' => 1])->all();
+        foreach ($groups as $group) {
+            $res = $this->vk->request('groups.getById', ['group_id' => $group->domain]);
+            $res = json_decode($res);
+            Debug::prn($res);
         }
     }
 
