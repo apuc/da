@@ -133,6 +133,9 @@ return [
         'geobase_ip' => [
             'class' => 'backend\modules\geobase_ip\GeobaseIp',
         ],
+        'tags' => [
+            'class' => 'backend\modules\tags\Tags',
+        ],
     ],
     'components' => [
         /*'user' => [

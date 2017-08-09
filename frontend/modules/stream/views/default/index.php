@@ -11,6 +11,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii
 $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
 
+
 <section class="parser">
 
     <div class="container">
@@ -21,10 +22,10 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
             <div class="business__content">
 
-                <div class="parser__top-counter">
+                <!--<div class="parser__top-counter">
 
-                    <a href="<?= \yii\helpers\Url::to(['/stream/default'])?>">Показать
-                        <span class="counter counter-stream-new" data-count="<?= $count?>" csrf-token="<?= Yii::$app->request->getCsrfToken() ?>">0</span> новых записи</a>
+                    <a href="<?/*= \yii\helpers\Url::to(['/stream/default'])*/?>">Показать
+                        <span class="counter counter-stream-new" data-count="<?/*= $count*/?>" csrf-token="<?/*= Yii::$app->request->getCsrfToken() */?>">0</span> новых записи</a>
 
                 </div>
 
@@ -32,7 +33,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
                     <a href="#">Подписаться на эту тему</a>
 
-                </div>
+                </div>-->
 
                 <ul class="parser__top-nav">
                     <li><a href="#">Все материалы <span><?= $count?></span></a></li>
@@ -91,6 +92,12 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                    href="<?= $item->photo[0]->getLargePhoto() ?>">
                                     <img src="<?= $item->photo[0]->getLargePhoto() ?>" alt="">
                                 </a>
+
+                            <?php elseif (!empty($item->gif)): ?>
+                                <a data-fancybox="gallery" class="parser__element--photo"
+                                   href="<?= $item->gif[0]->getLargePreview()?>">
+                                    <img src="<?= $item->gif[0]->getLargePreview()?>" alt="">
+                                </a>
                             <?php endif; ?>
 
                             <div class="parser__element--tools">
@@ -107,7 +114,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                 <? if ($item->comment_status == 0):?>
                                     <?$count = 0?>
                                 <? else:?>
-                                    <?$count = count($item->comments)?>
+                                    <?$count = (isset($item->all_comments))? count($item->all_comments) : 0?>
                                 <?endif;?>
                                 <a href="#" class="comments">
                                     <?= $count ?>
@@ -118,20 +125,19 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
                             <div class="parser__element--comments-block">
 
-                                <?php if (!empty($item->comments)): ?>
-                                    <?php foreach ($item->comments as $comment): ?>
+                                <?php if (!empty($item->all_comments)): ?>
+                                    <?php foreach ($item->all_comments as $comment_item): ?>
                                         <div class="avatar">
-                                            <img src="<?= $comment->author['photo'] ?>" alt="">
+                                            <img src="<?= $comment_item['avatar'] ?>" alt="">
                                         </div>
 
                                         <div class="name">
-                                            <?= $comment->author['first_name'] . ' ' . $comment->author['last_name'] ?>
+                                            <?= $comment_item['username'] ?>
                                         </div>
 
-                                        <p><?= $comment->text ?></p>
+                                        <p><?= $comment_item['text'] ?></p>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
-
                             </div>
                             <?endif;?>
 
@@ -193,6 +199,13 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                        href="<?= $item->photo[0]->getLargePhoto() ?>">
                                         <img src="<?= $item->photo[0]->getLargePhoto() ?>" alt="">
                                     </a>
+
+                                <?php elseif (!empty($item->gif)): ?>
+                                    <a data-fancybox="gallery" class="parser__element--photo"
+                                       href="<?= $item->gif[0]->getLargePreview()?>">
+                                        <img src="<?= $item->gif[0]->getLargePreview()?>" alt="">
+                                    </a>
+
                                 <?php endif; ?>
 
                                 <div class="parser__element--tools">
@@ -210,31 +223,32 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                     <? if ($item->comment_status == 0):?>
                                         <?$count = 0?>
                                     <? else:?>
-                                        <?$count = count($item->comments)?>
+                                        <?$count = (isset($item->all_comments)) ? count($item->all_comments) : 0?>
                                     <?endif;?>
                                     <a href="#" class="comments">
                                         <?= $count ?>
                                     </a>
 
                                 </div>
+
                                 <? if ($item->comment_status != 0): ?>
-                                <div class="parser__element--comments-block">
+                                    <div class="parser__element--comments-block">
 
-                                    <?php if (!empty($item->comments)): ?>
-                                        <?php foreach ($item->comments as $comment): ?>
-                                            <div class="avatar">
-                                                <img src="<?= $comment->author['photo'] ?>" alt="">
-                                            </div>
+                                        <?php if (!empty($item->all_comments)): ?>
+                                            <?php foreach ($item->all_comments as $comment_item): ?>
+                                                <div class="avatar">
+                                                    <img src="<?= $comment_item['avatar'] ?>" alt="">
+                                                </div>
 
-                                            <div class="name">
-                                                <?= $comment->author['first_name'] . ' ' . $comment->author['last_name'] ?>
-                                            </div>
+                                                <div class="name">
+                                                    <?= $comment_item['username'] ?>
+                                                </div>
 
-                                            <p><?= $comment->text ?></p>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
+                                                <p><?= $comment_item['text'] ?></p>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
 
-                                </div>
+                                    </div>
                                 <?endif;?>
 
                             </div>
@@ -250,7 +264,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
                 <div class="parser__more">
 
-                    <a href="#"  class="show-more show-more-stream" data-step="1" csrf-token="<?= Yii::$app->request->getCsrfToken() ?>">загрузить еще</a>
+                    <a href="#"  class="show-more show-more-stream" data-dt="" data-step="1" csrf-token="<?= Yii::$app->request->getCsrfToken() ?>">загрузить еще</a>
 
                 </div>
 

@@ -22,6 +22,8 @@ $this->params['breadcrumbs'][] = Yii::t('news', 'Update');
         'model' => $model,
         'lang' => $lang,
         'cats_arr' => $cats_arr,
+        'tags' => $tags,
+        'tags_selected' => $tags_selected
     ]) ?>
 
 </div>

@@ -151,6 +151,7 @@ class MainMenuAdmin extends Widget
                                 'url' => Url::to(['/company/order-tariff/index']),
                                 'active' => Yii::$app->controller->module->id == 'company' && Yii::$app->controller->action->id == 'index',
                                 'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-yellow">' . $CompanyTariffOrderCount . '</small></span></a>',
+                                'visible' => UserFunction::hasPermission(['Заявки компаний'])
                             ],
                             [
                                 'label' => 'Все',
@@ -162,37 +163,44 @@ class MainMenuAdmin extends Widget
                                 'label' => 'Категории',
                                 'url' => Url::to(['/category_company']),
                                 'active' => Yii::$app->controller->module->id == 'category_company' && Yii::$app->controller->action->id == 'index',
+                                'visible' => UserFunction::hasPermission(['Категории компаний'])
                             ],
                             [
                                 'label' => 'Топ',
                                 'url' => Url::to(['/top_company/top_company']),
                                 'active' => Yii::$app->controller->module->id == 'top_company',
+                                'visible' => UserFunction::hasPermission(['Топ компаний'])
                             ],
                             [
                                 'label' => 'Развлечения',
                                 'url' => Url::to(['/entertainment']),
                                 'active' => Yii::$app->controller->module->id == 'entertainment' && Yii::$app->controller->action->id == 'index',
+                                'visible' => UserFunction::hasPermission(['Развлечения компаний'])
                             ],
                             [
                                 'label' => 'Рекомендуем',
                                 'url' => Url::to(['/company/company/we-recommend-companies']),
                                 'active' => Yii::$app->controller->module->id === 'company' && Yii::$app->controller->action->id === 'we-recommend-companies',
+                                'visible' => UserFunction::hasPermission(['Рекомендуем компаний'])
                             ],
                             [
                                 'label' => 'Отзывы',
                                 'url' => Url::to(['/company_feedback/company_feedback']),
                                 'active' => Yii::$app->controller->module->id === 'company_feedback',
                                 'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-blue">' . $countFeedback . '</small></span></a>',
+                                'visible' => UserFunction::hasPermission(['Отзывы компаний'])
                             ],
                             [
                                 'label' => 'Популярные акции',
                                 'url' => Url::to(['/company/company/hot-stock']),
                                 'active' => Yii::$app->controller->module->id === 'company' && Yii::$app->controller->action->id === 'hot-stock',
+                                'visible' => UserFunction::hasPermission(['Популярные акции компаний'])
                             ],
                             [
                                 'label' => 'Социальные сети',
                                 'url' => Url::to(['/company/soc_available']),
                                 'active' => Yii::$app->controller->module->id === 'soc_available' && Yii::$app->controller->action->id === 'soc_available',
+                                'visible' => UserFunction::hasPermission(['Социальные сети компаний'])
 
                             ],
                         ],
@@ -201,8 +209,7 @@ class MainMenuAdmin extends Widget
                         'options' => [
                             'class' => 'treeview',
                         ],
-                        'template' => '
-                            <a href="#">
+                        'template' => '<a href="#">
                                     <i class="fa fa-building-o"></i> 
                                     <span>{label}</span> 
                                       <span class="pull-right-container">
@@ -609,6 +616,13 @@ class MainMenuAdmin extends Widget
                             'class' => 'treeview',
                         ],
                         'template' => '<a href="#"><i class="fa fa-bar-chart"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                    ],
+                    [
+                        'label' => 'Теги',
+                        'url' => Url::to(['/tags/tags']),
+                        'template' => '<a href="{url}"><i class="fa fa-tags"></i> <span>{label}</span></a>',
+                        'active' => Yii::$app->controller->module->id == 'tags' || Yii::$app->controller->module->id == 'tags',
+                        'visible' => UserFunction::hasPermission(['Теги']),
                     ],
 
                 ],

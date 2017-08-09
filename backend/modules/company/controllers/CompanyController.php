@@ -2,8 +2,12 @@
 
 namespace backend\modules\company\controllers;
 
+use backend\modules\company\models\SocAvailable;
+use backend\modules\tags\models\Tags;
+use backend\modules\tags\models\TagsRelation;
 use common\classes\Debug;
 use common\classes\GeobaseFunction;
+use common\classes\UserFunction;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
 use common\models\db\CompanyPhoto;
@@ -12,6 +16,7 @@ use common\models\db\Services;
 use common\models\db\ServicesCompanyRelations;
 use common\models\db\Stock;
 use common\models\db\TariffServicesRelations;
+use backend\modules\company\models\SocCompany;
 use Yii;
 use backend\modules\company\models\Company;
 use backend\modules\company\models\CompanySearch;
@@ -86,14 +91,19 @@ class CompanyController extends Controller
     public function actionCreate()
     {
         $model = new Company();
+        $typeSeti = SocAvailable::find()->all();
 
-        //Debug::prn($_POST);
+        $socCompany = SocCompany::find()->where(['company_id' => $model->id])->all();
+        //Debug::prn($socCompany);
+        $socCompany = ArrayHelper::index($socCompany, 'soc_type');
+        $tags = Tags::find()->asArray()->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             /*$model->user_id = Yii::$app->user->getId();*/
             /*$model->save();*/
             //Debug::prn($model->tariff_id);
             //Debug::prn(Yii::$app->request->post());
+            if(UserFunction::hasRoles(['Редактор компаний'])) $model->user_id = Yii::$app->user->id;
             if(!$model->setTariff()) $model->save();
 
             $cats_ids = explode(',', $_POST['cats']);
@@ -102,7 +112,26 @@ class CompanyController extends Controller
                 $catCompanyRel->cat_id = $cats_id;
                 $catCompanyRel->company_id = $model->id;
                 $catCompanyRel->save();
+            }
 
+            if(!empty($_POST['socicon'])){
+                //SocCompany::deleteAll(['company_id' => $id]);
+                foreach ($_POST['socicon'] as $key=>$value){
+                    $socCompany = new SocCompany();
+                    $socCompany->company_id = $model->id;
+                    $socCompany->link = $value[0];
+                    $socCompany->soc_type = $key;
+                    $socCompany->save();
+                }
+            }
+
+            if(!empty(Yii::$app->request->post('Tags')))
+            {
+                foreach (Yii::$app->request->post('Tags') as $tag)
+                {
+                    $tags = New TagsRelation();
+                    $tags->saveTagsRel($tag, $model->id, 'company');
+                }
             }
 
             return $this->redirect(['view', 'id' => $model->id]);
@@ -110,6 +139,8 @@ class CompanyController extends Controller
             return $this->render('create', [
                 'model' => $model,
                 'city' => GeobaseFunction::getArrayCityRegion(),
+                'typeSeti' => $typeSeti,
+                'tags' => $tags
             ]);
         }
     }
@@ -127,6 +158,17 @@ class CompanyController extends Controller
         $companyPhotos = CompanyPhoto::findAll(['company_id' => $id]);
         $companyPhotos = ArrayHelper::getColumn($companyPhotos, 'photo');
         $companyPhotosStr = implode(',', $companyPhotos);
+        $typeSeti = SocAvailable::find()->all();
+        $socCompany = SocCompany::find()->where(['company_id' => $model->id])->all();
+        //Debug::prn($socCompany);
+        $socCompany = ArrayHelper::index($socCompany, 'soc_type');
+        $tags = Tags::find()->asArray()->all();
+        $tags_selected =ArrayHelper::getColumn(TagsRelation::find()->select('tag_id')
+            ->where(['post_id' => $id, 'type' => 'company'])
+            ->asArray()
+            ->all(), 'tag_id');
+
+        //Debug::prn(ArrayHelper::getColumn($tags_selected, 'tag_id'));
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
@@ -163,6 +205,28 @@ class CompanyController extends Controller
                 $catCompanyRel->company_id = $model->id;
                 $catCompanyRel->save();
             }
+
+            if(!empty($_POST['socicon'])){
+                SocCompany::deleteAll(['company_id' => $id]);
+                foreach ($_POST['socicon'] as $key=>$value){
+                    $socCompany = new SocCompany();
+                    $socCompany->company_id = $id;
+                    $socCompany->link = $value[0];
+                    $socCompany->soc_type = $key;
+                    $socCompany->save();
+                }
+            }
+            //Debug::prn(Yii::$app->request->post('Tags'));
+            if(!empty(Yii::$app->request->post('Tags')))
+            {
+                TagsRelation::deleteAll(['post_id' => $id, 'type' => 'company']);
+                foreach (Yii::$app->request->post('Tags') as $tag)
+                {
+                    $tags = New TagsRelation();
+                    $tags->saveTagsRel($tag, $id, 'company');
+                }
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -170,6 +234,10 @@ class CompanyController extends Controller
                 'companyPhotos' => $companyPhotos,
                 'companyPhotosStr' => $companyPhotosStr,
                 'city' => GeobaseFunction::getArrayCityRegion(),
+                'typeSeti' => $typeSeti,
+                'socCompany' => $socCompany,
+                'tags' => $tags,
+                'tags_selected' => $tags_selected
             ]);
         }
     }

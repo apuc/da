@@ -104,13 +104,20 @@ echo Html::dropDownList(
         <p class="cabinet__add-company-form--title">Телефон</p>
         <?php $phone = explode(' ', $model->phone);
        // \common\classes\Debug::prn($phone);
-        foreach ($phone as $item):?>
-            <?php if(!empty($item) ):?>
-                <input value="<?= $item; ?>" class="cabinet__add-company-form--field" name="mytext[]" type="text">
+        if(empty($phone[0])){ ?>
+            <input value="<?= $item; ?>" class="cabinet__add-company-form--field" name="mytext[]" type="text">
                 <a href="#" class="cabinet__remove-pkg"></a>
-            <?php endif; ?>
+        <?php }
+        else{
+            foreach ($phone as $item):?>
+                <?php if(!empty($item) ):?>
+                    <input value="<?= $item; ?>" class="cabinet__add-company-form--field" name="mytext[]" type="text">
+                    <a href="#" class="cabinet__remove-pkg"></a>
+                <?php endif; ?>
 
-        <?php endforeach; ?>
+            <?php endforeach;
+        }
+        ?>
 
 
 

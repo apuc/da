@@ -52,6 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function ($model) {
                     $photo = \common\models\db\VkPhoto::find()->where(['post_id' => $model->id])->all();
+                    $gif = \common\models\db\VkGif::find()->where(['post_id' => $model->id])->all();
                     $text = '';
 
                     if(strlen($model->text) > 200)
@@ -76,6 +77,15 @@ $this->params['breadcrumbs'][] = $this->title;
                             $text .= '<span>' . Html::img($item->photo_75, ['width' => 200]) . '</span>';
                         }
                     }
+                    $text .= '</div><div>';
+
+                    foreach ((array)$gif as $item) {
+
+                        if (!empty($item->gif_link)) {
+                            $text .= '<span>' . Html::img($item->gif_link, ['width' => 300]) . '</span>';
+                        }
+                    }
+
                     $text .= '</div>';
                     return $text;
                 },

@@ -23,6 +23,10 @@ $this->params['breadcrumbs'][] = Yii::t('company', 'Update');
         'companyPhotos' => $companyPhotos,
         'companyPhotosStr' => $companyPhotosStr,
         'city' => $city,
+        'typeSeti' => $typeSeti,
+        'socCompany' => $socCompany,
+        'tags' => $tags,
+        'tags_selected' => $tags_selected
     ]) ?>
 
 </div>

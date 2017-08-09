@@ -67,6 +67,21 @@ $this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\we
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
+    <label class="control-label" for="company-city_id">Начните вводить теги</label>
+    <?= Select2::widget([
+        'name' => 'Tags',
+        'data' => ArrayHelper::map($tags, 'id', 'tag'),
+        'value' => $tags_selected,
+        //'data' => ['Донецкая область' => ['1'=>'Don','2'=>'Gorl'], 'Rostovskaya' => ['5'=>'rostov']],
+        'options' => ['placeholder' => 'Начните вводить теги ...', 'multiple' => true],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]);
+    ?>
+
+    <? //\common\classes\Debug::prn(ArrayHelper::map($tags, 'id', 'tag')) ?>
+
     <label class="control-label" for="company-city_id">Начните вводить Ваш город</label>
     <?= Select2::widget([
         'name' => 'Company[city_id]',
@@ -216,7 +231,19 @@ $this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\we
             ],
         ]
     );?>
+    <p class="cabinet__add-company-form--title"><b>Соц. сети компании</b></p>
+    <div class="cabinet__add-company-form--social">
 
+    <?foreach ($typeSeti as $type):?>
+        <div class="cabinet__add-company-form--social-element">
+                            <span class="social-wrap__item">
+                                <img src="<?= $type->icon ?>" alt="">
+                            </span>
+            <span class="social-name"><?= $type->name; ?></span>
+            <input type="text" value="<?= !empty($socCompany[$type->id]->link) ? $socCompany[$type->id]->link : ''?>" name="socicon[<?= $type->id?>][]" class="social-way">
+        </div>
+    <?endforeach;?>
+    </div>
 
     <?= $form->field($model, 'recommended')->dropDownList([
         0 => 'Нет',

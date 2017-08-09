@@ -12,6 +12,7 @@ use common\classes\Debug;
 use common\models\db\Comments;
 use common\models\db\VkAuthors;
 use common\models\db\VkComments;
+use common\models\db\VkGif;
 use common\models\db\VkGroups;
 use common\models\db\VkPhoto;
 use common\models\db\VkStream;
@@ -53,6 +54,7 @@ class VkController extends Controller
 
     public function saveStream($items)
     {
+       // Debug::prn($items);
         if (!empty($items)) {
             foreach ((array)$items as $item) {
                 if (VkStream::find()->where(['vk_id' => $item->owner_id . '_' . $item->id])->count() == 0) {
@@ -69,6 +71,7 @@ class VkController extends Controller
                     echo 'post - ' . $post->vk_id . ' add' . "\n";
                     $this->savePhoto($item, $post->id);
                     $this->saveComments($item->owner_id, $item->id, $post->id);
+                    $this->saveGif($item, $post->id);
                 }
             }
         }
@@ -97,6 +100,41 @@ class VkController extends Controller
                         $photo->photo_1280 = isset($attachment->photo->photo_1280) ? $attachment->photo->photo_1280 : '';
                         $photo->save();
                         echo 'photo - ' . $photo->vk_id . ' add' . "\n";
+                    }
+                }
+            }
+        }
+    }
+
+    public function saveGif($item, $postId = false, $commentId = false)
+    {
+        if (!empty($item->attachments)) {
+            foreach ((array)$item->attachments as $attachment) {
+                if ($attachment->type === 'doc') {
+                    if (VkGif::find()->where(['vk_id' => $attachment->doc->id])->count() == 0) {
+                        $gif = new VkGif();
+                        $gif->vk_id = $attachment->doc->id;
+                        $gif->vk_post_id = $item->id;
+                        $gif->post_id = $postId ?: 0;
+                        $gif->comment_id = $commentId ?: 0;
+                        $gif->owner_id = isset($item->owner_id) ? $item->owner_id : 0;
+                        $gif->vk_user_id = $item->from_id;
+                        $gif->access_key = $attachment->doc->access_key;
+
+                        foreach ($attachment->doc->preview->photo->sizes as $size)
+                        {
+                            $sizes[$size->type] = $size->src;
+                        }
+
+                        $gif->preview_m = isset($sizes['m']) ? $sizes['m'] : '';
+                        $gif->preview_o = isset($sizes['o']) ? $sizes['o'] : '';
+                        $gif->preview_s = isset($sizes['s']) ? $sizes['s'] : '';
+                        $gif->preview_x = isset($sizes['x']) ? $sizes['x'] : '';
+
+                        $gif->gif_link = $attachment->doc->url;
+                        $gif->save();
+                        //Debug::prn($gif);
+                        echo 'gif - ' . $gif->vk_id . ' add' . "\n";
                     }
                 }
             }
@@ -150,6 +188,7 @@ class VkController extends Controller
                 $comm->save();
                 echo 'comment - ' . $comm->vk_id . ' add' . "\n";
                 $this->savePhoto($item, $postSysId, $comm->id);
+                $this->saveGif($item, $postSysId, $comm->id);
             }
             $this->saveAuthors($res->response->profiles);
         }
