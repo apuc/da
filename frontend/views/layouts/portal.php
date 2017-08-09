@@ -75,6 +75,8 @@ $user = Yii::$app->user->identity;
 
 <?= \frontend\widgets\MainPosters::widget(); ?>
 
+<?= \frontend\widgets\StreamMain::widget();?>
+
 <?= \frontend\widgets\CompanyMain::widget(); ?>
 
 <?= \frontend\widgets\MainPhotos::widget(); ?>
