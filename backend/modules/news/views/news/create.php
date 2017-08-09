@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'lang' => $lang,
         'cats_arr' => [],
         'tags' => $tags,
+        'tags_selected' => $tags_selected,
     ]) ?>
 
 </div>

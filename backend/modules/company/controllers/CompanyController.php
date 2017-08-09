@@ -140,7 +140,8 @@ class CompanyController extends Controller
                 'model' => $model,
                 'city' => GeobaseFunction::getArrayCityRegion(),
                 'typeSeti' => $typeSeti,
-                'tags' => $tags
+                'tags' => $tags,
+                'tags_selected' =>[],
             ]);
         }
     }

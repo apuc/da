@@ -120,7 +120,8 @@ class NewsController extends Controller
                 'model' => $model,
                 'lang' => $lang,
                 'cats_arr' => [],
-                'tags' => $tags
+                'tags' => $tags,
+                'tags_selected' => [],
             ]);
         }
     }
