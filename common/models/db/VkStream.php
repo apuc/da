@@ -153,8 +153,8 @@ class VkStream extends \yii\db\ActiveRecord
         if ($vk_comments) {
             foreach ($vk_comments as $comment) {
                 $comment_result[] = [
-                    'username' => $comment->author->first_name . ' ' . $comment->author->last_name,
-                    'avatar' => $comment->author->photo,
+                    'username' => $comment->author['first_name'] . ' ' . $comment->author['last_name'],
+                    'avatar' => $comment->author['photo'],
                     'text' => $comment->text,
                 ];
             }
