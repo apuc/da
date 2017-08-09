@@ -10,6 +10,7 @@
  * @var $positions array
  * @var $organizations \common\models\db\Company
  */
+use common\classes\GeobaseFunction;
 use yii\helpers\Url;
 
 ?>
@@ -42,7 +43,15 @@ $wrc_count = 0; ?>
 
             <p class="business__sm-item--address">
                 <span>Адрес:</span>
-                <span><?= $company->address ?></span>
+                <?php
+                if($company->region_id != 0){
+                    $address = GeobaseFunction::getRegionName($company->region_id) . ', ' .GeobaseFunction::getCityName($company->city_id) . ', ' . $company->address ;
+                }
+                else{
+                    $address = $company->address;
+                }
+                ?>
+                <span><?= $address ?></span>
             </p>
 
             <?php $phone = explode(' ', $company->phone) ?>

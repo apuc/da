@@ -4,6 +4,8 @@
  * @var $category
  */
 
+use yii\widgets\LinkPager;
+
 $this->registerJsFile('/js/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 //$this->registerJsFile('/theme/portal-donbassa/js/ads-filter.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 //\common\classes\Debug::prn($ads);
@@ -96,6 +98,21 @@ $this->registerJsFile('/js/board.js', ['depends' => [\yii\web\JqueryAsset::class
                         </div>
                     </div>
                     <?php endforeach;?>
+                    <div class="pagination">
+                        <?= LinkPager::widget(
+                            [
+                                'pagination' => $pagination,
+                                'options' => [
+                                    'class' => '',
+                                ],
+                                'prevPageCssClass' => 'pagination-prew',
+                                'nextPageCssClass' => 'pagination-next',
+                                'prevPageLabel' => '',
+                                'nextPageLabel' => '',
+                                'activePageCssClass' => 'active',
+
+                            ]) ?>
+                    </div>
 
                 </div>
 
