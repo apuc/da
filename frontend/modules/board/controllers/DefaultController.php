@@ -4,6 +4,7 @@ namespace frontend\modules\board\controllers;
 
 use common\classes\Debug;
 use Yii;
+use yii\data\Pagination;
 use yii\web\Controller;
 
 /**
@@ -30,12 +31,19 @@ class DefaultController extends Controller
         /*Debug::prn(Yii::$app->request->userIP);
         Debug::prn($_SERVER);*/
 
-        $ads = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds');
+        $rez = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page', 1));
 
+        $rez = json_decode($rez);
 
+        $pagination = new Pagination([
+            'defaultPageSize' => 10,
+            'totalCount' => $rez->_meta->totalCount,
+            'pageSizeParam' => false,
+        ]);
         return $this->render('index',
             [
-                'ads' => json_decode($ads),
+                'ads' => $rez->ads,
+                'pagination' => $pagination,
             ]
         );
     }

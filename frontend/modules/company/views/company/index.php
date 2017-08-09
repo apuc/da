@@ -6,6 +6,7 @@
  * @var $wrc array
  * @var $positions array
  */
+use common\classes\GeobaseFunction;
 use common\classes\WordFunctions;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
@@ -54,7 +55,15 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
 
                                 <p class="business__sm-item--address">
                                     <span>Адрес:</span>
-                                    <span><?= $company->address ?></span>
+                                    <?php
+                                    if($company->region_id != 0){
+                                        $address = GeobaseFunction::getRegionName($company->region_id) . ', ' .GeobaseFunction::getCityName($company->city_id) . ', ' . $company->address ;
+                                    }
+                                    else{
+                                        $address = $company->address;
+                                    }
+                                    ?>
+                                    <span><?= $address ?></span>
                                 </p>
 
                                 <?php $phone = explode(' ', $company->phone) ?>
@@ -91,7 +100,15 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
 
                                 <p class="business__sm-item--address">
                                     <span>Адрес:</span>
-                                    <span><?= $organizations[$pos]->address ?></span>
+                                    <?php
+                                    if($organizations[$pos]->region_id != 0){
+                                        $address = GeobaseFunction::getRegionName($organizations[$pos]->region_id) . ', ' .GeobaseFunction::getCityName($organizations[$pos]->city_id) . ', ' . $organizations[$pos]->address ;
+                                    }
+                                    else{
+                                        $address = $organizations[$pos]->address;
+                                    }
+                                    ?>
+                                    <span><?= $address ?></span>
                                 </p>
                                 <?php $phone = explode(' ', $organizations[$pos]->phone) ?>
                                 <ul class="business__sm-item--numbers">

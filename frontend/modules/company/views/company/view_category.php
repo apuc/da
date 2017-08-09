@@ -4,6 +4,7 @@
  * @var $positions array
  * @var $categ CategoryCompany
  */
+use common\classes\GeobaseFunction;
 use common\classes\WordFunctions;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
@@ -41,7 +42,15 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
 
                         <p class="business__sm-item--address">
                             <span>Адрес:</span>
-                            <span><?= $organization->address ?></span>
+                            <?php
+                            if($organization->region_id != 0){
+                                $address = GeobaseFunction::getRegionName($organization->region_id) . ', ' .GeobaseFunction::getCityName($organization->city_id) . ', ' . $organization->address ;
+                            }
+                            else{
+                                $address = $organization->address;
+                            }
+                            ?>
+                            <span><?= $address ?></span>
                         </p>
                         <?php $phone = explode(' ', $organization->phone) ?>
                         <ul class="business__sm-item--numbers">
