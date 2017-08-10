@@ -5,7 +5,7 @@
  */
 
 use yii\widgets\LinkPager;
-
+$this->registerJsFile('/js/jquery-ui-1.12.1/jquery-ui.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 //$this->registerJsFile('/theme/portal-donbassa/js/ads-filter.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 //\common\classes\Debug::prn($ads);

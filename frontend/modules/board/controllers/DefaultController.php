@@ -121,8 +121,23 @@ class DefaultController extends Controller
     {
        // Debug::prn(Yii::$app->request->get());
 
-        $ads = file_get_contents($this->siteApi . '/ads/search?=' . http_build_query( Yii::$app->request->get() ) );
+        $rez = file_get_contents($this->siteApi . '/ads/search?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&' . http_build_query( Yii::$app->request->get() ) . '&page=' . Yii::$app->request->get('page', 1) );
 
-        Debug::prn($ads);
+        $rez = json_decode($rez);
+
+        //Debug::prn($rez);
+
+        $pagination = new Pagination([
+            'defaultPageSize' => 10,
+            'totalCount' => $rez->_meta->totalCount,
+            'pageSizeParam' => false,
+        ]);
+        return $this->render('index',
+            [
+                'ads' => $rez->ads,
+                'pagination' => $pagination,
+            ]
+        );
+
     }
 }
