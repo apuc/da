@@ -47,8 +47,14 @@ class VkController extends Controller
         foreach ($groups as $group) {
             $res = $this->vk->getGroupWall($group->domain, ['count' => $this->count, 'extended' => 1]);
             $res = json_decode($res);
-            $this->saveAuthors($res->response->profiles);
-            $this->saveStream($res->response->items);
+            if(!empty($res->response->profiles))
+            {
+                $this->saveAuthors($res->response->profiles);
+            }
+            if(!empty($res->response->items))
+            {
+                $this->saveStream($res->response->items);
+            }
         }
     }
 
