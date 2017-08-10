@@ -3,6 +3,7 @@
 namespace frontend\modules\news\controllers;
 
 use common\classes\Debug;
+use common\classes\UserFunction;
 use common\models\db\CategoryNews;
 use common\models\db\CategoryNewsRelations;
 use common\models\db\Comments;
@@ -39,9 +40,13 @@ class DefaultController extends Controller
         if (empty($new)) {
             return $this->redirect(['site/error']);
         }
-       if($new['status'] != '0'){
-           throw new \yii\web\HttpException(404 ,'Страница не найдена.');
-       }
+       // Debug::prn(UserFunction::getPermissionUser());
+        if(UserFunction::getPermissionUser() == false){
+            if($new['status'] != '0'){
+                throw new \yii\web\HttpException(404 ,'Страница не найдена.');
+            }
+        }
+
 
         $countComments = Comments::find()
             ->where([
