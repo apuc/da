@@ -1,3 +1,6 @@
+<?php
+$get = Yii::$app->request->get();
+?>
 <div class="commercial__content-sidebar">
 
     <form id="filterform" class="commercial__sidebar-filter" method="get" action="<?= \yii\helpers\Url::to(['search'])?>">
@@ -51,10 +54,10 @@
         </div>
 
 
-        <input type="hidden" name="regionFilter">
-        <input type="hidden" name="cityFilter">
-        <input type="hidden" name="mainCat">
-        <input type="hidden" name="textFilter">
+        <input type="hidden" name="regionFilter" value="<?= (isset($get['regionFilter'])) ? $get['regionFilter'] : ''?>">
+        <input type="hidden" name="cityFilter" value="<?= (isset($get['cityFilter'])) ? $get['cityFilter'] : ''?>">
+        <input type="hidden" name="mainCat" value="<?= (isset($get['mainCat'])) ? $get['mainCat'] : ''?>">
+        <input type="hidden" name="textFilter" value="<?= (isset($get['textFilter'])) ? $get['textFilter'] : ''?>">
 
         <input class="commercial__sidebar-filter--submit" type="submit" value="применить">
 
