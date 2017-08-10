@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) {
                     $domain = \common\models\db\VkGroups::find()->where(['vk_id' => $model->owner_id])->one();
                     if ($domain) {
-                        return Html::a('Ссылка',
+                        return Html::a($domain->name,
                             'https://vk.com/' . $domain->domain . '?w=wall' . $model->vk_id,
                             [
                                 'target' => '_blank',
@@ -36,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
 
                 },
+                'filter' => \yii\helpers\ArrayHelper::map(\common\models\db\VkGroups::find()->all(), 'vk_id', 'name')
             ],
             //'from_id',
             //'owner_id',

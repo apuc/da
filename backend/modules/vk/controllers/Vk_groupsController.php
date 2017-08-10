@@ -2,6 +2,7 @@
 
 namespace backend\modules\vk\controllers;
 
+use console\controllers\VkController;
 use Yii;
 use backend\modules\vk\models\VkGroups;
 use backend\modules\vk\models\VkGroupsSearch;

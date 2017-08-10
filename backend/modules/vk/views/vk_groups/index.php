@@ -33,6 +33,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'domain',
             'vk_id',
+            [
+                'attribute' => 'Parsing',
+                'format' => 'raw',
+                'value' => function($model){
+                    return Html::a('Парсить', ['/vk/vk_groups/stream'], ['class' => 'btn btn-success', 'data-id' => $model->vk_id]);
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

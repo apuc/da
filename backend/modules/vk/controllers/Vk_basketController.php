@@ -3,6 +3,7 @@
 namespace backend\modules\vk\controllers;
 
 use backend\modules\vk\models\VkComments;
+use common\classes\Debug;
 use Yii;
 use backend\modules\vk\models\VkStream;
 use backend\modules\vk\models\VkStreamSearch;
@@ -103,8 +104,12 @@ class Vk_basketController extends Controller
     public function actionDelete()
     {
         $id = Yii::$app->request->post('id');
-        if ($this->findModel($id)->delete() && VkComments::deleteAll(['post_id' => $id]))
-            return true;
+
+        if ($this->findModel($id)->delete())
+        {
+            VkComments::deleteAll(['post_id' => $id]);
+             return true;
+        }
         else return false;
         //return $this->redirect(['index']);
     }
