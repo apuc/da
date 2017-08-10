@@ -2,6 +2,7 @@
 
 namespace backend\modules\contacting\controllers;
 
+use common\classes\Debug;
 use Yii;
 use backend\modules\contacting\models\Contacting;
 use backend\modules\contacting\models\ContactingSeacrh;
@@ -37,11 +38,38 @@ class ContactingController extends Controller
     {
         $searchModel = new ContactingSeacrh();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $model = New Contacting();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'model' => $model
         ]);
+    }
+
+    public function actionSendMail($id)
+    {
+        $model = Contacting::findOne($id);
+
+        if($model->load(Yii::$app->request->post()))
+        {
+            //Debug::prn(Yii::$app->request->post('Contacting'));
+            $contact = Yii::$app->request->post('Contacting');
+            $text = 'Ваш вопрос: '.$contact['content']."\n".'Ответ: '."\n";
+            //Debug::prn($contact);
+            Yii::$app->mailer->compose()
+                ->setFrom('noreply@da-info.pro')
+                ->setTo($contact['email'])
+                ->setSubject(Yii::$app->request->post('subject'))
+                ->setTextBody($text.Yii::$app->request->post('text-mail'))
+                ->send();
+            $model->answer = Yii::$app->request->post('text-mail');
+            $model->status = 1;
+            $model->save();
+            return $this->redirect(['index']);
+        }
+
+        return $this->render('sendmail', ['model' => $model]);
     }
 
     /**

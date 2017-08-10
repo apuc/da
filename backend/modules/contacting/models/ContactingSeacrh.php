@@ -57,6 +57,8 @@ class ContactingSeacrh extends Contacting
             return $dataProvider;
         }
 
+        $query->orderBy('dt_add DESC');
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,

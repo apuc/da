@@ -162,10 +162,6 @@ AppAsset::register($this);
 </div>
 
 
-
-
-<div class="modal-review" id="modal-add-comment">
-
     <h3 class="modal-review__title">Добавить комментарий</h3>
 
     <p class="modal-review__subtitle">Пишите и хорошее, и плохое.</p>

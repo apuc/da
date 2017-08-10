@@ -16,6 +16,7 @@ use common\models\db\Question;
 use common\models\db\SiteError;
 use common\models\db\News;
 use common\models\db\Subscribe;
+use frontend\models\user\Profile;
 use frontend\widgets\Poll;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -98,7 +99,6 @@ class AjaxController extends Controller
             $new_comment->user_id = $current_user;
             $new_comment->content = $request['content'];
             $new_comment->dt_add = time();
-
             $new_comment->save();
 
             // return $this->redirect();
@@ -212,9 +212,22 @@ class AjaxController extends Controller
     {
 
         if (Yii::$app->request->isPost) {
-
+            $name = Yii::$app->request->post('name');
+            $email = Yii::$app->request->post('email');
             $newContacting = new Contacting();
-            $newContacting->user_id = (!Yii::$app->user->isGuest) ? Yii::$app->user->id : null;
+            if(!Yii::$app->user->isGuest)
+            {
+                $user = Profile::findOne(['user_id' => Yii::$app->user->id]);
+                $newContacting->user_id = Yii::$app->user->id;
+                $newContacting->username = ($user->name) ? $user->name : Yii::$app->user->identity->username;
+                $newContacting->email = ($user->public_email) ? $user->public_email : Yii::$app->user->identity->email;
+            }elseif ($name && $email)
+            {
+                $newContacting->user_id = null;
+                $newContacting->username = $name;
+                $newContacting->email = $email;
+            }
+            //$newContacting->user_id = (!Yii::$app->user->isGuest) ? Yii::$app->user->id : null;
             $newContacting->type = 'question';
             $newContacting->content = Yii::$app->request->post('content');
 

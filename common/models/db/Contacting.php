@@ -61,7 +61,9 @@ class Contacting extends \yii\db\ActiveRecord
             'id' => Yii::t('contacting', 'ID'),
             'user_id' => Yii::t('contacting', 'User ID'),
             'type' => Yii::t('contacting', 'Type'),
-            'content' => Yii::t('contacting', 'Content'),
+            //'content' => Yii::t('contacting', 'Question'),
+            'content' => 'Вопрос',
+            'answer' => 'Ответ',
             'dt_add' => Yii::t('contacting', 'Dt Add'),
             'dt_update' => Yii::t('contacting', 'Dt Update'),
         ];
