@@ -4,6 +4,8 @@ namespace backend\modules\vk\controllers;
 
 use backend\modules\vk\models\VkComments;
 use common\classes\Debug;
+use common\models\db\VkGif;
+use common\models\db\VkPhoto;
 use Yii;
 use backend\modules\vk\models\VkStream;
 use backend\modules\vk\models\VkStreamSearch;
@@ -108,10 +110,26 @@ class Vk_basketController extends Controller
         if ($this->findModel($id)->delete())
         {
             VkComments::deleteAll(['post_id' => $id]);
-             return true;
+            VkPhoto::deleteAll(['post_id' => $id]);
+            VkGif::deleteAll(['post_id' => $id]);
+            return true;
         }
         else return false;
         //return $this->redirect(['index']);
+    }
+
+    public function actionDeleteAll()
+    {
+        $ids = VkStream::find()->select('id')->where(['status' => 3])->asArray()->all();
+        foreach ($ids as $id)
+        {
+            VkComments::deleteAll(['post_id' => $id['id']]);
+            VkPhoto::deleteAll(['post_id' => $id['id']]);
+            VkGif::deleteAll(['post_id' => $id['id']]);
+        }
+
+        VkStream::deleteAll(['status' => 3]);
+        $this->redirect('index');
     }
 
     /**
