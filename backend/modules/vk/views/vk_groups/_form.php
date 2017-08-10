@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'vk_id')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'status')->dropDownList([1=>'Активна', 0 => 'Не активна']) ?>
+    <?= $form->field($model, 'status')->dropDownList([ 0 => 'Не активна', 1=>'Парсить автоматически', 2 => 'Парсить вручную']) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

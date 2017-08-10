@@ -34,10 +34,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'domain',
             'vk_id',
             [
+                'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function($model)
+                {
+                    if ($model->status == 1) return 'Парсить автоматически';
+                    if ($model->status == 2) return 'Парсить вручную';
+                },
+                'filter' => [1 => 'Парсить автоматически', 2 => 'Парсить вручную']
+            ],
+            [
                 'attribute' => 'Parsing',
                 'format' => 'raw',
                 'value' => function($model){
-                    return Html::a('Парсить', ['/vk/vk_groups/stream'], ['class' => 'btn btn-success', 'data-id' => $model->vk_id]);
+                    return Html::a('Парсить', ['/console.php?p=vk/get-stream&id='.$model->id], ['class' => 'btn btn-success', 'data-id' => $model->vk_id]);
                 }
             ],
 

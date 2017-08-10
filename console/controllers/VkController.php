@@ -40,18 +40,23 @@ class VkController extends Controller
         ]);
     }
 
-    public function actionGetStream()
+    public function actionGetStream($group_id = null)
     {
         $this->getVk();
-        $groups = VkGroups::find()->where(['status' => 1])->all();
+
+        if($group_id)
+        {
+            $groups = VkGroups::find()->where(['id' => $group_id])->all();
+        }else $groups = VkGroups::find()->where(['status' => 1])->all();
+
         foreach ($groups as $group) {
             $res = $this->vk->getGroupWall($group->domain, ['count' => $this->count, 'extended' => 1]);
             $res = json_decode($res);
-            if(!empty($res->response->profiles))
+            if(isset($res->response->profiles))
             {
                 $this->saveAuthors($res->response->profiles);
             }
-            if(!empty($res->response->items))
+            if(isset($res->response->items))
             {
                 $this->saveStream($res->response->items);
             }
@@ -97,7 +102,7 @@ class VkController extends Controller
                         $photo->comment_id = $commentId ?: 0;
                         $photo->owner_id = isset($item->owner_id) ? $item->owner_id : 0;
                         $photo->vk_user_id = $item->from_id;
-                        $photo->access_key = $attachment->photo->access_key;
+                        $photo->access_key = isset($attachment->photo->access_key) ? $attachment->photo->access_key : '';
                         $photo->photo_75 = isset($attachment->photo->photo_75) ? $attachment->photo->photo_75 : '';
                         $photo->photo_130 = isset($attachment->photo->photo_130) ? $attachment->photo->photo_130 : '';
                         $photo->photo_512 = isset($attachment->sticke->photo_512) ? $attachment->sticke->photo_512 : '';
@@ -125,11 +130,14 @@ class VkController extends Controller
                         $gif->comment_id = $commentId ?: 0;
                         $gif->owner_id = isset($item->owner_id) ? $item->owner_id : 0;
                         $gif->vk_user_id = $item->from_id;
-                        $gif->access_key = $attachment->doc->access_key;
+                        $gif->access_key = isset($attachment->doc->access_key) ? $attachment->doc->access_key : '';
 
-                        foreach ($attachment->doc->preview->photo->sizes as $size)
+                        if(isset($attachment->doc->preview->photo->sizes))
                         {
-                            $sizes[$size->type] = $size->src;
+                            foreach ($attachment->doc->preview->photo->sizes as $size)
+                            {
+                                $sizes[$size->type] = $size->src;
+                            }
                         }
 
                         $gif->preview_m = isset($sizes['m']) ? $sizes['m'] : '';
