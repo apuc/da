@@ -188,45 +188,7 @@ AppAsset::register($this);
 </div>
 
 
-<div class="modal-review" id="modal-add-comment">
 
-    <h3 class="modal-review__title">Добавить комментарий</h3>
-
-    <p class="modal-review__subtitle">Пишите и хорошее, и плохое.</p>
-
-    <div class="separator"></div>
-
-    <form action="" class="modal-review__form">
-
-        <p>Ваш комментарий</p>
-
-        <textarea id="comment" class="modal-review__textarea" placeholder="Текст сообщения"></textarea>
-
-        <input id="modal-add-comment-submit" class="show-more" type="submit" value="отправить">
-
-    </form>
-
-</div>
-
-<div class="modal-review" id="modal-faq">
-
-    <h3 class="modal-review__title">Добавить комментарий</h3>
-
-    <p class="modal-review__subtitle">Пишите и хорошее, и плохое.</p>
-
-    <div class="separator"></div>
-
-    <form action="" class="modal-review__form">
-
-        <p>Ваш комментарий</p>
-
-        <textarea class="modal-review__textarea" placeholder="Текст сообщения"></textarea>
-
-        <input id="modal-add-comment-submit" class="show-more js-send-ask-question" type="submit" value="отправить">
-
-    </form>
-
-</div>
 <a id="Go_Top" style="display: inline;"><img src="/theme/portal-donbassa/img/icons/button_up.svg" alt=""></a>
 <div id="overlay"></div>
 

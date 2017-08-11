@@ -34,4 +34,3 @@ $this->registerMetaTag([
         <?= \frontend\modules\consulting\widgets\ConsultingCompanies::widget();?>
     </div>
 </main>
-

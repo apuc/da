@@ -1,5 +1,14 @@
 $(document).ready(function () {
 
+    /*open modal faq*/
+    $(document).on('click', '.ask, .ask-question', function () {
+        event.preventDefault();
+        $('#black-overlay').fadeIn(400,
+            function () {
+                $('#modal-faq').css('display', 'block').animate({opacity: 1}, 200);
+            });
+    });
+
     $(document).on('click', '.likes', function () {
 
         var csrfToken = $(this).attr('csrf-token');

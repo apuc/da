@@ -70,6 +70,55 @@
 
 </div>
 
+<div class="modal-review" id="modal-add-comment">
+
+    <h3 class="modal-review__title">Добавить комментарий</h3>
+
+    <p class="modal-review__subtitle">Пишите и хорошее, и плохое.</p>
+
+    <div class="separator"></div>
+
+    <form action="" class="modal-review__form">
+
+        <p>Ваш комментарий</p>
+
+        <textarea id="comment" class="modal-review__textarea" placeholder="Текст сообщения"></textarea>
+
+        <input id="modal-add-comment-submit" class="show-more" type="submit" value="отправить">
+
+    </form>
+
+</div>
+
+<div class="modal-review" id="modal-faq">
+
+    <h3 class="modal-review__title">Добавить комментарий</h3>
+
+    <p class="modal-review__subtitle">Пишите и хорошее, и плохое.</p>
+
+    <div class="separator"></div>
+
+    <form action="" class="modal-review__form">
+
+        <p>Ваш комментарий</p>
+        <?if (!Yii::$app->user->id):?>
+
+            <input class="form-control" id="faq-user-name" type="text" name="name" placeholder="Ваше имя">
+            <p class="faq-modal-name-error"></p>
+            <input class="form-control" id="faq-user-email" type="email" name="email" placeholder="Ваш email">
+            <p class="faq-modal-email-error"></p>
+
+        <?endif;?>
+
+        <textarea class="modal-review__textarea" id="faq-user-message" placeholder="Текст сообщения"></textarea>
+        <p class="faq-modal-message-error"></p>
+
+        <input id="modal-add-comment-submit" class="show-more js-send-ask-question" type="submit" value="отправить">
+
+    </form>
+
+</div>
+
 <div class="modal-review-success" id="modal-review-success">
 
     <div class="modal-review-success__img">

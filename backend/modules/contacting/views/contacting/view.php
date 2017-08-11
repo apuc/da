@@ -29,11 +29,24 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'user_id',
+            'username',
             'type',
             'content',
-            'dt_add',
-            'dt_update',
+            'answer',
+            [
+                'attribute' => 'dt_add',
+                'format' => 'raw',
+                'value' => function ($model) {
+                   return date('d-m-Y H:i:s');
+                },
+            ],
+            [
+                'attribute' => 'dt_update',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return date('d-m-Y H:i:s');
+                },
+            ],
         ],
     ]) ?>
 
