@@ -1181,24 +1181,26 @@ $(document).ready(function () {
 
 
     /*commercial slider*/
-    $('.commercial__ads-slider--single').slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: true,
-        fade: true,
-        asNavFor: '.commercial__ads-slider--nav'
-    });
-    $('.commercial__ads-slider--nav').slick({
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        asNavFor: '.commercial__ads-slider--single',
-        dots: false,
-        centerMode: true,
-        focusOnSelect: true,
-        vertical: true,
-        arrows: false,
-        verticalSwiping: true
-    });
+    if($('.commercial__ads-slider').length > 0){
+        $('.commercial__ads-slider--single').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: true,
+            fade: true,
+            asNavFor: '.commercial__ads-slider--nav'
+        });
+        $('.commercial__ads-slider--nav').slick({
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            asNavFor: '.commercial__ads-slider--single',
+            dots: false,
+            centerMode: true,
+            focusOnSelect: true,
+            vertical: true,
+            arrows: false,
+            verticalSwiping: true
+        });
+    }
     /*close*/
 
 });
