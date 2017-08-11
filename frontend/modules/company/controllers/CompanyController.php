@@ -10,6 +10,7 @@ use common\models\db\CategoryCompanyRelations;
 use common\models\db\CompanyFeedback;
 use common\models\db\CompanyPhoto;
 use common\models\db\KeyValue;
+use common\models\db\Phones;
 use common\models\db\ServicesCompanyRelations;
 use common\models\db\SocAvailable;
 use common\models\db\SocCompany;
@@ -75,6 +76,7 @@ class CompanyController extends Controller
     {
 
         $organizations = Company::find()
+            ->with('allPhones')
             ->where([
                 'status' => 0,
             ])
@@ -141,7 +143,9 @@ class CompanyController extends Controller
      */
     public function actionView($slug)
     {
-        $model = \common\models\db\Company::findOne(['slug' => $slug]);
+
+        $model = \common\models\db\Company::find()->with('allPhones')->where(['slug' => $slug])->one();
+
         if (empty($model) || $model->status == 1) {
             return $this->redirect(['site/error']);
         }
@@ -186,12 +190,9 @@ class CompanyController extends Controller
         $model = new Company();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $phone = '';
-            foreach ($_POST['mytext'] as $item){
-                $phone .= $item . ' ';
-            }
+
             $model->status = 1;
-            $model->phone = $phone;
+            //$model->phone = $phone;
             $model->user_id = Yii::$app->user->id;
             $model->meta_title = $model->name;
             $model->meta_descr =  \yii\helpers\StringHelper::truncate($model->descr, 250);
@@ -208,6 +209,15 @@ class CompanyController extends Controller
                 $model->photo = '/' . $loc . $_FILES['Company']['name']['photo'];
             }
             $model->save();
+
+            Debug::prn($_POST['mytext']);
+            foreach ($_POST['mytext'] as $item){
+                $phone = New Phones();
+                $phone->phone = $item;
+                $phone->company_id = $model->id;
+                $phone->save();
+            }
+
             $catCompanyRel = new CategoryCompanyRelations();
             $catCompanyRel->cat_id = $_POST['categParent'];
             $catCompanyRel->company_id = $model->id;
@@ -246,19 +256,23 @@ class CompanyController extends Controller
     public function actionUpdate($id)
     {
         $this->layout = "personal_area";
-        $model = Company::find()->where(['id' => $id])->one();
+        $model = Company::find()->with('allPhones')->where(['id' => $id])->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-
-            $phone = '';
+            $model->phone = '';
             if(!empty($_POST['mytext'])){
+                Phones::deleteAll(['company_id' => $model->id]);
                 foreach ($_POST['mytext'] as $item){
-                    $phone .= $item . ' ';
+                    $phone = New Phones();
+                    $phone->phone = $item;
+                    $phone->company_id = $model->id;
+                    if(!empty($item))
+                            $phone->save();
                 }
             }
 
             $model->status = 2;
-            $model->phone = $phone;
+            //$model->phone = $phone;
             $model->user_id = Yii::$app->user->id;
 
             if (!empty($_FILES['Company']['name']['photo'])) {
@@ -398,6 +412,7 @@ class CompanyController extends Controller
             return $this->goHome();
         }
         $organizations = Company::find()
+            ->with('allPhones')
             ->joinWith('categories')
             ->where(['cat_id' => $cat->id, 'status' => 0])
             ->all();
@@ -456,6 +471,7 @@ class CompanyController extends Controller
     public function actionGetMoreCompany()
     {
         $organizations = Company::find()
+            ->with('allPhones')
             ->where([
                 'status' => 0,
             ])

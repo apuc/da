@@ -52,11 +52,22 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                             ?>
                             <span><?= $address ?></span>
                         </p>
-                        <?php $phone = explode(' ', $organization->phone) ?>
-                        <ul class="business__sm-item--numbers">
-                            <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
-                            <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
-                        </ul>
+                        <? if (!empty($organization->phone)): ?>
+                            <?php $phone = explode(' ', $organization->phone) ?>
+                            <ul class="business__sm-item--numbers">
+                                <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
+                                <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
+                            </ul>
+
+                        <? elseif(!empty($organization->allPhones)):?>
+                            <ul class="business__sm-item--numbers">
+                            <?foreach ($organization->allPhones as $key => $phones):?>
+                                <? if ($key == 2) break;?>
+                                <li><?= $phones->phone?></li>
+
+                            <?endforeach;?>
+                            </ul>
+                        <? endif; ?>
 
                         <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->
                         <p class="business__sm-item--views"><?= $organization->views ?></p>

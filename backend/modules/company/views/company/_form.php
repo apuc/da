@@ -143,8 +143,38 @@ $this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\we
         ?>
 <?endif;?>
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
+    <?= Html::label('Старый телефон', 'mytext', ['class' => 'control-label']) ?>
+    <textarea class="form-control"><?= $model->phone?></textarea>
+    <div class="phone-dynamic-input">
 
-    <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
+        <?= Html::label('Телефон', 'mytext', ['class' => 'control-label']) ?>
+        <?if (Yii::$app->controller->action->id == 'create'):?>
+        <div class="input-group multiply-field">
+            <input value="" class="form-control" name="mytext[]" type="text">
+            <a href="#" class="input-group-addon add-input-phone"><span class="glyphicon glyphicon-plus"></span></a>
+        </div>
+
+        <?elseif (Yii::$app->controller->action->id == 'update'):?>
+
+            <?if(!empty($phones)):?>
+
+                <?foreach ($phones as $key => $phone):?>
+                    <div class="input-group <?= ($key == 0) ? 'multiply-field': ''?> ">
+                        <input value="<?= $phone->phone?>" class="form-control" name="mytext[]" type="text">
+                        <a href="#" class="input-group-addon <?= ($key == 0) ? 'add': 'remove'?>-input-phone"><span class="glyphicon glyphicon-<?= ($key == 0) ? 'plus': 'minus'?> "></span></a>
+                    </div>
+                <?endforeach;?>
+
+            <?else:?>
+                <div class="input-group multiply-field">
+                    <input value="" class="form-control" name="mytext[]" type="text">
+                    <a href="#" class="input-group-addon add-input-phone"><span class="glyphicon glyphicon-plus"></span></a>
+                </div>
+            <?endif;?>
+        <?endif;?>
+    </div>
+
+
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 

@@ -117,6 +117,11 @@ class Company extends \yii\db\ActiveRecord
         return $this->hasOne(\common\models\db\Tariff::className(), ['id' => 'tariff_id']);
     }
 
+    public function getAllPhones()
+    {
+        return $this->hasMany(Phones::className(), ['company_id' => 'id']);
+    }
+
     public static function getList()
     {
         return ArrayHelper::map(self::find()->all(), 'id', 'name');

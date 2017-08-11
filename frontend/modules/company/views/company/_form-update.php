@@ -102,26 +102,41 @@ echo Html::dropDownList(
     <div class="cabinet__add-company-form--wrapper">
 
         <p class="cabinet__add-company-form--title">Телефон</p>
-        <?php $phone = explode(' ', $model->phone);
+        <?php // $phone = explode(' ', $model->phone);
+                if (!empty($model->allPhones))
+                {
+                    $phone = $model->allPhones;
+                }
+
        // \common\classes\Debug::prn($phone);
         if(empty($phone[0])){ ?>
             <input value="<?= $item; ?>" class="cabinet__add-company-form--field" name="mytext[]" type="text">
-                <a href="#" class="cabinet__remove-pkg"></a>
+            <a href="#" class="cabinet__add-field" max-count="<?= (isset($services['count_phone']) ? $services['count_phone'] : ''); ?>"></a>
+                <!--<a href="#" class="cabinet__remove-pkg"></a>-->
         <?php }
-        else{
-            foreach ($phone as $item):?>
+        else{?>
+            <div class="cabinet__add-company-form--hover-wrapper">
+            <?foreach ($phone as $key => $item):?>
                 <?php if(!empty($item) ):?>
-                    <input value="<?= $item; ?>" class="cabinet__add-company-form--field" name="mytext[]" type="text">
+
+                    <div class="cabinet__add-company-form--hover-elements">
+                        <p class="cabinet__add-company-form--title"></p>
+                    <input value="<?= $item->phone; ?>" class="cabinet__add-company-form--field" name="mytext[]" type="text">
+                    <?if($key != 0):?>
                     <a href="#" class="cabinet__remove-pkg"></a>
+                        <?else:?>
+                        <a href="#" class="cabinet__add-field" max-count="<?= (isset($services['count_phone']) ? $services['count_phone'] : ''); ?>"></a>
+                        <?endif;?>
+                    <p class="cabinet__add-company-form--notice"></p>
+                    </div>
                 <?php endif; ?>
 
-            <?php endforeach;
-        }
+            <?php endforeach;?>
+            </div>
+       <? }
         ?>
 
 
-
-        <a href="#" class="cabinet__add-field" max-count="<?= (isset($services['count_phone']) ? $services['count_phone'] : ''); ?>"></a>
 
     </div>
 
