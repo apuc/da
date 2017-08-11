@@ -59,7 +59,7 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                         <div class="business__requisites--site">
 
                             <a href="" target="_blank"><span><?= $model->email; ?></span>
-                                <span><img src="/theme/portal-donbassa//img/icons/golink-icon.png" alt=""></span>
+                                <span><!--<img src="/theme/portal-donbassa//img/icons/golink-icon.png" alt="">--></span>
                             </a>
                             <!--<p>Описание этой ссылки,
                                 подробности</p>-->

@@ -108,9 +108,8 @@ echo Html::dropDownList(
                     $phone = $model->allPhones;
                 }
 
-       // \common\classes\Debug::prn($phone);
         if(empty($phone[0])){ ?>
-            <input value="<?= $item; ?>" class="cabinet__add-company-form--field" name="mytext[]" type="text">
+            <input value="" class="cabinet__add-company-form--field" name="mytext[]" type="text">
             <a href="#" class="cabinet__add-field" max-count="<?= (isset($services['count_phone']) ? $services['count_phone'] : ''); ?>"></a>
                 <!--<a href="#" class="cabinet__remove-pkg"></a>-->
         <?php }
