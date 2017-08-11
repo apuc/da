@@ -54,16 +54,29 @@ $wrc_count = 0; ?>
                 <span><?= $address ?></span>
             </p>
 
-            <?php $phone = explode(' ', $company->phone) ?>
-            <ul class="business__sm-item--numbers">
-                <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
-                <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
-            </ul>
+            <? if (!empty($company->phone)): ?>
+                <?php $phone = explode(' ', $company->phone) ?>
+                <ul class="business__sm-item--numbers">
+                    <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
+                    <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
+                </ul>
 
-            <ul class="business__sm-item--numbers">
-                <li><?= isset($phone[2]) ? $phone[2] : '' ?></li>
-                <li> <?= isset($phone[3]) ? $phone[3] : '' ?></li>
-            </ul>
+                <ul class="business__sm-item--numbers">
+                    <li><?= isset($phone[2]) ? $phone[2] : '' ?></li>
+                    <li> <?= isset($phone[3]) ? $phone[3] : '' ?></li>
+                </ul>
+
+            <? elseif(!empty($company->allPhones)):?>
+                <ul class="business__sm-item--numbers">
+                <?foreach ($company->allPhones as $key => $phones):?>
+                    <?if ($key == 2):?>
+                        </ul><ul class="business__sm-item--numbers">
+                    <? endif; ?>
+                    <li><?= $phones->phone?></li>
+                    <? if ($key == 4) break;?>
+                <?endforeach;?>
+                </ul>
+            <? endif; ?>
 
             <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->
             <p class="business__sm-item--views"><?= $company->views ?></p>

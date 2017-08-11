@@ -431,6 +431,21 @@ $(document).ready(function () {
 
     });
 
+    $(document).on('click', '.add-input-phone', function () {
+        var html = '';
+        html = '<div class="input-group">'+
+                        '<input value="" class="form-control" name="mytext[]" type="text">'+
+                        '<a href="#" class="input-group-addon remove-input-phone">' +
+                            '<span class="glyphicon glyphicon-minus"></span>' +
+            '           </a>'+
+                '</div>';
+        $('.phone-dynamic-input').append(html);
+        return false;
+    });
+    $(document).on('click', '.remove-input-phone', function () {
+        $(this).parent().remove();
+        return false;
+    });
 
 });
 

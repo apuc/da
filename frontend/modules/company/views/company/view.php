@@ -68,10 +68,18 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                     <?php endif;?>
                     <div class="business__requisites--links">
                         <a class="phone" href="tel:+380667778540">
-                            <?= isset($model->getPhones()[0]) ? $model->getPhones()[0] : '' ?>
+                            <? if (isset($model->allPhones[0]->phone)): ?>
+                                <?= $model->allPhones[0]->phone ?>
+                            <? elseif (isset($model->getPhones()[0])): ?>
+                                <?= $model->getPhones()[0] ?>
+                            <? endif; ?>
                         </a>
                         <a class="phone" href="tel:+380667778540">
-                            <?= isset($model->getPhones()[1]) ? $model->getPhones()[1] : '' ?>
+                            <? if (isset($model->allPhones[1]->phone )): ?>
+                            <?= $model->allPhones[1]->phone  ?>
+                            <? elseif (isset($model->getPhones()[1])): ?>
+                            <?= $model->getPhones()[1] ?>
+                            <? endif; ?>
                         </a>
 
                         <?php /*\common\classes\Debug::prn($socCompany);*/?>
