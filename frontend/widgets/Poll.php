@@ -34,7 +34,7 @@ class Poll extends Widget
         $question = Question::find()->where(['id' => $active_poll_id])->one();
         $already_poll = Answers::find()
             ->where([
-                'user_ip' => $user_ip,
+                'user_id' => Yii::$app->user->id,
                 'question_id' => $question->id,
             ])
             ->one();
@@ -68,8 +68,6 @@ class Poll extends Widget
             $answers_count = Answers::find()
                 ->where(['question_id' => $question->id])
                 ->count();
-
-            $answers_array = [];
 
             foreach ($possible_answers as $possible_answer) {
                 $answers_array[$possible_answer->id] = [

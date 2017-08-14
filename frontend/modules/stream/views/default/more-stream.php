@@ -56,13 +56,13 @@ use common\models\User;
         <?php if (!empty($item->photo)): ?>
             <a data-fancybox="gallery" class="parser__element--photo"
                href="<?= $item->photo[0]->getLargePhoto() ?>">
-                <img src="<?= $item->photo[0]->getLargePhoto() ?>" alt="">
+                <img class="img-last-stream" src="<?= $item->photo[0]->getLargePhoto() ?>" alt="">
             </a>
 
         <?php elseif (!empty($item->gif)): ?>
         <a data-fancybox="gallery" class="parser__element--photo"
            href="<?= $item->gif[0]->getLargePreview()?>">
-            <img src="<?= $item->gif[0]->getLargePreview()?>" alt="">
+            <img class="img-last-stream" src="<?= $item->gif[0]->getLargePreview()?>" alt="">
         </a>
         <?php endif; ?>
 

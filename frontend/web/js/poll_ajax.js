@@ -1,7 +1,6 @@
 $(document).ready(function () {
     $(document).on('click', '.sbm-poll', function () {
         var answer = $('.poll').find('input:checked').attr('data-id');
-            console.log(answer);
         if (answer != undefined) {
 
             $.ajax({
@@ -12,7 +11,7 @@ $(document).ready(function () {
                     _csrf: $('meta[name=csrf-token]').attr("content")
                 },
                 success: function (data) {
-                    $('.poll').html(data);
+                    $('.home-content__sidebar_poll').html(data);
                     initPollProgressBar();
                 },
             });

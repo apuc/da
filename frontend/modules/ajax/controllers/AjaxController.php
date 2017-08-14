@@ -28,7 +28,6 @@ use yii\web\Controller;
  */
 class AjaxController extends Controller
 {
-
     public function actionSend_poll()
     {
         if ($_POST) {
@@ -43,9 +42,10 @@ class AjaxController extends Controller
                     'id' => $_POST['answer'],
                 ])
                 ->one();
+
             $already_poll = Answers::find()
                 ->where([
-                    'user_ip' => $user_ip,
+                    'user_id' => $user,
                     'question_id' => $answer->question,
                 ])
                 ->one();

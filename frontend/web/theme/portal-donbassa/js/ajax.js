@@ -8,6 +8,12 @@ $(document).ready(function () {
                 $('#modal-faq').css('display', 'block').animate({opacity: 1}, 200);
             });
     });
+    $(document).on('click', '#black-overlay', function () {
+        $('#black-overlay').fadeIn(400,
+            function () {
+                $('#modal-faq').css('display', 'none').animate({opacity: 1}, 200);
+            });
+    });
 
     $(document).on('click', '.likes', function () {
 
@@ -25,9 +31,9 @@ $(document).ready(function () {
             success: function (data) {
                 //$('.like-counter').html(data);
                 elem.children('.like-counter').html(data);
-                if(elem.hasClass('active')){
+                if (elem.hasClass('active')) {
                     elem.removeClass('active');
-                }else{
+                } else {
                     elem.addClass('active');
                 }
             }
@@ -37,26 +43,25 @@ $(document).ready(function () {
 
     $(document).on('change', '#company-tariff_id', function () {
         $('.set-services-of-tariff').html('')
-       if($(this).val() == 4)
-       {
-           $.ajax({
-               url: '/secure/company/company/get-services',
-               type: "get",
-               success: function (data) {
-                   $('.set-services-of-tariff').append(data);
-               }
-           });
-       }
+        if ($(this).val() == 4) {
+            $.ajax({
+                url: '/secure/company/company/get-services',
+                type: "get",
+                success: function (data) {
+                    $('.set-services-of-tariff').append(data);
+                }
+            });
+        }
     });
 
     $(document).on('click', '.search-consulting-post', function () {
-       // console.log('aaa');
-       var q = $(this).prev().val();
+        // console.log('aaa');
+        var q = $(this).prev().val();
         $.ajax({
             url: '/consulting/consulting/search-post',
             type: "get",
             data: {
-                'q':q
+                'q': q
             },
             success: function (data) {
                 $('.laws').html('');
@@ -75,10 +80,10 @@ $(document).ready(function () {
             type: "POST",
             data: {
                 '_csrf': csrfToken,
-                'offset':$(this).attr('data-offset')
+                'offset': $(this).attr('data-offset')
             },
             success: function (data) {
-                $('.show-more-news-js').attr('data-offset',parseInt($('.show-more-news-js').attr('data-offset') )+ 16);
+                $('.show-more-news-js').attr('data-offset', parseInt($('.show-more-news-js').attr('data-offset')) + 16);
                 $('.home-content__wrap_subscribe').before(data);
 
             }
@@ -97,27 +102,16 @@ $(document).ready(function () {
             type: "POST",
             data: {
                 '_csrf': csrfToken,
-                'step':step,
+                'step': step,
                 'dt_add': dt_add
             },
             success: function (data) {
                 var res = JSON.parse(data);
-                    $('.show-more-stream').attr('data-step', parseInt($('.show-more-stream').attr('data-step') )+ 1);
-                    for (result in res.render)
-                    {
-                        if(Number($("#first-column").css('height').slice(0, -2)) > Number($("#second-column").css('height').slice(0, -2)))
-                        {
-                            $("#second-column").append(res.render[result]);
-                        }else
-                            {
-                                $("#first-column").append(res.render[result]);
-                            }
-
-                        //console.log(res.render[result]);
-                    }
-                    //$(".parser__wrapper").append(res.render);
-                if(!res.count)
-                {
+                var $i = 1;
+                $('.show-more-stream').attr('data-step', parseInt($('.show-more-stream').attr('data-step')) + 1);
+                loadParseItem(res.render, 0);
+                //$(".parser__wrapper").append(res.render);
+                if (!res.count) {
                     $(".show-more-stream").hide();
                     $(".counter-stream-new").text('0');
                     //timerUpdate('false');
@@ -136,7 +130,7 @@ $(document).ready(function () {
             type: "POST",
             data: {
                 '_csrf': csrf,
-                'message':message,
+                'message': message,
             },
             success: function (data) {
                 $('.send-comment').prev().val('');
@@ -163,11 +157,11 @@ $(document).ready(function () {
             type: "POST",
             data: {
                 '_csrf': csrfToken,
-                'offset':$(this).attr('data-offset'),
-                'category':$(this).attr('data-category')
+                'offset': $(this).attr('data-offset'),
+                'category': $(this).attr('data-category')
             },
             success: function (data) {
-                $('.show-more-news-js').attr('data-offset',parseInt($('.show-more-news-js').attr('data-offset') )+ 16);
+                $('.show-more-news-js').attr('data-offset', parseInt($('.show-more-news-js').attr('data-offset')) + 16);
                 $('.home-content__wrap_subscribe').before(data);
 
             }
@@ -197,22 +191,22 @@ $(document).ready(function () {
     //Загрузить больше популярных афиш в виджете
     $(document).on('click', '.load-more-popular-poster-w', function () {
         var page = $(this).attr('data-page');
-        $(this).attr('data-page',+page+1);
+        $(this).attr('data-page', +page + 1);
         $.ajax({
             url: '/poster/default/more-poster',
             type: "POST",
             data: {
                 '_csrf': $(this).attr('csrf-token'),
-                'page':$(this).attr('data-page'),
-                'limit':$(this).attr('data-limit'),
-                'count':$(this).attr('data-count-post')
+                'page': $(this).attr('data-page'),
+                'limit': $(this).attr('data-limit'),
+                'count': $(this).attr('data-count-post')
             },
             success: function (data) {
-               /* $('.show-more-news-js').attr('data-offset',parseInt($('.show-more-news-js').attr('data-offset') )+ 16);
-                $('.home-content__wrap_subscribe').before(data);*/
-               var res = JSON.parse(data)
+                /* $('.show-more-news-js').attr('data-offset',parseInt($('.show-more-news-js').attr('data-offset') )+ 16);
+                 $('.home-content__wrap_subscribe').before(data);*/
+                var res = JSON.parse(data)
                 $('.afisha-events__wrap').append(res.html);
-                if(res.last === 1){
+                if (res.last === 1) {
                     $('.load-more-popular-poster-w').remove();
                 }
             }
@@ -226,17 +220,17 @@ $(document).ready(function () {
         var selects = $('.selectCateg');
         var lastSelect = selects[selects.length - 1];
 
-        $('.selectCateg').each(function (i,e) {
+        $('.selectCateg').each(function (i, e) {
             catIdSelect += $(this).val() + ',';
             console.log(catIdSelect);
-            if(i < selects.length && $(lastSelect).val() != ''){
+            if (i < selects.length && $(lastSelect).val() != '') {
                 //$(this).attr('disabled', true);
                 //$(this).attr('readonly', true);
                 $(this).addClass('disabled');
             }
         });
 
-        if($(lastSelect).val() == ''){
+        if ($(lastSelect).val() == '') {
             $('.error_cat').text('Выберите категорию');
             return false;
         }
@@ -260,7 +254,7 @@ $(document).ready(function () {
         var elem = $(this).closest('.cabinet__add-company-form--hover-wrapper');
         elem.remove();
         var selects = $('.selectCateg');
-        console.log('Selects variable:',selects);
+        console.log('Selects variable:', selects);
         var lastSelect = selects[selects.length - 1];
         $(lastSelect).removeClass('disabled');
     });
@@ -272,22 +266,22 @@ $(document).ready(function () {
         var selects = $('.selectCateg');
         var lastSelect = selects[selects.length - 1];
         var last_select = $('.selectCateg:last');
-       // console.log(last_select);
+        // console.log(last_select);
         last_select.removeClass('disabled');
-        $('.selectCateg').each(function (i,e) {
+        $('.selectCateg').each(function (i, e) {
             catIdSelect += $(this).val() + ',';
         });
-       /* $.ajax({
-            url: '/ajax/ajax/add-category-select',
-            type: "POST",
-            data: {
-                '_csrf': $("input[name='_csrf']").val(),
-                'catId': catIdSelect
-            },
-            success: function (data) {
-                $('.addSelectCateg').before(data);
-            }
-        });*/
+        /* $.ajax({
+         url: '/ajax/ajax/add-category-select',
+         type: "POST",
+         data: {
+         '_csrf': $("input[name='_csrf']").val(),
+         'catId': catIdSelect
+         },
+         success: function (data) {
+         $('.addSelectCateg').before(data);
+         }
+         });*/
         return false;
     });
 
@@ -359,9 +353,9 @@ $(document).ready(function () {
                 'text': $("textarea[name='text-error']").val()
             },
             success: function (data) {
-                if(data == 1){
+                if (data == 1) {
                     $('#error-message').html('<h3 class="modal-callback__title">Спасибо. Мы исправим все ближайшее время</h3>')
-                }else{
+                } else {
                     $('#error-message').html('<h3 class="modal-callback__title">Ваше сообщени об ошибке не отправлено.</h3>')
                 }
 
@@ -385,7 +379,7 @@ $(document).ready(function () {
         var text = $("textarea[name='text_feedback']").val(),
             id = $("input[name='company_id']").val(),
             name = $("input[name='company_name']").val();
-        if(text != ''){
+        if (text != '') {
             e.preventDefault();
             $.ajax({
                 type: 'POST',
@@ -393,8 +387,8 @@ $(document).ready(function () {
                 data: {
                     '_csrf': $("input[name='_csrf']").val(),
                     'id': id,
-                    'name' : name,
-                    'text' : text
+                    'name': name,
+                    'text': text
                 },
                 success: function (data) {
                     //console.log(data);
@@ -408,7 +402,7 @@ $(document).ready(function () {
                 }
             });
             return false;
-        }else{
+        } else {
             $('.feedback_error').text('Вы не оставили отзыв');
             return false;
         }
@@ -424,5 +418,30 @@ function readURL(input) {
         };
 
         reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function loadParseItem(array, count) {
+    var img = new Image();
+    if ($("#first-column").height() > $("#second-column").height()) {
+        $("#second-column").append(array[count]);
+    } else {
+        $("#first-column").append(array[count]);
+    }
+
+    if(document.getElementsByClassName('img-last-stream')[0])
+    {
+        img.src = document.getElementsByClassName('img-last-stream')[0].getAttribute('src');
+        img.onload = function (e) {
+            if (array.length >= count) {
+                loadParseItem(array, count + 1);
+                console.log(e.target.getAttribute('src'));
+            }
+            $('.img-last-stream').removeClass('img-last-stream');
+        }
+    }else {
+        if (array.length >= count) {
+            loadParseItem(array, count + 1);
+        }
     }
 }
