@@ -26,6 +26,8 @@ $this->registerMetaTag([
 $md = new \common\classes\Mobile_Detect();
 ?>
 
+<?= \frontend\modules\news\widgets\RubricSlider::widget(); ?>
+
 <section class="news">
     <div class="container">
         <div class="news-slider-index-panel">
@@ -147,9 +149,10 @@ $md = new \common\classes\Mobile_Detect();
     </div>
 </section>
 
-<?= \frontend\modules\news\widgets\PeopleTalk::widget(); ?>
+<?= \frontend\widgets\StreamMain::widget();?>
+<? //= \frontend\modules\news\widgets\PeopleTalk::widget(); ?>
 
-<?= \frontend\modules\news\widgets\RubricSlider::widget(); ?>
+
 
 
 

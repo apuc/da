@@ -93,7 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     if ($model->post_type == 'vk_post') {
                         $result = \backend\modules\vk\models\VkStream::find()->where(['id' => $model->post_id])->one();
-                        
+                        //\common\classes\Debug::prn($result);
                         $html =  Html::a($result['title'],
                             Yii::$app->urlManagerFrontend->createUrl(['stream/' . $result['slug']]),
                             ['target' => '_blank']);

@@ -6,7 +6,7 @@ use yii\helpers\Url;
 
     <div class="container">
 
-        <h2>Тем временем в соц. сетях:</h2>
+        <h2>Тем временем в соцсетях:</h2>
 
         <div class="what-say__servises">
 
