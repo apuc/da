@@ -2,6 +2,8 @@
 
 namespace backend\modules\comments\controllers;
 
+use backend\modules\pages\models\Pages;
+use backend\modules\vk\models\VkStream;
 use common\behaviors\AccessSecure;
 use common\classes\Debug;
 use common\models\db\News;
@@ -163,12 +165,23 @@ class CommentsController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-
-            $news = News::find()->all();
+            switch ($model->post_type)
+            {
+                case 'news':
+                    $posts = News::find()->all();
+                    break;
+                case 'page':
+                    $posts = Pages::find()->all();
+                    break;
+                case 'vk_post':
+                    $posts = VkStream::find()->all();
+                    break;
+            }
+            //$news = News::find()->all();
             $user = User::find()->all();
             return $this->render('update', [
                 'model' => $model,
-                'news' => $news,
+                'posts' => $posts,
                 'user' => $user,
             ]);
         }
