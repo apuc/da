@@ -82,16 +82,16 @@ class UserFunction {
 
         $img = 'avatar';
         if(empty($id)){
-            $avatar = Profile::find()->where(['user_id' => Yii::$app->user->id])->one()->$img;
+            $avatar = Profile::find()->where(['user_id' => Yii::$app->user->id])->one()['avatar'];
         }
         else{
-            $avatar = Profile::find()->where(['user_id' => $id])->one()->$img;
+            $avatar = Profile::find()->where(['user_id' => $id])->one()['avatar'];
         }
-
-        if(empty($avatar)){
-            $username = self::getUserName();
-            $html = '<span>' . mb_substr($username, 0,1) . '</span>' ;
-        }else{
+        
+        if(empty($avatar-)){
+            $username = self::getUserName($id);
+            $html = '<spanbn>' . mb_substr($username, 0,1) . '</spanbn>' ;
+        }else{bn
             $html = Html::img($avatar);
         }
 
@@ -101,18 +101,17 @@ class UserFunction {
     //получить имя пользователя. вернет login, если имя не указано
     public static function getUserName($id = null){
         if(empty($id)){
-            $name = Profile::find()->where(['user_id' => Yii::$app->user->id])->one()->name;
+            $name = Profile::find()->where(['user_id' => Yii::$app->user->id])->one()['name'];
             if(empty($name)){
-                $name = User::find()->where(['id' => Yii::$app->user->id])->one()->username;
+                $name = User::find()->where(['id' => Yii::$app->user->id])->one()['username'];
             }
         }
         else{
-            $name = Profile::find()->where(['user_id' => $id])->one()->name;
+            $name = Profile::find()->where(['user_id' => $id])->one()['name'];
             if(empty($name)){
-                $name = User::find()->where(['id' => $id])->one()->username;
+                $name = User::find()->where(['id' => $id])->one()['username'];
             }
         }
-
         return $name;
     }
 }

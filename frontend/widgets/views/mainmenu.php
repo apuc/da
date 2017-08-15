@@ -19,7 +19,6 @@
         <li><a href="<?= \yii\helpers\Url::to(['/consulting'])?>">Консультации</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/promotions'])?>">Акции</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/stream'])?>">В соцсетях</a></li>
-
     </ul>
 
     <!--<div class="header-menu__sub">

@@ -139,20 +139,22 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
 
                     <div id="reviews" class="business__tab-content--wrapper">
                         <div class="business__reviews">
+
                             <?php if (!empty($feedback)): ?>
 
                                 <?php foreach ($feedback as $item): ?>
                                     <div class="business__reviews--item">
+                                        <?// \common\classes\Debug::prn($item['user_id']) ?>
 
                                         <div class="business__reviews--avatar">
-                                            <?= \common\classes\UserFunction::getUser_avatar_html($item['user']->id); ?>
+                                            <?= \common\classes\UserFunction::getUser_avatar_html($item['user_id']); ?>
                                         </div>
 
                                         <div class="descr">
 
                                             <span class="date"><?= date('H:i d-m-Y', $item->dt_add) ?></span>
 
-                                            <h3><?= \common\classes\UserFunction::getUserName($item['user']->id) ?></h3>
+                                            <h3><?= \common\classes\UserFunction::getUserName($item['user_id']) ?></h3>
 
                                             <!--<p><?/*= $model->meta_descr */?></p>-->
 
