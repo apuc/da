@@ -36,14 +36,14 @@ $this->registerJsFile('/js/stock.js', ['depends' => [\yii\web\JqueryAsset::class
                                     </div>
                                 <?php endif; ?>
                             </div>
-                            <a href="<?= $item->link ?>" target="_blank" class="stock__sm-item--img stockView">
+                            <a href="<?= (!empty($item->link)) ? $item->link : \yii\helpers\Url::to(['/promotions/promotions/view', 'slug' => $item->slug]) ?>"  class="stock__sm-item--img stockView">
                                 <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->photo); ?>" alt="">
                             </a>
-                            <a href="<?= $item->link ?>" target="_blank" class="stock__sm-item--descr stockView">
-                                <p><?= $item->short_descr ?></p>
+                            <a href="<?= (!empty($item->link)) ? $item->link : \yii\helpers\Url::to(['/promotions/promotions/view', 'slug' => $item->slug]) ?>"  class="stock__sm-item--descr stockView">
+                                <p><?= $item->title ?></p>
                                 <span class="views"><?= $item->view; ?></span>
                             </a>
-                            <a href="<?= $item->link ?>" target="_blank"  class="stock__sm-item--time stockView">
+                            <a href="<?= (!empty($item->link)) ? $item->link : \yii\helpers\Url::to(['/promotions/promotions/view', 'slug' => $item->slug]) ?>"  class="stock__sm-item--time stockView">
                                 <p><?= $item->dt_event ?></p>
                             </a>
                         </div>
@@ -68,14 +68,14 @@ $this->registerJsFile('/js/stock.js', ['depends' => [\yii\web\JqueryAsset::class
                                     </div>
                                 <?php endif; ?>
                             </div>
-                            <a href="<?= $item->link ?>" target="_blank" class="stock__sm-item--img stockView">
+                            <a href="<?= (!empty($item->link)) ? $item->link : \yii\helpers\Url::to(['/promotions/promotions/view', 'slug' => $item->slug]) ?>" class="stock__sm-item--img stockView">
                                 <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->photo); ?>" alt="">
                             </a>
-                            <a href="<?= $item->link ?>" target="_blank" class="stock__sm-item--descr stockView">
-                                <p><?= $item->short_descr ?></p>
+                            <a href="<?= (!empty($item->link)) ? $item->link : \yii\helpers\Url::to(['/promotions/promotions/view', 'slug' => $item->slug]) ?>" class="stock__sm-item--descr stockView">
+                                <p><?= $item->title ?></p>
                                 <span class="views"><?= $item->view; ?></span>
                             </a>
-                            <a href="<?= $item->link ?>" target="_blank"  class="stock__sm-item--time stockView">
+                            <a href="<?= (!empty($item->link)) ? $item->link : \yii\helpers\Url::to(['/promotions/promotions/view', 'slug' => $item->slug]) ?>"  class="stock__sm-item--time stockView">
                                 <p><?= $item->dt_event ?></p>
                             </a>
                         </div>

@@ -105,16 +105,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    /*if($model->status === 0){
-                        return Html::a('На публикацию', ['#'], ['data-id' => $model->id, 'data-status' => 2, 'class' => 'btn btn-success']);
-                    }
-                    if($model->status === 1){
-                        return Html::a('В корзину', ['#'], ['data-id' => $model->id, 'data-status' => 3, 'class' => 'btn btn-danger']);
-                    }*/
 
                     return
                         Html::a('На публикацию', ['#'], ['data-id' => $model->id, 'data-status' => 2, 'class' => 'btn btn-success stream_edit']).
                         Html::a('В корзину', ['#'], ['data-id' => $model->id, 'data-status' => 3, 'class' => 'btn btn-danger stream_edit']);
+
+                },
+            ],
+            [
+                'attribute' => 'News',
+                'format' => 'raw',
+                'value' => function ($model) {
+
+                    return
+                        Html::a('Добавить Новость', ['/news/news/create', 'id' => $model->id],
+                            ['method' => 'POST', 'class' => 'btn btn-success']);
 
                 },
             ],

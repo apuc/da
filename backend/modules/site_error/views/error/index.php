@@ -25,10 +25,17 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'user_id',
+            'username',
+            'email',
             'url:url',
             'msg:ntext',
-            'dt_add',
+            [
+                'attribute' => 'dt_add',
+                'value' => function($model)
+                {
+                    return date('H:i:s d:m:Y', $model->dt_add);
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -22,4 +22,21 @@ class VkStream extends \common\models\db\VkStream
         ];
     }
 
+    public function rules()
+    {
+        $rules = parent::rules();
+        $rules[] = [['title'], 'required'];
+        return $rules;
+    }
+
+    public function scenarios()
+    {
+        if($this->scenario == 'default'){
+            return parent::scenarios();
+        }
+        return [
+            'saveNews' => parent::rules()
+        ];
+    }
+
 }

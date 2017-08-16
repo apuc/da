@@ -199,13 +199,13 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                 <?php endif; ?>
 
                                 <?php if (!empty($item->photo)): ?>
-                                    <a data-fancybox="gallery" class="parser__element--photo"
-                                       href="<?= $item->photo[0]->getLargePhoto() ?>">
+                                    <a class="parser__element--photo"
+                                       href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>">
                                         <img src="<?= $item->photo[0]->getLargePhoto() ?>" alt="">
                                     </a>
                                 <?php elseif (!empty($item->gif)): ?>
-                                    <a data-fancybox="gallery" class="parser__element--photo"
-                                       href="<?= $item->gif[0]->getLargePreview()?>">
+                                    <a class="parser__element--photo"
+                                       href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>">
                                         <img src="<?= $item->gif[0]->getLargePreview()?>" alt="">
                                     </a>
                                 <?php endif; ?>
@@ -306,14 +306,14 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                             <?php endif; ?>
 
                             <?php if (!empty($item->photo)): ?>
-                                <a data-fancybox="gallery" class="parser__element--photo"
-                                   href="<?= $item->photo[0]->getLargePhoto() ?>">
+                                <a class="parser__element--photo"
+                                   href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>">
                                     <img src="<?= $item->photo[0]->getLargePhoto() ?>" alt="">
                                 </a>
 
                             <?php elseif (!empty($item->gif)): ?>
-                                <a data-fancybox="gallery" class="parser__element--photo"
-                                   href="<?= $item->gif[0]->getLargePreview()?>">
+                                <a class="parser__element--photo"
+                                   href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>">
                                     <img src="<?= $item->gif[0]->getLargePreview()?>" alt="">
                                 </a>
                             <?php endif; ?>

@@ -4,6 +4,7 @@ namespace backend\modules\news\controllers;
 
 use backend\modules\category\models\CategoryNews;
 use backend\modules\tags\models\TagsRelation;
+use backend\modules\vk\models\VkStream;
 use common\classes\Debug;
 use common\models\db\CategoryNewsRelations;
 use common\models\db\Lang;
@@ -116,6 +117,15 @@ class NewsController extends Controller
 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            if(!empty(Yii::$app->request->get()))
+            {
+                $vk = VkStream::find()->with('photo')->where(['id' => Yii::$app->request->get('id')])->one();
+                $model->content = nl2br($vk->text);
+                $model->photo = (!empty($vk->photo)) ? $vk->photo[0]->getLargePhoto() : '';
+                $vk->scenario = 'saveNews';
+                $vk->status = 3;
+                $vk->save();
+            }
             return $this->render('create', [
                 'model' => $model,
                 'lang' => $lang,

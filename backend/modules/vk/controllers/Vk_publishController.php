@@ -2,6 +2,7 @@
 
 namespace backend\modules\vk\controllers;
 
+use common\classes\Debug;
 use Yii;
 use backend\modules\vk\models\VkStream;
 use backend\modules\vk\models\VkStreamSearch;

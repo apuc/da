@@ -3,6 +3,7 @@
 namespace frontend\modules\ajax\controllers;
 
 use common\classes\Debug;
+use common\classes\UserFunction;
 use common\models\db\Answers;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryNews;
@@ -295,15 +296,27 @@ class AjaxController extends Controller
     public function actionSendErrorMsg()
     {
         $request = Yii::$app->request->post();
+        //Debug::prn(Yii::$app->request->post('url'));
         $error = new SiteError();
         $error->url = $request['url'];
         $error->user_id = $request['user_id'];
         $error->msg = $request['text'];
+
+        if(Yii::$app->user->isGuest)
+        {
+            $error->username = $request['name'];
+            $error->email = $request['email'];
+        }else{
+            $error->username = UserFunction::getUserName($request['user_id']);
+            $error->email = Yii::$app->user->identity->email;
+        }
+
         $error->dt_add = time();
         $error->save();
+
         if (isset($error->id)){
-            return 1;
+            return true;
         }
-        return 0;
+        return false;
     }
 }

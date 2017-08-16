@@ -68,6 +68,12 @@ class VK
         return $this->request('wall.get', $data);
     }
 
+    public function getGroupWallByID($owner_id, $data)
+    {
+        $data['owner_id'] = $owner_id;
+        return $this->request('wall.get', $data);
+    }
+
     public function getPostComments($group, $postId, $data = [])
     {
         $data['owner_id'] = $group;

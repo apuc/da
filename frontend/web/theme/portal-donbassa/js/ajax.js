@@ -1,5 +1,23 @@
 $(document).ready(function () {
 
+    /*open modal feedback company*/
+    $(document).on('click', '.wrap-item-feedback', function () {
+        $('#modal-item-feedback .what-say__wrap').html('');
+        $('#modal-item-feedback .what-say__wrap').append($(this).clone()).html();
+        $('#black-overlay').fadeIn(400,
+            function () {
+                $('#modal-item-feedback').css('display', 'block').animate({opacity: 1}, 200);
+            });
+
+        return false;
+    });
+    $(document).on('click', '#black-overlay', function () {
+        $('#black-overlay').fadeIn(400,
+            function () {
+                $('#modal-item-feedback').css('display', 'none').animate({opacity: 1}, 200);
+            });
+    });
+
     /*open modal faq*/
     $(document).on('click', '.ask, .ask-question', function () {
         event.preventDefault();
@@ -341,8 +359,9 @@ $(document).ready(function () {
     });
 
     //Отправка сообщения об ошибке
-    $(document).on('click', '#send-error-site', function () {
+    /*$(document).on('click', '#send-error-site', function () {
         event.preventDefault();
+
         $.ajax({
             url: '/ajax/ajax/send-error-msg',
             type: "POST",
@@ -359,10 +378,61 @@ $(document).ready(function () {
                     $('#error-message').html('<h3 class="modal-callback__title">Ваше сообщени об ошибке не отправлено.</h3>')
                 }
 
-                /*$('.addParentCategory').html(data);*/
+                /!*$('.addParentCategory').html(data);*!/
                 //$('.addSelectCateg').before(data);
             }
         });
+        return false;
+    });*/
+
+    $(document).on('click', '#send-error-site', function () {
+        $('.error-modal-name-error').text('');
+        $('.error-modal-email-error').text('');
+        $('.error-modal-message-error').text('');
+
+        var content = $('#error-user-message').val();
+
+        if(document.getElementById('error-user-name') && document.getElementById('error-user-email'))
+        {
+            var name = $('#error-user-name').val();
+            var email = $('#error-user-email').val();
+            if(!email)
+                $('.error-modal-email-error').css('color', 'red').text('Введите email');
+            if(!name)
+                $('.error-modal-name-error').css('color', 'red').text('Введите Имя');
+        }else {
+            var name = 0;
+            var email = 0;
+        }
+        //console.log(name !=='')
+        if(!content) $('.error-modal-message-error').css('color', 'red').text('Введите сообщение');
+
+        if ((content != '') && (name !== '') && (email !== '')) {
+
+            $.ajax({
+                url: '/ajax/ajax/send-error-msg',
+                type: "POST",
+                data: {
+                    '_csrf': $("input[name='_csrf']").val(),
+                    'url': $("input[name='url']").val(),
+                    'user_id': $("input[name='user_id']").val(),
+                    'name': name,
+                    'email': email,
+                    'text': content
+                },
+                success: function (data) {
+
+                    console.log(data);
+                    if (data == true) {
+                        $('#error-message').html('<h3 class="modal-callback__title">Спасибо. Мы исправим все ближайшее время</h3>')
+                    } else {
+                        $('#error-message').html('<h3 class="modal-callback__title">Ваше сообщение об ошибке не отправлено.</h3>')
+                    }
+                }
+            });
+
+        }
+
         return false;
     });
 

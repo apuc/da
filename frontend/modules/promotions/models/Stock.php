@@ -15,6 +15,12 @@ class Stock extends \common\models\db\Stock
     public function behaviors()
     {
         return [
+            'slug' => [
+                'class' => 'common\behaviors\Slug',
+                'in_attribute' => 'title',
+                'out_attribute' => 'slug',
+                'translit' => true
+            ],
             'timestamp' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
                 'attributes' => [

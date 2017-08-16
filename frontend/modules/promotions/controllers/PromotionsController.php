@@ -9,6 +9,7 @@
 namespace frontend\modules\promotions\controllers;
 
 use common\classes\Debug;
+use common\models\db\Phones;
 use common\models\db\ServicesCompanyRelations;
 use frontend\modules\company\models\Company;
 use frontend\modules\promotions\models\Stock;
@@ -92,6 +93,7 @@ class PromotionsController extends Controller
             $model->user_id = Yii::$app->user->id;
 
             if ($_FILES['Stock']['name']['photo']) {
+
                 $upphoto = New \common\models\UploadPhoto();
                 $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
                 $loc = 'media/upload/userphotos/' . date('dmY') . '/';
@@ -183,11 +185,15 @@ class PromotionsController extends Controller
     }
 
 
-    public function actionView($id)
+    public function actionView($slug)
     {
-        $model = Stock::findOne($id);
-
-        return $this->render('view', ['model' => $model]);
+        $model = Stock::find()->with('company')->where(['slug' => $slug])->one();
+        $phones = Phones::find()->where(['company_id' => $model->company['id']])->all();
+       // Debug::prn($slug);
+        return $this->render('view', [
+            'model' => $model,
+            'phones' => $phones
+        ]);
     }
 
     protected function findModel($id)

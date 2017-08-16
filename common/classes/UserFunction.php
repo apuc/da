@@ -87,11 +87,11 @@ class UserFunction {
         else{
             $avatar = Profile::find()->where(['user_id' => $id])->one()['avatar'];
         }
-        
-        if(empty($avatar-)){
+
+        if(empty($avatar)){
             $username = self::getUserName($id);
-            $html = '<spanbn>' . mb_substr($username, 0,1) . '</spanbn>' ;
-        }else{bn
+            $html = '<span>' . mb_substr($username, 0,1) . '</span>' ;
+        }else{
             $html = Html::img($avatar);
         }
 

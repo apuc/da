@@ -10,10 +10,11 @@ use common\classes\DateFunctions;
 use common\models\User;
 
 ?>
-<?php /*foreach ($model as $item): */?>
+<?php /*foreach ($model as $item): */ ?>
     <div class="parser__element <?= $item->id ?>">
 
-        <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug])?>" class="parser__element--author">
+        <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>"
+           class="parser__element--author">
 
             <div class="avatar">
                 <?php if (!empty($item->author)): ?>
@@ -49,21 +50,22 @@ use common\models\User;
 
             <p class="parser__element--descr"><?= $item->text ?></p>
             <?php if (mb_strlen($item->text) > 131): ?>
-                <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug])?>" class="parser__element--more">читать далее</a>
+                <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>"
+                   class="parser__element--more">читать далее</a>
             <?php endif; ?>
         <?php endif; ?>
 
         <?php if (!empty($item->photo)): ?>
-            <a data-fancybox="gallery" class="parser__element--photo"
-               href="<?= $item->photo[0]->getLargePhoto() ?>">
+            <a class="parser__element--photo"
+               href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>">
                 <img class="img-last-stream" src="<?= $item->photo[0]->getLargePhoto() ?>" alt="">
             </a>
 
         <?php elseif (!empty($item->gif)): ?>
-        <a data-fancybox="gallery" class="parser__element--photo"
-           href="<?= $item->gif[0]->getLargePreview()?>">
-            <img class="img-last-stream" src="<?= $item->gif[0]->getLargePreview()?>" alt="">
-        </a>
+            <a class="parser__element--photo"
+               href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>">
+                <img class="img-last-stream" src="<?= $item->gif[0]->getLargePreview() ?>" alt="">
+            </a>
         <?php endif; ?>
 
         <div class="parser__element--tools">
@@ -79,11 +81,11 @@ use common\models\User;
             <a href="#" class="views"><?= $item->views ?></a>
 
             <a href="#" class="comments">
-                <?= ($item->comment_status) ? count($item->all_comments) : 0  ?>
+                <?= ($item->comment_status) ? count($item->all_comments) : 0 ?>
             </a>
 
         </div>
-    <?if ($item->comment_status) :?>
+        <? if ($item->comment_status) : ?>
         <div class="parser__element--comments-block">
 
             <?php if (!empty($item->all_comments)): ?>
@@ -99,8 +101,8 @@ use common\models\User;
                     <p><?= $comment_item['text'] ?></p>
                 <?php endforeach; ?>
             <?php endif; ?>
-<?endif;?>
+            <? endif; ?>
         </div>
 
     </div>
-<?php /*endforeach; */?>
+<?php /*endforeach; */ ?>

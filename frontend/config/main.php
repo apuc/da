@@ -202,6 +202,7 @@ return [
                 //'ajax'=> 'ajax/default',
                 //'ajax/send_poll'=> 'ajax/default/send_poll',
                 'promotions' => '/promotions/promotions/index',
+                'promotions/<slug>' => '/promotions/promotions/view',
                 ['pattern' => 'sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
                 'stream' => 'stream/default/index',
                 'stream/<slug>' => 'stream/default/view',

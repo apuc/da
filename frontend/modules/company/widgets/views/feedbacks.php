@@ -27,7 +27,7 @@ use yii\helpers\Url;
         <div class="what-say__wrap">
             <?php foreach ($feedbacks as $feedback): ?>
                 <!-- item -->
-                <a href="" class="what-say__wrap_item">
+                <a href="" class="what-say__wrap_item wrap-item-feedback">
 
                     <span class="rew-title"><?= $feedback->company_name ?> </span>
 
@@ -50,6 +50,15 @@ use yii\helpers\Url;
 
         </div>
 
+    </div>
+
+    <div id="modal-item-feedback" class="modal-review">
+        <div class="container">
+            <h3>Отзыв:</h3>
+            <div class="what-say__wrap">
+
+            </div>
+        </div>
     </div>
 
 </section>

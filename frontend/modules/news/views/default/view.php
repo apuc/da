@@ -20,7 +20,7 @@ $this->registerMetaTag([
     'name' => 'og:image',
     'content' => 'http://' . $_SERVER['HTTP_HOST'] . $model->photo,
 ]);
-$this->title = $model->meta_title;
+$this->title = ($model->meta_title) ? $model->meta_title: $model->title;
 
 $this->registerMetaTag([
     'name' => 'og:title',
@@ -80,7 +80,11 @@ $this->registerMetaTag([
             </div>
 
             <div class="thumbnail-wrapper">
+                <?if(stristr($model->photo, 'http')):?>
+                <img class="thumbnail" src="<?= $model->photo?>" alt="">
+                <?else: ?>
                 <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($model->photo); ?>" alt="">
+                <?endif;?>
             </div>
 
 

@@ -59,8 +59,11 @@ $md = new \common\classes\Mobile_Detect();
                             'slug' => $currNew->slug,
                         ]); ?>" class="news__wrap_item-lg">
                             <div class="thumb">
-                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>"
-                                     alt="">
+                                <?if(stristr($currNew->photo, 'http')):?>
+                                    <img class="thumbnail" src="<?= $currNew->photo?>" alt="">
+                                <?else: ?>
+                                    <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>" alt="">
+                                <?endif;?>
                                 <div class="content-row">
                                     <span><?= WordFunctions::dateWithMonts($currNew->dt_public); ?></span>
                                     <span><?= $cat->title; ?></span>
@@ -79,8 +82,11 @@ $md = new \common\classes\Mobile_Detect();
                                 '/news/default/view',
                                 'slug' => $currNew->slug,
                             ]); ?>" class="thumb">
-                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>"
-                                     alt="">
+                                <?if(stristr($currNew->photo, 'http')):?>
+                                    <img class="thumbnail" src="<?= $currNew->photo?>" alt="">
+                                <?else: ?>
+                                    <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>" alt="">
+                                <?endif;?>
                                 <div class="content-row">
                                     <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
                                     <span><small
@@ -110,7 +116,11 @@ $md = new \common\classes\Mobile_Detect();
                     ]); ?>" class=" news__wrap_item-sm-hot">
                         <!-- thumb -->
                         <div class="thumb">
-                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($currHotNew->photo); ?>" alt="">
+                            <?if(stristr($currHotNew->photo, 'http')):?>
+                                <img class="thumbnail" src="<?= $currHotNew->photo?>" alt="">
+                            <?else: ?>
+                                <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($currHotNew->photo); ?>" alt="">
+                            <?endif;?>
                             <div class="content-row">
                                 <span><small class="view-icon"></small><?= $currHotNew->views; ?></span>
                                 <span><small

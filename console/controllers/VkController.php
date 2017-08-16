@@ -50,7 +50,11 @@ class VkController extends Controller
         }else $groups = VkGroups::find()->where(['status' => 1])->all();
 
         foreach ($groups as $group) {
-            $res = $this->vk->getGroupWall($group->domain, ['count' => $this->count, 'extended' => 1]);
+            if(stristr($group->domain, 'public')){
+                $res = $this->vk->getGroupWallByID($group->vk_id, ['count' => $this->count, 'extended' => 1]);
+            }else
+                $res = $this->vk->getGroupWall($group->domain, ['count' => $this->count, 'extended' => 1]);
+
             $res = json_decode($res);
             if(isset($res->response->profiles))
             {
@@ -211,18 +215,19 @@ class VkController extends Controller
     public function actionGetGroupInfo()
     {
         $this->getVk();
-        $groups = VkGroups::find()->where(['status' => 1])->all();
+        $groups = VkGroups::find()->where(['in','status', [1, 2]])->all();
         foreach ($groups as $group) {
-            $res = $this->vk->request('groups.getById', ['group_id' => $group->domain]);
+            sleep(1);
+            $res = $this->vk->request('groups.getById', ['group_id' => $group->vk_id * -1]);
             $res = json_decode($res);
             $this->saveGroupInfo($res->response[0], $groups);
         }
-        //Debug::prn($res);
+
     }
 
     public function saveGroupInfo($group_info, $groups = null)
     {
-        $groups = (!$groups)? : VkGroups::find()->where(['status' => 1])->all();
+        $groups = (!$groups)? : VkGroups::find()->where(['in','status', [1, 2]])->all();
         foreach ($groups as $group)
         {
             if($group->vk_id * -1 == $group_info->id)
