@@ -126,7 +126,6 @@ class CommentsController extends Controller
     {
         Url::remember();
 
-
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);

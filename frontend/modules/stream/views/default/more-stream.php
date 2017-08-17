@@ -35,7 +35,7 @@ use common\models\User;
                 <?php endif; ?>
             </div>
 
-            <span class="date"><?= DateFunctions::getGetNiceDate($item->dt_add) ?></span>
+            <span class="date"><?= DateFunctions::getGetNiceDate($item->dt_publish) ?></span>
 
         </a>
 

@@ -8,6 +8,8 @@
 
 namespace backend\modules\vk\models;
 
+use yii\db\ActiveRecord;
+
 class VkStream extends \common\models\db\VkStream
 {
     public function behaviors()

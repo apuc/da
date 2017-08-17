@@ -85,7 +85,18 @@ class Vk_publishController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //Debug::prn(Yii::$app->request->post());
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $request = Yii::$app->request->post();
+            if(!empty($request['VkStream']['dt_publish'])){
+                $model->dt_publish = strtotime($request['VkStream']['dt_publish'].' '.$request['dt_publish_time']);
+            }else
+                $model->dt_publish = time();
+
+            $model->save();
+            //Debug::prn();
+           // Debug::prn(date('d-m-Y H:i',$model->dt_publish));
+
             return $this->redirect(['index']);
         } else {
             return $this->render('update', [

@@ -44,7 +44,7 @@ class VkStream extends \yii\db\ActiveRecord
     {
         return [
             [['vk_id'], 'required'],
-            [['from_id', 'owner_id', 'owner_type', 'dt_add', 'from_type', 'status', 'views', 'likes', 'comment_status'], 'integer'],
+            [['from_id', 'owner_id', 'owner_type', 'dt_add', 'from_type', 'status', 'views', 'likes', 'comment_status', 'rss'], 'integer'],
             [['text', 'slug', 'title', 'meta_descr'], 'string'],
             [['vk_id', 'post_type'], 'string', 'max' => 255],
         ];
@@ -105,19 +105,38 @@ class VkStream extends \yii\db\ActiveRecord
         return Likes::find()->where(['post_type' => 'stream', 'post_id' => $this->id])->count();
     }
 
-    public static function getPosts($limit = 10, $offset = 0, $dt_add = null)
+    public static function getPosts($limit = 10, $offset = 0, $dt_publish = null)
     {
-       if(!$dt_add) $dt_add = time();
+       if(!$dt_publish) $dt_publish = time();
 
         return self::find()
             ->where(['status' => 1])
-            ->andWhere(['<', 'dt_add', $dt_add])
-            ->orderBy('`vk_stream`.`dt_add` DESC')
+            ->andWhere(['<', 'dt_publish', $dt_publish])
+            ->orderBy('`vk_stream`.`dt_publish` DESC')
             ->limit($limit)
             ->offset($offset)
             ->with('gif', 'photo', 'author', 'group')
             ->all();
 
+    }
+
+    public function getLargePhoto()
+    {
+        $photo = VkPhoto::findOne(['post_id' => $this->id]);
+        if($photo->photo_1280)
+            return $photo->photo_1280;
+
+        if($photo->photo_807)
+            return $photo->photo_807;
+
+        if($photo->photo_604)
+            return $photo->photo_604;
+
+        if($photo->photo_512)
+            return $photo->photo_512;
+
+        if($photo->photo_130)
+            return $photo->photo_130;
     }
 
     public static function getPublishedCount()

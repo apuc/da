@@ -115,7 +115,7 @@ class NewsController extends Controller
                 }
             }
 
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
             if(!empty(Yii::$app->request->get()))
             {

@@ -50,10 +50,10 @@ class DefaultController extends Controller
 
     public function actionLoadMore()
     {
-        $dt_add = \Yii::$app->request->post('dt_add');
+        $dt_publish = \Yii::$app->request->post('dt_add');
 
         if(\Yii::$app->request->post('step') !== null){
-            $models = VkStream::getPosts(10, \Yii::$app->request->post('step') * 10, $dt_add);
+            $models = VkStream::getPosts(10, \Yii::$app->request->post('step') * 10, $dt_publish);
 
                foreach ($models as $model)
                {
@@ -83,7 +83,7 @@ class DefaultController extends Controller
 
         $interested = VkStream::find()->with('photo', 'comments', 'author', 'group')
             ->where(['status' => 1])
-            ->andWhere(['<', 'dt_add', $model->dt_add])
+            ->andWhere(['<', 'dt_publish', $model->dt_publish])
             ->orderBy('dt_add DESC')
             ->limit(10)
             ->offset(0)

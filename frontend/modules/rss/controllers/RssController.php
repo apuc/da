@@ -2,6 +2,7 @@
 
 namespace frontend\modules\rss\controllers;
 
+use backend\modules\vk\models\VkStream;
 use common\models\db\CategoryNewsRelations;
 use common\models\db\CategoryPosterRelations;
 use common\models\db\KeyValue;
@@ -175,6 +176,88 @@ class RssController extends Controller {
 
 
                 },
+            ]
+        ] );
+    }
+
+    public function actionStream_rss() {
+        $dataProvider = new ActiveDataProvider( [
+            'query'      => VkStream::find()
+                ->where( [ 'rss' => 1, 'status' => 1 ] )
+                ->andWhere([ '<' , 'dt_publish', time()])
+                ->limit( 20 )
+                ->orderBy( 'dt_publish DESC' ),
+            'pagination' => [
+                'pageSize' => 10
+            ],
+        ] );
+
+        $response = Yii::$app->getResponse();
+        $headers  = $response->getHeaders();
+        $headers->set( 'Content-Type', 'application/rss+xml; charset=utf-8' );
+
+        echo \Zelenin\yii\extensions\Rss\RssView::widget( [
+            'dataProvider' => $dataProvider,
+            'channel'      => [
+                'title'       => function ( $widget, \Zelenin\Feed $feed ) {
+                    $feed->addChannelTitle( KeyValue::findOne( [ 'key' => 'rss_stream_title' ] )->value );
+                },
+//                'link'        => Url::toRoute( '/', true ),
+                'link'        => Url::toRoute( '/' . 'rss/stream.xml', true ),
+                'description' => KeyValue::findOne( [ 'key' => 'rss_stream_desc' ] )->value,
+                'language'    => function ( $widget, \Zelenin\Feed $feed ) {
+                    return Yii::$app->language;
+                },
+                'image'       => function ( $widget, \Zelenin\Feed $feed ) {
+                    $feed->addChannelImage( Yii::$app->request->hostInfo . '/theme/portal-donbassa/img/logo3.png', Url::toRoute( '/' . 'rss/stream.xml', true ), 31, 31, 'DA logo' );
+
+                },
+            ],
+            'items'        => [
+                'title'       => function ( $model, $widget, \Zelenin\Feed $feed ) {
+                    return $model->title;
+                },
+                /*'category'    => function ( $model, $widget, \Zelenin\Feed $feed ) {
+                    $cats = CategoryNewsRelations::find()
+                        ->where( [ 'new_id' => $model->id ] )
+                        ->with( 'cat' )
+                        ->all();
+                    foreach ( $cats as $cat ) {
+                        $feed->addItemCategory( $cat->cat->title );
+                    }
+                },*/
+                'enclosure'   => function ( $model, $widget, \Zelenin\Feed $feed ) {
+                    if ( ! empty( $model->getLargePhoto() ) ) {
+                        $feed->addItemEnclosure( $model->getLargePhoto(), 123, 'image/jpeg' );
+                    }
+                },
+                'description' => function ( $model, $widget, \Zelenin\Feed $feed ) {
+                    return StringHelper::truncateWords( strip_tags( $model->text ), 50 );
+                },
+                'link'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
+                    return Url::to( [ '/stream/' . $model->slug ], true );
+                },
+                'guid'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
+                    //$date = date( DATE_RSS, $model->dt_public );
+
+                    return Url::to( [
+                        '/stream/' . $model->slug
+                    ], true );
+                    //return $model->slug;
+                },
+                'pubDate'     => function ( $model, $widget, \Zelenin\Feed $feed ) {
+
+                    $date = date( DATE_RSS, $model->dt_publish );
+
+                    return $date;
+
+                },
+                'save'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
+
+                    $feed->save( 'rss/stream.xml' );
+
+                },
+
             ]
         ] );
     }

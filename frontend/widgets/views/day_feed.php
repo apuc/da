@@ -23,7 +23,11 @@
         if ($key == $newImageId) {
             ?>
             <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $new->slug]); ?>" class="tape__item_pic">
-                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($new->photo); ?>" alt="">
+                <?if(stristr($new->photo, 'http')):?>
+                    <img class="thumbnail" src="<?= $new->photo?>" alt="">
+                <?else: ?>
+                    <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($new->photo); ?>" alt="">
+                <?endif;?>
                 <div class="tape__item_pic--content">
                     <span class="time"><?= date('d.m H:i', $new->dt_public) ?></span>
                     <div class="hide-social">

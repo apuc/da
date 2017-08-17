@@ -68,7 +68,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                     <?php endif; ?>
                                 </div>
 
-                                <span class="date"><?= DateFunctions::getGetNiceDate($item->dt_add) ?></span>
+                                <span class="date"><?= DateFunctions::getGetNiceDate($item->dt_publish) ?></span>
 
                             </a>
 
@@ -175,7 +175,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                         <?php endif; ?>
                                     </div>
 
-                                    <span class="date"><?= DateFunctions::getGetNiceDate($item->dt_add) ?></span>
+                                    <span class="date"><?= DateFunctions::getGetNiceDate($item->dt_publish) ?></span>
 
                                 </a>
 

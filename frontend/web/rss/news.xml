@@ -1,50 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <atom:link href="http://da/rss/news.xml" rel="self" type="application/rss+xml"/>
+    <atom:link href="http://dainfo.loc/rss/news.xml" rel="self" type="application/rss+xml"/>
     <generator>RSS Generator 2.1.1</generator>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <title>ДА. Новости</title>
-    <link>http://da/rss/news.xml</link>
+    <link>http://dainfo.loc/rss/news.xml</link>
     <description>Портал города Донецка</description>
     <language>ru-RU</language>
     <image>
-      <url>http://da/theme/portal-donbassa/img/logo3.png</url>
+      <url>http://dainfo.loc/theme/portal-donbassa/img/logo3.png</url>
       <title>ДА. Новости</title>
-      <link>http://da/rss/news.xml</link>
+      <link>http://dainfo.loc/rss/news.xml</link>
       <width>31</width>
       <height>31</height>
       <description>DA logo</description>
     </image>
     <item>
-      <title>Новая новость</title>
-      <category>Международные</category>
-      <enclosure url="http://da/media/upload/Fon4.jpg" length="123" type="image/jpeg"/>
-      <description>Новая новостьНовая новостьНовая новость&#13;
-</description>
-      <link>http://da/news/novaya-novost</link>
-      <guid>http://da/news/novaya-novost</guid>
-      <pubDate>Mon, 16 Jan 2017 13:30:33 +0300</pubDate>
+      <title>Введение в CSS. Урок 1 Введен</title>
+      <category>Мир</category>
+      <description>Введение в CSS&#13;
+&#13;
+Введение в CSS. Урок 1 Введение в технологию CSS | Каскадные таблицы стилей&#13;
+Введение в CSS. Урок 2 CSS сетка для сайта&#13;
+Введение в CSS. Урок 3. Задание отступов и цвета фона с помощью CSS&#13;
+Введение в CSS. Урок 4 Оформление навигации (списков) с помощью CSS&#13;
+Введение...</description>
+      <link>http://dainfo.loc/news/vvedenie-v-css-urok-1-vveden</link>
+      <guid>http://dainfo.loc/news/vvedenie-v-css-urok-1-vveden</guid>
+      <pubDate>Wed, 16 Aug 2017 11:00:50 +0300</pubDate>
     </item>
     <item>
-      <title>Родился бобер</title>
-      <category>Экономические</category>
-      <category>Политические</category>
-      <enclosure url="http://da/media/upload/userphotos/23112016/bober-tolkovanie-sonnika.jpg" length="123" type="image/jpeg"/>
-      <description/>
-      <link>http://da/news/rodilsya-bober</link>
-      <guid>http://da/news/rodilsya-bober</guid>
-      <pubDate>Tue, 06 Dec 2016 13:05:00 +0300</pubDate>
+      <title>Дональд Трамп подпишет закон о введении новых санкций против России </title>
+      <category>Мир</category>
+      <category>Политика</category>
+      <enclosure url="http://dainfo.loc/media/upload/novosti/mejdunarodnie_novosti/tramppodpisal.jpg" length="123" type="image/jpeg"/>
+      <description>Донецк, 1 августа – DA Info Pro. У Дональда Трампа есть возможность не ставить подпись под законом о новых антироссийских санкциях, однако он ей не воспользуется. По словам вице-президента США Майкла Пенса, совершающего в эти дни турне по постсоветским странам, экономические ограничения против Москвы скоро начнут действовать. Причём очередное использование...</description>
+      <link>http://dainfo.loc/news/donald-tramp-podpiset-zakon-o-vvedenii-novyh-sankcij-protiv-rossii</link>
+      <guid>http://dainfo.loc/news/donald-tramp-podpiset-zakon-o-vvedenii-novyh-sankcij-protiv-rossii</guid>
+      <pubDate>Tue, 01 Aug 2017 12:30:00 +0300</pubDate>
     </item>
     <item>
-      <title>В скачке цен на лобстера заподозрили хипстеров</title>
-      <category>Экономические</category>
-      <category>Социальные</category>
-      <enclosure url="http://da/media/upload/Социальные_новости/lobster.jpg" length="123" type="image/jpeg"/>
-      <description>Лобстеры, превратившиеся за последние несколько лет из люксового в доступный продукт, снова дорожают. Благодаря растущему спросу стоимость лобстеров приблизилась к максимуму за 11 лет. Об этом пишет The Financial Times. Газета отмечает, что лобстеры дорожают на фоне роста популярности роллов с их мясом среди хипстеров. "Данный феномен привел к резкому росту...</description>
-      <link>http://da/news/v-skachke-cen-na-lobstera-zapodozrili-hipsterov</link>
-      <guid>http://da/news/v-skachke-cen-na-lobstera-zapodozrili-hipsterov</guid>
-      <pubDate>Wed, 12 Oct 2016 23:50:00 +0300</pubDate>
+      <title>Вниманию автомобилистов! Для пересечения линии разграничения на авто будет нужна доверенность  </title>
+      <category>Регион</category>
+      <enclosure url="http://dainfo.loc/media/upload/novosti/novosti_goroda/kpvv_vchaspik.jpg" length="123" type="image/jpeg"/>
+      <description>Донецк, 1 августа – DA Info Pro. На КПВВ заявили о том, что пограничные службы требуют от граждан, пересекающих границу на автомобилях, предъявлять официально заверенную нотариусом доверенность от владельца на право управления транспортным средством. Об этом рассказали в «Донбасс SOS».&#13;
+&#13;
+В организации подтвердили нововведение: «В пункт 5.11 были внесены изменения,...</description>
+      <link>http://dainfo.loc/news/vnimaniu-avtomobilistov-dla-peresecenia-linii-razgranicenia-na-avto-budet-nuzna-doverennost</link>
+      <guid>http://dainfo.loc/news/vnimaniu-avtomobilistov-dla-peresecenia-linii-razgranicenia-na-avto-budet-nuzna-doverennost</guid>
+      <pubDate>Tue, 01 Aug 2017 11:05:00 +0300</pubDate>
+    </item>
+    <item>
+      <title>В ДНР поднимут зарплату работникам системы здравоохранения – Захарченко </title>
+      <category>Регион</category>
+      <enclosure url="http://dainfo.loc/media/upload/novosti/mejdunarodnie_novosti/zaharchenko.jpg" length="123" type="image/jpeg"/>
+      <description>Донецк, 1 августа – DA Info Pro. Заработная плата сотрудников здравоохранительной системы Донецкой Народной Республики будет увеличена на десять процентов, сообщил накануне Глава государства Александр Захарченко.&#13;
+&#13;
+Минздрав: ДНР во втором квартале текущего года вдвое увеличила расходы на здравоохранение&#13;
+&#13;
+&#13;
+«Медицина – это показатель государственности и уровня жизни. Мы планируем поднять заработную...</description>
+      <link>http://dainfo.loc/news/v-dnr-podnimut-zarplatu-rabotnikam-sistemy-zdravoohranenia-zaharcenko</link>
+      <guid>http://dainfo.loc/news/v-dnr-podnimut-zarplatu-rabotnikam-sistemy-zdravoohranenia-zaharcenko</guid>
+      <pubDate>Tue, 01 Aug 2017 10:30:00 +0300</pubDate>
+    </item>
+    <item>
+      <title>Не уедешь, не уплывешь: как оплатить транспортный налог в ДНР</title>
+      <category>Экономика</category>
+      <enclosure url="http://dainfo.loc/media/upload/novosti/ekonomicheskie_novosti/transportniy_nalog.jpg" length="123" type="image/jpeg"/>
+      <description>Донецк, 1 августа – DA Info Pro. Начиная с 2016 года всем владельцам транспортных средств приходится платить транспортный налог. Об этом сказано в Законе Донецкой Народной Республики «О налоговой системе» от 25.12.2015 года №99 – IНС (далее Закон).&#13;
+&#13;
+Согласно Закону, оплачивать транспортный налог должны не только владельцы, но и лица, осуществляющие...</description>
+      <link>http://dainfo.loc/news/ne-uedes-ne-uplyves-kak-oplatit-transportnyj-nalog-v-dnr</link>
+      <guid>http://dainfo.loc/news/ne-uedes-ne-uplyves-kak-oplatit-transportnyj-nalog-v-dnr</guid>
+      <pubDate>Tue, 01 Aug 2017 10:05:00 +0300</pubDate>
+    </item>
+    <item>
+      <title>Недельный правовой дайджест от журнала «Налоговый советник»</title>
+      <category>Экономика</category>
+      <category>Общество</category>
+      <category>Регион</category>
+      <enclosure url="http://dainfo.loc/media/upload/novosti/ekonomicheskie_novosti/zakon.png" length="123" type="image/jpeg"/>
+      <description>Информацию для портала DA Info Pro предоставил наш партнер - журнал «Налоговый Советник».&#13;
+&#13;
+Подробный обзор данных законодательных актов можно увидеть в журнале «Налоговый Советник» №3 (за август).&#13;
+&#13;
+Закон Донецкой Народной Республики «О внесении изменений в Статью 10 Закона Донецкой Народной Республики «О лицензировании отдельных видов хозяйственной деятельности» от 10.02.2017 г. №...</description>
+      <link>http://dainfo.loc/news/nedelnyj-pravovoj-dajdzest-ot-zurnala-nalogovyj-sovetnik</link>
+      <guid>http://dainfo.loc/news/nedelnyj-pravovoj-dajdzest-ot-zurnala-nalogovyj-sovetnik</guid>
+      <pubDate>Tue, 01 Aug 2017 09:53:00 +0300</pubDate>
+    </item>
+    <item>
+      <title>Ситуация на блокпостах и границе с РФ на сегодня 1 августа</title>
+      <category>Регион</category>
+      <enclosure url="http://dainfo.loc/media/upload/novosti/novosti_goroda/ochered_sit.jpg" length="123" type="image/jpeg"/>
+      <description>КПВВ на линии разграничения перешли на летнее время работы. С 1 июня 2017 года будут осуществлять пропуск граждан и транспортных средств с 06.00 до 20.00. Граница с РФ работает круглосуточно.&#13;
+&#13;
+Актуальные комментарии пользователей соцсетей по ситуации на блокпостах &#13;
+&#13;
+Ситуация на блокпостах #Артемовск #Бахмут #Майорск #Зайцево #Никитовка #КПВВ&#13;
+&#13;
+- Госпогранслужба Украины о ситуации на украинских КПВВ: сегодня утром...</description>
+      <link>http://dainfo.loc/news/situacia-na-blokpostah-i-granice-s-rf-na-segodna-1-avgusta</link>
+      <guid>http://dainfo.loc/news/situacia-na-blokpostah-i-granice-s-rf-na-segodna-1-avgusta</guid>
+      <pubDate>Tue, 01 Aug 2017 09:40:00 +0300</pubDate>
+    </item>
+    <item>
+      <title>Погода в Донецке на 1 августа</title>
+      <category>Регион</category>
+      <enclosure url="http://dainfo.loc/media/upload/novosti/novosti_goroda/pogoda.jpg" length="123" type="image/jpeg"/>
+      <description>Донецк, 1 августа – DA Info Pro. Погода в столице Донецкой Народной Республике будет по-прежнему жаркой. Столбики термометра поднимутся до 31градуса по Цельсию. Поднимется небольшой ветер, до 3,9 м/сек. Синоптики обещают, что за окном сохранится ясная погода, без осадков.&#13;
+&#13;
+&#13;
+&#13;
+Народный прогноз погоды: 1 августа отмечается день памяти преподобной Макрины (Макриды)....</description>
+      <link>http://dainfo.loc/news/pogoda-v-donecke-na-1-avgusta</link>
+      <guid>http://dainfo.loc/news/pogoda-v-donecke-na-1-avgusta</guid>
+      <pubDate>Tue, 01 Aug 2017 09:30:00 +0300</pubDate>
+    </item>
+    <item>
+      <title>Какой курс валют в Донецке 1 августа</title>
+      <category>Экономика</category>
+      <category>Регион</category>
+      <enclosure url="http://dainfo.loc/media/upload/novosti/ekonomicheskie_novosti/valuta_kyrs.jpg" length="123" type="image/jpeg"/>
+      <description>Информация о покупке/продаже валют в обменных пунктах Донецка, официальный курс ЦРБ ДНР на сегодня и курс «чёрного рынка», а также финансовые советы от специалистов портала DA Info Pro.&#13;
+Официальный курс валют в Донецкой Народной Республике ежедневно утверждаются  Центральным Республиканским Банком.&#13;
+Сегодня, 1 августа 2017 г.&#13;
+&#13;
+&#13;
+	&#13;
+		&#13;
+			&#13;
+			ЦРБ ДНР&#13;
+			&#13;
+			&#13;
+			Гривна (UAN)&#13;
+			&#13;
+			&#13;
+			Доллар...</description>
+      <link>http://dainfo.loc/news/kakoj-kurs-valut-v-donecke-1-avgusta</link>
+      <guid>http://dainfo.loc/news/kakoj-kurs-valut-v-donecke-1-avgusta</guid>
+      <pubDate>Tue, 01 Aug 2017 09:23:30 +0300</pubDate>
+    </item>
+    <item>
+      <title>Печатные материалы организации «Свидетели Иеговы» признаны экстремистскими</title>
+      <category>Общество</category>
+      <category>Регион</category>
+      <enclosure url="http://dainfo.loc/media/upload/novosti/novosti_goroda/iegovi.jpg" length="123" type="image/jpeg"/>
+      <description>Донецк, 1 августа – DA Info Pro. Верховный Суд ДНР принял решение, признать экстремистскими печатные материалы, которые выпускают религиозные организации «Свидетели Иеговы».&#13;
+&#13;
+В связи с заключением специалистов центра судэкспертизы Минюста ДНР, в текстах листовок «Точка зрения Библии. Претерпело ли христианство крах?» и «Будете ли вы следовать любящему руководству Иеговы?» есть информация, которая...</description>
+      <link>http://dainfo.loc/news/pecatnye-materialy-organizacii-svideteli-iegovy-priznany-ekstremistskimi</link>
+      <guid>http://dainfo.loc/news/pecatnye-materialy-organizacii-svideteli-iegovy-priznany-ekstremistskimi</guid>
+      <pubDate>Tue, 01 Aug 2017 09:00:00 +0300</pubDate>
     </item>
   </channel>
 </rss>
