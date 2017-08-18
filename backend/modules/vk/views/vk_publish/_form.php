@@ -29,7 +29,7 @@ use common\classes\Debug;
 
     <div class="dt_public_box_link"><a href="#">Отложенная публикация</a></div>
     <div class="dt_public_box">
-        <?= $form->field($model, 'dt_publish')->input('date', ['class' => 'form-control', 'value' => 123]) ?>
+        <?= $form->field($model, 'dt_publish')->input('date', ['class' => 'form-control', 'value' => date('d-m-Y', $model->dt_publish)]) ?>
         <?= Html::input('text', 'dt_publish_time', date(''),
             ['id' => 'dt_public_time', 'class' => 'form-control', 'placeholder' => 'Время']) ?>
     </div>

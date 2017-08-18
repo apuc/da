@@ -28,8 +28,9 @@ class MainMenuAdmin extends Widget
         $countFeedback = CompanyFeedback::find()->where(['status' => 0])->count();
         $countModerStream = VkStream::find()->where(['status' => 0])->count();
         $countPublishStream = VkStream::find()->where(['status' => 2])->count();
-        $countPublishedStream = VkStream::find()->where(['status' => 1])->count();
+        $countPublishedStream = VkStream::find()->where(['status' => 1])->andWhere(['<', 'dt_publish', time()])->count();
         $countBasketStream = VkStream::find()->where(['status' => 3])->count();
+        $countDefferedStream = VkStream::find()->where(['status' => 1])->andWhere(['>', 'dt_publish', time()])->count();
 
         echo \yii\widgets\Menu::widget(
             [
@@ -461,6 +462,12 @@ class MainMenuAdmin extends Widget
                                 'url' => Url::to(['/vk/vk_published']),
                                 'active' => Yii::$app->controller->module->id === 'vk' && Yii::$app->controller->id === 'vk_published',
                                 'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countPublishedStream . '</small></span></a>',
+                            ],
+                            [
+                                'label' => 'Отложенные',
+                                'url' => Url::to(['/vk/vk_published/deffered']),
+                                'active' => Yii::$app->controller->module->id === 'vk' && Yii::$app->controller->id === 'vk_published',
+                                'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countDefferedStream . '</small></span></a>',
                             ],
                         ],
                         'options' => [

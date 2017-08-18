@@ -2,6 +2,7 @@
 
 namespace backend\modules\vk\models;
 
+use common\classes\Debug;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -57,7 +58,16 @@ class VkStreamSearch extends VkStream
             return $dataProvider;
         }
 
-        $query->andWhere($condition);
+        if($condition){
+            foreach ($condition as $key => $cond){
+                if(is_array($cond)){
+                    $query->andWhere($cond);
+                }else
+                    $query->andWhere([$key => $cond]);
+            }
+        }
+
+        //$query->andWhere($condition);
 
         // grid filtering conditions
         $query->andFilterWhere([

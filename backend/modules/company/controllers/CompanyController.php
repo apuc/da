@@ -10,6 +10,7 @@ use common\classes\GeobaseFunction;
 use common\classes\UserFunction;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
+use common\models\db\CompanyOld;
 use common\models\db\CompanyPhoto;
 use common\models\db\KeyValue;
 use common\models\db\Phones;
@@ -360,6 +361,27 @@ class CompanyController extends Controller
             'model' => Services::find()->asArray()->all()
         ]);
         //Debug::prn();
+    }
+
+    public function actionReplacePhone()
+    {
+        $company_old = CompanyOld::find()->all();
+
+        foreach ($company_old as $company)
+        {
+            if(!empty($company->phone)){
+                $company_replace = Company::findOne($company->id);
+
+
+                if(!empty($company_replace) && empty($company_replace->phone)){
+                    $company_replace->phone = $company->phone;
+
+                    if($company_replace->save()){
+                        echo 'номер '.$company_replace->phone.' Добавлен к компании '.$company_replace->id."</br>";
+                    }
+                }
+            }
+        }
     }
 
 }
