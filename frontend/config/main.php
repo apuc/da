@@ -206,6 +206,14 @@ return [
                 ['pattern' => 'sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
                 'stream' => 'stream/default/index',
                 'stream/<slug>' => 'stream/default/view',
+
+
+                'obyavleniya' => 'board/default',
+                'obyavleniya/<page:\d+>' => 'board/default/index',
+                'obyavleniya/category/<slug>' => 'board/default/category-ads',
+                'obyavleniya/category/<slug>/<page:\d+>' => 'board/default/category-ads',
+                'obyavlenie/<id:\d+>/<slug>/' => 'board/default/view',
+
             ]
         ],
         'mailer' => [
