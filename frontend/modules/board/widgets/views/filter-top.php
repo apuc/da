@@ -21,7 +21,9 @@
 
 </div>
 
-<form class="commercial__search-form" action="" method="get">
+
+
+<form class="commercial__search-form" action="<?= \yii\helpers\Url::to(['search'])?>" method="get">
 
     <input type="text" class="input-search textSearch" value="<?= (isset($get['textFilter'])) ? $get['textFilter'] : ''?>" placeholder="Поиск по объявлениям">
 

@@ -48,6 +48,29 @@ class DefaultController extends Controller
         );
     }
 
+    public function actionCategoryAds($slug)
+    {
+        $cat = file_get_contents($this->siteApi . '/category/get-category-by-slug?cat=' . Yii::$app->request->get('slug'));
+        $cat = json_decode($cat);
+       // Debug::prn($cat);
+
+        $rez = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page', 1) . '&catId='. $cat->id);
+
+        $rez = json_decode($rez);
+
+        $pagination = new Pagination([
+            'defaultPageSize' => 10,
+            'totalCount' => $rez->_meta->totalCount,
+            'pageSizeParam' => false,
+        ]);
+        return $this->render('index',
+            [
+                'ads' => $rez->ads,
+                'pagination' => $pagination,
+            ]
+        );
+    }
+
     public function actionView($slug, $id)
     {
         $ads = file_get_contents($this->siteApi . '/ads/' . $id . '?expand=adsImgs,adsFieldsValues');
@@ -81,8 +104,11 @@ class DefaultController extends Controller
             $contents = file_get_contents($sURL, false, $context);
             echo $contents;
         }
+        else{
+            $model = file_get_contents($this->siteApi . '/ads/create');
+            return $this->render('add-form-ads', ['model' => $model]);
+        }
 
-        return $this->render('add-form-ads');
     }
 
     public function actionGetChildrenCategory()

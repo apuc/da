@@ -50,7 +50,7 @@ $this->registerJsFile('/js/board.js', ['depends' => [\yii\web\JqueryAsset::class
 
                     <div class="average-ad-item">
 
-                        <a href="#" class="average-ad-item-thumb">
+                        <a href="<?= \yii\helpers\Url::to(['view', 'slug' => $item->slug, 'id' => $item->id]); ?>" class="average-ad-item-thumb">
                             <?php if(!empty($item->adsImgs)): ?>
                                 <img src="<?= $item->adsImgs[0]->img_thumb; ?>" alt="">
                             <?php else: ?>
@@ -90,7 +90,7 @@ $this->registerJsFile('/js/board.js', ['depends' => [\yii\web\JqueryAsset::class
                                 $listcat = array_reverse($listcat);
                                 $k = 1;
                                 foreach ($listcat as $val): ?>
-                                    <a href="<?= \yii\helpers\Url::toRoute(['/obyavleniya/' . $val->slug]); ?>"
+                                    <a href="<?= \yii\helpers\Url::to(['category-ads', 'slug' => $val->slug]); ?>"
                                        class="average-ad-category"><?= $val->name; ?></a>
                                     <?= ($k == count($listcat)) ? '' : '<span class="separatorListCategory">|</span>' ?>
                                     <?php $k++; endforeach ?>
