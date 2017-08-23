@@ -68,13 +68,13 @@ use yii\helpers\Url;
 
                             <? elseif(!empty($company->allPhones)):?>
                                 <ul class="business__sm-item--numbers">
-                                <?foreach ($company->allPhones as $key => $phones):?>
+                                <?php foreach ($company->allPhones as $key => $phones):?>
                                     <?if ($key == 2):?>
                                         </ul><ul class="business__sm-item--numbers">
                                     <? endif; ?>
                                     <li><?= $phones->phone?></li>
                                     <? if ($key == 4) break;?>
-                                <?endforeach;?>
+                                <?php endforeach;?>
                                 </ul>
                             <? endif; ?>
 
@@ -120,10 +120,10 @@ use yii\helpers\Url;
 
                             <? elseif(!empty($company->allPhones)):?>
                                 <ul class="business__sm-item--numbers">
-                                <?foreach ($company->allPhones as $key => $phones):?>
+                                <?php foreach ($company->allPhones as $key => $phones):?>
                                     <li><?= $phones->phone?></li>
                                     <? if ($key == 2) break;?>
-                                <?endforeach;?>
+                                <?php endforeach;?>
                                 </ul>
                             <? endif; ?>
 

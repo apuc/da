@@ -1,7 +1,7 @@
 <h2>ЛЕНТА ДНЯ</h2>
 <div class="home-content__tape_wrap">
     <?php
-    use common\classes\WordFunctions;
+
 
     $newImageId = 0;
     foreach ($news as $key => $new):
@@ -23,11 +23,11 @@
         if ($key == $newImageId) {
             ?>
             <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $new->slug]); ?>" class="tape__item_pic">
-                <?if(stristr($new->photo, 'http')):?>
+                <?php if(stristr($new->photo, 'http')):?>
                     <img class="thumbnail" src="<?= $new->photo?>" alt="">
                 <?else: ?>
                     <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($new->photo); ?>" alt="">
-                <?endif;?>
+                <?php endif;?>
                 <div class="tape__item_pic--content">
                     <span class="time"><?= date('d.m H:i', $new->dt_public) ?></span>
                     <div class="hide-social">

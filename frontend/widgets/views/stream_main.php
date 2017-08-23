@@ -18,30 +18,30 @@ use yii\helpers\Url;
 
         <div class="what-say__wrap">
 
-            <?foreach ($posts as $post):?>
-                <?//= \common\classes\Debug::prn($post->gif)  ?>
+            <?php foreach ($posts as $post):?>
+
                 <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $post->slug])?>" class="what-say__wrap_item">
                     <!--<span class="counter">99</span>-->
                     <div class="thumb">
                         <!-- <span>A</span>-->
-                        <?if(!empty($post->author)):?>
-
-                            <img src="<?= $post->author->photo?>" alt="">
-
-                        <?elseif(!empty($post->group)):?>
+                        <?php if(!empty($post->author)):?>
+                            <?php if(!empty($post->author->photo)): ?>
+                                <img src="<?= $post->author->photo?>" alt="">
+                            <?php endif; ?>
+                        <?php elseif(!empty($post->group)):?>
 
                             <img src="<?= $post->group->getPhoto()?>" alt="">
 
-                        <?endif;?>
+                        <?php endif;?>
 
                     </div>
                     <div class="wrapi">
-                        <?if(!empty($post->author)):?>
+                        <?php if(!empty($post->author)):?>
                             <span class="name"><?= $post->author->first_name.' '.$post->author->last_name ?></span>
 
-                        <?elseif(!empty($post->group)):?>
+                        <?php elseif(!empty($post->group)):?>
                             <span class="name"><?= $post->group->name ?></span>
-                        <?endif;?>
+                        <?php endif;?>
 
                         <p><?= $post->title?></p>
                     </div>
@@ -58,7 +58,7 @@ use yii\helpers\Url;
 
                 </a>
 
-            <?endforeach;?>
+            <?php endforeach; ?>
 
         </div>
         <a href="<?= Url::to(['/stream']) ?>" class="more">посмотреть больше <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
