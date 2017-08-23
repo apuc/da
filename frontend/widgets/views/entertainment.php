@@ -22,7 +22,7 @@ use yii\helpers\Url;
                         </div>
                         <div class="item-small__content">
                             <h4><?= $item->name; ?></h4>
-                            
+
                             <p><?= explode(';', $item->phone)[0]; ?></p>
                         </div>
                     </a>

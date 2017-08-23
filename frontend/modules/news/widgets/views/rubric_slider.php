@@ -33,11 +33,11 @@ use yii\helpers\Url;
                                 '/news/default/view',
                                 'slug' => $firstNew->slug,
                             ]); ?>" class="item__big">
-                                <?if(stristr($firstNew->photo, 'http')):?>
+                                <?php if(stristr($firstNew->photo, 'http')):?>
                                     <img src="<?= $firstNew->photo?>" alt="">
-                                <?else: ?>
+                                <?php else: ?>
                                     <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($firstNew->photo); ?>" alt="">
-                                <?endif;?>
+                                <?php endif;?>
                                 <div class="item__big_content">
                                     <h4><?= $firstNew->title; ?></h4>
                                     <span class="hour-ago"><?= WordFunctions::FullEventDate($firstNew->dt_public); ?></span>
@@ -57,11 +57,11 @@ use yii\helpers\Url;
                                     '/news/default/view',
                                     'slug' => $new->slug,
                                 ]); ?>" class="item__small">
-                                    <?if(stristr($new->photo, 'http')):?>
+                                    <?php if(stristr($new->photo, 'http')):?>
                                         <img src="<?= $new->photo?>" alt="">
-                                    <?else: ?>
+                                    <?php else: ?>
                                         <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($new->photo); ?>" alt="">
-                                    <?endif;?>
+                                    <?php endif;?>
                                     <div class="item__small_content">
                                         <span class="hour-ago"><?= WordFunctions::FullEventDate($new->dt_public); ?></span>
                                         <div class="item__content_panel">

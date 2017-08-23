@@ -44,7 +44,7 @@ $md = new \common\classes\Mobile_Detect();
             </div>-->
         </div>
         <div class="news__wrap">
-        <?if($news):?>
+        <?php if($news): ?>
             <?php foreach ($news as $new): ?>
                 <!--<div class="news__wrap_item-sm">
                     <div class="thumb">
@@ -88,11 +88,11 @@ $md = new \common\classes\Mobile_Detect();
                 </div>
 
             <?php endforeach; ?>
-            <?elseif(strtotime($date) > time()):?>
+            <?php elseif(strtotime($date) > time()):?>
             <?= $this->render('page_not_news_future')?>
-            <?else:?>
+            <?php else:?>
             <?= $this->render('page_not_news_past')?>
-            <?endif;?>
+            <?php endif; ?>
 
             <?= \frontend\widgets\Subscribe::widget() ?>
         </div>
