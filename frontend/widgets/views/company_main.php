@@ -54,7 +54,7 @@ use yii\helpers\Url;
                                 <span><?= $address ?></span>
                             </p>
 
-                            <? if (!empty($company->phone)): ?>
+                            <?php if (!empty($company->phone)): ?>
                                 <?php $phone = explode(' ', $company->phone) ?>
                                 <ul class="business__sm-item--numbers">
                                     <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
@@ -66,7 +66,7 @@ use yii\helpers\Url;
                                     <li> <?= isset($phone[3]) ? $phone[3] : '' ?></li>
                                 </ul>
 
-                            <? elseif(!empty($company->allPhones)):?>
+                            <?php elseif(!empty($company->allPhones)):?>
                                 <ul class="business__sm-item--numbers">
                                 <?php foreach ($company->allPhones as $key => $phones):?>
                                     <?if ($key == 2):?>
@@ -76,7 +76,7 @@ use yii\helpers\Url;
                                     <? if ($key == 4) break;?>
                                 <?php endforeach;?>
                                 </ul>
-                            <? endif; ?>
+                            <?php endif; ?>
 
                             <span class="business__sm-item--views-icon"></span>
                             <p class="business__sm-item--views"><?= $company->views; ?></p>
@@ -110,7 +110,7 @@ use yii\helpers\Url;
                                 <span><?= $address ?></span>
                             </p>
 
-                            <? if (!empty($company->phone)): ?>
+                            <?php if (!empty($company->phone)): ?>
                                 <?php $phone = explode(' ', $company->phone) ?>
                                 <ul class="business__sm-item--numbers">
                                     <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
@@ -118,14 +118,14 @@ use yii\helpers\Url;
                                 </ul>
 
 
-                            <? elseif(!empty($company->allPhones)):?>
+                            <?php elseif(!empty($company->allPhones)):?>
                                 <ul class="business__sm-item--numbers">
                                 <?php foreach ($company->allPhones as $key => $phones):?>
                                     <li><?= $phones->phone?></li>
                                     <? if ($key == 2) break;?>
                                 <?php endforeach;?>
                                 </ul>
-                            <? endif; ?>
+                            <?php endif; ?>
 
                             <span class="business__sm-item--views-icon"></span>
                             <p class="business__sm-item--views"><?= $company->views; ?></p>
