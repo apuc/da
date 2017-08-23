@@ -3,6 +3,7 @@
 namespace frontend\modules\board\controllers;
 
 use common\classes\Debug;
+use frontend\modules\board\models\AdsModel;
 use Yii;
 use yii\data\Pagination;
 use yii\web\Controller;
@@ -84,6 +85,7 @@ class DefaultController extends Controller
 
     public function actionCreate()
     {
+        $this->layout = 'personal_area';
         if(Yii::$app->request->post()){
 
             $sURL = $this->siteApi . '/ads/create'; // URL-адрес POST
@@ -105,7 +107,7 @@ class DefaultController extends Controller
             echo $contents;
         }
         else{
-            $model = file_get_contents($this->siteApi . '/ads/create');
+            $model = new AdsModel();
             return $this->render('add-form-ads', ['model' => $model]);
         }
 
