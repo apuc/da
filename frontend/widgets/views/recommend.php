@@ -24,17 +24,24 @@ use yii\helpers\Url; ?>
 
         <p class="business__sm-item--title"><?= $companyBig->name; ?></p>
 
-        <!--<p class="business__sm-item&#45;&#45;address">
-            <span>Адрес:</span>
-            <span>г. Донецк, проспект Мира, 8а</span>
-        </p>-->
 
-        <ul class="business__sm-item--numbers">
-            <?php $phone = explode(' ', $companyBig->phone); ?>
-            <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
-            <li><?= isset($phone[1]) ? $phone[1] : '' ?></li>
-        </ul>
+        <?php if (!empty($company->phone)): ?>
+            <?php $phone = explode(' ', $company->phone) ?>
+            <ul class="business__sm-item--numbers">
+                <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
+                <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
+            </ul>
 
+
+        <?php elseif(!empty($company->allPhones)):?>
+            <ul class="business__sm-item--numbers">
+                <?php foreach ($company->allPhones as $key => $phones):?>
+                    <li><?= $phones->phone?></li>
+                    <? if ($key == 2) break;?>
+                <?php endforeach;?>
+            </ul>
+        <?php endif; ?>
+        
         <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->
         <p class="business__sm-item--views"><?php $companyBig->views;?></p>
 
