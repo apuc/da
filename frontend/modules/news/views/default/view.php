@@ -42,9 +42,7 @@ $this->registerMetaTag([
 <!-- end header.html-->
 
 <main id="main-single-news">
-    <!--<script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
-    <script src="//yastatic.net/share2/share.js"></script>
-    <div class="ya-share2" data-services="collections,vkontakte,facebook,odnoklassniki,moimir"></div>-->
+
     <div class="container">
 
         <article id="article">
@@ -80,11 +78,11 @@ $this->registerMetaTag([
             </div>
 
             <div class="thumbnail-wrapper">
-                <?if(stristr($model->photo, 'http')):?>
+                <?php if(stristr($model->photo, 'http')):?>
                 <img class="thumbnail" src="<?= $model->photo?>" alt="">
-                <?else: ?>
+                <?php else: ?>
                 <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($model->photo); ?>" alt="">
-                <?endif;?>
+                <?php endif;?>
             </div>
 
 
@@ -92,50 +90,6 @@ $this->registerMetaTag([
                 <div class="content-single">
                     <?= $model->content; ?>
                 </div>
-
-                <!--<div class="content-info">
-                    <span class="author"><?/*= $model->author; */?></span>
-                    <span class="comments">
-                        <?/*= $countComments . ' ' . \common\classes\WordFunctions::getNumEnding($countComments,
-                            [
-                                'комментарий',
-                                'комментария',
-                                'комментариев',
-                            ]); */?>
-                    </span>
-                    <span class="views" style="color: black"><?/*= $model->views; */?></span>
-                    <span class="data-time"><?/*= \common\classes\WordFunctions::FullEventDate($model->dt_public) */?></span>
-                    <a style="cursor: pointer" csrf-token="<?/*= Yii::$app->request->getCsrfToken() */?>"
-                       data-id="<?/*= $model->id; */?>"
-                       data-type="news"
-                       class="like likes">
-
-                        <?php /*if (!empty($thisUserLike)): */?>
-                            <i class="like-set-icon"></i>
-                        <?php /*else:; */?>
-                            <i class="like-icon"></i>
-                        <?php /*endif; */?>
-
-                        <span class="like-counter">
-                                <?/*= $likes; */?>
-                            </span>
-                    </a>
-                </div>-->
-
-               <!-- <div class="tags">
-                    <h3>Теги:</h3>
-                    <?php
-/*                    foreach ($tags as $tag): */?>
-                        <a><?/*= $tag; */?></a>
-                    <?php /*endforeach; */?>
-                </div>-->
-
-                <?/*= \frontend\modules\news\widgets\RandomNewsByCategory::widget(
-                    [
-                        'categoryId' => $category->id,
-                        'template' => 'bottom',
-                    ]
-                ); */?>
 
                 <?php
                     echo \frontend\modules\news\widgets\ReadTheSame::widget(
@@ -145,7 +99,6 @@ $this->registerMetaTag([
                         ]
                     );
 
-                    //\common\classes\Debug::prn($readTheSame);
                 ?>
 
                 <?= \frontend\widgets\Share::widget([
@@ -165,7 +118,6 @@ $this->registerMetaTag([
         </article>
         <aside id="aside">
             <div class="scroll">
-                <?/*= \frontend\modules\news\widgets\RandomNewsByCategory::widget(['categoryId' => $category->id]); */?>
                 <?php
                 echo \frontend\modules\news\widgets\ReadTheSame::widget(
                     [
@@ -173,7 +125,6 @@ $this->registerMetaTag([
                     ]
                 );
 
-                //\common\classes\Debug::prn($readTheSame);
                 ?>
 
                 <?= \frontend\modules\news\widgets\MostPopularNews::widget(); ?>
