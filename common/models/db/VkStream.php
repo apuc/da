@@ -24,6 +24,7 @@ use common\models\User;
  * @property integer $status
  * @property integer $views
  * @property integer $likes
+ * @property integer $dt_publish
  */
 class VkStream extends \yii\db\ActiveRecord
 {
