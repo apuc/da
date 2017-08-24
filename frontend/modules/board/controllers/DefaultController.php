@@ -3,7 +3,7 @@
 namespace frontend\modules\board\controllers;
 
 use common\classes\Debug;
-use frontend\modules\board\models\AdsModel;
+use frontend\modules\board\models\Ads;
 use Yii;
 use yii\data\Pagination;
 use yii\web\Controller;
@@ -107,8 +107,16 @@ class DefaultController extends Controller
             echo $contents;
         }
         else{
-            $model = new AdsModel();
-            return $this->render('add-form-ads', ['model' => $model]);
+            $model = new Ads();
+
+            $arrCity = file_get_contents($this->siteApi . '/city/get-city-list');
+
+            //Debug::prn(json_decode($arrCity, true));
+            return $this->render('add-form-ads',
+                [
+                    'model' => $model,
+                    'arraregCity' => json_decode($arrCity, true),
+                ]);
         }
 
     }
