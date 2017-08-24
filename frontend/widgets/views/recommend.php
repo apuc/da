@@ -41,7 +41,7 @@ use yii\helpers\Url; ?>
                 <?php endforeach;?>
             </ul>
         <?php endif; ?>
-        
+
         <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->
         <p class="business__sm-item--views"><?php $companyBig->views;?></p>
 

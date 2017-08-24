@@ -66,7 +66,7 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                                     <span><?= $address ?></span>
                                 </p>
 
-                                <? if (!empty($company->phone)): ?>
+                                <?php if (!empty($company->phone)): ?>
                                 <?php $phone = explode(' ', $company->phone) ?>
                                 <ul class="business__sm-item--numbers">
                                     <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
@@ -78,17 +78,17 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                                     <li> <?= isset($phone[3]) ? $phone[3] : '' ?></li>
                                 </ul>
 
-                                <? elseif(!empty($company->allPhones)):?>
+                                <?php elseif(!empty($company->allPhones)):?>
                                 <ul class="business__sm-item--numbers">
-                                    <?foreach ($company->allPhones as $key => $phones):?>
-                                        <?if ($key == 2):?>
+                                    <?php foreach ($company->allPhones as $key => $phones):?>
+                                        <?php if ($key == 2):?>
                                             </ul><ul class="business__sm-item--numbers">
-                                        <? endif; ?>
+                                        <?php endif; ?>
                                         <li><?= $phones->phone?></li>
-                                        <? if ($key == 4) break;?>
-                                    <?endforeach;?>
+                                        <?php if ($key == 4) break;?>
+                                    <?php endforeach;?>
                                 </ul>
-                                <? endif; ?>
+                                <?php endif; ?>
 
                                 <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->
                                 <p class="business__sm-item--views"><?= $company->views ?></p>

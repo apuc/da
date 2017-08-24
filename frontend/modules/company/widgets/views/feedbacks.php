@@ -32,12 +32,12 @@ use yii\helpers\Url;
                     <span class="rew-title"><?= $feedback->company_name ?> </span>
 
                     <div class="thumb">
-                        <? $avatar = \common\classes\UserFunction::getUser_avatar_html($feedback->user->id)?>
-                        <? if (strlen($avatar) > 2): ?>
+                        <?php $avatar = \common\classes\UserFunction::getUser_avatar_html($feedback->user->id)?>
+                        <?php if (strlen($avatar) > 2): ?>
                         <?= $avatar?>
-                        <? else: ?>
+                        <?php else: ?>
                         <span><?=$avatar ?></span>
-                        <? endif; ?>
+                        <?php endif; ?>
                     </div>
 
                     <div class="rew-wrap">
