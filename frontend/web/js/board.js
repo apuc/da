@@ -213,4 +213,18 @@ $(document).ready(function () {
 
         //console.log(id);
     }
+
+
+    /**********************************************************************************/
+    /****************************ДОБАВЛЕНИЕ ОБЪЯВЛЕНИЯ*********************************/
+    /**********************************************************************************/
+    $(document).on('focusin', '.jsHint', function () {
+        var parent = $(this).parent();
+        var hint = parent.children('.memo').fadeIn();
+    });
+
+    $(document).on('focusout', '.jsHint', function () {
+        var parent = $(this).parent();
+        var hint = parent.children('.memo').fadeOut();
+    });
 });

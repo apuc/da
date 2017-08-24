@@ -10,12 +10,14 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
+$this->registerCssFile('/css/board.css');
+$this->registerJsFile('/js/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 
-<div class="cabinet__inner-box">
+<div class="cabinet__container cabinet__container_white">
 
-    <h3>Добавление объявления</h3>
-
+    <h1>Добавление объявления</h1>
+    <div class="right">
     <?php $form = ActiveForm::begin([
         'id' => 'add_ads',
         'options' => ['class' => 'content-forma'],
@@ -173,11 +175,10 @@ use yii\helpers\Url;
 
     <?= Html::submitButton('Oпубликовать',
         ['class' => 'cabinet__add-company-form--submit place-ad_publish publish place-ad__publish', 'disabled' => 'disabled', 'id' => 'saveInfo']) ?>
-    <? /*= Html::submitButton('Предпросмотр', ['class' => 'place-ad_publish prew place-ad__publish', 'disabled' => 'disabled']) */ ?>
 
 
     <?php ActiveForm::end(); ?>
-
+    </div>
 </div>
 
 

@@ -1,0 +1,11 @@
+.memo {
+    display: none!important;
+}
+
+.memo-error {
+    display: none;
+}
+
+.my-error .memo-error {
+    display: block;
+}
