@@ -4,10 +4,10 @@ use frontend\widgets\ShowRightRecommend;
 use common\models\User;
 use common\classes\Debug;
 
-$this->title = $model->title.' | da-info';
+$this->title = (empty($model))? '' : $model->title.' | da-info';
 $this->registerMetaTag([
     'name' => 'description',
-    'content' => $model->meta_descr,
+    'content' => (empty($model))? '' :$model->meta_descr,
 ]);
 
 $this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii\web\JqueryAsset::className()]);
@@ -19,7 +19,11 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
     <div class="container">
 
-        <h3 class="parser__title"><?= $model->title?></h3>
+        <h3 class="parser__title"><?= (empty($model))? '' :$model->title?></h3>
+
+        <i class="fa fa-close fa-2x" aria-hidden="true"></i>
+
+
 
         <div class="business__wrapper">
 
@@ -136,7 +140,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                     <h3>Такого поста не существует</h3>
                     <?php endif; ?>
 
-                <h3 class="parser__title">Смотрите далее: </h3>
+                <h3 class="parser__title">Продолжение ленты: </h3>
 
                 <div class="parser__wrapper">
 
@@ -366,7 +370,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
                 <div class="parser__more">
 
-                    <a href="#" data-dt="<?= $model->dt_publish?>"  class="show-more show-more-stream" data-step="1" csrf-token="<?= Yii::$app->request->getCsrfToken() ?>">загрузить еще</a>
+                    <a href="#" data-dt="<?= (empty($model))? :$model->dt_publish?>"  class="show-more show-more-stream" data-step="1" csrf-token="<?= Yii::$app->request->getCsrfToken() ?>">загрузить еще</a>
 
                 </div>
 
