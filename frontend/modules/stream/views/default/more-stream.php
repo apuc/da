@@ -85,7 +85,7 @@ use common\models\User;
             </a>
 
         </div>
-        <? if ($item->comment_status) : ?>
+        <?php if ($item->comment_status) : ?>
         <div class="parser__element--comments-block">
 
             <?php if (!empty($item->all_comments)): ?>
@@ -101,7 +101,7 @@ use common\models\User;
                     <p><?= $comment_item['text'] ?></p>
                 <?php endforeach; ?>
             <?php endif; ?>
-            <? endif; ?>
+            <?php endif; ?>
         </div>
 
     </div>

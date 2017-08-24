@@ -25,18 +25,6 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
             <div class="business__content">
 
-                <!--<div class="parser__top-counter">
-
-                    <a href="<?/*= \yii\helpers\Url::to(['/stream/default'])*/?>">Показать
-                        <span class="counter counter-stream-new" data-count="<?/*= $count*/?>">0</span> новых записи</a>
-
-                </div>
-
-                <div class="parser__top-link">
-
-                    <a href="#">Подписаться на эту тему</a>
-
-                </div>-->
 
                 <ul class="parser__top-nav">
                     <li><a href="<?= \yii\helpers\Url::to(['/stream'])?>">Все материалы <span><?= $count?></span></a></li>
@@ -46,7 +34,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
                 <div class="parser__single-wrapper">
 
-                    <? if(!empty($model)): ?>
+                    <?php if(!empty($model)): ?>
                     <div class="parser__element">
 
                         <a href="#" class="parser__element--author">
@@ -90,12 +78,12 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                             </a>
 
                         <?php elseif (!empty($model->gif)): ?>
-                           <?foreach ($model->gif as $gif):?>
+                           <?php foreach ($model->gif as $gif):?>
                             <a data-fancybox="gallery" class="parser__element--photo"
                                href="<?= $gif->gif_link?>">
                                 <img src="<?= $gif->gif_link?>" alt="">
                             </a>
-                            <?endforeach;?>
+                            <?php endforeach;?>
                         <?php endif; ?>
 
                         <div class="parser__element--tools">
@@ -119,7 +107,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                             <a href="#" class="views"><?= $model->views?></a>
 
                         </div>
-                        <?if ($model->comment_status != 0):?>
+                        <?php if ($model->comment_status != 0):?>
                             <div class="parser__element--comments-block">
 
                                 <?php if (!empty($model->all_comments)): ?>
@@ -137,22 +125,22 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                 <?php endif; ?>
 
                             </div>
-                        <?endif;?>
+                        <?php endif;?>
                         <?= \frontend\widgets\CommentsStream::widget([
                             'pageTitle' => 'Комментарии к ВК',
                             'postType' => 'vk_post',
                             'postId' => $model->id,
                         ]); ?>
                 </div>
-                    <? else: ?>
+                    <?php else: ?>
                     <h3>Такого поста не существует</h3>
-                    <? endif; ?>
+                    <?php endif; ?>
 
                 <h3 class="parser__title">Смотрите далее: </h3>
 
                 <div class="parser__wrapper">
 
-                    <?if (!empty($interested1)): ?>
+                    <?php if (!empty($interested1)): ?>
 
                     <div id="first-column" class="parser__column">
                         <?php foreach ($interested1 as $item): ?>
@@ -226,13 +214,13 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                         <?php
                                         if ($item->comment_status == 0):?>
                                            <?= 0?>
-                                        <?else:?>
+                                        <?php else:?>
                                             <?= (isset($item->all_comments)) ? count($item->all_comments) : 0?>
-                                        <?endif;?>
+                                        <?php endif;?>
                                     </a>
 
                                 </div>
-                                <? if ($item->comment_status != 0): ?>
+                                <?php if ($item->comment_status != 0): ?>
                                     <div class="parser__element--comments-block">
 
                                         <?php if (!empty($item->all_comments)): ?>
@@ -250,16 +238,16 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                         <?php endif; ?>
 
                                     </div>
-                                <?endif;?>
+                                <?php endif;?>
 
                             </div>
                         <?php endforeach; ?>
                     </div>
-                    <?else:?>
+                    <?php else:?>
                         <?$error = 'Больше записей нет'?>
-                    <?endif;?>
+                    <?php endif;?>
 
-                    <?if (!empty($interested2)):?>
+                    <?php if (!empty($interested2)):?>
 
                     <div id="second-column" class="parser__column">
                         <?php foreach ($interested2 as $item): ?>
@@ -334,13 +322,13 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                     <?php
                                     if ($item->comment_status == 0):?>
                                         <?= 0?>
-                                    <?else:?>
+                                    <?php else:?>
                                         <?= (isset($item->all_comments)) ? count($item->all_comments) : 0?>
-                                    <?endif;?>
+                                    <?php endif;?>
                                 </a>
 
                             </div>
-                            <?if ($item->comment_status) :?>
+                            <?php if ($item->comment_status) :?>
                                 <div class="parser__element--comments-block">
 
                                     <?php if (!empty($item->all_comments)): ?>
@@ -358,21 +346,21 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                     <?php endif; ?>
 
                                 </div>
-                            <?endif;?>
+                            <?php endif;?>
 
                         </div>
                     <?php endforeach; ?>
                     </div>
 
-                    <?else:?>
+                    <?php else:?>
 
-                        <?$error = 'Больше записей нет'?>
+                        <?php $error = 'Больше записей нет'?>
 
-                    <?endif;?>
+                    <?php endif;?>
 
-                    <?if(empty($interested1) && empty($interested2)): ?>
+                    <?php if(empty($interested1) && empty($interested2)): ?>
                         <h3><?= $error?></h3>
-                    <?endif;?>
+                    <?php endif;?>
                         <!--<span class="stream-flag"></span>-->
                 </div>
 
