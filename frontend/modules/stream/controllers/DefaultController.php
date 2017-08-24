@@ -73,14 +73,18 @@ class DefaultController extends Controller
         $model = VkStream::find()->with('photo', 'comments', 'author', 'group')
             ->where(['slug' => $slug])
             ->one();
-        $model->getAllComments();
 
-        if(!empty($model))
+        if(empty($model))
         {
-            $model->views += 1;
-            $model->save();
+            return $this->render('view', [
+                'model' => $model,
+                'count' => VkStream::getPublishedCount(),
+                ]);
         }
 
+        $model->getAllComments();
+        $model->views += 1;
+        $model->save();
         $interested = VkStream::find()->with('photo', 'comments', 'author', 'group')
             ->where(['status' => 1])
             ->andWhere(['<', 'dt_publish', $model->dt_publish])
