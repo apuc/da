@@ -14,7 +14,7 @@ $date = strtotime($date);
             <h3><?= $this->title; ?></h3>
             <div class="events-day__wrap">
 
-                <?if($model):?>
+                <?php if($model):?>
                 <?php foreach ($model as $poster): ?>
                     <a href="<?= Url::to(['/poster/default/view', 'slug'=>$poster->slug]) ?>" class="item">
                         <div class="thumb">
@@ -41,19 +41,17 @@ $date = strtotime($date);
                                     endif;
                                     ?>
 
-
-                                <?/*= WordFunctions::dateWithMonts($poster->dt_event) */?><!--, --><?/*= $poster->start; */?>
                                 </span>
                             <span class="place"><?= $poster->address ?></span>
                         </div>
                     </a>
                 <?php endforeach; ?>
 
-                <?elseif($date > time()):?>
+                <?php elseif($date > time()):?>
                    <?= $this->render('archive_poster_null_future')?>
-                <?else:?>
+                <?php else:?>
                    <?= $this->render('archive_poster_null_past')?>
-                <?endif;?>
+                <?php endif;?>
                 <div class="news__wrap_buttons">
                     <span id="poster_archive" href="#" class="archive-news datepicker-here datepicker-wrap" >архив афиш <span class="rotate-arrow"></span></span>
                 </div>
