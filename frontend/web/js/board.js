@@ -151,32 +151,34 @@ $(document).ready(function () {
         var number = 3500;
 
         /*console.log(new Intl.NumberFormat().format(selMin));*/
+        if(document.getElementById('slider_price')) {
+            $("#slider_price").slider({
+                range: true,
+                min: min,
+                max: max,
+                values: [selMin, selMax],
+                //values: [formatNumber(selMin), selMax],
+                slide: function (event, ui) {
+                    //Поле минимального значения
+                    $("#price").val(ui.values[0]);
+                    //Поле максимального значения
+                    $("#price2").val(ui.values[1]);
+                },
+                stop: function (event, ui) {
+                    $("input[name='minPrice']").val(ui.values[0]).change();
+                    $("input[name='maxPrice']").val(ui.values[1]).change();
+                    /* var obj = $(this).closest('div');
+                     filterSearchCount(obj);*/
 
-        $("#slider_price").slider({
-            range: true,
-            min: min,
-            max: max,
-            values: [selMin, selMax],
-            //values: [formatNumber(selMin), selMax],
-            slide: function (event, ui) {
-                //Поле минимального значения
-                $("#price").val(ui.values[0]);
-                //Поле максимального значения
-                $("#price2").val(ui.values[1]);
-            },
-            stop: function (event, ui) {
-                $("input[name='minPrice']").val(ui.values[0]).change();
-                $("input[name='maxPrice']").val(ui.values[1]).change();
-                /* var obj = $(this).closest('div');
-                 filterSearchCount(obj);*/
+                }
 
-            }
+            });
 
-        });
-        //Записываем значения ползунков в момент загрузки страницы
-        //То есть значения по умолчанию
-        $("#price").val($("#slider_price").slider("values", 0));
-        $("#price2").val($("#slider_price").slider("values", 1));
+            //Записываем значения ползунков в момент загрузки страницы
+            //То есть значения по умолчанию
+            $("#price").val($("#slider_price").slider("values", 0));
+            $("#price2").val($("#slider_price").slider("values", 1));
+        }
     });
 
     $('#price').change(function () {
