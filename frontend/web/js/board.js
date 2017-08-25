@@ -346,5 +346,14 @@ $(document).ready(function () {
 
     });
 
+    //Согласие на обработку данных
+    $(document).on('click', '#dannie-1', function () {
+        if ($(this).prop('checked')) {
+            $('.place-ad__publish').prop('disabled', false);
+        } else {
+            $('.place-ad__publish').prop('disabled', true);
+        }
+    });
+
 
 });

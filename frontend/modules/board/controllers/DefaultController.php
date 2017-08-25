@@ -6,6 +6,8 @@ use common\classes\Debug;
 use frontend\modules\board\models\Ads;
 use Yii;
 use yii\data\Pagination;
+use yii\helpers\Url;
+use yii\imagine\Image;
 use yii\web\Controller;
 
 /**
@@ -21,7 +23,6 @@ class DefaultController extends Controller
         return parent::beforeAction($action);
     }
 
-
     /**
      * Renders the index view for the module
      * @return string
@@ -32,7 +33,8 @@ class DefaultController extends Controller
         /*Debug::prn(Yii::$app->request->userIP);
         Debug::prn($_SERVER);*/
 
-        $rez = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page', 1));
+        $rez = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page',
+                1));
 
         $rez = json_decode($rez);
 
@@ -53,9 +55,10 @@ class DefaultController extends Controller
     {
         $cat = file_get_contents($this->siteApi . '/category/get-category-by-slug?cat=' . Yii::$app->request->get('slug'));
         $cat = json_decode($cat);
-       // Debug::prn($cat);
+        // Debug::prn($cat);
 
-        $rez = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page', 1) . '&catId='. $cat->id);
+        $rez = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page',
+                1) . '&catId=' . $cat->id);
 
         $rez = json_decode($rez);
 
@@ -86,11 +89,54 @@ class DefaultController extends Controller
     public function actionCreate()
     {
         $this->layout = 'personal_area';
-        if(Yii::$app->request->post()){
+        if (Yii::$app->request->post()) {
+
+            //Debug::prn($_POST);
+            //Debug::prn($_FILES);
+            unset($_POST['_csrf']);
+
+            if (!empty($_FILES['file']['name'][0])) {
+                if (!file_exists('media/users/' . Yii::$app->user->id)) {
+                    mkdir('media/users/' . Yii::$app->user->id . '/');
+                }
+                if (!file_exists('media/users/' . Yii::$app->user->id . '/' . date('Y-m-d'))) {
+                    mkdir('media/users/' . Yii::$app->user->id . '/' . date('Y-m-d'));
+                }
+                if (!file_exists('media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/thumb')) {
+                    mkdir('media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/thumb');
+                }
+
+                $dir = 'media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/';
+                $dirThumb = $dir . 'thumb/';
+                $i = 0;
+
+                foreach ($_FILES['file']['name'] as $file) {
+                    Image::watermark($_FILES['file']['tmp_name'][$i],
+                        $_SERVER['DOCUMENT_ROOT'] . '/frontend/web/img/logo_watermark.png')
+                        ->save($dir . $_FILES['file']['name'][$i], ['quality' => 100]);
+
+                    Image::thumbnail($_FILES['file']['tmp_name'][$i], 142, 100,
+                        $mode = \Imagine\Image\ManipulatorInterface::THUMBNAIL_OUTBOUND)
+                        ->save($dirThumb . $file, ['quality' => 100]);
+
+                    /*$img = new AdsImg();
+                    $img->ads_id = 1;
+                    $img->img = Url::home(true) . $dir . $file;
+                    $img->img_thumb = Url::home(true) . $dirThumb . $file;
+                    $img->user_id = Yii::$app->user->id;
+                    $img->save();*/
+
+
+                    $_POST['img'][$i]['img_thumb'] = Url::home(true) . $dirThumb . $file;
+                    $_POST['img'][$i]['img'] = Url::home(true) . $dir . $file;
+                    $i++;
+                }
+            }
+            //Debug::prn($_POST);
 
             $sURL = $this->siteApi . '/ads/create'; // URL-адрес POST
 
-            unset($_POST['_csrf']);
+
 
             $sPD = http_build_query($_POST); // Данные POST
             $aHTTP = [
@@ -105,8 +151,7 @@ class DefaultController extends Controller
             $context = stream_context_create($aHTTP);
             $contents = file_get_contents($sURL, false, $context);
             echo $contents;
-        }
-        else{
+        } else {
             $model = new Ads();
 
             $arrCity = file_get_contents($this->siteApi . '/city/get-city-list');
@@ -123,20 +168,19 @@ class DefaultController extends Controller
 
     public function actionGetChildrenCategory()
     {
-        if(!empty(Yii::$app->request->post('catId'))) {
+        if (!empty(Yii::$app->request->post('catId'))) {
             $catId = Yii::$app->request->post('catId');
             //Debug::prn($catId);
             $cat = file_get_contents($this->siteApi . '/category?parent=' . $catId);
 
-            if($cat != '[]'){
+            if ($cat != '[]') {
                 return $this->renderPartial('children-category/category', ['cat' => json_decode($cat)]);
-            }
-            else{
+            } else {
                 $fields = file_get_contents($this->siteApi . '/category/ads-fields?id=' . $catId);
-                if(!empty($fields)){
+                if (!empty($fields)) {
                     $fields = json_decode($fields);
                     $html = '';
-                    foreach ($fields as $item){
+                    foreach ($fields as $item) {
                         $html .= $this->renderPartial('children-category/filter_fields', ['adsFields' => $item]);
                     }
                     return $html;
@@ -155,9 +199,10 @@ class DefaultController extends Controller
 
     public function actionSearch()
     {
-       // Debug::prn(Yii::$app->request->get());
+        // Debug::prn(Yii::$app->request->get());
 
-        $rez = file_get_contents($this->siteApi . '/ads/search?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&' . http_build_query( Yii::$app->request->get() ) . '&page=' . Yii::$app->request->get('page', 1) );
+        $rez = file_get_contents($this->siteApi . '/ads/search?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&' . http_build_query(Yii::$app->request->get()) . '&page=' . Yii::$app->request->get('page',
+                1));
 
         $rez = json_decode($rez);
 
@@ -205,7 +250,6 @@ class DefaultController extends Controller
         }
 
     }
-
 
     public function actionShowParentModalCategory()
     {
@@ -259,11 +303,9 @@ class DefaultController extends Controller
             }*/
 
             $fields = json_decode($groupFieldsId);
-            foreach ($fields as $item){
+            foreach ($fields as $item) {
                 $html .= $this->renderPartial('add_fields', ['adsFields' => $item]);
             }
-
-
 
         }
         echo $html;
