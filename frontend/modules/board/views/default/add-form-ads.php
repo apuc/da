@@ -12,6 +12,7 @@ use yii\helpers\Url;
 
 $this->registerCssFile('/css/board.css');
 $this->registerJsFile('/js/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 
 <div class="cabinet__container cabinet__container_white">
@@ -182,15 +183,20 @@ $this->registerJsFile('/js/board.js', ['depends' => [\yii\web\JqueryAsset::class
 </div>
 
 
-<!--<form action="" method="post">
-    <input type="hidden" name="_csrf" value="<? /*= Yii::$app->request->csrfToken*/ ?>" id="">
-    <input type="text" name="Ads[title]" id="">
-    <input type="hidden" name="Ads[user_id]" value="1" id="">
+<div class="modal modal-wide fade modal-categories" id="modalType" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-    <input type="text" name="Ads[category_id]" id="">
-    <input type="text" name="Ads[content]" id="">
-    <input type="text" name="Ads[city_id]" id="">
-    <input type="text" name="Ads[private_business]" id="">
-    <input type="text" name="Ads[phone]" id="">
-    <input type="submit" name="" value="Add" id="">
-</form>-->
+            <div class="modal-header">
+                <h2>Выберите категорию</h2>
+                <span class="krest close"> &times;</span>
+            </div>
+            <div class="modal-body modal-flex">
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+

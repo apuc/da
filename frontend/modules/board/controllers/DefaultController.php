@@ -176,4 +176,98 @@ class DefaultController extends Controller
         );
 
     }
+
+    public function actionGeneralModal()
+    {
+        $category = file_get_contents($this->siteApi . '/category?parent=0');
+        echo $this->renderPartial('modal', ['category' => json_decode($category)]);
+    }
+
+    public function actionShowCategory()
+    {
+        $id = $_POST['id'];
+        $parent_category = file_get_contents($this->siteApi . '/category?parent=' . $id);
+
+        if (!empty($parent_category)) {
+            $category = file_get_contents($this->siteApi . '/category?parent=0');
+            $catName = file_get_contents($this->siteApi . '/category/view?id=' . $id);
+            $catName = json_decode($catName);
+            echo $this->renderPartial('sel_cat',
+                [
+                    'category' => json_decode($category),
+                    'parent_category' => json_decode($parent_category),
+                    'title' => $catName->name,
+                    'id' => $id,
+                ]
+            );
+        } else {
+            return false;
+        }
+
+    }
+
+
+    public function actionShowParentModalCategory()
+    {
+        $id = $_POST['id'];
+        $category = file_get_contents($this->siteApi . '/category?parent=' . $id);
+        $category = json_decode($category);
+        $catName = file_get_contents($this->siteApi . '/category/view?id=' . $id);
+        $catName = json_decode($catName);
+        //Debug::prn($category);
+        if (!empty($category)) {
+            echo $this->renderPartial('shw_category',
+                [
+                    'category' => $category,
+                    'title' => $catName->name,
+                ]);
+        } else {
+            return false;
+        }
+    }
+
+    public function actionShowCategoryEnd()
+    {
+        $id = Yii::$app->request->post('id');
+        $categoryList = file_get_contents($this->siteApi . '/category/get-list-category?id=' . $id);
+        $categoryList = json_decode($categoryList);
+        echo $this->renderPartial('categoryList',
+            [
+                'category' => array_reverse($categoryList),
+            ]
+        );
+
+    }
+
+    public function actionShowAdditionalFields()
+    {
+        $id = Yii::$app->request->post('id');
+        //$id = 4;
+        $groupFieldsId = file_get_contents($this->siteApi . '/category/ads-fields?id=' . $id);
+//Debug::prn($groupFieldsId);
+        $html = '';
+        if (!empty($groupFieldsId)) {
+            /*foreach ($adsFields as $adsField) {
+                $adsFieldsAll = AdsFields::find()
+                    ->leftJoin('ads_fields_type', '`ads_fields_type`.`id` = `ads_fields`.`type_id`')
+                    ->leftJoin('ads_fields_default_value',
+                        '`ads_fields_default_value`.`ads_field_id` = `ads_fields`.`id`')
+                    ->where(['`ads_fields`.`id`' => $adsField->fields_id])
+                    ->with('ads_fields_type', 'ads_fields_default_value')
+                    ->all();
+                $html .= $this->renderPartial('add_fields', ['adsFields' => $adsFieldsAll]);
+            }*/
+
+            $fields = json_decode($groupFieldsId);
+            foreach ($fields as $item){
+                $html .= $this->renderPartial('add_fields', ['adsFields' => $item]);
+            }
+
+
+
+        }
+        echo $html;
+
+    }
+
 }
