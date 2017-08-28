@@ -40,9 +40,9 @@ class Vk_basketController extends Controller
     public function actionIndex()
     {
         $searchModel = new VkStreamSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, ['status' => 3]);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, ['status' => 3], 'dt_add');
 
-        return $this->render('index', [
+        return $this->render('../vk_stream/index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

@@ -1,5 +1,5 @@
 <h1>Введите сообщение:</h1>
-<?$form = \yii\widgets\ActiveForm::begin()?>
+<?php $form = \yii\widgets\ActiveForm::begin()?>
     <?= $form->field($model, 'username')->textInput()->label('Имя получателя')?>
     <?= $form->field($model, 'email')->textInput()->label('Email получателя')?>
     <?= $form->field($model, 'content')->textInput()->label('Вопрос')?>

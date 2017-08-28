@@ -40,7 +40,7 @@ class VkStreamSearch extends VkStream
      *
      * @return ActiveDataProvider
      */
-    public function search($params, $condition = null)
+    public function search($params, $condition = null, $orderBy)
     {
         $query = VkStream::find();
 
@@ -83,7 +83,7 @@ class VkStreamSearch extends VkStream
             ->andFilterWhere(['like', 'post_type', $this->post_type])
             ->andFilterWhere(['like', 'text', $this->text]);
 
-        $query->orderBy('dt_add DESC');
+        $query->orderBy($orderBy.' DESC');
 
         return $dataProvider;
     }

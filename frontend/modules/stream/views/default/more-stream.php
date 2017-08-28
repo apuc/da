@@ -99,6 +99,21 @@ use common\models\User;
                     </div>
 
                     <p><?= $comment_item['text'] ?></p>
+
+                    <?php if(!empty($comment_item['photo'])): ?>
+                        <a data-fancybox="gallery" class="parser__element--photo"
+                           href="<?= $comment_item['photo'] ?>">
+                            <img src="<?= $comment_item['photo'] ?>" alt="">
+                        </a>
+                    <?php endif;?>
+
+                    <?php if(!empty($comment_item['sticker'])): ?>
+                        <a data-fancybox="gallery" class="parser__element--photo"
+                           href="<?= $comment_item['sticker'] ?>">
+                            <img src="<?= $comment_item['sticker'] ?>" style="width: 20%">
+                        </a>
+                    <?php endif;?>
+
                 <?php endforeach; ?>
             <?php endif; ?>
             <?php endif; ?>

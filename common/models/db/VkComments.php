@@ -14,9 +14,13 @@ use Yii;
  * @property integer $post_id
  * @property integer $dt_add
  * @property string $text
+ * @property string img
  */
 class VkComments extends \yii\db\ActiveRecord
 {
+    public $img;
+    public $group;
+
     /**
      * @inheritdoc
      */
@@ -56,5 +60,10 @@ class VkComments extends \yii\db\ActiveRecord
     public function getAuthor()
     {
         return $this->hasOne(VkAuthors::className(), ['vk_id' => 'from_id']);
+    }
+
+    public function getPhoto()
+    {
+        return $this->hasMany(VkPhoto::className(), ['comment_id' => 'id']);
     }
 }

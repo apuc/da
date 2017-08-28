@@ -28,28 +28,13 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             url: "/secure/vk/vk_stream/get-comments",
-            dataType: 'json',
+            //dataType: 'json',
             data: {'id': id},
             success: function (html) {
+                console.log(html);
                 $(".content-comments").html('');
                 if(html){
-
-                    for (comment in html)
-                    {
-
-                        string += '<tr>';
-                        string += (html[comment]['author'].id)
-                            ? '<td class="col-sm-2"><img src="'+html[comment]['author'].photo+'" class="img-rounded">'
-                            +'<a href="https://vk.com/' + html[comment]['author'].screen_name + '" target="_blank">'
-                            + html[comment]['author'].first_name +' '+ html[comment]['author'].last_name + '</a></img></td>'
-                            :'<td><a href="https://vk.com/'+html[comment]['author'].link+'" target="_blank">'
-                            + html[comment]['author'].name + '</a></td>';
-                        string += '<td>'+html[comment]['text']+'</td>';
-                        string += '<td class="col-sm-1">'+html[comment]['dt_add']+'</td>';
-                        string += '<td><a href="#" data-id="'+html[comment]['id']+'" class="delete_comments"><span class="glyphicon glyphicon-trash"></span></a></td>'
-                        string += '</tr>';
-                    }
-                    $(".content-comments").append(string);
+                    $(".content-comments").append(html);
                 }else $(".content-comments").append('<tr><td><h3>Комментариев пока нет..</h3></td></tr>');
                 $("#myModal").modal('show');
             }

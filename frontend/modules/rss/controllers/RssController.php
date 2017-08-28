@@ -289,7 +289,7 @@ class RssController extends Controller {
                     $feed->addChannelTitle( KeyValue::findOne( [ 'key' => 'rss_stream_title' ] )->value );
                 },
 //                'link'        => Url::toRoute( '/', true ),
-                'link'        => Url::toRoute( '/' . 'rss/stream.xml', true ),
+                'link'        => Url::toRoute( '/' . 'rss/stream_gif.xml', true ),
                 'description' => KeyValue::findOne( [ 'key' => 'rss_stream_desc' ] )->value,
                 'language'    => function ( $widget, \Zelenin\Feed $feed ) {
                     return Yii::$app->language;
@@ -331,7 +331,7 @@ class RssController extends Controller {
                 },
                 'save'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
 
-                    $feed->save( 'rss/stream.xml' );
+                    $feed->save( 'rss/stream_gif.xml' );
 
                 },
 

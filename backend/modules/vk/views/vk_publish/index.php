@@ -57,14 +57,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     if(strlen($model->text) > 200)
                     {
-
                         $string = mb_substr($model->text, 0, 200);
                         $text = '<div>'.$string.'...</div>'.Html::a('Читать далее',['#'], ['class' => 'more']).
                             Html::a('Скрыть',['#'], ['class' => 'closeMore', 'style' => 'display: none']);
                         $text .= '<div class="readMore" style="display: none">'.substr($model->text, strlen($string)).'</div>';
-                    }
+                    }else $text .= '<div>'.$model->text.'...</div>';
 
                     $text .= '<div>';
+
 
                     foreach ((array)$photo as $item) {
                         if (!empty($item->photo_807)) {
@@ -79,13 +79,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                     $text .= '</div><div>';
 
+
                     foreach ((array)$gif as $item) {
 
                         if (!empty($item->gif_link)) {
-                            $text .= '<span>' . Html::img($item->gif_link, ['width' => 300]) . '</span>';
+                            $text .= '<span>' . Html::img($item->getLargePreview(), ['width' => 300]) . '</span>';
                         }
                     }
                     $text .= '</div>';
+
                     return $text;
                 },
             ],

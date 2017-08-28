@@ -12,6 +12,7 @@ use common\classes\Debug;
 use common\models\db\Comments;
 use common\models\db\VkAuthors;
 use common\models\db\VkComments;
+use common\models\db\VkDoc;
 use common\models\db\VkGif;
 use common\models\db\VkGroups;
 use common\models\db\VkPhoto;
@@ -56,6 +57,7 @@ class VkController extends Controller
                 $res = $this->vk->getGroupWall($group->domain, ['count' => $this->count, 'extended' => 1]);
 
             $res = json_decode($res);
+            //Debug::prn($res);
             if(isset($res->response->profiles))
             {
                 $this->saveAuthors($res->response->profiles);
@@ -159,6 +161,25 @@ class VkController extends Controller
         }
     }
 
+    public function saveDoc($item, $commentId = null)
+    {
+        if (!empty($item->attachments)) {
+            $comment = VkComments::findOne(['id' => $commentId]);
+            foreach ((array)$item->attachments as $attachment) {
+                if (($attachment->type === 'doc') && ($attachment->doc->ext === 'png')) {
+                    //Debug::prn($attachment);
+                    $comment->sticker = $attachment->doc->url;
+                    $comment->save();
+                    echo 'sticker - ' . $attachment->doc->id . ' add to comment' . "\n";
+                } elseif ($attachment->type === 'sticker') {
+                    $comment->sticker = $attachment->sticker->photo_512;
+                    $comment->save();
+                    echo 'sticker - ' . $attachment->sticker->id . ' add to comment' . "\n";
+                }
+            }
+        }
+    }
+
     public function saveAuthors($profiles)
     {
         if (!empty($profiles)) {
@@ -185,7 +206,7 @@ class VkController extends Controller
             'client_secret' => '0QKWLW7n6XumtJV7VJ6h',
             'access_token' => '90fc0cc0178c0130800af68e6051952c869b88a713b1d787982d39c70660a561c8378c432e8c6dcdb077a',
         ]);
-        $res = $vk->getPostComments(-3855883, 16599, ['extended' => 1, 'count' => 100]);
+        $res = $vk->getPostComments(-107103361, 382083, ['extended' => 1, 'count' => 100]);
         $res = json_decode($res);
         Debug::prn($res->response);
     }
@@ -205,6 +226,12 @@ class VkController extends Controller
                 $comm->text = $item->text;
                 $comm->save();
                 echo 'comment - ' . $comm->vk_id . ' add' . "\n";
+
+                if(!empty($item->attachments))
+                {
+                    $this->saveDoc($item, $comm->id);
+                }
+
                 $this->savePhoto($item, $postSysId, $comm->id);
                 $this->saveGif($item, $postSysId, $comm->id);
             }

@@ -26,10 +26,10 @@ class Entertainment extends Widget
 
         $companySmall = [];
         foreach ((array)$entertainmantSmall as $item) {
-            $companySmall[] = Company::findOne($item);
+            $companySmall[] = Company::find()->where(['id' => $item])->with('allPhones')->one();
         }
 
-        $companyBig = Company::findOne($entertainmantBig);
+        $companyBig =Company::find()->where(['id' => $entertainmantBig])->with('allPhones')->one();
 
         return $this->render('entertainment', [
             'companySmall' => $companySmall,

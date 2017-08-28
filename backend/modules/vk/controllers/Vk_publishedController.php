@@ -37,9 +37,9 @@ class Vk_publishedController extends Controller
     public function actionIndex()
     {
         $searchModel = new VkStreamSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, ['status' => 1, ['<', 'dt_publish', time()]]);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, ['status' => 1, ['<', 'dt_publish', time()]], 'dt_publish');
 
-        return $this->render('index', [
+        return $this->render('../vk_stream/index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -104,9 +104,9 @@ class Vk_publishedController extends Controller
     public function actionDeffered()
     {
         $searchModel = new VkStreamSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, ['status' => 1, ['>', 'dt_publish', time()]]);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, ['status' => 1, ['>', 'dt_publish', time()]], 'dt_publish');
 
-        return $this->render('index', [
+        return $this->render('../vk_stream/index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

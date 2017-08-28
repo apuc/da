@@ -10,25 +10,43 @@ $this->registerMetaTag([
     'content' => (empty($model))? '' :$model->meta_descr,
 ]);
 
+$this->registerMetaTag([
+    'property' => 'og:title',
+    'content' => $model->title,
+]);
+
+$this->registerMetaTag([
+    'property' => 'og:url',
+    'content' => 'https://da-info.pro/stream/'.$model->slug,
+]);
+
+$this->registerMetaTag([
+    'property' => 'og:site_name',
+    'content' => 'Портал России и ДНР DA Info Pro: новости, компании, афиши, консультации.',
+]);
+
+$this->registerMetaTag([
+    'property' => 'og:image',
+    'content' => (!empty($model->photo[0])) ? $model->photo[0]->getLargePhoto(): '',
+]);
+
+
+
 $this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii\web\JqueryAsset::className()]);
 $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAsset::className()]);
-
-
 ?>
+
 <section class="parser">
 
     <div class="container">
 
         <h3 class="parser__title"><?= (empty($model))? '' :$model->title?></h3>
 
-        <i class="fa fa-close fa-2x" aria-hidden="true"></i>
-
-
-
         <div class="business__wrapper">
 
             <div class="business__content">
 
+                <a class="parser__close" href="#">закрыть элемент</a>
 
                 <ul class="parser__top-nav">
                     <li><a href="<?= \yii\helpers\Url::to(['/stream'])?>">Все материалы <span><?= $count?></span></a></li>
@@ -39,7 +57,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                 <div class="parser__single-wrapper">
 
                     <?php if(!empty($model)): ?>
-                    <div class="parser__element">
+                    <div class="parser__element single-parser-element">
 
                         <a href="#" class="parser__element--author">
 
@@ -110,6 +128,8 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
                             <a href="#" class="views"><?= $model->views?></a>
 
+                            <a class="parser__close" href="#">закрыть элемент</a>
+
                         </div>
                         <?php if ($model->comment_status != 0):?>
                             <div class="parser__element--comments-block">
@@ -123,8 +143,22 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                         <div class="name">
                                             <?= $comment_item['username'] ?>
                                         </div>
+                                            <p><?= $comment_item['text'] ?></p>
 
-                                        <p><?= $comment_item['text'] ?></p>
+                                        <?php if(!empty($comment_item['photo'])): ?>
+                                            <a data-fancybox="gallery" class="parser__element--photo"
+                                               href="<?= $comment_item['photo'] ?>">
+                                                <img src="<?= $comment_item['photo'] ?>" style="width: 50%">
+                                            </a>
+                                        <?php endif;?>
+
+                                        <?php if(!empty($comment_item['sticker'])): ?>
+                                            <a data-fancybox="gallery" class="parser__element--photo"
+                                               href="<?= $comment_item['sticker'] ?>">
+                                                <img src="<?= $comment_item['sticker'] ?>" style="width: 20%">
+                                            </a>
+                                        <?php endif;?>
+
                                     <?php endforeach; ?>
                                 <?php endif; ?>
 
@@ -238,6 +272,21 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                                 </div>
 
                                                 <p><?= $comment_item['text'] ?></p>
+
+                                                <?php if(!empty($comment_item['photo'])): ?>
+                                                    <a data-fancybox="gallery" class="parser__element--photo"
+                                                       href="<?= $comment_item['photo'] ?>">
+                                                        <img src="<?= $comment_item['photo'] ?>" alt="">
+                                                    </a>
+                                                <?php endif;?>
+
+                                                <?php if(!empty($comment_item['sticker'])): ?>
+                                                    <a data-fancybox="gallery" class="parser__element--photo"
+                                                       href="<?= $comment_item['sticker'] ?>">
+                                                        <img src="<?= $comment_item['sticker'] ?>" style="width: 20%">
+                                                    </a>
+                                                <?php endif;?>
+
                                             <?php endforeach; ?>
                                         <?php endif; ?>
 
@@ -346,6 +395,20 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                             </div>
 
                                             <p><?= $comment_item['text'] ?></p>
+
+                                            <?php if(!empty($comment_item['photo'])): ?>
+                                                <a data-fancybox="gallery" class="parser__element--photo"
+                                                   href="<?= $comment_item['photo'] ?>">
+                                                    <img src="<?= $comment_item['photo'] ?>" alt="">
+                                                </a>
+                                            <?php endif;?>
+
+                                            <?php if(!empty($comment_item['sticker'])): ?>
+                                                <a data-fancybox="gallery" class="parser__element--photo"
+                                                   href="<?= $comment_item['sticker'] ?>">
+                                                    <img src="<?= $comment_item['sticker'] ?>" style="width: 20%">
+                                                </a>
+                                            <?php endif;?>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
 
@@ -381,7 +444,6 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
         </div>
             <?= ShowRightRecommend::widget() ?>
-
         </div>
 
     </div>

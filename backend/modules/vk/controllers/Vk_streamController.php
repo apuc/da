@@ -5,6 +5,8 @@ namespace backend\modules\vk\controllers;
 use backend\modules\vk\models\VkAuthors;
 use common\classes\Debug;
 use common\models\db\VkComments;
+use common\models\db\VkGif;
+use common\models\db\VkPhoto;
 use Yii;
 use backend\modules\vk\models\VkStream;
 use backend\modules\vk\models\VkStreamSearch;
@@ -41,7 +43,7 @@ class Vk_streamController extends Controller
     public function actionIndex()
     {
         $searchModel = new VkStreamSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, ['status' => 0]);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, ['status' => 0], 'dt_add');
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -107,6 +109,9 @@ class Vk_streamController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+        VkPhoto::deleteAll(['post_id' => $id]);
+        VkGif::deleteAll(['post_id' => $id]);
+        VkComments::deleteAll(['post_id' => $id]);
 
         return $this->redirect(['index']);
     }
@@ -138,22 +143,48 @@ class Vk_streamController extends Controller
 
     public function actionGetComments()
     {
-        $comments = VkComments::find()->with('author')
+        $photo = '';
+        $comments = VkComments::find()->with('author', 'photo')
             ->where(['post_id' => Yii::$app->request->post('id')])
-            ->asArray()
             ->orderBy('dt_add')
             ->all();
+
         foreach ($comments as &$comment)
         {
             $comment['dt_add'] = date('H:i:s d-m-y ', $comment['dt_add']);
-            if(!$comment['author'])
+            if(empty($comment->author))
             {
-                $comment['author']['name'] = 'Группа';
-                $comment['author']['link'] = 'club'.substr($comment['from_id'], 1, strlen($comment['from_id']));
+                $comment->group['name'] = 'Группа';
+                $comment->group['link'] = 'club'.substr($comment['from_id'], 1, strlen($comment['from_id']));
+            }
+
+            if(!empty($comment->photo)){
+
+                switch (empty($comment->img)){
+                    case ($comment->photo[0]['photo_75']):
+                        $comment->img = $comment->photo[0]['photo_75'];
+                        break;
+                    case ($comment->photo[0]['photo_130']):
+                        $comment->img = $comment->photo[0]['photo_75'];
+                        break;
+                    case ($comment->photo[0]['photo_512']):
+                        $comment->img = $comment->photo[0]['photo_512'];
+                        break;
+                    case ($comment->photo[0]['photo_604']):
+                        $comment->img = $comment->photo[0]['photo_604'];
+                        break;
+                    case ($comment->photo[0]['photo_807']):
+                        $comment->img = $comment->photo[0]['photo_807'];
+                        break;
+                    case ($comment->photo[0]['photo_1280']):
+                        $comment->img = $comment->photo[0]['photo_1280'];
+                        break;
+                }
             }
         }
 
-        if($comments) return Json::encode($comments);
+        if($comments)
+           return $this->renderPartial('comment_ajax', ['comments' =>$comments, 'photo' => $photo]);
         else return Json::encode(0);
 
     }

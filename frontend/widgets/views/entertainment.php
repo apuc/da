@@ -23,7 +23,25 @@ use yii\helpers\Url;
                         <div class="item-small__content">
                             <h4><?= $item->name; ?></h4>
 
-                            <p><?= explode(';', $item->phone)[0]; ?></p>
+                            <?php if (!empty($item->phone)): ?>
+                                <?php $phone = explode(' ', $item->phone) ?>
+                                <ul class="business__sm-item--numbers">
+                                    <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
+                                    <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
+                                </ul>
+
+                            <?php elseif(!empty($item->allPhones)):?>
+                                <ul class="business__sm-item--numbers">
+                                <?php foreach ($item->allPhones as $key => $phones):?>
+                                    <?php if ($key == 2):?>
+                                        <li><?= $phones->phone?></li>
+                                        <?php  break; ?>
+                                    <?php endif; ?>
+                                <?php endforeach;?>
+                                </ul>
+                            <?php endif; ?>
+
+                            <!--<p><?/*= explode(';', $item->phone)[0]; */?></p>-->
                         </div>
                     </a>
                 <?php else: ?>
@@ -39,12 +57,23 @@ use yii\helpers\Url;
                             </span>
                             <?php $phone = explode(' ', $item->phone); ?>
 
-                            <p>
-                                <?= isset($phone[0]) ? $phone[0] : '' ?>
-                            </p>
-                            <p>
-                                <?= isset($phone[1]) ? $phone[1] : '' ?>
-                            </p>
+                            <?php if (!empty($item->phone)): ?>
+                                <?php $phone = explode(' ', $item->phone) ?>
+                                <ul class="business__sm-item--numbers">
+                                    <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
+                                    <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
+                                </ul>
+
+                            <?php elseif(!empty($item->allPhones)):?>
+                                <ul class="business__sm-item--numbers">
+                                    <?php foreach ($item->allPhones as $key => $phones):?>
+                                        <?php if ($key == 2):?>
+                                            <li><?= $phones->phone?></li>
+                                            <?php  break; ?>
+                                        <?php endif; ?>
+                                    <?php endforeach;?>
+                                </ul>
+                            <?php endif; ?>
                         </div>
 
                     </a>
@@ -69,12 +98,23 @@ use yii\helpers\Url;
                             </span>
                 <?php $phone = explode(' ', $companyBig->phone); ?>
 
-                <p>
-                    <?= isset($phone[0]) ? $phone[0] : '' ?>
-                </p>
-                <p>
-                    <?= isset($phone[1]) ? $phone[1] : '' ?>
-                </p>
+                <?php if (!empty($phone)): ?>
+                    <?php $phone = explode(' ', $companyBig->phone) ?>
+                    <ul class="business__sm-item--numbers">
+                        <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
+                        <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
+                    </ul>
+
+                <?php elseif(!empty($companyBig->allPhones)):?>
+                    <ul class="business__sm-item--numbers">
+                    <?php foreach ($companyBig->allPhones as $key => $phones):?>
+                        <?php if ($key == 2):?>
+                            <li><?= $phones->phone?></li>
+                            <?php break; ?>
+                        <?php endif; ?>
+                    <?php endforeach;?>
+                    </ul>
+                <?php endif; ?>
             </div>
 
         </a>

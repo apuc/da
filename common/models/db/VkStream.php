@@ -149,12 +149,12 @@ class VkStream extends \yii\db\ActiveRecord
 
     public function getAllComments()
     {
-        $vk_comments = VkComments::find()->with('author')->where(['post_id' => $this->id])->all();
+        $vk_comments = VkComments::find()->with('author', 'photo')->where(['post_id' => $this->id])->all();
         $comments = Comments::find()->where(['post_id' => $this->id])
             ->andWhere(['post_type' => 'vk_post'])
             ->andWhere(['published' => 1])
             ->all();
-        //Debug::prn($this->comment_status);
+
         if($this->comment_status != 0)
         {
             if(!empty($comments) && !empty($vk_comments))
@@ -172,10 +172,19 @@ class VkStream extends \yii\db\ActiveRecord
         $comment_result = [];
         if ($vk_comments) {
             foreach ($vk_comments as $comment) {
+                if((stristr($comment->text, '[id'))){
+                    $start = strpos($comment->text,'|')+ 1;
+                    $string = substr($comment->text, $start, strpos($comment->text,']') - $start);
+                    $comment->text = $string.
+                        substr($comment->text, strpos($comment->text,']') + 1 );
+                }
+
                 $comment_result[] = [
                     'username' => $comment->author['first_name'] . ' ' . $comment->author['last_name'],
                     'avatar' => $comment->author['photo'],
                     'text' => $comment->text,
+                    'photo' => (!empty($comment->photo)) ? $comment->photo[0]->getLargePhoto() : '',
+                    'sticker' => (!empty($comment->sticker)) ? $comment->sticker: '',
                 ];
             }
         }

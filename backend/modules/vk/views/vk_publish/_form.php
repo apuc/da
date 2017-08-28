@@ -35,6 +35,18 @@ use common\classes\Debug;
     </div>
 
     <? if(!$model->isNewRecord): ?>
+        <label class="control-label">Фото:</label>
+    <div class="form-group">
+        <?php $i=0 ?>
+        <?php foreach(\common\models\db\VkPhoto::findAll(['post_id' => $model->id]) as $photo):?>
+            <img id="img" src="<?= $photo->getLargePhoto()?>" style="width: 30%">
+            <?php $i++ ?>
+        <?php endforeach;?>
+    </div>
+        <?php foreach(\common\models\db\VkGif::findAll(['post_id' => $model->id])as $gif):?>
+            <?= Html::img($gif->gif_link) ?>
+        <?php endforeach;?>
+
         <?= $form->field($model, 'title')->textInput() ?>
 
         <?= $form->field($model, 'meta_descr')->textInput() ?>

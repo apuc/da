@@ -52,6 +52,7 @@ class DefaultController extends Controller
     {
         $dt_publish = \Yii::$app->request->post('dt_add');
 
+
         if(\Yii::$app->request->post('step') !== null){
             $models = VkStream::getPosts(10, \Yii::$app->request->post('step') * 10, $dt_publish);
 
@@ -60,7 +61,6 @@ class DefaultController extends Controller
                    $model->getAllComments();
                    $result['render'][] = $this->renderPartial('more-stream', ['item' => $model]);
                }
-
                 $result['count'] = (count($models) < 10) ? 0 : 1;
                 return  json_encode($result);
 

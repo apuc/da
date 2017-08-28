@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'text',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    $photo = \common\models\db\VkPhoto::find()->where(['post_id' => $model->id])->all();
+                    $photo = \common\models\db\VkPhoto::find()->where(['post_id' => $model->id, 'comment_id' => ''])->all();
                     $gif = \common\models\db\VkGif::find()->where(['post_id' => $model->id])->all();
                     $text = '';
 
@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         $text = '<div>'.$string.'...</div>'.Html::a('Читать далее',['#'], ['class' => 'more']).
                             Html::a('Скрыть',['#'], ['class' => 'closeMore', 'style' => 'display: none']);
                         $text .= '<div class="readMore" style="display: none">'.substr($model->text, strlen($string)).'</div>';
-                    }
+                    }else $text .= '<div>'.$model->text.'...</div>';
 
                     $text .= '<div>';
 
@@ -84,7 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             foreach ((array)$gif as $item) {
 
                                 if (!empty($item->gif_link)) {
-                                    $text .= '<span>' . Html::img($item->gif_link, ['width' => 300]) . '</span>';
+                                    $text .= '<span>' . Html::img($item->getLargePreview(), ['width' => 300]) . '</span>';
                                 }
                             }
                     $text .= '</div>';

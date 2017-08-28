@@ -3,6 +3,7 @@ namespace backend\widgets;
 
 use backend\modules\comments\models\Comments;
 use backend\modules\company_feedback\models\CompanyFeedback;
+use backend\modules\contacting\models\Contacting;
 use backend\modules\site_error\models\SiteError;
 use backend\modules\vk\models\VkStream;
 use common\classes\CompanyFunction;
@@ -31,6 +32,7 @@ class MainMenuAdmin extends Widget
         $countPublishedStream = VkStream::find()->where(['status' => 1])->andWhere(['<', 'dt_publish', time()])->count();
         $countBasketStream = VkStream::find()->where(['status' => 3])->count();
         $countDefferedStream = VkStream::find()->where(['status' => 1])->andWhere(['>', 'dt_publish', time()])->count();
+        $countContacting = Contacting::find()->where(['status' => 0])->count();
 
         echo \yii\widgets\Menu::widget(
             [
@@ -460,13 +462,13 @@ class MainMenuAdmin extends Widget
                             [
                                 'label' => 'Опубликованные',
                                 'url' => Url::to(['/vk/vk_published']),
-                                'active' => Yii::$app->controller->module->id === 'vk' && Yii::$app->controller->id === 'vk_published',
+                                'active' => Yii::$app->controller->id === 'vk_published' && Yii::$app->controller->action->id === 'index',
                                 'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countPublishedStream . '</small></span></a>',
                             ],
                             [
                                 'label' => 'Отложенные',
                                 'url' => Url::to(['/vk/vk_published/deffered']),
-                                'active' => Yii::$app->controller->module->id === 'vk' && Yii::$app->controller->id === 'vk_published',
+                                'active' => Yii::$app->controller->action->id === 'deffered',
                                 'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countDefferedStream . '</small></span></a>',
                             ],
                         ],
@@ -553,6 +555,7 @@ class MainMenuAdmin extends Widget
                         'label' => 'Обращения',
                         'url' => Url::to(['/contacting/contacting']),
                         'visible' => UserFunction::hasPermission(['Обращения']),
+                        'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countContacting . '</small></span></a>',
                     ],
                     [
                         'label' => 'РОСС-ОПТ',
