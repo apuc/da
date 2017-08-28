@@ -130,11 +130,11 @@ $(document).ready(function () {
 
     $(document).on('click', '.selectCity', function () {
         var idCity = $(this).attr('city-id');
-        console.log(idCity);
+        //console.log(idCity);
         var nameCity = $(this).text();
         $("input[name='cityFilter']").val(idCity);
         $('.textSelectCity').text(nameCity);
-        console.log('city');
+        //console.log('city');
         $('.city').css({display: "inline-block"});
         $('.region-list').css({display: "none"});
         return false;
@@ -151,32 +151,34 @@ $(document).ready(function () {
         var number = 3500;
 
         /*console.log(new Intl.NumberFormat().format(selMin));*/
+        if(document.getElementById('slider_price')) {
+            $("#slider_price").slider({
+                range: true,
+                min: min,
+                max: max,
+                values: [selMin, selMax],
+                //values: [formatNumber(selMin), selMax],
+                slide: function (event, ui) {
+                    //Поле минимального значения
+                    $("#price").val(ui.values[0]);
+                    //Поле максимального значения
+                    $("#price2").val(ui.values[1]);
+                },
+                stop: function (event, ui) {
+                    $("input[name='minPrice']").val(ui.values[0]).change();
+                    $("input[name='maxPrice']").val(ui.values[1]).change();
+                    /* var obj = $(this).closest('div');
+                     filterSearchCount(obj);*/
 
-        $("#slider_price").slider({
-            range: true,
-            min: min,
-            max: max,
-            values: [selMin, selMax],
-            //values: [formatNumber(selMin), selMax],
-            slide: function (event, ui) {
-                //Поле минимального значения
-                $("#price").val(ui.values[0]);
-                //Поле максимального значения
-                $("#price2").val(ui.values[1]);
-            },
-            stop: function (event, ui) {
-                $("input[name='minPrice']").val(ui.values[0]).change();
-                $("input[name='maxPrice']").val(ui.values[1]).change();
-                /* var obj = $(this).closest('div');
-                 filterSearchCount(obj);*/
+                }
 
-            }
+            });
 
-        });
-        //Записываем значения ползунков в момент загрузки страницы
-        //То есть значения по умолчанию
-        $("#price").val($("#slider_price").slider("values", 0));
-        $("#price2").val($("#slider_price").slider("values", 1));
+            //Записываем значения ползунков в момент загрузки страницы
+            //То есть значения по умолчанию
+            $("#price").val($("#slider_price").slider("values", 0));
+            $("#price2").val($("#slider_price").slider("values", 1));
+        }
     });
 
     $('#price').change(function () {
@@ -213,4 +215,145 @@ $(document).ready(function () {
 
         //console.log(id);
     }
+
+
+    /**********************************************************************************/
+    /****************************ДОБАВЛЕНИЕ ОБЪЯВЛЕНИЯ*********************************/
+    /**********************************************************************************/
+    //Показать подсказку
+    $(document).on('focusin', '.jsHint', function () {
+        var parent = $(this).parent();
+        var hint = parent.children('.memo').fadeIn();
+    });
+    //Скрыть подсказку
+    $(document).on('focusout', '.jsHint', function () {
+        var parent = $(this).parent();
+        var hint = parent.children('.memo').fadeOut();
+    });
+
+    //Открываем модлку для выбора главной категории
+    $(document).on('click', '.select-category-add', function () {
+
+        $.ajax({
+            type: 'POST',
+            url: "/board/default/general-modal",
+            data: '',
+            success: function (data) {
+                //console.log(data);
+                $('.modal-body,.modal-flex').html(data);
+                $('#modalType').modal('show');
+            }
+        });
+    });
+
+    //Скрыть модалку
+    $(document).on('click', '.close', function () {
+        $('#modalType').modal('hide')
+    });
+
+    //выбор главной категории
+    $(document).on('click', '.modal-body__container', function () {
+        var catId = $(this).data('category');
+        $('#ads-category_id').val(catId);
+
+        $.ajax({
+            type: 'POST',
+            url: "/board/default/show-category",
+            data: 'id=' + catId,
+            success: function (data) {
+                /*$('.modal-body,.modal-flex').html(data);*/
+                if (data) {
+                    $('.modal-body,.modal-flex').html(data);
+                } else {
+                    $.ajax({
+                        type: 'POST',
+                        url: "/board/default/show-category-end",
+                        data: 'id=' + catId,
+                        success: function (data) {
+                            $('.SelectCategory').html(data);
+                        }
+                    });
+                    $('#modalType').modal('hide');
+                }
+
+            }
+        });
+        return false;
+    });
+
+
+    //Выбор категорий и подкатегорий
+    $(document).on('click', '.heading-change', function () {
+        $('div[data-parent="2"]').html('');
+        var category = $(this).data('category');
+
+
+        var column = $(this).parent().parent().data('parent');
+        if(column == 0){
+            $('.heading-change').removeClass('active');
+        }
+        if(column == 1){
+            $('div[data-parent="1"] .heading-change').removeClass('active');
+        }
+
+
+        $(this).addClass('active');
+
+        $('#ads-category_id').val(category);
+        //console.log(column);
+
+        $.ajax({
+            type: 'POST',
+            url: "/board/default/show-parent-modal-category",
+            data: 'id=' + category,
+            success: function (data) {
+                //console.log(data);
+                if (data) {
+                    if (column == 0) {
+                        $('div[data-parent="1"]').html(data);
+                    }
+                    if (column == 1) {
+                        $('div[data-parent="2"]').html(data);
+                    }
+                }
+                else {
+                    $.ajax({
+                        type: 'POST',
+                        url: "/board/default/show-category-end",
+                        data: 'id=' + category,
+                        success: function (data) {
+                            //console.log(data);
+                            $('.SelectCategory').html(data);
+                        }
+                    });
+                    $('#modalType').modal('hide');
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "/board/default/show-additional-fields",
+                        data: 'id=' + category,
+                        success: function (data) {
+                            console.log(data);
+                            $('#additional_fields').html(data);
+                        }
+                    });
+                }
+
+
+            }
+        });
+        return false;
+
+    });
+
+    //Согласие на обработку данных
+    $(document).on('click', '#dannie-1', function () {
+        if ($(this).prop('checked')) {
+            $('.place-ad__publish').prop('disabled', false);
+        } else {
+            $('.place-ad__publish').prop('disabled', true);
+        }
+    });
+
+
 });
