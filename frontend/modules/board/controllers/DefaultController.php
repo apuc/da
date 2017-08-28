@@ -119,13 +119,6 @@ class DefaultController extends Controller
                         $mode = \Imagine\Image\ManipulatorInterface::THUMBNAIL_OUTBOUND)
                         ->save($dirThumb . $file, ['quality' => 100]);
 
-                    /*$img = new AdsImg();
-                    $img->ads_id = 1;
-                    $img->img = Url::home(true) . $dir . $file;
-                    $img->img_thumb = Url::home(true) . $dirThumb . $file;
-                    $img->user_id = Yii::$app->user->id;
-                    $img->save();*/
-
 
                     $_POST['img'][$i]['img_thumb'] = Url::home(true) . $dirThumb . $file;
                     $_POST['img'][$i]['img'] = Url::home(true) . $dir . $file;
