@@ -33,8 +33,8 @@ use yii\helpers\Url;
                             <?php elseif(!empty($item->allPhones)):?>
                                 <ul class="business__sm-item--numbers">
                                 <?php foreach ($item->allPhones as $key => $phones):?>
+                                    <li><?= $phones->phone?></li>
                                     <?php if ($key == 2):?>
-                                        <li><?= $phones->phone?></li>
                                         <?php  break; ?>
                                     <?php endif; ?>
                                 <?php endforeach;?>
@@ -65,10 +65,11 @@ use yii\helpers\Url;
                                 </ul>
 
                             <?php elseif(!empty($item->allPhones)):?>
+                                <?// \common\classes\Debug::prn($item->allPhones) ?>
                                 <ul class="business__sm-item--numbers">
                                     <?php foreach ($item->allPhones as $key => $phones):?>
+                                        <li><?= $phones->phone?></li>
                                         <?php if ($key == 2):?>
-                                            <li><?= $phones->phone?></li>
                                             <?php  break; ?>
                                         <?php endif; ?>
                                     <?php endforeach;?>
@@ -108,8 +109,8 @@ use yii\helpers\Url;
                 <?php elseif(!empty($companyBig->allPhones)):?>
                     <ul class="business__sm-item--numbers">
                     <?php foreach ($companyBig->allPhones as $key => $phones):?>
+                        <li><?= $phones->phone?></li>
                         <?php if ($key == 2):?>
-                            <li><?= $phones->phone?></li>
                             <?php break; ?>
                         <?php endif; ?>
                     <?php endforeach;?>
