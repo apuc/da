@@ -68,21 +68,20 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                     <?php endif;?>
                     <div class="business__requisites--links">
                         <a class="phone" href="tel:+380667778540">
-                            <? if (isset($model->allPhones[0]->phone)): ?>
+                            <?php if (isset($model->allPhones[0]->phone)): ?>
                                 <?= $model->allPhones[0]->phone ?>
-                            <? elseif (isset($model->getPhones()[0])): ?>
+                            <?php elseif (isset($model->getPhones()[0])): ?>
                                 <?= $model->getPhones()[0] ?>
-                            <? endif; ?>
+                            <?php endif; ?>
                         </a>
                         <a class="phone" href="tel:+380667778540">
-                            <? if (isset($model->allPhones[1]->phone )): ?>
-                            <?= $model->allPhones[1]->phone  ?>
-                            <? elseif (isset($model->getPhones()[1])): ?>
-                            <?= $model->getPhones()[1] ?>
-                            <? endif; ?>
+                            <?php if (isset($model->allPhones[1]->phone )): ?>
+                                <?= $model->allPhones[1]->phone  ?>
+                            <?php elseif (isset($model->getPhones()[1])): ?>
+                                <?= $model->getPhones()[1] ?>
+                            <?php endif; ?>
                         </a>
 
-                        <?php /*\common\classes\Debug::prn($socCompany);*/?>
                         <?php if(isset($services['group_link']) && $services['group_link'] == 1 && !empty($socCompany)):
 
                                 foreach ($typeSeti as $type){
