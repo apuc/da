@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <atom:link href="https://da-info.pro/rss/poster.xml" rel="self" type="application/rss+xml"/>
+    <atom:link href="http://dainfo.loc/rss/poster.xml" rel="self" type="application/rss+xml"/>
     <generator>RSS Generator 2.1.1</generator>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <title>ДА. Афиша</title>
-    <link>https://da-info.pro/rss/poster.xml</link>
+    <link>http://dainfo.loc/rss/poster.xml</link>
     <description>Портал города Донецка</description>
     <language>ru-RU</language>
     <image>
@@ -23,8 +23,8 @@
       <description>Хватит наблюдать за «Звездными Войнами» с экрана, пора решать межгалактические проблемы.&#13;
 У всех дончан и гостей города 6 августа появиться замечательная возможность изменить ход истории вместе с нашей масштабной водной битвой между Темными и Светлыми Лордами галактики.&#13;
 Определяйтесь на чьей вы стороне, собирайте команду единомышленников и приходите к нам. Вы...</description>
-      <link>http://dainfo.loc/poster/vodnaa-bitva-v-parke-im-serbakova</link>
-      <guid>http://dainfo.loc/poster/vodnaa-bitva-v-parke-im-serbakova</guid>
+      <link>https://da-info.pro/poster/vodnaa-bitva-v-parke-im-serbakova</link>
+      <guid>https://da-info.pro/poster/vodnaa-bitva-v-parke-im-serbakova</guid>
       <pubDate>Tue, 01 Aug 2017 12:31:31 +0300</pubDate>
     </item>
     <item>
@@ -35,8 +35,8 @@
 &#13;
 В новой телевизионной постановке режиссер Карен Шахназаров представят зрителям свой новый взгляд на великий роман.&#13;
 </description>
-      <link>http://dainfo.loc/poster/film-anna-karenina-v-kinoteatre-sevcenko-2</link>
-      <guid>http://dainfo.loc/poster/film-anna-karenina-v-kinoteatre-sevcenko-2</guid>
+      <link>https://da-info.pro/poster/film-anna-karenina-v-kinoteatre-sevcenko-2</link>
+      <guid>https://da-info.pro/poster/film-anna-karenina-v-kinoteatre-sevcenko-2</guid>
       <pubDate>Mon, 31 Jul 2017 11:48:16 +0300</pubDate>
     </item>
     <item>
@@ -47,8 +47,8 @@
 Навыки рисования не важны!&#13;
 Арт-вечеринка - это творческое развлечение. За 2 часа вы в компании профессиональных художников напишете самую настоящую картину на холсте под хорошую музыку с бокалом любимого напитка.&#13;
 Мы поможем и...</description>
-      <link>http://dainfo.loc/poster/art-vecerinka-art-izba-letomoreoblaka</link>
-      <guid>http://dainfo.loc/poster/art-vecerinka-art-izba-letomoreoblaka</guid>
+      <link>https://da-info.pro/poster/art-vecerinka-art-izba-letomoreoblaka</link>
+      <guid>https://da-info.pro/poster/art-vecerinka-art-izba-letomoreoblaka</guid>
       <pubDate>Mon, 31 Jul 2017 10:37:14 +0300</pubDate>
     </item>
     <item>
@@ -63,8 +63,8 @@
 • торговые ряды с вкусностями и уличными торговцами; &#13;
 • пахлава, чурчхела, морская рыбка, кукуруза и сладкая вата; &#13;
 • море прохладительных напитков; ...</description>
-      <link>http://dainfo.loc/poster/otkrytie-novogo-proekta-nabereznaa</link>
-      <guid>http://dainfo.loc/poster/otkrytie-novogo-proekta-nabereznaa</guid>
+      <link>https://da-info.pro/poster/otkrytie-novogo-proekta-nabereznaa</link>
+      <guid>https://da-info.pro/poster/otkrytie-novogo-proekta-nabereznaa</guid>
       <pubDate>Fri, 28 Jul 2017 13:57:18 +0300</pubDate>
     </item>
     <item>
@@ -75,8 +75,8 @@
       <description>Каждое воскресенье  семейное кафе "Шато" приглашает своих самых маленьких посетителей на кулинарный мастер-класс.&#13;
 &#13;
 Терияки — популярный в Японии сладкий соус, который используется для маринада самых разных блюд. Маринованные в терияки продукты, при обжарке приобретают красивый карамельный цвет с лёгким блеском. Мариновать и обжаривать в соусе терияки можно всё что угодно:...</description>
-      <link>http://dainfo.loc/poster/master-klass-kurinye-krylyski-v-teriaki-zarenye-na-mangale-v-sato</link>
-      <guid>http://dainfo.loc/poster/master-klass-kurinye-krylyski-v-teriaki-zarenye-na-mangale-v-sato</guid>
+      <link>https://da-info.pro/poster/master-klass-kurinye-krylyski-v-teriaki-zarenye-na-mangale-v-sato</link>
+      <guid>https://da-info.pro/poster/master-klass-kurinye-krylyski-v-teriaki-zarenye-na-mangale-v-sato</guid>
       <pubDate>Fri, 28 Jul 2017 10:25:55 +0300</pubDate>
     </item>
     <item>
@@ -86,8 +86,8 @@
       <description>Подготовка к школе – процесс приятный, но хлопотный. Обычно нужно посетить множество мест, чтобы собрать все необходимые вещи. Но вместе с ТРЦ «Донецк Сити» вы сможете приобрести все необходимое для своего ребенка в одном месте.&#13;
 &#13;
 Для маленьких и больших школьников на ярмарке будет представлено многообразие школьных товаров – портфели, канцелярские...</description>
-      <link>http://dainfo.loc/poster/skolnaa-armarka-v-trcdoneck-siti</link>
-      <guid>http://dainfo.loc/poster/skolnaa-armarka-v-trcdoneck-siti</guid>
+      <link>https://da-info.pro/poster/skolnaa-armarka-v-trcdoneck-siti</link>
+      <guid>https://da-info.pro/poster/skolnaa-armarka-v-trcdoneck-siti</guid>
       <pubDate>Fri, 28 Jul 2017 08:59:00 +0300</pubDate>
     </item>
     <item>
@@ -98,8 +98,8 @@
 &#13;
 Готовьтесь окунуться в атмосферу комфорта и отдыха уже в эти выходные вместе с нами.&#13;
 </description>
-      <link>http://dainfo.loc/poster/vecerinka-veselaa-pitnica-vmeste-s-ramada-donetsk</link>
-      <guid>http://dainfo.loc/poster/vecerinka-veselaa-pitnica-vmeste-s-ramada-donetsk</guid>
+      <link>https://da-info.pro/poster/vecerinka-veselaa-pitnica-vmeste-s-ramada-donetsk</link>
+      <guid>https://da-info.pro/poster/vecerinka-veselaa-pitnica-vmeste-s-ramada-donetsk</guid>
       <pubDate>Wed, 26 Jul 2017 10:43:10 +0300</pubDate>
     </item>
     <item>
@@ -110,8 +110,8 @@
 &#13;
 Ждем всех в гости!&#13;
 </description>
-      <link>http://dainfo.loc/poster/parallelnoe-eho-v-cafe-red-sups</link>
-      <guid>http://dainfo.loc/poster/parallelnoe-eho-v-cafe-red-sups</guid>
+      <link>https://da-info.pro/poster/parallelnoe-eho-v-cafe-red-sups</link>
+      <guid>https://da-info.pro/poster/parallelnoe-eho-v-cafe-red-sups</guid>
       <pubDate>Wed, 26 Jul 2017 09:38:04 +0300</pubDate>
     </item>
     <item>
@@ -122,8 +122,8 @@
 &#13;
 Ведущий — советник Главы Донецкой Народной Республики Захар Прилепин.&#13;
 </description>
-      <link>http://dainfo.loc/poster/doneck-moa-sparta-v-kinoteatre-zvezdocka</link>
-      <guid>http://dainfo.loc/poster/doneck-moa-sparta-v-kinoteatre-zvezdocka</guid>
+      <link>https://da-info.pro/poster/doneck-moa-sparta-v-kinoteatre-zvezdocka</link>
+      <guid>https://da-info.pro/poster/doneck-moa-sparta-v-kinoteatre-zvezdocka</guid>
       <pubDate>Tue, 25 Jul 2017 16:19:10 +0300</pubDate>
     </item>
     <item>
@@ -137,8 +137,8 @@
 &#13;
  &#13;
 </description>
-      <link>http://dainfo.loc/poster/slet-imeninnikov-mesaca-v-drc-akuna-matata</link>
-      <guid>http://dainfo.loc/poster/slet-imeninnikov-mesaca-v-drc-akuna-matata</guid>
+      <link>https://da-info.pro/poster/slet-imeninnikov-mesaca-v-drc-akuna-matata</link>
+      <guid>https://da-info.pro/poster/slet-imeninnikov-mesaca-v-drc-akuna-matata</guid>
       <pubDate>Tue, 25 Jul 2017 12:06:14 +0300</pubDate>
     </item>
   </channel>

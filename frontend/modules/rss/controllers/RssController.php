@@ -79,9 +79,9 @@ class RssController extends Controller {
                 'guid'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
                     //$date = date( DATE_RSS, $model->dt_public );
 
-                    return Url::to( [
+                    return 'https://da-info.pro/news/'.$model->slug/*Url::to( [
                         '/news/' . $model->slug
-                    ], true );
+                    ], true )*/;
                     //return $model->slug;
                 },
                 'pubDate'     => function ( $model, $widget, \Zelenin\Feed $feed ) {
@@ -160,9 +160,9 @@ class RssController extends Controller {
                 },
                 'guid'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
 
-                    return Url::to( [
+                    return 'https://da-info.pro/poster/'.$model->slug/*Url::to( [
                         '/poster/' . $model->slug
-                    ], true );
+                    ], true )*/;
                 },
                 'pubDate'     => function ( $model, $widget, \Zelenin\Feed $feed ) {
 
@@ -242,9 +242,9 @@ class RssController extends Controller {
                 'guid'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
                     //$date = date( DATE_RSS, $model->dt_public );
 
-                    return Url::to( [
+                    return 'https://da-info.pro/stream/'.$model->slug/*Url::to( [
                         '/stream/' . $model->slug
-                    ], true );
+                    ], true )*/;
                     //return $model->slug;
                 },
                 'pubDate'     => function ( $model, $widget, \Zelenin\Feed $feed ) {
@@ -317,9 +317,9 @@ class RssController extends Controller {
                 'guid'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
                     //$date = date( DATE_RSS, $model->dt_public );
 
-                    return Url::to( [
+                    return 'https://da-info.pro/stream/'.$model->slug;/*Url::to( [
                         '/stream/' . $model->slug
-                    ], true );
+                    ], true );*/
                     //return $model->slug;
                 },
                 'pubDate'     => function ( $model, $widget, \Zelenin\Feed $feed ) {

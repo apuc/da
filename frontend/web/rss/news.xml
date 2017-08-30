@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <atom:link href="https://da-info.pro/rss/news.xml" rel="self" type="application/rss+xml"/>
+    <atom:link href="http://dainfo.loc/rss/news.xml" rel="self" type="application/rss+xml"/>
     <generator>RSS Generator 2.1.1</generator>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <title>ДА. Новости</title>
-    <link>https://da-info.pro/rss/news.xml</link>
+    <link>http://dainfo.loc/rss/news.xml</link>
     <description>Портал города Донецка</description>
     <language>ru-RU</language>
     <image>
@@ -26,8 +26,8 @@
 Введение в CSS. Урок 3. Задание отступов и цвета фона с помощью CSS&#13;
 Введение в CSS. Урок 4 Оформление навигации (списков) с помощью CSS&#13;
 Введение...</description>
-      <link>http://dainfo.loc/news/vvedenie-v-css-urok-1-vveden</link>
-      <guid>http://dainfo.loc/news/vvedenie-v-css-urok-1-vveden</guid>
+      <link>https://da-info.pro/news/vvedenie-v-css-urok-1-vveden</link>
+      <guid>https://da-info.pro/news/vvedenie-v-css-urok-1-vveden</guid>
       <pubDate>Wed, 16 Aug 2017 11:00:50 +0300</pubDate>
     </item>
     <item>
@@ -36,8 +36,8 @@
       <category>Политика</category>
       <enclosure url="http://dainfo.loc/media/upload/novosti/mejdunarodnie_novosti/tramppodpisal.jpg" length="123" type="image/jpeg"/>
       <description>Донецк, 1 августа – DA Info Pro. У Дональда Трампа есть возможность не ставить подпись под законом о новых антироссийских санкциях, однако он ей не воспользуется. По словам вице-президента США Майкла Пенса, совершающего в эти дни турне по постсоветским странам, экономические ограничения против Москвы скоро начнут действовать. Причём очередное использование...</description>
-      <link>http://dainfo.loc/news/donald-tramp-podpiset-zakon-o-vvedenii-novyh-sankcij-protiv-rossii</link>
-      <guid>http://dainfo.loc/news/donald-tramp-podpiset-zakon-o-vvedenii-novyh-sankcij-protiv-rossii</guid>
+      <link>https://da-info.pro/news/donald-tramp-podpiset-zakon-o-vvedenii-novyh-sankcij-protiv-rossii</link>
+      <guid>https://da-info.pro/news/donald-tramp-podpiset-zakon-o-vvedenii-novyh-sankcij-protiv-rossii</guid>
       <pubDate>Tue, 01 Aug 2017 12:30:00 +0300</pubDate>
     </item>
     <item>
@@ -47,8 +47,8 @@
       <description>Донецк, 1 августа – DA Info Pro. На КПВВ заявили о том, что пограничные службы требуют от граждан, пересекающих границу на автомобилях, предъявлять официально заверенную нотариусом доверенность от владельца на право управления транспортным средством. Об этом рассказали в «Донбасс SOS».&#13;
 &#13;
 В организации подтвердили нововведение: «В пункт 5.11 были внесены изменения,...</description>
-      <link>http://dainfo.loc/news/vnimaniu-avtomobilistov-dla-peresecenia-linii-razgranicenia-na-avto-budet-nuzna-doverennost</link>
-      <guid>http://dainfo.loc/news/vnimaniu-avtomobilistov-dla-peresecenia-linii-razgranicenia-na-avto-budet-nuzna-doverennost</guid>
+      <link>https://da-info.pro/news/vnimaniu-avtomobilistov-dla-peresecenia-linii-razgranicenia-na-avto-budet-nuzna-doverennost</link>
+      <guid>https://da-info.pro/news/vnimaniu-avtomobilistov-dla-peresecenia-linii-razgranicenia-na-avto-budet-nuzna-doverennost</guid>
       <pubDate>Tue, 01 Aug 2017 11:05:00 +0300</pubDate>
     </item>
     <item>
@@ -61,8 +61,8 @@
 &#13;
 &#13;
 «Медицина – это показатель государственности и уровня жизни. Мы планируем поднять заработную...</description>
-      <link>http://dainfo.loc/news/v-dnr-podnimut-zarplatu-rabotnikam-sistemy-zdravoohranenia-zaharcenko</link>
-      <guid>http://dainfo.loc/news/v-dnr-podnimut-zarplatu-rabotnikam-sistemy-zdravoohranenia-zaharcenko</guid>
+      <link>https://da-info.pro/news/v-dnr-podnimut-zarplatu-rabotnikam-sistemy-zdravoohranenia-zaharcenko</link>
+      <guid>https://da-info.pro/news/v-dnr-podnimut-zarplatu-rabotnikam-sistemy-zdravoohranenia-zaharcenko</guid>
       <pubDate>Tue, 01 Aug 2017 10:30:00 +0300</pubDate>
     </item>
     <item>
@@ -72,8 +72,8 @@
       <description>Донецк, 1 августа – DA Info Pro. Начиная с 2016 года всем владельцам транспортных средств приходится платить транспортный налог. Об этом сказано в Законе Донецкой Народной Республики «О налоговой системе» от 25.12.2015 года №99 – IНС (далее Закон).&#13;
 &#13;
 Согласно Закону, оплачивать транспортный налог должны не только владельцы, но и лица, осуществляющие...</description>
-      <link>http://dainfo.loc/news/ne-uedes-ne-uplyves-kak-oplatit-transportnyj-nalog-v-dnr</link>
-      <guid>http://dainfo.loc/news/ne-uedes-ne-uplyves-kak-oplatit-transportnyj-nalog-v-dnr</guid>
+      <link>https://da-info.pro/news/ne-uedes-ne-uplyves-kak-oplatit-transportnyj-nalog-v-dnr</link>
+      <guid>https://da-info.pro/news/ne-uedes-ne-uplyves-kak-oplatit-transportnyj-nalog-v-dnr</guid>
       <pubDate>Tue, 01 Aug 2017 10:05:00 +0300</pubDate>
     </item>
     <item>
@@ -87,8 +87,8 @@
 Подробный обзор данных законодательных актов можно увидеть в журнале «Налоговый Советник» №3 (за август).&#13;
 &#13;
 Закон Донецкой Народной Республики «О внесении изменений в Статью 10 Закона Донецкой Народной Республики «О лицензировании отдельных видов хозяйственной деятельности» от 10.02.2017 г. №...</description>
-      <link>http://dainfo.loc/news/nedelnyj-pravovoj-dajdzest-ot-zurnala-nalogovyj-sovetnik</link>
-      <guid>http://dainfo.loc/news/nedelnyj-pravovoj-dajdzest-ot-zurnala-nalogovyj-sovetnik</guid>
+      <link>https://da-info.pro/news/nedelnyj-pravovoj-dajdzest-ot-zurnala-nalogovyj-sovetnik</link>
+      <guid>https://da-info.pro/news/nedelnyj-pravovoj-dajdzest-ot-zurnala-nalogovyj-sovetnik</guid>
       <pubDate>Tue, 01 Aug 2017 09:53:00 +0300</pubDate>
     </item>
     <item>
@@ -102,8 +102,8 @@
 Ситуация на блокпостах #Артемовск #Бахмут #Майорск #Зайцево #Никитовка #КПВВ&#13;
 &#13;
 - Госпогранслужба Украины о ситуации на украинских КПВВ: сегодня утром...</description>
-      <link>http://dainfo.loc/news/situacia-na-blokpostah-i-granice-s-rf-na-segodna-1-avgusta</link>
-      <guid>http://dainfo.loc/news/situacia-na-blokpostah-i-granice-s-rf-na-segodna-1-avgusta</guid>
+      <link>https://da-info.pro/news/situacia-na-blokpostah-i-granice-s-rf-na-segodna-1-avgusta</link>
+      <guid>https://da-info.pro/news/situacia-na-blokpostah-i-granice-s-rf-na-segodna-1-avgusta</guid>
       <pubDate>Tue, 01 Aug 2017 09:40:00 +0300</pubDate>
     </item>
     <item>
@@ -115,8 +115,8 @@
 &#13;
 &#13;
 Народный прогноз погоды: 1 августа отмечается день памяти преподобной Макрины (Макриды)....</description>
-      <link>http://dainfo.loc/news/pogoda-v-donecke-na-1-avgusta</link>
-      <guid>http://dainfo.loc/news/pogoda-v-donecke-na-1-avgusta</guid>
+      <link>https://da-info.pro/news/pogoda-v-donecke-na-1-avgusta</link>
+      <guid>https://da-info.pro/news/pogoda-v-donecke-na-1-avgusta</guid>
       <pubDate>Tue, 01 Aug 2017 09:30:00 +0300</pubDate>
     </item>
     <item>
@@ -139,8 +139,8 @@
 			&#13;
 			&#13;
 			Доллар...</description>
-      <link>http://dainfo.loc/news/kakoj-kurs-valut-v-donecke-1-avgusta</link>
-      <guid>http://dainfo.loc/news/kakoj-kurs-valut-v-donecke-1-avgusta</guid>
+      <link>https://da-info.pro/news/kakoj-kurs-valut-v-donecke-1-avgusta</link>
+      <guid>https://da-info.pro/news/kakoj-kurs-valut-v-donecke-1-avgusta</guid>
       <pubDate>Tue, 01 Aug 2017 09:23:30 +0300</pubDate>
     </item>
     <item>
@@ -151,8 +151,8 @@
       <description>Донецк, 1 августа – DA Info Pro. Верховный Суд ДНР принял решение, признать экстремистскими печатные материалы, которые выпускают религиозные организации «Свидетели Иеговы».&#13;
 &#13;
 В связи с заключением специалистов центра судэкспертизы Минюста ДНР, в текстах листовок «Точка зрения Библии. Претерпело ли христианство крах?» и «Будете ли вы следовать любящему руководству Иеговы?» есть информация, которая...</description>
-      <link>http://dainfo.loc/news/pecatnye-materialy-organizacii-svideteli-iegovy-priznany-ekstremistskimi</link>
-      <guid>http://dainfo.loc/news/pecatnye-materialy-organizacii-svideteli-iegovy-priznany-ekstremistskimi</guid>
+      <link>https://da-info.pro/news/pecatnye-materialy-organizacii-svideteli-iegovy-priznany-ekstremistskimi</link>
+      <guid>https://da-info.pro/news/pecatnye-materialy-organizacii-svideteli-iegovy-priznany-ekstremistskimi</guid>
       <pubDate>Tue, 01 Aug 2017 09:00:00 +0300</pubDate>
     </item>
   </channel>
