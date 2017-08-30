@@ -74,7 +74,7 @@ class RssController extends Controller {
                     return StringHelper::truncateWords( strip_tags( $model->content ), 50 );
                 },
                 'link'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
-                    return Url::to( [ '/news/' . $model->slug ], true );
+                    return 'https://da-info.pro/news/'.$model->slug/*Url::to( [ '/news/' . $model->slug ], true )*/;
                 },
                 'guid'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
                     //$date = date( DATE_RSS, $model->dt_public );
@@ -156,7 +156,7 @@ class RssController extends Controller {
                     return StringHelper::truncateWords( strip_tags( $model->descr ), 50 );
                 },
                 'link'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
-                    return Url::to( [ '/poster/' . $model->slug ], true );
+                    return 'https://da-info.pro/poster/'.$model->slug/*Url::to( [ '/poster/' . $model->slug ], true )*/;
                 },
                 'guid'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
 
@@ -237,7 +237,7 @@ class RssController extends Controller {
                     return StringHelper::truncateWords( strip_tags( $model->text ), 50 );
                 },
                 'link'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
-                    return Url::to( [ '/stream/' . $model->slug ], true );
+                    return 'https://da-info.pro/stream/'.$model->slug/*Url::to( [ '/stream/' . $model->slug ], true )*/;
                 },
                 'guid'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
                     //$date = date( DATE_RSS, $model->dt_public );
@@ -312,7 +312,7 @@ class RssController extends Controller {
                     return StringHelper::truncateWords( strip_tags( $model->text ), 50 );
                 },
                 'link'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
-                    return Url::to( [ '/stream/' . $model->slug ], true );
+                    return 'https://da-info.pro/stream/'.$model->slug/*Url::to( [ '/stream/' . $model->slug ], true )*/;
                 },
                 'guid'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
                     //$date = date( DATE_RSS, $model->dt_public );
