@@ -123,11 +123,31 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                                     ?>
                                     <span><?= $address ?></span>
                                 </p>
-                                <?php $phone = explode(' ', $organizations[$pos]->phone) ?>
-                                <ul class="business__sm-item--numbers">
-                                    <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
-                                    <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
-                                </ul>
+
+                                <?php if (!empty($organizations[$pos]->phone)): ?>
+                                    <?php $phone = explode(' ', $organizations[$pos]->phone) ?>
+                                    <ul class="business__sm-item--numbers">
+                                        <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
+                                        <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
+                                    </ul>
+
+                                    <ul class="business__sm-item--numbers">
+                                        <li><?= isset($phone[2]) ? $phone[2] : '' ?></li>
+                                        <li> <?= isset($phone[3]) ? $phone[3] : '' ?></li>
+                                    </ul>
+
+                                <?php elseif(!empty($organizations[$pos]->allPhones)):?>
+                                    <ul class="business__sm-item--numbers">
+                                    <?php foreach ($organizations[$pos]->allPhones as $key => $phones):?>
+                                        <?php if ($key == 2):?>
+                                            </ul><ul class="business__sm-item--numbers">
+                                        <?php endif; ?>
+                                        <li><?= $phones->phone?></li>
+                                        <?php if ($key == 1) break;?>
+                                    <?php endforeach;?>
+                                    </ul>
+                                <?php endif; ?>
+
 
                                 <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->
                                 <p class="business__sm-item--views"><?= $organizations[$pos]->views ?></p>

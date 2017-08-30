@@ -36,12 +36,6 @@ $md = new \common\classes\Mobile_Detect();
                 <a href="">подписаться</a>
 
             </div>
-            <!--<div class="hot-tag">-->
-            <!--    <a href="">Криптовалюты </a>-->
-            <!--    <a href="">Дональд Трамп</a>-->
-            <!--    <a href="">ОПЕК</a>-->
-            <!--    <a href="">Китай Tesla </a>-->
-            <!--</div>-->
         </div>
         <div class="news__wrap">
 
@@ -59,11 +53,11 @@ $md = new \common\classes\Mobile_Detect();
                             'slug' => $currNew->slug,
                         ]); ?>" class="news__wrap_item-lg">
                             <div class="thumb">
-                                <?if(stristr($currNew->photo, 'http')):?>
+                                <?php if(stristr($currNew->photo, 'http')):?>
                                     <img class="thumbnail" src="<?= $currNew->photo?>" alt="">
-                                <?else: ?>
+                                <?php else: ?>
                                     <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>" alt="">
-                                <?endif;?>
+                                <?php endif;?>
                                 <div class="content-row">
                                     <span><?= WordFunctions::dateWithMonts($currNew->dt_public); ?></span>
                                     <span><?= $cat->title; ?></span>
@@ -82,11 +76,11 @@ $md = new \common\classes\Mobile_Detect();
                                 '/news/default/view',
                                 'slug' => $currNew->slug,
                             ]); ?>" class="thumb">
-                                <?if(stristr($currNew->photo, 'http')):?>
+                                <?php if(stristr($currNew->photo, 'http')):?>
                                     <img class="thumbnail" src="<?= $currNew->photo?>" alt="">
-                                <?else: ?>
+                                <?php else: ?>
                                     <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>" alt="">
-                                <?endif;?>
+                                <?php endif;?>
                                 <div class="content-row">
                                     <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
                                     <span><small
@@ -116,11 +110,11 @@ $md = new \common\classes\Mobile_Detect();
                     ]); ?>" class=" news__wrap_item-sm-hot">
                         <!-- thumb -->
                         <div class="thumb">
-                            <?if(stristr($currHotNew->photo, 'http')):?>
+                            <?php if(stristr($currHotNew->photo, 'http')):?>
                                 <img class="thumbnail" src="<?= $currHotNew->photo?>" alt="">
-                            <?else: ?>
+                            <?php else: ?>
                                 <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($currHotNew->photo); ?>" alt="">
-                            <?endif;?>
+                            <?php endif;?>
                             <div class="content-row">
                                 <span><small class="view-icon"></small><?= $currHotNew->views; ?></span>
                                 <span><small

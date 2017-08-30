@@ -6,9 +6,9 @@
             <p><?= $mainBannerPoster->main_poster_subtitle; ?></p>
             <!--<span class="banner-date"><?/*= $mainBannerPoster->main_poster_substrate; */?></span>-->
             <?php if(Yii::$app->user->isGuest): ?>
-                <a class="banner-date" href="<?= \yii\helpers\Url::to(['/user/register'])?>">Расказать городу</a>
+                <a class="banner-date" href="<?= \yii\helpers\Url::to(['/user/register'])?>">Рассказать городу</a>
             <?php else: ?>
-                <a class="banner-date" href="<?= \yii\helpers\Url::to(['/poster/default/create'])?>">Расказать городу</a>
+                <a class="banner-date" href="<?= \yii\helpers\Url::to(['/poster/default/create'])?>">Рассказать городу</a>
             <?php endif; ?>
         </div>
     </div>

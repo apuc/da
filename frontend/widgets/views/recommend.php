@@ -24,8 +24,7 @@ use yii\helpers\Url; ?>
 
         <p class="business__sm-item--title"><?= $companyBig->name; ?></p>
 
-
-        <?php if (!empty($company->phone)): ?>
+        <?php if (!empty($companyBig->phone)): ?>
             <?php $phone = explode(' ', $company->phone) ?>
             <ul class="business__sm-item--numbers">
                 <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
@@ -33,11 +32,11 @@ use yii\helpers\Url; ?>
             </ul>
 
 
-        <?php elseif(!empty($company->allPhones)):?>
+        <?php elseif(!empty($companyBig->allPhones)):?>
             <ul class="business__sm-item--numbers">
-                <?php foreach ($company->allPhones as $key => $phones):?>
+                <?php foreach ($companyBig->allPhones as $key => $phones):?>
                     <li><?= $phones->phone?></li>
-                    <? if ($key == 2) break;?>
+                    <? if ($key == 1) break;?>
                 <?php endforeach;?>
             </ul>
         <?php endif; ?>

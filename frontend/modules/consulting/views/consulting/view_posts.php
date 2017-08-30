@@ -25,8 +25,11 @@ $this->registerMetaTag([
             <h1><?= $consulting->title; ?></h1>
             <?= \frontend\modules\consulting\widgets\ConsultingPostsMenu::widget(['consulting' => $consulting]); ?>
         </div>
-        <div class="search"><input type="text" placeholder="Поиск">
-            <button class="search-consulting-post">Найти</button>
+        <div class="consultants__main">
+            <form action="" class="search-block">
+                <input type="text" placeholder="Поиск">
+                <button>Найти</button>
+            </form>
         </div>
         <article id="article">
             <h2><?= $postsTitle; ?></h2>
