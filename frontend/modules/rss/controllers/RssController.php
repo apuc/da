@@ -304,8 +304,8 @@ class RssController extends Controller {
                     return $model->title;
                 },
                 'enclosure'   => function ( $model, $widget, \Zelenin\Feed $feed ) {
-                    if ( ! empty( $model->gif->gif_link ) ) {
-                        $feed->addItemEnclosure( $model->gif->gif_link, 123, 'image/jpeg' );
+                    if ( ! empty( $model->gif[0]->gif_link ) ) {
+                        $feed->addItemEnclosure( $model->gif[0]->gif_link, 123, 'image/gif' );
                     }
                 },
                 'description' => function ( $model, $widget, \Zelenin\Feed $feed ) {
