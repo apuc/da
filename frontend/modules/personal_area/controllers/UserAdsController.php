@@ -42,6 +42,7 @@ class UserAdsController extends Controller
 
     public function actionIndex()
     {
+        Yii::$app->session->setFlash('warning', 'Данный раздел находится в Бетта тестировании. Спасибо за понимание.');
         $email = \dektrium\user\models\User::find()->where(['id' => Yii::$app->user->id])->one()->email;
         //$email = 12;
 

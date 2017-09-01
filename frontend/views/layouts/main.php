@@ -30,7 +30,7 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-
+<?= Alert::widget() ?>
 <?= \frontend\widgets\ShowHeader::widget(); ?>
 
 <?= $content; ?>
