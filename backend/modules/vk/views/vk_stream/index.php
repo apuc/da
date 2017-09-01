@@ -87,7 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     foreach ((array)$gif as $item) {
 
                         if (!empty($item->gif_link)) {
-                            $text .= '<span>' . Html::img($item->getLargePreview(), ['width' => 300]) . '</span>';
+                            $text .= '<span>' . Html::img($item->gif_link, ['width' => 300]) . '</span>';
                         }
                         /* if (!empty($item->preview_x)) {
                              $text .= '<span>' . Html::img($item->preview_x, ['width' => 300]) . '</span>';

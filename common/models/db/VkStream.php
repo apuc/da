@@ -144,6 +144,7 @@ class VkStream extends \yii\db\ActiveRecord
     {
         return self::find()
             ->where(['status' => 1])
+            ->andWhere(['<','dt_publish', time()])
             ->count();
     }
 

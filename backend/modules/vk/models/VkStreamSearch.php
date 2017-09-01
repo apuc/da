@@ -37,7 +37,8 @@ class VkStreamSearch extends VkStream
      * Creates data provider instance with search query applied
      *
      * @param array $params
-     *
+     * @param array $condition
+     * @param string $orderBy
      * @return ActiveDataProvider
      */
     public function search($params, $condition = null, $orderBy)
