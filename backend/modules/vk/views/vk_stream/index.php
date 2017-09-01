@@ -48,7 +48,13 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'dt_add',
                 'value' => function ($model) {
-                    return date('Y-m-d H:i', $model->dt_add);
+                $controller = Yii::$app->controller->id;
+                    if($controller === 'vk_stream' || $controller === 'vk_basket' || $controller === 'vk_publish'){
+                        return date('Y-m-d H:i', $model->dt_add);
+                    }
+                    if($controller === 'vk_published'){
+                        return date('Y-m-d H:i', $model->dt_publish);
+                    }
                 },
             ],
             // 'post_type',

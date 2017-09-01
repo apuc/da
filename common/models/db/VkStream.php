@@ -58,13 +58,13 @@ class VkStream extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'vk_id' => 'Vk ID',
+            'vk_id' => 'ВК',
             'from_id' => 'From ID',
             'owner_id' => 'Owner ID',
             'owner_type' => 'Owner Type',
-            'dt_add' => 'Dt Add',
+            'dt_add' => 'Дата',
             'post_type' => 'Post Type',
-            'text' => 'Text',
+            'text' => 'Текст',
             'from_type' => 'From Type',
             'status' => 'Статус',
             'views' => 'Просмотры',
