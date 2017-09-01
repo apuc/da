@@ -26,3 +26,12 @@
     float: right !important;
     margin-top: 15px !important;
 }
+
+.rubl-icon svg {
+    display: inline-block;
+    width: 16px;
+    height: 13px;
+    position: relative;
+    top: -1px;
+    left: -1px;
+}
