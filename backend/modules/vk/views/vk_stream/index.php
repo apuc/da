@@ -48,7 +48,13 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'dt_add',
                 'value' => function ($model) {
-                    return date('Y-m-d H:i', $model->dt_add);
+                $controller = Yii::$app->controller->id;
+                    if($controller === 'vk_stream' || $controller === 'vk_basket' || $controller === 'vk_publish'){
+                        return date('Y-m-d H:i', $model->dt_add);
+                    }
+                    if($controller === 'vk_published'){
+                        return date('Y-m-d H:i', $model->dt_publish);
+                    }
                 },
             ],
             // 'post_type',
@@ -87,7 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     foreach ((array)$gif as $item) {
 
                         if (!empty($item->gif_link)) {
-                            $text .= '<span>' . Html::img($item->getLargePreview(), ['width' => 300]) . '</span>';
+                            $text .= '<span>' . Html::img($item->gif_link, ['width' => 300]) . '</span>';
                         }
                         /* if (!empty($item->preview_x)) {
                              $text .= '<span>' . Html::img($item->preview_x, ['width' => 300]) . '</span>';
