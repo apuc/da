@@ -201,7 +201,7 @@ $(document).ready(function () {
                 'category': $(this).attr('data-category')
             },
             success: function (data) {
-                $('.show-more-news-js').attr('data-offset', parseInt($('.show-more-news-js').attr('data-offset')) + 16);
+                $('.show-more-category-news-js').attr('data-offset', parseInt($('.show-more-category-news-js').attr('data-offset')) + 16);
                 $('.home-content__wrap_subscribe').before(data);
 
             }
