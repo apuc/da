@@ -32,12 +32,13 @@ $this->registerMetaTag([
                 'activeCategorySlug' => $activeCategory,
             ]); ?>
         </div>
-        <div class="consultants__main">
+        <!--<div class="consultants__main">
             <form action="" class="search-block">
                 <input type="text" placeholder="Поиск">
                 <button>Найти</button>
             </form>
-        </div>
+        </div>-->
+        <?= \frontend\modules\consulting\widgets\SearchForm::widget() ?>
         <article id="article">
             <h2><?= $post->question; ?></h2>
 
