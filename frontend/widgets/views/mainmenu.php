@@ -14,7 +14,7 @@
         <li><a href="/">Info Pro</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/all-new'])?>">Новости</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/all-company'])?>">Предприятия</a></li>
-        <li><a href="<?= \yii\helpers\Url::to(['/site/design'])?>">Объявления</a></li>
+        <li><a href="<?= \yii\helpers\Url::to(['/board/default'])?>">Объявления</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/all-poster'])?>">Афиша</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/consulting'])?>">Консультации</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/promotions'])?>">Акции</a></li>
