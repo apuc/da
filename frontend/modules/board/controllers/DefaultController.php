@@ -6,6 +6,7 @@ use common\classes\Debug;
 use frontend\modules\board\models\Ads;
 use Yii;
 use yii\data\Pagination;
+use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\imagine\Image;
 use yii\web\Controller;
@@ -16,6 +17,30 @@ use yii\web\Controller;
 class DefaultController extends Controller
 {
     public $siteApi;
+
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['index', 'category-ads', 'view', 'get-children-category', 'show-city-list', 'search', 'general-modal', 'show-category', 'show-parent-modal-category', 'ShowCategoryEnd', 'show-additional-fields'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                ],
+            ],
+        ];
+    }
 
     public function beforeAction($action)
     {

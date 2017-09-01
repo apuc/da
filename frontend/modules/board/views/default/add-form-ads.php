@@ -164,8 +164,15 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         'mask' => ['+9 (999) 999-9999', '+99(999) 999-99-99'],
     ])->label('Телефон<span>*</span>')->hint('как с Вами связаться?') ?>
 
-    <?= $form->field($model,
-        'mail')->textInput()->label('Mail<span>*</span>')->hint('Вы можете указать публичный емейл в личном кабинете') ?>
+
+    <?= $form->field($model, 'mail')
+        ->textInput(
+            [
+                'readonly' => true,
+                'value' => \dektrium\user\models\User::find()->where(['id' => Yii::$app->user->id])->one()->email,
+            ]
+        )
+        ->label('Mail<span>*</span>')->hint('Email который вы указали при регистрации')?>
 
     <h2 class="soglasie">Согласие на обработку данных</h2>
     <hr class="lineAddAds"/>
