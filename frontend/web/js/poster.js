@@ -9,9 +9,10 @@ $(document).ready(function () {
                 _csrf: $('meta[name=csrf-token]').attr("content")
             },
             success: function (data) {
+                console.log(data);
                 var res = JSON.parse(data);
-                $('#more-poster-box').append(res.html);
-                $('#load-more-posters').attr('data-step', step + 1);
+                $('.news__wrap_buttons').before(res.html);
+                $('#load-more-posters').attr('data-step', step + 4);
                 if(res.last === 1){
                     $('#load-more-posters').remove();
                 }

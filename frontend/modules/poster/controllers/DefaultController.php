@@ -308,7 +308,7 @@ class DefaultController extends Controller
         $poster = Poster::find()
             ->where(['>=', 'dt_event_end', time()])
             ->orderBy('dt_event')
-            ->offset(((int)$step - 1) * 4)
+            ->offset($step)
             ->limit(4)
             ->with('categories')
             ->all();
