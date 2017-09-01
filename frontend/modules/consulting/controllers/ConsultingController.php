@@ -342,6 +342,8 @@ class ConsultingController extends \yii\web\Controller
      */
     private function getArrayConsulting(array $consaltings, $type)
     {
+        $result = [];
+
         foreach ($consaltings as $consalting){
             if('faq-post' != $type){
                 $result[] = [
@@ -361,7 +363,7 @@ class ConsultingController extends \yii\web\Controller
                 'url' => $type
             ];
         }
-        return ($result) ? $result : [];
+        return $result;
     }
 
 }
