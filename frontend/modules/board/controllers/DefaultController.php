@@ -334,4 +334,12 @@ class DefaultController extends Controller
 
     }
 
+    public function actionDelete($id)
+    {
+
+        $contents = file_get_contents($this->siteApi . '/ads/edit?id='. $id);
+        echo $contents;
+        //Yii::$app->session->setFlash('success','Ваше объявление успешно добавлено. После прохождения модерации оно будет опубликовано.');
+        //return $this->redirect('/personal_area/user-ads');
+    }
 }

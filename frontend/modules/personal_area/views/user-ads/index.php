@@ -65,7 +65,7 @@ $this->registerCssFile('/css/board.css');
             </div>
             <div class="cabinet__company-box--edit">
                 <!--<a href="#"><img src="/img/icons/edit-img.png"><span>редактировать</span></a>-->
-                <a data-method="post" href="<?= \yii\helpers\Url::to(['/board/default/delete', 'id' => $item->id])?>" class="cabinet__like-block--company-remove">удалить</a>
+                <a href="<?= \yii\helpers\Url::to(['/board/default/delete', 'id' => $item->id])?>" class="cabinet__like-block--company-remove">удалить</a>
             </div>
             <?= $this->render('view-status', ['status' => $item->status]); ?>
 
