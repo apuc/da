@@ -1,9 +1,5 @@
 <?php
-/**
- * @var $ads
- * @var $pagination
- *
- */
+$this->title = 'Мои объявления';
 
 use yii\widgets\LinkPager;
 
@@ -68,9 +64,11 @@ $this->registerCssFile('/css/board.css');
                 </div>
             </div>
             <div class="cabinet__company-box--edit">
-                <!--<a href="#"><img src="/img/icons/edit-img.png"><span>редактировать</span></a>
-                <a href="#"><img src="/img/icons/delete-img.png"><span>удалить</span></a>-->
+                <!--<a href="#"><img src="/img/icons/edit-img.png"><span>редактировать</span></a>-->
+                <a data-method="post" href="<?= \yii\helpers\Url::to(['/board/default/delete', 'id' => $item->id])?>" class="cabinet__like-block--company-remove">удалить</a>
             </div>
+            <?= $this->render('view-status', ['status' => $item->status]); ?>
+
             <!--<div class="cabinet__company-box--button">
                 <a href="#" class="show-more">Обновить объявление</a>
             </div>-->

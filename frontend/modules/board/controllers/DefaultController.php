@@ -171,7 +171,8 @@ class DefaultController extends Controller
             ];
             $context = stream_context_create($aHTTP);
             $contents = file_get_contents($sURL, false, $context);
-            echo $contents;
+            Yii::$app->session->setFlash('success','Ваше объявление успешно добавлено. После прохождения модерации оно будет опубликовано.');
+            return $this->redirect('/personal_area/default/index');
         } else {
             $model = new Ads();
 
