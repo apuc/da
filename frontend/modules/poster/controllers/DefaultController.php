@@ -56,12 +56,12 @@ class DefaultController extends Controller
     }
 
     /**
-     * Renders the index view for the module
-     * @return string
+     * @throws \yii\web\HttpException
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        //return $this->render('index');
+        throw new \yii\web\HttpException(404 ,'Страница не найдена.');
     }
 
     public function actionView($slug)
