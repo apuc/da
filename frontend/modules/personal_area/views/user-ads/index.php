@@ -64,6 +64,7 @@ $this->registerCssFile('/css/board.css');
                 </div>
             </div>
             <div class="cabinet__company-box--edit">
+                <a href="<?= \yii\helpers\Url::to(['/board/default/update', 'id' => $item->id])?>" class="cabinet__like-block--company-edit">редактировать</a>
                 <!--<a href="#"><img src="/img/icons/edit-img.png"><span>редактировать</span></a>-->
                 <a href="<?= \yii\helpers\Url::to(['/board/default/delete', 'id' => $item->id])?>" class="cabinet__like-block--company-remove">удалить</a>
             </div>
