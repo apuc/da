@@ -14,12 +14,15 @@ use yii\base\Widget;
 class ShowFilterTop extends Widget
 {
     public $siteApi;
+    public $apiKey;
+
     public function run()
     {
         $this->siteApi = Yii::$app->params['site-api'];
+        $this->apiKey = Yii::$app->params['api-key'];
 
         $cat = file_get_contents($this->siteApi . '/category?parent=0');
-        $region = file_get_contents($this->siteApi . '/region');
+        $region = file_get_contents($this->siteApi . '/region' . '?api_key=' . $this->apiKey);
 
         $get = Yii::$app->request->get();
 
