@@ -17,7 +17,7 @@
             <a href="<?= \yii\helpers\Url::to(['/promotions/promotions/create']) ?>" class="fix-button__list--stock">Акция</a>
         </li>
         <li>
-            <a href="<?= \yii\helpers\Url::to(['/board/default/create']) ?>" class="fix-button__list--advert">Объявление</a>
+            <a href="<?= \yii\helpers\Url::to(['/board/default/create']) ?>" class="fix-button__list--adds">Объявление</a>
         </li>
     </ul>
 

@@ -17,6 +17,7 @@ use yii\web\Controller;
 class DefaultController extends Controller
 {
     public $siteApi;
+    public $apiKey;
 
 
     /**
@@ -45,6 +46,7 @@ class DefaultController extends Controller
     public function beforeAction($action)
     {
         $this->siteApi = Yii::$app->params['site-api'];
+        $this->apiKey = Yii::$app->params['api-key'];
         return parent::beforeAction($action);
     }
 
@@ -60,22 +62,30 @@ class DefaultController extends Controller
 
         Yii::$app->session->setFlash('warning', 'Данный раздел находится в Бетта тестировании. Спасибо за понимание.');
 
-        $rez = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page',
-                1));
+        $rez = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page',1) . '&api_key=' . $this->apiKey);
+        //$rez = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page',1));
+
 
         $rez = json_decode($rez);
 
-        $pagination = new Pagination([
-            'defaultPageSize' => 10,
-            'totalCount' => $rez->_meta->totalCount,
-            'pageSizeParam' => false,
-        ]);
-        return $this->render('index',
-            [
-                'ads' => $rez->ads,
-                'pagination' => $pagination,
-            ]
-        );
+        if(!isset($rez->_meta->totalCount)){
+            echo $rez;
+        }else{
+            $pagination = new Pagination([
+                'defaultPageSize' => 10,
+                'totalCount' => $rez->_meta->totalCount,
+                'pageSizeParam' => false,
+            ]);
+            return $this->render('index',
+                [
+                    'ads' => $rez->ads,
+                    'pagination' => $pagination,
+                ]
+            );
+        }
+
+       // Debug::prn($rez);
+        /**/
     }
 
     public function actionCategoryAds($slug)
@@ -104,13 +114,20 @@ class DefaultController extends Controller
 
     public function actionView($slug, $id)
     {Yii::$app->session->setFlash('warning', 'Данный раздел находится в Бетта тестировании. Спасибо за понимание.');
-        $ads = file_get_contents($this->siteApi . '/ads/' . $id . '?expand=adsImgs,adsFieldsValues');
+        $ads = file_get_contents($this->siteApi . '/ads/' . $id . '?expand=adsImgs,adsFieldsValues' . '&api_key=' . $this->apiKey);
 
-        return $this->render('view',
-            [
-                'ads' => json_decode($ads),
-            ]
-        );
+        $ads = json_decode($ads);
+        if(!isset($ads->title)){
+            echo $ads;
+        }
+        else {
+            return $this->render('view',
+                [
+                    'ads' => $ads,
+                ]
+            );
+        }
+
     }
 
     public function actionCreate()

@@ -17,6 +17,7 @@ use yii\filters\AccessControl;
 class UserAdsController extends Controller
 {
     public $siteApi;
+    public $apiKey;
 
     public function behaviors()
     {
@@ -37,6 +38,7 @@ class UserAdsController extends Controller
     public function beforeAction($action)
     {
         $this->siteApi = Yii::$app->params['site-api'];
+        $this->apiKey = Yii::$app->params['api-key'];
         return parent::beforeAction($action);
     }
 
@@ -46,22 +48,26 @@ class UserAdsController extends Controller
         $email = \dektrium\user\models\User::find()->where(['id' => Yii::$app->user->id])->one()->email;
         //$email = 12;
 
-        $rez = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page', 1) . '&user=' . $email);
+        $rez = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page', 1) . '&user=' . $email . '&api_key=' . $this->apiKey);
 
         $rez = json_decode($rez);
 
-        $pagination = new Pagination([
-            'defaultPageSize' => 10,
-            'totalCount' => $rez->_meta->totalCount,
-            'pageSizeParam' => false,
-        ]);
+        if(!isset($rez->_meta->totalCount)){
+            echo $rez;
+        }else {
+            $pagination = new Pagination([
+                'defaultPageSize' => 10,
+                'totalCount' => $rez->_meta->totalCount,
+                'pageSizeParam' => false,
+            ]);
 
-        //Debug::prn($rez->ads);
-        return $this->render('index',
-            [
-                'ads' => $rez->ads,
-                'pagination' => $pagination,
-            ]
-        );
+            //Debug::prn($rez->ads);
+            return $this->render('index',
+                [
+                    'ads' => $rez->ads,
+                    'pagination' => $pagination,
+                ]
+            );
+        }
     }
 }
