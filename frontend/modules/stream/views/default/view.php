@@ -1,4 +1,9 @@
 <?php
+/**
+ * @var $model \common\models\db\VkStream
+ * @var $count
+ */
+
 use common\classes\DateFunctions;
 use frontend\widgets\ShowRightRecommend;
 use common\models\User;

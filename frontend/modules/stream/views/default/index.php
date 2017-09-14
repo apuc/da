@@ -1,12 +1,19 @@
 <?php
 /**
  * @var $model \common\models\db\VkStream
+ * @var $count
+ * @var $meta_title
+ * @var $meta_desc
  */
 use common\classes\DateFunctions;
 use common\models\User;
 use frontend\widgets\ShowRightRecommend;
 
-$this->title = 'В соцсетях';
+$this->title = $meta_title;
+$this->registerMetaTag( [
+    'name'    => 'description',
+    'content' => $meta_desc,
+] );
 $this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii\web\JqueryAsset::className()]);
 $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
@@ -25,7 +32,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                 <ul class="parser__top-nav">
                     <li><a href="<?= \yii\helpers\Url::to(['/stream'])?>">Все материалы <span><?= $count?></span></a></li>
                     <li><a href="<?= \yii\helpers\Url::to(['/stream'])?>">ВК
-                            <span><?=$count?></span></a></li>
+                            <span><?= $count ?></span></a></li>
                 </ul>
 
                 <div class="parser__wrapper">

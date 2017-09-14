@@ -4,6 +4,7 @@ namespace frontend\modules\stream\controllers;
 
 use backend\modules\comments\models\Comments;
 use common\classes\Debug;
+use common\models\db\KeyValue;
 use common\models\db\VkComments;
 use common\models\db\VkStream;
 use common\models\User;
@@ -44,7 +45,9 @@ class DefaultController extends Controller
         return $this->render('index', [
             'model1' => $result[1],
             'model2' => $result[2],
-            'count' => $count
+            'count' => $count,
+            'meta_title' => KeyValue::findOne( [ 'key' => 'stream_title_page' ] )->value,
+            'meta_desc' => KeyValue::findOne( [ 'key' => 'stream_desc_page' ] )->value,
         ]);
     }
 
