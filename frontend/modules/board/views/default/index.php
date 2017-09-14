@@ -2,7 +2,15 @@
 /**
  * @var $ads
  * @var $category
+ * @var $meta_title
+ * @var $meta_desc
  */
+
+$this->title = $meta_title;
+$this->registerMetaTag( [
+    'name'    => 'description',
+    'content' => $meta_desc,
+] );
 
 use yii\widgets\LinkPager;
 $this->registerJsFile('/js/jquery-ui-1.12.1/jquery-ui.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);

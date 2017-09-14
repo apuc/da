@@ -3,6 +3,7 @@
 namespace frontend\modules\board\controllers;
 
 use common\classes\Debug;
+use common\models\db\KeyValue;
 use frontend\modules\board\models\Ads;
 use Yii;
 use yii\data\Pagination;
@@ -80,6 +81,8 @@ class DefaultController extends Controller
                 [
                     'ads' => $rez->ads,
                     'pagination' => $pagination,
+                    'meta_title' => KeyValue::findOne( [ 'key' => 'board_title_page' ] )->value,
+                    'meta_desc' => KeyValue::findOne( [ 'key' => 'board_desc_page' ] )->value,
                 ]
             );
         }
@@ -90,12 +93,12 @@ class DefaultController extends Controller
 
     public function actionCategoryAds($slug)
     {
-        $cat = file_get_contents($this->siteApi . '/category/get-category-by-slug?cat=' . Yii::$app->request->get('slug'));
+        $cat = file_get_contents($this->siteApi . '/category/get-category-by-slug?cat=' . Yii::$app->request->get('slug') . '&api_key=' . $this->apiKey);
         $cat = json_decode($cat);
         // Debug::prn($cat);
 
         $rez = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page',
-                1) . '&catId=' . $cat->id);
+                1) . '&catId=' . $cat->id . '&api_key=' . $this->apiKey);
 
         $rez = json_decode($rez);
 
@@ -108,6 +111,8 @@ class DefaultController extends Controller
             [
                 'ads' => $rez->ads,
                 'pagination' => $pagination,
+                'meta_title' => $cat->name . ' ' . KeyValue::findOne( [ 'key' => 'board_title_page' ] )->value,
+                'meta_desc' => $cat->name . ' ' . KeyValue::findOne( [ 'key' => 'board_desc_page' ] )->value,
             ]
         );
     }
@@ -356,6 +361,8 @@ class DefaultController extends Controller
             [
                 'ads' => $rez->ads,
                 'pagination' => $pagination,
+                'meta_title' => 'Поиск ' . KeyValue::findOne( [ 'key' => 'board_title_page' ] )->value,
+                'meta_desc' => 'Поиск ' . KeyValue::findOne( [ 'key' => 'board_desc_page' ] )->value,
             ]
         );
 
