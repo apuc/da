@@ -90,7 +90,7 @@ class DefaultController extends Controller
 
     public function actionEditStatus($status, $id)
     {
-        Debug::prn($status);
-        Debug::prn($id);
+        file_get_contents($this->siteApi . '/ads/edit-status?id=' . $id . '&status=' . $status .'&api_key=' . $this->apiKey);
+        return $this->redirect(['index']);
     }
 }
