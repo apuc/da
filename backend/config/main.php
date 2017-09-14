@@ -136,6 +136,9 @@ return [
         'tags' => [
             'class' => 'backend\modules\tags\Tags',
         ],
+        'board' => [
+            'class' => 'backend\modules\board\Board',
+        ],
     ],
     'components' => [
         /*'user' => [
@@ -174,7 +177,7 @@ return [
                 'polls' => 'polls/polls',
                 'entertainment' => 'entertainment/default',
                 'main-premiere' => 'poster/poster/main-premiere',
-                'stock' => 'stock/stock'
+                'stock' => 'stock/stock',
             ],
         ],
 

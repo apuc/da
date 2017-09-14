@@ -33,6 +33,8 @@ class MainMenuAdmin extends Widget
         $countBasketStream = VkStream::find()->where(['status' => 3])->count();
         $countDefferedStream = VkStream::find()->where(['status' => 1])->andWhere(['>', 'dt_publish', time()])->count();
         $countContacting = Contacting::find()->where(['status' => 0])->count();
+        $countAds = file_get_contents(Yii::$app->params['site-api'] . '/ads/count-moder-ads?api_key=' . Yii::$app->params['api-key']);
+        $countAds = json_decode($countAds);
 
         echo \yii\widgets\Menu::widget(
             [
@@ -98,6 +100,14 @@ class MainMenuAdmin extends Widget
                         'active' => Yii::$app->controller->module->id == 'comments',
                         'visible' => UserFunction::hasPermission(['Коментарии']),
                         'template' => '<a href="{url}"><i class="fa fa-comments"></i> <span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . Comments::getCountNotModerComments() . '</small></span></a>',
+
+                    ],
+                    [
+                        'label' => 'Объявления',
+                        'url' => Url::to(['/board/default']),
+                        'active' => Yii::$app->controller->module->id == 'board',
+                        'visible' => UserFunction::hasPermission(['Объявления']),
+                        'template' => '<a href="{url}"><i class="fa fa-dashboard"></i> <span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countAds . '</small></span></a>',
 
                     ],
                     [
