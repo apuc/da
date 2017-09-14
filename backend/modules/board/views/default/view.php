@@ -2,6 +2,7 @@
 /**
  * @var $ads
  */
+$this->title = $ads->title;
 //\common\classes\Debug::prn($ads);
 ?>
 
@@ -49,7 +50,7 @@
     </tr>
     <tr>
         <th>Телефон</th>
-        <td><?= $ads->price; ?></td>
+        <td><?= $ads->phone; ?></td>
     </tr>
     </tbody>
 </table>
