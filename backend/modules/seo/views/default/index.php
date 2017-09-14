@@ -2,6 +2,7 @@
 /**
  * @var $key_val array
  */
+$this->title = 'Настройка заголовков для сайта';
 use yii\helpers\Html;
 
 ?>
@@ -32,6 +33,19 @@ use yii\helpers\Html;
 <?php echo Html::textInput('consulting_page_meta_title', $key_val['consulting_page_meta_title'],['class' => 'form-control', 'id'=>'consulting_page_meta_title']) ?>
 <?php echo Html::label('Консалтинг: meta descr','consulting_page_meta_descr', ['class'=>'control-label']) ?>
 <?php echo Html::textInput('consulting_page_meta_descr', $key_val['consulting_page_meta_descr'],['class' => 'form-control', 'id'=>'consulting_page_meta_descr']) ?>
+
+<?php echo Html::label('В соцсетях: meta title', 'stream_title_page', ['class'=>'control-label'] ) ?>
+<?php echo Html::textInput('stream_title_page', $key_val['stream_title_page'], ['class' => 'form-control', 'id'=>'stream_title_page'] ) ?>
+
+<?php echo Html::label('В соцсетях: meta desc', 'stream_desc_page', ['class'=>'control-label'] ) ?>
+<?php echo Html::textInput('stream_desc_page', $key_val['stream_desc_page'], ['class' => 'form-control', 'id'=>'stream_desc_page'] ) ?>
+
+
+<?php echo Html::label('Объявления: meta title', 'board_title_page', ['class'=>'control-label']) ?>
+<?php echo Html::textInput('board_title_page', $key_val['board_title_page'], ['class' => 'form-control', 'id'=>'board_title_page'] ) ?>
+
+<?php echo Html::label('Объявления: meta desc', 'board_desc_page', ['class'=>'control-label'] ) ?>
+<?php echo Html::textInput('board_desc_page', $key_val['board_desc_page'], ['class' => 'form-control', 'id'=>'board_desc_page'] ) ?>
 
 <br>
 <?php echo Html::submitButton('Сохранить', ['class'=>'btn btn-success']) ?>

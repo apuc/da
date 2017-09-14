@@ -27,6 +27,10 @@ class DefaultController extends Controller {
             KeyValue::updateAll( [ 'value' => $_POST['poster_page_meta_descr'] ], [ 'key' => 'poster_page_meta_descr' ] );
             KeyValue::updateAll( [ 'value' => $_POST['consulting_page_meta_title'] ], [ 'key' => 'consulting_page_meta_title' ] );
             KeyValue::updateAll( [ 'value' => $_POST['consulting_page_meta_descr'] ], [ 'key' => 'consulting_page_meta_descr' ] );
+            KeyValue::updateAll( [ 'value' => $_POST['stream_title_page'] ], [ 'key' => 'stream_title_page' ] );
+            KeyValue::updateAll( [ 'value' => $_POST['stream_desc_page'] ], [ 'key' => 'stream_desc_page' ] );
+            KeyValue::updateAll( [ 'value' => $_POST['board_title_page'] ], [ 'key' => 'board_title_page' ] );
+            KeyValue::updateAll( [ 'value' => $_POST['board_desc_page'] ], [ 'key' => 'board_desc_page' ] );
 
         }
         $key_val = KeyValue::find()->all();
