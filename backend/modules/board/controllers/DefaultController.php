@@ -48,7 +48,14 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        $rez = file_get_contents($this->siteApi . '/ads/ads-list-all?limit=20&expand=categoryAds&page=' . Yii::$app->request->get('page',1) . '&api_key=' . $this->apiKey);
+        //Debug::prn($_GET);
+        if(Yii::$app->request->get('status-ads')){
+            $rez = file_get_contents($this->siteApi . '/ads/ads-list-all?limit=20&expand=categoryAds&page=' . Yii::$app->request->get('page',1) . '&api_key=' . $this->apiKey . '&status=' . Yii::$app->request->get('status-ads'));
+        }
+        else{
+            $rez = file_get_contents($this->siteApi . '/ads/ads-list-all?limit=20&expand=categoryAds&page=' . Yii::$app->request->get('page',1) . '&api_key=' . $this->apiKey);
+        }
+
         //$rez = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page',1));
 
 

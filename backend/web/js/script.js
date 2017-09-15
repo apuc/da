@@ -432,6 +432,13 @@ $(document).ready(function () {
         return false;
     });
 
+    //Фильтр объявлений по статусу
+    $(document).on('change', '.status-ads-filter', function () {
+        var status = $(this).val();
+
+        window.location = "/secure/board/default/index?status-ads=" + status;
+    });
+
 });
 
 Share = {

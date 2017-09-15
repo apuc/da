@@ -20,6 +20,24 @@ $this->title = 'Объявления';
                         <th>Заголовок</th>
                         <th>Статус</th>
                     </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <?= \yii\helpers\Html::dropDownList(
+                                    'status-ads',
+                                (Yii::$app->request->get('status-ads')) ? $_GET['status-ads'] : null,
+                                    [
+                                        '1' => 'на модерации',
+                                        '2' => 'Опубликовано',
+                                        '3' => 'Удалено',
+                                        '5' => 'Снято с публикации',
+                                        '6' => 'Снято с публикации (модератор)',
+                                    ],
+                                    ['prompt' => '', 'class' => 'status-ads-filter']
+                                );
+                            ?>
+                        </td>
+                    </tr>
                 </thead>
                 <tbody>
                 <?php foreach ($ads as $item): ?>
