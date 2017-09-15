@@ -144,7 +144,7 @@ class DefaultController extends Controller
             //Debug::prn($_POST);
             //Debug::prn($_FILES);
             unset($_POST['_csrf']);
-
+            $_POST['api_key'] = $this->apiKey;
             if (!empty($_FILES['file']['name'][0])) {
                 if (!file_exists('media/users/' . Yii::$app->user->id)) {
                     mkdir('media/users/' . Yii::$app->user->id . '/');
@@ -193,6 +193,7 @@ class DefaultController extends Controller
             ];
             $context = stream_context_create($aHTTP);
             $contents = file_get_contents($sURL, false, $context);
+            //echo $contents;
             Yii::$app->session->setFlash('success','Ваше объявление успешно добавлено. После прохождения модерации оно будет опубликовано.');
             return $this->redirect('/personal_area/default/index');
         } else {
