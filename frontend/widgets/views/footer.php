@@ -1,3 +1,6 @@
+<?php
+use yii\widgets\MaskedInput;
+?>
 <footer class="footer">
     <div class="container">
         <div class="footer__logo">
@@ -110,14 +113,25 @@
     <form action="" class="modal-review__form">
 
         <p>Ваш комментарий</p>
-        <?if (!Yii::$app->user->id):?>
+        <?php if (!Yii::$app->user->id):?>
 
             <input class="form-control" id="faq-user-name" type="text" name="name" placeholder="Ваше имя">
             <p class="faq-modal-name-error"></p>
-            <input class="form-control" id="faq-user-email" type="email" name="email" placeholder="Ваш email">
+            <!--<input class="form-control" id="faq-user-email" type="email" name="email" placeholder="Ваш email">-->
+            <?php echo MaskedInput::widget([
+            'name' => 'email',
+            'class' => 'form-control',
+            'id' => 'faq-user-email',
+
+            'clientOptions' => [
+                'alias' =>  'email',
+                'pattern' => '/^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i',
+            ],
+            ]);?>
+
             <p class="faq-modal-email-error"></p>
 
-        <?endif;?>
+        <?php endif;?>
 
         <textarea class="modal-review__textarea" id="faq-user-message" placeholder="Текст сообщения"></textarea>
         <p class="faq-modal-message-error"></p>
