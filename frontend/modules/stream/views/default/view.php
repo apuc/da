@@ -38,7 +38,6 @@ $this->registerMetaTag([
 
 
 $this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii\web\JqueryAsset::className()]);
-$this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
 
 <section class="parser">

@@ -11,18 +11,34 @@ use common\models\User;
 use frontend\models\user\Profile;
 use yii\web\Controller;
 use yii\web\Cookie;
+use Yii;
 
 /**
  * Default controller for the `stream` module
  */
 class DefaultController extends Controller
 {
-    public function beforeAction($action)
+    public function init()
+    {
+        $this->on('beforeAction', function ($event) {
+
+            // запоминаем страницу неавторизованного пользователя, чтобы потом отредиректить его обратно с помощью  goBack()
+            if (Yii::$app->getUser()->isGuest) {
+                $request = Yii::$app->getRequest();
+                // исключаем страницу авторизации или ajax-запросы
+                if (!($request->getIsAjax() || strpos($request->getUrl(), 'login') !== false)) {
+                    Yii::$app->getUser()->setReturnUrl($request->getUrl());
+                }
+            }
+        });
+    }
+
+    /*public function beforeAction($action)
     {
        if($action == 'get-new-post')
            $this->enableCsrfValidation = false ;
        return true;
-    }
+    }*/
 
     /**
      * Renders the index view for the module
