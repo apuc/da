@@ -97,12 +97,14 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii
 
                         <p class="parser__element--descr"><?= nl2br($model->text)?> </p>
 
-                        <?php if (!empty($model->photo)): ?>
-                            <a data-fancybox="gallery" class="parser__element--photo"
-                               href="<?= $model->photo[0]->getLargePhoto() ?>">
-                                <img src="<?= $model->photo[0]->getLargePhoto() ?>" alt="">
-                            </a>
-
+                        <?php
+                        if (!empty($model->photo)): ?>
+                            <?php foreach ($model->photo as $key=>$value):?>
+                                <a data-fancybox="gallery" class="parser__element--photo"
+                                   href="<?= $model->photo[$key]->getLargePhoto() ?>">
+                                    <img src="<?= $model->photo[$key]->getLargePhoto() ?>" alt="">
+                                </a>
+                            <?php endforeach; ?>
                         <?php elseif (!empty($model->gif)): ?>
                            <?php foreach ($model->gif as $gif):?>
                             <a data-fancybox="gallery" class="parser__element--photo"
