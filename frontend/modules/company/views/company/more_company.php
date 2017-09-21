@@ -54,7 +54,7 @@ $wrc_count = 0; ?>
                 <span><?= $address ?></span>
             </p>
 
-            <? if (!empty($company->phone)): ?>
+            <?php if (!empty($company->phone)): ?>
                 <?php $phone = explode(' ', $company->phone) ?>
                 <ul class="business__sm-item--numbers">
                     <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
@@ -66,17 +66,17 @@ $wrc_count = 0; ?>
                     <li> <?= isset($phone[3]) ? $phone[3] : '' ?></li>
                 </ul>
 
-            <? elseif(!empty($company->allPhones)):?>
+            <?php elseif(!empty($company->allPhones)):?>
                 <ul class="business__sm-item--numbers">
-                <?foreach ($company->allPhones as $key => $phones):?>
-                    <?if ($key == 2):?>
+                <?php foreach ($company->allPhones as $key => $phones):?>
+                    <?php if ($key == 2):?>
                         </ul><ul class="business__sm-item--numbers">
-                    <? endif; ?>
+                    <?php endif; ?>
                     <li><?= $phones->phone?></li>
-                    <? if ($key == 4) break;?>
-                <?endforeach;?>
+                    <?php if ($key == 4) break;?>
+                <?php endforeach;?>
                 </ul>
-            <? endif; ?>
+            <?php endif; ?>
 
             <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->
             <p class="business__sm-item--views"><?= $company->views ?></p>
@@ -102,11 +102,23 @@ $wrc_count = 0; ?>
                 <span>Адрес:</span>
                 <span><?= $organizations[$pos]->address ?></span>
             </p>
-            <?php $phone = explode(' ', $organizations[$pos]->phone) ?>
-            <ul class="business__sm-item--numbers">
-                <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
-                <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
-            </ul>
+            <?php
+
+            if (!empty($organizations[$pos]->phone)): ?>
+                <?php $phone = explode(' ', $organizations[$pos]->phone) ?>
+                <ul class="business__sm-item--numbers">
+                    <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
+                    <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
+                </ul>
+
+            <?php elseif(!empty($organizations[$pos]->allPhones)):?>
+                <ul class="business__sm-item--numbers">
+                <?php foreach ($organizations[$pos]->allPhones as $key => $phones):?>
+                    <li><?= $phones->phone?></li>
+                    <?php if ($key == 1) break;?>
+                <?php endforeach;?>
+                </ul>
+            <?php endif; ?>
 
             <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->
             <p class="business__sm-item--views"><?= $organizations[$pos]->views ?></p>
