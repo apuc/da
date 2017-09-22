@@ -241,9 +241,23 @@ $(document).ready(function () {
             success: function (data) {
                 //console.log(data);
                 $('.modal-body,.modal-flex').html(data);
-                $('#modalType').modal('show');
+                /* $('#modalType').modal('show');
+                 $('#black-overlay').fadeIn(400);*/
+                $('#black-overlay').fadeIn(400,
+                    function () {
+                        $('#modalType').css('display', 'block').animate({opacity: 1}, 200);
+                    });
             }
         });
+    });
+
+    $(document).on('click', '#black-overlay', function () {
+        $('#modalType').animate({opacity: 0}, 200,
+            function () {
+                $(this).css('display', 'none');
+                $('#black-overlay').fadeOut(400);
+            }
+        );
     });
 
     //Скрыть модалку

@@ -89,7 +89,7 @@ $this->title = $ads->title;
                            <?php
                                     endforeach;
                            endif; ?>
-
+                            <p><?= $ads->content; ?></p>
                         </div>
 
                         <div class="commercial__ads-descr--numbers">
@@ -100,7 +100,7 @@ $this->title = $ads->title;
 
                         </div>
 
-                        <p><?= $ads->content; ?></p>
+
 
                     </div>
 
