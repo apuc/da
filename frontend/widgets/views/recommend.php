@@ -5,7 +5,8 @@
  * Date: 19.07.2017
  * Time: 11:10
  */
-use yii\helpers\Url; ?>
+use yii\helpers\Url;
+?>
 
 <div class="business__sidebar stock" id="business-stock-sidebar">
 
@@ -42,7 +43,7 @@ use yii\helpers\Url; ?>
         <?php endif; ?>
 
         <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->
-        <p class="business__sm-item--views"><?php $companyBig->views;?></p>
+        <p class="business__sm-item--views"><?= $companyBig->views;?></p>
 
     </a>
     <?php foreach ($model as $item): ?>

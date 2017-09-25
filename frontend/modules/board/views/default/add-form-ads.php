@@ -15,9 +15,9 @@ $this->registerJsFile('/js/board.js', ['depends' => [\yii\web\JqueryAsset::class
 $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 
-<div class="cabinet__container cabinet__container_white">
+<div class="cabinet__container cabinet__container_white cabinet__inner-box">
 
-    <h1>Добавление объявления</h1>
+    <h3>Добавление объявления</h3>
     <div class="right">
     <?php $form = ActiveForm::begin([
         'id' => 'add_ads',
