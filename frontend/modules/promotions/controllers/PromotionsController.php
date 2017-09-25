@@ -128,6 +128,10 @@ class PromotionsController extends Controller
 
         else {
 
+            /*if(empty($beforeCreate)){
+                Debug::prn($beforeCreate);
+            }*/
+
             return $this->render('create', [
                 'model' => $model,
                 'beforeCreate' => $beforeCreate

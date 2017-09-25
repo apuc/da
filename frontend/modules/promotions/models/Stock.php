@@ -50,6 +50,9 @@ class Stock extends \common\models\db\Stock
             ->asArray()
             ->all();
 
+        if(empty($company)) {
+            return false;
+        }
         //id ограничейний по акциям
         $service_id = [11, 12, 13];
 
