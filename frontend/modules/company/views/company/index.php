@@ -21,6 +21,7 @@ $this->registerMetaTag([
 
 $this->registerJsFile('/js/company_ajax.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+
 ?>
     <section class="business">
 
@@ -52,6 +53,11 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                                 <p class="business__sm-item--title">
                                     <?= $company->name ?>
                                 </p>
+                                <?php if($company->verifikation == 1): ?>
+                                    <span class="business__sm-item--label">
+                                        <img src="/theme/portal-donbassa/img/icons/ver.png" alt="">
+                                    </span>
+                                <?php endif; ?>
 
                                 <p class="business__sm-item--address">
                                     <span>Адрес:</span>
@@ -110,7 +116,11 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                                 <p class="business__sm-item--title">
                                     <?= $organizations[$pos]->name ?>
                                 </p>
-
+                                <?php if($organizations[$pos]->verifikation == 1): ?>
+                                    <span class="business__sm-item--label">
+                                        <img src="/theme/portal-donbassa/img/icons/ver.png" alt="">
+                                    </span>
+                                <?php endif; ?>
                                 <p class="business__sm-item--address">
                                     <span>Адрес:</span>
                                     <?php

@@ -35,7 +35,11 @@ $wrc_count = 0; ?>
             <p class="business__sm-item--title">
                 <?= $company->name ?>
             </p>
-
+            <?php if($company->verifikation == 1): ?>
+                <span class="business__sm-item--label">
+                    <img src="/theme/portal-donbassa/img/icons/ver.png" alt="">
+                </span>
+            <?php endif; ?>
             <!--<p class="business__big-item--address">
                 <span>Время работы Министерства:</span>
                 <span>с 9:00 до 18:00 (перерыв с 13:00 до 14:00)</span>
@@ -97,7 +101,11 @@ $wrc_count = 0; ?>
             <p class="business__sm-item--title">
                 <?= $organizations[$pos]->name ?>
             </p>
-
+            <?php if($organizations[$pos]->verifikation == 1): ?>
+                <span class="business__sm-item--label">
+                    <img src="/theme/portal-donbassa/img/icons/ver.png" alt="">
+                </span>
+            <?php endif; ?>
             <p class="business__sm-item--address">
                 <span>Адрес:</span>
                 <span><?= $organizations[$pos]->address ?></span>
