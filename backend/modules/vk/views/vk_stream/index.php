@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 },
             ],
-            // 'post_type',
+            'title',
             [
                 'attribute' => 'text',
                 'format' => 'raw',

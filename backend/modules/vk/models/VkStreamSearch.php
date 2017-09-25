@@ -20,7 +20,7 @@ class VkStreamSearch extends VkStream
     {
         return [
             [['id', 'from_id', 'owner_id', 'owner_type', 'dt_add', 'from_type', 'rss'], 'integer'],
-            [['vk_id', 'post_type', 'text'], 'safe'],
+            [['vk_id', 'post_type', 'text', 'title'], 'safe'],
         ];
     }
 
@@ -83,7 +83,8 @@ class VkStreamSearch extends VkStream
 
         $query->andFilterWhere(['like', 'vk_id', $this->vk_id])
             ->andFilterWhere(['like', 'post_type', $this->post_type])
-            ->andFilterWhere(['like', 'text', $this->text]);
+            ->andFilterWhere(['like', 'text', $this->text])
+            ->andFilterWhere(['like', 'title', $this->title]);
 
         $query->orderBy($orderBy.' DESC');
 
