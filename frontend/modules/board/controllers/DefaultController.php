@@ -284,7 +284,7 @@ class DefaultController extends Controller
             return $this->redirect('/personal_area/default/index');
         }else{
             $model = new Ads();
-            $ads = file_get_contents($this->siteApi . '/ads/' . $id . '?expand=adsImgs,adsFieldsValues');
+            $ads = file_get_contents($this->siteApi . '/ads/' . $id . '?expand=adsImgs,adsFieldsValues' . '&api_key=' . $this->apiKey );
             $ads = json_decode($ads);
             $arrCity = file_get_contents($this->siteApi . '/city/get-city-list');
 
