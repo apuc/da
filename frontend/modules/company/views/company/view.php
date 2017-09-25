@@ -31,7 +31,6 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                     <span class="business__status">
                     <span class="views"><?= $model->views; ?> просмотров</span>
                     </span>
-
                 </h3>
 
                 <div class="business__requisites">
@@ -41,6 +40,11 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                     <div class="business__requisites--address">
 
                         <h3><?= $model->name ?></h3>
+                        <?php if($model->verifikation == 1): ?>
+                            <span class="business__sm-item--label">
+                                <img src="/theme/portal-donbassa/img/icons/ver.png" alt="">
+                            </span>
+                        <?php endif; ?>
                         <!--<p><?/*= $model['meta_descr'] */?></p>-->
 
                         <?php
