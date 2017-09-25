@@ -19,7 +19,7 @@ class VkStreamSearch extends VkStream
     public function rules()
     {
         return [
-            [['id', 'from_id', 'owner_id', 'owner_type', 'dt_add', 'from_type'], 'integer'],
+            [['id', 'from_id', 'owner_id', 'owner_type', 'dt_add', 'from_type', 'rss'], 'integer'],
             [['vk_id', 'post_type', 'text'], 'safe'],
         ];
     }
@@ -78,6 +78,7 @@ class VkStreamSearch extends VkStream
             'owner_type' => $this->owner_type,
             'dt_add' => $this->dt_add,
             'from_type' => $this->from_type,
+            'rss' => $this->rss,
         ]);
 
         $query->andFilterWhere(['like', 'vk_id', $this->vk_id])

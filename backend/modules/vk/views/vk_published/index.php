@@ -10,7 +10,7 @@ use yii\grid\GridView;
 $this->title = 'Vk Streams';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?$this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => \yii\web\JqueryAsset::className()])?>
+<?php $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => \yii\web\JqueryAsset::className()])?>
 <div class="vk-stream-index">
 
     <h1><?= Html::encode($this->title) ?></h1>

@@ -10,7 +10,7 @@ use yii\grid\GridView;
 $this->title = 'Vk Streams';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<? $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => \yii\web\JqueryAsset::className()]) ?>
+<?php $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => \yii\web\JqueryAsset::className()]) ?>
 <div class="vk-stream-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -155,6 +155,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
 
+            [
+                'attribute' => 'rss',
+                'format' => 'raw',
+                'value' => function ( $model) {
+                    $html = '';
+                    if ($model->rss == 1) {
+                        $html = '<span class="sucseesRss"></span>';
+                    }else{
+                        $html = '<span class="errorRss"></span>';
+                    }
+                    return $html;
+                },
+                'filter'    => Html::activeDropDownList( $searchModel, 'rss', [
+                    '0' => 'Нет',
+                    '1' => 'Да',
+                ], [ 'class' => 'form-control', 'prompt' => '' ] ),
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
