@@ -76,7 +76,7 @@ class ConsultingController extends \yii\web\Controller
 
     }
 
-    public function actionDocuments()
+    public function actionDocuments($slug)
     {
         $request = Yii::$app->request;
 

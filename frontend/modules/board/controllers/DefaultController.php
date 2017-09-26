@@ -481,4 +481,12 @@ class DefaultController extends Controller
         //Yii::$app->session->setFlash('success','Ваше объявление успешно добавлено. После прохождения модерации оно будет опубликовано.');
         //return $this->redirect('/personal_area/user-ads');
     }
+
+    public function actionPublicAds( $id )
+    {
+        file_get_contents($this->siteApi . '/ads/edit-status?id=' . $id . '&status=2' .'&api_key=' . $this->apiKey);
+
+        Yii::$app->session->setFlash('success', 'Объявление обновлено');
+        return $this->redirect(['/personal_area/user-ads/']);
+    }
 }
