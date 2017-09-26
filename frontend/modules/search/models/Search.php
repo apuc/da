@@ -18,6 +18,7 @@ class Search extends TblViewSearch
     const CONST_NEWS = 1;
     const CONST_POSTER = 2;
     const CONST_COMPANY = 3;
+    const CONST_VK_STREAM = 4;
 
     const CONST_WEEK = 'week';
     const CONST_YEAR = 'year';
@@ -34,6 +35,7 @@ class Search extends TblViewSearch
             self::CONST_NEWS => 'Новости',
             self::CONST_POSTER => 'Афиша',
             self::CONST_COMPANY => 'Предприятия',
+            self::CONST_VK_STREAM => 'В соцсетях',
             self::CONST_YEAR => 'за год',
             self::CONST_WEEK => 'за неделю',
             self::CONST_MONTH => 'за месяц',
