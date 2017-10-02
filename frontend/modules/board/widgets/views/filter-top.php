@@ -2,6 +2,12 @@
 ?>
 
 <div class="commercial__category">
+    <div class="commercial__new-ads">
+        <a href="/board/default/create">
+            <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
+            <span>Добавить объявление</span>
+        </a>
+    </div>
     <div class="commercial__trigger">
         <span class="commercial__trigger--title" data-id="<?= empty($currentCategory) ? 0 : $currentCategory->id; ?>?>">
             <?php
