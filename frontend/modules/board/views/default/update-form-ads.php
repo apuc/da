@@ -197,7 +197,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             <input id="dannie-1" type="checkbox" name="option2" value="a2">
             <label for="dannie-1"></label><p>* Я соглашаюсь с
             <a target="_blank" href="<?= Url::to(['/help/default/view', 'slug' => 'obsie-polozenia']) ?>">
-                правилами использования сервиса</a>, а также с передачей и обработкой моих данных на RUB-ON. Я подтверждаю своё совершеннолетие и ответственность за размещение объявления</p>
+                правилами использования сервиса</a>, а также с передачей и обработкой моих данных на DA-INFO. Я подтверждаю своё совершеннолетие и ответственность за размещение объявления</p>
         </span>
         </div>
 
