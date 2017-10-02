@@ -18,4 +18,9 @@ class TagsRelation extends \common\models\db\TagsRelation
         $this->type = $post_type;
         $this->save();
     }
+
+    public function getTagname()
+    {
+        return $this->hasOne(Tags::className(), ['id' => 'id']);
+    }
 }

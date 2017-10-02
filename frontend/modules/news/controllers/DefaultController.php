@@ -49,8 +49,13 @@ class DefaultController extends Controller
     public function actionView()
     {
         $request = Yii::$app->request->get();
-        $new = News::findOne(['slug' => $request['slug']]);
-
+        //$new = News::findOne(['slug' => $request['slug']]);
+        $new = \frontend\modules\news\models\News::find()
+            ->joinWith('tagss.tagname')
+            ->where(['slug' => $request['slug']])
+            ->andWhere(['`tags_relation`.`type`' => 'news'])
+            ->one();
+        //Debug::prn($new);
         if (empty($new)) {
             return $this->redirect(['site/error']);
         }

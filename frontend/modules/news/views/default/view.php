@@ -91,6 +91,54 @@ $this->registerMetaTag([
                     <?= $model->content; ?>
                 </div>
 
+                <?php if(!empty($model['tagss'])): ?>
+                    <div class="content__separator"></div>
+                    <section class="hashtag">
+                        <div class="hashtag__wrapper">
+                            <?php
+                            foreach ($model['tagss'] as $tags){
+                                \common\classes\Debug::prn($tags);
+                            }
+                            ?>
+                            <a href="#">
+                                <div class="hashtag__wrapper--item">Путешествия</div>
+                            </a>
+                            <a href="#">
+                                <div class="hashtag__wrapper--item">израиль</div>
+                            </a>
+                            <a href="#">
+                                <div class="hashtag__wrapper--item">Места</div>
+                            </a>
+                            <a href="#">
+                                <div class="hashtag__wrapper--item">Путешествия</div>
+                            </a>
+                            <a href="#">
+                                <div class="hashtag__wrapper--item">израиль</div>
+                            </a>
+                            <a href="#">
+                                <div class="hashtag__wrapper--item">Места</div>
+                            </a>
+                            <a href="#">
+                                <div class="hashtag__wrapper--item">Места</div>
+                            </a>
+                            <a href="#">
+                                <div class="hashtag__wrapper--item">израиль</div>
+                            </a>
+                            <a href="#">
+                                <div class="hashtag__wrapper--item">Путешествия</div>
+                            </a>
+
+                            <a href="#">
+                                <div class="hashtag__wrapper--item">Путешествия</div>
+                            </a>
+                            <a href="#">
+                                <div class="hashtag__wrapper--item">израиль</div>
+                            </a>
+
+                        </div>
+                    </section>
+                <?php endif; ?>
+
                 <?php
                     echo \frontend\modules\news\widgets\ReadTheSame::widget(
                         [
