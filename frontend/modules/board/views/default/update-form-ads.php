@@ -151,10 +151,23 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         <h2 class="soglasie">Ваши контактные данные</h2>
         <hr class="lineAddAds"/>
 
-        <div class="form-line field-ads-name required">
+        <?= $form->field($model, 'city_id')->widget(Select2::className(),[
+            'attribute' => 'state_2',
+            'data' => $arraregCity,
+            //'value' => $geoInfo['city_id'],
+            //'data' => ['Донецкая область' => ['1'=>'Don','2'=>'Gorl'], 'Rostovskaya' => ['5'=>'rostov']],
+            'options' => ['placeholder' => 'Начните вводить Ваш город ...'],
+            'pluginOptions' => [
+                'allowClear' => true,
+            ],
+        ]);
+
+        ?>
+
+        <!--<div class="form-line field-ads-name required">
             <div class="form-line">
                 <label class="label-name">Местонахождение<span>*</span></label>
-                <?= Select2::widget([
+                <?/*= Select2::widget([
                     'name' => 'Ads[city_id]',
                     'attribute' => 'state_2',
                     'data' => $arraregCity,
@@ -165,9 +178,9 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                         'allowClear' => true,
                     ],
                 ]);
-                ?>
+                */?>
             </div>
-        </div>
+        </div>-->
 
         <?= $form->field($model, 'name')->textInput(['value' => $ads->name])->label('Имя<span>*</span>')->hint('как к вам обращаться') ?>
 
