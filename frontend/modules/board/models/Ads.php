@@ -32,7 +32,7 @@ class Ads extends Model
                 [
                     'category_id', 'title', 'content',
                     'region_id', 'city_id', 'price',
-                    'mail'
+                    'mail', 'name', 'phone'
                 ],
                 'required'
             ],
@@ -70,6 +70,7 @@ class Ads extends Model
             'category_id' => 'Категория',
             'content' => 'Описание',
             'price' => 'Цена',
+            'city_id' => 'Местонахождение'
         ];
     }
 }
