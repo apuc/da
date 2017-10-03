@@ -96,45 +96,11 @@ $this->registerMetaTag([
                     <section class="hashtag">
                         <div class="hashtag__wrapper">
                             <?php
-                            foreach ($model['tagss'] as $tags){
-                                \common\classes\Debug::prn($tags);
-                            }
-                            ?>
-                            <a href="#">
-                                <div class="hashtag__wrapper--item">Путешествия</div>
-                            </a>
-                            <a href="#">
-                                <div class="hashtag__wrapper--item">израиль</div>
-                            </a>
-                            <a href="#">
-                                <div class="hashtag__wrapper--item">Места</div>
-                            </a>
-                            <a href="#">
-                                <div class="hashtag__wrapper--item">Путешествия</div>
-                            </a>
-                            <a href="#">
-                                <div class="hashtag__wrapper--item">израиль</div>
-                            </a>
-                            <a href="#">
-                                <div class="hashtag__wrapper--item">Места</div>
-                            </a>
-                            <a href="#">
-                                <div class="hashtag__wrapper--item">Места</div>
-                            </a>
-                            <a href="#">
-                                <div class="hashtag__wrapper--item">израиль</div>
-                            </a>
-                            <a href="#">
-                                <div class="hashtag__wrapper--item">Путешествия</div>
-                            </a>
-
-                            <a href="#">
-                                <div class="hashtag__wrapper--item">Путешествия</div>
-                            </a>
-                            <a href="#">
-                                <div class="hashtag__wrapper--item">израиль</div>
-                            </a>
-
+                            foreach ($model['tagss'] as $tags){ ?>
+                                <a href="#">
+                                    <div class="hashtag__wrapper--item"><?= $tags['tagname']->tag; ?></div>
+                                </a>
+                            <?php } ?>
                         </div>
                     </section>
                 <?php endif; ?>

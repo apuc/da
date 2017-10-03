@@ -21,6 +21,6 @@ class TagsRelation extends \common\models\db\TagsRelation
 
     public function getTagname()
     {
-        return $this->hasOne(Tags::className(), ['id' => 'id']);
+        return $this->hasOne(Tags::className(), ['id' => 'tag_id']);
     }
 }
