@@ -220,7 +220,19 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                     </div>
                 </div>
 
-
+                <?php if(!empty($model['tagss'])): ?>
+                    <div class="content__separator"></div>
+                    <section class="hashtag">
+                        <div class="hashtag__wrapper">
+                            <?php
+                            foreach ($model['tagss'] as $tags){ ?>
+                                <a href="#">
+                                    <div class="hashtag__wrapper--item"><?= $tags['tagname']->tag; ?></div>
+                                </a>
+                            <?php } ?>
+                        </div>
+                    </section>
+                <?php endif; ?>
 
 
 

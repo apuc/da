@@ -9,6 +9,7 @@
 namespace frontend\modules\company\models;
 
 
+use backend\modules\tags\models\TagsRelation;
 use common\models\db\CategoryCompanyRelations;
 use yii\db\ActiveRecord;
 
@@ -42,5 +43,10 @@ class Company extends \common\models\db\Company
     public function getcategory_company_relations()
     {
         return $this->hasMany(CategoryCompanyRelations::className(), ['company_id' => 'id']);
+    }
+
+    public function getTagss()
+    {
+        return $this->hasMany(TagsRelation::className(), ['post_id' => 'id']);
     }
 }

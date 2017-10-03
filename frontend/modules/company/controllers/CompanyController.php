@@ -159,7 +159,12 @@ class CompanyController extends Controller
     public function actionView($slug)
     {
 
-        $model = \common\models\db\Company::find()->with('allPhones')->where(['slug' => $slug])->one();
+        $model = Company::find()
+            ->with('allPhones')
+            ->joinWith('tagss.tagname')
+            ->where(['slug' => $slug])
+            ->andWhere(['`tags_relation`.`type`' => 'company'])
+            ->one();
 
         if (empty($model) || $model->status == 1) {
             return $this->redirect(['site/error']);
