@@ -52,10 +52,12 @@ class DefaultController extends Controller
         //$new = News::findOne(['slug' => $request['slug']]);
         $new = \frontend\modules\news\models\News::find()
             ->joinWith('tagss.tagname')
-            ->where(['slug' => $request['slug']])
-            ->andWhere(['`tags_relation`.`type`' => 'news'])
+            ->where(['`news`.`slug`' => $request['slug']])
+
+            //->andFilterWhere(['`tags_relation`.`type`' => 'news'])
             ->one();
-        //Debug::prn($new);
+        //Debug::prn($new->createCommand()->rawSql);
+        //die();
         if (empty($new)) {
             return $this->redirect(['site/error']);
         }
