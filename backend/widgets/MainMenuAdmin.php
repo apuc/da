@@ -128,11 +128,13 @@ class MainMenuAdmin extends Widget
                                 'label' => 'Категории',
                                 'url' => Url::to(['/category']),
                                 'active' => Yii::$app->controller->module->id == 'category' && Yii::$app->controller->action->id == 'index',
+                                'visible' => UserFunction::hasPermission(['Категории новостей']),
                             ],
                             [
                                 'label' => 'Главная новость',
                                 'url' => Url::to(['/main_new']),
                                 'active' => Yii::$app->controller->module->id == 'main_new' && Yii::$app->controller->action->id == 'index',
+                                'visible' => UserFunction::hasPermission(['Главная новость']),
                             ],
                         ],
                         'visible' => UserFunction::hasPermission(['Новости']),

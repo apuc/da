@@ -41,7 +41,13 @@ class NewsSearch extends News
      */
     public function search($params)
     {
+        $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
         $query = News::find();
+
+        if(isset($role['Редактор новостей']))
+        {
+            $query->andWhere(['user_id' => Yii::$app->user->id]);
+        }
 
         // add conditions that should always apply here
 
