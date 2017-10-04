@@ -7,6 +7,7 @@
  */
 
 use common\classes\GeobaseFunction;
+use yii\helpers\Url;
 
 $this->title = $model->meta_title;
 $this->registerMetaTag([
@@ -226,7 +227,7 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                         <div class="hashtag__wrapper">
                             <?php
                             foreach ($model['tagss'] as $tags){ ?>
-                                <a href="#">
+                                <a href="<?= Url::to(['/search/tag', 'id' => $tags['tagname']->id])?>">
                                     <div class="hashtag__wrapper--item"><?= $tags['tagname']->tag; ?></div>
                                 </a>
                             <?php } ?>
