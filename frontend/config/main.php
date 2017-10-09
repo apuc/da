@@ -146,6 +146,38 @@ return [
                 ],
             ],
         ],
+
+        'authClientCollection' => [
+            'class'   => \yii\authclient\Collection::className(),
+
+            'clients' => [
+                'vkontakte' => [
+                    'class'        => 'dektrium\user\clients\VKontakte',
+                    'clientId'     => '6213596',
+                    'clientSecret' => 'UD0DdeOTDUAEhWntNc5c',
+                    'title' => '',
+                ],
+                'facebook' => [
+                    'class'        => 'dektrium\user\clients\Facebook',
+                    'clientId'     => '196876797387091',
+                    'clientSecret' => 'f098d493aed54505227d4ef1f094ef32',
+                    'title' => '',
+                ],
+                'twitter' => [
+                    'class'          => 'dektrium\user\clients\Twitter',
+                    'consumerKey'    => 'kMykWSokfmYUhNwCuRTAPQUpO',
+                    'consumerSecret' => 'vvAFL8lpYugctQ5IiRV5ohGNXs7ojK0IAZNCDTJiodZPNciY2M',
+                    'title'          => '',
+                ],
+                'google' => [
+                    'class'        => 'dektrium\user\clients\Google',
+                    'clientId'     => '153414607886-k1ddcest7dkg37fjvg8a3m0d2c0plmkk.apps.googleusercontent.com',
+                    'clientSecret' => 'hHKvstkOUgHmfzazEsETTSxk',
+                    'title'          => '',
+                ],
+            ],
+        ],
+
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [

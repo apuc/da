@@ -64,8 +64,13 @@ $this->params['breadcrumbs'][] = $this->title;
            </p>
         --><?php /*endif */?>
 
-        <?= Connect::widget([
-            'baseAuthUrl' => ['/user/security/auth'],
-        ]) ?>
+        <div class="row-soc-text"><p>или войдите через соц.сеть</p></div>
+        <div class="soc">
+            <?= Connect::widget([
+                'baseAuthUrl' => ['/user/security/auth'],
+            ]) ?>
+
+
+        </div>
     </div>
 </div>

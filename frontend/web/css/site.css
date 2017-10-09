@@ -94,3 +94,41 @@ span.feedback_error {
 #more-company-box{
     float: left;
 }
+
+.row-soc-text {
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+}
+
+.soc {
+    float: left;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+.soc ul {
+    display: block;
+    width: 100%;
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.soc ul li {
+    display: inline-block;
+    float: none;
+    margin: 0;
+}
+
+.soc ul li a {
+    position: relative;
+    display: block;
+    margin-left: 10px;
+    width: auto;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #fff;
+    text-align: center;
+    line-height: 25px;
+}
