@@ -145,5 +145,13 @@ use common\classes\Debug;
     <?= Html::submitButton('Сохранить', ['class' => 'cabinet__add-company-form--submit']) ?>
     <?php ActiveForm::end(); ?>
 <?else:?>
-    <h3>Нет предприятий для добавления акции</h3>
+    <div class="blanket__content">
+        <div class="blanket__content__wrap">
+            <img src="/theme/portal-donbassa/img/blanket/ban.png" alt="">
+            <h2>У Вас нет приедприятий для
+                добавления акции</h2>
+        </div>
+        <a href="<?= \yii\helpers\Url::to(['/company/company/create']) ?>">Добавить предприятие</a>
+        <p>После прохождения модерации вашей компании, вы сможете добавить новые акции</p>
+    </div>
 <?endif;?>
