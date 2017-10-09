@@ -163,7 +163,7 @@ class CompanyController extends Controller
             ->with('allPhones')
             ->joinWith('tagss.tagname')
             ->where(['slug' => $slug])
-            ->andWhere(['`tags_relation`.`type`' => 'company'])
+            //->andWhere(['`tags_relation`.`type`' => 'company'])
             ->one();
 
         if (empty($model) || $model->status == 1) {
