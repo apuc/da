@@ -1,4 +1,8 @@
-<? $this->title = $model->title ?>
+<?php
+
+$this->title = $model->title
+
+?>
 
 <section class="business">
 
@@ -43,7 +47,9 @@
 
                     </div>
 
-                    <a href="#" class="show-more">в избранное</a>
+                    <?php if(!empty($model['link'])): ?>
+                        <a target="_blank" href="<?= $model['link']?>" class="show-more">Ссылка на источник</a>
+                    <?php endif; ?>
 
                 </div>
 
@@ -57,19 +63,19 @@
 
                     <p><?= $model->company['name']?></p>
 
-                    <? if(!empty($phones)): ?>
+                    <?php if(!empty($phones)): ?>
 
-                        <? foreach ($phones as $phone): ?>
+                        <?php foreach ($phones as $phone): ?>
                             <p><?= $phone->phone?></p>
-                        <?endforeach;?>
+                        <?php endforeach;?>
                         <!--<p>+38 (066) 702-91-22</p>
                         <p>+38 (063) 811-45-25</p>-->
-                    <? elseif(!empty($model->company['phone'])): ?>
-                        <? $phones = explode(' ', $model->company['phone']) ?>
-                    <? foreach ($phones as $phone): ?>
+                    <?php elseif(!empty($model->company['phone'])): ?>
+                        <?php $phones = explode(' ', $model->company['phone']) ?>
+                    <?php foreach ($phones as $phone): ?>
                         <p><?= $phone?></p>
-                    <?endforeach;?>
-                    <? endif; ?>
+                    <?php endforeach;?>
+                    <?php endif; ?>
 
                 </div>
 
