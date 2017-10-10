@@ -155,10 +155,12 @@ class DefaultController extends Controller
         $this->layout = 'personal_area';
         if (Yii::$app->request->post()) {
 
-            //Debug::prn($_POST);
+            /*Debug::prn($_POST);
+            die();*/
             //Debug::prn($_FILES);
             unset($_POST['_csrf']);
             $_POST['api_key'] = $this->apiKey;
+            $_POST['Ads']['content'] = strip_tags($_POST['Ads']['content'], '\n');
             if (!empty($_FILES['file']['name'][0])) {
                 if (!file_exists('media/users/' . Yii::$app->user->id)) {
                     mkdir('media/users/' . Yii::$app->user->id . '/');
