@@ -98,7 +98,7 @@ $md = new \common\classes\Mobile_Detect();
         </div>
 
         <div class="news__wrap_buttons">
-            <a href="#go_rubricator" class="businessScroll" style="line-height: 37px;"><span class="rotate-arrow"></span>рубрикатор</a>
+            <a href="#go_rubricator" class="businessScroll"><span class="rotate-arrow"></span>рубрикатор</a>
             <!--<a
                 href=""
                 data-offset="34"
