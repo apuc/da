@@ -24,10 +24,10 @@ class RssController extends Controller {
         $dataProvider = new ActiveDataProvider( [
             'query'      => News::find()
                                 ->where( [ 'rss' => 1, 'status' => 0 ] )
-                                ->limit( 20 )
+                                ->limit( 50 )
                                 ->orderBy( 'dt_public DESC' ),
             'pagination' => [
-                'pageSize' => 10
+                'pageSize' => 50
             ],
         ] );
 
@@ -106,10 +106,10 @@ class RssController extends Controller {
         $dataProvider = new ActiveDataProvider( [
             'query'      => Poster::find()
                                   ->where( [ 'rss' => 1, 'status' => 0 ] )
-                                  ->limit( 20 )
+                                  ->limit( 50 )
                                   ->orderBy( 'dt_add DESC' ),
             'pagination' => [
-                'pageSize' => 10
+                'pageSize' => 50
             ],
         ] );
 
@@ -187,10 +187,10 @@ class RssController extends Controller {
                 ->where( [ 'rss' => 1, 'status' => 1 ] )
                 ->andWhere([ '<' , 'dt_publish', time()])
                 ->andWhere('`id` NOT IN (SELECT `post_id` FROM `vk_gif`)' )
-                ->limit( 20 )
+                ->limit( 50 )
                 ->orderBy( 'dt_publish DESC' ),
             'pagination' => [
-                'pageSize' => 10
+                'pageSize' => 50
             ],
         ] );
 
@@ -271,10 +271,10 @@ class RssController extends Controller {
                 ->andWhere([ '<' , 'dt_publish', time()])
                 ->andWhere('`id` IN (SELECT `post_id` FROM `vk_gif`)' )
                 ->with('gif')
-                ->limit( 20 )
+                ->limit( 50 )
                 ->orderBy( 'dt_publish DESC' ),
             'pagination' => [
-                'pageSize' => 10
+                'pageSize' => 50
             ],
         ] );
 
