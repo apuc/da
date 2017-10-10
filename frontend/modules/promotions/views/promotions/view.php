@@ -34,7 +34,7 @@ $this->title = $model->title
                     </div>
 
                     <div class="stock__content--banner">
-                        <img src="<?= $model->photo?>" alt="">
+                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($model->photo); ?>" alt="">
                     </div>
 
                 </div>

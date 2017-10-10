@@ -48,7 +48,7 @@ class PromotionsController extends Controller
                     ],
 
                     [
-                        'actions' => ['index'],
+                        'actions' => ['index', 'view', 'update-view', 'read-more-stock'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
