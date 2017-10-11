@@ -78,12 +78,12 @@ class VkStream extends \yii\db\ActiveRecord
 
     public function getPhoto()
     {
-        return $this->hasMany(VkPhoto::className(), ['post_id' => 'id']);
+        return $this->hasMany(VkPhoto::className(), ['post_id' => 'id'])->where(['comment_id' => 0]);
     }
 
     public function getGif()
     {
-        return $this->hasMany(VkGif::className(), ['post_id' => 'id']);
+        return $this->hasMany(VkGif::className(), ['post_id' => 'id'])->where(['comment_id' => 0]);
     }
 
     public function getComments()
