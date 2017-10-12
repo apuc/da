@@ -43,6 +43,8 @@ use yii\helpers\Url;
                     </div>
             </a>
             <?php endforeach; ?>
+            <a href="<?= Url::to(['/stream'])?>" class="more">посмотреть больше <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </a>
         </div>
     </div>
 </section>

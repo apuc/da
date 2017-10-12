@@ -24,8 +24,27 @@ class RubricSlider extends Widget
     {
 
         $catsListId = ArrayHelper::map(CategoryNews::find()->all(), 'id', 'title');
-
+        /*$catsListId = CategoryNews::find()->all();
         $news = [];
+        $i = 0;
+        foreach ($catsListId as $item){
+            $news[$i]['news'] = News::find()
+                ->joinWith('categoryNewsRelations')
+
+                ->where(['`category_news_relations`.`cat_id`' => $item->id])
+                ->andWhere(['<=', 'dt_public', time()])
+                ->andWhere(['status' => 0])
+                ->orderBy('dt_public DESC')
+                ->limit(5)
+                ->with('category')
+                ->all();
+            $news[$i]['cat'] = $item;
+            $i++;
+        }
+
+        Debug::prn($news);
+        die();*/
+
         foreach ($catsListId as $id => $title) {
             $news[$title] = News::find()
                 ->joinWith('categoryNewsRelations')

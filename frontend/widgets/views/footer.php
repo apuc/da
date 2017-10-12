@@ -14,10 +14,10 @@ use yii\widgets\MaskedInput;
                 <li><a href="/consulting">КОНСУЛЬТАЦИИ</a></li>
                 <li><a href="/site/design">ОБЪЯВЛЕНИЯ</a></li>
             </ul>
-            <p><!--Lorem ipsum dolor sit amet, consectetur adipisicinor incididunt ut labore et dolore magn aliqua. Ut enim
+            <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicinor incididunt ut labore et dolore magn aliqua. Ut enim
                 ad minim veniam, quis nostrud exercitation
                 ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor n reprehenderit in
-                voluptate velit esse cillum dolor--></p>
+                voluptate velit esse cillum dolor</p>-->
 
         </div>
         <div class="footer__social">

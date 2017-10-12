@@ -18,6 +18,8 @@ use yii\helpers\Url;
             foreach ($newsArray as $title => $news):
                 if (!empty($news[0])):
                     $firstNew = $news[0];
+           /* \common\classes\Debug::prn($firstNew);
+            \common\classes\Debug::prn($firstNew->categoryNewsRelations[0]->cat->slug);*/
                     ?>
                     <div class="rubrick-slider__item ">
                         <div class="rubrick-slider__title">
