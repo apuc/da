@@ -7,7 +7,7 @@ use yii\helpers\Url;
     <div class="container">
         <div class="social-networks__header">
             <h1>Тем временем в соцсетях:</h1>
-            <a href="#subscribe"><span class="fa fa-envelope-o"></span>Подписаться на эту тему</a>
+            <a href="#subscribe" class="subscribe-scroll"><span class="fa fa-envelope-o"></span>Подписаться на эту тему</a>
         </div>
         <div class="social-networks__content">
             <?php foreach ($posts as $post):?>

@@ -33,7 +33,7 @@ $md = new \common\classes\Mobile_Detect();
         <div class="news-slider-index-panel">
             <h3><?= $cat->title; ?></h3>
             <div class="buttons-wrap">
-                <a href="">подписаться</a>
+                <a href="#subscribe" class="subscribe-scroll">подписаться</a>
 
             </div>
         </div>

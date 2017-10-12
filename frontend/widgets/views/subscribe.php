@@ -8,7 +8,7 @@
 $this->registerJsFile('/js/validation.js');
 ?>
 
-<div class="home-content__wrap_subscribe">
+<div class="home-content__wrap_subscribe" id="subscribe">
     <div class="subscribe__wrap">
         <h3>ПОДПИСАТЬСЯ НА НОВОСТИ</h3>
         <form id="subscribeForm" action="">
