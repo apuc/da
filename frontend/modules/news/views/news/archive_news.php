@@ -33,7 +33,7 @@ $md = new \common\classes\Mobile_Detect();
         <div class="news-slider-index-panel">
             <h3>Горячие темы</h3>
             <div class="buttons-wrap">
-                <a href="">подписаться</a>
+                <a href="#subscribe">подписаться</a>
 
             </div>
             <!--<div class="hot-tag">
@@ -112,7 +112,9 @@ $md = new \common\classes\Mobile_Detect();
     </div>
 </section>
 
-<?= \frontend\modules\news\widgets\PeopleTalk::widget(); ?>
+<?/*= \frontend\modules\news\widgets\PeopleTalk::widget(); */?>
+
+<?= \frontend\widgets\StreamMain::widget();?>
 
 <?= \frontend\modules\news\widgets\RubricSlider::widget(); ?>
 
