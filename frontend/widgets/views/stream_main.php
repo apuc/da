@@ -6,7 +6,7 @@ use yii\helpers\Url;
 <section class="social-networks">
     <div class="container">
         <div class="social-networks__header">
-            <h1>Тем временем в соцсетях:</h1>
+            <h2>Тем временем в соцсетях:</h2>
             <a href="#subscribe" class="subscribe-scroll"><span class="fa fa-envelope-o"></span>Подписаться на эту тему</a>
         </div>
         <div class="social-networks__content">
