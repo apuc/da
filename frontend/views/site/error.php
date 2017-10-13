@@ -13,7 +13,8 @@ $this->title = $name;
 if ($exception->statusCode == 404){
     ?>
     <?php if($this->context->module->catchAll):?>
-        Тех работы
+
+        <?= $this->render('teh-work'); ?>
 
     <?php else: ?>
         <section class="dev">

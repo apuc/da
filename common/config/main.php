@@ -66,8 +66,8 @@ return [
         ],
     ],
 
-    /*'catchAll' => [
+    'catchAll' => [
         'offline/notice',
         'statusCode' => '123',
-    ],*/
+    ],
 ];
