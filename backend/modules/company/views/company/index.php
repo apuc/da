@@ -54,7 +54,17 @@ $this->params['breadcrumbs'][] = $this->title;
             /*'id',*/
             'name',
             'address',
-            'phone',
+            [
+                'attribute' => 'phone',
+                'format' => 'text',
+                'value' => function($model){
+                    $text = '';
+                    foreach ($model['allPhones'] as $phone){
+                        $text .= $phone->phone . '; ';
+                    }
+                    return $text;
+                },
+            ],
             /*'email:email',*/
             [
                 'attribute' => 'vip',

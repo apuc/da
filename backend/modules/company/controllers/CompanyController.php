@@ -51,6 +51,7 @@ class CompanyController extends Controller
     public function beforeAction($action)
     {
         $this->enableCsrfValidation = ($action->id !== "update");
+        $this->enableCsrfValidation = ($action->id !== "get_sub_categ");
 
         return parent::beforeAction($action);
     }
@@ -312,10 +313,11 @@ class CompanyController extends Controller
 
     public function actionGet_sub_categ()
     {
+        $id = $_POST['catId'];
         echo Html::dropDownList(
             'sub_categ',
             null,
-            ArrayHelper::map(CategoryCompany::find()->where(['parent_id' => $_POST['catId']])->all(), 'id', 'title'),
+            ArrayHelper::map(CategoryCompany::find()->where(['parent_id' => $id])->all(), 'id', 'title'),
             ['class' => 'form-control', 'id' => 'sub_categ_company']
         );
     }

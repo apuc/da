@@ -18,7 +18,7 @@ use yii\jui\DatePicker;
 /* @var $form yii\widgets\ActiveForm */
 /* @var $companyPhotos array */
 /* @var $companyPhotosStr string */
-$this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\web\JqueryAsset::className()]);
+//$this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
 
 <div class="company-form">
@@ -33,7 +33,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\we
             'categ',
             null,
             ArrayHelper::map(CategoryCompany::find()->where(['lang_id' => 1, 'parent_id' => 0])->all(), 'id', 'title'),
-            ['class' => 'form-control', 'id' => 'categ_company']
+            ['class' => 'form-control', 'id' => 'categ_company', 'prompt' => 'Выберите категорию']
         );
         ?>
 

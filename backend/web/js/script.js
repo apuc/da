@@ -195,10 +195,10 @@ $(document).ready(function () {
         $('.dt_public_box').slideToggle();
     });
 
-    $('#categ_company').on('change', function () {
+    $(document).on('change','#categ_company', function () {
         var catId = $(this).val();
         var csrf = $("input[name='_csrf']").val();
-        console.log(csrf);
+        console.log(catId);
         $.ajax({
             type: 'POST',
             url: "/secure/company/company/get_sub_categ",
