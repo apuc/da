@@ -22,7 +22,7 @@ use yii\helpers\Html; ?>
                     'name' => 'cat[]',
                     'data' => \yii\helpers\ArrayHelper::map($categoryPoster, 'id', 'title'),
                     'options' => [
-                        'placeholder' => 'выберите компанию',
+                        'placeholder' => 'выберите категорию',
                         'id' => 'form-select',
                         'multiple' => true
                     ],
