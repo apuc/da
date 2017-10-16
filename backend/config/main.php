@@ -13,6 +13,7 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [
+        'gridview' => ['class' => 'kartik\grid\Module'],
         'news' => [
             'class' => 'backend\modules\news\News',
         ],

@@ -43,7 +43,7 @@ class CompanySearch extends Company
     public function search($params)
     {
         $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
-        $query = Company::find();
+        $query = Company::find()->with('allPhones');
         //Debug::prn($query->where(['user_id' => Yii::$app->user->id]));
 
         if(isset($role['Редактор компаний']))
