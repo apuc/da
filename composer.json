@@ -27,6 +27,7 @@
         "himiklab/yii2-sitemap-module" : "*",
         "himiklab/yii2-ipgeobase-component": "*",
         "kartik-v/yii2-export": "*"
+
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
@@ -35,7 +36,6 @@
         "yiisoft/yii2-faker": "*",
         "mihaildev/yii2-ckeditor": "*",
         "mihaildev/yii2-elfinder": "*",
-        "phpoffice/phpexcel": "dev-develop",
         "vision/yii2-private-messages": "dev-master",
         "zelenin/yii2-rss": "~0.1"
     },
