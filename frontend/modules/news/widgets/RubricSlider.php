@@ -77,8 +77,7 @@ class RubricSlider extends Widget
                   FROM `news`
                   LEFT JOIN `category_news_relations` `t2`ON `t2`.`new_id` = `news`.`id`
                   LEFT JOIN `category_news` `t3` ON `t3`.`id` = `t2`.`cat_id`
-                  WHERE `news`.`status` = 0 AND `news`.`dt_public` <= '. time() .'
-                  GROUP BY news.id 
+                  WHERE `news`.`status` = 0 AND `news`.`dt_public` <= '. time() .' 
                   ORDER BY `news`.`dt_public` DESC 
                   LIMIT 3000'
         )->queryAll();
