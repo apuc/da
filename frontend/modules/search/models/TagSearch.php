@@ -50,7 +50,6 @@ class TagSearch
 
         $tags = '';
         foreach ($randTags as $key => $tag) {
-            Debug::prn($tag['tag']);
             $tags .= $tag['tag'] ;
             if($key < 4) {
                 $tags .= '|';
