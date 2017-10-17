@@ -75,7 +75,7 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                     </a>
                 <?php endforeach; ?>
                 <span id="more-company-box"></span>
-                <div class="more-block wrapper-company-load">
+                <div class="wrapper-company-load">
                     <a href="#" data-step="1" id="load-more-company" class="show-more">загрузить еще</a>
                 </div>
 
