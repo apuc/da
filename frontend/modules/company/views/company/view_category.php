@@ -52,22 +52,22 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                             ?>
                             <span><?= $address ?></span>
                         </p>
-                        <? if (!empty($organization->phone)): ?>
+                        <?php if (!empty($organization->phone)): ?>
                             <?php $phone = explode(' ', $organization->phone) ?>
                             <ul class="business__sm-item--numbers">
                                 <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
                                 <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
                             </ul>
 
-                        <? elseif(!empty($organization->allPhones)):?>
+                        <?php elseif(!empty($organization->allPhones)):?>
                             <ul class="business__sm-item--numbers">
-                            <?foreach ($organization->allPhones as $key => $phones):?>
-                                <? if ($key == 2) break;?>
+                            <?php foreach ($organization->allPhones as $key => $phones):?>
+                                <?php if ($key == 2) break;?>
                                 <li><?= $phones->phone?></li>
 
-                            <?endforeach;?>
+                            <?php endforeach;?>
                             </ul>
-                        <? endif; ?>
+                        <?php endif; ?>
 
                         <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->
                         <p class="business__sm-item--views"><?= $organization->views ?></p>
@@ -75,7 +75,9 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                     </a>
                 <?php endforeach; ?>
                 <span id="more-company-box"></span>
-                <a href="#" data-step="1" id="load-more-company" class="show-more">загрузить еще</a>
+                <div class="more-block wrapper-company-load">
+                    <a href="#" data-step="1" id="load-more-company" class="show-more">загрузить еще</a>
+                </div>
 
             </div>
 
