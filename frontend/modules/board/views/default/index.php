@@ -102,6 +102,7 @@ $this->registerJsFile('/js/board.js', ['depends' => [\yii\web\JqueryAsset::class
                                        class="average-ad-category"><?= $val->name; ?></a>
                                     <?= ($k == count($listcat)) ? '' : '<span class="separatorListCategory">|</span>' ?>
                                     <?php $k++; endforeach ?>
+                                <div class="view"><?= $item->views?></div>
                             </div>
                         </div>
                     </div>

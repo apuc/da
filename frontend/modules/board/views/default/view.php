@@ -95,7 +95,7 @@ $this->title = $ads->title;
                         <div class="commercial__ads-descr--numbers">
 
                             <span>Номер объявления: <?= $ads->id?></span>
-
+                            <div class="view"><?= $ads->views; ?></div>
                             <!--<span>У продавца больше нет объявлений</span>-->
 
                         </div>
