@@ -10,6 +10,7 @@ namespace frontend\modules\search\models;
 
 use backend\modules\tags\models\TagsRelation;
 use common\classes\Debug;
+use common\models\db\Tags;
 use yii\data\ActiveDataProvider;
 
 class TagSearch
@@ -41,5 +42,20 @@ class TagSearch
 
         //Debug::prn($query->createCommand()->rawSql);
         return $dataProvider;
+    }
+
+    public function randTags()
+    {
+        $randTags = Tags::find()->orderBy('RAND()')->limit(5)->asArray()->all();
+
+        $tags = '';
+        foreach ($randTags as $key => $tag) {
+            Debug::prn($tag['tag']);
+            $tags .= $tag['tag'] ;
+            if($key < 4) {
+                $tags .= '|';
+            }
+        }
+        return $tags;
     }
 }

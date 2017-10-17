@@ -1,12 +1,18 @@
 <?php
 /**
  * @var $tag
- * $var $dataProvider
+ * @var $dataProvider
+ * @var $randTags
  */
 use frontend\modules\search\models\Search;
 use yii\helpers\Url;
 
-$this->title = 'Результаты поиска по тегу "' . $tag . '"';
+$this->title = 'Результаты поиска по тегу "' . $tag . '" ';
+
+$this->registerMetaTag([
+    'name' => 'description',
+    'content' => 'Результаты поиска по тегу "' . $tag . '"' . ' Поиск по тегам да DA-INFO ' . $randTags,
+]);
 
 ?>
 <section class="search-content">
