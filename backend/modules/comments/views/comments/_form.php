@@ -18,10 +18,22 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'post_id')->dropDownList(\yii\helpers\ArrayHelper::map($posts, 'id', 'title')) ?>
 
-    <?= $form->field($model, 'user_id')->dropDownList(
+   <!-- --><?/*= $form->field($model, 'user_id')->dropDownList(
         \yii\helpers\ArrayHelper::map($user, 'id', 'username'),
         ['prompt' => 'Гость']
-    ) ?>
+    ) */?>
+
+    <?= $form->field($model, 'user_id')->widget(\kartik\select2\Select2::className(),
+        [
+            'data' => \yii\helpers\ArrayHelper::map($user, 'id', 'username'),
+            'options' => ['placeholder' => 'Начните вводить login ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+
+        ]
+    );
+    ?>
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 
