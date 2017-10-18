@@ -9,6 +9,7 @@
 namespace frontend\modules\personal_area\controllers;
 
 use common\classes\Debug;
+use frontend\modules\board\models\BoardFunction;
 use Yii;
 use yii\base\Controller;
 use yii\data\Pagination;
@@ -44,6 +45,11 @@ class UserAdsController extends Controller
 
     public function actionIndex()
     {
+
+        if (!BoardFunction::isDomainAvailible($this->siteApi)){
+            return $this->render('error');
+        }
+
         Yii::$app->session->setFlash('warning', 'Данный раздел находится в Бетта тестировании. Спасибо за понимание.');
         $email = \dektrium\user\models\User::find()->where(['id' => Yii::$app->user->id])->one()->email;
         //$email = 12;

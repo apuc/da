@@ -5,6 +5,7 @@ namespace frontend\modules\board\controllers;
 use common\classes\Debug;
 use common\models\db\KeyValue;
 use frontend\modules\board\models\Ads;
+use frontend\modules\board\models\BoardFunction;
 use Yii;
 use yii\data\Pagination;
 use yii\filters\AccessControl;
@@ -75,9 +76,15 @@ class DefaultController extends Controller
         /*Debug::prn(Yii::$app->request->userIP);
         Debug::prn($_SERVER);*/
 
-        Yii::$app->session->setFlash('warning', 'Данный раздел находится в Бетта тестировании. Спасибо за понимание.');
 
-        $rez = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page',1) . '&api_key=' . $this->apiKey);
+
+        $url = $this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page',1) . '&api_key=' . $this->apiKey;
+        if (!BoardFunction::isDomainAvailible($url)){
+            return $this->render('error');
+        }
+
+        Yii::$app->session->setFlash('warning', 'Данный раздел находится в Бетта тестировании. Спасибо за понимание.');
+        $rez = file_get_contents($url);
         //$rez = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page',1));
 
 
@@ -132,8 +139,14 @@ class DefaultController extends Controller
     }
 
     public function actionView($slug, $id)
-    {Yii::$app->session->setFlash('warning', 'Данный раздел находится в Бетта тестировании. Спасибо за понимание.');
-        $ads = file_get_contents($this->siteApi . '/ads/' . $id . '?expand=adsImgs,adsFieldsValues' . '&api_key=' . $this->apiKey);
+    {
+        $url = $this->siteApi . '/ads/' . $id . '?expand=adsImgs,adsFieldsValues' . '&api_key=' . $this->apiKey;
+        if (!BoardFunction::isDomainAvailible($url)){
+            return $this->render('error');
+        }
+
+        Yii::$app->session->setFlash('warning', 'Данный раздел находится в Бетта тестировании. Спасибо за понимание.');
+        $ads = file_get_contents($url);
 
         $ads = json_decode($ads);
         if(!isset($ads->title)){
@@ -151,8 +164,14 @@ class DefaultController extends Controller
 
     public function actionCreate()
     {
-        Yii::$app->session->setFlash('warning', 'Данный раздел находится в Бетта тестировании. Спасибо за понимание.');
         $this->layout = 'personal_area';
+        $url = $this->siteApi;
+        if (!BoardFunction::isDomainAvailible($url)){
+            return $this->render('error');
+        }
+
+        Yii::$app->session->setFlash('warning', 'Данный раздел находится в Бетта тестировании. Спасибо за понимание.');
+
         if (Yii::$app->request->post()) {
 
             /*Debug::prn($_POST);
