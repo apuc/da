@@ -4,6 +4,7 @@ namespace backend\modules\board\controllers;
 
 use common\behaviors\AccessSecure;
 use common\classes\Debug;
+use frontend\modules\board\models\BoardFunction;
 use Yii;
 use yii\data\Pagination;
 use yii\web\Controller;
@@ -49,33 +50,42 @@ class DefaultController extends Controller
     public function actionIndex()
     {
         //Debug::prn($_GET);
-        if(Yii::$app->request->get('status-ads')){
-            $rez = file_get_contents($this->siteApi . '/ads/ads-list-all?limit=20&expand=categoryAds&page=' . Yii::$app->request->get('page',1) . '&api_key=' . $this->apiKey . '&status=' . Yii::$app->request->get('status-ads'));
+        $url = $this->siteApi . '/ads/ads-list-all?limit=20&expand=categoryAds&page=' . Yii::$app->request->get('page',1) . '&api_key=' . $this->apiKey;
+        if (BoardFunction::isDomainAvailible($url)){
+            if(Yii::$app->request->get('status-ads')){
+                $rez = file_get_contents($this->siteApi . '/ads/ads-list-all?limit=20&expand=categoryAds&page=' . Yii::$app->request->get('page',1) . '&api_key=' . $this->apiKey . '&status=' . Yii::$app->request->get('status-ads'));
+            }
+            else{
+                $rez = file_get_contents($this->siteApi . '/ads/ads-list-all?limit=20&expand=categoryAds&page=' . Yii::$app->request->get('page',1) . '&api_key=' . $this->apiKey);
+            }
+
+            $rez = json_decode($rez);
+
+            if(!isset($rez->_meta->totalCount)){
+                echo $rez;
+            }else{
+                $pagination = new Pagination([
+                    'defaultPageSize' => 10,
+                    'totalCount' => $rez->_meta->totalCount,
+                    'pageSizeParam' => false,
+                ]);
+                return $this->render('index',
+                    [
+                        'ads' => $rez->ads,
+                        'pagination' => $pagination,
+                    ]
+                );
+            }
+        } else {
+            return $this->render('error-server');
         }
-        else{
-            $rez = file_get_contents($this->siteApi . '/ads/ads-list-all?limit=20&expand=categoryAds&page=' . Yii::$app->request->get('page',1) . '&api_key=' . $this->apiKey);
-        }
+
+
 
         //$rez = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page',1));
 
 
-        $rez = json_decode($rez);
 
-        if(!isset($rez->_meta->totalCount)){
-            echo $rez;
-        }else{
-            $pagination = new Pagination([
-                'defaultPageSize' => 10,
-                'totalCount' => $rez->_meta->totalCount,
-                'pageSizeParam' => false,
-            ]);
-            return $this->render('index',
-                [
-                    'ads' => $rez->ads,
-                    'pagination' => $pagination,
-                ]
-            );
-        }
     }
 
     public function actionView($id)

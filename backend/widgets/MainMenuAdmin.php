@@ -7,10 +7,12 @@ use backend\modules\contacting\models\Contacting;
 use backend\modules\site_error\models\SiteError;
 use backend\modules\vk\models\VkStream;
 use common\classes\CompanyFunction;
+use common\classes\Debug;
 use common\classes\UserFunction;
 use common\models\db\News;
 use common\models\db\Poster;
 use dektrium\user\models\User;
+use frontend\modules\board\models\BoardFunction;
 use Yii;
 use yii\base\Widget;
 use yii\helpers\Url;
@@ -20,6 +22,15 @@ class MainMenuAdmin extends Widget
 {
     public function run()
     {
+
+        $url = Yii::$app->params['site-api'] . '/ads/count-moder-ads?api_key=' . Yii::$app->params['api-key'];
+        if (BoardFunction::isDomainAvailible($url)){
+            $countAds = file_get_contents($url);
+            $countAds = json_decode($countAds);
+        } else {
+            $countAds = '?!?';
+        }
+
         $companyCountModer = CompanyFunction::getCompanyCountModer();
         $CompanyTariffOrderCount = CompanyFunction::getCompanyOrderTarif();
         $countNews = News::find()->where(['status' => 1])->count();
@@ -33,8 +44,7 @@ class MainMenuAdmin extends Widget
         $countBasketStream = VkStream::find()->where(['status' => 3])->count();
         $countDefferedStream = VkStream::find()->where(['status' => 1])->andWhere(['>', 'dt_publish', time()])->count();
         $countContacting = Contacting::find()->where(['status' => 0])->count();
-        $countAds = file_get_contents(Yii::$app->params['site-api'] . '/ads/count-moder-ads?api_key=' . Yii::$app->params['api-key']);
-        $countAds = json_decode($countAds);
+
 
         echo \yii\widgets\Menu::widget(
             [
