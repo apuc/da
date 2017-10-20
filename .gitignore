@@ -35,4 +35,3 @@ phpunit.phar
 Would skip repository theme/da-html/
 theme/node_modules/
 theme/package-lock.json
-frontend/web/

@@ -106,8 +106,9 @@ class RssController extends Controller {
         $dataProvider = new ActiveDataProvider( [
             'query'      => Poster::find()
                                   ->where( [ 'rss' => 1, 'status' => 0 ] )
+                                  ->andWhere(['>=', 'dt_event_end', time()])
                                   ->limit( 50 )
-                                  ->orderBy( 'dt_add DESC' ),
+                                  ->orderBy( 'dt_event DESC' ),
             'pagination' => [
                 'pageSize' => 50
             ],
