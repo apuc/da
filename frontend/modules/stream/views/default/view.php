@@ -9,10 +9,10 @@ use frontend\widgets\ShowRightRecommend;
 use common\models\User;
 use common\classes\Debug;
 
-$this->title = (empty($model))? '' : $model->title.' | da-info';
+$this->title = (empty($model))? '' : $model->title.' | Портал DA Info Pro';
 $this->registerMetaTag([
     'name' => 'description',
-    'content' => (empty($model))? '' :$model->meta_descr,
+    'content' => (empty($model->descr)) ? 'На Портале DA Info Pro «' . $model->title . '». Популярное из социальной сети ВКонтакте в рубрике «В соцсетях»: юмор, мемы, мотивация, бизнес, лайфхаки, стиль.' : $model->meta_descr,
 ]);
 
 $this->registerMetaTag([
