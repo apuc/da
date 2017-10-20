@@ -13,6 +13,7 @@ $(document).ready(function () {
         var img ='';
         var name  = $(this).find('.name').text();
         var avatar = $(this).find('.thumb').children();
+        var companyName = $(this).find('.rew-title').text();
 
         if(avatar.is('img'))
         {
@@ -25,6 +26,7 @@ $(document).ready(function () {
         var text = $(this).find('.rew-descr').text();
         $('#modal-company-rew').find('.name').text(name);
         $('#modal-company-rew').find('.rew-descr').text(text);
+        $('#modal-company-rew').find('h2.title').text(companyName);
 
         $('#black-overlay').fadeIn(400,
             function () {

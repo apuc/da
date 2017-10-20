@@ -73,46 +73,11 @@ use yii\helpers\Url;
         </div>
 
         <div class="rew-wrap">
+            <h2 class="title">Lorem ipsum dolor sit amet.</h2>
             <span class="name"></span>
             <p class="rew-descr"></p>
 
             <?= \frontend\widgets\FooterSocial::widget() ?>
-           <!-- <span class="date"></span>-->
-
-            <!--<div class="social-wrap">
-
-                <a href="#" target="_blank" class="social-wrap__item vk">
-                    <img src="img/soc/vk.png" alt="">
-                </a>
-                <a href="#" target="_blank" class="social-wrap__item fb">
-                    <img src="img/soc/fb.png" alt="">
-                </a>
-                <a href="#" target="_blank" class="social-wrap__item ok">
-                    <img src="img/soc/ok-icon.png" alt="">
-                </a>
-                <a href="#" target="_blank" class="social-wrap__item insta">
-                    <img src="img/soc/insta-icon.png" alt="">
-                </a>
-                <a href="#" target="_blank" class="social-wrap__item twitter">
-                    <img src="img/soc/twi-icon.png" alt="">
-                </a>
-                <a href="#" target="_blank" class="social-wrap__item google">
-                    <img src="img/soc/google-icon.png" alt="">
-                </a>
-                <a href="#" target="_blank" class="social-wrap__item pinterest">
-                    <img src="img/soc/pinter-icon.png" alt="">
-                </a>
-                <a href="#" target="_blank" class="social-wrap__item telegram">
-                    <img src="img/soc/telegram-f.png" alt="">
-                </a>
-                <a href="#" target="_blank" class="social-wrap__item live-journal">
-                    <img src="img/soc/livejournal-f.png" alt="">
-                </a>
-                <a href="#" target="_blank" class="social-wrap__item in">
-                    <img src="img/soc/in-f.png" alt="">
-                </a>
-
-            </div>-->
 
         </div>
 
