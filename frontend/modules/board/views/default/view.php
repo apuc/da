@@ -29,6 +29,9 @@ $this->title = $ads->title;
                     <div class="commercial__ads-slider">
 
                         <div class="commercial__ads-slider--single">
+                            <?php if(empty($ads->adsImgs)): ?>
+                                <img src="/theme/portal-donbassa/img/no-image.png" alt="">
+                            <?php endif; ?>
                             <?php foreach ($ads->adsImgs as $item): ?>
                                 <a href="<?= $item->img; ?>" class="slide" data-fancybox="gallery">
                                     <img src="<?= $item->img; ?>" alt="">

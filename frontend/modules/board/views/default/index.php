@@ -62,7 +62,7 @@ $this->registerJsFile('/js/board.js', ['depends' => [\yii\web\JqueryAsset::class
                             <?php if(!empty($item->adsImgs)): ?>
                                 <img src="<?= $item->adsImgs[0]->img_thumb; ?>" alt="">
                             <?php else: ?>
-                                <img src="http://rub-on.ru/img/no-img.png" alt="">
+                                <img src="/theme/portal-donbassa/img/no-image.png" alt="">
                             <?php endif; ?>
                         </a>
 
