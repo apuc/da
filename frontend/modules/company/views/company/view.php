@@ -205,10 +205,11 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                             <?php foreach ($stock as $item): ?>
                                 <div class="stock__sm-item">
                                     <div class="stock__sm-item--img">
-                                        <span class="views"><?= $item->view?> просмотров</span>
+
                                         <img src="<?= $item->photo ?>" alt="">
                                     </div>
                                     <div class="stock__sm-item--descr">
+                                        <span class="views"><?= $item->view?> просмотров</span>
                                         <p><?= $item->title ?></p>
                                     </div>
                                     <div class="stock__sm-item--time">

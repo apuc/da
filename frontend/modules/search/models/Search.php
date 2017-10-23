@@ -62,8 +62,15 @@ class Search extends TblViewSearch
             ],
         ]);
 
-        $query->andFilterWhere(['LIKE', 'title', $this->request])
-            ->orFilterWhere(['LIKE', 'descr', $this->request]);
+        $query->andFilterWhere([
+                'AND',
+                ['LIKE', 'title', explode(' ', $this->request)]
+        ]
+            )
+            ->orFilterWhere([
+                'AND',
+                ['LIKE', 'descr', explode(' ', $this->request)]
+            ]);
 
         $query->andFilterWhere(['>=', 'dt_update', self::setInterval($this->interval)]);
         $query->andFilterWhere(['material_type' => $this->type]);
