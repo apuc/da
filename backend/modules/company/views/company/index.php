@@ -52,7 +52,21 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             /*'id',*/
-            'name',
+            //'name',
+            [
+                'attribute' => 'name',
+                'format'    => 'text',
+                'filter'    => \kartik\select2\Select2::widget(
+                    [
+                        'model' => $searchModel,
+                        'attribute' => 'name',
+                        'data' => \yii\helpers\ArrayHelper::map(\common\models\db\Company::find()->all(),'id', 'name'),
+                        'options' => ['placeholder' => 'Select a state ...','class' => 'form-control'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ])
+            ],
             'address',
             [
                 'attribute' => 'phone',

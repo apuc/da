@@ -63,9 +63,11 @@ class CompanySearch extends Company
             // $query->where('0=1');
             return $dataProvider;
         }
+        //
 
-
-
+        if(!empty($this->name)){
+            $query->andWhere(['id' => $this->name]);
+        }
 
         // grid filtering conditions
         $query->andFilterWhere([
@@ -76,18 +78,17 @@ class CompanySearch extends Company
             'lang_id' => $this->lang_id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
+        $query
             ->andFilterWhere(['like', 'address', $this->address])
             ->andFilterWhere(['like', 'phone', $this->phone])
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'photo', $this->photo])
             ->andFilterWhere(['like', 'descr', $this->descr])
-            ->andFilterWhere(['like', 'slug', $this->slug])
+            /*->andFilterWhere(['like', 'slug', $this->slug])*/
             ->andFilterWhere(['like', 'vip', $this->vip]);
 
 
         $query->orderBy('dt_add DESC');
-
         return $dataProvider;
     }
 }

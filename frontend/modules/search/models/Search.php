@@ -49,7 +49,6 @@ class Search extends TblViewSearch
         return isset($types[$type]) ? $types[$type] : $default;
     }
 
-
     public function search()
     {
         $query = TblViewSearch::find();
@@ -64,19 +63,19 @@ class Search extends TblViewSearch
 
         $query->andFilterWhere([
                 'AND',
-                ['LIKE', 'title', explode(' ', $this->request)]
-        ]
-            )
+                ['LIKE', 'title', explode(' ', $this->request)],
+            ]
+        )
             ->orFilterWhere([
                 'AND',
-                ['LIKE', 'descr', explode(' ', $this->request)]
+                ['LIKE', 'descr', explode(' ', $this->request)],
             ]);
 
         $query->andFilterWhere(['>=', 'dt_update', self::setInterval($this->interval)]);
         $query->andFilterWhere(['material_type' => $this->type]);
 
         $query->orderBy('dt_update DESC');
-/*Debug::prn($query->createCommand()->rawSql);*/
+        /*Debug::prn($query->createCommand()->rawSql);*/
         return $dataProvider;
     }
 
@@ -96,8 +95,18 @@ class Search extends TblViewSearch
     {
         $query = TblViewSearch::find();
         $query->addSelect('material_type, COUNT(*) AS count');
-        $query->andFilterWhere(['LIKE', 'title', $this->request])
-            ->orFilterWhere(['LIKE', 'descr', $this->request]);
+        $query->andFilterWhere(
+            [
+                'AND',
+                ['LIKE', 'title', explode(' ', $this->request)],
+            ]
+        )
+            ->orFilterWhere(
+                [
+                    'AND',
+                    ['LIKE', 'descr', explode(' ', $this->request)],
+                ]
+        );
 
         $query->andFilterWhere(['>=', 'dt_update', self::setInterval($this->interval)]);
 
