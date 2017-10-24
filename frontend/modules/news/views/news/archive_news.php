@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
 use common\classes\Debug;
@@ -19,17 +20,25 @@ use common\classes\Debug;
  */
 
 //$this->title                   = Yii::t( 'news', 'News' );
-$this->params['breadcrumbs'][] = $this->title;
+
 $this->title = 'Архив новостей за ' . date('d-m-Y', strtotime($date));
 $this->registerMetaTag([
     'name' => 'description',
     'content' => 'Архив новостей за ' . date('d-m-Y', strtotime($date)),
 ]);
-$md = new \common\classes\Mobile_Detect();
+//$md = new \common\classes\Mobile_Detect();
+$this->params['breadcrumbs'][] = ['label' => 'Все новости', 'url' => Url::to(['/news/news'])];
+$this->params['breadcrumbs'][] = 'Архив новостей за ' . date('d-m-Y', strtotime($date));
+
 ?>
+
 
 <section class="news">
     <div class="container">
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'options' => ['class' => 'breadcrumbs']
+        ]) ?>
         <div class="news-slider-index-panel">
             <h3>Горячие темы</h3>
             <div class="buttons-wrap">

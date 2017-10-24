@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
@@ -17,7 +18,8 @@ use yii\widgets\Pjax;
  * @var $news_5 \common\models\db\News
  */
 //$this->title                   = Yii::t( 'news', 'News' );
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'Все новости', 'url' => Url::to(['/news/news'])];
+$this->params['breadcrumbs'][] = $cat->title;
 $this->title = $meta_title;
 $this->registerMetaTag([
     'name' => 'description',
@@ -29,6 +31,10 @@ $md = new \common\classes\Mobile_Detect();
 
 <section class="news">
     <div class="container">
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'options' => ['class' => 'breadcrumbs']
+        ]) ?>
         <div class="news-slider-index-panel">
             <h3><?= $cat->title; ?></h3>
             <div class="buttons-wrap">

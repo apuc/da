@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
@@ -20,8 +21,9 @@ use yii\widgets\Pjax;
  * @var $hotNews \common\models\db\News
  */
 //$this->title                   = Yii::t( 'news', 'News' );
-$this->params['breadcrumbs'][] = $this->title;
 $this->title = $meta_title;
+$this->params['breadcrumbs'][] = 'Все новости';
+
 $this->registerMetaTag([
     'name' => 'description',
     'content' => $meta_descr,
@@ -38,17 +40,24 @@ $md = new \common\classes\Mobile_Detect();
 
 <section class="news">
     <div class="container">
+
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'options' => ['class' => 'breadcrumbs']
+        ]) ?>
+
+        <!--<div class="breadcrumbs">
+            <a href="/">Главная</a> <span>></span> <a href="<?/*= Url::to([
+                '/news/news/category/',
+                'slug' => '123',
+            ]) */?>"><?/*= 123 */?></a>
+        </div>-->
+
         <div class="news-slider-index-panel">
             <h3>Горячие темы</h3>
             <div class="buttons-wrap">
                 <a href="#subscribe" class="subscribe-scroll">подписаться</a>
             </div>
-            <!--<div class="hot-tag">-->
-            <!--    <a href="">Криптовалюты </a>-->
-            <!--    <a href="">Дональд Трамп</a>-->
-            <!--    <a href="">ОПЕК</a>-->
-            <!--    <a href="">Китай Tesla </a>-->
-            <!--</div>-->
         </div>
         <div class="news__wrap">
 

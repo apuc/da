@@ -13,6 +13,7 @@
  */
 
 use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
 
 $this->registerJsFile('/js/news.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
@@ -36,6 +37,10 @@ $this->registerMetaTag([
     'content' => $model->meta_descr,
 ]);
 
+$this->params['breadcrumbs'][] = ['label' => 'Все новости', 'url' => Url::to(['/news/news'])];
+$this->params['breadcrumbs'][] = ['label' => $category->title, 'url' => Url::to(['/news/news/category/', 'slug' => $category->slug])];
+$this->params['breadcrumbs'][] = $model->title;
+
 ?>
 <!-- close .header -->
 
@@ -46,6 +51,11 @@ $this->registerMetaTag([
     <div class="container">
 
         <article id="article">
+
+            <?= Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                'options' => ['class' => 'breadcrumbs']
+            ]) ?>
 
             <div class="breadcrumbs">
                 <a href="/">Главная</a> <span>></span> <a href="<?= Url::to([
