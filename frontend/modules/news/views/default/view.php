@@ -57,12 +57,12 @@ $this->params['breadcrumbs'][] = $model->title;
                 'options' => ['class' => 'breadcrumbs']
             ]) ?>
 
-            <div class="breadcrumbs">
-                <a href="/">Главная</a> <span>></span> <a href="<?= Url::to([
+            <!--<div class="breadcrumbs">
+                <a href="/">Главная</a> <span>></span> <a href="<?/*= Url::to([
                     '/news/news/category/',
                     'slug' => $category->slug,
-                ]) ?>"><?= $category->title; ?></a>
-            </div>
+                ]) */?>"><?/*= $category->title; */?></a>
+            </div>-->
 
             <h1><?= $model->title; ?></h1>
 
