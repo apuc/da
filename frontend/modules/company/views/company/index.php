@@ -12,6 +12,7 @@ use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
 use frontend\modules\company\widgets\CategoryMenu;
 use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
 
 $this->title = $meta_title;
 $this->registerMetaTag([
@@ -22,16 +23,23 @@ $this->registerMetaTag([
 $this->registerJsFile('/js/company_ajax.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
+$this->params['breadcrumbs'][] = 'Все предприятия';
+
 ?>
     <section class="business">
 
         <div class="container">
 
+            <?= Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                'options' => ['class' => 'breadcrumbs']
+            ]) ?>
+
             <div class="business__wrapper">
 
                 <div class="business__content">
 
-                    <h3 class="business__title">Предприятия</h3>
+                    <h1 class="business__title">Предприятия</h1>
                     <?php $pos = 0;
                     $wrc_count = 0; ?>
                     <?php while ($pos < 12): ?>

@@ -71,4 +71,11 @@ class CategoryCompany extends \yii\db\ActiveRecord
     {
         return $this->hasMany(CategoryCompanyRelations::className(), ['cat_id' => 'id']);
     }
+
+    public function getcateg()
+    {
+        return $this->hasOne(CategoryCompany::className(), ['id' => 'parent_id']);
+    }
+
+
 }

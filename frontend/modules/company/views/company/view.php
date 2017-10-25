@@ -4,10 +4,12 @@
  * @var $stock \common\models\db\Stock
  * @var $feedback \common\models\db\CompanyFeedback
  * @var $img \common\models\db\CompanyPhoto
+ * @var $categoryCompany
  */
 
 use common\classes\GeobaseFunction;
 use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
 
 $this->title = $model->meta_title;
 $this->registerMetaTag([
@@ -17,22 +19,37 @@ $this->registerMetaTag([
 
 $this->registerJsFile('/js/company_ajax.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-//\common\classes\Debug::prn($services);
+/*\common\classes\Debug::prn($categoryCompany);
+die();*/
+
+$this->params['breadcrumbs'][] = ['label' => 'Все предприятия', 'url' => Url::to(['/company/company'])];
+if(!empty($categoryCompany['category']['categ']->title)){
+    $this->params['breadcrumbs'][] = ['label' => $categoryCompany['category']['categ']->title, 'url' => Url::to(['/company/company/view-category', 'slug' => $categoryCompany['category']['categ']->slug])];
+
+}
+if(!empty($categoryCompany['category']->title)){
+    $this->params['breadcrumbs'][] = ['label' => $categoryCompany['category']->title, 'url' => Url::to(['/company/company/view-category', 'slug' => $categoryCompany['category']->slug])];
+}
+$this->params['breadcrumbs'][] = $model->name;
+
 ?>
 
 <section class="business">
 
     <div class="container">
-
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'options' => ['class' => 'breadcrumbs']
+        ]) ?>
         <div class="business__wrapper">
 
             <div class="business__content business__single-content">
 
-                <h3 class="business__subtitle">Предприятия / <?= $model->name ?>
+                <h1 class="business__subtitle"><?= $model->name ?>
                     <span class="business__status">
                     <span class="views"><?= $model->views; ?> просмотров</span>
                     </span>
-                </h3>
+                </h1>
 
                 <div class="business__requisites">
                     <div class="business__requisites--avatar">

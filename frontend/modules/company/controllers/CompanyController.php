@@ -185,6 +185,13 @@ class CompanyController extends Controller
 
         $socCompany = ArrayHelper::index($socCompany, 'soc_type');
 
+
+        $categoryCompany = CategoryCompanyRelations::find()
+            ->with('category.categ')
+            ->where(['company_id' => $model->id])
+            ->one();
+
+
         return $this->render('view', [
             'model' => $model,
             'stock' => $stoke,
@@ -193,6 +200,7 @@ class CompanyController extends Controller
             'services' => $services,
             'typeSeti' => $typeSeti,
             'socCompany' => $socCompany,
+            'categoryCompany' => $categoryCompany,
         ]);
     }
 
@@ -431,10 +439,27 @@ class CompanyController extends Controller
         if (empty($cat)) {
             return $this->goHome();
         }
+
+        $arryResult = $cat->id;
+        if ($cat->parent_id == 0) {
+            $category = CategoryCompany::find()->where(['parent_id' => $cat->id])->all();
+            if(!empty($category)){
+                $arryResult = [];
+                $arryResult = ArrayHelper::getColumn($category, 'id');
+                foreach ($category as $item) {
+                    $catP = CategoryCompany::find()->where(['parent_id' => $item->id])->all();
+                    $arryResult = array_merge($arryResult, ArrayHelper::getColumn($catP, 'id'));
+                }
+            }
+        }
+
+
+
+
         $organizations = Company::find()
             ->with('allPhones')
             ->joinWith('categories')
-            ->where(['cat_id' => $cat->id, 'status' => 0])
+            ->where(['cat_id' => $arryResult, 'status' => 0])
             ->all();
 
         $positions = [1, 4, 10];
