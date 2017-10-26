@@ -82,6 +82,11 @@
 
     </div>
 
+    <input type="hidden" name="regionFilter" value="<?= (isset($get['regionFilter'])) ? $get['regionFilter'] : ''?>">
+    <input type="hidden" name="cityFilter" value="<?= (isset($get['cityFilter'])) ? $get['cityFilter'] : ''?>">
+    <input type="hidden" name="mainCat" value="<?= (isset($get['mainCat'])) ? $get['mainCat'] : ''?>">
+    <input type="hidden" name="textFilter" value="<?= (isset($get['textFilter'])) ? $get['textFilter'] : ''?>">
+
 
     <button class="button-search searchForm"><i class="fa fa-search" aria-hidden="true"></i></button>
 </form>

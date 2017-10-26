@@ -11,7 +11,7 @@
                 echo \yii\helpers\Html::label('Подкатегория');
                 echo \yii\helpers\Html::dropDownList(
                     'idCat[]',
-                    $get['idCat'][0],
+                    (!empty($get['idCat'][0])) ? $get['idCat'][0] : null,
                     \yii\helpers\ArrayHelper::map($cat, 'id', 'name'),
                     [
                         'class' => 'childrenCategorySelect',
