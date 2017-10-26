@@ -83,7 +83,6 @@ class DefaultController extends Controller
             return $this->render('error');
         }
 
-        Yii::$app->session->setFlash('warning', 'Данный раздел находится в Бетта тестировании. Спасибо за понимание.');
         $rez = file_get_contents($url);
         //$rez = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page',1));
 
@@ -145,7 +144,6 @@ class DefaultController extends Controller
             return $this->render('error');
         }
 
-        Yii::$app->session->setFlash('warning', 'Данный раздел находится в Бетта тестировании. Спасибо за понимание.');
         $ads = file_get_contents($url);
 
         $ads = json_decode($ads);
@@ -170,7 +168,6 @@ class DefaultController extends Controller
             return $this->render('error');
         }
 
-        Yii::$app->session->setFlash('warning', 'Данный раздел находится в Бетта тестировании. Спасибо за понимание.');
 
         if (Yii::$app->request->post()) {
 
@@ -249,7 +246,6 @@ class DefaultController extends Controller
 
     public function actionUpdate($id)
     {
-        Yii::$app->session->setFlash('warning', 'Данный раздел находится в Бетта тестировании. Спасибо за понимание.');
         $this->layout = 'personal_area';
         if (Yii::$app->request->post()) {
             if (!empty($_FILES['file']['name'][0])) {
@@ -380,7 +376,6 @@ class DefaultController extends Controller
     public function actionSearch()
     {
         // Debug::prn(Yii::$app->request->get());
-        Yii::$app->session->setFlash('warning', 'Данный раздел находится в Бетта тестировании. Спасибо за понимание.');
         $rez = file_get_contents($this->siteApi . '/ads/search?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&' . http_build_query(Yii::$app->request->get()) . '&page=' . Yii::$app->request->get('page',
                 1));
 
