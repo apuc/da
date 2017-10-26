@@ -79,7 +79,9 @@ class DefaultController extends Controller
 
     public function actionView($slug)
     {
-        $poster = Poster::find()->where(['slug' => $slug])->one();
+        $poster = Poster::find()
+            ->with('category')
+            ->where(['slug' => $slug])->one();
 
         if (empty($poster)) {
             return $this->redirect(['site/error']);
@@ -230,6 +232,7 @@ class DefaultController extends Controller
 
         return $this->render('category_single', [
             'slug' => $slug,
+            'cat' => $cat,
             'meta_title' => KeyValue::findOne(['key' => 'poster_page_meta_title'])->value,
             'meta_descr' => KeyValue::findOne(['key' => 'poster_page_meta_descr'])->value,
         ]);

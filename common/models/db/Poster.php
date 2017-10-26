@@ -96,5 +96,10 @@ class Poster extends \yii\db\ActiveRecord
         return $this->hasMany(CategoryPoster::className(), ['id' => 'cat_id'])->via('posterCategories');
     }
 
+    public function getCategory()
+    {
+        return $this->hasOne(CategoryPoster::className(), ['id' => 'cat_id'])->via('posterCategories');
+    }
+
 
 }

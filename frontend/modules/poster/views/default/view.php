@@ -9,6 +9,7 @@
 use common\classes\DateFunctions;
 use common\classes\WordFunctions;
 use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
 
 $this->title = $model->title;
 
@@ -40,9 +41,18 @@ $this->registerMetaTag([
 /*$this->registerJsFile('/theme/portal-donbassa/js/afisha-countdown.js', ['depends' => [\yii\web\JqueryAsset::className()]]);*/
 $this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
+$this->params['breadcrumbs'][] = ['label' => 'Афиша', 'url' => \yii\helpers\Url::to(['/all-poster'])];
+$this->params['breadcrumbs'][] = ['label' => $model['category']->title, 'url' => \yii\helpers\Url::to(['/poster/default/single_category', 'slug' => $model['category']->slug])];
+$this->params['breadcrumbs'][] = $model->title;
+
 /*\common\classes\Debug::prn());*/
 ?>
-
+<div class="container">
+    <?= Breadcrumbs::widget([
+        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+        'options' => ['class' => 'breadcrumbs']
+    ]) ?>
+</div>
 <?= \frontend\modules\poster\widgets\Banner::widget(); ?>
 
 <?= \frontend\modules\poster\widgets\Categories::widget(); ?>

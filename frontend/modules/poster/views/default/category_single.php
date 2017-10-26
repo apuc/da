@@ -9,8 +9,11 @@
  * @var $meta_title \backend\modules\key_value\Key_value
  * @var $meta_descr \backend\modules\key_value\Key_value
  * @var $slug string
+ * @var $cat \common\models\db\CategoryPoster
  */
 use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
+
 $this->title = $meta_title;
 $this->registerMetaTag( [
     'name'    => 'description',
@@ -18,8 +21,17 @@ $this->registerMetaTag( [
 ] );
 
 $this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-?>
 
+$this->params['breadcrumbs'][] = ['label' => 'Афиша', 'url' => \yii\helpers\Url::to(['/all-poster'])];
+$this->params['breadcrumbs'][] = $cat->title;
+
+?>
+<div class="container">
+    <?= Breadcrumbs::widget([
+        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+        'options' => ['class' => 'breadcrumbs']
+    ]) ?>
+</div>
 <?= \frontend\modules\poster\widgets\Banner::widget(); ?>
 
 <?= \frontend\modules\poster\widgets\Categories::widget(); ?>
