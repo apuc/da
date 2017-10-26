@@ -83,5 +83,5 @@
     </div>
 
 
-    <button class="button-search searchForm">Найти</button>
+    <button class="button-search searchForm"><i class="fa fa-search" aria-hidden="true"></i></button>
 </form>

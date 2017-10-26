@@ -8,8 +8,10 @@
 
 namespace frontend\widgets;
 
+use common\classes\CommentsFunction;
 use common\classes\Debug;
 use yii\base\Widget;
+use yii\helpers\ArrayHelper;
 
 class Comments extends Widget
 {
@@ -25,19 +27,26 @@ class Comments extends Widget
             ->where([
                 'post_type' => $this->postType,
                 'post_id' => $this->postId,
-                'parent_id' => 0,
+                //'parent_id' => 0,
                 'published' => 1
             ])
             ->orderBy('id')
-            ->with('childComments')
+            //->with('childComments')
             ->with('user')
+            ->asArray()
             ->all();
 
         $renderView = (empty($comments)) ? 'not-comments' : 'comments';
+        $cats = array();
+
+        foreach ($comments as $item) {
+            $cats[$item['parent_id']][$item['id']] =  $item;
+        }
+
 
         return $this->render('comments/' . $renderView,
             [
-                'comments' => $comments,
+                'comments' => CommentsFunction::buildTree($cats, 0),
                 'postType' => $this->postType,
                 'postId' => $this->postId,
                 'pageTitle'=>$this->pageTitle
