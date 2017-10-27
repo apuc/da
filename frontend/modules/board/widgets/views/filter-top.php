@@ -31,7 +31,7 @@
 
 <form class="commercial__search-form" action="<?= \yii\helpers\Url::to(['search'])?>" method="get">
 
-    <input type="text" class="input-search textSearch" value="<?= (isset($get['textFilter'])) ? $get['textFilter'] : ''?>" placeholder="Поиск по объявлениям">
+    <input type="text" class="input-search textSearch placeholder-xs" value="<?= (isset($get['textFilter'])) ? $get['textFilter'] : ''?>" placeholder="Поиск по объявлениям">
 
     <div class="region">
         <span class="location-mark"></span>

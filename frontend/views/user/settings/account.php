@@ -101,7 +101,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <p class="cabinet__add-company-form--title">Текущий пароль</p>
         <?= $form->field($model, 'current_password')->passwordInput(['class' => 'cabinet__add-company-form--field'])->label(false) ?>
-        <div class="cabinet__add-company-form--block"></div>
+
         <?= Html::submitButton(Yii::t('user', 'Save'), ['class' => 'cabinet__add-company-form--submit']) ?><br>
 
         <?php ActiveForm::end(); ?>

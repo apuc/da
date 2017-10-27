@@ -9,6 +9,7 @@ use common\models\db\KeyValue;
 use common\models\db\Lang;
 use common\models\db\News;
 use frontend\controllers\MainController;
+use Yii;
 use yii\web\Controller;
 
 /**
@@ -23,6 +24,13 @@ class DefaultController extends Controller {
     public $layout = 'portal';
 
     public function actionIndex() {
+
+  /*      Yii::$app->mailer->compose()
+            ->setTo('korol_dima@list.ru')
+            ->setFrom(['noreply@da-info.pro' => 'DA-Info'])
+            ->setSubject('ghbdtn')
+            ->send();*/
+
 
         return $this->render( 'index',
             [

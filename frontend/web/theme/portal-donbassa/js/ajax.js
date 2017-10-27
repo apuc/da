@@ -529,7 +529,7 @@ function loadParseItem(array, count) {
         img.onload = function (e) {
             if (array.length >= count) {
                 loadParseItem(array, count + 1);
-                console.log(e.target.getAttribute('src'));
+                //console.log(e.target.getAttribute('src'));
             }
             $('.img-last-stream').removeClass('img-last-stream');
         }
