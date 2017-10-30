@@ -20,7 +20,22 @@ $this->registerMetaTag([
     <div class="container">
 
         <h1>Результаты поиска</h1>
-
+        <form action="/search/tag" method="get">
+        <?= \kartik\select2\Select2::widget(
+            [
+                'name' => 'id[]',
+                'data' => \yii\helpers\ArrayHelper::map($allTags, 'id', 'tag'),
+                'value' => Yii::$app->request->get('id'),
+                //'data' => ['Донецкая область' => ['1'=>'Don','2'=>'Gorl'], 'Rostovskaya' => ['5'=>'rostov']],
+                'options' => ['placeholder' => 'Начните вводить теги ...', 'multiple' => true],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]
+        )
+        ?>
+            <input type="submit" id="search-form-submit" class="search-panel__submit" value="Найти">
+        </form>
 
         <div class="search-content__wrapper">
                         <div class="search-content__items">

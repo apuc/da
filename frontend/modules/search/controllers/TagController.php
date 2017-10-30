@@ -27,12 +27,14 @@ class TagController extends Controller
 
         $randTags = $searchModel->randTags();
 
+        $allTags = Tags::find()->all();
 
         return $this->render('tag-index', [
             //'searchModel' => $searchModel,
             'tag' => Tags::find()->where(['id' => $request['id']])->one()->tag,
             'dataProvider' => $dataProvider,
             'randTags' => $randTags,
+            'allTags' => $allTags
         ]);
 
     }

@@ -34,13 +34,15 @@ class TagSearch
 
         $query->with('news', 'company');
 
-        $query->where(['tag_id' => $this->tagId]);
+        $query->where(['AND', ['tag_id' => $this->tagId] ]);
+        //Debug::prn($this->tagId);
+        //$query->where(['AND', 'tag_id', [2, 3, 4]]);
 
         $query->orderBy('`news`.`dt_update` DESC');
         $query->addOrderBy('`company`.`dt_update` DESC');
 
 
-        //Debug::prn($query->createCommand()->rawSql);
+//        Debug::prn($query->createCommand()->rawSql);
         return $dataProvider;
     }
 
