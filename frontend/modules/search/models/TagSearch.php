@@ -50,8 +50,14 @@ class TagSearch
         $query->having('c=2');
 
         Debug::prn($query->createCommand()->rawSql);*/
-        $idStr = implode(',', $this->tagId);
         $countArr = count($this->tagId);
+        if($countArr >= 1 && !is_string ($this->tagId)){
+            $idStr = implode(',', $this->tagId);
+        }else{
+            $idStr = $this->tagId;
+        }
+
+
         $sql = "SELECT 
             `tags_relation`.`type` as type,
             `news`.`title` as nn,

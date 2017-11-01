@@ -18,7 +18,6 @@ class TagController extends Controller
     public function actionIndex()
     {
         $request = \Yii::$app->request->get();
-
         $searchModel = new TagSearch();
         $searchModel->tagId = $request['id'];
 
