@@ -6,19 +6,19 @@
  * Time: 9:20
  */
 
-//\common\classes\Debug::prn($model);
+//\common\classes\Debug::prn($model['type']);
 
 use common\classes\WordFunctions;
 use yii\helpers\Html;
 
 if ($model['type'] == 'news') {
-    if (!empty($model['news'])) {
-        $url = \yii\helpers\Url::to(['/news/default/view', 'slug' => $model['news']['slug']]);
+
+        $url = \yii\helpers\Url::to(['/news/default/view', 'slug' => $model['nslug']]);
         $materialType = 'Новости';
-        $photo = $model['news']['photo'];
-        $title = $model['news']['title'];
-        $dt = $model['news']['dt_update'];
-        $descr = $model['news']['content'];
+        $photo = $model['nphoto'];
+        $title = $model['nn'];
+        $dt = $model['ndt'];
+        $descr = $model['ncontent'];
         ?>
         <a href="<?= $url; ?>" class="search-content__item">
 
@@ -39,18 +39,18 @@ if ($model['type'] == 'news') {
 
         </a>
         <?php
-    }
+
     //\common\classes\Debug::prn(1);
 }
 
 if ($model['type'] == 'company') {
-    if (!empty($model['company'])) {
-        $url = \yii\helpers\Url::to(['/company/company/view', 'slug' => $model['company']['slug']]);
+
+        $url = \yii\helpers\Url::to(['/company/company/view', 'slug' => $model['cslug']]);
         $materialType = 'Предприятие';
-        $photo = $model['company']['photo'];
-        $title = $model['company']['name'];
-        $dt = $model['company']['dt_update'];
-        $descr = $model['company']['descr'];
+        $photo = $model['cphoto'];
+        $title = $model['cn'];
+        $dt = $model['cdt'];
+        $descr = $model['ccontent'];
         ?>
         <a href="<?= $url; ?>" class="search-content__item">
 
@@ -71,7 +71,7 @@ if ($model['type'] == 'company') {
 
         </a>
         <?php
-    }
+
 }
 
 ?>

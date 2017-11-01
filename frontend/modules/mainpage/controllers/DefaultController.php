@@ -25,12 +25,13 @@ class DefaultController extends Controller {
 
     public function actionIndex() {
 
-  /*      Yii::$app->mailer->compose()
+        Yii::$app->mailer->compose()
             ->setTo('korol_dima@list.ru')
-            ->setFrom(['noreply@da-info.pro' => 'DA-Info'])
+            ->setFrom(['admin@da-info.pro' => 'DA-Info'])
             ->setSubject('ghbdtn')
-            ->send();*/
+            ->send();
 
+       /* mail('korol_dima@list.ru', 'subject', 'body');*/
 
         return $this->render( 'index',
             [

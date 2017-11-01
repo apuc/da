@@ -19,7 +19,6 @@ class TagController extends Controller
     {
         $request = \Yii::$app->request->get();
 
-
         $searchModel = new TagSearch();
         $searchModel->tagId = $request['id'];
 
