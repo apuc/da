@@ -81,6 +81,7 @@ class DefaultController extends Controller
     {
         $poster = Poster::find()
             ->with('category')
+            ->joinWith('tagss.tagname')
             ->where(['slug' => $slug])->one();
 
         if (empty($poster)) {

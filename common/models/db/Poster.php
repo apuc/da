@@ -101,5 +101,10 @@ class Poster extends \yii\db\ActiveRecord
         return $this->hasOne(CategoryPoster::className(), ['id' => 'cat_id'])->via('posterCategories');
     }
 
+    public function getTagss()
+    {
+        return $this->hasMany(\backend\modules\tags\models\TagsRelation::className(), ['post_id' => 'id']);
+    }
+
 
 }
