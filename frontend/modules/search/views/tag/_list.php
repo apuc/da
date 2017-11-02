@@ -74,5 +74,31 @@ if ($model['type'] == 'company') {
 
 }
 
-?>
+if ($model['type'] == 'poster') {
+    $url = \yii\helpers\Url::to(['/poster/default/view', 'slug' => $model['pslug']]);
+    $materialType = 'Афиша';
+    $photo = $model['pphoto'];
+    $title = $model['pn'];
+    $dt = $model['pdt'];
+    $descr = $model['pcontent'];
+    ?>
+    <a href="<?= $url; ?>" class="search-content__item">
 
+        <p class="search-content__item--title"><?= $materialType; ?></p>
+
+        <div class="search-content__item--img">
+            <img src="<?= $photo ?>">
+        </div>
+
+        <div class="search-content__item--content">
+
+            <h3><?= $title; ?></h3>
+            <span><?= WordFunctions::dateWithMonts($dt); ?></span>
+
+            <?= Html::tag('p', yii\helpers\StringHelper::truncate(strip_tags($descr), 150, '...')) ?>
+
+        </div>
+
+    </a>
+<?php
+}

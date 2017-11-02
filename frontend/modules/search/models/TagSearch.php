@@ -71,13 +71,21 @@ class TagSearch
             `company`.`dt_update` as cdt,
             `company`.`descr` as ccontent,
             
+            `poster`.`title` as pn,
+            `poster`.`slug` as pslug,
+            `poster`.`photo` as pphoto,
+            `poster`.`dt_update` as pdt,
+            `poster`.`descr` as pcontent,
+            
             COUNT(*) as c 
             FROM `tags_relation` 
-            LEFT JOIN `news` ON tags_relation.type = 'news' AND `news`.`id`=`tags_relation`.`post_id` LEFT JOIN `company` ON tags_relation.type = 'company' AND `company`.`id`=`tags_relation`.`post_id`
-            WHERE `tag_id` IN ($idStr) AND (`news`.`status`=0 OR `company`.`status`=0)
+            LEFT JOIN `news` ON tags_relation.type = 'news' AND `news`.`id`=`tags_relation`.`post_id` 
+            LEFT JOIN `company` ON tags_relation.type = 'company' AND `company`.`id`=`tags_relation`.`post_id`
+            LEFT JOIN `poster` ON tags_relation.type = 'poster' AND `poster`.`id`=`tags_relation`.`post_id`
+            WHERE `tag_id` IN ($idStr) AND (`news`.`status`=0 OR `company`.`status`=0 OR `poster`.`status`=0)
 
             GROUP BY type, post_id HAVING c = $countArr
-            ORDER BY `news`.`dt_update` DESC, `company`.`dt_update` DESC";
+            ORDER BY `news`.`dt_update`, `company`.`dt_update`, `poster`.`dt_update` DESC";
 
 
        /* $query  =  TagsRelation::findBySql($sql);*/
