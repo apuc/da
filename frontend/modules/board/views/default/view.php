@@ -12,21 +12,20 @@ $this->title = $ads->title;
 
 //\common\classes\Debug::prn($ads);
 ?>
-
-<section class="commercial">
+<section class="commercial ">
 
     <div class="container">
 
         <div class="commercial__wrapper">
 
-            <div class="commercial__content">
+            <div class="commercial__content commer-single-ads">
 
                 <?= \frontend\modules\board\widgets\ShowFilterTop::widget(); ?>
 
-                <div class="commercial__wrapper">
+                <div class="commercial__wrapper commer-single-ads">
 
                     <h3 class="commercial__ads-title"><?= $this->title?></h3>
-                    
+
                     <div class="commercial__ads-slider">
 
                         <div class="commercial__ads-slider--single">
@@ -38,14 +37,11 @@ $this->title = $ads->title;
                                     <img src="<?= $item->img; ?>" alt="">
                                 </a>
                             <?php endforeach; ?>
-
                         </div>
-
                         <div class="commercial__ads-slider--nav">
                             <?php foreach ($ads->adsImgs as $item): ?>
                                 <div class="slide"><img src="<?= $item->img_thumb; ?>" alt=""></div>
                             <?php endforeach; ?>
-
                         </div>
 
 
@@ -56,7 +52,7 @@ $this->title = $ads->title;
                         <span class="price"><?= number_format($ads->price, 0, '.', ' '); ?> Руб</span>
 
                         <!--<a href="#" class="show-more">НАПИСАТЬ ПРОДАВЦУ</a>-->
-                        <!--<a href="http://rub-on.ru/ads/<?/*= $ads->slug; */?>" target="_blank" class="show-more">ПЕРЕЙТИ RUBON-RU</a>-->
+                        <!--<a href="#" class="show-more">ПЕРЕЙТИ RUBON-RU</a>-->
 
                         <div class="what-say__wrap_item">
                             <!--<div class="thumb">
@@ -71,40 +67,40 @@ $this->title = $ads->title;
                                 <span class="name"><?= $ads->phone; ?></span>
                             </div>
                         </div>
+                        <div class="commercial__wrap_item--numbers">
 
+                            <span class="number-ads">Номер объявления: <?= $ads->id; ?></span>
+                            <div class="view"><?= $ads->views; ?></div>
+
+                            <!--<span>У продавца больше нет объявлений</span>-->
+
+                        </div>
                         <!--<a href="#" class="show-more">ВСЕ ОБЪЯВЛЕНИЯ АВТОРА</a>-->
 
                     </div>
 
-                    <!--<p class="commercial__ads-subtitle">* Данное объявление взято с сайта RUB-ON.RU</p>-->
+                    <!--<p class="commercial__ads-subtitle">* Данное объявление взять с сайта RUB-ON.RU</p>-->
 
                     <div class="commercial__ads-descr">
 
                         <div class="commercial__ads-descr--rows">
                             <?php
-                                if(!empty($ads->adsFieldsValues)):
-                                    foreach ($ads->adsFieldsValues as $item):
-                            ?>
-                                        <div class="commercial__ads-descr--row">
-                                            <span><?= \frontend\modules\board\models\BoardFunction::getLabelAdditionalField($item->ads_fields_name)?></span>
-                                            <span><?= $item->value?></span>
-                                        </div>
+                            if(!empty($ads->adsFieldsValues)):
+                                foreach ($ads->adsFieldsValues as $item):
+                                    ?>
+                                    <div class="commercial__ads-descr--row">
+                                        <span><?= \frontend\modules\board\models\BoardFunction::getLabelAdditionalField($item->ads_fields_name)?></span>
+                                        <span><?= $item->value?></span>
+                                    </div>
 
-                           <?php
-                                    endforeach;
-                           endif; ?>
-                            <p><?= $ads->content; ?></p>
-                        </div>
-
-                        <div class="commercial__ads-descr--numbers">
-
-                            <span>Номер объявления: <?= $ads->id?></span>
-                            <div class="view"><?= $ads->views; ?></div>
-                            <!--<span>У продавца больше нет объявлений</span>-->
-
+                                    <?php
+                                endforeach;
+                            endif; ?>
                         </div>
 
 
+
+                        <p><?= $ads->content; ?></p>
 
                     </div>
 
