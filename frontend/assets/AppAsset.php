@@ -51,6 +51,7 @@ class AppAsset extends AssetBundle
         //'/theme/portal-donbassa/js/fancybox/jquery.fancybox-thumbs.js',
         //'/theme/portal-donbassa/js/fancybox/jquery.fancybox.pack.js',
         //'/js/lightbox.js',
+        '/theme/portal-donbassa/js/headhesive.min.js',
         '/theme/portal-donbassa/js/script.min.js',
         '/theme/portal-donbassa/js/jquery.hc-sticky.min.js',
         '/theme/portal-donbassa/js/ajax.js',
