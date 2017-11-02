@@ -20,6 +20,8 @@
                 _csrf: $('meta[name=csrf-token]').attr("content")
             },
             success: function (data) {
+                $('.business__sidebar').removeClass('absolute');
+                $('.business__sidebar').addClass('fixed');
                 $('#more-company-box').append(data);
                 $('#load-more-company').attr('data-step', parseInt(step) + 1);
             }

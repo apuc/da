@@ -148,6 +148,8 @@ $(document).ready(function () {
                 'dt_add': dt_add
             },
             success: function (data) {
+                $('.business__sidebar').removeClass('absolute');
+                $('.business__sidebar').addClass('fixed');
                 var res = JSON.parse(data);
                 var $i = 1;
                 $('.show-more-stream').attr('data-step', parseInt($('.show-more-stream').attr('data-step')) + 1);
