@@ -47,11 +47,13 @@ $this->params['breadcrumbs'][] = $model->title;
 
 /*\common\classes\Debug::prn());*/
 ?>
-<div class="container">
-    <?= Breadcrumbs::widget([
-        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        'options' => ['class' => 'breadcrumbs']
-    ]) ?>
+<div class="breadcrumbs-wrap">
+    <div class="container">
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'options' => ['class' => 'breadcrumbs']
+        ]) ?>
+    </div>
 </div>
 <?= \frontend\modules\poster\widgets\Banner::widget(); ?>
 

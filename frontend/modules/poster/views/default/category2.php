@@ -23,12 +23,13 @@ $this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::clas
 $this->params['breadcrumbs'][] = 'Афиша';
 
 ?>
-
-<div class="container">
-    <?= Breadcrumbs::widget([
-        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        'options' => ['class' => 'breadcrumbs']
-    ]) ?>
+<div class="breadcrumbs-wrap">
+    <div class="container">
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'options' => ['class' => 'breadcrumbs']
+        ]) ?>
+    </div>
 </div>
 
 
