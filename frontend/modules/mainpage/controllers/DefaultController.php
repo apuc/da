@@ -24,15 +24,6 @@ class DefaultController extends Controller {
     public $layout = 'portal';
 
     public function actionIndex() {
-
-        Yii::$app->mailer->compose()
-            ->setTo('korol_dima@list.ru')
-            ->setFrom(['admin@da-info.pro' => 'DA-Info'])
-            ->setSubject('ghbdtn')
-            ->send();
-
-       /* mail('korol_dima@list.ru', 'subject', 'body');*/
-
         return $this->render( 'index',
             [
                 'meta_title' => KeyValue::findOne( [ 'key' => 'main_page_meta_title' ] )->value,

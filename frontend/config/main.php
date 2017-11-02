@@ -248,10 +248,6 @@ return [
 
             ]
         ],
-        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            'useFileTransport' => false,
-        ],
         'language' => 'ru-RU',
         'i18n' => [
             'translations' => [
