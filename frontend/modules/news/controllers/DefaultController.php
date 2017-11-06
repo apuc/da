@@ -50,12 +50,20 @@ class DefaultController extends Controller
     {
         $request = Yii::$app->request->get();
         //$new = News::findOne(['slug' => $request['slug']]);
-        $new = \frontend\modules\news\models\News::find()
+        /*$new = \frontend\modules\news\models\News::find()
             ->joinWith('tagss.tagname')
             ->where(['`news`.`slug`' => $request['slug']])
 
             //->andFilterWhere(['`tags_relation`.`type`' => 'news'])
+            ->one();*/
+
+        $new = \frontend\modules\news\models\News::find()
+
+            ->where(['`news`.`slug`' => $request['slug']])
+
+            //->andFilterWhere(['`tags_relation`.`type`' => 'news'])
             ->one();
+
         //Debug::prn($new->createCommand()->rawSql);
         //die();
         if (empty($new)) {
