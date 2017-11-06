@@ -100,7 +100,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         case 2: return 'На модерации';
                         case 3: return 'Удалена';
                     }
-                }
+                },
+                'filter' => Html::activeDropDownList( $searchModel, 'status', [
+                    '0' => 'Опубликована',
+                    '1' => 'Новая',
+                    '2'=>'На модерации',
+                    '3'=>'Удалена',
+                ], [ 'class' => 'form-control', 'prompt' => '' ] ),
             ],
             // 'photo',
             // 'dt_add',

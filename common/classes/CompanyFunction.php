@@ -18,7 +18,7 @@ class CompanyFunction
     //Получить количество компаний на модерации
     public static function getCompanyCountModer()
     {
-        return Company::find()->where(['status' => 1])->count();
+        return Company::find()->where(['status' => [1,2]])->count();
     }
 
     //Получить количество заявок которые еще не одобренны

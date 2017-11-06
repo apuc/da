@@ -69,6 +69,8 @@ class CompanyFeedbackSearch extends CompanyFeedback
         $query->andFilterWhere(['like', 'company_name', $this->company_name])
             ->andFilterWhere(['like', 'feedback', $this->feedback]);
 
+        $query->orderBy('dt_update DESC' );
+
         return $dataProvider;
     }
 }
