@@ -55,6 +55,7 @@ class MainPosters extends Widget
         $movies = \common\models\db\Poster::find()
             /*->where(['>=', 'dt_event', strtotime('now 00:00:00')])*/
             ->andWhere(['id' => $categoriesPostersRelationsMovies])
+            ->andWhere(['>=','dt_event_end', time()])
             ->orderBy('dt_event DESC')
             ->limit(4)
             ->with('categories')
