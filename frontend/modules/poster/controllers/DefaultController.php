@@ -326,7 +326,7 @@ class DefaultController extends Controller
             ->where(['>=', 'dt_event_end', time()])
             ->orderBy('dt_event')
             ->offset($step)
-            ->limit(4)
+            ->limit(12)
             ->with('categories')
             ->all();
 

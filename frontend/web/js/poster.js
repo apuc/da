@@ -12,7 +12,7 @@ $(document).ready(function () {
                 console.log(data);
                 var res = JSON.parse(data);
                 $('.news__wrap_buttons').before(res.html);
-                $('#load-more-posters').attr('data-step', step + 4);
+                $('#load-more-posters').attr('data-step', step + 12);
                 if(res.last === 1){
                     $('#load-more-posters').remove();
                 }
