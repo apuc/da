@@ -75,7 +75,10 @@ $this->params['breadcrumbs'][] = $model->name;
                         ?>
 
                         <p class="concreate-adress"><?= $address;  ?></p>
-
+                        <div class="companyDtReg">
+                            <span>добавлено:</span>
+                            <?= \common\classes\DataTime::time($model->dt_add); ?>
+                        </div>
                     </div>
                     <?php if(!empty($model->email)):?>
                         <div class="business__requisites--site">
