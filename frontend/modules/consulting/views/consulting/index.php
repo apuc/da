@@ -5,6 +5,7 @@ $this->registerMetaTag([
     'content' => $meta_descr,
 ]);
 \frontend\assets\AppAssetConsulting::register($this);
+$this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 <main id="main-consultation">
 
