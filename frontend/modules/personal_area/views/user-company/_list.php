@@ -7,10 +7,10 @@
         </div>
 
         <h3 class="cabinet__like-block--company-name"><?= $model['name']; ?></h3>
-
-        <a href="<?= \yii\helpers\Url::to(['/company/company/update', 'id' => $model['id']]) ?>" class="cabinet__like-block--company-edit">редактировать</a>
-        <a data-method="post" data-confirm="Вы уверены, что хотите удалить этот элемент?" href="<?= \yii\helpers\Url::to(['/company/company/delete', 'id' => $model['id']]) ?>" class="cabinet__like-block--company-remove">удалить </a>
-
+        <div class="editing">
+            <a href="<?= \yii\helpers\Url::to(['/company/company/update', 'id' => $model['id']]) ?>" class="cabinet__like-block--company-edit">редактировать</a>
+            <a data-method="post" data-confirm="Вы уверены, что хотите удалить этот элемент?" href="<?= \yii\helpers\Url::to(['/company/company/delete', 'id' => $model['id']]) ?>" class="cabinet__like-block--company-remove">удалить </a>
+        </div>
         <p class="cabinet__like-block--company-address"><?= $model['address']; ?></p>
 
         <p class="cabinet__like-block--company-views">Количество посетителей
