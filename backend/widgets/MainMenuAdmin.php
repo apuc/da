@@ -514,6 +514,16 @@ class MainMenuAdmin extends Widget
                                 'url' => Url::to(['/exchange_rates/exchange_rates']),
                                 'active' => Yii::$app->controller->id == 'exchange_rates',
                             ],
+                            [
+                                'label' => 'Валюты ЦБ РФ',
+                                'url' => Url::to(['/currency/currency']),
+                                'active' => Yii::$app->controller->module->id == 'currency' && Yii::$app->controller->action->id == 'index',
+                            ],
+                            [
+                                'label' => 'Курсы валют ЦБ РФ',
+                                'url' => Url::to(['/exchange/exchange']),
+                                'active' => Yii::$app->controller->module->id == 'exchange' && Yii::$app->controller->action->id == 'index',
+                            ],
                         ],
                         'options' => [
                             'class' => 'treeview',
