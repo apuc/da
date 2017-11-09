@@ -14,8 +14,8 @@ class m171107_141207_create_exchange_table extends Migration
     {
         $this->createTable('exchange', [
             'id' => $this->primaryKey(),
-            'num_code' => $this->integer(11)->notNull()->unique(),
-            'char_code' => $this->string(3)->notNull()->unique(),
+            'num_code' => $this->integer(11)->notNull(),
+            'char_code' => $this->string(3)->notNull(),
             'nominal' => $this->integer(11),
             'name' => $this->text(),
             'value' => $this->double()->notNull(),

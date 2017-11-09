@@ -9,8 +9,9 @@
 namespace console\controllers;
 
 
-use backend\modules\currency\models\Currency;
-use backend\modules\exchange\models\Exchange;
+use common\classes\Debug;
+use common\models\db\Currency;
+use common\models\db\Exchange;
 use Yii;
 use yii\console\Controller;
 use yii\helpers\Console;
@@ -41,7 +42,7 @@ class CbrfController extends Controller
             }
         }
         if (!$result) {
-            $this->stdout("nothing update \n", Console::FG_RED);
+            $this->stdout("nothing to update \n", Console::FG_RED);
         }
     }
 
@@ -63,7 +64,7 @@ class CbrfController extends Controller
                 $this->stdout("add new " . $valute->CharCode . "\n", Console::FG_GREEN);
             }
         } else {
-            $this->stdout("nothing update \n", Console::FG_RED);
+            $this->stdout("nothing to update \n", Console::FG_RED);
         }
     }
 }
