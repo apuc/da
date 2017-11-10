@@ -2,6 +2,7 @@
 
 namespace backend\modules\coin\models;
 
+use common\classes\Debug;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -18,7 +19,7 @@ class CoinSearch extends Coin
     public function rules()
     {
         return [
-            [['id', 'coin_id', 'fully_premined', 'sort_order', 'sponsored'], 'integer'],
+            [['id', 'coin_id', 'fully_premined', 'sort_order', 'sponsored', 'status'], 'integer'],
             [['url', 'image_url', 'name', 'symbol', 'coin_name', 'full_name', 'algorithm', 'proof_type'], 'safe'],
             [['total_coin_supply', 'pre_mined_value', 'total_coins_free_float'], 'number'],
         ];
@@ -68,6 +69,7 @@ class CoinSearch extends Coin
             'total_coins_free_float' => $this->total_coins_free_float,
             'sort_order' => $this->sort_order,
             'sponsored' => $this->sponsored,
+            'status' => $this->status,
         ]);
 
         $query->andFilterWhere(['like', 'url', $this->url])
@@ -80,5 +82,23 @@ class CoinSearch extends Coin
             ->andFilterWhere(['like', 'proof_type', $this->proof_type]);
 
         return $dataProvider;
+    }
+    public function searchField($params)
+    {
+        $query = Coin::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => false
+        ]);
+
+        $this->load($params);
+
+        $query->select($params);
+//        Debug::prn($query->createCommand()->getRawSql());
+        return $dataProvider;
+
     }
 }

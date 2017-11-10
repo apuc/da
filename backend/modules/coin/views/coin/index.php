@@ -40,6 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'total_coins_free_float',
             // 'sort_order',
             // 'sponsored',
+            'status',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
