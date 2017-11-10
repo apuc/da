@@ -29,6 +29,7 @@ class m171109_161542_create_coin_table extends Migration
             'total_coins_free_float' => $this->double(),
             'sort_order' => $this->integer(),
             'sponsored' => $this->integer(1),
+            'status' => $this->integer(1)->defaultValue(0)
         ]);
     }
 

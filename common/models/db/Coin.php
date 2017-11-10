@@ -23,6 +23,7 @@ use Yii;
  * @property double $total_coins_free_float
  * @property integer $sort_order
  * @property integer $sponsored
+ * @property integer $status
  */
 class Coin extends \yii\db\ActiveRecord
 {
@@ -41,7 +42,7 @@ class Coin extends \yii\db\ActiveRecord
     {
         return [
             [['coin_id', 'name'], 'required'],
-            [['coin_id', 'fully_premined', 'sort_order', 'sponsored'], 'integer'],
+            [['coin_id', 'fully_premined', 'sort_order', 'sponsored', 'status'], 'integer'],
             [['pre_mined_value', 'total_coins_free_float'], 'number'],
             [['url', 'image_url', 'name', 'symbol', 'coin_name', 'full_name', 'algorithm', 'proof_type', 'total_coin_supply',], 'string', 'max' => 255],
         ];
@@ -69,6 +70,7 @@ class Coin extends \yii\db\ActiveRecord
             'total_coins_free_float' => 'Total Coins Free Float',
             'sort_order' => 'Sort Order',
             'sponsored' => 'Sponsored',
+            'status' => 'Status',
         ];
     }
 }
