@@ -34,7 +34,7 @@ use common\classes\Debug;
             </div>
             <div class="e-content__wrapper">
                 <div class="e-content__wrapper__title">
-                    <h2>Курсы валют ЦБ РФ на <?= date('d.m.Y', $exchange['date']) ?></h2>
+                    <h2>Курсы валют ЦБ РФ на <?= date('d.m.Y', time()) ?></h2>
                     <a href="#">Архив <i class="fa fa-angle-right" aria-hidden="true"></i></a>
                 </div>
                 <div class="e-content__wrapper__info">
@@ -59,7 +59,7 @@ use common\classes\Debug;
                         <tbody>
                         <?php
 
-                        foreach ($exchange['activeExchange'] as $item) : ?>
+                        foreach ($exchange as $item) : ?>
                             <tr>
                                 <td><?= $item->num_code; ?></td>
                                 <td class="currency"><?= $item->char_code ?></td>

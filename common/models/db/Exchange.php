@@ -14,7 +14,7 @@ use Yii;
  * @property string $name
  * @property double $value
  * @property double $previous
- * @property integer $date
+ * @property string $date
  */
 class Exchange extends \yii\db\ActiveRecord
 {
@@ -32,13 +32,12 @@ class Exchange extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['num_code', 'char_code', 'value', 'previous'], 'required'],
-            [['num_code', 'nominal', 'date'], 'integer'],
+            [['num_code', 'char_code', 'value', 'previous', 'date'], 'required'],
+            [['num_code', 'nominal'], 'integer'],
             [['name'], 'string'],
             [['value', 'previous'], 'number'],
+            [['date'], 'safe'],
             [['char_code'], 'string', 'max' => 3],
-//            [['num_code'], 'unique'],
-//            [['char_code'], 'unique'],
         ];
     }
 

@@ -23,8 +23,10 @@ class Exchange extends \common\models\db\Exchange
         }, $active);
 
         //находим значение курсов
-        $activeExchange['activeExchange'] = self::findAll(['num_code' => $items, 'date' => self::getEndThisDay()]);
-        $activeExchange['date'] = self::getEndThisDay();
+        $activeExchange = self::findAll([
+            'num_code' => $items,
+            'date' => date('Y-m-d', time())
+        ]);
         return $activeExchange;
     }
 
@@ -35,24 +37,14 @@ class Exchange extends \common\models\db\Exchange
     public static function getCurrencyValue($charCode)
     {
         //находим значение курса
-        $value = self::findOne(['char_code' => $charCode, 'date' => self::getEndThisDay()]);
+        $value = self::findOne([
+            'char_code' => $charCode,
+            'date' => date('Y-m-d', time())
+        ]);
         if ($value) {
             $value = $value->value;
         }
         return $value;
     }
 
-    /**
-     * @return array|mixed|null|\yii\db\ActiveRecord
-     */
-    private static function getEndThisDay()
-    {
-        //берем дату последней записи
-        $endThisDay = mktime(23, 59, 59);
-        $date = self::find()->where(['<', 'date', $endThisDay])->orderBy(['date' => SORT_DESC])->one();
-        if ($date) {
-            $date = $date->date;
-        }
-        return $date;
-    }
 }

@@ -14,6 +14,8 @@ use common\models\db\Currency;
 use common\models\db\Exchange;
 use Yii;
 use yii\console\Controller;
+use yii\db\Expression;
+use yii\debug\models\search\Db;
 use yii\helpers\Console;
 
 class CbrfController extends Controller
@@ -49,8 +51,7 @@ class CbrfController extends Controller
     public function actionGetValutes()
     {
         $json_daily = $this->CBR_JSON_Daily_Ru();
-        $date = Yii::$app->formatter->format($json_daily->Date, 'timestamp');
-        if (is_null(Exchange::findOne(['date' => $date]))) {
+        $date = new Expression('NOW()');
             foreach ($json_daily->Valute as $valute) {
                 $model = new Exchange();
                 $model->num_code = $valute->NumCode;
@@ -63,8 +64,5 @@ class CbrfController extends Controller
                 $model->save();
                 $this->stdout("add new " . $valute->CharCode . "\n", Console::FG_GREEN);
             }
-        } else {
-            $this->stdout("nothing to update \n", Console::FG_RED);
-        }
     }
 }
