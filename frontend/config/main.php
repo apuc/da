@@ -98,6 +98,9 @@ return [
         'stream' => [
             'class' => 'frontend\modules\stream\Stream',
         ],
+        'exchange' => [
+            'class' => 'frontend\modules\exchange\Exchange',
+        ],
     ],
     'components' => [
         'mymessages' => [
