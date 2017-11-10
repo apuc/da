@@ -52,6 +52,7 @@ class CbrfController extends Controller
     {
         $json_daily = $this->CBR_JSON_Daily_Ru();
         $date = new Expression('NOW()');
+        if (is_null(Exchange::findOne(['date' => date('Y-m-d', time())]))) {
             foreach ($json_daily->Valute as $valute) {
                 $model = new Exchange();
                 $model->num_code = $valute->NumCode;
@@ -64,5 +65,8 @@ class CbrfController extends Controller
                 $model->save();
                 $this->stdout("add new " . $valute->CharCode . "\n", Console::FG_GREEN);
             }
+        } else {
+            $this->stdout("nothing to update \n", Console::FG_RED);
+        }
     }
 }
