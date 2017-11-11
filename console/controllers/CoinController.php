@@ -9,8 +9,12 @@
 namespace console\controllers;
 
 
+use backend\modules\coin\models\CoinSearch;
+use common\classes\Debug;
 use common\models\db\Coin;
+use common\models\db\CoinRates;
 use yii\console\Controller;
+use yii\db\Expression;
 use yii\helpers\Console;
 
 class CoinController extends Controller
@@ -82,6 +86,57 @@ class CoinController extends Controller
             foreach ($fails as $fail) {
                 $this->stdout("not write coin_id $fail \n", Console::FG_RED);
             }
+        }
+    }
+
+    public function actionRates()
+    {
+        $searchModel = new CoinSearch();
+        $dataProvider = $searchModel->searchField('name');
+        $models = $dataProvider->getModels();
+        $name = array_map(function ($item) {
+            $vowels = [" ", "(", ")"];
+            return str_replace($vowels, "", $item->name);
+        }, $models);
+        $countStr = ceil(count($name) / 50);
+        $finAr = [];
+
+        for ($i = 0; $i < $countStr; $i++) {
+            $res = implode(',', array_slice($name, $i * 50, 50));
+            $json_daily = file_get_contents('https://min-api.cryptocompare.com/data/pricemulti?fsyms=' . $res . '&tsyms=USD,EUR,RUB,UAH');
+            $finAr = array_merge($finAr, json_decode($json_daily, true));
+        }
+
+        $date = new Expression('NOW()');
+        if (is_null(CoinRates::findOne(['date' => date('Y-m-d', time())]))) {
+            foreach ($finAr as $key => $coin) {
+                $model = new CoinRates();
+                $model->coin_name = $key;
+                $model->date = $date;
+                $model->usd = $coin['USD'];
+                echo "$key";
+                if (isset($coin['EUR'])) {
+                    $model->eur = $coin['EUR'];
+                } else {
+                    $model->eur = null;
+                }
+                if (isset($coin['RUB'])) {
+                    $model->rub = $coin['RUB'];
+                } else {
+                    $model->rub = null;
+                }
+                if (isset($coin['UAH'])) {
+                    $model->uah = $coin['UAH'];
+                } else {
+                    $model->uah = null;
+                }
+                if (!$model->save()) {
+                    $model->getErrors();
+                }
+                $this->stdout("add new " . $key . "\n", Console::FG_GREEN);
+            }
+        } else {
+            $this->stdout("nothing update \n", Console::FG_RED);
         }
     }
 }

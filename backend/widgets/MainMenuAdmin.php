@@ -529,6 +529,11 @@ class MainMenuAdmin extends Widget
                                 'url' => Url::to(['/coin/coin']),
                                 'active' => Yii::$app->controller->module->id == 'coin' && Yii::$app->controller->action->id == 'index',
                             ],
+//                            [
+//                                'label' => 'Курс криптовалют',
+//                                'url' => Url::to(['/coin_rates/coin_rates']),
+//                                'active' => Yii::$app->controller->module->id == 'coin_rates',
+//                            ],
                         ],
                         'options' => [
                             'class' => 'treeview',

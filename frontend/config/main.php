@@ -52,6 +52,9 @@ return [
         'promotions' => [
             'class' => 'frontend\modules\promotions\Promotions',
         ],
+        'coin' => [
+            'class' => 'frontend\modules\coin\Coin',
+        ],
 
         'sitemap' => [
             'class' => 'himiklab\sitemap\Sitemap',

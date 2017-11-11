@@ -149,6 +149,9 @@ return [
         'coin' => [
             'class' => 'backend\modules\coin\Coin',
         ],
+        'coin_rates' => [
+            'class' => 'backend\modules\coin_rates\Coin_Rates',
+        ],
     ],
     'components' => [
         /*'user' => [

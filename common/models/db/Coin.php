@@ -27,6 +27,10 @@ use Yii;
  */
 class Coin extends \yii\db\ActiveRecord
 {
+
+    const STATUS_NO_ACTIVE = 0;
+    const STATUS_ACTIVE = 1;
+
     /**
      * @inheritdoc
      */
