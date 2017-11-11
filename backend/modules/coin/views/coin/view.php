@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model backend\modules\coin\models\Coin */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Coins', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('coin', 'Coins'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="coin-view">
@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a(Yii::t('coin', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('coin', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -44,6 +44,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'total_coins_free_float',
             'sort_order',
             'sponsored',
+            [
+                'attribute' => 'status',
+                'format' => 'text',
+                'value' => function ($model) {
+                    switch ($model->status) {
+                        case 0:
+                            return 'Скрыта';
+                        case 1:
+                            return 'Доступна для показа';
+                    }
+                },
+            ],
         ],
     ]) ?>
 

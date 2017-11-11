@@ -45,12 +45,12 @@ class CoinRates extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'coin_name' => 'Coin Name',
-            'date' => 'Date',
-            'usd' => 'Usd',
-            'eur' => 'Eur',
-            'rub' => 'Rub',
-            'uah' => 'Uah',
+            'coin_name' => Yii::t('coin', 'Coin Name'),
+            'date' => Yii::t('coin', 'Date'),
+            'usd' => Yii::t('coin', 'Usd'),
+            'eur' => Yii::t('coin', 'Eur'),
+            'rub' => Yii::t('coin', 'Rub'),
+            'uah' => Yii::t('coin', 'Uah'),
         ];
     }
 

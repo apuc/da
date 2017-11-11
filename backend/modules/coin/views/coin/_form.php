@@ -1,5 +1,6 @@
 <?php
 
+use common\models\db\Coin;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -42,8 +43,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'sponsored')->textInput() ?>
 
+    <?= $form->field($model, 'status')->dropDownList([
+        Coin::STATUS_NO_ACTIVE => 'Скрыта',
+        Coin::STATUS_ACTIVE => 'Доступна для показа',
+    ]) ?>
+
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ?
+            Yii::t('coin', 'Create') : Yii::t('coin', 'Update'),
+            ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -30,55 +30,57 @@ class CoinController extends Controller
         $counter = 0;
         $fails = [];
         foreach ($cryptoCompare->Data as $coin) {
-            $model = new Coin();
-            $model->coin_id = $coin->Id;
-            $model->url = $coin->Url;
-            if (isset($coin->ImageUrl)) {
-                $model->image_url = $coin->ImageUrl;
-            } else {
-                $model->image_url = null;
-            }
-            $model->name = $coin->Name;
-            $model->symbol = $coin->Symbol;
-            $model->coin_name = $coin->CoinName;
-            $model->full_name = $coin->FullName;
-            if ($coin->Algorithm != "N/A") {
-                $model->algorithm = $coin->Algorithm;
-            } else {
-                $model->algorithm = null;
-            }
-            if ($coin->ProofType != "N/A") {
-                $model->proof_type = $coin->ProofType;
-            } else {
-                $model->proof_type = null;
-            }
-            $model->fully_premined = $coin->FullyPremined;
-            if ($coin->TotalCoinSupply != "N/A") {
-                $model->total_coin_supply = $coin->TotalCoinSupply;
-            } else {
-                $model->total_coin_supply = null;
-            }
-            if ($coin->PreMinedValue != "N/A") {
-                $model->pre_mined_value = $coin->PreMinedValue;
-            } else {
-                $model->pre_mined_value = null;
-            }
-            if ($coin->TotalCoinsFreeFloat != "N/A") {
-                $model->total_coins_free_float = $coin->TotalCoinsFreeFloat;
-            } else {
-                $model->total_coins_free_float = null;
-            }
-            $model->sort_order = $coin->SortOrder;
-            if ($coin->Sponsored == false) {
-                $model->sponsored = 0;
-            } else {
-                $model->sponsored = 1;
-            }
+            if (is_null(Coin::findOne(['coin_id' => $coin->Id]))) {
+                $model = new Coin();
+                $model->coin_id = $coin->Id;
+                $model->url = 'https://www.cryptocompare.com' . $coin->Url;
+                if (isset($coin->ImageUrl)) {
+                    $model->image_url = 'https://www.cryptocompare.com' . $coin->ImageUrl;
+                } else {
+                    $model->image_url = null;
+                }
+                $model->name = $coin->Name;
+                $model->symbol = $coin->Symbol;
+                $model->coin_name = $coin->CoinName;
+                $model->full_name = $coin->FullName;
+                if ($coin->Algorithm != "N/A") {
+                    $model->algorithm = $coin->Algorithm;
+                } else {
+                    $model->algorithm = null;
+                }
+                if ($coin->ProofType != "N/A") {
+                    $model->proof_type = $coin->ProofType;
+                } else {
+                    $model->proof_type = null;
+                }
+                $model->fully_premined = $coin->FullyPremined;
+                if ($coin->TotalCoinSupply != "N/A") {
+                    $model->total_coin_supply = $coin->TotalCoinSupply;
+                } else {
+                    $model->total_coin_supply = null;
+                }
+                if ($coin->PreMinedValue != "N/A") {
+                    $model->pre_mined_value = $coin->PreMinedValue;
+                } else {
+                    $model->pre_mined_value = null;
+                }
+                if ($coin->TotalCoinsFreeFloat != "N/A") {
+                    $model->total_coins_free_float = $coin->TotalCoinsFreeFloat;
+                } else {
+                    $model->total_coins_free_float = null;
+                }
+                $model->sort_order = $coin->SortOrder;
+                if ($coin->Sponsored == false) {
+                    $model->sponsored = 0;
+                } else {
+                    $model->sponsored = 1;
+                }
 
-            if ($model->save()) {
-                $counter++;
-            } else {
-                $fails[] = $coin->Id;
+                if ($model->save()) {
+                    $counter++;
+                } else {
+                    $fails[] = $coin->Id;
+                }
             }
         }
         $this->stdout("write $counter notes \n", Console::FG_GREEN);

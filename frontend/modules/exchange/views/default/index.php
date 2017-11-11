@@ -6,6 +6,7 @@
 /** @var string $eur */
 
 use common\classes\Debug;
+use yii\helpers\Url;
 
 
 ?>
@@ -24,10 +25,10 @@ use common\classes\Debug;
                 </div>
                 <div class="e-content__header__right">
                     <ul>
-                        <li><a href="#">Валюта</a></li>
+                        <li><a href="<?= Url::to('exchange') ?>">Валюта</a></li>
                         <li><a href="#">Металлы</a></li>
                         <li><a href="#">Новости</a></li>
-                        <li><a href="#">Справочник</a></li>
+                        <li><a href="<?= Url::to('coin') ?>">Криптовалюта</a></li>
                         <li><a href="#">Конвертер</a></li>
                     </ul>
                 </div>
