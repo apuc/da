@@ -31,12 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'name:ntext',
              'value',
              'previous',
-            [
-                'attribute' => 'date',
-                'value' => function ($model) {
-                    return date('d.m.Y', $model->date);
-                },
-            ],
+            'date',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
