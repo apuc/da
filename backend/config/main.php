@@ -140,6 +140,15 @@ return [
         'board' => [
             'class' => 'backend\modules\board\Board',
         ],
+        'currency' => [
+            'class' => 'backend\modules\currency\Currency',
+        ],
+        'exchange' => [
+            'class' => 'backend\modules\exchange\Exchange',
+        ],
+        'coin' => [
+            'class' => 'backend\modules\coin\Coin',
+        ],
     ],
     'components' => [
         /*'user' => [

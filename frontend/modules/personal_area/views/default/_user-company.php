@@ -84,9 +84,10 @@ use yii\helpers\Html;
                     </div>
 
                     <h3 class="cabinet__like-block--company-name"><?= $item->name?></h3>
-
-                    <a href="<?= \yii\helpers\Url::to(['/company/company/update', 'id' => $item->id]) ?>" class="cabinet__like-block--company-edit">редактировать</a>
-                    <a data-method="post" href="<?= \yii\helpers\Url::to(['/company/company/delete', 'id' => $item->id]) ?>" class="cabinet__like-block--company-remove">удалить</a>
+                    <div class="editing">
+                        <a href="<?= \yii\helpers\Url::to(['/company/company/update', 'id' => $item->id]) ?>" class="cabinet__like-block--company-edit">редактировать</a>
+                        <a data-method="post" href="<?= \yii\helpers\Url::to(['/company/company/delete', 'id' => $item->id]) ?>" class="cabinet__like-block--company-remove">удалить</a>
+                    </div>
                     <p class="cabinet__like-block--company-address"><?= $item->address; ?></p>
 
                     <p class="cabinet__like-block--company-views">Количество посетителей
