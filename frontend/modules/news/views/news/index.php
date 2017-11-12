@@ -33,7 +33,7 @@ $this->registerLinkTag([
     'href' => Url::home(true) . 'all-news',
     'rel' => 'canonical',
 ]);
-
+$this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $md = new \common\classes\Mobile_Detect();
 ?>
 
