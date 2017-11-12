@@ -93,9 +93,7 @@ class CoinController extends Controller
 
     public function actionRates()
     {
-        $searchModel = new CoinSearch();
-        $dataProvider = $searchModel->searchField('name');
-        $models = $dataProvider->getModels();
+        $models = Coin::find()->select('name')->all();
         $name = array_map(function ($item) {
             $vowels = [" ", "(", ")"];
             return str_replace($vowels, "", $item->name);
@@ -112,30 +110,37 @@ class CoinController extends Controller
         $date = new Expression('NOW()');
         if (is_null(CoinRates::findOne(['date' => date('Y-m-d', time())]))) {
             foreach ($finAr as $key => $coin) {
-                $model = new CoinRates();
-                $model->coin_name = $key;
-                $model->date = $date;
-                $model->usd = $coin['USD'];
-                echo "$key";
-                if (isset($coin['EUR'])) {
-                    $model->eur = $coin['EUR'];
-                } else {
-                    $model->eur = null;
+                if (!is_numeric($key)) {
+                    if (is_array($coin)) {
+                        $model = new CoinRates();
+                        $model->coin_name = $key;
+                        $model->date = $date;
+                        if (isset($coin['USD'])) {
+                            $model->usd = $coin['USD'];
+                        } else {
+                            $model->usd = null;
+                        }
+                        if (isset($coin['EUR'])) {
+                            $model->eur = $coin['EUR'];
+                        } else {
+                            $model->eur = null;
+                        }
+                        if (isset($coin['RUB'])) {
+                            $model->rub = $coin['RUB'];
+                        } else {
+                            $model->rub = null;
+                        }
+                        if (isset($coin['UAH'])) {
+                            $model->uah = $coin['UAH'];
+                        } else {
+                            $model->uah = null;
+                        }
+                        if (!$model->save()) {
+                            Debug::prn($model->getErrors());
+                        }
+                        $this->stdout("add new " . $key . "\n", Console::FG_GREEN);
+                    }
                 }
-                if (isset($coin['RUB'])) {
-                    $model->rub = $coin['RUB'];
-                } else {
-                    $model->rub = null;
-                }
-                if (isset($coin['UAH'])) {
-                    $model->uah = $coin['UAH'];
-                } else {
-                    $model->uah = null;
-                }
-                if (!$model->save()) {
-                    $model->getErrors();
-                }
-                $this->stdout("add new " . $key . "\n", Console::FG_GREEN);
             }
         } else {
             $this->stdout("nothing update \n", Console::FG_RED);
