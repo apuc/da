@@ -1,19 +1,18 @@
 <?php
 
-/** @var array $exchange */
-/** @var array $head */
-/** @var string $usd */
-/** @var string $eur */
+/** @var array $coinRates */
+/** @var double $bitcoin */
+
+/** @var double $ethereum */
 
 use common\classes\Debug;
 use yii\helpers\Url;
-
 
 ?>
 <section class="exchange-rates">
     <div class="container">
         <div class="e-content">
-            <h1>Курс валют</h1>
+            <h1>Курсы криптовалют</h1>
             <div class="e-content__header">
                 <div class="e-content__header__left">
                     <ul>
@@ -35,38 +34,40 @@ use yii\helpers\Url;
             </div>
             <div class="e-content__wrapper">
                 <div class="e-content__wrapper__title">
-                    <h2>Курсы валют ЦБ РФ на <?= date('d.m.Y', time()) ?></h2>
+                    <h2>Курсы криптовалют на <?= date('d.m.Y', time()) ?> </h2>
                     <a href="#">Архив <i class="fa fa-angle-right" aria-hidden="true"></i></a>
                 </div>
                 <div class="e-content__wrapper__info">
                     <p>
-                        Доллар США $ — <span><?= $usd ?> руб.</span>
+                        Bitcoin — <span><?= $bitcoin ?> $</span>
                     </p>
                     <p>
-                        Евро € — <span><?= $eur ?> руб.</span>
+                        Ethereum — <span><?= $ethereum ?> $</span>
                     </p>
                 </div>
                 <div class="e-content__wrapper__table">
                     <table>
                         <thead>
                         <tr>
-                            <td><?= $head['num_code'] ?></td>
-                            <td><?= $head['char_code'] ?></td>
-                            <td><?= $head['nominal'] ?></td>
-                            <td><?= $head['name'] ?></td>
-                            <td>Курс</td>
-                        </tr>
+                            <td>название</td>
+                            <td>алгоритм расчёта</td>
+                            <td>в наличии</td>
+                            <td>курс(usd)</td>
+                            <td>курс(eur)</td>
+                            <td>курс(rub)</td>
+                            <!--                            <td>курс(uah)</td-->
                         </thead>
                         <tbody>
-                        <?php
-
-                        foreach ($exchange as $item) : ?>
+                        <?php foreach ($coinRates as $coinRate) : ?>
                             <tr>
-                                <td><?= $item->num_code; ?></td>
-                                <td class="currency"><?= $item->char_code ?></td>
-                                <td><?= $item->nominal ?></td>
-                                <td><?=  $item->name?></td>
-                                <td><?=  $item->value?></td>
+                                <td><?= $coinRate->coin->full_name ?></td>
+                                <td><?= $coinRate->coin->algorithm ?></td>
+                                <td><?= $coinRate->coin->total_coin_supply ?></td>
+                                <td class="currency"><?= $coinRate->usd ?></td>
+                                <td class="currency"><?= $coinRate->eur ?></td>
+                                <td class="currency"><?= $coinRate->rub ?></td>
+                                <!--                            <td class="currency">-->
+                                <? //= $coinRate->uah ?><!--</td>-->
                             </tr>
                         <?php endforeach; ?>
                         </tbody>
@@ -77,7 +78,9 @@ use yii\helpers\Url;
                     <ol>
                         <li>Среднее значение по курсам крупнейших банков России</li>
                         <li>Коммерческий курс валют расчитывается на основании международного рынка форекс.</li>
-                        <li>Курсы VISA обновляются один раз в день около 08:00 по Московскому времени, кроме субботы и воскресенья</li>
+                        <li>Курсы VISA обновляются один раз в день около 08:00 по Московскому времени, кроме субботы и
+                            воскресенья
+                        </li>
                     </ol>
                     <p>Обратите внимание, что курс не учитыает % комиссии банка, выпустившего карту</p>
                 </div>
@@ -129,3 +132,5 @@ use yii\helpers\Url;
         <!-- end promotions-sidebar-right.html-->
     </div>
 </section>
+<!-- end crypto-currency.html-->
+

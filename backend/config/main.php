@@ -146,6 +146,9 @@ return [
         'exchange' => [
             'class' => 'backend\modules\exchange\Exchange',
         ],
+        'coin' => [
+            'class' => 'backend\modules\coin\Coin',
+        ],
     ],
     'components' => [
         /*'user' => [
