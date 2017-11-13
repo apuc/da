@@ -121,12 +121,11 @@ class Vk_basketController extends Controller
     public function actionDeleteAll()
     {
         $ids = VkStream::find()->select('id')->where(['status' => 3])->asArray()->all();
-        foreach ($ids as $id)
-        {
-            VkComments::deleteAll(['post_id' => $id['id']]);
-            VkPhoto::deleteAll(['post_id' => $id['id']]);
-            VkGif::deleteAll(['post_id' => $id['id']]);
-        }
+
+            VkComments::deleteAll(['post_id' => $ids]);
+            VkPhoto::deleteAll(['post_id' => $ids]);
+            VkGif::deleteAll(['post_id' => $ids]);
+
 
         VkStream::deleteAll(['status' => 3]);
         $this->redirect('index');
