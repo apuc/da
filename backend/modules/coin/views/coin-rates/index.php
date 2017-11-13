@@ -27,9 +27,30 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'id',
             'coin_name',
             'date',
-            'usd',
-            'eur',
-             'rub',
+            [
+                'attribute' => 'usd',
+                'value' => function ($model) {
+                    $res = (is_null($model->usd) ? $model->usd :
+                        rtrim(number_format($model->usd, 8), "0."));
+                    return $res;
+                }
+            ],
+            [
+                'attribute' => 'eur',
+                'value' => function ($model) {
+                    $res = (is_null($model->eur) ? $model->eur :
+                        rtrim(number_format($model->eur, 8), "0."));
+                    return $res;
+                }
+            ],
+            [
+                'attribute' => 'rub',
+                'value' => function ($model) {
+                    $res = (is_null($model->rub) ? $model->rub :
+                        rtrim(number_format($model->rub, 6), "0."));
+                    return $res;
+                }
+            ],
             // 'uah',
 
             ['class' => 'yii\grid\ActionColumn'],
