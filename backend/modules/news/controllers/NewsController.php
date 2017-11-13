@@ -7,6 +7,7 @@ use backend\modules\tags\models\TagsRelation;
 use backend\modules\vk\models\VkStream;
 use common\classes\Debug;
 use common\models\db\CategoryNewsRelations;
+use common\models\db\GeobaseRegion;
 use common\models\db\Lang;
 use Yii;
 use backend\modules\news\models\News;
@@ -126,12 +127,16 @@ class NewsController extends Controller
                 $vk->status = 3;
                 $vk->save();
             }
+
+            $region = GeobaseRegion::find()->where(['status' => 1])->all();
+
             return $this->render('create', [
                 'model' => $model,
                 'lang' => $lang,
                 'cats_arr' => [],
                 'tags' => $tags,
                 'tags_selected' => [],
+                'region' => $region,
             ]);
         }
     }
@@ -204,12 +209,14 @@ class NewsController extends Controller
 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            $region = GeobaseRegion::find()->where(['status' => 1])->all();
             return $this->render('update', [
                 'model' => $model,
                 'lang' => $lang,
                 'cats_arr' => $cats_arr,
                 'tags' => $tags,
-                'tags_selected' => $tags_selected
+                'tags_selected' => $tags_selected,
+                'region' => $region,
             ]);
         }
     }

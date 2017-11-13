@@ -107,6 +107,16 @@ use kartik\select2\Select2;
         '3' => 'Отложена',
     ])->label('Статус') ?>
 
+    <?= $form->field($model, 'region_id')->widget(Select2::className(),
+        [
+            'data' => \yii\helpers\ArrayHelper::map($region,'id', 'name'),
+            'options' => ['placeholder' => 'Начните вводить регион ...','class' => 'form-control'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]
+    ); ?>
+
     <?= $form->field($model, 'exclude_popular')->checkbox() ?>
 
     <?= $form->field($model, 'rss')->checkbox() ?>
