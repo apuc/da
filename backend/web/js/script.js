@@ -379,6 +379,28 @@ $(document).ready(function () {
         return false;
     });
 
+    $(document).on('click', '.verified', function (event) {
+        event.preventDefault();
+        var button = $(this);
+        $.ajax({
+            url: '/secure/comments/comments/update-verified-ajax',
+            data: {
+                id: button.closest('tr').attr('data-key'),
+                _csrf: $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'POST',
+            success: function (data) {
+                console.log(data);
+                if (data.status == 1) {
+                    button.removeClass('btn-danger').addClass('btn-info').text('Проверено');
+                } else {
+                    button.removeClass('btn-info').addClass('btn-danger').text('Не проверено');
+                }
+            }
+        });
+        return false;
+    });
+
 
     $(document).on('click', '.to_plug--tariff', function () {
         var id = $(this).attr('data-id');

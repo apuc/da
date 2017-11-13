@@ -170,6 +170,35 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => Html::activeDropDownList($searchModel, 'published', [0 => 'На модерации', 1 => 'Опубликовано'], ['class' => 'form-control', 'prompt' => '']),
             ],
 
+            [
+                'attribute' => 'verified',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    if ($model->verified == 0) {
+                        $btn = Html::a(
+                            'Не проверено',
+                            Url::to(['update-verified', 'id' => $model->id]),
+                            ['class' => 'btn btn-danger verified']
+                        );
+                    }
+                    else {
+                        $btn = Html::a(
+                            'Проверено',
+                            Url::to(['update-verified', 'id' => $model->id]),
+                            ['class' => 'btn btn-info verified']
+                        );
+                    }
+                    return $btn;
+                },
+                'filter' => Html::activeDropDownList($searchModel,
+                    'verified',
+                    [
+                        '0' => 'Не проверено',
+                        '1' => 'Проверено'
+                    ],
+                    ['class' => 'form-control', 'prompt' => '']),
+            ],
+
             ['class' => 'yii\grid\ActionColumn'],
 
         ],

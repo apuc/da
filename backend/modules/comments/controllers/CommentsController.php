@@ -226,6 +226,26 @@ class CommentsController extends Controller
         }
     }
 
+    public function actionUpdateVerifiedAjax()
+    {
+        if (Yii::$app->request->isAjax) {
+            $post = Yii::$app->request->post();
+            $model = $this->findModel($post['id']);
+            if ($model->verified == 0) {
+                $model->verified = 1;
+            } else {
+                $model->verified = 0;
+            }
+            $model->save();
+
+            Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
+            return [
+                'id' => $post['id'],
+                'status' => $model->verified
+            ];
+        }
+    }
+
     /**
      * Deletes an existing Comments model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

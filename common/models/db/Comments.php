@@ -56,6 +56,7 @@ class Comments extends \yii\db\ActiveRecord
             'parent_id' => Yii::t('comments', 'Parent'),
             'moder_checked' => Yii::t('comments', 'Отмечено модератором'),
             'published' => Yii::t('comments', 'Опубликовано'),
+            'verified' => Yii::t('verified', 'Проверка'),
         ];
     }
 

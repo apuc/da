@@ -18,7 +18,7 @@ class CommentsSearch extends Comments
     public function rules()
     {
         return [
-            [['id', 'post_id', 'user_id', 'dt_add', 'parent_id', 'moder_checked', 'published'], 'integer'],
+            [['id', 'post_id', 'user_id', 'dt_add', 'parent_id', 'moder_checked', 'published', 'verified'], 'integer'],
             [['post_type', 'content'], 'safe'],
         ];
     }
@@ -66,6 +66,7 @@ class CommentsSearch extends Comments
             'parent_id' => $this->parent_id,
             'moder_checked' => $this->moder_checked,
             'published' => $this->published,
+            'verified' => $this->verified,
         ]);
 
         $query->andFilterWhere(['like', 'post_type', $this->post_type])
