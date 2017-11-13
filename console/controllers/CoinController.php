@@ -93,57 +93,81 @@ class CoinController extends Controller
 
     public function actionRates()
     {
-        $models = Coin::find()->select('name')->all();
-        $name = array_map(function ($item) {
-            $vowels = [" ", "(", ")"];
-            return str_replace($vowels, "", $item->name);
-        }, $models);
-        $countStr = ceil(count($name) / 50);
-        $finAr = [];
-
-        for ($i = 0; $i < $countStr; $i++) {
-            $res = implode(',', array_slice($name, $i * 50, 50));
-            $json_daily = file_get_contents('https://min-api.cryptocompare.com/data/pricemulti?fsyms=' . $res . '&tsyms=USD,EUR,RUB,UAH');
-            $finAr = array_merge($finAr, json_decode($json_daily, true));
-        }
-
         $date = new Expression('NOW()');
-        if (is_null(CoinRates::findOne(['date' => date('Y-m-d', time())]))) {
-            foreach ($finAr as $key => $coin) {
-                if (!is_numeric($key)) {
-                    if (is_array($coin)) {
-                        $model = new CoinRates();
-                        $model->coin_name = $key;
-                        $model->date = $date;
-                        if (isset($coin['USD'])) {
-                            $model->usd = $coin['USD'];
-                        } else {
-                            $model->usd = null;
+        if (!is_null(CoinRates::findOne(['date' => date('Y-m-d', time())]))) {
+            $this->stdout("nothing to update \n", Console::FG_RED);
+        } else {
+            $count = 0;
+            $models = Coin::find()->select('name')->all();
+            $name = array_map(function ($item) {
+                $vowels = [" ", "(", ")"];
+                return str_replace($vowels, "", $item->name);
+            }, $models);
+            $countInString = 50;
+            $countStr = ceil(count($name) / $countInString);
+            $urls = [];
+
+            for ($i = 0; $i < $countStr; $i++) {
+                $response = implode(',', array_slice($name, $i * $countInString, $countInString));
+                $urls[] = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=" . $response . "&tsyms=USD,EUR,RUB,UAH";
+            }
+
+            $chs = [];
+            // build the individual requests, but do not execute them
+            foreach ($urls as $url) {
+                $chs[] = ($ch = curl_init());
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_HEADER, 0);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+            }
+
+            // build the multi-curl handle, adding both $ch
+            $mh = curl_multi_init();
+            foreach ($chs as $item) {
+                curl_multi_add_handle($mh, $item);
+            }
+
+            // execute all queries simultaneously, and continue when all are complete
+            $running = null;
+            do {
+                curl_multi_exec($mh, $running);
+            } while ($running);
+
+            //close the handles
+            foreach ($chs as $item) {
+                curl_multi_remove_handle($mh, $item);
+            }
+
+            curl_multi_close($mh);
+            // all of our requests are done, we can now access the results
+            foreach ($chs as $item) {
+                $json = curl_multi_getcontent($item);
+                $resultObj = json_decode($json);
+                $this->stdout(".", Console::FG_YELLOW);
+                foreach ($resultObj as $key => $coin) {
+                    if ($key == 'Response') {
+                        if ($coin === "Error") {
+                            $this->stdout("light error with message:  " . $resultObj->Message . "\n", Console::FG_RED);
+                            break;
                         }
-                        if (isset($coin['EUR'])) {
-                            $model->eur = $coin['EUR'];
-                        } else {
-                            $model->eur = null;
-                        }
-                        if (isset($coin['RUB'])) {
-                            $model->rub = $coin['RUB'];
-                        } else {
-                            $model->rub = null;
-                        }
-                        if (isset($coin['UAH'])) {
-                            $model->uah = $coin['UAH'];
-                        } else {
-                            $model->uah = null;
-                        }
-                        if (!$model->save()) {
-                            Debug::prn($model->getErrors());
-                        }
-                        $this->stdout("add new " . $key . "\n", Console::FG_GREEN);
+                    }
+                    $model = new CoinRates();
+                    $model->coin_name = $key;
+                    $model->date = $date;
+                    $model->usd = (isset($coin->USD) ? $coin->USD : null);
+                    $model->eur = (isset($coin->EUR) ? $coin->EUR : null);
+                    $model->rub = (isset($coin->RUB) ? $coin->RUB : null);
+                    $model->uah = (isset($coin->UAH) ? $coin->UAH : null);
+                    if (!$model->save()) {
+                        Debug::prn($model->getErrors());
+                    } else {
+                        $count++;
                     }
                 }
             }
-        } else {
-            $this->stdout("nothing update \n", Console::FG_RED);
+            $this->stdout("added " . $count . " rates \n", Console::FG_GREEN);
         }
     }
 }
