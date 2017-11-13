@@ -200,12 +200,20 @@ class AjaxController extends Controller
             $comment->content = Yii::$app->request->post('comment');
             $comment->dt_add = time();
             $comment->parent_id = Yii::$app->request->post('parent_id');
-
+            $comment->published = 1;
             $comment->save();
 
-            return $this->renderPartial('comments-success');
+            $html['success'] =  $this->renderPartial('comments-success');
+            $html['comments'] = \frontend\widgets\Comments::widget([
+                'pageTitle' => 'Комментарии к новости',
+                'postType' => 'news',
+                'postId' => Yii::$app->request->post('post_id'),
+            ]);
 
+            return json_encode($html);
         }
+
+
 
     }
 

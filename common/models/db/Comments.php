@@ -17,6 +17,7 @@ use Yii;
  * @property integer $parent_id
  * @property integer $moder_checked
  * @property integer $published
+ * @property integer $verified
  */
 class Comments extends \yii\db\ActiveRecord
 {
@@ -34,7 +35,7 @@ class Comments extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['post_id', 'user_id', 'dt_add', 'parent_id', 'moder_checked', 'published'], 'integer'],
+            [['post_id', 'user_id', 'dt_add', 'parent_id', 'moder_checked', 'published', 'verified'], 'integer'],
             [['content'], 'string'],
             [['post_type'], 'string', 'max' => 64],
         ];

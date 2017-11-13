@@ -447,10 +447,9 @@ $(document).ready(function () {
                     'text': content
                 },
                 success: function (data) {
-
-                    console.log(data);
+                    //console.log(data);
                     if (data == true) {
-                        $('#error-message').html('<h3 class="modal-callback__title">Спасибо. Мы исправим все ближайшее время</h3>')
+                        $('#error-message').html('<h3 class="modal-callback__title">Спасибо. Мы исправим все в ближайшее время</h3>')
                     } else {
                         $('#error-message').html('<h3 class="modal-callback__title">Ваше сообщение об ошибке не отправлено.</h3>')
                     }

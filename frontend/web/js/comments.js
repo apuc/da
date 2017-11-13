@@ -22,7 +22,10 @@ $(document).ready(function () {
                     parent_id: $(this).attr('data-parent-id'),
                 },
                 success: function (data) {
-                    $('#modal-add-comment').html(data);
+                    var res = JSON.parse(data);
+                    $('#modal-add-comment').html(res.success);
+                    $('.comments-wrapper').remove();
+                    $(".content-single-wrapper").after(res.comments);
                 }
             });
         }
