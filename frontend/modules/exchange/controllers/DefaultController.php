@@ -18,7 +18,7 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        $exchange = Exchange::getActiveCurrency();
+        $exchange = Exchange::findAll(['date' => date('Y-m-d', time())]);
         $model = new Exchange();
         $head = $model->attributeLabels();
         $usd = Exchange::getCurrencyValue('USD');

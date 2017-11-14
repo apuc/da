@@ -50,11 +50,11 @@ use yii\helpers\Url;
                     <table>
                         <thead>
                         <tr>
-                            <td><?= $head['num_code'] ?></td>
-                            <td><?= $head['char_code'] ?></td>
-                            <td><?= $head['nominal'] ?></td>
-                            <td><?= $head['name'] ?></td>
-                            <td>Курс</td>
+                            <td class="digital-code"><?= $head['num_code'] ?><i class="fa fa-sort" aria-hidden="true"></i> </td>
+                            <td class="letter-code"><?= $head['char_code'] ?><i class="fa fa-sort" aria-hidden="true"></i></td>
+                            <td class="nominal"><?= $head['nominal'] ?><i class="fa fa-sort" aria-hidden="true"></i></td>
+                            <td class="currency"><?= $head['name'] ?><i class="fa fa-sort" aria-hidden="true"></i></td>
+                            <td class="course">Курс <i class="fa fa-sort" aria-hidden="true"></i></td>
                         </tr>
                         </thead>
                         <tbody>
