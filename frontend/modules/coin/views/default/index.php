@@ -52,9 +52,9 @@ use yii\helpers\Url;
                             <td class="digital-code">Название<i class="fa fa-sort" aria-hidden="true"></i></td>
                             <td class="letter-code">Алгоритм расчета <i class="fa fa-sort" aria-hidden="true"></i></td>
                             <td class="nominal">В наличии <i class="fa fa-sort" aria-hidden="true"></i></td>
-                            <td class="currency">курс(usd) <i class="fa fa-sort" aria-hidden="true"></i></td>
-                            <td class="course">курс(eur) <i class="fa fa-sort" aria-hidden="true"></i></td>
-                            <td class="course">курс(rub) <i class="fa fa-sort" aria-hidden="true"></i></td>
+                            <td class="currency">usd<i class="fa fa-sort" aria-hidden="true"></i></td>
+                            <td class="course">eur<i class="fa fa-sort" aria-hidden="true"></i></td>
+                            <td class="course">rub<i class="fa fa-sort" aria-hidden="true"></i></td>
                             <!--                            <td class="course">курс(uah) <i class="fa fa-sort" aria-hidden="true"></i></td>-->
                         </tr>
                         </thead>
