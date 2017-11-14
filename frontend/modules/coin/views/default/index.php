@@ -49,24 +49,25 @@ use yii\helpers\Url;
                     <table>
                         <thead>
                         <tr>
-                            <td>название</td>
-                            <td>алгоритм расчёта</td>
-                            <td>в наличии</td>
-                            <td>курс(usd)</td>
-                            <td>курс(eur)</td>
-                            <td>курс(rub)</td>
-                            <!--                            <td>курс(uah)</td-->
+                            <td class="digital-code">Название<i class="fa fa-sort" aria-hidden="true"></i></td>
+                            <td class="letter-code">Алгоритм расчета <i class="fa fa-sort" aria-hidden="true"></i></td>
+                            <td class="nominal">В наличии <i class="fa fa-sort" aria-hidden="true"></i></td>
+                            <td class="currency">курс(usd) <i class="fa fa-sort" aria-hidden="true"></i></td>
+                            <td class="course">курс(eur) <i class="fa fa-sort" aria-hidden="true"></i></td>
+                            <td class="course">курс(rub) <i class="fa fa-sort" aria-hidden="true"></i></td>
+                            <!--                            <td class="course">курс(uah) <i class="fa fa-sort" aria-hidden="true"></i></td>-->
+                        </tr>
                         </thead>
                         <tbody>
                         <?php foreach ($coinRates as $coinRate) : ?>
                             <tr>
                                 <td><?= $coinRate->coin->full_name ?></td>
-                                <td><?= $coinRate->coin->algorithm ?></td>
+                                <td class="currency"><?= $coinRate->coin->algorithm ?></td>
                                 <td><?= $coinRate->coin->total_coin_supply ?></td>
-                                <td class="currency"><?= $coinRate->usd ?></td>
-                                <td class="currency"><?= $coinRate->eur ?></td>
-                                <td class="currency"><?= $coinRate->rub ?></td>
-                                <!--                            <td class="currency">-->
+                                <td><?= rtrim(number_format($coinRate->usd, 8), "0.") ?></td>
+                                <td><?= rtrim(number_format($coinRate->eur, 8), "0.") ?></td>
+                                <td><?= rtrim(number_format($coinRate->rub, 8), "0.") ?></td>
+                                <!--                                <td class="currency">-->
                                 <? //= $coinRate->uah ?><!--</td>-->
                             </tr>
                         <?php endforeach; ?>
@@ -132,5 +133,4 @@ use yii\helpers\Url;
         <!-- end promotions-sidebar-right.html-->
     </div>
 </section>
-<!-- end crypto-currency.html-->
 
