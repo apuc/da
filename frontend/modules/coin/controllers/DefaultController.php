@@ -18,9 +18,11 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
+        $date = date('Y-m-d', time());
         $coinRates = CoinRates::find()
             ->joinWith('coin')
             ->where(['coin.status' => Coin::STATUS_ACTIVE])
+            ->andWhere(['date' => $date])
             ->all();
         $bitcoin = 0;
         $ethereum = 0;
