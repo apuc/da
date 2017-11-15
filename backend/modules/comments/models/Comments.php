@@ -12,6 +12,6 @@ class Comments extends \common\models\db\Comments
 {
     public static function getCountNotModerComments()
     {
-        return \common\models\db\Comments::find()->where(['published' => 0])->count();
+        return \common\models\db\Comments::find()->where(['verified' => 0])->count();
     }
 }
