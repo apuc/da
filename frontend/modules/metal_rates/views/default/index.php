@@ -1,23 +1,21 @@
 <?php
 
-/** @var array $exchange */
-/** @var array $head */
-/** @var string $usd */
-/** @var string $eur */
+/** @var array $metalRates */
 
 use common\classes\Debug;
 use yii\helpers\Url;
 
-$this->title = 'Курс валют';
+$this->title = 'Драгоценные металлы';
 $this->registerMetaTag( [
     'name'    => 'description',
-    'content' => 'Курс валют',
+    'content' => 'Драгоценные металлы',
 ] );
+
 ?>
 <section class="exchange-rates">
     <div class="container">
         <div class="e-content">
-            <h1>Курс валют</h1>
+            <h1>Драгоценные металлы</h1>
             <div class="e-content__header">
                 <div class="e-content__header__left">
                     <ul>
@@ -39,38 +37,33 @@ $this->registerMetaTag( [
             </div>
             <div class="e-content__wrapper">
                 <div class="e-content__wrapper__title">
-                    <h2>Курсы валют ЦБ РФ на <?= date('d.m.Y', time()) ?></h2>
+                    <h2>Учетные цены ЦБ РФ на драгоценные металлы на <?= date('d.m.Y', time()) ?></h2>
                     <a href="#">Архив <i class="fa fa-angle-right" aria-hidden="true"></i></a>
                 </div>
                 <div class="e-content__wrapper__info">
                     <p>
-                        Доллар США $ — <span><?= $usd ?> руб.</span>
+<!--                        Доллар США $ — <span>--><?//= 3 ?><!-- руб.</span>-->
                     </p>
                     <p>
-                        Евро € — <span><?= $eur ?> руб.</span>
+<!--                        Евро € — <span>--><?//= 2 ?><!-- руб.</span>-->
                     </p>
                 </div>
                 <div class="e-content__wrapper__table">
                     <table>
                         <thead>
                         <tr>
-                            <td class="digital-code"><?= $head['num_code'] ?><i class="fa fa-sort" aria-hidden="true"></i> </td>
-                            <td class="letter-code"><?= $head['char_code'] ?><i class="fa fa-sort" aria-hidden="true"></i></td>
-                            <td class="nominal"><?= $head['nominal'] ?><i class="fa fa-sort" aria-hidden="true"></i></td>
-                            <td class="currency"><?= $head['name'] ?><i class="fa fa-sort" aria-hidden="true"></i></td>
-                            <td class="course">Курс <i class="fa fa-sort" aria-hidden="true"></i></td>
+                            <td>Металл</td>
+                            <td>символ</td>
+                            <td>цена</td>
                         </tr>
                         </thead>
                         <tbody>
                         <?php
-
-                        foreach ($exchange as $item) : ?>
+                        foreach ($metalRates as $item) : ?>
                             <tr>
-                                <td><?= $item->num_code; ?></td>
-                                <td class="currency"><?= $item->char_code ?></td>
-                                <td><?= $item->nominal ?></td>
-                                <td><?=  $item->name?></td>
-                                <td><?=  $item->value?></td>
+                                <td><?= $item->metal->full_name ?></td>
+                                <td><?= $item->metal->name ?></td>
+                                <td><?= $item->price ?></td>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>
@@ -88,6 +81,7 @@ $this->registerMetaTag( [
             </div>
         </div>
         <!-- start promotions-sidebar-right.html-->
+<!--        --><?//= \frontend\widgets\ShowRightRecommend::widget() ?>
         <!-- end promotions-sidebar-right.html-->
     </div>
 </section>

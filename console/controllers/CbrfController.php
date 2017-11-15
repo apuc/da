@@ -12,6 +12,7 @@ namespace console\controllers;
 use common\classes\Debug;
 use common\models\db\Currency;
 use common\models\db\Exchange;
+use common\models\db\MetalRates;
 use Yii;
 use yii\console\Controller;
 use yii\db\Expression;
@@ -67,6 +68,33 @@ class CbrfController extends Controller
             }
         } else {
             $this->stdout("nothing to update \n", Console::FG_RED);
+        }
+    }
+
+    public function actionGetMetalRates()
+    {
+        if (!is_null(MetalRates::findOne(['date' => date('Y-m-d', time())]))) {
+            $this->stdout("nothing to update \n", Console::FG_RED);
+        } else {
+            $date = new Expression('NOW()');
+            $dateNow = date('d/m/Y', time());
+            $response = file_get_contents("http://www.cbr.ru/scripts/xml_metall.asp?date_req1=" . $dateNow . "&date_req2=" . $dateNow);
+            $xml = simplexml_load_string($response);
+            if (isset($xml->Err)) {
+                echo "$xml->Err";
+            } else {
+                $array = json_decode(json_encode($xml), true);
+                foreach ($array['Record'] as $item) {
+                    $model = new MetalRates();
+                    $model->metal_id = $item['@attributes']['Code'];
+                    $model->date = $date;
+                    $model->price = str_replace(',', '.', $item['Sell']);
+                    if (!$model->save()) {
+                        Debug::prn($model->getErrors());
+                    }
+                }
+                $this->stdout("added actual values  \n", Console::FG_GREEN);
+            }
         }
     }
 }

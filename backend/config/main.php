@@ -149,6 +149,9 @@ return [
         'coin' => [
             'class' => 'backend\modules\coin\Coin',
         ],
+        'metal' => [
+            'class' => 'backend\modules\metal\Metal',
+        ],
     ],
     'components' => [
         /*'user' => [
