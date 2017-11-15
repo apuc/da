@@ -55,6 +55,9 @@ return [
         'coin' => [
             'class' => 'frontend\modules\coin\Coin',
         ],
+        'metal_rates' => [
+            'class' => 'frontend\modules\metal_rates\MetalRates',
+        ],
 
         'sitemap' => [
             'class' => 'himiklab\sitemap\Sitemap',
