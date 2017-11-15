@@ -12,12 +12,16 @@ class m171115_093939_create_metal_table extends Migration
      */
     public function up()
     {
+        $tableOptions = null;
+        if ($this->db->driverName === 'mysql') {
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+        }
         $this->createTable('metal', [
             'id' => $this->primaryKey(),
             'name' => $this->string(2),
             'full_name' => $this->string(),
 
-        ]);
+        ], $tableOptions);
         $this->insert('metal', [
             'id' => 1,
             'name' => 'Au',
