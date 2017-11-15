@@ -203,7 +203,7 @@ class AjaxController extends Controller
             $comment->published = 1;
             $comment->save();
 
-            $html['success'] =  $this->renderPartial('comments-success');
+            $html['successInfo'] =  $this->renderPartial('comments-success');
             $html['comments'] = \frontend\widgets\Comments::widget([
                 'pageTitle' => 'Комментарии к новости',
                 'postType' => 'news',

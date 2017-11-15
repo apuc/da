@@ -23,7 +23,7 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     var res = JSON.parse(data);
-                    $('#modal-add-comment').html(res.success);
+                    $('#modal-add-comment').html(res.successInfo);
                     $('.comments-wrapper').remove();
                     $(".content-single-wrapper").after(res.comments);
                 }
