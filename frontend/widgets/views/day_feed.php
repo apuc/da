@@ -25,7 +25,7 @@
             <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $new->slug]); ?>" class="tape__item_pic">
                 <?php if(stristr($new->photo, 'http')):?>
                     <img class="thumbnail" src="<?= $new->photo?>" alt="">
-                <?else: ?>
+                <?php else: ?>
                     <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($new->photo); ?>" alt="">
                 <?php endif;?>
                 <div class="tape__item_pic--content">
