@@ -20,7 +20,7 @@ use common\classes\Debug;
  */
 
 //$this->title                   = Yii::t( 'news', 'News' );
-
+$this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->title = 'Архив новостей за ' . date('d-m-Y', strtotime($date));
 $this->registerMetaTag([
     'name' => 'description',
