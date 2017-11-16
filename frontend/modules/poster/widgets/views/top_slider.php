@@ -24,7 +24,6 @@ $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends
                             <span class="number-day"><?= date('d', $poster->dt_event) ?></span>
                             <span class="mounth"><?= DateFunctions::getMonthShortName(date('m', $poster->dt_event)) ?></span>
                         </div>
-                        <!--<p><?/*= $poster->title */?></p>-->
                         <span class="place"><?= $poster->title ?></span>
                     </div>
                 </a>
