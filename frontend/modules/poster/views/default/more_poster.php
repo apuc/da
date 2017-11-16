@@ -25,22 +25,19 @@ use yii\helpers\Url;
                 <?= WordFunctions::crop_str_word($poster->title, 6)  ?>
             </h3>
             <span class="date">
-                        <?php
-                        if(date('d-m',$poster->dt_event) == date('d-m',$poster->dt_event_end)):
-                            ?>
-                            <?= date('d',$poster->dt_event) . ' '.DateFunctions::getMonthName(date('m',$poster->dt_event))?>
-                            <?php
-                        else:
-                            ?>
-                            <?= date('d',$poster->dt_event) . ' '.DateFunctions::getMonthName(date('m',$poster->dt_event))?> -
-                            <?= date('d',$poster->dt_event_end) . ' '.DateFunctions::getMonthName(date('m',$poster->dt_event_end))?>
-                            <?php
-                        endif;
-                        ?>
-
-
-                <?/*= WordFunctions::dateWithMonts($poster->dt_event) */?><!--, --><?/*= $poster->start; */?>
-                    </span>
+                <?php
+                if(date('d-m',$poster->dt_event) == date('d-m',$poster->dt_event_end)):
+                    ?>
+                    <?= date('d',$poster->dt_event) . ' '.DateFunctions::getMonthName(date('m',$poster->dt_event))?>
+                    <?php
+                else:
+                    ?>
+                    <?= date('d',$poster->dt_event) . ' '.DateFunctions::getMonthName(date('m',$poster->dt_event))?> -
+                    <?= date('d',$poster->dt_event_end) . ' '.DateFunctions::getMonthName(date('m',$poster->dt_event_end))?>
+                    <?php
+                endif;
+                ?>
+             </span>
             <span class="place"><?= $poster->address ?></span>
         </div>
     </a>
