@@ -18,8 +18,8 @@ $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends
 $this->registerJsFile('/js/news.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->registerMetaTag([
-    'name' => 'og:title',
-    'content' => $newTitle,
+    'name' => 'og:url',
+    'content' => yii\helpers\Url::current([], true),
 ]);
 
 $this->registerMetaTag([
@@ -28,10 +28,14 @@ $this->registerMetaTag([
 ]);
 
 $this->registerMetaTag([
-    'name' => 'og:url',
-    'content' => yii\helpers\Url::current([], true),
+    'name' => 'og:title',
+    'content' => $newTitle,
 ]);
 
+$this->registerMetaTag([
+    'name' => 'og:description',
+    'content' => $newContent,
+]);
 
 $this->registerMetaTag([
     'name' => 'og:image',
@@ -42,10 +46,7 @@ $this->registerMetaTag([
     'content' => 'https://' . $_SERVER['HTTP_HOST'] . $model->photo,
 ]);
 
-$this->registerMetaTag([
-    'name' => 'og:description',
-    'content' => $newContent,
-]);
+
 
 $this->title = ($model->meta_title) ? $model->meta_title: $model->title;
 
