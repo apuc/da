@@ -37,6 +37,10 @@ $this->registerMetaTag([
     'name' => 'og:image',
     'content' => 'https://' . $_SERVER['HTTP_HOST'] . $model->photo,
 ]);
+$this->registerMetaTag([
+    'name' => 'og:image:secure_url',
+    'content' => 'https://' . $_SERVER['HTTP_HOST'] . $model->photo,
+]);
 
 $this->registerMetaTag([
     'name' => 'og:description',
