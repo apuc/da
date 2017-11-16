@@ -142,7 +142,7 @@ $this->params['breadcrumbs'][] = $model->title;
                 ?>
 
                 <?= \frontend\widgets\Share::widget([
-                    'url' => \yii\helpers\Url::base(true) . '/news/' . $model->slug,
+                    'url' => yii\helpers\Url::current([], true),
                     'title' => $model->title,
                     'description' => $model->content,
                     'view' => 'share-news',
