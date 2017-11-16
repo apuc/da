@@ -24,7 +24,7 @@ $this->registerMetaTag([
 
 $this->registerMetaTag([
     'name' => 'og:type',
-    'content' => 'website',
+    'content' => 'article',
 ]);
 
 $this->registerMetaTag([
