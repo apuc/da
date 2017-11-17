@@ -80,8 +80,6 @@ use yii\jui\DatePicker;
     ]);
     ?>
 
-    <? //\common\classes\Debug::prn(ArrayHelper::map($tags, 'id', 'tag')) ?>
-
     <label class="control-label" for="company-city_id">Начните вводить Ваш город</label>
     <?= Select2::widget([
         'name' => 'Company[city_id]',
@@ -178,7 +176,6 @@ use yii\jui\DatePicker;
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <? /*= $form->field($model, 'photo')->textInput(['maxlength' => true]) */ ?>
     <div class="imgUpload">
         <div class="media__upload_img"><img src="<?= $model->photo; ?>" width="100px"/></div>
         <?php
@@ -227,11 +224,6 @@ use yii\jui\DatePicker;
         ?>
     </div>
 
-    <? /*= $form->field($model, 'dt_add')->textInput() */ ?>
-
-    <? /*= $form->field($model, 'dt_update')->textInput() */ ?>
-
-    <? /*= $form->field($model, 'descr')->textarea(['rows' => 6]) */ ?>
     <?php echo $form->field($model, 'descr')->widget(CKEditor::className(), [
         'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
             'preset' => 'full',

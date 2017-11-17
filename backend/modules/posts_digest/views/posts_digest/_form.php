@@ -22,8 +22,6 @@ use mihaildev\elfinder\ElFinder;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-<!--    --><?//= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
-
     <?php echo $form->field($model, 'content')->widget(CKEditor::className(), [
         'editorOptions' => ElFinder::ckeditorOptions('elfinder', [
             'preset' => 'full',
@@ -33,13 +31,6 @@ use mihaildev\elfinder\ElFinder;
 
     ])->label('Контент'); ?>
 
-<!--    --><?//= $form->field($model, 'dt_add')->textInput() ?>
-<!---->
-<!--    --><?//= $form->field($model, 'dt_update')->textInput() ?>
-
-<!--    --><?//= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
-
-<!--    --><?//= $form->field($model, 'photo')->textInput(['maxlength' => true]) ?>
     <div class="imgUpload">
         <div class="media__upload_img"><img src="<?= $model->photo; ?>" width="100px"/></div>
         <?php
@@ -57,25 +48,12 @@ use mihaildev\elfinder\ElFinder;
         ]);
         ?>
     </div>
-<!--    --><?//= $form->field($model, 'user_id')->textInput() ?>
 
     <?= $form->field( $model, 'user_id' )->dropDownList( ArrayHelper::map( User::find()->all(), 'id', 'username' ), [ 'prompt' => 'Нет' ] ) ?>
 
-<!--    --><?//= $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field( $model, 'type' )->dropDownList( ArrayHelper::map( Consulting::find()->all(), 'slug', 'title' ), [ 'prompt' => 'Нет' ] ) ?>
 
-<!--    --><?//= $form->field($model, 'cat_id')->textInput() ?>
-
-<!--    --><?php //if ( Yii::$app->controller->action->id == 'update' ) { ?>
-<!---->
-<!--        --><?//= $form->field( $model, 'cat_id' )->dropDownList( ArrayHelper::map( CategoryPostsDigest::find()->where( [ 'type' =>  $model->type] )->all(), 'id', 'title' ) )->label( 'Категория' ) ?>
-<!---->
-<!--    --><?php //} else { ?>
-<!---->
-<!--        --><?//= $form->field( $model, 'cat_id' )->dropDownList( [ ], [ 'style' => 'display:none' ] )->label( 'Категория' ,['style'=>'display:none']) ?>
-<!---->
-<!--    --><?php //}; ?>
         <?php if ( Yii::$app->controller->action->id == 'update' ) { ?>
             <?= Html::dropDownList(
                 'categ',
@@ -89,7 +67,7 @@ use mihaildev\elfinder\ElFinder;
                 [],
                 ['style'=>'display:none' , 'class'=>'form-control', 'id'=>'postsdigest-cat_id', 'multiple'=>'multiple']); ?>
     <?php }; ?>
-<!--    --><?//= $form->field($model, 'views')->textInput() ?>
+
     <?php if ( empty( $model->sort_order ) ): ?>
 
         <?= $form->field( $model, 'sort_order' )->textInput( [

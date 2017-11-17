@@ -18,7 +18,6 @@ use mihaildev\elfinder\InputFile;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <!--    --><? //= $form->field($model, 'descr')->textarea(['rows' => 6]) ?>
     <?= $form->field($model, 'descr')->widget(CKEditor::className(), [
         'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
             'preset' => 'full',
@@ -27,32 +26,7 @@ use mihaildev\elfinder\InputFile;
         ]),
     ]) ?>
 
-    <!--    --><? //= $form->field( $model, 'dt_add' )->textInput() ?>
-
-    <!--    --><? //= $form->field( $model, 'dt_update' )->textInput() ?>
-
-    <!--    --><? //= $form->field( $model, 'slug' )->textInput( [ 'maxlength' => true ] ) ?>
-
     <?= $form->field($model, 'icon')->textInput(['maxlength' => true])->label('Класс Font Awesome') ?>
-    <!--    <div class="imgUpload">-->
-    <!--        <div class="media__upload_img"><img src="--><? //= $model->icon; ?><!--" width="100px"/></div>-->
-    <!--        --><?php
-    //        echo InputFile::widget([
-    //            'language' => 'ru',
-    //            'controller' => 'elfinder', // вставляем название контроллера, по умолчанию равен elfinder
-    //            'filter' => 'image', // фильтр файлов, можно задать массив фильтров https://github.com/Studio-42/elFinder/wiki/Client-con..
-    //            'name' => 'Consulting[icon]',
-    //            'id' => 'consulting-icon',
-    //            'template' => '<div class="input-group">{input}<span class="span-btn">{button}</span></div>',
-    //            'options' => ['class' => 'form-control itemImg', 'maxlength' => '255'],
-    //            'buttonOptions' => ['class' => 'btn btn-primary'],
-    //            'value' => $model->icon,
-    //            'buttonName' => 'Выбрать изображение',
-    //        ]);
-    //        ?>
-    <!--    </div>-->
-
-    <!--    --><? //= $form->field( $model, 'views' )->textInput() ?>
 
     <?= $form->field($model,
         'title_digest')->textInput(['maxlength' => true])->label('Наименование раздела: Документы') ?>

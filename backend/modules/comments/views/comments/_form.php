@@ -18,11 +18,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'post_id')->hiddenInput()->label(false); ?>
 
-   <!-- --><?/*= $form->field($model, 'user_id')->dropDownList(
-        \yii\helpers\ArrayHelper::map($user, 'id', 'username'),
-        ['prompt' => 'Гость']
-    ) */?>
-
     <?= $form->field($model, 'user_id')->widget(\kartik\select2\Select2::className(),
         [
             'data' => \yii\helpers\ArrayHelper::map($user, 'id', 'username'),

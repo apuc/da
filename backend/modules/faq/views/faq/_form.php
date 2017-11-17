@@ -21,7 +21,6 @@ use mihaildev\ckeditor\CKEditor;
 
     <?= $form->field( $model, 'question' )->textInput( [ 'maxlength' => true ] ) ?>
 
-    <!--    --><? //= $form->field($model, 'answer')->textarea(['rows' => 6]) ?>
     <?php echo $form->field( $model, 'answer' )->widget( CKEditor::className(), [
         'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions( 'elfinder', [
             'preset' => 'full',
@@ -29,19 +28,8 @@ use mihaildev\ckeditor\CKEditor;
             'path'   => 'frontend/web/media/upload',
         ] ),
     ] ); ?>
-    <!--    --><? //= $form->field($model, 'dt_add')->textInput() ?>
 
-    <!--    --><? //= $form->field($model, 'dt_update')->textInput() ?>
-
-    <!--    --><? //= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
-
-    <!--    --><? //= $form->field($model, 'views')->textInput() ?>
-
-    <!--    --><? //= $form->field($model, 'user_id')->textInput() ?>
     <?= $form->field( $model, 'user_id' )->dropDownList( ArrayHelper::map( User::find()->all(), 'id', 'username' ), [ 'prompt' => 'Нет' ] ) ?>
-
-    <!--    --><? //= $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
-
 
     <?= $form->field( $model, 'company_id' )->dropDownList( ArrayHelper::map( Company::find()->all(), 'id', 'name' ), [ 'prompt' => 'Нет' ] ) ?>
 

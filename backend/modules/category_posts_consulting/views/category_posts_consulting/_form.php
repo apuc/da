@@ -18,19 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-<!--    --><?//= $form->field($model, 'parent_id')->textInput() ?>
-
     <?= $form->field($model, 'parent_id')->dropDownList( ArrayHelper::map( CategoryPostsConsulting::find()->all(),'id','title'),[ 'prompt' =>'Нет']) ?>
-
-<!--    --><?//= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
-
-<!--    --><?//= $form->field($model, 'dt_add')->textInput() ?>
-<!---->
-<!--    --><?//= $form->field($model, 'dt_update')->textInput() ?>
-
-<!--    --><?//= $form->field($model, 'icon')->textInput(['maxlength' => true]) ?>
-
-<!--    --><?//= $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'type')->dropDownList(ArrayHelper::map( Consulting::find()->all(),'slug','title'),['prompt'=>'Нет']) ?>
     <?php if ( empty( $model->sort_order ) ): ?>

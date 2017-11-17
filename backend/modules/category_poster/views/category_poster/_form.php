@@ -21,7 +21,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?/*= $form->field($model, 'descr')->textarea(['rows' => 6]) */?>
     <?php echo $form->field($model, 'descr')->widget(CKEditor::className(), [
         'editorOptions' => ElFinder::ckeditorOptions('elfinder', [
             'preset' => 'full',
@@ -30,11 +29,6 @@ use yii\widgets\ActiveForm;
         ]),
     ]); ?>
 
-    <?/*= $form->field($model, 'dt_add')->textInput() */?>
-
-    <?/*= $form->field($model, 'dt_update')->textInput() */?>
-
-    <?/*= $form->field($model, 'icon')->textInput(['maxlength' => true]) */?>
     <div class="imgUpload">
         <div class="media__upload_img"><img src="<?= $model->icon; ?>" width="100px"/></div>
         <?php
@@ -57,9 +51,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'meta_descr')->textInput(['maxlength' => true]) ?>
 
-    <?/*= $form->field($model, 'slug')->textInput(['maxlength' => true]) */?>
-
-    <?/*= $form->field($model, 'lang_id')->textInput() */?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('poster', 'Create') : Yii::t('poster', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

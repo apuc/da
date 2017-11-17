@@ -23,7 +23,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?/*= $form->field($model, 'descr')->textarea(['rows' => 6]) */?>
     <?php echo $form->field($model, 'descr')->widget(CKEditor::className(), [
         'editorOptions' => ElFinder::ckeditorOptions('elfinder', [
             'preset' => 'full',
@@ -32,11 +31,6 @@ use yii\widgets\ActiveForm;
         ]),
     ]); ?>
 
-    <?/*= $form->field($model, 'dt_add')->textInput() */?>
-
-    <?/*= $form->field($model, 'dt_update')->textInput() */?>
-
-    <?/*= $form->field($model, 'icon')->textInput(['maxlength' => true]) */?>
     <div class="imgUpload">
         <div class="media__upload_img"><img src="<?= $model->icon; ?>" width="100px"/></div>
         <?php

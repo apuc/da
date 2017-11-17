@@ -39,13 +39,6 @@ use kartik\select2\Select2;
     ]);
     ?>
 
-    <? /*= $form->field($model, 'slug')->textInput(['maxlength' => true]) */ ?>
-
-    <? /*= $form->field($model, 'dt_add')->textInput() */ ?>
-
-    <? /*= $form->field($model, 'dt_update')->textInput() */ ?>
-
-    <? /*= $form->field($model, 'descr')->textarea(['rows' => 6]) */ ?>
     <?php echo $form->field($model, 'descr')->widget(CKEditor::className(), [
         'editorOptions' => ElFinder::ckeditorOptions('elfinder', [
             'preset' => 'full',
@@ -80,17 +73,6 @@ use kartik\select2\Select2;
         ?>
     </div>
 
-    <? /*= $form->field($model, 'views')->textInput() */ ?>
-
-
-
-    <?php //if (!empty($model->dt_event)): ?>
-    <!--    --><? //= $form->field($model, 'dt_event')->input('datetime',
-    //        ['class' => 'form-control', 'value' => date('Y-m-d', $model->dt_event)]) ?>
-    <?php //else: ?>
-    <!--    --><? //= $form->field($model, 'dt_event')->input('datetime',
-    //        ['class' => 'form-control', 'value' => date('Y-m-d', time())]) ?>
-    <?php //endif; ?>
 
     <?php echo '<label>Дата события</label>';
     echo \kartik\datetime\DateTimePicker::widget([
@@ -123,16 +105,6 @@ use kartik\select2\Select2;
     <?= $form->field($model, 'phone')->textInput(['maxlength' => true])  ?>
 
     <?= $form->field($model, 'metka')->textInput(['maxlength' => true])  ?>
-
-    <?php //if (!empty($model->dt_event_end)): ?>
-    <!--    --><? //= $form->field($model, 'dt_event_end')->input('date', [
-    //        'class' => 'form-control',
-    //        'value' => date('Y-m-d H:i', $model->dt_event_end),
-    //    ])->label('Дата окончания события') ?>
-    <?php //else: ?>
-    <!--    --><? //= $form->field($model, 'dt_event_end')->input('date',
-    //        ['class' => 'form-control', 'value' => date('Y-m-d', time())])->label('Дата окончания события') ?>
-    <?php //endif; ?>
 
 
     <?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
