@@ -1,8 +1,8 @@
 $(document).ready(function () {
-    var from = $('#from');
-    var to = $('#to');
-    var fromDropDown = $('select[name="from\\[currency\\]"]');
-    var toDropDown = $('select[name="to\\[currency\\]"]');
+    var from = $('#convert-sum');
+    var to = $('#convert-result');
+    var fromDropDown = $('#currency-selection');
+    var toDropDown = $('#convert-to');
 
     var fromVal = parseInt(from.val());
     var toVal = parseInt(to.val());

@@ -8,20 +8,20 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$this->title = 'Конвертер';
+$this->title = 'Конвертер валют';
 $this->registerMetaTag( [
     'name'    => 'description',
-    'content' => 'Конвертер',
+    'content' => 'Конвертер валют',
 ] );
 
 
 $this->registerJsFile('/js/converter.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 ?>
-<section class="exchange-rates">
+<section class="currency-converter">
     <div class="container">
         <div class="e-content">
-            <h1>Конвертер</h1>
+            <h1>Конвертер валют </h1>
             <div class="e-content__header">
                 <div class="e-content__header__left">
                     <ul>
@@ -43,45 +43,86 @@ $this->registerJsFile('/js/converter.js', ['depends' => [\yii\web\JqueryAsset::c
             </div>
             <div class="e-content__wrapper">
                 <div class="e-content__wrapper__title">
-                    <h2>Конвертер</h2>
-                    <a href="#">Архив <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                    <h2>Конвертер валют </h2>
                 </div>
-                <div class="e-content__wrapper__info">
-                    <p>
-<!--                        Bitcoin — <span>--><?//= $bitcoin ?><!-- $</span>-->
-                    </p>
-                    <p>
-<!--                        Ethereum — <span>--><?//= $ethereum ?><!-- $</span>-->
-                    </p>
-                </div>
-                <div class="e-content__wrapper__table">
-                    <div>
-                    <?= Html::dropDownList(
-                        'from[currency]',
-                        'RUB',
-                       ['RUB' => 'RUB - Российский рубль'])
-                    ?>
-                    <input id="from" type="number" min="0"  name="from[value]">
+                <form action="#" id="currency-converter">
+
+                    <div class="convert-wrap">
+                        <label for="convert-sum">Введите сумму</label>
+                        <input type="text" name="sum" id="convert-sum">
                     </div>
-                    <div>
-                    <?= Html::dropDownList(
-                        'to[currency]',
-                        'USD',
-                        $currency)
-                    ?>
-                    <input id="to" type="number" min="0" name="to[value]">
+                    <a href="#" class="convert-arrow">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+                    <div class="convert-wrap">
+                        <label for="convert-result">Введите сумму</label>
+                        <input type="text" name="sum" id="convert-result">
                     </div>
-                </div>
+
+                    <div class="convert-wrap">
+                        <label for="currency-selection">Конвертировать в</label>
+                        <?= Html::dropDownList(
+                            '',
+                            'RUB',
+                            ['RUB' => 'RUB - Российский рубль'],
+                            ['id' => 'currency-selection'])
+                        ?>
+                    </div>
+                    <a href="#" class="convert-arrow">
+                        <i class="fa fa-exchange" aria-hidden="true"></i>
+                    </a>
+                    <div class="convert-wrap">
+                        <label for="convert-to">Конвертировать в</label>
+                        <?= Html::dropDownList(
+                            '',
+                            'USD',
+                            $currency,
+                            ['id' => 'convert-to'])
+                        ?>
+<!--                        <div class="check-list" id="subcat">-->
+<!--                            <ul>-->
+<!--                                <li>-->
+<!--                        <span class="check-item">-->
+<!--                            <span></span>-->
+<!--                        </span>-->
+<!--                                    НБУ-->
+<!---->
+<!---->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                        <span class="check-item">-->
+<!--                            <span></span>-->
+<!--                        </span>-->
+<!--                                    Покупка-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                        <span class="check-item">-->
+<!--                            <span></span>-->
+<!--                        </span>-->
+<!--                                    Продажа-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                        <label for="c-result"></label>-->
+<!--                        <input type="text" name="sum" id="c-result" value="25.4589">-->
+                    </div>
+
+                </form>
                 <div class="e-content__wrapper__description">
                     <h3>Описание</h3>
-                    <ol>
-                        <li>Среднее значение по курсам крупнейших банков России</li>
-                        <li>Коммерческий курс валют расчитывается на основании международного рынка форекс.</li>
-                        <li>Курсы VISA обновляются один раз в день около 08:00 по Московскому времени, кроме субботы и
-                            воскресенья
-                        </li>
-                    </ol>
-                    <p>Обратите внимание, что курс не учитыает % комиссии банка, выпустившего карту</p>
+                    <p>
+                        Калькулятор курса валют – простой и удобный механизм, позволяющий выполнять моментальные
+                        операции по переводу любых сумм из одних денежных единиц в другие. Конвертер валют онлайн
+                        выполняет автоматический пересчет по курсу ЦБ РФ.
+                    </p>
+                    <p>
+                        С помощью навигации по дате, конвертер валют онлайн по запросу производит расчет денежных
+                        средств согласно предшествующему курсу, что позволит сравнить полученную сумму с актуальной и
+                        принять решение о целесообразности той или иной денежной операции на сегодняшний день.
+                    </p>
+                    <p>
+                        Подробнее на Рамблер/финансы... https://finance.rambler.ru/calculators/converter/
+                    </p>
                 </div>
             </div>
         </div>
@@ -89,6 +130,4 @@ $this->registerJsFile('/js/converter.js', ['depends' => [\yii\web\JqueryAsset::c
         <!-- end promotions-sidebar-right.html-->
     </div>
 </section>
-
-
-
+<!-- end currency-converter.html-->
