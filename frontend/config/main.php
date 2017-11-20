@@ -58,6 +58,9 @@ return [
         'metal_rates' => [
             'class' => 'frontend\modules\metal_rates\MetalRates',
         ],
+        'converter' => [
+            'class' => 'frontend\modules\converter\Converter',
+        ],
 
         'sitemap' => [
             'class' => 'himiklab\sitemap\Sitemap',
