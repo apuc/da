@@ -32,7 +32,7 @@ class BoardFunction
     //Получить label дополнительного поля
     public static function getLabelAdditionalField($name){
         //$label=  AdsFields::find()->where(['name' => $name])->one()->label;
-        $label=  file_get_contents(Yii::$app->params['site-api'] . '/ads/get-label-additional-field?name=' . $name);
+        $label=  self::fileGetContent(Yii::$app->params['site-api'] . '/ads/get-label-additional-field?name=' . $name);
         //Debug::prn($label);
         return str_replace('"', '', $label);
     }

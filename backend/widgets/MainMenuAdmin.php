@@ -25,7 +25,7 @@ class MainMenuAdmin extends Widget
 
         $url = Yii::$app->params['site-api'] . '/ads/count-moder-ads?api_key=' . Yii::$app->params['api-key'];
         if (BoardFunction::isDomainAvailible($url)){
-            $countAds = file_get_contents($url);
+            $countAds = BoardFunction::fileGetContent($url);
             $countAds = json_decode($countAds);
         } else {
             $countAds = '?!?';
