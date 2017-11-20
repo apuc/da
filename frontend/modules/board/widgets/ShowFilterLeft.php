@@ -9,6 +9,7 @@
 namespace frontend\modules\board\widgets;
 
 use common\classes\Debug;
+use frontend\modules\board\models\BoardFunction;
 use Yii;
 use yii\base\Widget;
 
@@ -22,18 +23,18 @@ class ShowFilterLeft extends Widget
         $get = Yii::$app->request->get();
 
         if(isset($get['mainCat']) && !empty($get['mainCat'])) {
-            $cat = file_get_contents($this->siteApi . '/category?parent=' . $get['mainCat']);
+            $cat = BoardFunction::fileGetContent($this->siteApi . '/category?parent=' . $get['mainCat']);
         }
 
         if(isset($get['idCat']) && !empty($get['idCat'][0])) {
-            $catChildren = file_get_contents($this->siteApi . '/category?parent=' . $get['idCat'][0]);
+            $catChildren = BoardFunction::fileGetContent($this->siteApi . '/category?parent=' . $get['idCat'][0]);
         }
 
         $html = '';
 
         if(isset($catChildren) && !empty($get['idCat'][1])) {
 
-            $fields = file_get_contents($this->siteApi . '/category/ads-fields?id=' . $get['idCat'][1]);
+            $fields = BoardFunction::fileGetContent($this->siteApi . '/category/ads-fields?id=' . $get['idCat'][1]);
             if(!empty($fields)){
                 $fields = json_decode($fields);
 

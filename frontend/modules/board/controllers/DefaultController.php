@@ -83,7 +83,7 @@ class DefaultController extends Controller
             return $this->render('error');
         }
 
-        $rez = file_get_contents($url);
+        $rez = BoardFunction::fileGetContent($url);
         //$rez = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page',1));
 
 
@@ -113,12 +113,16 @@ class DefaultController extends Controller
 
     public function actionCategoryAds($slug)
     {
-        $cat = file_get_contents($this->siteApi . '/category/get-category-by-slug?cat=' . Yii::$app->request->get('slug') . '&api_key=' . $this->apiKey);
+        $cat = BoardFunction::fileGetContent($this->siteApi . '/category/get-category-by-slug?cat=' . Yii::$app->request->get('slug') . '&api_key=' . $this->apiKey);
+        //$cat = file_get_contents($this->siteApi . '/category/get-category-by-slug?cat=' . Yii::$app->request->get('slug') . '&api_key=' . $this->apiKey);
         $cat = json_decode($cat);
         // Debug::prn($cat);
 
-        $rez = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page',
+
+        $rez = BoardFunction::fileGetContent($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page',
                 1) . '&catId=' . $cat->id . '&api_key=' . $this->apiKey);
+        /*$rez = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page',
+                1) . '&catId=' . $cat->id . '&api_key=' . $this->apiKey);*/
 
         $rez = json_decode($rez);
 
@@ -144,7 +148,7 @@ class DefaultController extends Controller
             return $this->render('error');
         }
 
-        $ads = file_get_contents($url);
+        $ads = BoardFunction::fileGetContent($url);
 
         $ads = json_decode($ads);
         if(!isset($ads->title)){
@@ -231,7 +235,7 @@ class DefaultController extends Controller
         } else {
             $model = new Ads();
 
-            $arrCity = file_get_contents($this->siteApi . '/city/get-city-list');
+            $arrCity = BoardFunction::fileGetContent($this->siteApi . '/city/get-city-list');
 
             //Debug::prn(json_decode($arrCity, true));
             return $this->render('add-form-ads',
@@ -301,11 +305,11 @@ class DefaultController extends Controller
             return $this->redirect('/personal_area/default/index');
         }else{
             $model = new Ads();
-            $ads = file_get_contents($this->siteApi . '/ads/' . $id . '?expand=adsImgs,adsFieldsValues' . '&api_key=' . $this->apiKey );
+            $ads = BoardFunction::fileGetContent($this->siteApi . '/ads/' . $id . '?expand=adsImgs,adsFieldsValues' . '&api_key=' . $this->apiKey );
             $ads = json_decode($ads);
-            $arrCity = file_get_contents($this->siteApi . '/city/get-city-list');
+            $arrCity = BoardFunction::fileGetContent($this->siteApi . '/city/get-city-list');
 
-            $categoryList = file_get_contents($this->siteApi . '/category/get-list-category?id=' . $ads->category_id);
+            $categoryList = BoardFunction::fileGetContent($this->siteApi . '/category/get-list-category?id=' . $ads->category_id);
             $categoryList = json_decode($categoryList);
             $catList = $this->renderPartial('categoryList',
                 [
@@ -313,7 +317,7 @@ class DefaultController extends Controller
                 ]
             );
 
-            $groupFieldsId = file_get_contents($this->siteApi . '/category/ads-fields?id=' . $ads->category_id);
+            $groupFieldsId = BoardFunction::fileGetContent($this->siteApi . '/category/ads-fields?id=' . $ads->category_id);
             $html = '';
             //Debug::prn($ads->adsFieldsValues);
             if (!empty($groupFieldsId)) {
@@ -376,8 +380,10 @@ class DefaultController extends Controller
     public function actionSearch()
     {
         // Debug::prn(Yii::$app->request->get());
-        $rez = file_get_contents($this->siteApi . '/ads/search?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&' . http_build_query(Yii::$app->request->get()) . '&page=' . Yii::$app->request->get('page',
+        $rez = BoardFunction::fileGetContent($this->siteApi . '/ads/search?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&' . http_build_query(Yii::$app->request->get()) . '&page=' . Yii::$app->request->get('page',
                 1));
+        /*$rez = file_get_contents($this->siteApi . '/ads/search?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&' . http_build_query(Yii::$app->request->get()) . '&page=' . Yii::$app->request->get('page',
+                1));*/
 
         $rez = json_decode($rez);
 
@@ -401,18 +407,18 @@ class DefaultController extends Controller
 
     public function actionGeneralModal()
     {
-        $category = file_get_contents($this->siteApi . '/category?parent=0');
+        $category = BoardFunction::fileGetContent($this->siteApi . '/category?parent=0');
         echo $this->renderPartial('modal', ['category' => json_decode($category)]);
     }
 
     public function actionShowCategory()
     {
         $id = $_POST['id'];
-        $parent_category = file_get_contents($this->siteApi . '/category?parent=' . $id);
+        $parent_category = BoardFunction::fileGetContent($this->siteApi . '/category?parent=' . $id);
 
         if (!empty($parent_category)) {
-            $category = file_get_contents($this->siteApi . '/category?parent=0');
-            $catName = file_get_contents($this->siteApi . '/category/view?id=' . $id);
+            $category = BoardFunction::fileGetContent($this->siteApi . '/category?parent=0');
+            $catName = BoardFunction::fileGetContent($this->siteApi . '/category/view?id=' . $id);
             $catName = json_decode($catName);
             echo $this->renderPartial('sel_cat',
                 [
@@ -431,9 +437,9 @@ class DefaultController extends Controller
     public function actionShowParentModalCategory()
     {
         $id = $_POST['id'];
-        $category = file_get_contents($this->siteApi . '/category?parent=' . $id);
+        $category = BoardFunction::fileGetContent($this->siteApi . '/category?parent=' . $id);
         $category = json_decode($category);
-        $catName = file_get_contents($this->siteApi . '/category/view?id=' . $id);
+        $catName = BoardFunction::fileGetContent($this->siteApi . '/category/view?id=' . $id);
         $catName = json_decode($catName);
         //Debug::prn($category);
         if (!empty($category)) {
@@ -450,7 +456,7 @@ class DefaultController extends Controller
     public function actionShowCategoryEnd()
     {
         $id = Yii::$app->request->post('id');
-        $categoryList = file_get_contents($this->siteApi . '/category/get-list-category?id=' . $id);
+        $categoryList = BoardFunction::fileGetContent($this->siteApi . '/category/get-list-category?id=' . $id);
         $categoryList = json_decode($categoryList);
         echo $this->renderPartial('categoryList',
             [
@@ -464,7 +470,7 @@ class DefaultController extends Controller
     {
         $id = Yii::$app->request->post('id');
         //$id = 4;
-        $groupFieldsId = file_get_contents($this->siteApi . '/category/ads-fields?id=' . $id);
+        $groupFieldsId = BoardFunction::fileGetContent($this->siteApi . '/category/ads-fields?id=' . $id);
 //Debug::prn($groupFieldsId);
         $html = '';
         if (!empty($groupFieldsId)) {
@@ -492,7 +498,7 @@ class DefaultController extends Controller
     public function actionDelete($id)
     {
 
-        $contents = file_get_contents($this->siteApi . '/ads/edit?id='. $id);
+        $contents = BoardFunction::fileGetContent($this->siteApi . '/ads/edit?id='. $id);
         echo $contents;
         //Yii::$app->session->setFlash('success','Ваше объявление успешно добавлено. После прохождения модерации оно будет опубликовано.');
         //return $this->redirect('/personal_area/user-ads');
@@ -500,7 +506,7 @@ class DefaultController extends Controller
 
     public function actionPublicAds( $id )
     {
-        file_get_contents($this->siteApi . '/ads/edit-status?id=' . $id . '&status=2' .'&api_key=' . $this->apiKey);
+        BoardFunction::fileGetContent($this->siteApi . '/ads/edit-status?id=' . $id . '&status=2' .'&api_key=' . $this->apiKey);
 
         Yii::$app->session->setFlash('success', 'Объявление обновлено');
         return $this->redirect(['/personal_area/user-ads/']);

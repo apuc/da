@@ -14,8 +14,8 @@ class BoardFunction
     {
         //$cat = file_get_contents(Yii::$app->params['site-api'] . '/category/view?id=' . $id);
 
-
-        $category = file_get_contents(Yii::$app->params['site-api'] . '/category/view?id=' . $id);
+        $category = self::fileGetContent(Yii::$app->params['site-api'] . '/category/view?id=' . $id);
+        //$category = file_get_contents(Yii::$app->params['site-api'] . '/category/view?id=' . $id);
 
         $cat = json_decode($category);
         $arr[] = $cat;
@@ -49,10 +49,29 @@ class BoardFunction
         curl_setopt($curlInit,CURLOPT_HEADER,true);
         curl_setopt($curlInit,CURLOPT_NOBODY,true);
         curl_setopt($curlInit,CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($curlInit, CURLOPT_SSL_VERIFYPEER, false);
+
+        curl_setopt($curlInit, CURLOPT_SSL_VERIFYHOST, false);
         //получение ответа
         $response = curl_exec($curlInit);
         curl_close($curlInit);
         if ($response) return true;
         return false;
+    }
+
+    public static function fileGetContent($url)
+    {
+
+        $arrContextOptions=array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );
+
+        $response = file_get_contents($url, false, stream_context_create($arrContextOptions));
+
+        return $response;
+
     }
 }
