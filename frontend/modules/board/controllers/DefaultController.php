@@ -225,7 +225,10 @@ class DefaultController extends Controller
                         // Ниже задаются заголовки запроса
                         'header'  => 'Content-type: application/x-www-form-urlencoded',
                         'content' => $sPD,
-                    ]
+                    ],
+                'ssl' => array(
+                    'verify_peer' => false,
+                ),
             ];
             $context = stream_context_create($aHTTP);
             $contents = file_get_contents($sURL, false, $context);
@@ -296,7 +299,10 @@ class DefaultController extends Controller
                         // Ниже задаются заголовки запроса
                         'header'  => 'Content-type: application/x-www-form-urlencoded',
                         'content' => $sPD,
-                    ]
+                    ],
+                'ssl' => array(
+                    'verify_peer' => false,
+                ),
             ];
             $context = stream_context_create($aHTTP);
             $contents = file_get_contents($sURL, false, $context);
