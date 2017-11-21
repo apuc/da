@@ -18,7 +18,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends
 $this->registerJsFile('/js/news.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->registerMetaTag([
-    'name' => 'og:url',
+    'property' => 'og:url',
     'content' => yii\helpers\Url::current([], true),
 ]);
 
