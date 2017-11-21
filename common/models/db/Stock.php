@@ -69,4 +69,12 @@ class Stock extends \yii\db\ActiveRecord
     }
 
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getcompany()
+    {
+        return $this->hasOne(Company::className(), ['id' => 'company_id']);
+    }
+
 }
