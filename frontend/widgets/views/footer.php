@@ -41,16 +41,16 @@ use yii\widgets\MaskedInput;
     <form action="" class="modal-callback__form">
         <input type="hidden" name="user_id" value="<?= (empty(Yii::$app->user->id) ? 0 : Yii::$app->user->id)?>" id="">
         <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken; ?>">
-        <input type="hidden" name="url" value="<?= 'https://da-info.pro'.\yii\helpers\Url::to();  /*=  \yii\helpers\Url::canonical();*/ ?>">
+        <input type="hidden" name="url" value="<?= 'https://da-info.pro'.\yii\helpers\Url::to();  ?>">
 
-        <?if (!Yii::$app->user->id):?>
+        <?php if (!Yii::$app->user->id):?>
 
             <input class="form-control" id="error-user-name" type="text" name="name" placeholder="Ваше имя">
             <p class="error-modal-name-error"></p>
             <input class="form-control" id="error-user-email" type="email" name="email" placeholder="Ваш email">
             <p class="error-modal-email-error"></p>
 
-        <?endif;?>
+        <?php endif;?>
 
         <textarea class="modal-callback__textarea" id="error-user-message" name="text-error" placeholder="Текст сообщения"></textarea>
         <p class="error-modal-message-error"></p>
@@ -117,7 +117,6 @@ use yii\widgets\MaskedInput;
 
             <input class="form-control" id="faq-user-name" type="text" name="name" placeholder="Ваше имя">
             <p class="faq-modal-name-error"></p>
-            <!--<input class="form-control" id="faq-user-email" type="email" name="email" placeholder="Ваш email">-->
             <?php echo MaskedInput::widget([
             'name' => 'email',
             'class' => 'form-control',
