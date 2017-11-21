@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model backend\modules\currency\models\CurrencySearch */
+/* @var $model backend\modules\currency\models\CurrencyRateSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="currency-search">
+<div class="currency-rate-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -17,15 +17,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'name') ?>
+    <?= $form->field($model, 'date') ?>
 
-    <?= $form->field($model, 'code') ?>
+    <?= $form->field($model, 'currency_from_id') ?>
 
-    <?= $form->field($model, 'char_code') ?>
+    <?= $form->field($model, 'currency_to_id') ?>
 
-    <?= $form->field($model, 'status') ?>
-
-    <?php // echo $form->field($model, 'type') ?>
+    <?= $form->field($model, 'rate') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('currency', 'Search'), ['class' => 'btn btn-primary']) ?>

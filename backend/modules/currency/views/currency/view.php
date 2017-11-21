@@ -1,13 +1,15 @@
 <?php
 
+use common\models\db\Currency;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model backend\modules\currency\models\Currency */
+/* @var $model Currency */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('exchange_rates', 'Currencies'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('currency', 'Currencies'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="currency-view">
@@ -15,8 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('exchange_rates', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('exchange_rates', 'Delete'), ['delete', 'id' => $model->id], [
+        <?= Html::a(Yii::t('currency', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('currency', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -29,21 +31,45 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'num_code',
+            'name',
+            'code',
             'char_code',
-            'name:ntext',
             [
                 'attribute' => 'status',
                 'format' => 'text',
                 'value' => function ($model) {
-                    switch ($model->status) {
-                        case 0:
-                            return 'Скрыта';
-                        case 1:
-                            return 'Доступна для показа';
-                    }
+                    return ArrayHelper::getValue($model->Statuses, $model->status);
                 },
             ],
+            [
+                'attribute' => 'type',
+                'format' => 'text',
+                'value' => function ($model) {
+                    return ArrayHelper::getValue($model->Types, $model->type);
+                },
+            ],
+            [
+                'attribute' => 'coin',
+                'label' => Yii::t('currency', 'Coin'),
+                'format' => 'raw',
+                'value' => $model->coin ? DetailView::widget([
+                    'model' => $model->coin,
+                    'attributes' => [
+                        'url:url',
+                        'image_url:url',
+                        'symbol',
+                        'full_name',
+                        'algorithm',
+                        'proof_type',
+                        'fully_premined',
+                        'total_coin_supply',
+                        'pre_mined_value',
+                        'total_coins_free_float',
+                        'sort_order',
+                        'sponsored',
+                    ],
+                ]) : null
+            ]
         ],
     ]) ?>
 

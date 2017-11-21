@@ -9,10 +9,10 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 $this->title = 'Конвертер валют';
-$this->registerMetaTag( [
-    'name'    => 'description',
+$this->registerMetaTag([
+    'name' => 'description',
     'content' => 'Конвертер валют',
-] );
+]);
 
 
 $this->registerJsFile('/js/converter.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
@@ -33,11 +33,11 @@ $this->registerJsFile('/js/converter.js', ['depends' => [\yii\web\JqueryAsset::c
                 </div>
                 <div class="e-content__header__right">
                     <ul>
-                        <li><a href="<?= Url::to('exchange') ?>">Валюта</a></li>
-                        <li><a href="<?= Url::to('metal_rates') ?>">Металлы</a></li>
+                        <li><a href="<?= Url::to(['/currency']) ?>">Валюта</a></li>
+                        <li><a href="<?= Url::to(['/currency', 'type' => 'metal']) ?>">Металлы</a></li>
                         <li><a href="#">Новости</a></li>
-                        <li><a href="<?= Url::to('coin') ?>">Криптовалюта</a></li>
-                        <li><a href="<?= Url::to('converter') ?>">Конвертер</a></li>
+                        <li><a href="<?= Url::to(['/currency', 'type' => 'coin']) ?>">Криптовалюта</a></li>
+                        <li><a href="<?= Url::to(['/converter']) ?>">Конвертер</a></li>
                     </ul>
                 </div>
             </div>
@@ -79,32 +79,32 @@ $this->registerJsFile('/js/converter.js', ['depends' => [\yii\web\JqueryAsset::c
                             $currency,
                             ['id' => 'convert-to'])
                         ?>
-<!--                        <div class="check-list" id="subcat">-->
-<!--                            <ul>-->
-<!--                                <li>-->
-<!--                        <span class="check-item">-->
-<!--                            <span></span>-->
-<!--                        </span>-->
-<!--                                    НБУ-->
-<!---->
-<!---->
-<!--                                </li>-->
-<!--                                <li>-->
-<!--                        <span class="check-item">-->
-<!--                            <span></span>-->
-<!--                        </span>-->
-<!--                                    Покупка-->
-<!--                                </li>-->
-<!--                                <li>-->
-<!--                        <span class="check-item">-->
-<!--                            <span></span>-->
-<!--                        </span>-->
-<!--                                    Продажа-->
-<!--                                </li>-->
-<!--                            </ul>-->
-<!--                        </div>-->
-<!--                        <label for="c-result"></label>-->
-<!--                        <input type="text" name="sum" id="c-result" value="25.4589">-->
+                        <!--                        <div class="check-list" id="subcat">-->
+                        <!--                            <ul>-->
+                        <!--                                <li>-->
+                        <!--                        <span class="check-item">-->
+                        <!--                            <span></span>-->
+                        <!--                        </span>-->
+                        <!--                                    НБУ-->
+                        <!---->
+                        <!---->
+                        <!--                                </li>-->
+                        <!--                                <li>-->
+                        <!--                        <span class="check-item">-->
+                        <!--                            <span></span>-->
+                        <!--                        </span>-->
+                        <!--                                    Покупка-->
+                        <!--                                </li>-->
+                        <!--                                <li>-->
+                        <!--                        <span class="check-item">-->
+                        <!--                            <span></span>-->
+                        <!--                        </span>-->
+                        <!--                                    Продажа-->
+                        <!--                                </li>-->
+                        <!--                            </ul>-->
+                        <!--                        </div>-->
+                        <!--                        <label for="c-result"></label>-->
+                        <!--                        <input type="text" name="sum" id="c-result" value="25.4589">-->
                     </div>
 
                 </form>

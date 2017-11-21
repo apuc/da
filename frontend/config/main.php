@@ -52,14 +52,11 @@ return [
         'promotions' => [
             'class' => 'frontend\modules\promotions\Promotions',
         ],
-        'coin' => [
-            'class' => 'frontend\modules\coin\Coin',
-        ],
-        'metal_rates' => [
-            'class' => 'frontend\modules\metal_rates\MetalRates',
-        ],
         'converter' => [
             'class' => 'frontend\modules\converter\Converter',
+        ],
+        'currency' => [
+            'class' => 'frontend\modules\currency\Currency',
         ],
 
         'sitemap' => [

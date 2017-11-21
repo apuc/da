@@ -527,34 +527,14 @@ class MainMenuAdmin extends Widget
                                 'active' => Yii::$app->controller->id == 'exchange_rates',
                             ],
                             [
-                                'label' => 'Валюты ЦБ РФ',
+                                'label' => "Валюты ЦБРФ<br>Криптовалюты<br>Металлы",
                                 'url' => Url::to(['/currency/currency']),
-                                'active' => Yii::$app->controller->module->id == 'currency' && Yii::$app->controller->action->id == 'index',
+                                'active' => Yii::$app->controller->id == 'currency',
                             ],
                             [
-                                'label' => 'Курсы валют ЦБ РФ',
-                                'url' => Url::to(['/exchange/exchange']),
-                                'active' => Yii::$app->controller->module->id == 'exchange' && Yii::$app->controller->action->id == 'index',
-                            ],
-                            [
-                                'label' => 'Криптовалюты',
-                                'url' => Url::to(['/coin/coin']),
-                                'active' => Yii::$app->controller->id == 'coin',
-                            ],
-                            [
-                                'label' => 'Курс криптовалют',
-                                'url' => Url::to(['/coin/coin-rates']),
-                                'active' => Yii::$app->controller->id == 'coin-rates',
-                            ],
-                            [
-                                'label' => 'Металлы',
-                                'url' => Url::to(['/metal/metal']),
-                                'active' => Yii::$app->controller->id == 'metal',
-                            ],
-                            [
-                                'label' => 'Курсы металлов',
-                                'url' => Url::to(['/metal/metal-rates']),
-                                'active' => Yii::$app->controller->id == 'metal-rates',
+                                'label' => 'Курсы',
+                                'url' => Url::to(['/currency/currency-rate']),
+                                'active' => Yii::$app->controller->id == 'currency-rate' ,
                             ],
                         ],
                         'options' => [

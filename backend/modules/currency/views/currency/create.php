@@ -1,13 +1,16 @@
 <?php
 
+use common\models\db\Currency;
+use common\models\db\CurrencyCoin;
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model backend\modules\currency\models\Currency */
+/* @var $model Currency */
+/* @var $coin CurrencyCoin */
 
-$this->title = Yii::t('exchange_rates', 'Create Currency');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('exchange_rates', 'Currencies'), 'url' => ['index']];
+$this->title = Yii::t('currency', 'Create Currency');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('currency', 'Currencies'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="currency-create">
@@ -16,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'coin' => $coin
     ]) ?>
 
 </div>

@@ -143,15 +143,6 @@ return [
         'currency' => [
             'class' => 'backend\modules\currency\Currency',
         ],
-        'exchange' => [
-            'class' => 'backend\modules\exchange\Exchange',
-        ],
-        'coin' => [
-            'class' => 'backend\modules\coin\Coin',
-        ],
-        'metal' => [
-            'class' => 'backend\modules\metal\Metal',
-        ],
     ],
     'components' => [
         /*'user' => [

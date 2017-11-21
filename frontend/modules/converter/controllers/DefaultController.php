@@ -3,9 +3,10 @@
 namespace frontend\modules\converter\controllers;
 
 use common\classes\Debug;
-use common\models\db\Exchange;
-use common\models\db\ExchangeRates;
+use common\models\db\Currency;
+use common\models\db\CurrencyRate;
 use Yii;
+use yii\db\Expression;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 
@@ -20,7 +21,7 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        $model = Exchange::find()->all();
+        $model = Currency::findAll(['type' => Currency::TYPE_CURRENCY]);
         $currency = ArrayHelper::map($model, 'char_code', 'name');
         array_walk($currency, function (&$value, $key) {
             $value = $key . ' - ' . $value;
@@ -34,23 +35,30 @@ class DefaultController extends Controller
         if (Yii::$app->request->isAjax) {
             $array = Yii::$app->request->post();
             $to = $array['toCurrency'];
-            $modelFirst = Exchange::findOne(['char_code' => $to]);
+            $idTo = Currency::findOne(['char_code' => $to]);
+            $modelFirst = CurrencyRate::find()->with('currencyFrom')->where([
+                'currency_from_id' => $idTo->id,
+                'currency_to_id' => Currency::RUB_ID,
+                'date' => new Expression('CURDATE()')
+            ])->one();
+
             $key = $to . '_' . date('d-m-Y', time());
             Yii::$app->cache->set($key, $modelFirst, 3600);
             if ($model = Yii::$app->cache->get($key)) {
                 if ($array['rub'] === 'true' && $array['fromVal'] != "NaN") {
                     $val = $array['fromVal'];
-                    $res = $val * $model->nominal / $model->value;
+                    $res = $val * $model->currencyFrom->nominal / $model->rate;
                     $length = 2;
-                    if (strlen(strval($val)) > 6){
+                    if (strlen(strval($val)) > 6) {
                         $length = 0;
                     }
+
                     return number_format($res, $length, '.', '');
                 } elseif ($array['toVal'] != "NaN") {
                     $val = $array['toVal'];
-                    $res = $val * $model->value / $model->nominal;
+                    $res = $val * $model->rate / $model->currencyFrom->nominal;
                     $length = 2;
-                    if (strlen(strval($val)) > 6){
+                    if (strlen(strval($val)) > 6) {
                         $length = 0;
                     }
                     return number_format($res, $length, '.', '');
