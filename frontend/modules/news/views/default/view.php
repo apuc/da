@@ -23,26 +23,26 @@ $this->registerMetaTag([
 ]);
 
 $this->registerMetaTag([
-    'name' => 'og:type',
+    'property' => 'og:type',
     'content' => 'article',
 ]);
 
 $this->registerMetaTag([
-    'name' => 'og:title',
+    'property' => 'og:title',
     'content' => $newTitle,
 ]);
 
 $this->registerMetaTag([
-    'name' => 'og:description',
+    'property' => 'og:description',
     'content' => $newContent,
 ]);
 
 $this->registerMetaTag([
-    'name' => 'og:image',
+    'property' => 'og:image',
     'content' => 'https://' . $_SERVER['HTTP_HOST'] . $model->photo,
 ]);
 $this->registerMetaTag([
-    'name' => 'og:image:secure_url',
+    'property' => 'og:image:secure_url',
     'content' => 'https://' . $_SERVER['HTTP_HOST'] . $model->photo,
 ]);
 
