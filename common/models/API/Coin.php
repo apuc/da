@@ -135,7 +135,7 @@ class Coin extends ApiCurrencyAbstract
             $currency_list[$coin->Id]['name'] = $coin->CoinName;
             $currency_list[$coin->Id]['code'] = $coin->Id;
             $currency_list[$coin->Id]['char_code'] = $coin->Name;
-            $currency_list[$coin->Id]['status'] = DbCurrency::STATUS_ACTIVE;
+            $currency_list[$coin->Id]['status'] = DbCurrency::STATUS_INACTIVE;
             $currency_list[$coin->Id]['type'] = DbCurrency::TYPE_COIN;
 
             $currency_list[$coin->Id]['coin']['url'] = 'https://www.cryptocompare.com' . $coin->Url;
