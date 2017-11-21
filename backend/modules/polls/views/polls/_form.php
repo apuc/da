@@ -14,11 +14,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?/*= $form->field($model, 'dt_add')->textInput() */?>
-
-    <?/*= $form->field($model, 'dt_update')->textInput() */?>
-
-    <?/*= $form->field($model, 'status')->textInput() */?>
 
     <div class="pa">
         <p>Варианты ответов</p>

@@ -18,9 +18,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'circle')->widget(ColorInput::classname(), [
         'options' => ['placeholder' => 'Выберите цвет ...'],
     ]); ?>
-    <?/*= $form->field($model, 'circle')-> */?>
-
-    <?/*= $form->field($model, 'border')->textInput(['maxlength' => true]) */?>
 
     <?= $form->field($model, 'border')->widget(ColorInput::classname(), [
         'options' => ['placeholder' => 'Выберите цвет ...'],
