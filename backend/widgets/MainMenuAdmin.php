@@ -262,27 +262,31 @@ class MainMenuAdmin extends Widget
                                 'label' => 'Категории',
                                 'url' => Url::to(['/category_poster']),
                                 'active' => Yii::$app->controller->module->id == 'category_poster' && Yii::$app->controller->action->id == 'index',
+                                'visible' => UserFunction::hasPermission(['Афиша категории']),
                             ],
                             [
                                 'label' => 'Главная Афиша',
                                 'url' => Url::to(['/main-premiere']),
                                 'active' => Yii::$app->controller->module->id == 'poster' && Yii::$app->controller->action->id == 'main-premiere',
+                                'visible' => UserFunction::hasPermission(['Главная Афиша']),
                             ],
                             [
                                 'label' => 'Баннер Афиша',
                                 'url' => Url::to(['/poster/poster/main-poster']),
                                 'active' => Yii::$app->controller->module->id == 'poster' && Yii::$app->controller->action->id == 'main-poster',
-
+                                'visible' => UserFunction::hasPermission(['Баннер Афиша']),
                             ],
                             [
                                 'label' => 'Может заинтересовать',
                                 'url' => Url::to(['/poster/poster/interested-in']),
                                 'active' => Yii::$app->controller->module->id == 'poster' && Yii::$app->controller->action->id == 'interested-in',
+                                'visible' => UserFunction::hasPermission(['Может заинтересовать афиша']),
                             ],
                             [
                                 'label' => 'Слайдер',
                                 'url' => Url::to(['/poster/poster/top-slider']),
                                 'active' => Yii::$app->controller->module->id == 'poster' && Yii::$app->controller->action->id == 'top-slider',
+                                'visible' => UserFunction::hasPermission(['Верхнйи слайдер на странице афиш']),
                             ],
                         ],
                         'visible' => UserFunction::hasPermission(['Афиша']),
