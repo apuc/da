@@ -31,11 +31,13 @@ class Currency extends \yii\db\ActiveRecord
     const TYPE_METAL = 3;
 
     const RUB_ID = 1;
-    const USD_ID = 16;
-    const EUR_ID = 17;
-    const UAH_ID = 33;
-    const AU_ID = 2;
-    const BTC_ID = 12074;
+    const USD_ID = 2;
+    const EUR_ID = 3;
+    const UAH_ID = 4;
+    const AU_ID = 5;
+    const BTC_ID = 6;
+    const LTC_ID = 7;
+    const ETH_ID = 8;
 
     const AU = 1;
     const AG = 2;
@@ -56,8 +58,8 @@ class Currency extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['code', 'status', 'type', 'nominal'], 'integer'],
+            [['code'], 'required'],
+            [['code', 'nominal', 'status', 'type'], 'integer'],
             [['name', 'char_code'], 'string', 'max' => 255],
         ];
     }

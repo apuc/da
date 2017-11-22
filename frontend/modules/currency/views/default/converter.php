@@ -21,26 +21,7 @@ $this->registerJsFile('/js/converter.js', ['depends' => [\yii\web\JqueryAsset::c
 <section class="currency-converter">
     <div class="container">
         <div class="e-content">
-            <h1>Конвертер валют </h1>
-            <div class="e-content__header">
-                <div class="e-content__header__left">
-                    <ul>
-                        <li><a href="#">Регион |</a></li>
-                        <li><a href="">Банки |</a></li>
-                        <li><a href="">ЦРБ |</a></li>
-                        <li><a href="">Разные</a></li>
-                    </ul>
-                </div>
-                <div class="e-content__header__right">
-                    <ul>
-                        <li><a href="<?= Url::to(['/currency']) ?>">Валюта</a></li>
-                        <li><a href="<?= Url::to(['/currency', 'type' => 'metal']) ?>">Металлы</a></li>
-                        <li><a href="#">Новости</a></li>
-                        <li><a href="<?= Url::to(['/currency', 'type' => 'coin']) ?>">Криптовалюта</a></li>
-                        <li><a href="<?= Url::to(['/converter']) ?>">Конвертер</a></li>
-                    </ul>
-                </div>
-            </div>
+            <?= $this->render('_header', ['title' => $this->title]); ?>
             <div class="e-content__wrapper">
                 <div class="e-content__wrapper__title">
                     <h2>Конвертер валют </h2>

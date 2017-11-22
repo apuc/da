@@ -14,6 +14,7 @@ use common\classes\Debug;
 use common\models\db\Currency as DbCurrency;
 use common\models\db\CurrencyRate;
 use yii\base\Component;
+use yii\base\InvalidConfigException;
 
 
 abstract class ApiCurrencyAbstract extends Component
@@ -48,7 +49,11 @@ abstract class ApiCurrencyAbstract extends Component
                     $model->attributes = $item;
                     if (!$model->save())
                         $this->errors[$item['code']] = $model->getErrors();
+                } else {
+                    unset($item['status']);
                 }
+                $model->setAttributes($item);
+                $model->save();
                 if ($model->id) {
                     $ids[$item['code']] = $model->id;
                     if (isset($item['coin'])) $this->saveCoinData($model->id, $item['coin']);
@@ -61,8 +66,11 @@ abstract class ApiCurrencyAbstract extends Component
                     $rate['currency_from_id'] = $ids[$code];
                     $model = new CurrencyRate();
                     $model->attributes = $rate;
-                    if (!$model->save())
-                        $this->errors[$code] = $model->getErrors();
+                    try {
+                        if (!$model->save())
+                            $this->errors[$code] = $model->getErrors();
+                    } catch (InvalidConfigException $e) {
+                    }
                 }
             }
 

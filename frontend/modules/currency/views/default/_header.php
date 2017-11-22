@@ -26,7 +26,7 @@ use yii\helpers\Url;
             <li><a href="<?= Url::to(['/currency', 'type' => 'metal']) ?>">Металлы</a></li>
             <li><a href="#">Новости</a></li>
             <li><a href="<?= Url::to(['/currency', 'type' => 'coin']) ?>">Криптовалюта</a></li>
-            <li><a href="<?= Url::to(['/converter']) ?>">Конвертер</a></li>
+            <li><a href="<?= Url::to(['/currency/converter']) ?>">Конвертер</a></li>
         </ul>
     </div>
 </div>

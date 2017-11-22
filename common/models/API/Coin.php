@@ -13,6 +13,7 @@ use common\classes\Debug;
 use common\models\db\Currency as DbCurrency;
 use common\models\db\CurrencyCoin;
 use common\models\db\CurrencyRate;
+use yii\base\InvalidConfigException;
 use yii\db\Expression;
 
 
@@ -135,7 +136,6 @@ class Coin extends ApiCurrencyAbstract
             $currency_list[$coin->Id]['name'] = $coin->CoinName;
             $currency_list[$coin->Id]['code'] = $coin->Id;
             $currency_list[$coin->Id]['char_code'] = $coin->Name;
-            $currency_list[$coin->Id]['status'] = DbCurrency::STATUS_INACTIVE;
             $currency_list[$coin->Id]['type'] = DbCurrency::TYPE_COIN;
 
             $currency_list[$coin->Id]['coin']['url'] = 'https://www.cryptocompare.com' . $coin->Url;
@@ -178,6 +178,8 @@ class Coin extends ApiCurrencyAbstract
                     if (!$model->save())
                         $this->errors[$item['code']] = $model->getErrors();
                 }
+                $model->setAttributes($item);
+                $model->save();
                 if ($model->id) {
                     $ids[$item['code']] = $model->id;
                     if (isset($item['coin']))
@@ -197,8 +199,11 @@ class Coin extends ApiCurrencyAbstract
                     $item['currency_from_id'] = $code;
                     $model = new CurrencyRate();
                     $model->attributes = $item;
-                    if (!$model->save())
-                        $this->errors[$code] = $model->getErrors();
+                    try {
+                        if (!$model->save())
+                            $this->errors[$code] = $model->getErrors();
+                    } catch (InvalidConfigException $e) {
+                    }
                 }
             }
             return empty($this->errors);

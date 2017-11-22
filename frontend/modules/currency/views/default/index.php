@@ -2,6 +2,7 @@
 
 /** @var array $top_rates */
 /** @var array $rates */
+
 /** @var string $title */
 
 use common\classes\Debug;
@@ -32,7 +33,8 @@ $this->registerMetaTag([
                     <table>
                         <thead>
                         <tr><?php foreach ($rates['titles'] as $title): ?>
-                                <td class="digital-code"><?= $title ?><i class="fa fa-sort" aria-hidden="true"></i></td>
+                                <td class="<?= $title['class'] ?>"><?= $title['value'] ?>
+                                    <i class="fa fa-sort" aria-hidden="true"></i></td>
                             <?php endforeach; ?></tr>
                         </thead>
                         <tbody>

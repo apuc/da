@@ -41,12 +41,9 @@ class CurrencyCoin extends \yii\db\ActiveRecord
     {
         return [
             [['currency_id'], 'required'],
-//            [['currency_id', 'fully_premined', 'sort_order', 'sponsored'], 'integer'],
-//            [['pre_mined_value', 'total_coins_free_float'], 'number'],
-//            [['url', 'image_url', 'symbol', 'full_name', 'algorithm', 'proof_type', 'total_coin_supply'], 'string', 'max' => 255],
-            [['currency_id', 'fully_premined', 'sort_order', 'sponsored'], 'safe'],
-            [['pre_mined_value', 'total_coins_free_float'], 'safe'],
-            [['url', 'image_url', 'symbol', 'full_name', 'algorithm', 'proof_type', 'total_coin_supply'], 'safe'],
+            [['currency_id', 'fully_premined', 'sort_order', 'sponsored'], 'integer'],
+            [['pre_mined_value', 'total_coins_free_float'], 'number'],
+            [['url', 'image_url', 'symbol', 'full_name', 'algorithm', 'proof_type', 'total_coin_supply'], 'string', 'max' => 255],
             [['currency_id'], 'exist', 'skipOnError' => true, 'targetClass' => Currency::className(), 'targetAttribute' => ['currency_id' => 'id']],
         ];
     }
