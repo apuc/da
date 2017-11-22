@@ -60,32 +60,6 @@ $this->registerJsFile('/js/converter.js', ['depends' => [\yii\web\JqueryAsset::c
                             $currency,
                             ['id' => 'convert-to'])
                         ?>
-                        <!--                        <div class="check-list" id="subcat">-->
-                        <!--                            <ul>-->
-                        <!--                                <li>-->
-                        <!--                        <span class="check-item">-->
-                        <!--                            <span></span>-->
-                        <!--                        </span>-->
-                        <!--                                    НБУ-->
-                        <!---->
-                        <!---->
-                        <!--                                </li>-->
-                        <!--                                <li>-->
-                        <!--                        <span class="check-item">-->
-                        <!--                            <span></span>-->
-                        <!--                        </span>-->
-                        <!--                                    Покупка-->
-                        <!--                                </li>-->
-                        <!--                                <li>-->
-                        <!--                        <span class="check-item">-->
-                        <!--                            <span></span>-->
-                        <!--                        </span>-->
-                        <!--                                    Продажа-->
-                        <!--                                </li>-->
-                        <!--                            </ul>-->
-                        <!--                        </div>-->
-                        <!--                        <label for="c-result"></label>-->
-                        <!--                        <input type="text" name="sum" id="c-result" value="25.4589">-->
                     </div>
 
                 </form>
@@ -107,8 +81,6 @@ $this->registerJsFile('/js/converter.js', ['depends' => [\yii\web\JqueryAsset::c
                 </div>
             </div>
         </div>
-        <!-- start promotions-sidebar-right.html-->
-        <!-- end promotions-sidebar-right.html-->
+        <?= \frontend\widgets\ShowRightRecommend::widget() ?>
     </div>
 </section>
-<!-- end currency-converter.html-->

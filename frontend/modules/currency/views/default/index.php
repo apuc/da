@@ -17,7 +17,7 @@ $this->registerMetaTag([
 <section class="exchange-rates">
     <div class="container">
         <div class="e-content">
-            <?= $this->render('_header',['title' => $title]); ?>
+            <?= $this->render('_header', ['title' => $title]); ?>
 
             <div class="e-content__wrapper">
                 <div class="e-content__wrapper__title">
@@ -59,8 +59,7 @@ $this->registerMetaTag([
                 </div>
             </div>
         </div>
-        <!-- start promotions-sidebar-right.html-->
-        <!-- end promotions-sidebar-right.html-->
+        <?= \frontend\widgets\ShowRightRecommend::widget() ?>
     </div>
 </section>
 
