@@ -1,5 +1,7 @@
 <?php
 
+use common\models\db\Currency;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -7,16 +9,15 @@ use yii\grid\GridView;
 /* @var $searchModel backend\modules\currency\models\CurrencySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('exchange_rates', 'Currencies');
+$this->title = Yii::t('currency', 'Currencies');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="currency-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <!--        --><? //= Html::a('Create Currency', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('currency', 'Create Currency'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -24,25 +25,27 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-//            'id',
-            'num_code',
+            'name',
+            'code',
             'char_code',
-            'name:ntext',
+            'nominal',
             [
                 'attribute' => 'status',
                 'format' => 'text',
                 'value' => function ($model) {
-                    switch ($model->status) {
-                        case 0:
-                            return 'Скрыта';
-                        case 1:
-                            return 'Доступна для показа';
-                    }
+                    return ArrayHelper::getValue($model->Statuses, $model->status);
                 },
-                'filter' => Html::activeDropDownList($searchModel, 'status', [
-                    0 => 'Скрыта',
-                    1 => 'Доступна для показа',
-                ], ['class' => 'form-control', 'prompt' => '']),
+                'filter' => Html::activeDropDownList($searchModel, 'status', $searchModel->Statuses,
+                    ['class' => 'form-control', 'prompt' => '']),
+            ],
+            [
+                'attribute' => 'type',
+                'format' => 'text',
+                'value' => function ($model) {
+                    return ArrayHelper::getValue($model->Types, $model->type);
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'type', $searchModel->Types,
+                    ['class' => 'form-control', 'prompt' => '']),
             ],
 
             ['class' => 'yii\grid\ActionColumn'],

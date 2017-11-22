@@ -30,7 +30,7 @@ $(document).ready(function () {
         toCurrency = toDropDown.find(':selected').val();
 
         $.ajax({
-            url: '/converter/default/calculate',
+            url: '/currency/default/calculate',
             type: 'POST',
             data: {
                 rub: isRUB,
@@ -40,6 +40,7 @@ $(document).ready(function () {
                 toCurrency: toCurrency
             },
             success: function (data) {
+                console.log(data);
                 if (isRUB) {
                     to.val(data);
                 } else {

@@ -2,15 +2,16 @@
 
 namespace backend\modules\currency\models;
 
-use common\models\db\Currency;
+use common\classes\Debug;
+use common\models\db\CurrencyRate;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * CurrencySearch represents the model behind the search form about `backend\modules\currency\models\Currency`.
+ * CurrencyRateSearch represents the model behind the search form about `backend\modules\currency\models\CurrencyRate`.
  */
-class CurrencySearch extends Currency
+class CurrencyRateSearch extends CurrencyRate
 {
     /**
      * @inheritdoc
@@ -18,8 +19,9 @@ class CurrencySearch extends Currency
     public function rules()
     {
         return [
-            [['id', 'code', 'status', 'type', 'nominal'], 'integer'],
-            [['name', 'char_code'], 'safe'],
+            [['id', 'currency_from_id', 'currency_to_id'], 'integer'],
+            [['date'], 'safe'],
+            [['rate'], 'number'],
         ];
     }
 
@@ -41,7 +43,9 @@ class CurrencySearch extends Currency
      */
     public function search($params)
     {
-        $query = Currency::find();
+
+        $query = CurrencyRate::find();
+
 
         // add conditions that should always apply here
 
@@ -60,14 +64,12 @@ class CurrencySearch extends Currency
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'code' => $this->code,
-            'nominal' => $this->nominal,
-            'status' => $this->status,
-            'type' => $this->type,
+            'date' => $this->date,
+            'currency_from_id' => $this->currency_from_id,
+            'currency_to_id' => $this->currency_to_id,
+            'rate' => $this->rate,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'char_code', $this->char_code]);
 
         return $dataProvider;
     }

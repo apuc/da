@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\modules\currency;
+namespace frontend\modules\currency;
 
 /**
  * currency module definition class
@@ -10,7 +10,7 @@ class Currency extends \yii\base\Module
     /**
      * @inheritdoc
      */
-    public $controllerNamespace = 'backend\modules\currency\controllers';
+    public $controllerNamespace = 'frontend\modules\currency\controllers';
 
     /**
      * @inheritdoc

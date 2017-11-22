@@ -5,7 +5,7 @@ namespace backend\modules\currency\controllers;
 use yii\web\Controller;
 
 /**
- * Default controller for the `modules` module
+ * Default controller for the `currency` module
  */
 class DefaultController extends Controller
 {
