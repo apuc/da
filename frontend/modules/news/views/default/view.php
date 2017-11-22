@@ -78,35 +78,15 @@ $this->params['breadcrumbs'][] = $model->title;
                 'options' => ['class' => 'breadcrumbs']
             ]) ?>
 
-            <!--<div class="breadcrumbs">
-                <a href="/">Главная</a> <span>></span> <a href="<?/*= Url::to([
-                    '/news/news/category/',
-                    'slug' => $category->slug,
-                ]) */?>"><?/*= $category->title; */?></a>
-            </div>-->
-
             <h1><?= $model->title; ?></h1>
+            <?= $this->render('news-info',
+                [
+                    'model' => $model,
+                    'countComments' => $countComments,
+                    'likes' => $likes
+                ]);
+            ?>
 
-            <div class="content-info">
-                <span class="author"><?= $model->author; ?></span>
-                <span class="comments"><?= $countComments . ' ' . \common\classes\WordFunctions::getNumEnding($countComments,
-                        [
-                            'комментарий',
-                            'комментария',
-                            'комментариев',
-                        ]); ?>
-                </span>
-                <span class="views"><?= $model->views; ?> просмотров</span>
-                <span class="data-time"><?= \common\classes\WordFunctions::FullEventDate($model->dt_public) ?></span>
-
-                <a href="#" class="like likes <?= (!empty($thisUserLike)) ? 'active' : ''?>"
-                   csrf-token="<?= Yii::$app->request->getCsrfToken() ?>"
-                   data-id="<?= $model->id; ?>"
-                   data-type="news">
-                    <i class="like-set-icon"></i>
-                    <span class="like-counter"><?= $likes; ?></span>
-                </a>
-            </div>
 
             <div class="thumbnail-wrapper">
                 <?php if(stristr($model->photo, 'http')):?>
@@ -135,7 +115,13 @@ $this->params['breadcrumbs'][] = $model->title;
                         </div>
                     </section>
                 <?php endif; ?>
-
+                <?= $this->render('news-info',
+                    [
+                        'model' => $model,
+                        'countComments' => $countComments,
+                        'likes' => $likes
+                    ]);
+                ?>
                 <?php
                     echo \frontend\modules\news\widgets\ReadTheSame::widget(
                         [
