@@ -86,6 +86,7 @@ class PosterController extends Controller
 
             $model->dt_event = strtotime($model->dt_event);
             $model->dt_event_end = strtotime($model->dt_event_end);
+            $model->user_id = Yii::$app->user->id;
             $model->save();
 
             foreach ($_POST['cat'] as $cat) {
