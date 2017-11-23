@@ -20,11 +20,11 @@ $(document).ready(function () {
         isRUB = false;
         changeArrow();
     });
-    from.on('change', function () {
+    from.on('keyup', function () {
         isRUB = true;
         Calc();
     });
-    to.on('change', function () {
+    to.on('keyup', function () {
         isRUB = false;
         Calc();
     });
