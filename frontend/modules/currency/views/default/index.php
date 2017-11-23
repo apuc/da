@@ -2,26 +2,26 @@
 
 /** @var array $top_rates */
 /** @var array $rates */
-
-/** @var string $title */
+/** @var string $meta_title */
+/** @var string $meta_descr */
 
 use common\classes\Debug;
 use yii\helpers\Url;
 
-$this->title = $title;
+$this->title = $meta_title;
 $this->registerMetaTag([
     'name' => 'description',
-    'content' => $title,
+    'content' => $meta_descr,
 ]);
 ?>
 <section class="exchange-rates">
     <div class="container">
         <div class="e-content">
-            <?= $this->render('_header', ['title' => $title]); ?>
+            <?= $this->render('_header', ['title' => $meta_title]); ?>
 
             <div class="e-content__wrapper">
                 <div class="e-content__wrapper__title">
-                    <h2><?= $title ?> на <?= date('d.m.Y') ?> </h2>
+                    <h2><?= $meta_title ?> на <?= date('d.m.Y') ?> </h2>
                     <a href="#">Архив <i class="fa fa-angle-right" aria-hidden="true"></i></a>
                 </div>
                 <div class="e-content__wrapper__info">

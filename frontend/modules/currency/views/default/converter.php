@@ -1,17 +1,16 @@
 <?php
 
 /** @var array $currency */
-
+/** @var string $meta_title */
+/** @var string $meta_descr */
 
 use common\classes\Debug;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\helpers\Url;
 
-$this->title = 'Конвертер валют';
+$this->title = $meta_title;
 $this->registerMetaTag([
     'name' => 'description',
-    'content' => 'Конвертер валют',
+    'content' => $meta_descr,
 ]);
 
 
@@ -21,7 +20,7 @@ $this->registerJsFile('/js/converter.js', ['depends' => [\yii\web\JqueryAsset::c
 <section class="currency-converter">
     <div class="container">
         <div class="e-content">
-            <?= $this->render('_header', ['title' => $this->title]); ?>
+            <?= $this->render('_header', ['title' => $meta_title]); ?>
             <div class="e-content__wrapper">
                 <div class="e-content__wrapper__title">
                     <h2>Конвертер валют </h2>

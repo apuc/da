@@ -5,6 +5,7 @@ namespace frontend\modules\currency\controllers;
 use common\classes\Debug;
 use common\models\db\Currency;
 use common\models\db\CurrencyRate;
+use common\models\db\KeyValue;
 use Yii;
 use yii\db\Expression;
 use yii\helpers\ArrayHelper;
@@ -23,7 +24,8 @@ class DefaultController extends Controller
     {
         switch ($type) {
             case 'coin':
-                $title = Yii::t('currency', 'Coin');
+                $meta_title = KeyValue::findOne(['key' => 'currency_coin_title_page'])->value;
+                $meta_descr = KeyValue::findOne(['key' => 'currency_coin_desc_page'])->value;
                 $top = [Currency::BTC_ID];
                 $rates = CurrencyRate::find()
                     ->joinWith(['currencyFrom cf', 'currencyTo ct'])
@@ -81,7 +83,8 @@ class DefaultController extends Controller
                 break;
 
             case 'metal':
-                $title = Yii::t('currency', 'Metal');
+                $meta_title = KeyValue::findOne(['key' => 'currency_metal_title_page'])->value;
+                $meta_descr = KeyValue::findOne(['key' => 'currency_metal_desc_page'])->value;
                 $top = [Currency::AU_ID];
                 $rates = CurrencyRate::find()
                     ->joinWith(['currencyFrom cf', 'currencyTo ct'])
@@ -123,7 +126,8 @@ class DefaultController extends Controller
                 break;
 
             default:
-                $title = Yii::t('currency', 'Currency');
+                $meta_title = KeyValue::findOne(['key' => 'currency_title_page'])->value;
+                $meta_descr = KeyValue::findOne(['key' => 'currency_desc_page'])->value;
                 $top = [Currency::USD_ID, Currency::EUR_ID];
                 $rates = CurrencyRate::find()
                     ->joinWith(['currencyFrom cf', 'currencyTo ct'])
@@ -172,7 +176,12 @@ class DefaultController extends Controller
                     'rates' => $rates_list
                 ];
         }
-        return $this->render('index', ['top_rates' => $top_rates, 'rates' => $rates_list, 'title' => $title]);
+        return $this->render('index', [
+            'top_rates' => $top_rates,
+            'rates' => $rates_list,
+            'meta_title' => $meta_title,
+            'meta_descr' => $meta_descr
+        ]);
     }
 
     /**
@@ -181,12 +190,18 @@ class DefaultController extends Controller
      */
     public function actionConverter()
     {
+        $meta_title = KeyValue::findOne(['key' => 'currency_converter_title_page'])->value;
+        $meta_descr = KeyValue::findOne(['key' => 'currency_converter_desc_page'])->value;
         $model = Currency::findAll(['type' => Currency::TYPE_CURRENCY]);
         $currency = ArrayHelper::map($model, 'char_code', 'name');
         array_walk($currency, function (&$value, $key) {
             $value = $key . ' - ' . $value;
         });
-        return $this->render('converter', compact('currency'));
+        return $this->render('converter', [
+            'currency' => $currency,
+            'meta_title' => $meta_title,
+            'meta_descr' => $meta_descr
+        ]);
     }
 
     /**
