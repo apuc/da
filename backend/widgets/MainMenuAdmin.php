@@ -31,6 +31,11 @@ class MainMenuAdmin extends Widget
             $countAds = '?!?';
         }
 
+        $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
+
+
+        $userId = Yii::$app->user->id;
+
         $companyCountModer = CompanyFunction::getCompanyCountModer();
         $CompanyTariffOrderCount = CompanyFunction::getCompanyOrderTarif();
         $countNews = News::find()->where(['status' => 1])->count();
@@ -39,10 +44,30 @@ class MainMenuAdmin extends Widget
         $countPromotions = Stock::find()->where(['status' => 1])->count();
         $countFeedback = CompanyFeedback::find()->where(['status' => 0])->count();
         $countModerStream = VkStream::find()->where(['status' => 0])->count();
-        $countPublishStream = VkStream::find()->where(['status' => 2])->count();
-        $countPublishedStream = VkStream::find()->where(['status' => 1])->andWhere(['<', 'dt_publish', time()])->count();
-        $countBasketStream = VkStream::find()->where(['status' => 3])->count();
-        $countDefferedStream = VkStream::find()->where(['status' => 1])->andWhere(['>', 'dt_publish', time()])->count();
+
+        $countPublishStreamQuery = VkStream::find()
+            ->where(['status' => 2]);
+        $countPublishedStreamQuery = VkStream::find()
+            ->where(['status' => 1])
+            ->andWhere(['<', 'dt_publish', time()]);
+        $countBasketStreamQuery = VkStream::find()
+            ->where(['status' => 3]);
+        $countDefferedStreamQuery = VkStream::find()->where(['status' => 1])
+            ->andWhere(['>', 'dt_publish', time()]);
+
+        if(isset($role['Редактор парсинга']))
+        {
+            $countPublishStreamQuery->andWhere(['user_id' => $userId]);
+            $countPublishedStreamQuery->andWhere(['user_id' => $userId]);
+            $countBasketStreamQuery->andWhere(['user_id' => $userId]);
+            $countDefferedStreamQuery->andWhere(['user_id' => $userId]);
+        }
+
+        $countPublishStream = $countPublishStreamQuery->count();
+        $countPublishedStream = $countPublishedStreamQuery->count();
+        $countBasketStream = $countBasketStreamQuery->count();
+        $countDefferedStream = $countDefferedStreamQuery->count();
+
         $countContacting = Contacting::find()->where(['status' => 0])->count();
 
 

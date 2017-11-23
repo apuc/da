@@ -25,6 +25,7 @@ use common\models\User;
  * @property integer $views
  * @property integer $likes
  * @property integer $dt_publish
+ * @property integer $user_id
  */
 class VkStream extends \yii\db\ActiveRecord
 {
@@ -45,7 +46,7 @@ class VkStream extends \yii\db\ActiveRecord
     {
         return [
             [['vk_id'], 'required'],
-            [['from_id', 'owner_id', 'owner_type', 'dt_add', 'from_type', 'status', 'views', 'likes', 'comment_status', 'rss'], 'integer'],
+            [['from_id', 'owner_id', 'owner_type', 'dt_add', 'from_type', 'status', 'views', 'likes', 'comment_status', 'rss', 'user_id'], 'integer'],
             [['text', 'slug', 'title', 'meta_descr'], 'string'],
             [['vk_id', 'post_type'], 'string', 'max' => 255],
         ];

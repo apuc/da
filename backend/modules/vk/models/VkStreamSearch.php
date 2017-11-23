@@ -43,7 +43,14 @@ class VkStreamSearch extends VkStream
      */
     public function search($params, $condition = null, $orderBy)
     {
+        $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
+
         $query = VkStream::find();
+
+        if(isset($role['Редактор парсинга']) && Yii::$app->controller->id != 'vk_stream')
+        {
+            $query->andWhere(['user_id' => Yii::$app->user->id]);
+        }
 
         // add conditions that should always apply here
 

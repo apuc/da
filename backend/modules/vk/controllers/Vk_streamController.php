@@ -137,7 +137,12 @@ class Vk_streamController extends Controller
         if(Yii::$app->request->post('id') !== null){
             $id = Yii::$app->request->post('id');
             $status = Yii::$app->request->post('status');
-            \common\models\db\VkStream::updateAll(['status' => $status], ['id' => $id]);
+            \common\models\db\VkStream::updateAll(
+                [
+                    'status' => $status,
+                    'user_id' => Yii::$app->user->id,
+                ],
+                ['id' => $id]);
         }
     }
 
