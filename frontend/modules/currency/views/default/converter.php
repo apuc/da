@@ -33,7 +33,7 @@ $this->registerJsFile('/js/converter.js', ['depends' => [\yii\web\JqueryAsset::c
                         <input type="text" name="sum" id="convert-sum">
                     </div>
                     <a href="#" class="convert-arrow">
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        <i id="arrow"  class="fa fa-angle-right" aria-hidden="true"></i>
                     </a>
                     <div class="convert-wrap">
                         <label for="convert-result">Введите сумму</label>

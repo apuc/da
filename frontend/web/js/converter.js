@@ -3,20 +3,28 @@ $(document).ready(function () {
     var to = $('#convert-result');
     var fromDropDown = $('#currency-selection');
     var toDropDown = $('#convert-to');
+    var arrow = $('#arrow');
 
     var fromVal = parseInt(from.val());
     var toVal = parseInt(to.val());
 
-    // var fromCurrency = $('input[name="from\\[currency\\]"]').val();
     var fromCurrency = fromDropDown.find(':selected').val();
     var toCurrency = toDropDown.find(':selected').val();
     var isRUB = true;
 
-    from.keyup(function () {
+    from.on('focus', function () {
+        isRUB = true;
+        changeArrow();
+    });
+    to.on('focus', function () {
+        isRUB = false;
+        changeArrow();
+    });
+    from.on('change', function () {
         isRUB = true;
         Calc();
     });
-    to.keyup(function () {
+    to.on('change', function () {
         isRUB = false;
         Calc();
     });
@@ -40,7 +48,6 @@ $(document).ready(function () {
                 toCurrency: toCurrency
             },
             success: function (data) {
-                console.log(data);
                 if (isRUB) {
                     to.val(data);
                 } else {
@@ -48,5 +55,15 @@ $(document).ready(function () {
                 }
             }
         })
+    }
+
+    function changeArrow() {
+        if (isRUB) {
+            arrow.removeClass("fa-angle-left");
+            arrow.addClass("fa-angle-right");
+        } else {
+            arrow.removeClass("fa-angle-right");
+            arrow.addClass("fa-angle-left");
+        }
     }
 });
