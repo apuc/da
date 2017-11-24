@@ -42,6 +42,7 @@ class DefaultController extends Controller
                     ])
                     ->andWhere(['>=', 'cf.status', Currency::STATUS_ACTIVE])
                     ->andWhere(['>=', 'ct.status', Currency::STATUS_ACTIVE_FOR_COIN])
+                    ->andWhere(['!=', 'ct.id', Currency::UAH_ID])
                     ->all();
                 $rates_list = $top_rates = [];
                 foreach ($rates as $rate) {
@@ -53,7 +54,8 @@ class DefaultController extends Controller
                         'EUR' => null,
                         'RUB' => null
                     ];
-                    $rates_list[$rate->currency_from_id][$rate->currencyTo->char_code] = $rate->rate;
+                    $rates_list[$rate->currency_from_id][$rate->currencyTo->char_code] =
+                        rtrim(number_format($rate->rate, 6), "0.");
 
                     if (in_array($rate->currency_from_id, $top) && $rate->currency_to_id == Currency::USD_ID)
                         $top_rates[] = [$rate->currencyFrom->name, ('$' . $rate->rate)];

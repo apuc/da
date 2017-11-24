@@ -37,7 +37,7 @@ class CurrencyRates extends Widget
                 'cf.status' => Currency::STATUS_ACTIVE_FOR_WIDGET,
                 'ct.status' => Currency::STATUS_ACTIVE_FOR_WIDGET,
             ])
-//            ->andWhere(['>=', 'cf.status', Currency::STATUS_ACTIVE_FOR_WIDGET])
+            ->andWhere(['!=', 'ct.id', Currency::UAH_ID])
             ->andWhere(['date' => $date])
             ->all();
 
@@ -51,7 +51,8 @@ class CurrencyRates extends Widget
                         'EUR' => null,
                         'RUB' => null
                     ];
-                    $rates_body[$rate->currency_from_id][$rate->currencyTo->char_code] = $rate->rate;
+                    $rates_body[$rate->currency_from_id][$rate->currencyTo->char_code] =
+                        rtrim(number_format($rate->rate, 6), "0.");
                 }
                 $rates_title = [
                     'name' => 'Криптовалюта',
