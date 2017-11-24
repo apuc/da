@@ -1,0 +1,66 @@
+.wrap {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	max-width: 850px;
+	width: 100%;
+	margin: 0 auto;
+	background-color: #edeef0;
+	font-family: sans-serif;
+}
+
+h2 {
+	width: 100%;
+	margin: 0;
+}
+
+h3 {
+	margin: 0;
+}
+
+.course,
+.desc {
+	max-width: 380px;
+	width: 100%;
+	margin-top: 30px;
+}
+
+.course__table {
+	width: 100%;
+	padding: 10px;
+	font-size: 15px;
+	background-color: white;
+	border-collapse: collapse;
+}
+
+caption {
+	padding: 5px 10px;
+	text-align: left;
+	background-color: white;
+}
+
+thead tr {
+	margin-right: 5px;
+	background-color: #edeef0;
+}
+
+tr, td {
+	border: 1px solid #edeef0;
+}
+
+tbody td {
+	padding: 5px 10px;
+	text-align: center;
+}
+
+tbody tr:nth-child(even) {
+	background-color: #edeef0;
+}
+
+tbody tr td:nth-child(2) {
+	font-weight: 700;
+}
+
+ol {
+	padding-left: 20px;
+}
