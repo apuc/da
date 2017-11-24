@@ -28,15 +28,29 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'code',
             'char_code',
-            'nominal',
+            [
+                'attribute' => 'nominal',
+                'contentOptions' => ['style' => 'width:75px;  min-width:75px;'],
+            ],
             [
                 'attribute' => 'status',
-                'format' => 'text',
-                'value' => function ($model) {
-                    return ArrayHelper::getValue($model->Statuses, $model->status);
+                'format' => 'raw',
+                'value' => function ($searchModel, $key) {
+                    return Html::activeDropDownList($searchModel, 'status', $searchModel->Statuses,
+                        [
+                            'class' => 'form-control',
+                            'id' => "currency-status-$searchModel->id",
+                            'onchange' => "
+                                $.ajax({
+                                  url: \"/secure/currency/currency/change-status\",
+                                  type: \"post\",
+                                  data: { id: $key, status: $(\"#currency-status-$searchModel->id\").val()},
+                                });"
+                        ]);
                 },
                 'filter' => Html::activeDropDownList($searchModel, 'status', $searchModel->Statuses,
                     ['class' => 'form-control', 'prompt' => '']),
+                'contentOptions' => ['style' => 'width:235px;  min-width:150px;'],
             ],
             [
                 'attribute' => 'type',
