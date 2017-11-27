@@ -58,7 +58,6 @@ abstract class ApiCurrencyAbstract extends Component
                     $ids[$item['code']] = $model->id;
                     if (isset($item['coin'])) $this->saveCoinData($model->id, $item['coin']);
                 }
-//                die();
             }
 
             foreach ($data['rates'] as $code => $rate) {
@@ -73,10 +72,9 @@ abstract class ApiCurrencyAbstract extends Component
                     }
                 }
             }
-
             return empty($this->errors);
+        } else {
+            return false;
         }
-
-        return false;
     }
 }
