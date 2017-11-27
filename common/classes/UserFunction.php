@@ -100,7 +100,6 @@ class UserFunction {
 
     public static function getUser_avatarStream(array $userInfo)
     {
-        Debug::prn($userInfo);
         $html ='';
 
         if(!empty($userInfo['avatar'])):
