@@ -3,10 +3,7 @@
 
 use common\classes\Debug;
 use common\models\db\Currency;
-use frontend\widgets\CoinRates;
 use frontend\widgets\CurrencyRates;
-use frontend\widgets\MetalRates;
-use yii\helpers\Url;
 
 $this->title = "Валютный рынок";
 $this->registerMetaTag([
@@ -45,5 +42,3 @@ $this->registerMetaTag([
         <?= \frontend\widgets\ShowRightRecommend::widget() ?>
     </div>
 </section>
-
-
