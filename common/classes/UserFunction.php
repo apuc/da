@@ -98,6 +98,19 @@ class UserFunction {
         return $html;
     }
 
+    public static function getUser_avatarStream(array $userInfo)
+    {
+        $html ='';
+
+        if(!empty($userInfo['avatar'])):
+            $html = '<img src="' . $userInfo['avatar'] . '" alt="">';
+        else:
+            $html = '<span>' . mb_substr($userInfo['username'], 0,1) . '</span>' ;
+        endif;
+
+        return $html;
+    }
+
     //получить имя пользователя. вернет login, если имя не указано
     public static function getUserName($id = null){
         if(empty($id)){
