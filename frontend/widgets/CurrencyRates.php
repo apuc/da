@@ -52,7 +52,7 @@ class CurrencyRates extends Widget
                         'RUB' => null
                     ];
                     $rates_body[$rate->currency_from_id][$rate->currencyTo->char_code] =
-                        rtrim(number_format($rate->rate, 6), "0.");
+                        rtrim(number_format($rate->rate, 6, '.', ' '), "0");
                 }
                 $rates_title = [
                     'name' => 'Криптовалюта',

@@ -55,7 +55,7 @@ class DefaultController extends Controller
                         'RUB' => null
                     ];
                     $rates_list[$rate->currency_from_id][$rate->currencyTo->char_code] =
-                        rtrim(number_format($rate->rate, 6), "0.");
+                        rtrim(number_format($rate->rate, 6, '.', ' '), "0");
 
                     if (in_array($rate->currency_from_id, $top) && $rate->currency_to_id == Currency::USD_ID)
                         $top_rates[] = [$rate->currencyFrom->name, ('$' . $rate->rate)];
