@@ -36,7 +36,7 @@ class ApiController extends Controller
     public function actionGetCoin()
     {
         $coin = new Coin();
-        if ($coin->run()) $this->stdout("complete coin \n", Console::FG_GREEN);
+        if ($coin->run()) $this->stdout("complete coin \t\n please wait for get rates\n", Console::FG_GREEN);
         else            $this->stdout("error \n", Console::FG_RED);
 
         if ($coin->runRates()) $this->stdout("complete coin rates \n", Console::FG_GREEN);

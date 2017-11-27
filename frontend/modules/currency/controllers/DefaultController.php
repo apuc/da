@@ -190,7 +190,8 @@ class DefaultController extends Controller
             'top_rates' => $top_rates,
             'rates' => $rates_list,
             'meta_title' => $meta_title,
-            'meta_descr' => $meta_descr
+            'meta_descr' => $meta_descr,
+            'date' => $date
         ]);
     }
 

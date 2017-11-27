@@ -18,18 +18,33 @@ class Metal extends ApiCurrencyAbstract
 {
     public function fetchData()
     {
-        $dateNow = date('d/m/Y');
-        $response = file_get_contents("http://www.cbr.ru/scripts/xml_metall.asp?date_req1=" . $dateNow . "&date_req2=" . $dateNow);
+        $date = $response = 0;
+        while (!isset($response->Record)) {
+            $ch = curl_init();
+            $dateT = date("d/m/Y", strtotime(date("Y-m-d") . "-$date day"));
+            $url = "http://www.cbr.ru/scripts/xml_metall.asp?date_req1=" . $dateT . "&date_req2=" . $dateT;
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $data = curl_exec($ch);
+            if ($data != false) {
+                $response = simplexml_load_string($data);
+            } else {
+                $response = false;
+            }
+            curl_close($ch);
+            $date++;
+        };
         return $response;
     }
 
     public function getData()
     {
-        $xml = simplexml_load_string($this->fetchData());
-        $currency_list = $rates = [];
-        if (isset($xml->Err)) {
-            return $xml->Err;
+        $xml = $this->fetchData();
+        if ($xml == false) {
+            return false;
         } else {
+            $currency_list = $rates = [];
             $array = json_decode(json_encode($xml), true);
             foreach ($array['Record'] as $item) {
                 $currency_list[$item['@attributes']['Code']]['code'] = $code = $item['@attributes']['Code'];
@@ -42,8 +57,8 @@ class Metal extends ApiCurrencyAbstract
                 $rates[$item['@attributes']['Code']]['currency_to_id'] = DbCurrency::RUB_ID;
                 $rates[$item['@attributes']['Code']]['rate'] = str_replace(',', '.', $item['Sell']);
             }
+            return ['currencies' => $currency_list, 'rates' => $rates];
         }
-        return ['currencies' => $currency_list, 'rates' => $rates];
     }
 
 }
