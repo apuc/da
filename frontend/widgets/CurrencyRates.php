@@ -71,24 +71,24 @@ class CurrencyRates extends Widget
                     ];
                 }
                 $rates_title = [
-                    'char_code' => 'Цифр. код',
-                    'currency' => 'Валюта',
-                    'rate' => 'Единиц',
+                    'char_code' => 'Металл',
+                    'currency' => 'Букв.код',
+                    'rate' => 'RUB',
                 ];
                 break;
             default:
                 $title = KeyValue::findOne(['key' => 'currency_title_page'])->value;
                 foreach ($rates as $rate) {
                     $rates_body[$rate->currency_from_id] = [
-                        'char_code' => $rate->currencyFrom->char_code,
                         'currency' => $rate->currencyFrom->name,
+                        'char_code' => $rate->currencyFrom->char_code,
                         'rate' => $rate->rate
                     ];
                 }
                 $rates_title = [
-                    'char_code' => 'Цифр. код',
                     'currency' => 'Валюта',
-                    'rate' => 'Единиц',
+                    'char_code' => 'Букв.код',
+                    'rate' => 'RUB',
                 ];
         }
         return $this->render('currency', [
