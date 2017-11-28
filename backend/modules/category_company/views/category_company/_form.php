@@ -25,6 +25,9 @@ use yii\widgets\ActiveForm;
         'prompt' => 'Нет',
     ]) ?>
 
+    <?= $form->field($model, 'show_menu')
+        ->checkbox() ?>
+
     <?= $form->field($model, 'descr')->textarea(['rows' => 6]) ?>
 
     <div class="imgUpload">

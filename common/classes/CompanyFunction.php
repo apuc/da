@@ -8,6 +8,7 @@
 
 namespace common\classes;
 
+use common\models\db\CategoryCompany;
 use common\models\db\Company;
 use common\models\db\CompanyTariffOrder;
 use common\models\db\ServicesCompanyRelations;
@@ -41,5 +42,30 @@ class CompanyFunction
         $services = ArrayHelper::map($services, 'name_serv', 'val');
 
         return $services;
+    }
+
+
+    public static function getCategoryTopMenu($category)
+    {
+        $rez = [];
+        $k = 1;
+        foreach ($category as $item){
+            if($item['show_menu'] == 1 && $item['parent_id'] == 0){
+                $rez[$k] = $item;
+
+                foreach ($category as $value){
+                    if($value['parent_id'] == $item['id']){
+                        $rez[$k]['childs'][] = $value;
+                    }
+
+                }
+            }
+            $k++;
+            if($k == 9) {
+                break;
+            }
+        }
+
+        return $rez;
     }
 }

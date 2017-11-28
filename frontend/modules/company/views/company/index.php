@@ -20,68 +20,133 @@ $this->registerMetaTag([
     'content' => $meta_descr,
 ]);
 
+$this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/company_ajax.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->params['breadcrumbs'][] = 'Все предприятия';
 
 ?>
-    <section class="business">
+<?= \frontend\modules\company\widgets\ShowMenuCategory::widget(); ?>
 
-        <div class="container">
+<section class="business">
 
-            <?= Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                'options' => ['class' => 'breadcrumbs']
-            ]) ?>
+    <div class="container">
 
-            <div class="business__wrapper">
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'options' => ['class' => 'breadcrumbs']
+        ]) ?>
 
-                <div class="business__content">
+        <div class="business__wrapper">
 
-                    <h1 class="business__title">Предприятия</h1>
-                    <?php $pos = 0;
-                    $wrc_count = 0; ?>
-                    <?php while ($pos < 12): ?>
-                        <?php if (in_array($pos, $positions, true)): ?>
-                            <?php $company = isset($wrc[$wrc_count]) ? $wrc[$wrc_count] : $organizations[$pos] ?>
-                            <a href="<?= Url::to(['/company/company/view', 'slug' => $company->slug]) ?>"
-                               class="business__big-item <?= ($company->recommended == 1) ? 'favorite' : ''?>">
-                                <div class="recommend">
-                                    <span class="recommend__star"></span>
-                                    Рекомендуем
-                                </div>
-                                <div class="business__sm-item--img">
+            <div class="business__content">
+
+                <h1 class="business__title">Предприятия</h1>
+                <?php $pos = 0;
+                $wrc_count = 0; ?>
+                <?php while ($pos < 12): ?>
+                    <?php if (in_array($pos, $positions, true)): ?>
+                        <?php $company = isset($wrc[$wrc_count]) ? $wrc[$wrc_count] : $organizations[$pos] ?>
+                        <a href="<?= Url::to(['/company/company/view', 'slug' => $company->slug]) ?>"
+                           class="business__big-item <?= ($company->recommended == 1) ? 'favorite' : ''?>">
+                            <div class="recommend">
+                                <span class="recommend__star"></span>
+                                Рекомендуем
+                            </div>
+                            <div class="business__sm-item--img">
 
 
 
-                                    <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($company->photo); ?>" alt="">
-                                </div>
+                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($company->photo); ?>" alt="">
+                            </div>
 
-                                <p class="business__sm-item--title">
-                                    <?= $company->name ?>
-                                </p>
-                                <?php if($company->verifikation == 1): ?>
-                                    <span class="business__sm-item--label">
-                                        <img src="/theme/portal-donbassa/img/icons/ver.png" alt="">
-                                    </span>
-                                <?php endif; ?>
+                            <p class="business__sm-item--title">
+                                <?= $company->name ?>
+                            </p>
+                            <?php if($company->verifikation == 1): ?>
+                                <span class="business__sm-item--label">
+                                    <img src="/theme/portal-donbassa/img/icons/ver.png" alt="">
+                                </span>
+                            <?php endif; ?>
 
-                                <p class="business__sm-item--address">
-                                    <span>Адрес:</span>
-                                    <?php
-                                    if($company->region_id != 0){
-                                        $address = GeobaseFunction::getRegionName($company->region_id) . ', ' .GeobaseFunction::getCityName($company->city_id) . ', ' . $company->address ;
-                                    }
-                                    else{
-                                        $address = $company->address;
-                                    }
-                                    ?>
-                                    <span><?= $address ?></span>
-                                </p>
+                            <p class="business__sm-item--address">
+                                <span>Адрес:</span>
+                                <?php
+                                if($company->region_id != 0){
+                                    $address = GeobaseFunction::getRegionName($company->region_id) . ', ' .GeobaseFunction::getCityName($company->city_id) . ', ' . $company->address ;
+                                }
+                                else{
+                                    $address = $company->address;
+                                }
+                                ?>
+                                <span><?= $address ?></span>
+                            </p>
 
-                                <?php if (!empty($company->phone)): ?>
-                                <?php $phone = explode(' ', $company->phone) ?>
+                            <?php if (!empty($company->phone)): ?>
+                            <?php $phone = explode(' ', $company->phone) ?>
+                            <ul class="business__sm-item--numbers">
+                                <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
+                                <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
+                            </ul>
+
+                            <ul class="business__sm-item--numbers">
+                                <li><?= isset($phone[2]) ? $phone[2] : '' ?></li>
+                                <li> <?= isset($phone[3]) ? $phone[3] : '' ?></li>
+                            </ul>
+
+                            <?php elseif(!empty($company->allPhones)):?>
+                            <ul class="business__sm-item--numbers">
+                                <?php foreach ($company->allPhones as $key => $phones):?>
+                                    <?php if ($key == 2):?>
+                                        </ul><ul class="business__sm-item--numbers">
+                                    <?php endif; ?>
+                                    <li><?= $phones->phone?></li>
+                                    <?php if ($key == 4) break;?>
+                                <?php endforeach;?>
+                            </ul>
+                            <?php endif; ?>
+
+                            <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->
+                            <p class="business__sm-item--views"><?= $company->views ?></p>
+
+                        </a>
+                        <?php $pos += 2;
+                        $wrc_count++; ?>
+                    <?php else: ?>
+                        <a href="<?= Url::to(['/company/company/view', 'slug' => $organizations[$pos]->slug]) ?>"
+                           class="business__sm-item <?= ($organizations[$pos]->recommended == 1) ? 'favorite' : ''?>">
+                            <div class="recommend">
+                                <span class="recommend__star"></span>
+                                Рекомендуем
+                            </div>
+                            <div class="business__sm-item--img">
+                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($organizations[$pos]->photo); ?>" alt="">
+                            </div>
+
+                            <p class="business__sm-item--title">
+                                <?= $organizations[$pos]->name ?>
+                            </p>
+                            <?php if($organizations[$pos]->verifikation == 1): ?>
+                                <span class="business__sm-item--label">
+                                    <img src="/theme/portal-donbassa/img/icons/ver.png" alt="">
+                                </span>
+                            <?php endif; ?>
+                            <p class="business__sm-item--address">
+                                <span>Адрес:</span>
+                                <?php
+                                if($organizations[$pos]->region_id != 0){
+                                    $address = GeobaseFunction::getRegionName($organizations[$pos]->region_id) . ', ' .GeobaseFunction::getCityName($organizations[$pos]->city_id) . ', ' . $organizations[$pos]->address ;
+                                }
+                                else{
+                                    $address = $organizations[$pos]->address;
+                                }
+                                ?>
+                                <span><?= $address ?></span>
+                            </p>
+
+                            <?php if (!empty($organizations[$pos]->phone)): ?>
+                                <?php $phone = explode(' ', $organizations[$pos]->phone) ?>
                                 <ul class="business__sm-item--numbers">
                                     <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
                                     <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
@@ -92,97 +157,35 @@ $this->params['breadcrumbs'][] = 'Все предприятия';
                                     <li> <?= isset($phone[3]) ? $phone[3] : '' ?></li>
                                 </ul>
 
-                                <?php elseif(!empty($company->allPhones)):?>
+                            <?php elseif(!empty($organizations[$pos]->allPhones)):?>
                                 <ul class="business__sm-item--numbers">
-                                    <?php foreach ($company->allPhones as $key => $phones):?>
-                                        <?php if ($key == 2):?>
-                                            </ul><ul class="business__sm-item--numbers">
-                                        <?php endif; ?>
-                                        <li><?= $phones->phone?></li>
-                                        <?php if ($key == 4) break;?>
-                                    <?php endforeach;?>
+                                <?php foreach ($organizations[$pos]->allPhones as $key => $phones):?>
+                                    <?php if ($key == 2):?>
+                                        </ul><ul class="business__sm-item--numbers">
+                                    <?php endif; ?>
+                                    <li><?= $phones->phone?></li>
+                                    <?php if ($key == 1) break;?>
+                                <?php endforeach;?>
                                 </ul>
-                                <?php endif; ?>
-
-                                <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->
-                                <p class="business__sm-item--views"><?= $company->views ?></p>
-
-                            </a>
-                            <?php $pos += 2;
-                            $wrc_count++; ?>
-                        <?php else: ?>
-                            <a href="<?= Url::to(['/company/company/view', 'slug' => $organizations[$pos]->slug]) ?>"
-                               class="business__sm-item <?= ($organizations[$pos]->recommended == 1) ? 'favorite' : ''?>">
-                                <div class="recommend">
-                                    <span class="recommend__star"></span>
-                                    Рекомендуем
-                                </div>
-                                <div class="business__sm-item--img">
-                                    <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($organizations[$pos]->photo); ?>" alt="">
-                                </div>
-
-                                <p class="business__sm-item--title">
-                                    <?= $organizations[$pos]->name ?>
-                                </p>
-                                <?php if($organizations[$pos]->verifikation == 1): ?>
-                                    <span class="business__sm-item--label">
-                                        <img src="/theme/portal-donbassa/img/icons/ver.png" alt="">
-                                    </span>
-                                <?php endif; ?>
-                                <p class="business__sm-item--address">
-                                    <span>Адрес:</span>
-                                    <?php
-                                    if($organizations[$pos]->region_id != 0){
-                                        $address = GeobaseFunction::getRegionName($organizations[$pos]->region_id) . ', ' .GeobaseFunction::getCityName($organizations[$pos]->city_id) . ', ' . $organizations[$pos]->address ;
-                                    }
-                                    else{
-                                        $address = $organizations[$pos]->address;
-                                    }
-                                    ?>
-                                    <span><?= $address ?></span>
-                                </p>
-
-                                <?php if (!empty($organizations[$pos]->phone)): ?>
-                                    <?php $phone = explode(' ', $organizations[$pos]->phone) ?>
-                                    <ul class="business__sm-item--numbers">
-                                        <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
-                                        <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
-                                    </ul>
-
-                                    <ul class="business__sm-item--numbers">
-                                        <li><?= isset($phone[2]) ? $phone[2] : '' ?></li>
-                                        <li> <?= isset($phone[3]) ? $phone[3] : '' ?></li>
-                                    </ul>
-
-                                <?php elseif(!empty($organizations[$pos]->allPhones)):?>
-                                    <ul class="business__sm-item--numbers">
-                                    <?php foreach ($organizations[$pos]->allPhones as $key => $phones):?>
-                                        <?php if ($key == 2):?>
-                                            </ul><ul class="business__sm-item--numbers">
-                                        <?php endif; ?>
-                                        <li><?= $phones->phone?></li>
-                                        <?php if ($key == 1) break;?>
-                                    <?php endforeach;?>
-                                    </ul>
-                                <?php endif; ?>
+                            <?php endif; ?>
 
 
-                                <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->
-                                <p class="business__sm-item--views"><?= $organizations[$pos]->views ?></p>
+                            <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->
+                            <p class="business__sm-item--views"><?= $organizations[$pos]->views ?></p>
 
-                            </a>
-                            <?php $pos++; ?>
-                        <?php endif; ?>
-                    <?php endwhile; ?>
-                    <span id="more-company-box"></span>
-                    <div class="wrapper-company-load">
-                        <a href="#" data-step="1" id="load-more-company" class="show-more">загрузить еще</a>
-                    </div>
+                        </a>
+                        <?php $pos++; ?>
+                    <?php endif; ?>
+                <?php endwhile; ?>
+                <span id="more-company-box"></span>
+                <div class="wrapper-company-load">
+                    <a href="#" data-step="1" id="load-more-company" class="show-more">загрузить еще</a>
                 </div>
-
-                <?= CategoryMenu::widget() ?>
             </div>
+
+            <?/*= CategoryMenu::widget() */?>
         </div>
-    </section>
+    </div>
+</section>
 
 <?= \frontend\modules\company\widgets\Feedbacks::widget() ?>
