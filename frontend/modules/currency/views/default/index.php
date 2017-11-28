@@ -5,6 +5,8 @@
 /** @var string $meta_title */
 /** @var string $meta_descr */
 
+/** @var mixed $date */
+
 use common\classes\Debug;
 use yii\helpers\Url;
 
@@ -21,7 +23,11 @@ $this->registerMetaTag([
 
             <div class="e-content__wrapper">
                 <div class="e-content__wrapper__title">
-                    <h2><?= $meta_title ?> на <?= date('d.m.Y') ?> </h2>
+                    <h2><?= $meta_title ?> на
+                        <?= isset($date->date) ?
+                            date('d.m.Y', strtotime($date->date)) :
+                            date('d.m.Y') ?>
+                    </h2>
                     <a href="#">Архив <i class="fa fa-angle-right" aria-hidden="true"></i></a>
                 </div>
                 <div class="e-content__wrapper__info">

@@ -20,21 +20,29 @@ class DefaultController extends Controller
      * Renders the index view for the module
      * @return string
      */
-    public function actionIndex($type = null)
+    public function actionIndex($type = Currency::TYPE_CURRENCY)
     {
+        //выборка последней даты по типу Валюты(ценности)
+        $date = CurrencyRate::find()
+            ->joinWith(['currencyFrom cf'])
+            ->where(['cf.type' => $type])
+            ->orderBy('date DESC')
+            ->one();
+        if (empty($date)) $date = new Expression('CURDATE()');
         switch ($type) {
-            case 'coin':
+            case Currency::TYPE_COIN:
                 $meta_title = KeyValue::findOne(['key' => 'currency_coin_title_page'])->value;
                 $meta_descr = KeyValue::findOne(['key' => 'currency_coin_desc_page'])->value;
                 $top = [Currency::BTC_ID];
                 $rates = CurrencyRate::find()
                     ->joinWith(['currencyFrom cf', 'currencyTo ct'])
                     ->where([
-                        'cf.type' => Currency::TYPE_COIN,
+                        'cf.type' => $type,
+                        'date' => $date
                     ])
                     ->andWhere(['>=', 'cf.status', Currency::STATUS_ACTIVE])
                     ->andWhere(['>=', 'ct.status', Currency::STATUS_ACTIVE_FOR_COIN])
-                    ->andWhere(['date' => new Expression('CURDATE()')])
+                    ->andWhere(['!=', 'ct.id', Currency::UAH_ID])
                     ->all();
                 $rates_list = $top_rates = [];
                 foreach ($rates as $rate) {
@@ -46,7 +54,8 @@ class DefaultController extends Controller
                         'EUR' => null,
                         'RUB' => null
                     ];
-                    $rates_list[$rate->currency_from_id][$rate->currencyTo->char_code] = $rate->rate;
+                    $rates_list[$rate->currency_from_id][$rate->currencyTo->char_code] =
+                        rtrim(number_format($rate->rate, 6, '.', ' '), "0");
 
                     if (in_array($rate->currency_from_id, $top) && $rate->currency_to_id == Currency::USD_ID)
                         $top_rates[] = [$rate->currencyFrom->name, ('$' . $rate->rate)];
@@ -82,17 +91,18 @@ class DefaultController extends Controller
                 ];
                 break;
 
-            case 'metal':
+            case Currency::TYPE_METAL:
                 $meta_title = KeyValue::findOne(['key' => 'currency_metal_title_page'])->value;
                 $meta_descr = KeyValue::findOne(['key' => 'currency_metal_desc_page'])->value;
                 $top = [Currency::AU_ID];
                 $rates = CurrencyRate::find()
                     ->joinWith(['currencyFrom cf', 'currencyTo ct'])
                     ->where([
-                        'cf.type' => Currency::TYPE_METAL,
-                        'cf.status' => Currency::STATUS_ACTIVE])
+                        'cf.type' => $type,
+                        'date' => $date
+                    ])
+                    ->andWhere(['>=', 'cf.status', Currency::STATUS_ACTIVE])
                     ->andWhere(['>=', 'ct.status', Currency::STATUS_ACTIVE])
-                    ->andWhere(['date' => new Expression('CURDATE()')])
                     ->all();
                 $rates_list = $top_rates = [];
 
@@ -132,11 +142,11 @@ class DefaultController extends Controller
                 $rates = CurrencyRate::find()
                     ->joinWith(['currencyFrom cf', 'currencyTo ct'])
                     ->where([
-                        'cf.type' => Currency::TYPE_CURRENCY,
+                        'cf.type' => $type,
+                        'date' => $date
                     ])
                     ->andWhere(['>=', 'cf.status', Currency::STATUS_ACTIVE])
                     ->andWhere(['>=', 'ct.status', Currency::STATUS_ACTIVE])
-                    ->andWhere(['date' => new Expression('CURDATE()')])
                     ->all();
                 $rates_list = $top_rates = [];
                 foreach ($rates as $rate) {
@@ -180,7 +190,8 @@ class DefaultController extends Controller
             'top_rates' => $top_rates,
             'rates' => $rates_list,
             'meta_title' => $meta_title,
-            'meta_descr' => $meta_descr
+            'meta_descr' => $meta_descr,
+            'date' => $date
         ]);
     }
 
@@ -202,6 +213,14 @@ class DefaultController extends Controller
             'meta_title' => $meta_title,
             'meta_descr' => $meta_descr
         ]);
+    }
+
+    /**
+     * @return string
+     */
+    public function actionAll()
+    {
+        return $this->render('all');
     }
 
     /**

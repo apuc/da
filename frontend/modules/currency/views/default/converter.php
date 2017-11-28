@@ -29,14 +29,14 @@ $this->registerJsFile('/js/converter.js', ['depends' => [\yii\web\JqueryAsset::c
 
                     <div class="convert-wrap">
                         <label for="convert-sum">Введите сумму</label>
-                        <input type="text" name="sum" id="convert-sum">
+                        <input type="number" min="0" name="sum" id="convert-sum">
                     </div>
                     <a href="#" class="convert-arrow">
                         <i id="arrow"  class="fa fa-angle-right" aria-hidden="true"></i>
                     </a>
                     <div class="convert-wrap">
                         <label for="convert-result">Введите сумму</label>
-                        <input type="text" name="sum" id="convert-result">
+                        <input type="number" min="0" name="sum" id="convert-result">
                     </div>
 
                     <div class="convert-wrap">

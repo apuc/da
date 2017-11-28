@@ -133,4 +133,20 @@ class CurrencyController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    /**
+     * @return bool
+     */
+    public function actionChangeStatus()
+    {
+        if (Yii::$app->request->isAjax) {
+            $post = Yii::$app->request->post();
+            $model = Currency::findOne(['id' => $post['id']]);
+            if ($model) {
+                $model->status = $post['status'];
+                if ($model->save()) return true;
+                else return false;
+            }
+        }
+    }
 }
