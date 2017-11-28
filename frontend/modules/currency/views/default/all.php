@@ -1,27 +1,24 @@
 <?php
 
-/** @var string $meta_title */
-/** @var string $meta_descr */
 
 use common\classes\Debug;
 use common\models\db\Currency;
 use frontend\widgets\CurrencyRates;
 
-$this->title = $meta_title;
+$this->title = "Валютный рынок";
 $this->registerMetaTag([
     'name' => 'description',
-    'content' => $meta_descr,
+    'content' => "Стоимость валют, криптовалют и драгметаллов",
 ]);
 
 ?>
 <section class="currency-market">
     <div class="container">
-        <h1>Валютный рынок</h1>
         <div class="e-content">
-<!--                        --><?//= $this->render('_header', ['title' => $this->title]); ?>
+            <?= $this->render('_header', ['title' => $this->title]); ?>
             <?= CurrencyRates::widget(); ?>
-            <?= CurrencyRates::widget(['currencyType' => Currency::TYPE_COIN]); ?>
             <?= CurrencyRates::widget(['currencyType' => Currency::TYPE_METAL]); ?>
+            <?= CurrencyRates::widget(['currencyType' => Currency::TYPE_COIN]); ?>
             <div class="currency-widget">
                 <h1>
                     Описание
