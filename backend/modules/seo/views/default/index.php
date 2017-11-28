@@ -99,6 +99,14 @@ use yii\helpers\Html;
     <?php echo Html::textInput('currency_converter_desc_page', $key_val['currency_converter_desc_page'], ['class' => 'form-control', 'id' => 'currency_converter_desc_page']) ?>
     <br>
 </div>
+<div>
+    <b>Валютный рынок:</b><br>
+    <?php echo Html::label('meta title', 'currency_title_all', ['class' => 'control-label']) ?>
+    <?php echo Html::textInput('currency_title_all', $key_val['currency_title_all'], ['class' => 'form-control', 'id' => 'currency_title_all']) ?>
+    <?php echo Html::label('meta desc', 'currency_desc_all', ['class' => 'control-label']) ?>
+    <?php echo Html::textInput('currency_desc_all', $key_val['currency_desc_all'], ['class' => 'form-control', 'id' => 'currency_desc_all']) ?>
+    <br>
+</div>
 <br>
 <?php echo Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
 <?php echo Html::endForm() ?>

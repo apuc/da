@@ -220,7 +220,12 @@ class DefaultController extends Controller
      */
     public function actionAll()
     {
-        return $this->render('all');
+        $meta_title = KeyValue::findOne(['key' => 'currency_title_all'])->value;
+        $meta_descr = KeyValue::findOne(['key' => 'currency_desc_all'])->value;
+        return $this->render('all', [
+            'meta_title' => $meta_title,
+            'meta_descr' => $meta_descr
+        ]);
     }
 
     /**

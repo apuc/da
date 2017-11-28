@@ -252,7 +252,8 @@ return [
                 'obyavleniya/category/<slug>/<page:\d+>' => 'board/default/category-ads',
                 'obyavlenie/<id:\d+>/<slug>/' => 'board/default/view',
 
-                'currency/converter' => 'currency/default/converter'
+                'currency/converter' => 'currency/default/converter',
+                'finance' => 'currency/default/all'
 
             ]
         ],
