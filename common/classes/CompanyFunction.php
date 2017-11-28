@@ -48,11 +48,12 @@ class CompanyFunction
     public static function getCategoryTopMenu($category)
     {
         $rez = [];
+        $rezCatId = [];
         $k = 1;
         foreach ($category as $item){
             if($item['show_menu'] == 1 && $item['parent_id'] == 0){
                 $rez[$k] = $item;
-
+                $rezCatId[] = $item['id'];
                 foreach ($category as $value){
                     if($value['parent_id'] == $item['id']){
                         $rez[$k]['childs'][] = $value;
@@ -65,7 +66,28 @@ class CompanyFunction
                 break;
             }
         }
+        $rez['catId'] = $rezCatId;
+        return $rez;
+    }
 
+    public static function getCategoryAllMenu($category, $catId)
+    {
+        $rez = [];
+        foreach ($category as $item){
+            if( in_array($catId, $item['id'])){
+                continue;
+            }
+            if($item['show_menu'] == 1 && $item['parent_id'] == 0){
+                $rez[$item['id']] = $item;
+                $rezCatId[] = $item['id'];
+                foreach ($category as $value){
+                    if($value['parent_id'] == $item['id']){
+                        $rez[$item['id']]['childs'][] = $value;
+                    }
+
+                }
+            }
+        }
         return $rez;
     }
 }

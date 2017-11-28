@@ -12,15 +12,22 @@ use common\classes\CompanyFunction;
 use common\classes\Debug;
 use common\models\db\CategoryCompany;
 use yii\base\Widget;
+use yii\helpers\ArrayHelper;
 
 class ShowMenuCategory extends Widget
 {
     public function run()
     {
         $category = CategoryCompany::find()->asArray()->all();
-        $categoryArr = CompanyFunction::getCategoryTopMenu($category);
-       // Debug::prn($categoryArr);
+        $categoryTopArr = CompanyFunction::getCategoryTopMenu($category);
 
-        return $this->render('menu_category');
+        $categoryAllArr = CompanyFunction::getCategoryAllMenu($category, $categoryTopArr['catId']);
+
+
+        Debug::prn($categoryAllArr);
+        return $this->render('menu_category',
+            [
+                'categoryTopArr' => $categoryTopArr,
+            ]);
     }
 }
