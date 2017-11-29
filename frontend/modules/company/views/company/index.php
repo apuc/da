@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = 'Все предприятия';
                 <h1 class="business__title">Предприятия</h1>
                 <?php $pos = 0;
                 $wrc_count = 0; ?>
-                <?php while ($pos < 12): ?>
+                <?php while ($pos < 16): ?>
                     <?php if (in_array($pos, $positions, true)): ?>
                         <?php $company = isset($wrc[$wrc_count]) ? $wrc[$wrc_count] : $organizations[$pos] ?>
                         <a href="<?= Url::to(['/company/company/view', 'slug' => $company->slug]) ?>"
@@ -111,7 +111,7 @@ $this->params['breadcrumbs'][] = 'Все предприятия';
                             <p class="business__sm-item--views"><?= $company->views ?></p>
 
                         </a>
-                        <?php $pos += 2;
+                        <?php $pos++;
                         $wrc_count++; ?>
                     <?php else: ?>
                         <a href="<?= Url::to(['/company/company/view', 'slug' => $organizations[$pos]->slug]) ?>"

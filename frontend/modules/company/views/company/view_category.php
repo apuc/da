@@ -18,6 +18,7 @@ $this->registerMetaTag([
     'content' => $categ->meta_descr,
 ]);
 
+$this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/company_ajax.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
@@ -33,7 +34,7 @@ $this->params['breadcrumbs'][] = $categ->title;
 ?>
 
 
-
+<?= \frontend\modules\company\widgets\ShowMenuCategory::widget(); ?>
 <section class="business">
 
     <div class="container">
@@ -93,13 +94,13 @@ $this->params['breadcrumbs'][] = $categ->title;
                     </a>
                 <?php endforeach; ?>
                 <span id="more-company-box"></span>
-                <div class="wrapper-company-load">
+                <!--<div class="wrapper-company-load">
                     <a href="#" data-step="1" id="load-more-company" class="show-more">загрузить еще</a>
-                </div>
+                </div>-->
 
             </div>
 
-            <?= CategoryMenu::widget() ?>
+            <?/*= CategoryMenu::widget() */?>
         </div>
     </div>
 </section>
