@@ -24,10 +24,12 @@ class ShowMenuCategory extends Widget
         $categoryAllArr = CompanyFunction::getCategoryAllMenu($category, $categoryTopArr['catId']);
 
 
-        Debug::prn($categoryAllArr);
+       /* Debug::prn($categoryAllArr);
+        die();*/
         return $this->render('menu_category',
             [
                 'categoryTopArr' => $categoryTopArr,
+                'categoryAllArr' => $categoryAllArr,
             ]);
     }
 }

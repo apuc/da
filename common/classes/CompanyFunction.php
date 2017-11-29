@@ -73,11 +73,13 @@ class CompanyFunction
     public static function getCategoryAllMenu($category, $catId)
     {
         $rez = [];
+       /* Debug::prn($catId);
+        Debug::prn($category);*/
         foreach ($category as $item){
-            if( in_array($catId, $item['id'])){
+            if( in_array($item['id'], $catId)){
                 continue;
             }
-            if($item['show_menu'] == 1 && $item['parent_id'] == 0){
+            if($item['parent_id'] == 0){
                 $rez[$item['id']] = $item;
                 $rezCatId[] = $item['id'];
                 foreach ($category as $value){
