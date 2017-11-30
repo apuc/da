@@ -104,7 +104,7 @@ class Vk_publishedController extends Controller
     public function actionDeffered()
     {
         $searchModel = new VkStreamSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, ['status' => 1, ['>', 'dt_publish', time()]], 'dt_publish');
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, ['status' => 4 ], 'dt_publish');
 
         return $this->render('../vk_stream/index', [
             'searchModel' => $searchModel,

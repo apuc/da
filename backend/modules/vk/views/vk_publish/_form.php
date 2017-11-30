@@ -15,12 +15,12 @@ use common\classes\Debug;
 
     <?= $form->field($model, 'text')->textarea(['rows' => 6]) ?>
 
-    <div class="dt_public_box_link"><a href="#">Отложенная публикация</a></div>
+   <!-- <div class="dt_public_box_link"><a href="#">Отложенная публикация</a></div>
     <div class="dt_public_box">
-        <?= $form->field($model, 'dt_publish')->input('date', ['class' => 'form-control', 'value' => date('d-m-Y', $model->dt_publish)]) ?>
-        <?= Html::input('text', 'dt_publish_time', date(''),
-            ['id' => 'dt_public_time', 'class' => 'form-control', 'placeholder' => 'Время']) ?>
-    </div>
+        <?/*= $form->field($model, 'dt_publish')->input('date', ['class' => 'form-control', 'value' => date('d-m-Y', $model->dt_publish)]) */?>
+        <?/*= Html::input('text', 'dt_publish_time', date(''),
+            ['id' => 'dt_public_time', 'class' => 'form-control', 'placeholder' => 'Время']) */?>
+    </div>-->
 
     <?php if(!$model->isNewRecord): ?>
         <label class="control-label">Фото:</label>
@@ -48,7 +48,8 @@ use common\classes\Debug;
         0 => 'На модерации',
         1 => 'Опубликовано',
         2 => 'На публикации',
-        3 => 'В корзине']) ?>
+        3 => 'В корзине',
+        4 => 'Отложить']) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

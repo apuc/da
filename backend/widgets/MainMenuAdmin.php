@@ -52,8 +52,7 @@ class MainMenuAdmin extends Widget
             ->andWhere(['<', 'dt_publish', time()]);
         $countBasketStreamQuery = VkStream::find()
             ->where(['status' => 3]);
-        $countDefferedStreamQuery = VkStream::find()->where(['status' => 1])
-            ->andWhere(['>', 'dt_publish', time()]);
+        $countDefferedStreamQuery = VkStream::find()->where(['status' => 4]);
 
         if(isset($role['Редактор парсинга']))
         {
