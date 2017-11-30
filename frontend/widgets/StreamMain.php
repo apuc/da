@@ -23,6 +23,7 @@ class StreamMain extends Widget
             ->where(['status' => 1,])
             ->with('author', 'group', 'photo', 'gif')
             ->orderBy('dt_add DESC')
+            ->limit(10)
             ->all();
 
         foreach ($posts as $post)
