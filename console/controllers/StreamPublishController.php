@@ -17,10 +17,12 @@ class StreamPublishController extends Controller
     public function actionIndex()
     {
         $stream = VkStream::find()->where(['status' => 4])->orderBy('dt_publish DESC')->one();
+        if(!empty($stream)){
+            $stream->dt_publish = time();
+            $stream->status = 1;
+            $stream->save();
+        }
 
-        $stream->dt_publish = time();
-        $stream->status = 1;
-        $stream->save();
 
         //Debug::prn($stream[0]->text);
     }
