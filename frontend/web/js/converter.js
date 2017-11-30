@@ -4,12 +4,6 @@ $(document).ready(function () {
     var fromDropDown = $('#currency-selection');
     var toDropDown = $('#convert-to');
     var arrow = $('#arrow');
-
-    var fromVal = parseInt(from.val());
-    var toVal = parseInt(to.val());
-
-    var fromCurrency = fromDropDown.find(':selected').val();
-    var toCurrency = toDropDown.find(':selected').val();
     var isRUB = true;
 
     from.on('focus', function () {
@@ -20,32 +14,28 @@ $(document).ready(function () {
         isRUB = false;
         changeArrow();
     });
-    from.on('keyup', function () {
+    from.on('input', function () {
         isRUB = true;
         Calc();
     });
-    to.on('keyup', function () {
+    to.on('input', function () {
         isRUB = false;
         Calc();
     });
-    $(document).on('change', toDropDown, function () {
+    toDropDown.on('change', function () {
         Calc();
     });
 
     function Calc() {
-        fromVal = parseInt(from.val());
-        toVal = parseInt(to.val());
-        toCurrency = toDropDown.find(':selected').val();
-
         $.ajax({
             url: '/currency/default/calculate',
             type: 'POST',
             data: {
                 rub: isRUB,
-                fromVal: fromVal,
-                toVal: toVal,
-                fromCurrency: fromCurrency,
-                toCurrency: toCurrency
+                fromVal: from.val(),
+                toVal: to.val(),
+                fromCurrency: fromDropDown.find(':selected').val(),
+                toCurrency: toDropDown.find(':selected').val()
             },
             success: function (data) {
                 if (isRUB) {

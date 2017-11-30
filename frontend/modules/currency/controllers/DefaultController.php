@@ -233,6 +233,12 @@ class DefaultController extends Controller
      */
     public function actionCalculate()
     {
+        $date = CurrencyRate::find()
+            ->joinWith(['currencyFrom cf'])
+            ->where(['cf.type' => Currency::TYPE_CURRENCY])
+            ->orderBy('date DESC')
+            ->one();
+
         if (Yii::$app->request->isAjax) {
             $array = Yii::$app->request->post();
             $to = $array['toCurrency'];
@@ -240,13 +246,14 @@ class DefaultController extends Controller
             $modelFirst = CurrencyRate::find()->with('currencyFrom')->where([
                 'currency_from_id' => $idTo->id,
                 'currency_to_id' => Currency::RUB_ID,
-                'date' => new Expression('CURDATE()')
+                'date' => $date
             ])->one();
 
             $key = $to . '_' . date('d-m-Y', time());
             Yii::$app->cache->set($key, $modelFirst, 3600);
             if ($model = Yii::$app->cache->get($key)) {
                 if ($array['rub'] === 'true' && $array['fromVal'] != "NaN") {
+                    if (empty($array['fromVal'])) return 0;
                     $val = $array['fromVal'];
                     $res = $val * $model->currencyFrom->nominal / $model->rate;
                     $length = 2;
@@ -256,6 +263,7 @@ class DefaultController extends Controller
 
                     return number_format($res, $length, '.', '');
                 } elseif ($array['toVal'] != "NaN") {
+                    if (empty($array['toVal'])) return 0;
                     $val = $array['toVal'];
                     $res = $val * $model->rate / $model->currencyFrom->nominal;
                     $length = 2;
