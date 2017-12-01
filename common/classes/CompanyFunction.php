@@ -92,4 +92,24 @@ class CompanyFunction
         }
         return $rez;
     }
+
+    public static function getCategoryMobMenu($category)
+    {
+        $rez = [];
+       /* Debug::prn($catId);
+        Debug::prn($category);*/
+        foreach ($category as $item){
+            if($item['parent_id'] == 0){
+                $rez[$item['id']] = $item;
+                $rezCatId[] = $item['id'];
+                foreach ($category as $value){
+                    if($value['parent_id'] == $item['id']){
+                        $rez[$item['id']]['childs'][] = $value;
+                    }
+
+                }
+            }
+        }
+        return $rez;
+    }
 }

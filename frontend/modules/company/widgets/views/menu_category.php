@@ -54,3 +54,45 @@ use yii\helpers\Url;
         </div>
     </div>
 </section>
+
+
+<!-- start mobile-second-menu.html-->
+<section class="button-second-menu">
+    <div class="container">
+        <a class="button-second-menu" href="#"><i class="fa fa-list" aria-hidden="true"></i> Меню категорий</a>
+    </div>
+</section>
+<section class="mobile-second-menu">
+    <div class="mobile-second-menu__header">
+        <div class="header-m-arrow"></div><span>Каталог</span>
+        <a href="#" class="header-close"><img src="/theme/portal-donbassa/img/second-menu/close.svg" alt=""></a>
+    </div>
+    <div class="mobile-second-menu__wrap">
+        <ul class="mobile-menu-lvl-1">
+            <?php foreach ($categoryMob as $item): ?>
+                <li data-menu-id="<?= $item['id']; ?>">
+                    <a href="#">
+                        <img src="<?= $item['icon']; ?>" alt=""><?= $item['title']; ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+        <?php foreach ($categoryMob as $item): ?>
+            <?php if(isset($item['childs'])): ?>
+                <ul class="mobile-menu-lvl-2" data-menu-id="<?= $item['id']; ?>">
+                    <?php foreach ($item['childs'] as $val): ?>
+                        <li>
+                            <a href="<?= Url::to(['/company/company/view-category', 'slug' => $val['slug']]) ?>">
+                                <?= $val['title']?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+        <?php endforeach; ?>
+
+
+    </div>
+
+</section>
+<!-- end mobile-second-menu.html-->
