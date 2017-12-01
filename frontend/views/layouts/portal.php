@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
 use common\models\db\KeyValue;
@@ -32,7 +33,10 @@ $user = Yii::$app->user->identity;
 <body>
 <?php $this->beginBody() ?>
 
-<?= \frontend\widgets\ShowHeader::widget(); ?>
+<?php if ($this->beginCache('show_header_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
+    echo \frontend\widgets\ShowHeader::widget();
+    $this->endCache();
+} ?>
 
 <section class="home-content">
     <div class="container">
@@ -44,10 +48,16 @@ $user = Yii::$app->user->identity;
             <?= \frontend\widgets\Entertainment::widget(); ?>
 
             <?= \frontend\widgets\SituationMain::widget() ?>
-
-            <?= \frontend\modules\mainpage\widgets\CommunalRates::widget(); ?>
-
-            <?= \frontend\widgets\Subscribe::widget() ?>
+            <?php
+            if ($this->beginCache('communal_rates_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
+                echo \frontend\modules\mainpage\widgets\CommunalRates::widget();
+                $this->endCache();
+            }
+            if ($this->beginCache('subscribe_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
+                echo \frontend\widgets\Subscribe::widget();
+                $this->endCache();
+            }
+            ?>
 
         </div>
 
@@ -70,18 +80,32 @@ $user = Yii::$app->user->identity;
 
         <?= \frontend\widgets\Weather::widget(); ?>
 </section>
+<?php
+echo \frontend\widgets\MainPopularSlider::widget();
 
-<?= \frontend\widgets\MainPopularSlider::widget(); ?>
+if ($this->beginCache('main_posters_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
+    echo \frontend\widgets\MainPosters::widget();
+    $this->endCache();
+}
 
-<?= \frontend\widgets\MainPosters::widget(); ?>
+echo \frontend\widgets\StreamMain::widget();
 
-<?= \frontend\widgets\StreamMain::widget();?>
+if ($this->beginCache('company_main_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
+    echo \frontend\widgets\CompanyMain::widget();
+    $this->endCache();
+}
 
-<?= \frontend\widgets\CompanyMain::widget(); ?>
+if ($this->beginCache('main_photos_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
+    echo \frontend\widgets\MainPhotos::widget();
+    $this->endCache();
+}
 
-<?= \frontend\widgets\MainPhotos::widget(); ?>
+if ($this->beginCache('show_footer_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
+    echo \frontend\widgets\ShowFooter::widget();
+    $this->endCache();
+}
+?>
 
-<?= \frontend\widgets\ShowFooter::widget(); ?>
 
 <!--<a href="" class="fix-button"><img src="/theme/portal-donbassa/img/home-content/fix-button.png" alt=""></a>-->
 
@@ -209,7 +233,6 @@ $user = Yii::$app->user->identity;
     </form>
 
 </div>
-
 
 
 <a id="Go_Top" style="display: inline;"><img src="/theme/portal-donbassa/img/icons/button_up.svg" alt=""></a>
