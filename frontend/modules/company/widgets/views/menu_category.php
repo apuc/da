@@ -71,7 +71,7 @@ use yii\helpers\Url;
         <ul class="mobile-menu-lvl-1">
             <?php foreach ($categoryMob as $item): ?>
                 <li data-menu-id="<?= $item['id']; ?>">
-                    <a href="#">
+                    <a href="<?= Url::to(['/company/company/view-category', 'slug' => $item['slug']]) ?>">
                         <img src="<?= $item['icon']; ?>" alt=""><?= $item['title']; ?>
                     </a>
                 </li>
