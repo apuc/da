@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $categ->title;
         ]) ?>
         <div class="business__wrapper">
 
-            <div class="business__content">
+            <div class="business__content new-business">
 
                 <h1 class="business__title">
                     <a href="<?= Url::to(['/company/company']) ?>">Предприятия</a> / <?= $categ->title ?></h1>

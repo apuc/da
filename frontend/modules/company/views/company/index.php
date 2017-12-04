@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = 'Все предприятия';
 
         <div class="business__wrapper">
 
-            <div class="business__content">
+            <div class="business__content new-business">
 
                 <h1 class="business__title">Предприятия</h1>
                 <?php $pos = 0;
