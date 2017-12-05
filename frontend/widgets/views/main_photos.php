@@ -8,11 +8,11 @@
         <div class="photo__box">
 
             <div class="photo__left">
-                <a href="<?= \common\models\UploadPhoto::getImageOrNoImage($photos[0]);?>" class="photo__left--item" data-fancybox="gallery">
-                    <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($photos[0]);?>" alt="photo">
+                <a href="<?= $photos[0]  . '?width=300'?>" class="photo__left--item" data-fancybox="gallery">
+                    <img src="<?= $photos[0] . '?width=300'?>" alt="photo">
                 </a>
-                <a href="<?= \common\models\UploadPhoto::getImageOrNoImage($photos[1]);?>" class="photo__left--item" data-fancybox="gallery">
-                    <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($photos[1]);?>" alt="photo">
+                <a href="<?= $photos[1]  . '?width=300'?>" class="photo__left--item" data-fancybox="gallery">
+                    <img src="<?= $photos[1] . '?width=300'?>" alt="photo">
                 </a>
             </div>
             <div class="photo__center">
@@ -21,20 +21,20 @@
 
                 <p><?= $content->description;?></p>
 
-                <a href="<?= \common\models\UploadPhoto::getImageOrNoImage($photos[2]);?>" class="photo__center--img" data-fancybox="gallery">
-                    <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($photos[2]);?>" alt="">
+                <a href="<?= $photos[2] . '?width=300'?>" class="photo__center--img" data-fancybox="gallery">
+                    <img src="<?= $photos[2] . '?width=300'?>" alt="">
                 </a>
 
                 <div class="photo__center--imgs">
 
-                    <a href="<?= \common\models\UploadPhoto::getImageOrNoImage($photos[3]);?>" class="photo__center--img" data-fancybox="gallery">
-                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($photos[3]);?>" alt="">
+                    <a href="<?= $photos[3]  . '?width=300'?>" class="photo__center--img" data-fancybox="gallery">
+                        <img src="<?= $photos[3] . '?width=300'?>" alt="">
                     </a>
-                    <a href="<?= \common\models\UploadPhoto::getImageOrNoImage($photos[4]);?>" class="photo__left--item" data-fancybox="gallery">
-                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($photos[4]);?>" alt="">
+                    <a href="<?= $photos[4] . '?width=300'?>" class="photo__left--item" data-fancybox="gallery">
+                        <img src="<?= $photos[4] . '?width=300'?>" alt="">
                     </a>
-                    <a href="<?= \common\models\UploadPhoto::getImageOrNoImage($photos[5]);?>" class="photo__center--img" data-fancybox="gallery">
-                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($photos[5]);?>" alt="">
+                    <a href="<?= $photos[5] . '?width=300'?>" class="photo__center--img" data-fancybox="gallery">
+                        <img src="<?= $photos[5] . '?width=300'?>" alt="">
                     </a>
 
                 </div>
@@ -42,14 +42,14 @@
             </div>
             <div class="photo__right">
 
-                <a href="<?= \common\models\UploadPhoto::getImageOrNoImage($photos[6]);?>" class="photo__right--item" data-fancybox="gallery">
-                    <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($photos[6]);?>" alt="photo">
+                <a href="<?= $photos[6] . '?width=300'?>" class="photo__right--item" data-fancybox="gallery">
+                    <img src="<?= $photos[6] . '?width=300'?>" alt="photo">
                 </a>
-                <a href="<?= \common\models\UploadPhoto::getImageOrNoImage($photos[7]);?>" class="photo__right--item" data-fancybox="gallery">
-                    <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($photos[7]);?>" alt="photo">
+                <a href="<?= $photos[7] . '?width=300'?>" class="photo__right--item" data-fancybox="gallery">
+                    <img src="<?= $photos[7] . '?width=300'?>" alt="photo">
                 </a>
-                <a href="<?= \common\models\UploadPhoto::getImageOrNoImage($photos[8]);?>" class="photo__right--item" data-fancybox="gallery">
-                    <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($photos[8]);?>" alt="photo">
+                <a href="<?= $photos[8] . '?width=300'?>" class="photo__right--item" data-fancybox="gallery">
+                    <img src="<?= $photos[8] . '?width=300'?>" alt="photo">
                 </a>
 
             </div>

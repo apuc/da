@@ -13,7 +13,7 @@
                     foreach ($events as $event):
                         ?>
                         <a href="<?= Url::to(['/poster/default/view', 'slug'=>$event->slug]) ?>" class="item">
-                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($event->photo); ?>" alt="">
+                            <img src="<?= $event->photo  . '?width=300' ?>" alt="">
                             <div class="item-content">
                                 <span class="type"><?= $event->categories[0]->title; ?></span>
                                 <span class="time"><?= date('d',
@@ -34,8 +34,8 @@
                 <div class="gallery">
                     <div class="main-gallery">
                         <a class="fancybox" rel="gallery1" data-fancybox="gallery"
-                           href="<?= \common\models\UploadPhoto::getImageOrNoImage($premiereImages[0]); ?>">
-                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($premiereImages[0]); ?>" alt=""/>
+                           href="<?= $premiereImages[0]  . '?width=600' ?>">
+                            <img src="<?= $premiereImages[0]  . '?width=600' ?>" alt=""/>
                         </a>
 
                     </div>
@@ -44,8 +44,8 @@
                         $photos = array_slice($premiereImages, 1);
                         foreach ($photos as $photo): ?>
                             <a class="fancybox" rel="gallery1" data-fancybox="gallery"
-                               href="<?= \common\models\UploadPhoto::getImageOrNoImage($photo); ?>">
-                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($photo); ?>" alt=""/>
+                               href="<?= $photo  . '?width=300' ?>">
+                                <img src="<?= $photo  . '?width=300' ?>" alt=""/>
                             </a>
                         <?php endforeach; ?>
                     </div>
@@ -60,7 +60,7 @@
                 if (!empty(($movies))) {
                     foreach ($movies as $poster): ?>
                         <a href="<?= Url::to(['/poster/default/view', 'slug'=>$poster->slug]) ?>" class="item">
-                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($poster->photo); ?>" alt="">
+                            <img src="<?= $poster->photo  . '?width=300' ?>" alt="">
                             <div class="item-content">
                                 <span class="type"><?= $poster->categories[0]->title; ?></span>
                                 <span class="time"><?= date('d',
