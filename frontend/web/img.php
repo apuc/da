@@ -1,21 +1,38 @@
 <?php
-$string = $_SERVER['IMG_URI'];
+header('Content-type: image/jpg');
+$default_img = __DIR__ . '/theme/portal-donbassa/img/no-image.png';
+$img_uri = $_SERVER['IMG_URI'];
+$old_path = __DIR__ . $img_uri;
 $width = $_GET['width'];
-$oldFile = __DIR__ . $string;
-if (!file_exists($oldFile)) {
-    $newFile = __DIR__ . '/theme/portal-donbassa/img/no-image.png';
-} elseif (!empty($width)) {
-    $newDir = pathinfo(substr($string, 13))['dirname'];
-    if (!file_exists($pathCache = __DIR__ . '/cache-img/')) mkdir($pathCache);
-    $pathWidth = $pathCache . $newDir . '/' . $width . '/';
-    $newFile = $pathWidth . pathinfo($string)['basename'];
-    if (!file_exists($dir = $pathCache . $newDir)) mkdir($dir);
-    if (!file_exists($pathWidth)) mkdir($pathWidth);
-    if (!file_exists($newFile)) {
-        $image = new Imagick($oldFile);
-        $image->thumbnailImage($width, 0);
-        file_put_contents($newFile, $image);
+if (is_null($width)) $width = 1000;
+$pathinfo = pathinfo(substr($img_uri, 13));
+$cache_path = __DIR__ . '/cache-img' . $pathinfo['dirname'] . DIRECTORY_SEPARATOR . $width;
+$cache_path_with_file = __DIR__ . '/cache-img' . $pathinfo['dirname'] . DIRECTORY_SEPARATOR . $width . DIRECTORY_SEPARATOR . $pathinfo['basename'];
+if (file_exists($cache_path_with_file)) {
+    echo file_get_contents($cache_path_with_file);
+    die();
+} else {
+    if (file_exists($old_path)) {
+        if (file_exists($cache_path)) {
+            if (!file_exists($cache_path_with_file)) {
+                $image = new Imagick($old_path);
+                $image->thumbnailImage($width, 0);
+                $image->setImageCompressionQuality(85);
+                file_put_contents($cache_path_with_file, $image);
+                echo $image;
+                die();
+            }
+        } else {
+            mkdir($cache_path, 0777, true);
+            $image = new Imagick($old_path);
+            $image->thumbnailImage($width, 0);
+            $image->setImageCompressionQuality(85);
+            file_put_contents($cache_path_with_file, $image);
+            echo $image;
+            die();
+        }
+    } else {
+        echo file_get_contents($default_img);
+        die();
     }
-} else $newFile = __DIR__ . $string;
-header('Content-type: image/jpeg');
-echo file_get_contents($newFile);
+}
