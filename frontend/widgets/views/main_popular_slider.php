@@ -12,7 +12,7 @@ use yii\helpers\Url;
 
                 foreach ($newsSlider1 as $item): ?>
                     <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug]) ?>" class="item">
-                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->photo) ?>" alt="">
+                        <img src="<?= $item->photo  . '?width=600' ?>" alt="">
                         <div class="content-item">
                             <div class="content-row">
                                 <span>Новости</span>
@@ -36,7 +36,7 @@ use yii\helpers\Url;
             <div class="js-carousel-2 owl-carousel" id="sync2">
                 <?php foreach ($newsSlider2 as $item): ?>
                     <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug]) ?>" class="item">
-                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->photo) ?>" alt="">
+                        <img src="<?= $item->photo  . '?width=600' ?>" alt="">
                         <div class="content-item">
                             <div class="content-row">
                                 <span>Новости</span>
@@ -62,7 +62,7 @@ use yii\helpers\Url;
             <div class="js-carousel-3 owl-carousel">
                 <?php foreach ($newsSlider3 as $item): ?>
                     <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug]) ?>" class="item">
-                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->photo )?>" alt="">
+                        <img src="<?= $item->photo  . '?width=600' ?>" alt="">
                         <div class="content-item">
                             <div class="content-row">
                                 <span>Новости</span>
@@ -86,7 +86,7 @@ use yii\helpers\Url;
             <div class="js-carousel-4 owl-carousel">
                 <?php foreach ($newsSlider4 as $item): ?>
                     <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug]) ?>" class="item"><img
-                                src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->photo); ?>" alt="">
+                                src="<?= $item->photo  . '?width=600' ?>" alt="">
                     </a>
                 <?php endforeach; ?>
             </div>
