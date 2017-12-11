@@ -327,4 +327,24 @@ class AjaxController extends Controller
         }
         return false;
     }
+
+    public function actionSelectRegion()
+    {
+        $regId = Yii::$app->request->post('regId');
+        if(empty($regId)){
+            $regId = -1;
+        }
+
+        Yii::$app->response->cookies->add(new \yii\web\Cookie([
+            'name' => 'regionId',
+            'value' => $regId,
+            'expire' => time() + 180,
+        ]));
+
+        Yii::$app->cache->set('show_header_widget', \frontend\widgets\ShowHeader::widget());
+
+
+
+        return true;
+    }
 }

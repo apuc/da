@@ -6,6 +6,10 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'ipgeobase' => [
+            'class' => 'himiklab\ipgeobase\IpGeoBase',
+            'useLocalDB' => true,
+        ],
     ],
     'controllerMap' => [
         'elfinder' => [

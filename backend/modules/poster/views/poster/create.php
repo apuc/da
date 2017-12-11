@@ -18,7 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'categoriesSelected' => $categoriesSelected,
         'tags_selected' => $tags_selected,
-        'tags' => $tags
+        'tags' => $tags,
+        'region' => $region,
     ]) ?>
 
 </div>

@@ -6,6 +6,7 @@ use backend\modules\category\Category;
 use common\classes\Debug;
 use common\classes\WordFunctions;
 use common\models\db\CategoryPosterRelations;
+use common\models\db\GeobaseRegion;
 use common\models\db\KeyValue;
 use Yii;
 use backend\modules\poster\models\Poster;
@@ -107,11 +108,14 @@ class PosterController extends Controller
 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+
+            $region = GeobaseRegion::find()->all();
             return $this->render('create', [
                 'model' => $model,
                 'categoriesSelected' => [],
                 'tags' => $tags,
                 'tags_selected' => [],
+                'region' => $region,
             ]);
         }
     }
@@ -157,7 +161,7 @@ class PosterController extends Controller
 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-
+            $region = GeobaseRegion::find()->all();
             return $this->render('update', [
                 'model' => $model,
                 'categoriesSelected' => ArrayHelper::getColumn(
@@ -165,6 +169,7 @@ class PosterController extends Controller
                     'cat_id'),
                 'tags' => $tags,
                 'tags_selected' => $tags_selected,
+                'region' => $region,
             ]);
         }
     }

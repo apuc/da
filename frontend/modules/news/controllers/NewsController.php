@@ -83,24 +83,38 @@ class NewsController extends Controller
      */
     public function actionIndex()
     {
+        $cookies = Yii::$app->request->cookies;
+        $useReg = $cookies->getValue('regionId');
 
-        $news = News::find()
+        $newsQuery = News::find()
             ->where([
                 'status' => 0,
                 'lang_id' => Lang::getCurrent()['id'],
                 'hot_new' => 0,
-            ])
+            ]);
+        if($useReg != -1){
+            $newsQuery->andWhere(['region_id' => NULL]);
+            $newsQuery->orWhere(['region_id' => $useReg]);
+
+        }
+        $news = $newsQuery
             ->limit(34)
             ->orderBy('dt_public DESC')
             ->with('category')
             ->all();
-        $hotNews = News::find()
+
+        $hotNewsQuery = News::find()
             ->where([
                 'status' => 0,
                 'lang_id' => Lang::getCurrent()['id'],
                 'hot_new' => 1,
-            ])
-            ->limit(5)
+            ]);
+        if($useReg != -1){
+            $hotNewsQuery->andWhere(['region_id' => NULL]);
+            $hotNewsQuery->orWhere(['region_id' => $useReg]);
+
+        }
+        $hotNews = $hotNewsQuery->limit(5)
             ->orderBy('dt_public DESC')
             ->with('category')
             ->all();
@@ -121,15 +135,25 @@ class NewsController extends Controller
 
     public function actionMoreNews()
     {
+
         if (Yii::$app->request->isPost) {
+            $cookies = Yii::$app->request->cookies;
+            $useReg = $cookies->getValue('regionId');
+
             $request = Yii::$app->request->post();
 
-            $news = News::find()
+            $newsQuery = News::find()
                 ->where([
                     'status' => 0,
                     'lang_id' => Lang::getCurrent()['id'],
                     'hot_new' => 0,
-                ])
+                ]);
+            if($useReg != -1){
+                $newsQuery->andWhere(['region_id' => NULL]);
+                $newsQuery->orWhere(['region_id' => $useReg]);
+
+            }
+            $news = $newsQuery
                 ->offset($request['offset'])
                 ->limit(16)
                 ->orderBy('dt_public DESC')

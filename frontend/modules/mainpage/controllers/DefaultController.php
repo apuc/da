@@ -10,6 +10,7 @@ use common\models\db\Lang;
 use common\models\db\News;
 use frontend\controllers\MainController;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 
 /**
@@ -21,13 +22,14 @@ class DefaultController extends Controller {
      * @return string
      */
 
-    public $layout = 'portal';
+    //public $layout = 'portal';
 
     public function actionIndex() {
+        $keyVal = KeyValue::find()->all();
+
         return $this->render( 'index',
             [
-                'meta_title' => KeyValue::findOne( [ 'key' => 'main_page_meta_title' ] )->value,
-                'meta_descr' => KeyValue::findOne( [ 'key' => 'main_page_meta_descr' ] )->value,
+                'meta' => ArrayHelper::index($keyVal, 'key'),
             ]
     );
     }

@@ -8,7 +8,7 @@
  */
 use common\classes\GeobaseFunction;
 use yii\helpers\Url;
-
+if(!empty($companies)):
 ?>
 <section class="company-slider">
 
@@ -150,3 +150,5 @@ use yii\helpers\Url;
     </div>
         <a href="<?= Url::to(['/company/company']) ?>" class="more">посмотреть больше <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
 </section>
+
+<?php endif; ?>

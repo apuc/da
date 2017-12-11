@@ -22,7 +22,6 @@ class MainMenuAdmin extends Widget
 {
     public function run()
     {
-
         $url = Yii::$app->params['site-api'] . '/ads/count-moder-ads?api_key=' . Yii::$app->params['api-key'];
         if (BoardFunction::isDomainAvailible($url)){
             $countAds = BoardFunction::fileGetContent($url);
@@ -90,8 +89,8 @@ class MainMenuAdmin extends Widget
                             ],
                             [
                                 'label' => 'Фотографии',
-                                'url' => Url::to(['/mainpage/mainpage/photos']),
-                                'active' => Yii::$app->controller->module->id == 'mainpage' && Yii::$app->controller->action->id == 'photos',
+                                'url' => Url::to(['/mainpage/photo']),
+                                'active' => Yii::$app->controller->module->id == 'mainpage' && Yii::$app->controller->id == 'photo',
                             ],
                             [
                                 'label' => 'Развлечения',

@@ -33,7 +33,11 @@ AppAsset::register($this);
 <?= Alert::widget() ?>
 <?= \frontend\widgets\ShowHeader::widget(); ?>
 
+<section class="home-content">
+    <div class="container">
 <?= $content; ?>
+    </div>
+</section>
 <!--<a href="" class="fix-button"><img src="/theme/portal-donbassa/img/home-content/fix-button.png" alt=""></a>-->
 
 <?= \frontend\widgets\ShowFooter::widget(); ?>

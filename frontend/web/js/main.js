@@ -27,4 +27,20 @@ $(document).ready(function () {
             }
         })
     }
+
+    $(document).on('change', '#regionSelectUser', function () {
+        var regId = $(this).val();
+
+        $.ajax({
+            type: 'POST',
+            url: "/ajax/ajax/select-region",
+            data: {
+                regId: regId
+            },
+            success: function (data) {
+                //console.log(data);
+                location.reload();
+            }
+        });
+    });
 });

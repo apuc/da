@@ -127,4 +127,47 @@ class UserFunction {
         }
         return $name;
     }
+
+    //Получить ip адрес пользователя
+    public static function getRealIpAddr()
+    {
+        if (!empty($_SERVER['HTTP_CLIENT_IP']))
+        {
+            $ip=$_SERVER['HTTP_CLIENT_IP'];
+        }
+        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+        {
+            $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+        else
+        {
+            $ip=$_SERVER['REMOTE_ADDR'];
+        }
+        if($ip == '127.0.0.1') {
+            $ip = '217.118.81.17';//RND
+            //$ip = '144.206.192.6';//Moscow
+        }
+        return $ip;
+    }
+
+    //Получить регион пользователя
+    public static function getRegionUser()
+    {
+        $cookies = Yii::$app->request->cookies;
+        $useReg = $cookies->getValue('regionId');
+
+        if(empty($useReg)){
+            $userRegion = Yii::$app->ipgeobase->getLocation(\common\classes\UserFunction::getRealIpAddr());
+            $userRegion = GeobaseFunction::getRegionId($userRegion['region']);
+            Yii::$app->response->cookies->add(new \yii\web\Cookie([
+                'name' => 'regionId',
+                'value' => $userRegion,
+                'expire' => time() + 3*2592000,
+            ]));
+        }else{
+            $userRegion = $useReg;
+        }
+
+        return $userRegion;
+    }
 }

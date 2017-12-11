@@ -11,6 +11,7 @@
 
                 if (!empty($events)) {
                     foreach ($events as $event):
+
                         ?>
                         <a href="<?= Url::to(['/poster/default/view', 'slug'=>$event->slug]) ?>" class="item">
                             <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($event->photo); ?>" alt="">
@@ -29,7 +30,8 @@
 
 
             </div>
-            <div class="afisha-wrap__yesterday">
+            <?php if(!empty($premiereImages)): ?>
+                <div class="afisha-wrap__yesterday">
                 <h3>Выбор редакции</h3>
                 <div class="gallery">
                     <div class="main-gallery">
@@ -52,8 +54,9 @@
                 </div>
                 <p><?= $premiereDescription;?></p>
 
-                <a class="show-more"href="<?= Url::to(['/poster/default/view', 'slug'=>$poster->slug]) ?>">посмотреть</a>
+                <a class="show-more" href="<?= Url::to(['/poster/default/view', 'slug'=>$poster->slug]) ?>">посмотреть</a>
             </div>
+            <?php endif; ?>
             <div class="afisha-wrap__look">
                 <h3>Что посмотреть</h3>
                 <?php

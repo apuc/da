@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = Yii::t('poster', 'Update');
         'categoriesSelected' => $categoriesSelected,
         'tags_selected' => $tags_selected,
         'tags' => $tags,
+        'region' => $region,
     ]) ?>
 
 </div>

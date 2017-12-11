@@ -33,10 +33,7 @@ $user = Yii::$app->user->identity;
 <body>
 <?php $this->beginBody() ?>
 
-<?php if ($this->beginCache('show_header_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
-    echo \frontend\widgets\ShowHeader::widget();
-    $this->endCache();
-} ?>
+<?php echo \frontend\widgets\ShowHeader::widget(); ?>
 
 <section class="home-content">
     <div class="container">

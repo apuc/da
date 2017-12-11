@@ -13,44 +13,29 @@ class MainPopularSlider extends Widget
     public function run()
     {
         $params = \Yii::$app->params;
+        $cookies = \Yii::$app->request->cookies;
+        $useReg = $cookies->getValue('regionId');
+
+        $query = News::find()
+            ->distinct()
+            ->where(['>', 'dt_public', time() - (2592000 * $params['countMonth'])])
+            ->andWhere(['exclude_popular' => 0])
+            ->andWhere(['>', 'views', $params['countView']]);
+        if($useReg != -1){
+            $query->andWhere(['region_id' => NULL]);
+            $query->orWhere(['region_id' => $useReg]);
+
+        }
+        $news = $query->orderBy('views DESC')
+            ->limit(16)
+            ->orderBy(new Expression('rand()'))
+            ->with('category')
+            ->all();
+
+        //Debug::prn($query);
 
         return $this->render('main_popular_slider', [
-            'newsSlider1' => News::find()
-                ->where(['>', 'dt_public', time() - (2592000 * $params['countMonth'])])
-                ->andWhere(['exclude_popular' => 0])
-                ->andWhere(['>', 'views', $params['countView']])
-                ->orderBy('views DESC')
-                ->limit(4)
-                ->orderBy(new Expression('rand()'))
-                ->with('category')
-                ->all(),
-            'newsSlider2' => News::find()
-                ->where(['>', 'dt_public', time() - (2592000 * $params['countMonth'])])
-                ->andWhere(['exclude_popular' => 0])
-                ->andWhere(['>', 'views', $params['countView']])
-                ->orderBy('views DESC')
-                ->limit(4)
-                ->orderBy(new Expression('rand()'))
-                ->with('category')
-                ->all(),
-            'newsSlider3' => News::find()
-                ->where(['>', 'dt_public', time() - (2592000 * $params['countMonth'])])
-                ->andWhere(['exclude_popular' => 0])
-                ->andWhere(['>', 'views', $params['countView']])
-                ->orderBy('views DESC')
-                ->limit(4)
-                ->orderBy(new Expression('rand()'))
-                ->with('category')
-                ->all(),
-            'newsSlider4' => News::find()
-                ->where(['>', 'dt_public', time() - (2592000 * $params['countMonth'])])
-                ->andWhere(['exclude_popular' => 0])
-                ->andWhere(['>', 'views', $params['countView']])
-                ->orderBy('views DESC')
-                ->limit(4)
-                ->orderBy(new Expression('rand()'))
-                ->with('category')
-                ->all(),
+            'news' => $news,
         ]);
     }
 

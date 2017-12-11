@@ -89,12 +89,21 @@ class CompanyController extends Controller
 
     public function actionIndex()
     {
-
-        $organizations = Company::find()
+        $cookies = Yii::$app->request->cookies;
+        $useReg = $cookies->getValue('regionId');
+        $organizationsQuery = Company::find()
             ->with('allPhones')
             ->where([
                 'status' => 0,
-            ])
+            ]);
+        if($useReg != -1){
+            $organizationsQuery->andWhere(
+                [
+                    'region_id' => $useReg,
+                ]
+            );
+        }
+        $organizations = $organizationsQuery
             ->orderBy('RAND()')
             ->limit(16)
             ->all();

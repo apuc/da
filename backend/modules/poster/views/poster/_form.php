@@ -53,6 +53,16 @@ use kartik\select2\Select2;
 
     <?= $form->field($model, 'start')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'region_id')->widget(\kartik\select2\Select2::className(),
+        [
+            'data' => ArrayHelper::map($region, 'id', 'name'),
+            //'data' => ['Донецкая область' => ['1'=>'Don','2'=>'Gorl'], 'Rostovskaya' => ['5'=>'rostov']],
+            'options' => ['placeholder' => 'Начните вводить регион ...'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]) ?>
+
     <div class="imgUpload">
         <div class="media__upload_img"><img src="<?= $model->photo; ?>" width="100px"/></div>
         <?php

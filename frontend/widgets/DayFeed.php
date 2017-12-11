@@ -11,6 +11,7 @@ namespace frontend\widgets;
 use common\classes\Debug;
 use common\models\db\KeyValue;
 use common\models\db\Lang;
+use Yii;
 use yii\base\Widget;
 
 class DayFeed extends Widget
@@ -18,12 +19,23 @@ class DayFeed extends Widget
 
     public function run()
     {
+        $cookies = Yii::$app->request->cookies;
+        $useReg = $cookies->getValue('regionId');
+
+        $query = \common\models\db\News::find()
+            ->where(['status' => 0]);
+        if($useReg != -1){
+            $query->andWhere(['region_id' => NULL]);
+            $query->orWhere(['region_id' => $useReg]);
+
+        }
+
+        $news = $query->orderBy('dt_public DESC')
+            ->limit(KeyValue::findOne(['key'=>'day_feed_count'])->value)
+            ->all();
+
         return $this->render('day_feed', [
-            'news' => \common\models\db\News::find()
-                ->where(['lang_id' => Lang::getCurrent()['id'], 'status' => 0])
-                ->orderBy('dt_public DESC')
-                ->limit(KeyValue::findOne(['key'=>'day_feed_count'])->value)
-                ->all(),
+            'news' => $news,
         ]);
     }
 

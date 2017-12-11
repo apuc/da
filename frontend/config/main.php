@@ -198,7 +198,7 @@ return [
         ],
         'request'      => [
             'baseUrl' => '',
-            'class' => 'frontend\components\LangRequest',
+            //'class' => 'frontend\components\LangRequest',
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
