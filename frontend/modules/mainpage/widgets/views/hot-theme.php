@@ -1,5 +1,5 @@
 <?php
-use yii\helpers\ArrayHelper;
+
 ?>
 <div class="home-content__hot-topics-russ">
     <div class="left-column">
