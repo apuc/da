@@ -16,7 +16,7 @@
                         </div>
                         <div class="sidebar-discussed__big-item__text">
                             <p>
-                                <?= \yii\helpers\StringHelper::truncate($val['news']['content'],400,'...'); ?>
+                                <?= \yii\helpers\StringHelper::truncate(strip_tags($val['news']['content']),400,'...'); ?>
                             </p>
                         </div>
                         <div class="sidebar-discussed__big-item__comments">
