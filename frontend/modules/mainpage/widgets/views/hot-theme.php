@@ -49,7 +49,7 @@
                     <?php if ($key == 4): ?>
                         <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['slugNews']]); ?>" class="news__wrap_item-lg">
                             <div class="thumb">
-                                <img src="img/russ-home/5.jpg" alt="">
+                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($val['photoNews']); ?>" alt="">
                                 <div class="content-row">
                                     <span><?= date('d.m.Y H:i', $val['dt_public']) ?></span> <br>
                                     <span><?= $val['titleCat']; ?></span>
