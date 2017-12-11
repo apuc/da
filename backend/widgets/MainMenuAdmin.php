@@ -99,8 +99,8 @@ class MainMenuAdmin extends Widget
                             ],
                             [
                                 'label' => 'Премьера',
-                                'url' => Url::to(['/main-premiere']),
-                                'active' => Yii::$app->controller->module->id == 'poster' && Yii::$app->controller->action->id == 'main-premiere',
+                                'url' => Url::to(['/mainpage/main-premiere']),
+                                'active' => Yii::$app->controller->module->id == 'mainpage' && Yii::$app->controller->id == 'main-premiere',
                             ],
 
                             [
