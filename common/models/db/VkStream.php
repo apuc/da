@@ -126,6 +126,10 @@ class VkStream extends \yii\db\ActiveRecord
     {
         $photo = VkPhoto::findOne(['post_id' => $this->id]);
 
+        if(empty($photo)) {
+            return '/theme/portal-donbassa/img/no-image.png';
+        }
+
         if($photo->photo_1280)
             return $photo->photo_1280;
 
