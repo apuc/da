@@ -20,7 +20,7 @@ $this->registerMetaTag( [
     'content' => $meta_descr,
 ] );
 
-$this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/poster.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->params['breadcrumbs'][] = ['label' => 'Афиша', 'url' => \yii\helpers\Url::to(['/all-poster'])];
 $this->params['breadcrumbs'][] = $cat->title;

@@ -14,7 +14,7 @@ $this->registerMetaTag( [
     'name'    => 'description',
     'content' => $meta_desc,
 ] );
-$this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii\web\JqueryAsset::className()]);
+$this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
 
 

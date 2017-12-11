@@ -18,7 +18,7 @@ $this->registerMetaTag( [
     'content' => $meta_descr,
 ] );
 
-$this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/poster.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->params['breadcrumbs'][] = 'Афиша';
 

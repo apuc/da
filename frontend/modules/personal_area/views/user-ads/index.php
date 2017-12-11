@@ -3,7 +3,7 @@ $this->title = 'Мои объявления';
 
 use yii\widgets\LinkPager;
 
-$this->registerCssFile('/css/board.css');
+$this->registerCssFile('/css/board.min.css');
 ?>
 <div class="cabinet__inner-box">
 

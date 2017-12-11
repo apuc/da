@@ -50,7 +50,7 @@
             <a href="<?= \yii\helpers\Url::to(['/consulting/consulting/faq-post', 'slug' => $val->slug]); ?>" class="consultation__item">
 
                 <div class="thumb">
-                    <img src="<?= $item['consulting']->photo; ?>" alt="">
+                    <img src="<?= $item['consulting']->photo . '?width=50' ?>" alt="">
                 </div>
 
                 <p><?= $val->question; ?></p>
