@@ -126,6 +126,7 @@ class VkStream extends \yii\db\ActiveRecord
     {
         $photo = VkPhoto::findOne(['post_id' => $this->id]);
         Debug::prn($photo);
+        die();
         if($photo->photo_1280)
             return $photo->photo_1280;
 
