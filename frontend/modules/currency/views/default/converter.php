@@ -14,7 +14,7 @@ $this->registerMetaTag([
 ]);
 
 
-$this->registerJsFile('/js/converter.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/converter.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 ?>
 <section class="currency-converter">

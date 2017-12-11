@@ -237,7 +237,7 @@ AppAsset::register($this);
 <!-- @@close-->
 <?php $this->endBody() ?>
 
-<?php $this->registerJsFile('js/company_ajax.js'); ?>
+<?php $this->registerJsFile('js/company_ajax.min.js'); ?>
     </body>
 </html>
 <?php $this->endPage() ?>

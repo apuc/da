@@ -14,7 +14,7 @@
 
                         ?>
                         <a href="<?= Url::to(['/poster/default/view', 'slug'=>$event->slug]) ?>" class="item">
-                            <img src="<?= $event->photo  . '?width=300' ?>" alt="">
+                            <img src="<?= $event->photo  . '?width=155' ?>" alt="">
                             <div class="item-content">
                                 <span class="type"><?= $event->categories[0]->title; ?></span>
                                 <span class="time"><?= date('d',
@@ -46,8 +46,8 @@
                         $photos = array_slice($premiereImages, 1);
                         foreach ($photos as $photo): ?>
                             <a class="fancybox" rel="gallery1" data-fancybox="gallery"
-                               href="<?= $photo  . '?width=300' ?>">
-                                <img src="<?= $photo  . '?width=300' ?>" alt=""/>
+                               href="<?= $photo  . '?width=50' ?>">
+                                <img src="<?= $photo  . '?width=50' ?>" alt=""/>
                             </a>
                         <?php endforeach; ?>
                     </div>
@@ -63,7 +63,7 @@
                 if (!empty(($movies))) {
                     foreach ($movies as $poster): ?>
                         <a href="<?= Url::to(['/poster/default/view', 'slug'=>$poster->slug]) ?>" class="item">
-                            <img src="<?= $poster->photo  . '?width=300' ?>" alt="">
+                            <img src="<?= $poster->photo  . '?width=155' ?>" alt="">
                             <div class="item-content">
                                 <span class="type"><?= $poster->categories[0]->title; ?></span>
                                 <span class="time"><?= date('d',

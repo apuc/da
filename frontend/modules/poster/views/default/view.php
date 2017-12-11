@@ -37,9 +37,9 @@ $this->registerMetaTag([
 
 
 
-/*$this->registerJsFile('/theme/portal-donbassa/js/countdown.js', ['depends' => [\yii\web\JqueryAsset::className()]]);*/
-/*$this->registerJsFile('/theme/portal-donbassa/js/afisha-countdown.js', ['depends' => [\yii\web\JqueryAsset::className()]]);*/
-$this->registerJsFile('/js/poster.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+/*$this->registerJsFile('/theme/portal-donbassa/js/countdown.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);*/
+/*$this->registerJsFile('/theme/portal-donbassa/js/afisha-countdown.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);*/
+$this->registerJsFile('/js/poster.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->params['breadcrumbs'][] = ['label' => 'Афиша', 'url' => \yii\helpers\Url::to(['/all-poster'])];
 $this->params['breadcrumbs'][] = ['label' => $model['category']->title, 'url' => \yii\helpers\Url::to(['/poster/default/single_category', 'slug' => $model['category']->slug])];
