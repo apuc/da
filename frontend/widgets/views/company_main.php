@@ -36,7 +36,7 @@ if(!empty($companies)):
                             </div>
 
                             <div class="business__sm-item--img">
-                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($company->photo) ?>" alt="">
+                                <img src="<?= $company->photo  . '?width=300' ?>" alt="">
                             </div>
 
                             <p class="business__sm-item--title"><?= $company->name ?></p>
@@ -92,7 +92,7 @@ if(!empty($companies)):
                             </div>
 
                             <div class="business__sm-item--img">
-                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($company->photo) ?>" alt="">
+                                <img src="<?= $company->photo  . '?width=300' ?>" alt="">
                             </div>
 
                             <p class="business__sm-item--title"><?= $company->name ?></p>

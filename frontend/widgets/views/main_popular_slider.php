@@ -34,6 +34,7 @@ use yii\helpers\Url;
                         <img src=\"$img\" alt=\"\">
                         <div class=\"content-item\">
                             <div class=\"content-row\">
+
                                 <span>Новости</span>
                                 <span><small class=\"view-icon\"></small> $view</span>
                                 <span>
@@ -74,6 +75,7 @@ use yii\helpers\Url;
                 <?= $slider1; ?>
             </div>
             <div class="js-carousel-2 owl-carousel" id="sync2">
+
                 <?= $slider2; ?>
             </div>
             <div class="js-carousel-3 owl-carousel">

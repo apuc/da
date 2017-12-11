@@ -21,6 +21,7 @@
 
             $new_content = substr($new_content, 0, $count_symbols) . '...';
 
+
             if ($key == $newImageId) {
                 ?>
                 <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $new->slug]); ?>" class="tape__item_pic">

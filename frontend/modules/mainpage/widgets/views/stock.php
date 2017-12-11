@@ -31,7 +31,7 @@
         <a href="<?= $item->link ?>" target="_blank" class="stock__item">
             <div class="stock__item_visible">
                 <div class="thumb">
-                    <img src="<?= $item->photo ?>" alt="">
+                    <img src="<?= $item->photo  . '?width=300'  ?>" alt="">
                     <span class="time-icon"></span>
                 </div>
                 <div class="stock__item_label">

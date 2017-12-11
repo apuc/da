@@ -18,7 +18,7 @@ use yii\helpers\Url;
                 <?php if ($i <= 3): ?>
                     <a href="<?= Url::to(['/company/company/view', 'slug' => $item->slug]) ?>" class="item-small">
                         <div class="thumb">
-                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->photo); ?>" alt="">
+                            <img src="<?= $item->photo  . '?width=300' ?>" alt="">
                         </div>
                         <div class="item-small__content">
                             <h4><?= $item->name; ?></h4>
@@ -47,7 +47,7 @@ use yii\helpers\Url;
                 <?php else: ?>
                     <a href="<?= Url::to(['/company/company/view', 'slug' => $item->slug]) ?>" class="item-large">
                         <div class="thumb">
-                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->photo); ?>" alt="">
+                            <img src="<?= $item->photo  . '?width=300' ?>" alt="">
 
                         </div>
                         <div class="item-small__content">
@@ -88,7 +88,7 @@ use yii\helpers\Url;
                 Рекомендуем
             </div>
             <div class="thumb">
-                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($companyBig->photo); ?>" alt="">
+                <img src="<?= $item->photo  . '?width=300' ?>" alt="">
 
             </div>
             <div class="item-small__content">
