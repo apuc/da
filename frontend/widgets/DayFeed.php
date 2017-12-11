@@ -29,7 +29,7 @@ class DayFeed extends Widget
             $query->orWhere(['region_id' => $useReg]);
 
         }
-
+        $query->andWhere(['<=', 'dt_public', time() ]);
         $news = $query->orderBy('dt_public DESC')
             ->limit(KeyValue::findOne(['key'=>'day_feed_count'])->value)
             ->all();
