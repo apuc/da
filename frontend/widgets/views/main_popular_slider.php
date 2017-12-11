@@ -19,7 +19,7 @@ use yii\helpers\Url;
                 if(empty($item)){ break; }
 
                 $url = Url::to(['/news/default/view', 'slug' => $item->slug]);
-                $img = \common\models\UploadPhoto::getImageOrNoImage($item->photo);
+                $img = $item->photo  . '?width=600';
                 $view = $item->views;
                 $comments = \common\models\db\News::getCommentsCount($item->id);
                 $share = \frontend\widgets\Share::widget([

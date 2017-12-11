@@ -15,11 +15,11 @@ use yii\helpers\Url;
                     <div class="item-photo">
                         <?php if(!empty($post->author)):?>
                             <?php if(!empty($post->author->photo)): ?>
-                                <img src="<?= $post->author->photo?>" alt="">
+                                <img src="<?= $post->author->photo  . '?width=155'?>" alt="">
                             <?php endif; ?>
                         <?php elseif(!empty($post->group)):?>
 
-                            <img src="<?= $post->group->getPhoto()?>" alt="">
+                            <img src="<?= $post->group->getPhoto()  . '?width=155'?>" alt="">
 
                         <?php endif;?>
                     </div>
@@ -36,9 +36,9 @@ use yii\helpers\Url;
                     </div>
                     <div class="item-img">
                         <?php if (!empty($post->photo)): ?>
-                            <img src="<?= $post->photo[0]->getLargePhoto()?>" alt="">
+                            <img src="<?= $post->photo[0]->getLargePhoto() . '?width=300'?>" alt="">
                         <?php elseif (!empty($post->gif)): ?>
-                            <img src="<?= $post->gif[0]->getLargePreview()?>" alt="">
+                            <img src="<?= $post->gif[0]->getLargePreview() . '?width=300'?>" alt="">
                         <?php endif; ?>
                     </div>
             </a>
