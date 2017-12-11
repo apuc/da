@@ -125,6 +125,7 @@ class VkStream extends \yii\db\ActiveRecord
     public function getLargePhoto()
     {
         $photo = VkPhoto::findOne(['post_id' => $this->id]);
+        Debug::prn($photo);
         if($photo->photo_1280)
             return $photo->photo_1280;
 
