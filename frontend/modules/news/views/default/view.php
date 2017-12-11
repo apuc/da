@@ -15,7 +15,7 @@
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-$this->registerJsFile('/js/news.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/news.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->registerMetaTag([
     'property' => 'og:url',

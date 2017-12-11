@@ -37,7 +37,7 @@ $this->registerMetaTag([
 
 
 
-$this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii\web\JqueryAsset::className()]);
+$this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
 
 <section class="parser">

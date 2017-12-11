@@ -18,51 +18,36 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
+        'css/site.min.css',
         'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
         '/theme/portal-donbassa/css/libs.min.css',
         '/theme/portal-donbassa/css/datepicker.min.css',
-        '/theme/portal-donbassa/css/fancybox/jquery.fancybox.css',
-        '/theme/portal-donbassa/css/fancybox/jquery.fancybox-thumbs.css',
-        '/theme/portal-donbassa/css/fancybox/jquery.fancybox-buttons.css',
-        '/css/lightbox.css',
-        //'/css/poster.css',
-        /*'/theme/css/jquery-ui.min.css',*/
+        '/theme/portal-donbassa/css/fancybox/jquery.fancybox.min.css',
+        '/theme/portal-donbassa/css/fancybox/jquery.fancybox-thumbs.min.css',
+        '/theme/portal-donbassa/css/fancybox/jquery.fancybox-buttons.min.css',
+        '/css/lightbox.min.css',
         '/theme/portal-donbassa/css/styles.min.css',
-
-        /*'/js/jquery-ui-1.12.1/jquery-ui.min.css',
-        '/js/jquery-ui-1.12.1/jquery-ui.structure.min.css',
-        '/js/jquery-ui-1.12.1/jquery-ui.theme.min.css',*/
 
     ];
     public $js = [
         'https://api-maps.yandex.ru/2.1/?lang=ru_RU',
-        /*'/theme/portal-donbassa/js/jquery-2.1.3.min.js',*/
-        '/theme/portal-donbassa/js/countdown.js',
+        '/theme/portal-donbassa/js/countdown.min.js',
 
-        /*'/theme/portal-donbassa/js/jquery-ui.min.js',*/
-        '/theme/portal-donbassa/js/map.js',
+        '/theme/portal-donbassa/js/map.min.js',
         '/theme/portal-donbassa/js/libs.min.js',
         '/theme/portal-donbassa/js/owl.carousel.min.js',
         '/theme/portal-donbassa/js/datepicker.min.js',
-        '/theme/portal-donbassa/js/jquery.fancybox.js',
-        //'/theme/portal-donbassa/js/fancybox/jquery.fancybox-buttons.js',
-        //'/theme/portal-donbassa/js/fancybox/jquery.fancybox-media.js',
-        //'/theme/portal-donbassa/js/fancybox/jquery.fancybox-thumbs.js',
-        //'/theme/portal-donbassa/js/fancybox/jquery.fancybox.pack.js',
-        //'/js/lightbox.js',
+        '/theme/portal-donbassa/js/jquery.fancybox.min.js',
         '/theme/portal-donbassa/js/headhesive.min.js',
         '/theme/portal-donbassa/js/script.min.js',
         '/theme/portal-donbassa/js/jquery.hc-sticky.min.js',
-        '/theme/portal-donbassa/js/ajax.js',
-        /*'js/jquery-ui-1.12.1/jquery-ui.min.js',*/
-//
+        '/theme/portal-donbassa/js/ajax.min.js',
 
-        '/js/poll_ajax.js',
-        '/js/comments.js',
-        '/js/share.js',
-        '/js/main.js',
-        '/js/main_page_ajax.js',
+        '/js/poll_ajax.min.js',
+        '/js/comments.min.js',
+        '/js/share.min.js',
+        '/js/main.min.js',
+        '/js/main_page_ajax.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

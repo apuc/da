@@ -5,8 +5,8 @@ $this->registerJsFile('/theme/portal-donbassa/js/jquery-ui.min.js', ['depends' =
 $this->registerJsFile('/theme/portal-donbassa/js/owl.carousel.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/theme/portal-donbassa/js/slick.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
-$this->registerJsFile('/theme/portal-donbassa/js/jquery.fancybox.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-$this->registerJsFile('/js/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/theme/portal-donbassa/js/jquery.fancybox.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->title = $ads->title;
 

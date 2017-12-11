@@ -3,7 +3,7 @@ use common\models\User;
 
 $this->title = "Акции - DA Info";
 //\common\classes\Debug::prn($stock);
-$this->registerJsFile('/js/stock.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/stock.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 
 <section class="business">
