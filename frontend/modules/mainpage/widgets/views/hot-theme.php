@@ -16,7 +16,7 @@
                                 <?= $val['titleNews'] ?>
                             </h2>
                             <p>
-                                <?= \yii\helpers\StringHelper::truncate($val['content'],150,'...'); ?>
+                                <?= \yii\helpers\StringHelper::truncate(strip_tags($val['content']),150,'...'); ?>
                             </p>
                         </div>
                     </a>
