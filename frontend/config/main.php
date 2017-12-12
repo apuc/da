@@ -274,11 +274,6 @@ return [
                         YII_ENV_PROD ? 'jquery.js' : 'jquery.min.js'
                     ]
                 ],
-                'yii\widgets\MaskedInputAsset' => [
-                    'js' => [
-                        YII_ENV_PROD ? 'jquery.inputmask.bundle.js' : 'jquery.inputmask.bundle.min.js'
-                    ]
-                ],
                 'yii\bootstrap\BootstrapAsset' => [
                     'css' => [
                         YII_ENV_PROD ? 'css/bootstrap.css' : 'css/bootstrap.min.css',
