@@ -31,7 +31,7 @@
                     $new_title = strip_tags($new->title);
                     $new_title = preg_replace("/\s{2,}/", " ", $new_title);
                     $new_title = str_replace('"', "&quot;", $new_title);
-                    $new_img = 'http://' . $_SERVER['HTTP_HOST'] . $new->photo;
+                    $new_img = 'http://' . $_SERVER['HTTP_HOST'] . $new->photo . '?width=300';
 
                     //$count_symbols = 800 - 48 - strlen($new_url) - strlen($new_title) - strlen($new_img);
                     $count_symbols = 800 - 48 - strlen($new_url) - strlen($new_title) - strlen($new_img);
