@@ -22,6 +22,8 @@ class DefaultController extends Controller
      */
     public function actionIndex($type = Currency::TYPE_CURRENCY)
     {
+        $keyVal = KeyValue::find()->all();
+        $meta = ArrayHelper::index($keyVal, 'key');
         //выборка последней даты по типу Валюты(ценности)
         $date = CurrencyRate::find()
             ->joinWith(['currencyFrom cf'])
@@ -31,8 +33,8 @@ class DefaultController extends Controller
         if (empty($date)) $date = new Expression('CURDATE()');
         switch ($type) {
             case Currency::TYPE_COIN:
-                $meta_title = KeyValue::findOne(['key' => 'currency_coin_title_page'])->value;
-                $meta_descr = KeyValue::findOne(['key' => 'currency_coin_desc_page'])->value;
+                $meta_title = $meta['currency_coin_title_page']->value;
+                $meta_descr = $meta['currency_coin_desc_page']->value;
                 $top = [Currency::BTC_ID];
                 $rates = CurrencyRate::find()
                     ->joinWith(['currencyFrom cf', 'currencyTo ct'])
@@ -92,8 +94,8 @@ class DefaultController extends Controller
                 break;
 
             case Currency::TYPE_METAL:
-                $meta_title = KeyValue::findOne(['key' => 'currency_metal_title_page'])->value;
-                $meta_descr = KeyValue::findOne(['key' => 'currency_metal_desc_page'])->value;
+                $meta_title = $meta['currency_metal_title_page']->value;
+                $meta_descr = $meta['currency_metal_desc_page']->value;
                 $top = [Currency::AU_ID];
                 $rates = CurrencyRate::find()
                     ->joinWith(['currencyFrom cf', 'currencyTo ct'])
@@ -136,8 +138,8 @@ class DefaultController extends Controller
                 break;
 
             default:
-                $meta_title = KeyValue::findOne(['key' => 'currency_title_page'])->value;
-                $meta_descr = KeyValue::findOne(['key' => 'currency_desc_page'])->value;
+                $meta_title = $meta['currency_title_page']->value;
+                $meta_descr = $meta['currency_desc_page']->value;
                 $top = [Currency::USD_ID, Currency::EUR_ID];
                 $rates = CurrencyRate::find()
                     ->joinWith(['currencyFrom cf', 'currencyTo ct'])
@@ -201,8 +203,8 @@ class DefaultController extends Controller
      */
     public function actionConverter()
     {
-        $meta_title = KeyValue::findOne(['key' => 'currency_converter_title_page'])->value;
-        $meta_descr = KeyValue::findOne(['key' => 'currency_converter_desc_page'])->value;
+        $keyVal = KeyValue::find()->all();
+        $meta = ArrayHelper::index($keyVal, 'key');
         $model = Currency::findAll(['type' => Currency::TYPE_CURRENCY]);
         $currency = ArrayHelper::map($model, 'char_code', 'name');
         array_walk($currency, function (&$value, $key) {
@@ -210,8 +212,8 @@ class DefaultController extends Controller
         });
         return $this->render('converter', [
             'currency' => $currency,
-            'meta_title' => $meta_title,
-            'meta_descr' => $meta_descr
+            'meta_title' => $meta['currency_converter_title_page']->value,
+            'meta_descr' => $meta['currency_converter_desc_page']->value
         ]);
     }
 
@@ -220,11 +222,11 @@ class DefaultController extends Controller
      */
     public function actionAll()
     {
-        $meta_title = KeyValue::findOne(['key' => 'currency_title_all'])->value;
-        $meta_descr = KeyValue::findOne(['key' => 'currency_desc_all'])->value;
+        $keyVal = KeyValue::find()->all();
+        $meta = ArrayHelper::index($keyVal, 'key');
         return $this->render('all', [
-            'meta_title' => $meta_title,
-            'meta_descr' => $meta_descr
+            'meta_title' => $meta['currency_title_all']->value,
+            'meta_descr' => $meta['currency_desc_all']->value
         ]);
     }
 
