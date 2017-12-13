@@ -26,8 +26,7 @@ class DayFeed extends Widget
             ->from('news FORCE INDEX(`dt_public`)')
             ->where(['status' => 0]);
         if($useReg != -1){
-            $query->andWhere(['region_id' => NULL]);
-            $query->orWhere(['region_id' => $useReg]);
+            $query->andWhere("(`region_id` IS NULL OR `region_id`=$useReg)");
 
         }
         $query->andWhere(['<=', 'dt_public', time() ]);
