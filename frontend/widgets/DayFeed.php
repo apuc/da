@@ -23,6 +23,7 @@ class DayFeed extends Widget
         $useReg = $cookies->getValue('regionId');
 
         $query = \common\models\db\News::find()
+            ->from('news FORCE INDEX(`dt_public`)')
             ->where(['status' => 0]);
         if($useReg != -1){
             $query->andWhere(['region_id' => NULL]);
