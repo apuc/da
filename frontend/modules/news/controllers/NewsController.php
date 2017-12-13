@@ -4,6 +4,7 @@ namespace frontend\modules\news\controllers;
 
 use app\models\UploadPhoto;
 use common\classes\Debug;
+use common\classes\UserFunction;
 use common\models\db\CategoryNews;
 use common\models\db\CategoryNewsRelations;
 use common\models\db\KeyValue;
@@ -83,8 +84,7 @@ class NewsController extends Controller
      */
     public function actionIndex()
     {
-        $cookies = Yii::$app->request->cookies;
-        $useReg = $cookies->getValue('regionId');
+        $useReg = UserFunction::getRegionUser();
 
         $newsQuery = News::find()
             ->from('news FORCE INDEX(`dt_public`)')
@@ -94,8 +94,7 @@ class NewsController extends Controller
                 'hot_new' => 0,
             ]);
         if($useReg != -1){
-            $newsQuery->andWhere(['region_id' => NULL]);
-            $newsQuery->orWhere(['region_id' => $useReg]);
+            $newsQuery->andWhere("(`region_id` IS NULL OR `region_id`=$useReg)");
 
         }
         $news = $newsQuery
@@ -112,9 +111,7 @@ class NewsController extends Controller
                 'hot_new' => 1,
             ]);
         if($useReg != -1){
-            $hotNewsQuery->andWhere(['region_id' => NULL]);
-            $hotNewsQuery->orWhere(['region_id' => $useReg]);
-
+            $hotNewsQuery->andWhere("(`region_id` IS NULL OR `region_id`=$useReg)");
         }
         $hotNews = $hotNewsQuery->limit(5)
             ->orderBy('dt_public DESC')
