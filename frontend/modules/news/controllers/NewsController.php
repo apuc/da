@@ -87,6 +87,7 @@ class NewsController extends Controller
         $useReg = $cookies->getValue('regionId');
 
         $newsQuery = News::find()
+            ->from('news FORCE INDEX(`dt_public`)')
             ->where([
                 'status' => 0,
                 'lang_id' => Lang::getCurrent()['id'],
@@ -104,6 +105,7 @@ class NewsController extends Controller
             ->all();
 
         $hotNewsQuery = News::find()
+
             ->where([
                 'status' => 0,
                 'lang_id' => Lang::getCurrent()['id'],
@@ -388,12 +390,12 @@ class NewsController extends Controller
             ->andWhere(['status' => 0])
             ->orderBy('`news`.`id` DESC')
             ->with('news')
+
             ->all();
 
         $hotNews = News::find()
             ->where([
                 'status' => 0,
-                'lang_id' => Lang::getCurrent()['id'],
                 'hot_new' => 1,
             ])
             ->limit(5)
@@ -415,20 +417,6 @@ class NewsController extends Controller
                 'meta_descr' => $cat->meta_descr,
                 'meta_title' => $cat->meta_title,
             ]);
-
-        //$countQuery = clone $query;
-        //$pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
-        //$pages->pageSizeParam = false;
-        //
-        //$news = $query->offset($pages->offset)
-        //    ->limit($pages->limit)
-        //    ->all();
-        //
-        //return $this->render('category', [
-        //    'news' => $news,
-        //    'cat' => $cat,
-        //    'pages' => $pages,
-        //]);
     }
 
     public function actionArchive($date)

@@ -158,7 +158,7 @@ class UserFunction {
 
         if(empty($useReg)){
             $userRegion = Yii::$app->ipgeobase->getLocation(\common\classes\UserFunction::getRealIpAddr());
-            $userRegion = GeobaseFunction::getRegionId($userRegion['region']);
+            $userRegion = isset($userRegion['region']) ? GeobaseFunction::getRegionId( $userRegion['region']) : -1;
             Yii::$app->response->cookies->add(new \yii\web\Cookie([
                 'name' => 'regionId',
                 'value' => $userRegion,
