@@ -21,6 +21,8 @@ use Yii;
  */
 class Comments extends \yii\db\ActiveRecord
 {
+
+    public $cnt;
     /**
      * @inheritdoc
      */
@@ -68,6 +70,11 @@ class Comments extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    public function getNews()
+    {
+        return $this->hasOne(News::className(), ['id' => 'post_id']);
     }
 
 }

@@ -26,6 +26,7 @@ class MostPopularNews extends Widget
         $params = \Yii::$app->params;
 
         $news = News::find()
+            ->from('news FORCE INDEX(`views`)')
             ->where(['status' => 0, 'exclude_popular' => 0])
             ->andWhere(['>=', 'dt_public', time() - 2592000 * $params['countMonth']])
             ->andWhere(['!=', 'slug', $currentNewSlug])

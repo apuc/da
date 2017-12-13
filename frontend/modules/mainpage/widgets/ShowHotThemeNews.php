@@ -1,24 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: king
- * Date: 07.12.17
- * Time: 12:27
- */
 
 namespace frontend\modules\mainpage\widgets;
 
-use common\classes\Debug;
 use common\classes\UserFunction;
-use common\models\db\CategoryNewsRelations;
-use Yii;
 use yii\base\Widget;
-use yii\db\Connection;
-use yii\helpers\ArrayHelper;
 
 class ShowHotThemeNews extends Widget
 {
-    public $category = '6,7';
+
     public function run()
     {
         $useReg = UserFunction::getRegionUser();

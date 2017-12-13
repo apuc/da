@@ -4,12 +4,14 @@
 <div class="home-content__sidebar">
 
     <?php
-    if ($this->beginCache('sidebar_discussed_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
+    if ($this->beginCache('sidebar_discussed_widget' . $userReg, ['duration' => Yii::$app->params['hours-for-cache']])) {
         ?>
         <!-- start sidebar-discussed-russ.html-->
         <div class="sidebar-discussed">
             <?php foreach ($news as $key => $val): ?>
-                <?php if ($key == 0): ?>
+                <?php if ($key == 0):
+
+                    ?>
                     <div class="sidebar-discussed__big-item">
 
                         <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['news']->slug]); ?>">
@@ -25,7 +27,7 @@
                             <div class="sidebar-discussed__big-item__comments">
                                 <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['news']->slug]); ?>">
                                     <img src="/theme/portal-donbassa/img/russ-home/comment.svg" alt="">
-                                    <span><?= count($val['news']['comments']) ?></span>
+                                    <span><?= $val['cnt'] ?></span>
                                 </a>
                             </div>
                         </a>
@@ -44,7 +46,7 @@
                                 <div class="sidebar-discussed__small-item__text__comments">
                                     <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['news']->slug]); ?>">
                                         <img src="/theme/portal-donbassa/img/russ-home/comment.svg" alt="">
-                                        <span><?= count($val['news']['comments']) ?></span>
+                                        <span><?= $val->cnt ?></span>
                                     </a>
                                 </div>
                             </div>
