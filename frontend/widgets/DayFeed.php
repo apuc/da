@@ -9,6 +9,7 @@
 namespace frontend\widgets;
 
 use common\classes\Debug;
+use common\classes\UserFunction;
 use common\models\db\KeyValue;
 use common\models\db\Lang;
 use Yii;
@@ -19,8 +20,7 @@ class DayFeed extends Widget
 
     public function run()
     {
-        $cookies = Yii::$app->request->cookies;
-        $useReg = $cookies->getValue('regionId');
+        $useReg = UserFunction::getRegionUser();
 
         $query = \common\models\db\News::find()
             ->from('news FORCE INDEX(`dt_public`)')

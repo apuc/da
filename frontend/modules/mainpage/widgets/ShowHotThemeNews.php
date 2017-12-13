@@ -9,6 +9,7 @@
 namespace frontend\modules\mainpage\widgets;
 
 use common\classes\Debug;
+use common\classes\UserFunction;
 use common\models\db\CategoryNewsRelations;
 use Yii;
 use yii\base\Widget;
@@ -20,8 +21,7 @@ class ShowHotThemeNews extends Widget
     public $category = '6,7';
     public function run()
     {
-        $cookies = Yii::$app->request->cookies;
-        $useReg = $cookies->getValue('regionId');
+        $useReg = UserFunction::getRegionUser();
 
         $query = \common\models\db\News::find()
             ->from('news FORCE INDEX(`dt_public`)')

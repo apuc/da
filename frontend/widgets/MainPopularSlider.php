@@ -3,6 +3,7 @@
 namespace frontend\widgets;
 
 use common\classes\Debug;
+use common\classes\UserFunction;
 use common\models\db\News;
 use yii\base\Widget;
 use yii\db\Expression;
@@ -13,8 +14,7 @@ class MainPopularSlider extends Widget
     public function run()
     {
         $params = \Yii::$app->params;
-        $cookies = \Yii::$app->request->cookies;
-        $useReg = $cookies->getValue('regionId');
+        $useReg = UserFunction::getRegionUser();
 
         $query = News::find()
             ->distinct()
