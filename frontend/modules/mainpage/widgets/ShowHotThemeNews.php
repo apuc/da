@@ -24,6 +24,7 @@ class ShowHotThemeNews extends Widget
         $useReg = $cookies->getValue('regionId');
 
         $query = \common\models\db\News::find()
+            ->from('news FORCE INDEX(`dt_public`)')
             ->where([ 'hot_new' => 1, 'status' => 0,])
             ->andWhere(['<=', 'dt_public', time() - 86400]);
         if($useReg != -1){
