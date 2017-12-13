@@ -60,7 +60,8 @@ class RubricSlider extends Widget
 
         //Debug::prn($news);
 
-
+        $params = \Yii::$app->params;
+        $t = time() - (2592000 * $params['countMonth']);
         $db = new Connection(Yii::$app->db);
         $news = $db->createCommand(
             'SELECT 
@@ -77,7 +78,7 @@ class RubricSlider extends Widget
                   FROM `news`
                   LEFT JOIN `category_news_relations` `t2`ON `t2`.`new_id` = `news`.`id`
                   LEFT JOIN `category_news` `t3` ON `t3`.`id` = `t2`.`cat_id`
-                  WHERE `news`.`status` = 0 AND `news`.`dt_public` <= '. time() .' 
+                  WHERE `dt_public` > ' . $t . '  AND `news`.`status` = 0 AND `news`.`dt_public` <= '. time() .' 
                   ORDER BY `news`.`dt_public` DESC 
                   LIMIT 1000'
         )->queryAll();
