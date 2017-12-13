@@ -13,7 +13,7 @@ if (file_exists($cache_path_with_file)) {
             if (!file_exists($cache_path_with_file)) {
                 $image = new Imagick($old_path);
                 $image->thumbnailImage($width, 0);
-                $image->setImageCompressionQuality(85);
+                $image->setImageCompressionQuality(50);
                 file_put_contents($cache_path_with_file, $image);
                 $img = $image;
             }
@@ -21,7 +21,7 @@ if (file_exists($cache_path_with_file)) {
             mkdir($cache_path, 0777, true);
             $image = new Imagick($old_path);
             $image->thumbnailImage($width, 0);
-            $image->setImageCompressionQuality(85);
+            $image->setImageCompressionQuality(50);
             file_put_contents($cache_path_with_file, $image);
             $img = $image;
         }
