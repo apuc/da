@@ -28,10 +28,10 @@ class ShowHotThemeNews extends Widget
             ->where([ 'hot_new' => 1, 'status' => 0,])
             ->andWhere(['<=', 'dt_public', time() - 86400]);
         if($useReg != -1){
-            $query->andWhere(['region_id' => NULL]);
-            $query->orWhere(['region_id' => $useReg]);
+            $query->andWhere("(`region_id` IS NULL OR `region_id`=$useReg)");
 
         }
+
         $news = $query
             ->orderBy('dt_public DESC')
             ->limit(10)
