@@ -87,6 +87,7 @@ class NewsController extends Controller
         $useReg = $cookies->getValue('regionId');
 
         $newsQuery = News::find()
+            ->from('news FORCE INDEX(`dt_public`)')
             ->where([
                 'status' => 0,
                 'lang_id' => Lang::getCurrent()['id'],
@@ -104,6 +105,7 @@ class NewsController extends Controller
             ->all();
 
         $hotNewsQuery = News::find()
+            ->from('news FORCE INDEX(`dt_public`)')
             ->where([
                 'status' => 0,
                 'lang_id' => Lang::getCurrent()['id'],
