@@ -23,9 +23,7 @@ class MainPopularSlider extends Widget
             ->andWhere(['exclude_popular' => 0])
             ->andWhere(['>', 'views', $params['countView']]);
         if($useReg != -1){
-            $query->andWhere(['region_id' => NULL]);
-            $query->orWhere(['region_id' => $useReg]);
-
+            $query->andWhere("(`region_id` IS NULL OR `region_id`=$useReg)");
         }
         $news = $query->orderBy('views DESC')
             ->limit(16)
