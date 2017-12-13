@@ -1,4 +1,4 @@
-<?php if ($this->beginCache('show_hot_theme_news_widget', ['duration' => Yii::$app->params['hours-for-cache']])) { ?>
+<?php if ($this->beginCache('show_hot_theme_news_widget' . $userReg, ['duration' => Yii::$app->params['hours-for-cache']])) { ?>
     <div class="home-content__hot-topics-russ">
         <div class="left-column">
             <div class="title">
@@ -9,22 +9,22 @@
                 // \common\classes\Debug::prn($val);
                 ?>
                 <?php if ($key == 0): ?>
-                <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['slugNews']]); ?>">
+                <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val->slug]); ?>">
                     <div class="left-column__content">
                         <h2>
-                            <?= $val['titleNews'] ?>
+                            <?= $val->title ?>
                         </h2>
                         <p>
-                            <?= \yii\helpers\StringHelper::truncate(strip_tags($val['content']), 150, '...'); ?>
+                            <?= \yii\helpers\StringHelper::truncate(strip_tags($val->content), 150, '...'); ?>
                         </p>
                     </div>
                 </a>
             <?php else: ?>
-                <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['slugNews']]); ?>">
+                <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val->slug]); ?>">
                     <div class="item">
-                        <img src="<?= $val['photoNews'] . '?width=155' ?>" alt="">
+                        <img src="<?= $val->photo . '?width=155' ?>" alt="">
                         <p>
-                            <?= $val['titleNews'] ?>
+                            <?= $val->title ?>
                         </p>
                     </div>
                 </a>
@@ -41,30 +41,30 @@
 
                     <?php
                     if ($key == 3): ?>
-                        <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['slugNews']]); ?>">
-                            <img src="<?= $val['photoNews'] . '?width=300' ?>" alt="">
+                        <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val->slug]); ?>">
+                            <img src="<?= $val->photo . '?width=300' ?>" alt="">
                         </a>
                     <?php else: ?>
                         <?php if ($key == 4): ?>
-                            <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['slugNews']]); ?>"
+                            <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val->slug]); ?>"
                                class="news__wrap_item-lg">
                                 <div class="thumb">
-                                    <img src="<?= $val['photoNews'] . '?width=300' ?>"
+                                    <img src="<?= $val->photo . '?width=300' ?>"
                                          alt="">
                                     <div class="content-row">
-                                        <span><?= date('d.m.Y H:i', $val['dt_public']) ?></span> <br>
-                                        <span><?= $val['titleCat']; ?></span>
-                                        <span><small class="view-icon"></small><?= $val['views']; ?></span>
+                                        <span><?= date('d.m.Y H:i', $val->dt_public) ?></span> <br>
+                                        <span><?= $val->title; ?></span>
+                                        <span><small class="view-icon"></small><?= $val->views; ?></span>
                                         <span><small class="comments-icon"></small>
-                                            <?= \common\models\db\News::getCommentsCount($val['idNews']); ?>
+                                            <?= \common\models\db\News::getCommentsCount($val->id); ?>
                                     </span>
-                                        <h2><?= $val['titleNews'] ?></h2>
+                                        <h2><?= $val->title ?></h2>
                                     </div>
                                 </div>
                             </a>
                         <?php else: ?>
-                            <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['slugNews']]); ?>">
-                                <p><?= $val['titleNews'] ?></p>
+                            <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val->slug]); ?>">
+                                <p><?= $val->title ?></p>
                             </a>
                         <?php endif; ?>
                     <?php endif; ?>

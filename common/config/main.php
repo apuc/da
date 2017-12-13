@@ -3,16 +3,6 @@ return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'timeZone' => 'Europe/Moscow',
     'components' => [
-        'cache' => [
-            'class' => 'yii\caching\FileCache',
-        ],
-        'memCache' => [
-            'class' => 'yii\caching\MemCache',
-            'useMemcached' => true,
-            'servers' => [
-                ['host' => '127.0.0.1', 'port' => 11211, 'weight' => 100]
-            ]
-        ],
         'ipgeobase' => [
             'class' => 'himiklab\ipgeobase\IpGeoBase',
             'useLocalDB' => true,
