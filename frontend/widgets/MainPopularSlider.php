@@ -18,6 +18,7 @@ class MainPopularSlider extends Widget
 
         $query = News::find()
             ->distinct()
+            ->from('news FORCE INDEX(`views`)')
             ->where(['>', 'dt_public', time() - (2592000 * $params['countMonth'])])
             ->andWhere(['exclude_popular' => 0])
             ->andWhere(['>', 'views', $params['countView']]);
