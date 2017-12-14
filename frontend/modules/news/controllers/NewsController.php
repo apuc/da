@@ -33,6 +33,8 @@ class NewsController extends Controller
 {
     public $layout = 'portal_page';
 
+    public $keyValue;
+
     public function init()
     {
         $this->on('beforeAction', function ($event) {
@@ -77,6 +79,13 @@ class NewsController extends Controller
         ];
     }
 
+
+    public function beforeAction($action)
+    {
+        $this->keyValue = ArrayHelper::index(KeyValue::find()->all(), 'key');
+        return parent::beforeAction($action);
+    }
+
     /**
      * Lists all News models.
      * @return mixed
@@ -86,39 +95,13 @@ class NewsController extends Controller
     {
         $useReg = UserFunction::getRegionUser();
 
-        $newsQuery = News::find()
-            ->from('news FORCE INDEX(`dt_public`)')
-            ->where([
-                'status' => 0,
-                'lang_id' => Lang::getCurrent()['id'],
-                'hot_new' => 0,
-            ]);
-        if($useReg != -1){
-            $newsQuery->andWhere("(`region_id` IS NULL OR `region_id`=$useReg)");
+        $model = new NewsSearch();
 
-        }
-        $news = $newsQuery
-            ->limit(34)
-            ->orderBy('dt_public DESC')
-            ->with('category')
-            ->all();
+        $news = $model->getNews($useReg);
+        $hotNews = $model->getHotNews($useReg);
 
-        $hotNewsQuery = News::find()
 
-            ->where([
-                'status' => 0,
-                'lang_id' => Lang::getCurrent()['id'],
-                'hot_new' => 1,
-            ]);
-        if($useReg != -1){
-            $hotNewsQuery->andWhere("(`region_id` IS NULL OR `region_id`=$useReg)");
-        }
-        $hotNews = $hotNewsQuery->limit(5)
-            ->orderBy('dt_public DESC')
-            ->with('category')
-            ->all();
-
-        $hotNewsIndexes = [5, 7, 13, 20, 22];
+        $hotNewsIndexes = [1, 7, 13, 20, 22];
         $bigNewsIndexes = [14, 28, 38];
         //Debug::prn($hotNews);
         return $this->render('index',
@@ -127,8 +110,8 @@ class NewsController extends Controller
                 'hotNews' => $hotNews,
                 'hotNewsIndexes' => $hotNewsIndexes,
                 'bigNewsIndexes' => $bigNewsIndexes,
-                'meta_descr' => KeyValue::getValue('news_page_meta_descr'),
-                'meta_title' => KeyValue::getValue('news_page_meta_title'),
+                'meta_descr' => $this->keyValue['news_page_meta_descr']->value,
+                'meta_title' => $this->keyValue['news_page_meta_title']->value,
             ]);
     }
 
@@ -190,19 +173,6 @@ class NewsController extends Controller
         }
     }
 
-    /**
-     * Displays a single News model.
-     *
-     * @param integer $id
-     *
-     * @return mixed
-     */
-   /* public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }*/
 
     /**
      * Creates a new News model.

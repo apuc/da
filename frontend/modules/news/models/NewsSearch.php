@@ -78,4 +78,44 @@ class NewsSearch extends News
 
         return $dataProvider;
     }
+
+    public function getNews($useReg)
+    {
+        $newsQuery = News::find()
+            ->from('news FORCE INDEX(`dt_public`)')
+            ->where([
+                'status' => 0,
+                'hot_new' => 0,
+            ]);
+        if($useReg != -1){
+            $newsQuery->andWhere("(`region_id` IS NULL OR `region_id`=$useReg)");
+
+        }
+        $news = $newsQuery
+            ->limit(34)
+            ->orderBy('dt_public DESC')
+            ->with('category')
+            ->all();
+
+        return $news;
+    }
+
+    public function getHotNews($useReg)
+    {
+        $hotNewsQuery = News::find()
+
+            ->where([
+                'status' => 0,
+                'hot_new' => 1,
+            ]);
+        if($useReg != -1){
+            $hotNewsQuery->andWhere("(`region_id` IS NULL OR `region_id`=$useReg)");
+        }
+        $hotNews = $hotNewsQuery->limit(5)
+            ->orderBy('dt_public DESC')
+            ->with('category')
+            ->all();
+
+        return $hotNews;
+    }
 }
