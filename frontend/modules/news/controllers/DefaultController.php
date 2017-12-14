@@ -127,7 +127,7 @@ class DefaultController extends Controller
         $new_content = strip_tags($new->content);
         $new_content = preg_replace("/\s{2,}/", " ", $new_content);
 
-        $new_content = substr($new_content, 0, $count_symbols) . '...';
+        $new_content = mb_substr($new_content, 0, $count_symbols) . '...';
 
         $readTheSame = News::find()
             ->joinWith('categoryNewsRelations')

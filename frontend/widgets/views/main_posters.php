@@ -46,7 +46,7 @@
                         $photos = array_slice($premiereImages, 1);
                         foreach ($photos as $photo): ?>
                             <a class="fancybox" rel="gallery1" data-fancybox="gallery"
-                               href="<?= $photo  . '?width=50' ?>">
+                               href="<?= $photo  . '?width=600' ?>">
                                 <img src="<?= $photo  . '?width=50' ?>" alt=""/>
                             </a>
                         <?php endforeach; ?>

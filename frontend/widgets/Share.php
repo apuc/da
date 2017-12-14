@@ -34,7 +34,7 @@ class Share extends Widget
 
         $countSymbols = 800 - 48 - strlen($options['url']) - strlen($options['title']) - strlen($options['image']);
 
-        $options['description'] = substr(preg_replace("/\s{2,}/", " ", strip_tags($this->description)), 0,
+        $options['description'] = mb_substr(preg_replace("/\s{2,}/", " ", strip_tags($this->description)), 0,
                 $countSymbols) . '...';
 
 
