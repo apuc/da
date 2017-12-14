@@ -271,17 +271,17 @@ return [
             'bundles' => [
                 'yii\web\JqueryAsset' => [
                     'js' => [
-                        YII_ENV_PROD ? 'jquery.js' : 'jquery.min.js'
+                        YII_ENV_DEV ? 'jquery.js' : 'jquery.min.js'
                     ]
                 ],
                 'yii\bootstrap\BootstrapAsset' => [
                     'css' => [
-                        YII_ENV_PROD ? 'css/bootstrap.css' : 'css/bootstrap.min.css',
+                        YII_ENV_DEV ? 'css/bootstrap.css' : 'css/bootstrap.min.css',
                     ]
                 ],
                 'yii\bootstrap\BootstrapPluginAsset' => [
                     'js' => [
-                        YII_ENV_PROD ? 'js/bootstrap.js' : 'js/bootstrap.min.js',
+                        YII_ENV_DEV ? 'js/bootstrap.js' : 'js/bootstrap.min.js',
                     ]
                 ]
             ],
