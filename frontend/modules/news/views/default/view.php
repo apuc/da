@@ -158,10 +158,15 @@ $this->params['breadcrumbs'][] = $model->title;
 
                 ?>
 
-                <?= \frontend\modules\news\widgets\MostPopularNews::widget(); ?>
+                <?= \frontend\modules\news\widgets\MostPopularNews::widget(
+                    [
+                        'newsCurrentId' => $model->id,
+                        'useReg' => $useReg,
+                    ]
+                ); ?>
             </div>
         </aside>
 
-       <?= \frontend\modules\news\widgets\WhatElseToRead::widget(); ?>
+       <?= \frontend\modules\news\widgets\WhatElseToRead::widget(['useReg' => $useReg]); ?>
     </div>
 </main>
