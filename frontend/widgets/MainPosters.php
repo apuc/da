@@ -3,6 +3,7 @@
 namespace frontend\widgets;
 
 use common\classes\Debug;
+use common\classes\UserFunction;
 use common\models\db\CategoryPoster;
 use common\models\db\CategoryPosterRelations;
 use common\models\db\KeyValue;
@@ -19,8 +20,7 @@ class MainPosters extends Widget
 
     public function run()
     {
-        $cookies = Yii::$app->request->cookies;
-        $useReg = $cookies->getValue('regionId');
+        $useReg = UserFunction::getRegionUser();
 
         if ($useReg == -1) {
             $useReg = null;
@@ -54,56 +54,6 @@ class MainPosters extends Widget
                 if(count($kino) >= 4){break;}
             }
         }
-
-
-        /*$categoriesPosteEvents = ArrayHelper::getColumn(CategoryPoster::find()
-            ->select('id')
-            ->where(['!=', 'slug', 'kino'])
-            ->all(),
-            'id');
-
-        $categoriesPostersRelationsEvents = ArrayHelper::getColumn(CategoryPosterRelations::find('poster_id')
-            ->select('poster_id')
-            ->where(['cat_id' => $categoriesPosteEvents])
-            ->groupBy('poster_id')
-            ->all(),
-            'poster_id'
-        );
-        $events = \common\models\db\Poster::find()
-
-            ->andWhere(['id' => $categoriesPostersRelationsEvents])
-            ->orderBy('dt_event DESC')
-            ->limit(4)
-            ->with('categories')
-            ->all();
-
-
-        $categoriesPosterMovies = CategoryPoster::find()
-            ->select('id')
-            ->where(['=', 'slug', 'kino'])
-            ->one()->id;
-
-        $categoriesPostersRelationsMovies = ArrayHelper::getColumn(CategoryPosterRelations::find('poster_id')
-            ->select('poster_id')
-            ->where(['cat_id' => $categoriesPosterMovies])
-            ->groupBy('poster_id')
-            ->all(),
-            'poster_id'
-        );
-
-        $movies = \common\models\db\Poster::find()
-            ->andWhere(['id' => $categoriesPostersRelationsMovies])
-            ->andWhere(['>=','dt_event_end', time()])
-            ->orderBy('dt_event DESC')
-            ->limit(4)
-            ->with('categories')
-            ->all();*/
-
-        /*$premiere = json_decode(KeyValue::find()->where(['key' => 'main_posters'])->one()->value);
-
-        $poster = \common\models\db\Poster::find()->where(['id' => $premiere->afisha_id])->one();*/
-
-
 
 
         $mainPremiere = MainPremiere::find()
