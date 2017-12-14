@@ -8,7 +8,8 @@ $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends
 $this->registerJsFile('/js/jquery-ui-1.12.1/jquery-ui.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 ?>
-
+<section class="home-content">
+    <div class="container">
 
     <!-- open home-content__wrap -->
     <div class="home-content__wrap">
@@ -30,10 +31,13 @@ $this->registerJsFile('/js/jquery-ui-1.12.1/jquery-ui.min.js', ['depends' => [\y
     <!-- close home-content__wrap -->
 
     <!-- ЛЕНТА ДНЯ -->
+
 <?= \frontend\widgets\DayFeed::widget(); ?>
 
 <?= \frontend\modules\mainpage\widgets\ShowRightSidebar::widget(); ?>
     <!-- home-content__sidebar -->
+    </div>
+</section>
 <?php
 echo \frontend\widgets\MainPopularSlider::widget();
 
