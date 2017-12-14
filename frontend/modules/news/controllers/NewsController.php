@@ -34,6 +34,7 @@ class NewsController extends Controller
     public $layout = 'portal_page';
 
     public $keyValue;
+    public $useReg;
 
     public function init()
     {
@@ -83,6 +84,7 @@ class NewsController extends Controller
     public function beforeAction($action)
     {
         $this->keyValue = ArrayHelper::index(KeyValue::find()->all(), 'key');
+        $this->useReg = UserFunction::getRegionUser();
         return parent::beforeAction($action);
     }
 
@@ -93,12 +95,10 @@ class NewsController extends Controller
      */
     public function actionIndex()
     {
-        $useReg = UserFunction::getRegionUser();
-
         $model = new NewsSearch();
 
-        $news = $model->getNews($useReg);
-        $hotNews = $model->getHotNews($useReg);
+        $news = $model->getNews($this->useReg);
+        $hotNews = $model->getHotNews($this->useReg);
 
 
         $hotNewsIndexes = [1, 7, 13, 20, 22];
@@ -351,23 +351,30 @@ class NewsController extends Controller
         if (empty($cat)) {
             return $this->goHome();
         }
-        $news = CategoryNewsRelations::find()
+        $model = new NewsSearch();
+
+        $news = $model->getCategoryNews($this->useReg, $cat->id);
+        $hotNews = $model->getCategoryHotNews($this->useReg, $cat->id);
+      //  Debug::prn($hotNews);
+        //$hotNews = $model->getHotNews($this->useReg);
+
+        /*$news = CategoryNewsRelations::find()
             ->leftJoin('news', '`category_news_relations`.`new_id` = `news`.`id`')
             ->where(['cat_id' => $cat->id])
             ->andWhere(['status' => 0])
             ->orderBy('`news`.`id` DESC')
             ->with('news')
 
-            ->all();
+            ->all();*/
 
-        $hotNews = News::find()
+        /*$hotNews = News::find()
             ->where([
                 'status' => 0,
                 'hot_new' => 1,
             ])
             ->limit(5)
             ->orderBy('dt_public DESC')
-            ->all();
+            ->all();*/
 
         //Debug::prn($news);
 

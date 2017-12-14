@@ -2,6 +2,7 @@
 
 namespace frontend\modules\news\models;
 
+use common\models\db\CategoryNewsRelations;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -105,8 +106,8 @@ class NewsSearch extends News
         $hotNewsQuery = News::find()
 
             ->where([
-                'status' => 0,
                 'hot_new' => 1,
+                'status' => 0,
             ]);
         if($useReg != -1){
             $hotNewsQuery->andWhere("(`region_id` IS NULL OR `region_id`=$useReg)");
@@ -117,5 +118,39 @@ class NewsSearch extends News
             ->all();
 
         return $hotNews;
+    }
+
+    public function getCategoryNews($useReg, $category)
+    {
+        $query = CategoryNewsRelations::find()
+            ->where(['cat_id' => $category])
+            ->joinWith('news');
+
+        if($useReg != -1){
+            $query->andWhere("(`region_id` IS NULL OR `region_id`=$useReg)");
+        }
+        $news = $query
+            ->orderBy('`news`.`dt_public` DESC')
+            ->with('cat')
+            ->limit(34)
+            ->all();
+        return $news;
+    }
+
+    public function getCategoryHotNews($useReg, $category)
+    {
+        $query = CategoryNewsRelations::find()
+            ->where(['cat_id' => $category])
+            ->joinWith('hotNews');
+
+        if($useReg != -1){
+            $query->andWhere("(`region_id` IS NULL OR `region_id`=$useReg)");
+        }
+        $news = $query
+            ->orderBy('`news`.`dt_public` DESC')
+            ->with('cat')
+            ->limit(5)
+            ->all();
+        return $news;
     }
 }

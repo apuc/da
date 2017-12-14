@@ -66,6 +66,11 @@ class CategoryNewsRelations extends \yii\db\ActiveRecord
     }
 
     public function getnews(){
-        return $this->hasOne(News::className(), ['id'=>'new_id']);
+        return $this->hasOne(News::className(), ['id'=>'new_id'])->andWhere(['status' => 0, 'hot_new' => 0]);
+    }
+
+    public function getHotNews()
+    {
+        return $this->hasOne(News::className(), ['id'=>'new_id'])->andWhere(['hot_new' => 1, 'status' => 0]);
     }
 }

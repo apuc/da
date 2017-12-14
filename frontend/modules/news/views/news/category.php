@@ -108,22 +108,24 @@ $md = new \common\classes\Mobile_Detect();
                 else:
 
                     $currHotNew = $hotNews[$hotNewId];
+                //\common\classes\Debug::prn($currHotNew);die();
                     ?>
                     <a href="<?= Url::to([
                         '/news/default/view',
-                        'slug' => $currHotNew->slug,
+                        'slug' => $currHotNew['hotNews']->slug,
                     ]); ?>" class=" news__wrap_item-sm-hot">
                         <!-- thumb -->
                         <div class="thumb">
-                            <?php if(stristr($currHotNew->photo, 'http')):?>
-                                <img class="thumbnail" src="<?= $currHotNew->photo?>" alt="">
+                            <?php if(stristr($currHotNew['hotNews']->photo, 'http')):?>
+                                <img class="thumbnail" src="<?= $currHotNew['hotNews']->photo?>" alt="">
                             <?php else: ?>
-                                <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($currHotNew->photo); ?>" alt="">
+                                <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($currHotNew['hotNews']->photo); ?>" alt="">
                             <?php endif;?>
                             <div class="content-row">
-                                <span><small class="view-icon"></small><?= $currHotNew->views; ?></span>
-                                <span><small
-                                        class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currNew->id) ?></span>
+                                <span><small class="view-icon"></small><?= $currHotNew['hotNews']->views; ?></span>
+                                <span>
+                                    <small class="comments-icon"></small>
+                                    <?= \common\models\db\News::getCommentsCount($currHotNew['hotNews']->id) ?></span>
                                 <span><?= $cat->title; ?></span>
                             </div>
                         </div>
@@ -133,7 +135,7 @@ $md = new \common\classes\Mobile_Detect();
                                 <span class="category-star"></span>
                                 ГОРЯЧЕЕ
                               </span>
-                            <h2><?= $currHotNew->title; ?></h2>
+                            <h2><?= $currHotNew['hotNews']->title; ?></h2>
                         </div>
                     </a>
 
