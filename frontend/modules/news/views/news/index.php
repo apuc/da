@@ -143,8 +143,8 @@ $md = new \common\classes\Mobile_Detect();
                             <div class="content-row">
                                 <span><small class="view-icon"></small><?= $currHotNew->views; ?></span>
                                 <span><small
-                                        class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currNew->id) ?></span>
-                                <span><?= $currNew['categoryNewsRelations'][0]['cat']->title; ?></span>
+                                        class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currHotNew->id) ?></span>
+                                <span><?= $currHotNew['categoryNewsRelations'][0]['cat']->title; ?></span>
                             </div>
                         </div>
                         <!-- thumb -->
