@@ -49,6 +49,7 @@ $md = new \common\classes\Mobile_Detect();
             $simpleNewId = 0;
             $hotNewId = 0;
             for ($i = 0; $i <= 38; $i++):
+                if(empty($news[$simpleNewId]['news'])){ break; }
                 if (!in_array($i, $hotNewsIndexes)):
                     $currNew = $news[$simpleNewId]['news'];
 
@@ -107,9 +108,8 @@ $md = new \common\classes\Mobile_Detect();
                     endif;
                     $simpleNewId++;
                 else:
-
-                    $currHotNew = $hotNews[$hotNewId];
-                //\common\classes\Debug::prn($currHotNew);die();
+                    if(!empty($hotNews[$hotNewId])):
+                        $currHotNew = $hotNews[$hotNewId];
                     ?>
                     <a href="<?= Url::to([
                         '/news/default/view',
@@ -126,7 +126,8 @@ $md = new \common\classes\Mobile_Detect();
                                 <span><small class="view-icon"></small><?= $currHotNew['hotNews']->views; ?></span>
                                 <span>
                                     <small class="comments-icon"></small>
-                                    <?= \common\models\db\News::getCommentsCount($currHotNew['hotNews']->id) ?></span>
+                                    <?= \common\models\db\News::getCommentsCount($currHotNew['hotNews']->id) ?>
+                                </span>
                                 <span><?= $cat->title; ?></span>
                             </div>
                         </div>
@@ -142,6 +143,7 @@ $md = new \common\classes\Mobile_Detect();
 
 
                     <?php
+                    endif;
                     $hotNewId = $hotNewId + 1 == count($hotNews) ? 0 : $hotNewId + 1;
                 endif;
             endfor; ?>

@@ -355,28 +355,6 @@ class NewsController extends Controller
 
         $news = $model->getCategoryNews($this->useReg, $cat->id);
         $hotNews = $model->getCategoryHotNews($this->useReg, $cat->id);
-      //  Debug::prn($hotNews);
-        //$hotNews = $model->getHotNews($this->useReg);
-
-        /*$news = CategoryNewsRelations::find()
-            ->leftJoin('news', '`category_news_relations`.`new_id` = `news`.`id`')
-            ->where(['cat_id' => $cat->id])
-            ->andWhere(['status' => 0])
-            ->orderBy('`news`.`id` DESC')
-            ->with('news')
-
-            ->all();*/
-
-        /*$hotNews = News::find()
-            ->where([
-                'status' => 0,
-                'hot_new' => 1,
-            ])
-            ->limit(5)
-            ->orderBy('dt_public DESC')
-            ->all();*/
-
-        //Debug::prn($news);
 
         $hotNewsIndexes = [5, 7, 13, 20, 22];
         $bigNewsIndexes = [14, 28, 38];
