@@ -9,6 +9,7 @@
 namespace frontend\widgets;
 
 use common\classes\Debug;
+use common\classes\UserFunction;
 use common\models\db\Company;
 use Yii;
 use yii\base\Widget;
@@ -17,8 +18,7 @@ class CompanyMain extends Widget
 {
 
     public function run()
-    {   $cookies = Yii::$app->request->cookies;
-        $useReg = $cookies->getValue('regionId');
+    {   $useReg = UserFunction::getRegionUser();
         $query = Company::find()
             ->where(['status' => 0, 'main' => 1]);
             //->orderBy('views DESC')
