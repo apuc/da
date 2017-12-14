@@ -2,29 +2,22 @@
 
 namespace frontend\modules\news\controllers;
 
-use app\models\UploadPhoto;
 use common\classes\Debug;
 use common\classes\UserFunction;
 use common\models\db\CategoryNews;
 use common\models\db\CategoryNewsRelations;
 use common\models\db\KeyValue;
 use common\models\db\Lang;
-use frontend\controllers\MainController;
 use Yii;
 use common\models\db\News;
 use frontend\modules\news\models\NewsSearch;
-use yii\data\Pagination;
-use yii\data\SqlDataProvider;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\validators\RequiredValidator;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
-use yii\data\ActiveDataProvider;
-use yii\helpers\Url;
 
 /**
  * NewsController implements the CRUD actions for News model.
@@ -119,20 +112,16 @@ class NewsController extends Controller
     {
 
         if (Yii::$app->request->isPost) {
-            $cookies = Yii::$app->request->cookies;
-            $useReg = $cookies->getValue('regionId');
 
             $request = Yii::$app->request->post();
 
             $newsQuery = News::find()
                 ->where([
                     'status' => 0,
-                    'lang_id' => Lang::getCurrent()['id'],
                     'hot_new' => 0,
                 ]);
-            if($useReg != -1){
-                $newsQuery->andWhere(['region_id' => NULL]);
-                $newsQuery->orWhere(['region_id' => $useReg]);
+            if($this->useReg != -1){
+                $newsQuery->andWhere("(`region_id` IS NULL OR `region_id`=$this->useReg)");
 
             }
             $news = $newsQuery
@@ -151,14 +140,18 @@ class NewsController extends Controller
         if (Yii::$app->request->isPost) {
             $request = Yii::$app->request->post();
 
-            $news = News::find()
+            $newsQuery = News::find()
                 ->joinWith('category')
                 ->where([
                     'status' => 0,
-                    '`news`.`lang_id`' => Lang::getCurrent()['id'],
                     'hot_new' => 0,
                     '`category_news`.`slug`'=>Yii::$app->request->post('category')
-                ])
+                ]);
+            if($this->useReg != -1){
+                $newsQuery->andWhere("(`region_id` IS NULL OR `region_id`=$this->useReg)");
+
+            }
+            $news = $newsQuery
                 ->offset($request['offset'])
                 ->limit(16)
                 ->orderBy('dt_public DESC')
