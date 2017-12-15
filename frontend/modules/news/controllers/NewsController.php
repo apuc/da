@@ -366,12 +366,15 @@ class NewsController extends Controller
 
     public function actionArchive($date)
     {
-        $news = News::find()
+        $query = News::find()
             ->where([
                 'DATE(FROM_UNIXTIME(dt_public))' => $date,
                 'status' => 0,
-                'lang_id' => Lang::getCurrent()['id'],
-            ])
+            ]);
+        if($this->useReg != -1){
+            $query->andWhere("(`region_id` IS NULL OR `region_id`=$this->useReg)");
+        }
+        $news = $query
             ->orderBy('dt_public DESC')
             ->all();
 
