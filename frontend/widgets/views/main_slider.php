@@ -47,18 +47,18 @@
                             '<?= $new_title; ?>',
                             '<?= $new_img; ?>',
                             '<?= $new_content; ?>'
-                            ); return false;" href=""><i class="fa fa-vk  fa-lg"></i></span>
+                            ); return false;" ><i class="fa fa-vk  fa-lg"></i></span>
                         <span onclick="Share.twitter('<?= $new_url ?>',
-                            '<?= $new_title ?>')" href=""><i class="fa fa-twitter fa-lg"></i></span>
+                            '<?= $new_title ?>')" ><i class="fa fa-twitter fa-lg"></i></span>
                         <span onclick="Share.facebook(
                             '<?= $new_url ?>',
                             '<?= $new_title; ?>',
                             '<?= $new_img; ?>',
-                            '<?= $new_content; ?>')" href=""><i class="fa fa-facebook fa-lg"></i></span>
+                            '<?= $new_content; ?>')" ><i class="fa fa-facebook fa-lg"></i></span>
                         <span onclick="Share.odnoklassniki(
                             '<?= $new_url ?>',
                             '<?= $new_title; ?>'
-                            )" href=""><i class="fa fa-odnoklassniki  fa-lg"></i></span>
+                            )" ><i class="fa fa-odnoklassniki  fa-lg"></i></span>
 
                     </div>
                     <span class="open-soc"><i class="fa fa-random fa-lg"></i></span>
