@@ -19,7 +19,7 @@ class CompanySearch extends Company
     public function rules()
     {
         return [
-            [['id', 'dt_add', 'dt_update', 'status', 'lang_id'], 'integer'],
+            [['id', 'dt_add', 'dt_update', 'status', 'lang_id', 'region_id'], 'integer'],
             [['name', 'address', 'phone', 'email', 'photo', 'descr', 'slug','vip'], 'safe'],
         ];
     }
@@ -76,6 +76,7 @@ class CompanySearch extends Company
             'dt_update' => $this->dt_update,
             'status' => $this->status,
             'lang_id' => $this->lang_id,
+            'region_id' => $this->region_id,
         ]);
 
         $query

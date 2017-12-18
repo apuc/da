@@ -1,5 +1,6 @@
 <?php
 
+use common\classes\GeobaseFunction;
 use kartik\export\ExportMenu;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -62,6 +63,25 @@ $this->params['breadcrumbs'][] = $this->title;
                         'model' => $searchModel,
                         'attribute' => 'name',
                         'data' => \yii\helpers\ArrayHelper::map(\common\models\db\Company::find()->all(),'id', 'name'),
+                        'options' => ['placeholder' => 'Select a state ...','class' => 'form-control'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ])
+            ],
+            [
+                'attribute' => 'region_id',
+                'label' => 'Регион',
+                'format'    => 'text',
+                'value' => function($model)
+                {
+                    return \common\models\db\GeobaseRegion::find()->where(['id' => $model->region_id])->one()->name;
+                },
+                'filter'    => \kartik\select2\Select2::widget(
+                    [
+                        'model' => $searchModel,
+                        'attribute' => 'region_id',
+                        'data' => \yii\helpers\ArrayHelper::map(GeobaseFunction::getListRegion(),'id', 'name'),
                         'options' => ['placeholder' => 'Select a state ...','class' => 'form-control'],
                         'pluginOptions' => [
                             'allowClear' => true
