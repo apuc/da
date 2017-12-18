@@ -29,8 +29,8 @@ use common\models\User;
 if ($this->beginCache('show_header_widget_end', ['duration' => Yii::$app->params['hours-for-cache']])) {
 ?>
                 </div>
-                <?= \frontend\widgets\WeatherHeader::widget(); ?>
-                <?= ExchangeRates::widget() ?>
+               <!-- <?/*= \frontend\widgets\WeatherHeader::widget(); */?>
+                --><?/*= ExchangeRates::widget() */?>
                 <form action="<?= Url::to(['/search/search/index']) ?>" method="get">
                     <input class="search-input" type="text" placeholder="Поиск" name="request">
                     <!--<input type="hidden" name="_csrf" value="<?/*= Yii::$app->request->csrfToken; */
