@@ -1,15 +1,17 @@
-<?php //\common\classes\Debug::prn($events); ?>
+<?php
+use yii\helpers\Url;
+//\common\classes\Debug::prn($events); ?>
 <section class="afisha">
     <div class="container">
         <h3 class="main-title">куда сходить</h3>
         <span class="separator"></span>
         <div class="afisha-wrap">
+            <?php
+
+            if (!empty($events)) {?>
             <div class="afisha-wrap__event">
                 <h3>События в ближайшие дни</h3>
                 <?php
-                use yii\helpers\Url;
-
-                if (!empty($events)) {
                     foreach ($events as $event):
 
                         ?>
@@ -24,12 +26,10 @@
                                 <span class="name-item"><?= $event->title; ?></span>
                             </div>
                         </a>
-                    <?php endforeach;
-                }
-                ?>
-
-
+                    <?php endforeach;?>
             </div>
+                <?php }
+                ?>
             <?php if(!empty($premiereImages)): ?>
                 <div class="afisha-wrap__yesterday">
                 <h3>Выбор редакции</h3>
@@ -57,11 +57,12 @@
                 <a class="show-more" href="<?= Url::to(['/poster/default/view', 'slug'=>$poster->slug]) ?>">посмотреть</a>
             </div>
             <?php endif; ?>
+            <?php
+            if (!empty(($movies))) { ?>
             <div class="afisha-wrap__look">
                 <h3>Что посмотреть</h3>
-                <?php
-                if (!empty(($movies))) {
-                    foreach ($movies as $poster): ?>
+
+                    <?php foreach ($movies as $poster): ?>
                         <a href="<?= Url::to(['/poster/default/view', 'slug'=>$poster->slug]) ?>" class="item">
                             <img src="<?= $poster->photo  . '?width=155' ?>" alt="">
                             <div class="item-content">
@@ -73,9 +74,9 @@
                                 <span class="name-item"><?= $poster->title; ?></span>
                             </div>
                         </a>
-                    <?php endforeach;
-                } ?>
+                    <?php endforeach;?>
             </div>
+            <?php } ?>
         </div>
         <a href="<?= Url::to(['/poster/default/category']) ?>" class="more">посмотреть больше <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
     </div>

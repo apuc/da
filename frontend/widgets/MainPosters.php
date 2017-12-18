@@ -68,6 +68,9 @@ class MainPosters extends Widget
             $premiereDescription = $mainPremiere->description;
         }
 
+        if (empty($events) && (empty($movies)) && (empty($mainPremiere))){
+            return false;
+        }
         return $this->render('main_posters',
             [
                 'events' => array_splice($posterAll, 0, 4),
