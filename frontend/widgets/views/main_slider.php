@@ -34,7 +34,7 @@
                     $new_img = 'http://' . $_SERVER['HTTP_HOST'] . $new->photo . '?width=300';
 
                     //$count_symbols = 800 - 48 - strlen($new_url) - strlen($new_title) - strlen($new_img);
-                    $count_symbols = 800 - 48 - strlen($new_url) - strlen($new_title) - strlen($new_img);
+                    $count_symbols = 800 - 110 - strlen($new_url) - strlen($new_title) - strlen($new_img);
                     $new_content = strip_tags($new->content);
                     $new_content = preg_replace("/\s{2,}/", " ", $new_content);
 
