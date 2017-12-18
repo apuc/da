@@ -32,7 +32,7 @@ class Share extends Widget
         );
         $options['image'] = 'https://' . $_SERVER['HTTP_HOST'] . $this->image;
 
-        $countSymbols = 800 - 48 - strlen($options['url']) - strlen($options['title']) - strlen($options['image']);
+        $countSymbols = 800 - 110 - strlen($options['url']) - strlen($options['title']) - strlen($options['image']);
 
         $options['description'] = mb_substr(preg_replace("/\s{2,}/", " ", strip_tags($this->description)), 0,
                 $countSymbols) . '...';
