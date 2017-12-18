@@ -32,7 +32,8 @@ class ShowRightSidebar extends Widget
 
         $news = $query
             ->groupBy('`comments`.`post_id`')
-            ->orderBy('cnt DESC')
+            ->orderBy('RAND()')
+            //->orderBy('cnt DESC')
             ->limit(5)
             ->all();
        // Debug::prn($news);

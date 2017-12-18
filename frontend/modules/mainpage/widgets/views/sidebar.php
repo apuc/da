@@ -4,7 +4,7 @@
 <div class="home-content__sidebar">
 
     <?php
-    if ($this->beginCache('sidebar_discussed_widget' . $userReg, ['duration' => Yii::$app->params['hours-for-cache']])) {
+    /*if ($this->beginCache('sidebar_discussed_widget' . $userReg, ['duration' => Yii::$app->params['hours-for-cache']])) {*/
         ?>
         <!-- start sidebar-discussed-russ.html-->
         <div class="sidebar-discussed">
@@ -56,8 +56,8 @@
             <?php endforeach; ?>
         </div>
         <?php
-        $this->endCache();
-    }
+       /* $this->endCache();
+    }*/
     ?>
     <!--<div class="guests-city">
         <h2>ГОСТЯМ ГОРОДА</h2>
