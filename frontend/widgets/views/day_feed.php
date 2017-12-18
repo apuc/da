@@ -69,7 +69,7 @@
                                 '<?= $new_title; ?>',
                                 '<?= $new_img; ?>',
                                 '<?= $new_content; ?>'
-                                ); return false;" ><i class="fa fa-vk  fa-lg"></i></a>
+                                ); return false;" href=""><i class="fa fa-vk  fa-lg"></i></a>
                         <a onclick="Share.twitter('<?= $new_url ?>',
                                 '<?= $new_title ?>')" ><i class="fa fa-twitter fa-lg"></i></a>
                         <a onclick="Share.facebook(
