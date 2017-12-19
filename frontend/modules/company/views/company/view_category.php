@@ -48,11 +48,76 @@ $this->params['breadcrumbs'][] = $categ->title;
 
                 <h1 class="business__title">
                     <a href="<?= Url::to(['/company/company']) ?>">Предприятия</a> / <?= $categ->title ?></h1>
-                <?php foreach ($organizations as $organization): ?>
-                    <a href="<?= Url::to(['/company/company/view', 'slug' => $organization->slug]) ?>" class="business__sm-item">
+                <?php foreach ($organizations as $key=>$organization): ?>
+                    <?php if (in_array($key, $positions, true)): ?>
+                        <a href="<?= Url::to(['/company/company/view', 'slug' => $organization->slug]) ?>"
+                           class="business__big-item <?= ($organization->recommended == 1) ? 'favorite' : ''?>">
+                            <div class="recommend">
+                                <span class="recommend__star"></span>
+                                Рекомендуем
+                            </div>
+                            <div class="business__sm-item--img">
+
+
+
+                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($organization->photo); ?>" alt="">
+                            </div>
+
+                            <p class="business__sm-item--title">
+                                <?= $organization->name ?>
+                            </p>
+                            <?php if($organization->verifikation == 1): ?>
+                                <span class="business__sm-item--label">
+                                    <img src="/theme/portal-donbassa/img/icons/ver.png" alt="">
+                                </span>
+                            <?php endif; ?>
+
+                            <p class="business__sm-item--address">
+                                <span>Адрес:</span>
+                                <?php
+                                if($organization->region_id != 0){
+                                    $address = GeobaseFunction::getRegionName($organization->region_id) . ', ' .GeobaseFunction::getCityName($organization->city_id) . ', ' . $organization->address ;
+                                }
+                                else{
+                                    $address = $organization->address;
+                                }
+                                ?>
+                                <span><?= $address ?></span>
+                            </p>
+
+                            <?php if (!empty($organization->phone)): ?>
+                                <?php $phone = explode(' ', $organization->phone) ?>
+                                <ul class="business__sm-item--numbers">
+                                    <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
+                                    <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
+                                </ul>
+
+                                <ul class="business__sm-item--numbers">
+                                    <li><?= isset($phone[2]) ? $phone[2] : '' ?></li>
+                                    <li> <?= isset($phone[3]) ? $phone[3] : '' ?></li>
+                                </ul>
+
+                            <?php elseif(!empty($organization->allPhones)):?>
+                                <ul class="business__sm-item--numbers">
+                                <?php foreach ($organization->allPhones as $key => $phones):?>
+                                    <?php if ($key == 2):?>
+                                        </ul><ul class="business__sm-item--numbers">
+                                    <?php endif; ?>
+                                    <li><?= $phones->phone?></li>
+                                    <?php if ($key == 4) break;?>
+                                <?php endforeach;?>
+                                </ul>
+                            <?php endif; ?>
+
+                            <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->
+                            <p class="business__sm-item--views"><?= $organization->views ?></p>
+
+                        </a>
+                    <?php else:?>
+                        <a href="<?= Url::to(['/company/company/view', 'slug' => $organization->slug]) ?>" class="business__sm-item">
 
                         <div class="business__sm-item--img">
-                            <img src="<?= $organization->photo ?>" alt="">
+                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($organization->photo); ?>" alt="">
                         </div>
 
                         <p class="business__sm-item--title">
@@ -92,6 +157,7 @@ $this->params['breadcrumbs'][] = $categ->title;
                         <p class="business__sm-item--views"><?= $organization->views ?></p>
 
                     </a>
+                    <?php endif; ?>
                 <?php endforeach; ?>
                 <span id="more-company-box"></span>
                 <!--<div class="wrapper-company-load">
