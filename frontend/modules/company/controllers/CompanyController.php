@@ -9,6 +9,7 @@ use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
 use common\models\db\CompanyFeedback;
 use common\models\db\CompanyPhoto;
+use common\models\db\CompanyViews;
 use common\models\db\KeyValue;
 use common\models\db\Phones;
 use common\models\db\ServicesCompanyRelations;
@@ -164,6 +165,7 @@ class CompanyController extends Controller
      * @return mixed
      * @throws \yii\web\NotFoundHttpException
      * @throws \yii\base\InvalidParamException
+     * @throws \yii\db\Exception
      */
     public function actionView($slug)
     {
@@ -174,7 +176,16 @@ class CompanyController extends Controller
             ->where(['slug' => $slug])
             //->andWhere(['`tags_relation`.`type`' => 'company'])
             ->one();
-
+        //Подсчёт количества просмотров
+        Yii::$app->db->createCommand("INSERT INTO `company_views`(`user_id`, `company_id`, `date`, `ip_address`)
+                                            VALUES (:user_id, :company_id, NOW(), :ip_address) 
+                                              ON DUPLICATE KEY UPDATE `count`=`count` + 1",
+                [
+                    ':user_id' => Yii::$app->user->getId(),
+                    ':company_id' => $model->id,
+                    ':ip_address' => ip2long(CompanyViews::getIP())
+                ])
+            ->execute();
         if (empty($model) || $model->status == 1) {
             return $this->redirect(['site/error']);
         }
@@ -233,7 +244,7 @@ class CompanyController extends Controller
             $model->user_id = Yii::$app->user->id;
             $model->meta_title = $model->name;
             $model->meta_descr =  \yii\helpers\StringHelper::truncate($model->descr, 250);
-            
+
             if ($_FILES['Company']['name']['photo']) {
                 $upphoto = New \common\models\UploadPhoto();
                 $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');

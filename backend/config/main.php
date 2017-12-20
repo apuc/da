@@ -143,6 +143,10 @@ return [
         'currency' => [
             'class' => 'backend\modules\currency\Currency',
         ],
+        'company_views' => [
+            'class' => 'backend\modules\company_views\CompanyViews',
+        ],
+
     ],
     'components' => [
         /*'user' => [
