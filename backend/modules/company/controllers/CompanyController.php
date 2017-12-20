@@ -33,6 +33,8 @@ use yii\filters\VerbFilter;
  */
 class CompanyController extends Controller
 {
+    public $enableCsrfValidation = false;
+
     /**
      * @inheritdoc
      */
@@ -48,13 +50,13 @@ class CompanyController extends Controller
         ];
     }
 
-    public function beforeAction($action)
+   /* public function beforeAction($action)
     {
         $this->enableCsrfValidation = ($action->id !== "update");
         $this->enableCsrfValidation = ($action->id !== "get_sub_categ");
 
         return parent::beforeAction($action);
-    }
+    }*/
 
     /**
      * Lists all Company models.
