@@ -27,4 +27,5 @@ return [
     'Show_error' => 'Выводить на странице 404',
     'Category' => 'Категория',
     'RegionID' => 'Регион',
+    'Editor choice' => 'Выбор редакции',
 ];

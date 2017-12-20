@@ -118,6 +118,7 @@ use kartik\select2\Select2;
     <?= $form->field($model, 'hot_new')->checkbox(); ?>
 
     <?= $form->field($model, 'show_error')->checkbox(); ?>
+    <?= $form->field($model, 'editor_choice')->checkbox(); ?>
     <br>
 
     <div class="form-group">
