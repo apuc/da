@@ -29,12 +29,18 @@ class ShowHotThemeNews extends Widget
 
             ->all();
 
-        $newsAll = array_chunk($news, 5);
+        //$newsAll = array_chunk($news, 4);
+        /*$newsLeftt = array_slice($news, -4);
+        $newsRight = array_slice($news, 4);*/
 
+/*        Debug::prn(count($newsRight));
+        Debug::prn(count($newsLeftt));
+        //Debug::prn(count($newsAll[1]));
+die();*/
         return $this->render('hot-theme',
             [
-                'newsLeft' => $newsAll[0],
-                'newsRight' => $newsAll[1],
+                'newsLeft' => array_slice($news, 0, 4),
+                'newsRight' => array_slice($news, 4),
                 'userReg' => $useReg,
             ]
         );

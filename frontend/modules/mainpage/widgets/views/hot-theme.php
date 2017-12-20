@@ -40,7 +40,7 @@ if ($this->beginCache('show_hot_theme_news_widget' . $userReg, ['duration' => Yi
             <?php else: ?>
                 <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val->slug]); ?>">
                     <div class="item">
-                        <img src="<?= $val->photo . '?width=155' ?>" alt="">
+                        <img src="<?= $val->photo . '?width=155' ?>" alt="<?= $val->title ?>">
                         <div class="item__wrapper">
                             <p>
                                 <?= $val->title ?>
@@ -63,6 +63,7 @@ if ($this->beginCache('show_hot_theme_news_widget' . $userReg, ['duration' => Yi
                         </div>
                     </div>
                 </a>
+
             <?php endif; ?>
             <?php endforeach; ?>
         </div>
@@ -77,12 +78,12 @@ if ($this->beginCache('show_hot_theme_news_widget' . $userReg, ['duration' => Yi
                     ?>
 
                     <?php
-                    /*if ($key == 3): */?><!--
-                        <a href="<?/*= \yii\helpers\Url::to(["/news/default/view", "slug" => $val->slug]); */?>">
-                            <img src="<?/*= $val->photo . '?width=300' */?>" alt="">
+                    if ($key == 3): ?>
+                        <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val->slug]); ?>">
+                            <img src="<?= $val->photo . '?width=300' ?>" alt="">
                         </a>
-                    --><?php /*else: */?>
-                        <?php if ($key == 4 || $key == 3): ?>
+                    <?php else: ?>
+                        <?php if ($key == 4 || $key == 5): ?>
                             <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val->slug]); ?>"
                                class="news__wrap_item-lg">
                                 <div class="thumb">
@@ -99,12 +100,12 @@ if ($this->beginCache('show_hot_theme_news_widget' . $userReg, ['duration' => Yi
                                     </div>
                                 </div>
                             </a>
-                       <!-- --><?php /*else: */?>
+                        <?php else: ?>
                             <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val->slug]); ?>">
                                 <p><?= $val->title ?></p>
                             </a>
                         <?php endif; ?>
-                   <!-- --><?php /*endif; */?>
+                    <?php endif; ?>
 
 
                 <?php endforeach; ?>
