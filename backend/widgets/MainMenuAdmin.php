@@ -239,6 +239,11 @@ class MainMenuAdmin extends Widget
                                 'visible' => UserFunction::hasPermission(['Отзывы компаний'])
                             ],
                             [
+                                'label' => 'Просмотры',
+                                'url' => Url::to(['/company_views/company-views']),
+                                'active' => Yii::$app->controller->module->id === 'company_views' && Yii::$app->controller->action->id == 'index',
+                            ],
+                            [
                                 'label' => 'Популярные акции',
                                 'url' => Url::to(['/company/company/hot-stock']),
                                 'active' => Yii::$app->controller->module->id === 'company' && Yii::$app->controller->action->id === 'hot-stock',
