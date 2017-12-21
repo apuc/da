@@ -77,7 +77,12 @@ $this->registerMetaTag([
             <div class="scroll">
                 <?= \frontend\modules\pages\widgets\PagesFromGroup::widget(['model' => $model]) ?>
 
-                <?= \frontend\modules\news\widgets\MostPopularNews::widget(); ?>
+                <?= \frontend\modules\news\widgets\MostPopularNews::widget(
+                    [
+                        'newsCurrentId' => 0,
+                        'useReg' => $useReg,
+                    ]
+                ); ?>
             </div>
         </aside>
         <!-- end right_sidebar_news.html-->
