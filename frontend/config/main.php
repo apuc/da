@@ -6,7 +6,7 @@ $params = array_merge(
     require(__DIR__ . '/params-local.php')
 );
 
-return [
+return \yii\helpers\ArrayHelper::merge([
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'language' => 'ru-RU',
@@ -56,48 +56,6 @@ return [
             'class' => 'frontend\modules\currency\Currency',
         ],
 
-        'sitemap' => [
-            'class' => 'himiklab\sitemap\Sitemap',
-            'models' => [
-                // your models
-                'frontend\models\sitemap\CategoryNews',
-                'frontend\models\sitemap\CategoryCompany',
-                'frontend\models\sitemap\News',
-                'frontend\models\sitemap\Company',
-                'frontend\models\sitemap\CategoryPoster',
-                'frontend\models\sitemap\Poster'
-                /*'backend\modules\category\models\Category',
-                'backend\modules\adsmanager\models\Adsmanager',
-                'backend\modules\news\models\News',*/
-
-                // or configuration for creating a behavior
-            ],
-            'urls'=> [
-                // your additional urls
-                [
-                    'loc' => '/',
-                    'lastmod' => '2016-11-06T19:38:59+03:00',
-                    'priority' => 1,
-                ],
-                [
-                    'loc' => '/all-news',
-                    'lastmod' => '2016-11-06T19:38:59+03:00',
-                    'priority' => 1,
-                ],
-                [
-                    'loc' => '/all-company',
-                    'lastmod' => '2016-11-06T19:38:59+03:00',
-                    'priority' => 1,
-                ],
-                [
-                    'loc' => '/all-poster',
-                    'lastmod' => '2016-11-06T19:38:59+03:00',
-                    'priority' => 1,
-                ],
-            ],
-            'enableGzip' => true, // default is false
-            'cacheExpire' => 1, // 1 second. Default is 24 hours
-        ],
         'stream' => [
             'class' => 'frontend\modules\stream\Stream',
         ],
@@ -241,10 +199,14 @@ return [
                 //'ajax/send_poll'=> 'ajax/default/send_poll',
                 'promotions' => '/promotions/promotions/index',
                 'promotions/<slug>' => '/promotions/promotions/view',
-                ['pattern' => 'sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
+
                 'stream' => 'stream/default/index',
                 'stream/<slug>' => 'stream/default/view',
-
+                ['pattern' => 'sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
+                ['pattern' => 'news-sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
+                ['pattern' => 'company-sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
+                ['pattern' => 'poster-sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
+                ['pattern' => 'stream-sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
 
                 'obyavleniya' => 'board/default',
                 'obyavleniya/<page:\d+>' => 'board/default/index',
@@ -288,4 +250,6 @@ return [
         ],
     ],
     'params' => $params,
-];
+],
+    require(__DIR__ . '/sitemap.php')
+);

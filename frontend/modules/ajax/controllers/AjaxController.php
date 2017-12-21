@@ -338,7 +338,7 @@ class AjaxController extends Controller
         Yii::$app->response->cookies->add(new \yii\web\Cookie([
             'name' => 'regionId',
             'value' => $regId,
-            'expire' => time() + 180,
+            'expire' => time() + 86400,
         ]));
 
         Yii::$app->cache->set('show_header_widget', \frontend\widgets\ShowHeader::widget());

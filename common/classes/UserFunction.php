@@ -163,7 +163,7 @@ class UserFunction {
             Yii::$app->response->cookies->add(new \yii\web\Cookie([
                 'name' => 'regionId',
                 'value' => $userRegion,
-                'expire' => time() + 3*2592000,
+                'expire' => time() + 86400,
             ]));
         }else{
             $userRegion = $useReg;
