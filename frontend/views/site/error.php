@@ -3,14 +3,15 @@
 /* @var $this yii\web\View */
 /* @var $name string */
 /* @var $message string */
-/* @var $exception Exception */
+/* @var $exception yii\base\ErrorException */
 
 use yii\helpers\Html;
 use yii\helpers\Url;
 
 $this->title = $name;
 
-if ($exception->statusCode == 404){
+
+if (isset($exception->statusCode) && $exception->statusCode == 404){
     ?>
     <?php if($this->context->module->catchAll):?>
 
