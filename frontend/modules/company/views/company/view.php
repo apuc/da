@@ -5,6 +5,7 @@
  * @var $feedback \common\models\db\CompanyFeedback
  * @var $img \common\models\db\CompanyPhoto
  * @var $categoryCompany
+ * @var $uniqueViews
  */
 
 use common\classes\GeobaseFunction;
