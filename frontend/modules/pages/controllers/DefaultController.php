@@ -3,6 +3,7 @@
 namespace frontend\modules\pages\controllers;
 
 use common\classes\Debug;
+use common\classes\UserFunction;
 use common\models\db\Pages;
 use yii\web\Controller;
 
@@ -23,6 +24,7 @@ class DefaultController extends Controller
     public function actionView($slug)
     {
         $model = Pages::findOne(['slug'=>$slug]);
-        return $this->render('view', ['model'=>$model]);
+        $useReg = UserFunction::getRegionUser();
+        return $this->render('view', ['model'=>$model , 'useReg' => $useReg]);
     }
 }
