@@ -46,6 +46,9 @@ $this->params['breadcrumbs'][] = 'Все предприятия';
                 <?php $pos = 0;
                 $wrc_count = 0; ?>
                 <?php while ($pos < 16): ?>
+                    <?php
+                        if(empty($organizations[$pos])){break;}
+                    ?>
                     <?php if (in_array($pos, $positions, true)): ?>
                         <?php $company = isset($wrc[$wrc_count]) ? $wrc[$wrc_count] : $organizations[$pos] ?>
                         <a href="<?= Url::to(['/company/company/view', 'slug' => $company->slug]) ?>"
