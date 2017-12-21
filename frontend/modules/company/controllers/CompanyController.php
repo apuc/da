@@ -176,6 +176,9 @@ class CompanyController extends Controller
             ->where(['slug' => $slug])
             //->andWhere(['`tags_relation`.`type`' => 'company'])
             ->one();
+        if (empty($model) || $model->status == 1) {
+            return $this->redirect(['site/error']);
+        }
         //Подсчёт количества просмотров
         Yii::$app->db->createCommand("INSERT INTO `company_views`(`user_id`, `company_id`, `date`, `ip_address`)
                                             VALUES (:user_id, :company_id, NOW(), :ip_address) 
@@ -188,9 +191,6 @@ class CompanyController extends Controller
             ->execute();
         $uniqueViews = CompanyViews::find()->where(['company_id' => $model->id])->count();
 
-        if (empty($model) || $model->status == 1) {
-            return $this->redirect(['site/error']);
-        }
         $stoke = Stock::find()->where(['company_id' => $model->id])->limit(3)->all();
         $feedback = CompanyFeedback::find()->where(['company_id' => $model->id, 'status' => 1])->with('user')->all();
         //Debug::prn($feedback);
