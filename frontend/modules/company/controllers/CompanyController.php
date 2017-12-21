@@ -186,6 +186,8 @@ class CompanyController extends Controller
                     ':ip_address' => ip2long(CompanyViews::getIP())
                 ])
             ->execute();
+        $uniqueViews = CompanyViews::find()->where(['company_id' => $model->id])->count();
+
         if (empty($model) || $model->status == 1) {
             return $this->redirect(['site/error']);
         }
@@ -221,6 +223,7 @@ class CompanyController extends Controller
             'typeSeti' => $typeSeti,
             'socCompany' => $socCompany,
             'categoryCompany' => $categoryCompany,
+            'uniqueViews' => $uniqueViews,
         ]);
     }
 
