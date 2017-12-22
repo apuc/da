@@ -25,17 +25,7 @@ use yii\helpers\Url;
                             <?= \yii\helpers\StringHelper::truncate(strip_tags($val['news']['content']), 400, '...'); ?>
                         </p>
                     </div>
-                    <div class="sidebar-discussed__big-item__comments">
-                        <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['news']->slug]); ?>">
-                            <img src="/theme/portal-donbassa/img/icons/new-chat-icon.png" alt="">
-                            <span><?= $val['cnt'] ?></span>
-                        </a>
-                        <p class="business__sm-item--views">57</p>
-                        <a href="#" class="home-like">
-                            <i class="fa fa-heart" aria-hidden="true"></i>
-                            <span class="like-counter">0</span>
-                        </a>
-                    </div>
+
                     <div class="sidebar-discussed__big-item__comments">
                         <?php $tag = \common\models\db\News::getTags($val['news']->id);
 
@@ -74,15 +64,6 @@ use yii\helpers\Url;
                         <p>
                             <?= $val['news']->title; ?>
                         </p>
-                       <!-- <div class="sidebar-discussed__small-item__text__comments">
-                            <a href="<?/*= \yii\helpers\Url::to([
-                                "/news/default/view",
-                                "slug" => $val['news']->slug,
-                            ]); */?>">
-                                <img src="/theme/portal-donbassa/img/russ-home/comment.svg" alt="">
-                                <span><?/*= $val->cnt */?></span>
-                            </a>
-                        </div>-->
 
                         <div class="sidebar-discussed__small-item__text__comments">
                             <a href="#">
