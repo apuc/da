@@ -119,6 +119,10 @@ class News extends \yii\db\ActiveRecord
         return Comments::find()->where(['post_type' => 'news', 'post_id' => $id, 'published' => 1])->count();
     }
 
+    public static function getLikeCount($id){
+        return Likes::find()->where(['post_type' => 'news', 'post_id' => $id])->count();
+    }
+
     /*public function getcategory_news_relations()
     {
 

@@ -18,7 +18,6 @@ $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends
 
         <!-- ГОРЯЧИЕ ТЕМЫ -->
         <?= \frontend\modules\mainpage\widgets\ShowHotThemeNews::widget() ?>
-
         <!-- ПОДПИСАТЬСЯ ГЛАВНАЯ СТРАНИЦА -->
         <?php
         if ($this->beginCache('subscribe_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
@@ -26,17 +25,19 @@ $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends
             $this->endCache();
         }
         ?>
-
+    </div>
+        <!-- ЛЕНТА ДНЯ -->
+    <?= \frontend\widgets\DayFeed::widget(); ?>
+    <div class="home-content__sidebar">
+        <?= \frontend\modules\mainpage\widgets\EditorChoice::widget(); ?>
+        <?= \frontend\modules\mainpage\widgets\ShowRightSidebar::widget(); ?>
     </div>
     <!-- close home-content__wrap -->
 
-    <!-- ЛЕНТА ДНЯ -->
 
-<?= \frontend\widgets\DayFeed::widget(); ?>
-        <div class="home-content__sidebar">
-            <?= \frontend\modules\mainpage\widgets\EditorChoice::widget(); ?>
-            <?= \frontend\modules\mainpage\widgets\ShowRightSidebar::widget(); ?>
-        </div>
+
+
+
 
     <!-- home-content__sidebar -->
     </div>

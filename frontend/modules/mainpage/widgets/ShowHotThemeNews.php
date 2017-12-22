@@ -23,13 +23,12 @@ class ShowHotThemeNews extends Widget
         }
 
         $news = $query
-            ->with('tagss.tagname')
+            ->with('tagss.tagname','category')
             ->orderBy('dt_public DESC')
             ->limit(10)
 
             ->all();
-
-        //$newsAll = array_chunk($news, 4);
+        $newsAll = array_chunk($news, 5);
         /*$newsLeftt = array_slice($news, -4);
         $newsRight = array_slice($news, 4);*/
 
@@ -39,8 +38,8 @@ class ShowHotThemeNews extends Widget
 die();*/
         return $this->render('hot-theme',
             [
-                'newsLeft' => array_slice($news, 0, 4),
-                'newsRight' => array_slice($news, 4),
+                'newsLeft' => $newsAll[0],
+                'newsRight' => $newsAll[1],
                 'userReg' => $useReg,
             ]
         );
