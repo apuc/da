@@ -13,6 +13,7 @@ use common\models\db\News;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 /**
  * Default controller for the `news` module
@@ -56,11 +57,11 @@ class DefaultController extends Controller
             ->one();
 
         if (empty($new)) {
-            return $this->redirect(['site/error']);
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
         if(UserFunction::getPermissionUser() == false){
             if($new['status'] != '0'){
-                throw new \yii\web\HttpException(404 ,'Страница не найдена.');
+                throw new NotFoundHttpException('The requested page does not exist.');
             }
         }
 

@@ -177,7 +177,7 @@ class CompanyController extends Controller
             //->andWhere(['`tags_relation`.`type`' => 'company'])
             ->one();
         if (empty($model) || $model->status == 1) {
-            return $this->redirect(['site/error']);
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
         //Подсчёт количества просмотров
         Yii::$app->db->createCommand("INSERT INTO `company_views`(`user_id`, `company_id`, `date`, `ip_address`)

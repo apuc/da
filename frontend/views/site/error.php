@@ -9,9 +9,9 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 $this->title = $name;
+//\common\classes\Debug::prn($exception->getCode());
 
-
-if (isset($exception->statusCode) && $exception->statusCode == 404){
+if (isset($exception->statusCode) && ($exception->statusCode == 404 || $exception->getCode() == 404)){
     ?>
     <?php if($this->context->module->catchAll):?>
 
@@ -35,7 +35,7 @@ if (isset($exception->statusCode) && $exception->statusCode == 404){
                     и ответим на все вопросы</p>-->
                 <a href="#" id="send-error-message" class="show-more">сообщить о битой ссылке</a>
             </div>
-            
+
             <div class="dev__elements">
                 <div class="dev__photo">
                     <img src="/theme/portal-donbassa/img/content/404-banner.png" alt="">
