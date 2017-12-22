@@ -95,9 +95,9 @@ use yii\helpers\Url;
                     <?php endforeach;?>
 
             <?php endif; ?>
-
-
-            <span class="review"><i class="fa fa-eye" aria-hidden="true"></i><?= $companyBig->views;?></span>
+            <div>
+                <span class="review"><?= $companyBig->views;?></span>
+            </div>
         </div>
     </div>
     <div class="stock">
