@@ -51,5 +51,10 @@ class TagsRelation extends \yii\db\ActiveRecord
         return $this->hasOne(\frontend\modules\news\models\News::className(), ['id' => 'post_id']);
     }
 
+    public function getTags()
+    {
+        return $this->hasOne(Tags::className(), ['id' => 'tag_id']);
+    }
+
 
 }
