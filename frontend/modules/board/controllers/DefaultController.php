@@ -135,8 +135,9 @@ class DefaultController extends Controller
             [
                 'ads' => $rez->ads,
                 'pagination' => $pagination,
-                'meta_title' => $cat->name . ' ' . KeyValue::findOne( [ 'key' => 'board_title_page' ] )->value,
-                'meta_desc' => $cat->name . ' ' . KeyValue::findOne( [ 'key' => 'board_desc_page' ] )->value,
+                'meta_title' => $cat->name . ' |объявления на DA Info Pro',
+                'meta_desc' => mb_substr("Свежие объявления о покупке и продаже бу и новых товаров в категории «" . $cat->name . "», " . $rez->_meta->totalCount . ". Бесплатно дать объявление вы можете разместив его на онлайн доске бесплатных объявлений ДНР и России сайта ДА Инфо Про.", 0, 100)
+
             ]
         );
     }

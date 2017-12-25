@@ -8,7 +8,42 @@ $this->registerJsFile('/theme/portal-donbassa/js/slick.min.js', ['depends' => [\
 $this->registerJsFile('/theme/portal-donbassa/js/jquery.fancybox.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
-$this->title = $ads->title;
+$this->title = mb_substr($ads->title . ' | DA Info Pro', 0, 50);
+
+$this->registerMetaTag([
+    'property' => 'og:url',
+    'content' => yii\helpers\Url::current([], true),
+]);
+
+$this->registerMetaTag([
+    'property' => 'og:type',
+    'content' => 'article',
+]);
+
+$this->registerMetaTag([
+    'property' => 'og:title',
+    'content' => $ads->title,
+]);
+
+$this->registerMetaTag([
+    'property' => 'og:description',
+    'content' => mb_substr($ads->content, 0, 100),
+]);
+
+$this->registerMetaTag([
+    'property' => 'og:image',
+    'content' => $ads->adsImgs[0]->img_thumb,
+]);
+$this->registerMetaTag([
+    'property' => 'og:image:secure_url',
+    'content' => $ads->adsImgs[0]->img_thumb,
+]);
+
+
+$this->registerMetaTag([
+    'name' => 'description',
+    'content' => mb_substr($ads->content . ',' . $ads->phone . 'Подать бесплатное объявление, купить и продать бу товары вы можете на онлайн доске бесплатных объявлений ДНР и России на сайте ДА Инфо Про', 0, 100)
+]);
 
 //\common\classes\Debug::prn($ads);
 ?>
