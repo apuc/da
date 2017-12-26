@@ -184,7 +184,7 @@ class CompanyController extends Controller
                                             VALUES (:user_id, :company_id, NOW(), :ip_address) 
                                               ON DUPLICATE KEY UPDATE `count`=`count` + 1",
                 [
-                    ':user_id' => Yii::$app->user->getId(),
+                    ':user_id' => Yii::$app->user->getId() ? Yii::$app->user->getId() : 0,
                     ':company_id' => $model->id,
                     ':ip_address' => ip2long(CompanyViews::getIP())
                 ])
