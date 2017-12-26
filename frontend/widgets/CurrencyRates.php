@@ -25,7 +25,13 @@ class CurrencyRates extends Widget
         //выборка последней даты по типу Валюты(ценности)
         $date = CurrencyRate::find()
             ->joinWith(['currencyFrom cf'])
-            ->where(['cf.type' => $this->currencyType])
+            ->where([
+                'between',
+                'date',
+                new Expression('CURDATE()-INTERVAL 3 DAY'),
+                new Expression('CURDATE()')
+            ])
+            ->andWhere(['cf.type' => $this->currencyType])
             ->orderBy('date DESC')
             ->one();
         if (empty($date)) $date = new Expression('CURDATE()');
