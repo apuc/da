@@ -28,7 +28,7 @@ class CurrencyRates extends Widget
             ->where([
                 'between',
                 'date',
-                new Expression('CURDATE()-INTERVAL 3 DAY'),
+                new Expression('CURDATE()-INTERVAL 1 DAY'),
                 new Expression('CURDATE()')
             ])
             ->andWhere(['cf.type' => $this->currencyType])
