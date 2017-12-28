@@ -293,53 +293,9 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                 </div>
 
             </div>
+
+            <?= \frontend\modules\stream\widgets\ShowTopStream::widget(); ?>
             <?= ShowRightRecommend::widget() ?>
-
-            <!--<div id="parser-sidebar" class="business__sidebar stock">-->
-            <!---->
-            <!--    <h3>что посмотреть?</h3>-->
-            <!---->
-            <!--    <a href="#" class="business__sm-item">-->
-            <!---->
-            <!--        <div class="recommend">-->
-            <!--            <span class="recommend__star"></span>-->
-            <!--            Рекомендуем-->
-            <!--        </div>-->
-            <!---->
-            <!--        <div class="business__sm-item--img">-->
-            <!--            <img src="img/business/business-sm.png" alt="">-->
-            <!--        </div>-->
-            <!---->
-            <!--        <p class="business__sm-item--title">Региональный центр восстановления позвоночника и-->
-            <!--            реабилитации</p>-->
-            <!---->
-            <!--        <!--<p class="business__sm-item&#45;&#45;address">-->
-            <!--            <span>Адрес:</span>-->
-            <!--            <span>г. Донецк, проспект Мира, 8а</span>-->
-            <!--        </p>-->
-            <!---->
-            <!--        <ul class="business__sm-item--numbers">-->
-            <!--            <li>+380667778540</li>-->
-            <!--            <li>+380667778540</li>-->
-            <!--        </ul>-->
-            <!---->
-            <!--        <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->
-            <!--        <p class="business__sm-item--views">569</p>-->
-            <!---->
-            <!--    </a>-->
-            <!---->
-            <!--    <h3>оставайся с нами</h3>-->
-            <!---->
-            <!--    <script type="text/javascript" src="//vk.com/js/api/openapi.js?146"></script>-->
-            <!---->
-            <!--    <!-- VK Widget -->
-            <!--    <div id="vk_groups"></div>-->
-            <!--    <script type="text/javascript">-->
-            <!--        VK.Widgets.Group("vk_groups", {mode: 3, width: "260", height: "296"}, 20003922);-->
-            <!--    </script>-->
-            <!---->
-            <!--</div>-->
-
         </div>
 
     </div>

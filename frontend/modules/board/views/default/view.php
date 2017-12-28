@@ -141,6 +141,12 @@ $this->registerMetaTag([
 
                 </div>
 
+                <?= \frontend\modules\board\widgets\ShowSimilarAds::widget(
+                    [
+                        'category' => $ads->category_id,
+                        'limit' => 5,
+                        'adsId' => $ads->id,
+                    ]);?>
             </div>
 
             <?= \frontend\widgets\ShowRightRecommend::widget()?>
@@ -150,3 +156,4 @@ $this->registerMetaTag([
     </div>
 
 </section>
+

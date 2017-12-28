@@ -122,6 +122,21 @@ class VkStream extends \yii\db\ActiveRecord
 
     }
 
+    public static function getPostsTop($limit = 5)
+    {
+
+        return self::find()
+            ->where(['status' => 1])
+            ->andWhere(['>', 'views', 10])
+            ->andWhere(['<', 'dt_publish', time()])
+            ->orderBy('`vk_stream`.`dt_publish` DESC')
+            ->limit($limit)
+            ->with('gif', 'photo', 'author', 'group')
+            ->orderBy('RAND()')
+            ->all();
+
+    }
+
     public function getLargePhoto()
     {
         $photo = VkPhoto::findOne(['post_id' => $this->id]);

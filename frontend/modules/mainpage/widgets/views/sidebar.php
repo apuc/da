@@ -33,11 +33,15 @@ use yii\helpers\Url;
 
 
                         <div class="tag">
-                            <?php foreach ($tag as $t):?>
-                            <a href="<?= Url::to(['/search/tag', 'id' => $t['tags']->id])?>" class="hashteg-mini">
-                                <?= $t['tags']->tag?>
-                            </a>
-                            <?php endforeach; ?>
+                            <?php
+                            if(!empty($tag)):
+                                foreach ($tag as $t):?>
+                                <a href="<?= Url::to(['/search/tag', 'id' => $t['tags']->id])?>" class="hashteg-mini">
+                                    <?= $t['tags']->tag?>
+                                </a>
+                                <?php endforeach;
+                            endif;
+                            ?>
                         </div>
                         <div class="sidebar-discussed__small-item__text__comments">
                             <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['news']->slug]); ?>">

@@ -5,6 +5,7 @@ namespace frontend\modules\company\controllers;
 use common\classes\CompanyFunction;
 use common\classes\Debug;
 use common\classes\GeobaseFunction;
+use common\classes\UserFunction;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
 use common\models\db\CompanyFeedback;
@@ -90,8 +91,7 @@ class CompanyController extends Controller
 
     public function actionIndex()
     {
-        $cookies = Yii::$app->request->cookies;
-        $useReg = $cookies->getValue('regionId');
+        $useReg = UserFunction::getRegionUser();
         $organizationsQuery = Company::find()
             ->with('allPhones')
             ->where([
@@ -110,7 +110,19 @@ class CompanyController extends Controller
             ->all();
 
         $wrc = KeyValue::getValue('we_recommend_companies');
-        $wrc = \common\models\db\Company::find()->where(['id' => json_decode($wrc)])->all();
+        $wrcQuery = \common\models\db\Company::find()
+            ->where(['id' => json_decode($wrc)]);
+
+        if($useReg != -1){
+            $wrcQuery->andWhere(
+                [
+                    'region_id' => $useReg,
+                ]
+            );
+        }
+
+        $wrc = $wrcQuery
+            ->all();
         $positions = [1, 4, 10, 15];
 
         return $this->render('index', [
@@ -463,6 +475,8 @@ class CompanyController extends Controller
             return $this->goHome();
         }
 
+        $useReg = UserFunction::getRegionUser();
+
         $arryResult = $cat->id;
         if ($cat->parent_id == 0) {
             $category = CategoryCompany::find()->where(['parent_id' => $cat->id])->all();
@@ -479,13 +493,23 @@ class CompanyController extends Controller
 
 
 
-        $organizations = Company::find()
+        $organizationsQuery = Company::find()
             ->with('allPhones')
             ->joinWith('categories')
-            ->where(['cat_id' => $arryResult, 'status' => 0])
+            ->where(['cat_id' => $arryResult, 'status' => 0]);
+
+        if($useReg != -1){
+            $organizationsQuery->andWhere(
+                [
+                    'region_id' => $useReg,
+                ]
+            );
+        }
+
+        $organizations = $organizationsQuery
             ->all();
 
-        $positions = [1, 4, 10, 15];
+        $positions = [1, 4, 10, 15, 16, 21, 26, 31, 34, 39, 41];
 
         return $this->render('view_category', [
             'organizations' => $organizations,
