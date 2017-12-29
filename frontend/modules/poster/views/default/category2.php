@@ -33,7 +33,6 @@ $this->params['breadcrumbs'][] = 'Афиша';
 </div>
 
 
-
 <?= \frontend\modules\poster\widgets\Banner::widget(); ?>
 
 <?= \frontend\modules\poster\widgets\Categories::widget(); ?>
