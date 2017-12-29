@@ -16,18 +16,15 @@ use yii\helpers\ArrayHelper;
 
 class MainPhotos extends Widget
 {
-
+    public $useReg;
     public function run()
     {
 
-        $cookies = Yii::$app->request->cookies;
-        $useReg = $cookies->getValue('regionId');
-
-        if ($useReg == -1) {
+        if ($this->useReg == -1) {
             $useReg = null;
         }
 
-        $photo = Photo::find()->where(['region_id' => $useReg])->one();
+        $photo = Photo::find()->where(['region_id' => $this->useReg])->one();
         if (!empty($photo)){
             return $this->render('main_photos',
                 [

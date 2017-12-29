@@ -17,13 +17,12 @@ use yii\helpers\ArrayHelper;
 
 class MainPosters extends Widget
 {
-
+    public $useReg;
     public function run()
     {
-        $useReg = UserFunction::getRegionUser();
 
-        if ($useReg == -1) {
-            $useReg = null;
+        if ($this->useReg == -1) {
+            $this->useReg = null;
         }
 
         $queryPosterAll = \common\models\db\Poster::find()
@@ -34,7 +33,7 @@ class MainPosters extends Widget
             //->limit(8)
 
             //$queryPosterAll->andWhere(['region_id' => NULL]);
-            $queryPosterAll->andWhere(['region_id' => $useReg]);
+            $queryPosterAll->andWhere(['region_id' => $this->useReg]);
 
 
 
@@ -57,7 +56,7 @@ class MainPosters extends Widget
 
 
         $mainPremiere = MainPremiere::find()
-            ->where(['region_id' => $useReg])
+            ->where(['region_id' => $this->useReg])
             ->one();
         $premiereImages = null;
         $premiereDescription = null;

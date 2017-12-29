@@ -3,6 +3,7 @@
 namespace frontend\modules\mainpage\controllers;
 
 use common\classes\Debug;
+use common\classes\UserFunction;
 use common\models\db\CategoryCompany;
 use common\models\db\Company;
 use common\models\db\KeyValue;
@@ -26,10 +27,11 @@ class DefaultController extends Controller {
 
     public function actionIndex() {
         $keyVal = KeyValue::find()->all();
-
+        $useReg = UserFunction::getRegionUser();
         return $this->render( 'index',
             [
                 'meta' => ArrayHelper::index($keyVal, 'key'),
+                'useReg' => $useReg,
             ]
     );
     }

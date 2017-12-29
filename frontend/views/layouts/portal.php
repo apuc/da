@@ -58,9 +58,9 @@ $user = Yii::$app->user->identity;
 
         </div>
 
-        <div class="home-content__tape">
-            <?= \frontend\widgets\DayFeed::widget(); ?>
-        </div>
+
+        <?= \frontend\widgets\DayFeed::widget(['useReg' => 21]); ?>
+
 
         <div class="home-content__sidebar">
 
@@ -78,22 +78,22 @@ $user = Yii::$app->user->identity;
         <?= \frontend\widgets\Weather::widget(); ?>
 </section>
 <?php
-echo \frontend\widgets\MainPopularSlider::widget();
+echo \frontend\widgets\MainPopularSlider::widget(['useReg' => 21]);
 
 if ($this->beginCache('main_posters_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
-    echo \frontend\widgets\MainPosters::widget();
+    echo \frontend\widgets\MainPosters::widget(['useReg' => 21]);
     $this->endCache();
 }
 
 echo \frontend\widgets\StreamMain::widget();
 
 if ($this->beginCache('company_main_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
-    echo \frontend\widgets\CompanyMain::widget();
+    echo \frontend\widgets\CompanyMain::widget(['useReg' => 21]);
     $this->endCache();
 }
 
 if ($this->beginCache('main_photos_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
-    echo \frontend\widgets\MainPhotos::widget();
+    echo \frontend\widgets\MainPhotos::widget(['useReg' => 21]);
     $this->endCache();
 }
 

@@ -20,6 +20,7 @@
         <li><a href="<?= \yii\helpers\Url::to(['/promotions'])?>">Акции</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/stream'])?>">Поток</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/finance'])?>">Финансы</a></li>
+        <li><a href="<?= \yii\helpers\Url::to(['/dnr'])?>">ДНР</a></li>
     </ul>
 
     <!--<div class="header-menu__sub">

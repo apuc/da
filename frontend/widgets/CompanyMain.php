@@ -16,16 +16,16 @@ use yii\base\Widget;
 
 class CompanyMain extends Widget
 {
-
+    public $useReg;
     public function run()
-    {   $useReg = UserFunction::getRegionUser();
+    {
         $query = Company::find()
             ->where(['status' => 0, 'main' => 1]);
             //->orderBy('views DESC')
-        if($useReg != -1){
+        if($this->useReg != -1){
             $query->andWhere(
                 [
-                    'region_id' => $useReg,
+                    'region_id' => $this->useReg,
                 ]
             );
         }

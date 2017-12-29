@@ -9,16 +9,15 @@ use yii\base\Widget;
 class ShowHotThemeNews extends Widget
 {
 
+    public $useReg;
     public function run()
     {
-        $useReg = UserFunction::getRegionUser();
-
         $query = \frontend\modules\news\models\News::find()
             ->from('news FORCE INDEX(`dt_public`)')
             ->where([ 'hot_new' => 1, 'status' => 0,])
             ->andWhere(['<=', 'dt_public', time() - 86400]);
-        if($useReg != -1){
-            $query->andWhere("(`region_id` IS NULL OR `region_id`=$useReg)");
+        if($this->useReg != -1){
+            $query->andWhere("(`region_id` IS NULL OR `region_id`=$this->useReg)");
 
         }
 
@@ -40,7 +39,7 @@ die();*/
             [
                 'newsLeft' => $newsAll[0],
                 'newsRight' => $newsAll[1],
-                'userReg' => $useReg,
+                'userReg' => $this->useReg,
             ]
         );
     }

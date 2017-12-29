@@ -10,11 +10,11 @@ use yii\db\Expression;
 
 class MainPopularSlider extends Widget
 {
-
+    public $useReg;
     public function run()
     {
         $params = \Yii::$app->params;
-        $useReg = UserFunction::getRegionUser();
+
 
         $query = News::find()
             ->distinct()
@@ -22,8 +22,8 @@ class MainPopularSlider extends Widget
             ->where(['>', 'dt_public', time() - (2592000 * $params['countMonth'])])
             ->andWhere(['exclude_popular' => 0])
             ->andWhere(['>', 'views', $params['countView']]);
-        if($useReg != -1){
-            $query->andWhere("(`region_id` IS NULL OR `region_id`=$useReg)");
+        if($this->useReg != -1){
+            $query->andWhere("(`region_id` IS NULL OR `region_id`=$this->useReg)");
         }
         $news = $query->orderBy('views DESC')
             ->limit(16)

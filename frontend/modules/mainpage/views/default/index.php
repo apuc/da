@@ -17,7 +17,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends
         <?= \frontend\widgets\MainSlider::widget(); ?>
 
         <!-- ГОРЯЧИЕ ТЕМЫ -->
-        <?= \frontend\modules\mainpage\widgets\ShowHotThemeNews::widget() ?>
+        <?= \frontend\modules\mainpage\widgets\ShowHotThemeNews::widget(['useReg' => $useReg]) ?>
         <!-- ПОДПИСАТЬСЯ ГЛАВНАЯ СТРАНИЦА -->
         <?php
         if ($this->beginCache('subscribe_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
@@ -27,7 +27,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends
         ?>
     </div>
         <!-- ЛЕНТА ДНЯ -->
-    <?= \frontend\widgets\DayFeed::widget(); ?>
+    <?= \frontend\widgets\DayFeed::widget(['useReg' => $useReg]); ?>
     <div class="home-content__sidebar">
         <?= \frontend\modules\mainpage\widgets\EditorChoice::widget(); ?>
         <?= \frontend\modules\mainpage\widgets\ShowRightSidebar::widget(); ?>
@@ -43,18 +43,18 @@ $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends
     </div>
 </section>
 <?php
-echo \frontend\widgets\MainPopularSlider::widget();
+echo \frontend\widgets\MainPopularSlider::widget(['useReg' => $useReg]);
 
 
-echo \frontend\widgets\MainPosters::widget();
+echo \frontend\widgets\MainPosters::widget(['useReg' => $useReg]);
 
 
 echo \frontend\widgets\StreamMain::widget();
 
-echo \frontend\widgets\CompanyMain::widget();
+echo \frontend\widgets\CompanyMain::widget(['useReg' => $useReg]);
 
 
-echo \frontend\widgets\MainPhotos::widget();
+echo \frontend\widgets\MainPhotos::widget(['useReg' => $useReg]);
 
 
 

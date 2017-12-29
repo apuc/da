@@ -33,6 +33,8 @@ class DefaultController extends Controller
             KeyValue::updateAll(['value' => $_POST['stream_desc_page']], ['key' => 'stream_desc_page']);
             KeyValue::updateAll(['value' => $_POST['board_title_page']], ['key' => 'board_title_page']);
             KeyValue::updateAll(['value' => $_POST['board_desc_page']], ['key' => 'board_desc_page']);
+            KeyValue::updateAll(['value' => $_POST['dnr_title_page']], ['key' => 'dnr_title_page']);
+            KeyValue::updateAll(['value' => $_POST['dnr_desc_page']], ['key' => 'dnr_desc_page']);
             KeyValue::updateAll(['value' => $_POST['currency_title_page']], ['key' => 'currency_title_page']);
             KeyValue::updateAll(['value' => $_POST['currency_desc_page']], ['key' => 'currency_desc_page']);
             KeyValue::updateAll(['value' => $_POST['currency_coin_title_page']], ['key' => 'currency_coin_title_page']);

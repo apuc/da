@@ -17,16 +17,16 @@ use yii\base\Widget;
 
 class DayFeed extends Widget
 {
-
+    public $useReg;
     public function run()
     {
-        $useReg = UserFunction::getRegionUser();
+
 
         $query = \common\models\db\News::find()
             ->from('news FORCE INDEX(`dt_public`)')
             ->where(['status' => 0]);
-        if($useReg != -1){
-            $query->andWhere("(`region_id` IS NULL OR `region_id`=$useReg)");
+        if($this->useReg != -1){
+            $query->andWhere("(`region_id` IS NULL OR `region_id`=$this->useReg)");
 
         }
         $query->andWhere(['<=', 'dt_public', time() ]);
