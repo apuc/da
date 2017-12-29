@@ -4,6 +4,7 @@ namespace frontend\modules\poster\controllers;
 
 use backend\modules\poster\controllers\PosterController;
 use common\classes\Debug;
+use common\classes\UserFunction;
 use common\models\db\CategoryPoster;
 use common\models\db\CategoryPosterRelations;
 use common\models\db\KeyValue;
@@ -187,12 +188,14 @@ class DefaultController extends Controller
                 'pageSize' => 12,
             ],
         ]);*/
+        $useReg = UserFunction::getRegionUser();
 
         return $this->render('category2', [
             'category' => CategoryPoster::find()->orderBy('id DESC')->all(),
             //'dataProvider' => $dataProvider,
             'meta_title' => KeyValue::findOne(['key' => 'poster_page_meta_title'])->value,
             'meta_descr' => KeyValue::findOne(['key' => 'poster_page_meta_descr'])->value,
+            'useReg' => $useReg,
         ]);
     }
 
@@ -214,7 +217,8 @@ class DefaultController extends Controller
     }
 
     public function actionSingle_category($slug)
-    {
+    {   $useReg = UserFunction::getRegionUser();
+
         $cat = CategoryPoster::find()->where(['slug' => $slug])->one();
         $query = CategoryPosterRelations::find()
             ->leftJoin('poster', '`category_poster_relations`.`poster_id` = `poster`.`id`')
@@ -236,6 +240,7 @@ class DefaultController extends Controller
             'cat' => $cat,
             'meta_title' => KeyValue::findOne(['key' => 'poster_page_meta_title'])->value,
             'meta_descr' => KeyValue::findOne(['key' => 'poster_page_meta_descr'])->value,
+            'useReg' => $useReg,
         ]);
     }
 

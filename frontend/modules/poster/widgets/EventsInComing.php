@@ -16,40 +16,61 @@ class EventsInComing extends Widget
 {
 
     public $slug;
+    public $useReg;
+
 
     public function run()
     {
         if(empty($this->slug)){
-            $poster = Poster::find()
+            $posterQuery = Poster::find()
                 /*->joinWith('categories')*/
                 ->where(['>=', 'dt_event_end', time()])
-                ->andWhere(['status' => 0])
+                ->andWhere(['status' => 0]);
+            if($this->useReg != -1){
+                $posterQuery->andWhere("(`region_id` IS NULL OR `region_id`=$this->useReg)");
+
+            }
+            $poster = $posterQuery
                 /*->andFilterWhere(['`category_poster`.`slug`' => $this->slug])*/
                 ->orderBy('dt_event ')
                 ->limit(12)
                 ->with('categories')
                 ->all();
 
-            $countPoster = Poster::find()
-                ->where(['>=', 'dt_event_end', time()])
+            $countPosterQuery = Poster::find()
+                ->where(['>=', 'dt_event_end', time()]);
+            if($this->useReg != -1){
+                $countPosterQuery->andWhere("(`region_id` IS NULL OR `region_id`=$this->useReg)");
+
+            }
+            $countPoster = $countPosterQuery
                 ->andWhere(['status' => 0])
                 ->count();
         }
         else {
-            $poster = Poster::find()
+            $posterQuery = Poster::find()
                 ->joinWith('categories')
                 ->where(['>=', 'dt_event_end', time()])
                 ->andWhere(['status' => 0])
-                ->andFilterWhere(['`category_poster`.`slug`' => $this->slug])
-                ->orderBy('dt_event ')
+                ->andFilterWhere(['`category_poster`.`slug`' => $this->slug]);
+            if($this->useReg != -1){
+                $posterQuery->andWhere("(`region_id` IS NULL OR `region_id`=$this->useReg)");
+
+            }
+            $poster = $posterQuery->orderBy('dt_event ')
                 ->limit(12)
                 ->with('categories')
                 ->all();
 
-            $countPoster = Poster::find()
+            $countPosterQuery = Poster::find()
                 ->joinWith('categories')
                 ->where(['>=', 'dt_event_end', time()])
-                ->andWhere(['status' => 0])
+                ->andWhere(['status' => 0]);
+            if($this->useReg != -1){
+                $countPosterQuery->andWhere("(`region_id` IS NULL OR `region_id`=$this->useReg)");
+
+            }
+            $countPoster = $countPosterQuery
                 ->andFilterWhere(['`category_poster`.`slug`' => $this->slug])
                 ->count();
         }

@@ -38,12 +38,12 @@ $this->params['breadcrumbs'][] = 'Афиша';
 
 <?= \frontend\modules\poster\widgets\Categories::widget(); ?>
 
-<?= \frontend\modules\poster\widgets\TopSlider::widget(); ?>
+<?= \frontend\modules\poster\widgets\TopSlider::widget(['useReg' => $useReg]); ?>
 
 <section class="afisha-events">
     <div class="container">
-        <?= \frontend\modules\poster\widgets\EventsInComing::widget() ?>
-        <?= \frontend\modules\poster\widgets\WhatToSee::widget() ?>
+        <?= \frontend\modules\poster\widgets\EventsInComing::widget(['useReg' => $useReg]) ?>
+        <?= \frontend\modules\poster\widgets\WhatToSee::widget(['useReg' => $useReg]) ?>
         <!--<div class="where-to-go">
             <h3>Куда сходить</h3>
             <div class="afisha-events__wrap">
