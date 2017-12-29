@@ -63,7 +63,43 @@ $this->endCache();
                     <?php endif; ?>
 <?php
 if ($this->beginCache('show_header_widget_menu', ['duration' => Yii::$app->params['hours-for-cache']])) {
-?>
+    ?>
+                    <div class="fix-button-head" id="fix-button-head">
+                        <span>Добавить на сайт</span>
+                        <ul class="list">
+                            <li>
+                                <a href="<?= \yii\helpers\Url::to(['/company/company/create']) ?>">
+                                    <img src="/theme/portal-donbassa/img/icons/tag-hover-icon.png" alt="">
+                                    Предприятие
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?= \yii\helpers\Url::to(['/news/news/create']) ?>">
+                                    <img src="/theme/portal-donbassa/img/icons/stack-hover-icon.png" alt="">
+                                    Новость
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?= \yii\helpers\Url::to(['/poster/default/create']) ?>">
+                                    <img src="/theme/portal-donbassa/img/icons/calendar-cabinet--hover-icon.png" alt="">
+                                    Афиши
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?= \yii\helpers\Url::to(['/promotions/promotions/create']) ?>">
+                                    <img src="/theme/portal-donbassa/img/icons/bar-graph-hover-icon.png" alt="">
+                                    Акция
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?= \yii\helpers\Url::to(['/board/default/create']) ?>">
+                                    <img src="/theme/portal-donbassa/img/icons/add-icon.png" alt="">
+                                    Объявления
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
                 </form>
             </div>
             <?php echo \frontend\widgets\MainMenu::widget() ?>

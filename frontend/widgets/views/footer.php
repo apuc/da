@@ -14,6 +14,10 @@ use yii\widgets\MaskedInput;
                 <li><a href="/consulting">КОНСУЛЬТАЦИИ</a></li>
                 <li><a href="/site/design">ОБЪЯВЛЕНИЯ</a></li>
             </ul>
+
+            <a href="#" class="footer-error-button" id="send-error-message">
+                сообщить об ошибке
+            </a>
             <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicinor incididunt ut labore et dolore magn aliqua. Ut enim
                 ad minim veniam, quis nostrud exercitation
                 ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor n reprehenderit in
@@ -28,7 +32,7 @@ use yii\widgets\MaskedInput;
         </div>
     </div>
 
-    <?= \frontend\widgets\ShowAddToSitePanel::widget(); ?>
+    <?/*= \frontend\widgets\ShowAddToSitePanel::widget(); */?>
 </footer>
 
 
