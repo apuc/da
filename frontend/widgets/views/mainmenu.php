@@ -16,7 +16,6 @@
         <li><a href="<?= \yii\helpers\Url::to(['/all-company'])?>">Предприятия</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/board/default'])?>">Объявления</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/all-poster'])?>">Афиша</a></li>
-        <li><a href="<?= \yii\helpers\Url::to(['/consulting'])?>">Консультации</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/promotions'])?>">Акции</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/stream'])?>">Поток</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/finance'])?>">Финансы</a></li>
@@ -32,8 +31,8 @@
         </button>
 
         <ul class="header-menu__sub_list">
-            <li><a href="">Пункт1</a></li>
-            <li><a href="">Пункт2</a></li>
+            <li><a href="<?/*= \yii\helpers\Url::to(['/consulting'])*/?>">Консультации</a></li>
+
             <li><a href="">Пункт3</a></li>
             <li><a href="">Пункт4</a></li>
             <li><a href="">Пункт5</a></li>

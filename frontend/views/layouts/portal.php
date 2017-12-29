@@ -73,12 +73,12 @@ $user = Yii::$app->user->identity;
 
         <?= \frontend\widgets\Consultation::widget(); ?>
 
-        <?= \frontend\widgets\ExchangeRatesMain::widget() ?>
+       <!-- --><?/*= \frontend\widgets\ExchangeRatesMain::widget() */?>
 
         <?= \frontend\widgets\Weather::widget(); ?>
 </section>
 <?php
-echo \frontend\widgets\MainPopularSlider::widget(['useReg' => 21]);
+/*echo \frontend\widgets\MainPopularSlider::widget(['useReg' => 21]);
 
 if ($this->beginCache('main_posters_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
     echo \frontend\widgets\MainPosters::widget(['useReg' => 21]);
@@ -95,7 +95,7 @@ if ($this->beginCache('company_main_widget', ['duration' => Yii::$app->params['h
 if ($this->beginCache('main_photos_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
     echo \frontend\widgets\MainPhotos::widget(['useReg' => 21]);
     $this->endCache();
-}
+}*/
 
 if ($this->beginCache('show_footer_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
     echo \frontend\widgets\ShowFooter::widget();
