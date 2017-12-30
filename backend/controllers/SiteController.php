@@ -93,7 +93,7 @@ class SiteController extends Controller
 
 
         Yii::$app->mailer->compose('new-year')
-            ->setTo('korol_dima@list.ru')
+            ->setTo(['korol_dima@list.ru', 'apuc06@mail.ru'])
             ->setFrom(['noreply@da-info.pro' => 'DA-Info'])
             ->setSubject($subject)
             ->send();
