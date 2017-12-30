@@ -1,1 +1,1 @@
-<img src="/images/da2018.png" alt="">
+<img src="https://da-info.pro/images/da2018.png" alt="">
