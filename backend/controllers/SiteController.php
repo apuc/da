@@ -88,7 +88,21 @@ class SiteController extends Controller
     public function actionGetMail()
     {
         $user = UserDec::find()->where(['!=', 'confirmed_at', 'NULL'])->all();
-        $subject = 'С Новым Годом';
+
+        foreach ($user as $item) {
+            //Debug::prn(ArrayHelper::getValue($item, 'email'));
+            $subject = 'С Новым Годом';
+            //$msg = $this->renderPartial('n_moder',['product'=>$item,'daysEnd' => $daysEnd]);
+
+
+            Yii::$app->mailer->compose('new-year')
+                ->setTo(ArrayHelper::getValue($item, 'email'))
+                ->setFrom(['noreply@da-info.pro' => 'Команда DA-Info'])
+                ->setSubject($subject)
+                ->send();
+        }
+
+        $subject = 'Рассылка С Новым Годом успешно завершена';
         //$msg = $this->renderPartial('n_moder',['product'=>$item,'daysEnd' => $daysEnd]);
 
         Yii::$app->mailer->compose('new-year')
@@ -97,18 +111,6 @@ class SiteController extends Controller
             ->setSubject($subject)
             ->send();
 
-        /*foreach ($user as $item) {
-            //Debug::prn(ArrayHelper::getValue($item, 'email'));
-            $subject = 'С Новым Годом';
-            //$msg = $this->renderPartial('n_moder',['product'=>$item,'daysEnd' => $daysEnd]);
-
-
-            Yii::$app->mailer->compose('new-year')
-                ->setTo(ArrayHelper::getValue($item, 'email'))
-                ->setFrom(['noreply@da-info.pro' => 'Команда портала DA-Info'])
-                ->setSubject($subject)
-                ->send();
-        }*/
         Yii::$app->session->setFlash('success','Письма успешно отправленны.');
         return $this->redirect('index');
     }
