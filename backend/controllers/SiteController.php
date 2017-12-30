@@ -2,8 +2,11 @@
 namespace backend\controllers;
 
 use common\behaviors\AccessSecure;
+use common\classes\Debug;
+use frontend\models\user\UserDec;
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use common\models\LoginForm;
 use yii\filters\VerbFilter;
@@ -27,7 +30,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index', 'get-mail'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -80,5 +83,31 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    public function actionGetMail()
+    {
+        $user = UserDec::find()->where(['!=', 'confirmed_at', 'NULL'])->all();
+        $subject = 'С Новым годом';
+        //$msg = $this->renderPartial('n_moder',['product'=>$item,'daysEnd' => $daysEnd]);
+
+
+        Yii::$app->mailer->compose('new-year')
+            ->setTo('korol_dima@list.ru')
+            ->setFrom(['noreply@da-info.pro' => 'DA-Info'])
+            ->setSubject($subject)
+            ->send();
+        /*foreach ($user as $item) {
+            Debug::prn(ArrayHelper::getValue($item, 'email'));
+            $subject = 'С Новым годом';
+            //$msg = $this->renderPartial('n_moder',['product'=>$item,'daysEnd' => $daysEnd]);
+
+
+            Yii::$app->mailer->compose('new-year')
+                ->setTo(ArrayHelper::getValue($item, 'email'))
+                ->setFrom(['noreply@da-info.pro' => 'DA-Info'])
+                ->setSubject($subject)
+                ->send();
+        }*/
     }
 }
