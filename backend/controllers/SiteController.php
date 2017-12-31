@@ -89,7 +89,7 @@ class SiteController extends Controller
     {
         $user = UserDec::find()->where(['!=', 'confirmed_at', 'NULL'])->all();
 
-        foreach ($user as $item) {
+        /*foreach ($user as $item) {
             //Debug::prn(ArrayHelper::getValue($item, 'email'));
             $subject = 'С Новым Годом';
             //$msg = $this->renderPartial('n_moder',['product'=>$item,'daysEnd' => $daysEnd]);
@@ -100,7 +100,7 @@ class SiteController extends Controller
                 ->setFrom(['noreply@da-info.pro' => 'Команда DA-Info'])
                 ->setSubject($subject)
                 ->send();
-        }
+        }*/
 
         $subject = 'Рассылка С Новым Годом успешно завершена';
         //$msg = $this->renderPartial('n_moder',['product'=>$item,'daysEnd' => $daysEnd]);
