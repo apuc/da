@@ -87,9 +87,20 @@ class SiteController extends Controller
 
     public function actionGetMail()
     {
-        $user = UserDec::find()->where(['!=', 'confirmed_at', 'NULL'])->all();
+        $users = UserDec::find()->where(['!=', 'confirmed_at', 'NULL'])->all();
 
-        foreach ($user as $item) {
+        $messages = [];
+        $subject = 'С Новым Годом';
+        foreach ($users as $user) {
+            $messages[] = Yii::$app->mailer->compose('new-year')
+                // ...
+                ->setTo($user->email)
+                ->setFrom(['noreply@da-info.pro' => 'Команда DA-Info'])
+                ->setSubject($subject);
+        }
+        Yii::$app->mailer->sendMultiple($messages);
+
+        /*foreach ($user as $item) {
             Debug::prn(ArrayHelper::getValue($item, 'email'));
             Debug::prn($item->email);
             $subject = 'С Новым Годом';
@@ -101,7 +112,7 @@ class SiteController extends Controller
                 ->setFrom(['noreply@da-info.pro' => 'Команда DA-Info'])
                 ->setSubject($subject)
                 ->send();
-        }
+        }*/
 
         $subject = 'Рассылка С Новым Годом успешно завершена';
         //$msg = $this->renderPartial('n_moder',['product'=>$item,'daysEnd' => $daysEnd]);
