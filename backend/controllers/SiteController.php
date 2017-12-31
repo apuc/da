@@ -96,11 +96,11 @@ class SiteController extends Controller
             //$msg = $this->renderPartial('n_moder',['product'=>$item,'daysEnd' => $daysEnd]);
 
 
-            /*Yii::$app->mailer->compose('new-year')
-                ->setTo(ArrayHelper::getValue($item, 'email'))
+            Yii::$app->mailer->compose('new-year')
+                ->setTo($item->email)
                 ->setFrom(['noreply@da-info.pro' => 'Команда DA-Info'])
                 ->setSubject($subject)
-                ->send();*/
+                ->send();
         }
 
         $subject = 'Рассылка С Новым Годом успешно завершена';
