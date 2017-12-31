@@ -89,18 +89,19 @@ class SiteController extends Controller
     {
         $user = UserDec::find()->where(['!=', 'confirmed_at', 'NULL'])->all();
 
-        /*foreach ($user as $item) {
-            //Debug::prn(ArrayHelper::getValue($item, 'email'));
+        foreach ($user as $item) {
+            Debug::prn(ArrayHelper::getValue($item, 'email'));
+            Debug::prn($item->email);
             $subject = 'С Новым Годом';
             //$msg = $this->renderPartial('n_moder',['product'=>$item,'daysEnd' => $daysEnd]);
 
 
-            Yii::$app->mailer->compose('new-year')
+            /*Yii::$app->mailer->compose('new-year')
                 ->setTo(ArrayHelper::getValue($item, 'email'))
                 ->setFrom(['noreply@da-info.pro' => 'Команда DA-Info'])
                 ->setSubject($subject)
-                ->send();
-        }*/
+                ->send();*/
+        }
 
         $subject = 'Рассылка С Новым Годом успешно завершена';
         //$msg = $this->renderPartial('n_moder',['product'=>$item,'daysEnd' => $daysEnd]);
