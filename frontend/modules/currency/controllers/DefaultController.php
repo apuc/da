@@ -28,7 +28,13 @@ class DefaultController extends Controller
         //выборка последней даты по типу Валюты(ценности)
         $date = CurrencyRate::find()
             ->joinWith(['currencyFrom cf'])
-            ->where(['cf.type' => $type])
+            ->where([
+                'between',
+                'date',
+                new Expression('CURDATE()-INTERVAL 1 DAY'),
+                new Expression('CURDATE()')
+            ])
+            ->andWhere(['cf.type' => $type])
             ->orderBy('date DESC')
             ->one();
         if (empty($date)) $date = new Expression('CURDATE()');
@@ -227,19 +233,21 @@ class DefaultController extends Controller
         $meta = ArrayHelper::index($keyVal, 'key');
         $count_day = 13;
 
-
+        // ==============================================CURRENCY==============================
+        // ==============================================CURRENCY==============================
+        // ==============================================CURRENCY==============================
         $date = CurrencyRate::find()
             ->joinWith(['currencyFrom cf'])
             ->where([
                 'between',
                 'date',
-                new Expression('CURDATE()-INTERVAL 20 DAY'),
-                new Expression('CURDATE()-INTERVAL 19 DAY')
+                new Expression('CURDATE()-INTERVAL 1 DAY'),
+                new Expression('CURDATE()')
             ])
             ->andWhere(['cf.type' => Currency::TYPE_CURRENCY])
             ->orderBy('date DESC')
             ->one();
-        if (empty($date)) $date = new Expression('CURDATE()');
+        is_null($date) ? $date = date('Y-m-d') : $date = $date->date;
         $rates = CurrencyRate::find()
             ->joinWith(['currencyFrom cf', 'currencyTo ct'])
             ->where([
@@ -248,7 +256,7 @@ class DefaultController extends Controller
                 'ct.status' => Currency::STATUS_ACTIVE_FOR_WIDGET,
             ])
 //    ->andWhere(['!=', 'ct.id', Currency::UAH_ID])
-            ->andWhere(['between', 'date', date('Y-m-d', strtotime($date->date) - $count_day * Time::DAY), $date->date])
+            ->andWhere(['between', 'date', date('Y-m-d', strtotime($date) - $count_day * Time::DAY), $date])
 //    ->andWhere(['date' => $date])
 //    ->createCommand()->getRawSql();
             ->all();
@@ -267,13 +275,13 @@ class DefaultController extends Controller
             ->where([
                 'between',
                 'date',
-                new Expression('CURDATE()-INTERVAL 20 DAY'),
-                new Expression('CURDATE()-INTERVAL 19 DAY')
+                new Expression('CURDATE()-INTERVAL 1 DAY'),
+                new Expression('CURDATE()')
             ])
             ->andWhere(['cf.type' => Currency::TYPE_COIN])
             ->orderBy('date DESC')
             ->one();
-        if (empty($date)) $date = new Expression('CURDATE()');
+        is_null($date) ? $date = date('Y-m-d') : $date = $date->date;
         $rates = CurrencyRate::find()
             ->joinWith(['currencyFrom cf', 'currencyTo ct'])
             ->where([
@@ -282,7 +290,7 @@ class DefaultController extends Controller
             ->andWhere(['>=', 'cf.status', Currency::STATUS_ACTIVE])
 //            ->andWhere(['>=', 'ct.status', Currency::STATUS_ACTIVE_FOR_COIN])
             ->andWhere(['ct.id' => Currency::USD_ID])
-            ->andWhere(['between', 'date', date('Y-m-d', strtotime($date->date) - $count_day * Time::DAY), $date->date])
+            ->andWhere(['between', 'date', date('Y-m-d', strtotime($date) - $count_day * Time::DAY), $date])
             ->all();
         $coinData = [];
         foreach ($rates as $rate) {
@@ -291,20 +299,21 @@ class DefaultController extends Controller
         }
 
 
-
-        // METAL
+        // ==============================================METAL==============================
+        // ==============================================METAL==============================
+        // ==============================================METAL==============================
         $date = CurrencyRate::find()
             ->joinWith(['currencyFrom cf'])
             ->where([
                 'between',
                 'date',
-                new Expression('CURDATE()-INTERVAL 20 DAY'),
-                new Expression('CURDATE()-INTERVAL 19 DAY')
+                new Expression('CURDATE()-INTERVAL 1 DAY'),
+                new Expression('CURDATE()')
             ])
-            ->andWhere(['cf.type' => Currency::TYPE_COIN])
+            ->andWhere(['cf.type' => Currency::TYPE_METAL])
             ->orderBy('date DESC')
             ->one();
-        if (empty($date)) $date = new Expression('CURDATE()');
+        is_null($date) ? $date = date('Y-m-d') : $date = $date->date;
         $rates = CurrencyRate::find()
             ->joinWith(['currencyFrom cf', 'currencyTo ct'])
             ->where([
@@ -313,7 +322,7 @@ class DefaultController extends Controller
             ->andWhere(['>=', 'cf.status', Currency::STATUS_ACTIVE])
 //            ->andWhere(['>=', 'ct.status', Currency::STATUS_ACTIVE_FOR_COIN])
             ->andWhere(['ct.id' => Currency::RUB_ID])
-            ->andWhere(['between', 'date', date('Y-m-d', strtotime($date->date) - $count_day * Time::DAY), $date->date])
+            ->andWhere(['between', 'date', date('Y-m-d', strtotime($date) - $count_day * Time::DAY), $date])
             ->all();
         $metalData = [];
         foreach ($rates as $rate) {
