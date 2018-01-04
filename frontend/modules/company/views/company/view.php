@@ -5,7 +5,9 @@
  * @var $feedback \common\models\db\CompanyFeedback
  * @var $img \common\models\db\CompanyPhoto
  * @var $categoryCompany
- * @var $uniqueViews
+ * @var integer $uniqueViews
+ * @var array $services
+ * @var array $typeSeti
  */
 
 use common\classes\GeobaseFunction;
@@ -48,7 +50,6 @@ $this->params['breadcrumbs'][] = $model->name;
 
                 <h1 class="business__subtitle"><?= $model->name ?>
                     <span class="business__status">
-                    <span class="views"><?= $model->views; ?> просмотров</span>
                     </span>
                 </h1>
 
@@ -93,6 +94,10 @@ $this->params['breadcrumbs'][] = $model->name;
                         </div>
                     <?php endif;?>
                     <div class="business__requisites--links">
+                        <div class="business__requisites--links-w">
+                            <span class="unique-views"><?= $uniqueViews ?> просмотров</span>
+                            <span class="views"><?= $model->views; ?> просмотров</span>
+                        </div>
                         <a class="phone" href="tel:+380667778540">
                             <?php if (isset($model->allPhones[0]->phone)): ?>
                                 <?= $model->allPhones[0]->phone ?>
@@ -228,7 +233,7 @@ $this->params['breadcrumbs'][] = $model->name;
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="business__tab-content--wrapper" id="stocks">
                         <h3 class="section-title">Наши акции</h3>
                         <div class="business__stocks--box">
