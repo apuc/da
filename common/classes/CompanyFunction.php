@@ -10,8 +10,10 @@ namespace common\classes;
 
 use common\models\db\CategoryCompany;
 use common\models\db\Company;
+use common\models\db\CompanyFeedback;
 use common\models\db\CompanyTariffOrder;
 use common\models\db\ServicesCompanyRelations;
+use common\models\db\Stock;
 use yii\helpers\ArrayHelper;
 
 class CompanyFunction
@@ -111,5 +113,16 @@ class CompanyFunction
             }
         }
         return $rez;
+    }
+
+    //Получить количество отзывов компании
+    public static function getCountReviews($id)
+    {
+        return CompanyFeedback::find()->where(['company_id' => $id, 'status' => 1])->count();
+    }
+    //Получить количество акций компании
+    public static function getCountStock($id)
+    {
+        return Stock::find()->where(['company_id' => $id, 'status' => 0])->count();
     }
 }

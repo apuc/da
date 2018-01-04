@@ -129,8 +129,18 @@ $this->params['breadcrumbs'][] = $model->name;
 
                 <ul class="business__tab-links">
                     <li class="tab"><a href="#about-company" class="active">О компании</a></li>
-                    <li class="tab"><a href="#reviews">Отзывы</a></li>
-                    <li class="tab"><a href="#stocks">Акции</a></li>
+                    <li class="tab">
+                        <a href="#reviews">
+                            Отзывы
+                            <span class="tabs-counters"><?= \common\classes\CompanyFunction::getCountReviews($model->id); ?></span>
+                        </a>
+                    </li>
+                    <li class="tab">
+                        <a href="#stocks">
+                            Акции
+                            <span class="tabs-counters"><?= \common\classes\CompanyFunction::getCountStock($model->id); ?></span>
+                        </a>
+                    </li>
                 </ul>
 
 
