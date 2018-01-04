@@ -10,7 +10,7 @@ use yii\helpers\Html;
 <?php echo Html::beginForm(['/main_new/default'],'post',['class' => 'form-horizontal']) ?>
 <?php echo Html::label('Главная новость','main_new', ['class'=>'control-label']) ?>
 <?php echo Html::dropDownList('main_new', $key_val['main_new'],ArrayHelper::map(
-        News::find()->where(['>=','dt_add', 86400 * 30])->orderBy('dt_add DESC')->all(),
+        News::find()->where(['>=','dt_add', (string)(time() - 86400 * 30)])->orderBy('dt_add DESC')->all(),
         'id',
         'title'
 ),['class'=>'form-control']) ?>
