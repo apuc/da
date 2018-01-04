@@ -80,6 +80,16 @@ $this->registerJsFile('/js/converter.min.js', ['depends' => [\yii\web\JqueryAsse
                 </div>
             </div>
         </div>
-        <?= \frontend\widgets\ShowRightRecommend::widget() ?>
+        <div class="promotions-sidebar">
+            <?= $this->render('_currency_chart', ['count_day' => 14]); ?>
+            <br>
+
+            <?= $this->render('_coin_chart', ['count_day' => 14]); ?>
+            <br>
+
+            <?= $this->render('_metal_chart', ['count_day' => 14]); ?>
+            <br>
+        </div>
+        <!--        --><? //= \frontend\widgets\ShowRightRecommend::widget() ?>
     </div>
 </section>

@@ -6,11 +6,47 @@
  * Time: 18:00
  */
 
-/** @var array $currencyData */
+/** @var integer $count_day */
 
+use common\models\db\Currency;
+use common\models\db\CurrencyRate;
+use common\models\Time;
 use miloschuman\highcharts\Highstock;
+use yii\db\Expression;
 use yii\web\JsExpression;
 
+$count_day--;
+$date = CurrencyRate::find()
+    ->joinWith(['currencyFrom cf'])
+    ->where([
+        'between',
+        'date',
+        new Expression('CURDATE()-INTERVAL 1 DAY'),
+        new Expression('CURDATE()')
+    ])
+    ->andWhere(['cf.type' => Currency::TYPE_CURRENCY])
+    ->orderBy('date DESC')
+    ->one();
+/**     @var CurrencyRate $date */
+is_null($date) ? $date = date('Y-m-d') : $date = $date->date;
+$rates = CurrencyRate::find()
+    ->joinWith(['currencyFrom cf', 'currencyTo ct'])
+    ->where([
+        'cf.type' => Currency::TYPE_CURRENCY,
+        'cf.status' => Currency::STATUS_ACTIVE_FOR_WIDGET,
+        'ct.status' => Currency::STATUS_ACTIVE_FOR_WIDGET,
+    ])
+//    ->andWhere(['!=', 'ct.id', Currency::UAH_ID])
+    ->andWhere(['between', 'date', date('Y-m-d', strtotime($date) - $count_day * Time::DAY), $date])
+//    ->andWhere(['date' => $date])
+//    ->createCommand()->getRawSql();
+    ->all();
+$currencyData = [];
+/**     @var CurrencyRate $rate */
+foreach ($rates as $rate) {
+    $currencyData[$rate->currencyFrom->char_code]['name'] = $rate->currencyFrom->name;
+    $currencyData[$rate->currencyFrom->char_code]['data'][] = [strtotime($rate->date) * 1000, $rate->rate];
+}
 echo Highstock::widget([
     'options' => [
         'chart' => [
