@@ -1,7 +1,12 @@
 <?php
 
 /** @var string $meta_title */
+
 /** @var string $meta_descr */
+/** @var array $currencyData */
+/** @var array $coinData */
+
+/** @var array $metalData */
 
 use common\classes\Debug;
 use common\models\db\Currency;
@@ -12,6 +17,10 @@ $this->registerMetaTag([
     'name' => 'description',
     'content' => $meta_descr,
 ]);
+
+//echo $this->render('_currency_chart', ['currencyData' => $currencyData]);
+//echo $this->render('_coin_chart', ['coinData' => $coinData]);
+//echo $this->render('_metal_chart', ['metalData' => $metalData]);
 
 ?>
 <section class="currency-market">
@@ -40,6 +49,16 @@ $this->registerMetaTag([
                 </ol>
             </div>
         </div>
-        <?= \frontend\widgets\ShowRightRecommend::widget() ?>
+        <div class="promotions-sidebar">
+            <?= $this->render('_currency_chart', ['currencyData' => $currencyData]); ?>
+            <br>
+
+            <?= $this->render('_coin_chart', ['coinData' => $coinData]); ?>
+            <br>
+
+            <?= $this->render('_metal_chart', ['metalData' => $metalData]); ?>
+            <br>
+        </div>
+        <!--        --><? //= \frontend\widgets\ShowRightRecommend::widget() ?>
     </div>
 </section>
