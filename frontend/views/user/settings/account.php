@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <ul class="cabinet__tab-links">
         <li class="tab"><a href="<?= \yii\helpers\Url::to('/user/settings/profile')?>">Настройки профиля</a></li>
         <li class="tab"><a href="<?= \yii\helpers\Url::to('/user/settings/account')?>" class="active">Настройки аккаунта</a></li>
-        <li class="tab"><a href="#">Настройки соц.сетей</a></li>
+        <li class="tab"><a href="<?= \yii\helpers\Url::to('/user/settings/networks')?>">Настройки соц.сетей</a></li>
     </ul>
 
     <div class="business__tab-content">
