@@ -115,24 +115,24 @@ echo Html::dropDownList(
         <?php }
         else{?>
             <div class="cabinet__add-company-form--hover-wrapper">
-            <?foreach ($phone as $key => $item):?>
+            <?php foreach ($phone as $key => $item):?>
                 <?php if(!empty($item) ):?>
 
                     <div class="cabinet__add-company-form--hover-elements">
                         <p class="cabinet__add-company-form--title"></p>
                     <input value="<?= $item->phone; ?>" class="cabinet__add-company-form--field" name="mytext[]" type="text">
-                    <?if($key != 0):?>
+                    <?php if($key != 0):?>
                     <a href="#" class="cabinet__remove-pkg"></a>
-                        <?else:?>
+                        <?php else:?>
                         <a href="#" class="cabinet__add-field" max-count="<?= (isset($services['count_phone']) ? $services['count_phone'] : ''); ?>"></a>
-                        <?endif;?>
+                        <?php endif;?>
                     <p class="cabinet__add-company-form--notice"></p>
                     </div>
                 <?php endif; ?>
 
             <?php endforeach;?>
             </div>
-       <? }
+       <?php }
         ?>
 
 
