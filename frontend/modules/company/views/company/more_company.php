@@ -26,9 +26,6 @@ $wrc_count = 0; ?>
                 Рекомендуем
             </div>
             <div class="business__sm-item--img">
-
-
-
                 <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($company->photo); ?>" alt="">
             </div>
 
@@ -40,10 +37,6 @@ $wrc_count = 0; ?>
                     <img src="/theme/portal-donbassa/img/icons/ver.png" alt="">
                 </span>
             <?php endif; ?>
-            <!--<p class="business__big-item--address">
-                <span>Время работы Министерства:</span>
-                <span>с 9:00 до 18:00 (перерыв с 13:00 до 14:00)</span>
-            </p>-->
 
             <p class="business__sm-item--address">
                 <span>Адрес:</span>
@@ -108,7 +101,16 @@ $wrc_count = 0; ?>
             <?php endif; ?>
             <p class="business__sm-item--address">
                 <span>Адрес:</span>
-                <span><?= $organizations[$pos]->address ?></span>
+                <?php
+                if($organizations[$pos]->region_id != 0){
+                    $address = GeobaseFunction::getRegionName($organizations[$pos]->region_id) . ', ' .GeobaseFunction::getCityName($organizations[$pos]->city_id) . ', ' . $organizations[$pos]->address ;
+                }
+                else{
+                    $address = $organizations[$pos]->address;
+                }
+                ?>
+                <span><?= $address ?></span>
+                <!--<span><?/*= $organizations[$pos]->address */?></span>-->
             </p>
             <?php
 

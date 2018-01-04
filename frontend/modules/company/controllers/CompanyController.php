@@ -562,12 +562,21 @@ class CompanyController extends Controller
 
     public function actionGetMoreCompany()
     {
-        $organizations = Company::find()
+        $useReg = UserFunction::getRegionUser();
+
+        $organizationsQuery = Company::find()
             ->with('allPhones')
             ->where([
                 'status' => 0,
-            ])
-            ->orderBy('RAND()')
+            ]);
+        if($useReg != -1){
+            $organizationsQuery->andWhere(
+                [
+                    'region_id' => $useReg,
+                ]
+            );
+        }
+        $organizations = $organizationsQuery->orderBy('RAND()')
             ->limit(16)
             ->all();
 
