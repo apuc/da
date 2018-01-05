@@ -41,7 +41,11 @@ class Coin extends ApiCurrencyAbstract
 
     public function fetchRatesData()
     {
-        $models = DbCurrency::find()->select(['id', 'char_code'])->where(['type' => DbCurrency::TYPE_COIN])->all();
+        $models = DbCurrency::find()
+            ->select(['id', 'char_code'])
+            ->where(['type' => DbCurrency::TYPE_COIN])
+            ->andWhere(['>=', 'status', DbCurrency::STATUS_ACTIVE])
+            ->all();
         $name = array_map(function ($item) {
             $vowels = [" ", "(", ")"];
             return str_replace($vowels, "", $item->char_code);
