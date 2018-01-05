@@ -75,7 +75,7 @@ $this->registerJsFile('/js/converter.min.js', ['depends' => [\yii\web\JqueryAsse
                         принять решение о целесообразности той или иной денежной операции на сегодняшний день.
                     </p>
                     <p>
-                        Подробнее на Рамблер/финансы... https://finance.rambler.ru/calculators/converter/
+                        Подробнее на Рамблер/финансы... <a href="https://finance.rambler.ru/calculators/converter/" target="_blank" rel="nofollow">https://finance.rambler.ru/calculators/converter/</a>
                     </p>
                 </div>
             </div>
