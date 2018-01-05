@@ -87,6 +87,7 @@ $this->title = 'Результаты поиска по запросу "' . $requ
                     'emptyText' => 'Поск не дал результатов',
                     'emptyTextOptions' => [
                         'tag' => 'div',
+                        'class' => 'no-result'
                     ],
                     'layout' => "{items}<div class=\"pagination\">{pager}</div>",
                     'pager' => [
