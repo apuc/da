@@ -450,6 +450,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
 
 
         </div>
+            <?= \frontend\modules\stream\widgets\ShowTopStream::widget(); ?>
             <?= ShowRightRecommend::widget() ?>
         </div>
 
