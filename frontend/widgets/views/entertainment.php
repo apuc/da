@@ -88,7 +88,7 @@ use yii\helpers\Url;
                 Рекомендуем
             </div>
             <div class="thumb">
-                <img src="<?= $item->photo  . '?width=300' ?>" alt="">
+                <img src="<?= $companyBig->photo  . '?width=300' ?>" alt="">
 
             </div>
             <div class="item-small__content">
