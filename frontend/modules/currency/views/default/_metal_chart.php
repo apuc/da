@@ -44,9 +44,9 @@ $metalData = [];
 foreach ($rates as $rate) {
     $metalData[$rate->currencyFrom->char_code]['name'] = $rate->currencyFrom->name;
     $metalData[$rate->currencyFrom->char_code]['data'][] = [strtotime($rate->date) * 1000, $rate->rate];
-}
-
-echo Highstock::widget([
+} ?>
+<div id="container-metal" style="width:100%; height: 100%;">
+<?= Highstock::widget([
     'options' => [
         'chart' => [
             'type' => 'areaspline',
@@ -179,4 +179,6 @@ echo Highstock::widget([
             ]
         ],
     ]
-]);
+]); ?>
+
+</div>

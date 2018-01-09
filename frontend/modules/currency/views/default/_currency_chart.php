@@ -46,8 +46,9 @@ $currencyData = [];
 foreach ($rates as $rate) {
     $currencyData[$rate->currencyFrom->char_code]['name'] = $rate->currencyFrom->name;
     $currencyData[$rate->currencyFrom->char_code]['data'][] = [strtotime($rate->date) * 1000, $rate->rate];
-}
-echo Highstock::widget([
+} ?>
+<div id="container-currency" style="width:100%; height: 100%;">
+    <?= Highstock::widget([
     'options' => [
         'chart' => [
             'type' => 'areaspline',
@@ -182,4 +183,6 @@ echo Highstock::widget([
             ]
         ],
     ]
-]);
+]); ?>
+
+</div>
