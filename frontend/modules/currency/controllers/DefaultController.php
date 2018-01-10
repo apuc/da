@@ -229,11 +229,11 @@ class DefaultController extends Controller
      */
     public function actionAll()
     {
-        $keyVal = KeyValue::find()->all();
-        $meta = ArrayHelper::index($keyVal, 'key');
-        return $this->render('all', [
-            'meta_title' => $meta['currency_title_all']->value,
-            'meta_descr' => $meta['currency_desc_all']->value,
+//        $keyVal = KeyValue::find()->all();
+//        $meta = ArrayHelper::index($keyVal, 'key');
+        return $this->render('stat', [
+//            'meta_title' => $meta['currency_title_all']->value,
+//            'meta_descr' => $meta['currency_desc_all']->value,
         ]);
     }
 
