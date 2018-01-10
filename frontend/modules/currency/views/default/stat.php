@@ -14,15 +14,38 @@ $dbCityTableName = '{{%geobase_city}}';
 $dbRegionTableName = '{{%geobase_region}}';
 $ip = ip2long($ip);
 
+
+$r = Yii::$app->db->createCommand("SELECT `company_id`,DATE(`date`), SUM(`count`), COUNT(*) 
+FROM `company_views`
+WHERE `company_id`= 13
+GROUP BY DATE(`date`), `company_id`, `count`")->execute();
+
+$cv = CompanyViews::find()
+    ->select([
+        'company_id',
+        new \yii\db\Expression("DATE(`date`)"),
+        new \yii\db\Expression("SUM(`count`)"),
+        new \yii\db\Expression("COUNT(*)")
+    ])
+    ->from('company_views')
+    ->where(['company_id' => 13])
+    ->groupBy([
+        new \yii\db\Expression("DATE(`date`)"),
+        'company_id',
+        'count'
+    ])->all();
+Debug::dd($cv);
 //
 $cv = CompanyViews::find()
 //    ->select('*')
     ->select('*')
 //    ->select(['company_id', 'ip_address', 'count', 'geobase_ip.city_id'])
-//    ->join('LEFT JOIN', 'geobase_ip', '`ip_address` BETWEEN `geobase_ip`.`ip_begin` AND `geobase_ip`.`ip_end`')
-    ->joinWith('geobaseIp')
+    ->join('LEFT JOIN', 'geobase_ip', '`ip_address` BETWEEN `geobase_ip`.`ip_begin` AND `geobase_ip`.`ip_end`')
+//    ->joinWith('geobaseIp')
+//    ->where(['between', 'ip_address', 'ip_begin', 'ip_end'])
+    ->where(['company_id' => 13])
     ->all();
-//    ->createCommand();
+//    ->createCommand()
 //    ->rawSql;
 
 Debug::dd($cv);
