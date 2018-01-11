@@ -2,85 +2,123 @@
 
 
 use common\classes\Debug;
-use common\models\db\CompanyViews;
+use miloschuman\highcharts\Highcharts;
 use yii\db\Query;
+use yii\helpers\ArrayHelper;
 
-//var_dump(Yii::$app->ipgeobase->getLocation('144.206.192.6'));
-//var_dump(Yii::$app->ipgeobase->getLocation('144.206.192.6', false));
-
-$ip = '144.206.192.6';
-$dbIpTableName = '{{%geobase_ip}}';
-$dbCityTableName = '{{%geobase_city}}';
-$dbRegionTableName = '{{%geobase_region}}';
-$ip = ip2long($ip);
-
-
-$r = Yii::$app->db->createCommand("SELECT `company_id`,DATE(`date`), SUM(`count`), COUNT(*) 
-FROM `company_views`
-WHERE `company_id`= 13
-GROUP BY DATE(`date`), `company_id`, `count`")->execute();
-
-$cv = CompanyViews::find()
+$countVision = (new Query())
     ->select([
         'company_id',
-        new \yii\db\Expression("DATE(`date`)"),
-        new \yii\db\Expression("SUM(`count`)"),
-        new \yii\db\Expression("COUNT(*)")
+        'date' => new \yii\db\Expression("DATE(`date`)"),
+        'sum' => new \yii\db\Expression("SUM(`count`)"),
+        'unique' => new \yii\db\Expression("COUNT(*)")
     ])
     ->from('company_views')
     ->where(['company_id' => 13])
     ->groupBy([
         new \yii\db\Expression("DATE(`date`)"),
         'company_id',
-        'count'
-    ])->all();
-Debug::dd($cv);
-//
-$cv = CompanyViews::find()
-//    ->select('*')
-    ->select('*')
-//    ->select(['company_id', 'ip_address', 'count', 'geobase_ip.city_id'])
-    ->join('LEFT JOIN', 'geobase_ip', '`ip_address` BETWEEN `geobase_ip`.`ip_begin` AND `geobase_ip`.`ip_end`')
-//    ->joinWith('geobaseIp')
-//    ->where(['between', 'ip_address', 'ip_begin', 'ip_end'])
+    ])
+    ->all();
+//    ->createCommand()
+//    ->rawSql;
+//Debug::dd($countVision);
+
+$optionsCV = [
+    'options' => [
+        'chart' => [
+            'type' => 'areaspline',
+//            'height' => 280
+        ],
+        'title' => ['text' => 'Просмотры'],
+        'xAxis' => [
+            'categories' => ArrayHelper::getColumn($countVision, function ($item) {
+                return $item['date'];
+            }
+            )
+        ],
+        'yAxis' => [
+            'title' => ['text' => 'Количество просмотров']
+        ],
+        'series' => [
+            [
+                'name' => 'Общие',
+//                'color' => '#ee2e24',
+                'color' => '#ff0200',
+                'data' => ArrayHelper::getColumn($countVision, function ($item) {
+                    return (int)$item['sum'];
+                }
+                )
+            ],
+            [
+                'name' => 'Уникальные',
+                'color' => 'grey',
+                'data' => ArrayHelper::getColumn($countVision, function ($item) {
+                    return (int)$item['unique'];
+                }
+                )
+
+            ]
+        ]
+    ]
+];
+echo Highcharts::widget($optionsCV);
+
+$cvRegion = (new Query())
+    ->select([
+        'geobase_city.name',
+        'sum' => new \yii\db\Expression("SUM(`count`)"),
+        'count' => new \yii\db\Expression("COUNT(*)")
+    ])
+    ->from('company_views')
+    ->leftJoin('geobase_ip', 'ip_address BETWEEN geobase_ip.ip_begin AND geobase_ip.ip_end')
+    ->leftJoin('geobase_city', 'geobase_city.id = geobase_ip.city_id')
     ->where(['company_id' => 13])
+    ->groupBy([
+        'geobase_ip.city_id',
+    ])
     ->all();
 //    ->createCommand()
 //    ->rawSql;
 
-Debug::dd($cv);
 
-//$re = [];
-//foreach ($cv as $item) {
-//        /**
-//     * @var $item CompanyViews
-//     */
-//    $re[$item->ip_address] = $item->getGeobaseIp();
-//    $re[$item->ip_address]['company'] = $item->company->name;
-//    $re[$item->ip_address]['count'] = $item->count;
-//}
-//
-//Debug::dd($re);
-$result =
-    (new Query())
-        ->select([
-            't_ip.country_code AS country', 't_region.name AS region', 't_city.name AS city',
-            't_city.latitude AS lat', 't_city.longitude AS lng'
-        ])
-        ->from([
-            't_ip' => (new Query())
-                ->from($dbIpTableName)
-                ->where(['<=', 'ip_begin', $ip])
-                ->orderBy(['ip_begin' => SORT_DESC])
-        ])
-        ->leftJoin(['t_city' => $dbCityTableName], 't_city.id = t_ip.city_id')
-        ->leftJoin(['t_region' => $dbRegionTableName], 't_region.id = t_city.region_id')
-        ->where(['>=', 't_ip.ip_end', $ip])
-        ->one();
-//    ->createCommand()
-//    ->rawSql;
+array_walk($cvRegion, function (&$item) {
+    $item['sum'] = (int)$item['sum'];
+    $item = array_values($item);
+});
+is_null($cvRegion[0][0]) ? $cvRegion[0][0] = 'Не определёно' : $cvRegion[0][0];
 
-Debug::prn($result);
+
+$optionsCVR = [
+    'options' => [
+        'chart' => [
+            'type' => 'pie',
+            'options3d' => [
+                'enabled' => true,
+                'alpha' => 45,
+//                'beta' => 0
+            ]
+        ],
+        'title' => [
+            'text' => 'Количество просмотров по городам за весь период времени'
+        ],
+//        'tooltip' => [
+//            'pointFormat' => '{series.name}: <b>{point}{point.percentage:.1f}%</b>'
+//        ],
+        'plotOptions' => [
+            'pie' => [
+                'innerSize' => 100,
+                'depth' => 45
+            ]
+        ],
+        'series' => [[
+            'type' => 'pie',
+            'name' => 'Количество просмотров',
+            'data' => $cvRegion
+        ]]
+    ]
+];
+echo Highcharts::widget($optionsCVR);
 
 
 ?>
