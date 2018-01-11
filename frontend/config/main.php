@@ -123,8 +123,8 @@ return \yii\helpers\ArrayHelper::merge([
                 ],
                 'facebook' => [
                     'class'        => 'dektrium\user\clients\Facebook',
-                    'clientId'     => '123823444992959',
-                    'clientSecret' => '33c93b3c9c2535be0fcdffd5ad7c2e76',
+                    'clientId'     => '393139631141463',
+                    'clientSecret' => 'da146fed3a481f1b6e92a1dd8e58d559',
                     'title' => '',
                 ],
                 'twitter' => [
