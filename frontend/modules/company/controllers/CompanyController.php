@@ -23,6 +23,8 @@ use Yii;
 use frontend\modules\company\models\Company;
 use frontend\modules\company\models\CompanySearch;
 use yii\data\Pagination;
+use yii\db\Expression;
+use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -202,6 +204,105 @@ class CompanyController extends Controller
                 ])
             ->execute();
         $uniqueViews = CompanyViews::find()->where(['company_id' => $model->id])->count();
+        //Есть ли просмотры по компаниям
+        $show = ((int)$model->views != 0 || (int)$uniqueViews != 0);
+        if ($show) {
+            $countVision = (new Query())
+                ->select([
+                    'company_id',
+                    'date' => new Expression("DATE(`date`)"),
+                    'sum' => new Expression("SUM(`count`)"),
+                    'unique' => new Expression("COUNT(*)")
+                ])
+                ->from('company_views')
+                ->where(['company_id' => $model->id])
+                ->groupBy([
+                    new Expression("DATE(`date`)"),
+                    'company_id',
+                ])
+                ->all();
+
+            $optionsCV = [
+                'options' => [
+                    'chart' => [
+                        'type' => 'areaspline',
+                    ],
+                    'title' => ['text' => 'Количество просмотров'],
+                    'xAxis' => [
+                        'categories' => ArrayHelper::getColumn($countVision, function ($item) {
+                            return $item['date'];
+                        }
+                        )
+                    ],
+                    'yAxis' => [
+                        'title' => ['text' => 'Количество']
+                    ],
+                    'series' => [
+                        [
+                            'name' => 'Общие',
+                            'color' => 'grey',
+                            'data' => ArrayHelper::getColumn($countVision, function ($item) {
+                                return (int)$item['sum'];
+                            }
+                            )
+                        ],
+                        [
+                            'name' => 'Уникальные',
+                            'color' => '#ff0200',
+                            'data' => ArrayHelper::getColumn($countVision, function ($item) {
+                                return (int)$item['unique'];
+                            }
+                            )
+                        ]
+                    ]
+                ]
+            ];
+
+            $cvRegion = (new Query())
+                ->select([
+                    'geobase_city.name',
+                    'sum' => new Expression("SUM(`count`)"),
+                    'count' => new Expression("COUNT(*)")
+                ])
+                ->from('company_views')
+                ->leftJoin('geobase_ip', 'ip_address BETWEEN geobase_ip.ip_begin AND geobase_ip.ip_end')
+                ->leftJoin('geobase_city', 'geobase_city.id = geobase_ip.city_id')
+                ->where(['company_id' => $model->id])
+                ->groupBy([
+                    'geobase_ip.city_id',
+                ])
+                ->orderBy('sum DESC')
+                ->all();
+
+
+            array_walk($cvRegion, function (&$item) {
+                $item['name'] = is_null($item['name']) ? $item['name'] = '?' : $item['name'];
+                $item['sum'] = (int)$item['sum'];
+                $item = array_values($item);
+            });
+
+
+            $optionsCVR = [
+                'options' => [
+                    'chart' => [
+                        'type' => 'pie',
+                        'options3d' => [
+                            'enabled' => true,
+                            'alpha' => 45,
+                            'beta' => 0
+                        ],
+                    ],
+                    'title' => [
+                        'text' => 'Количество просмотров по городам'
+                    ],
+                    'series' => [[
+                        'type' => 'pie',
+                        'name' => 'Количество просмотров',
+                        'data' => $cvRegion
+                    ]]
+                ]
+            ];
+        }
 
         $stoke = Stock::find()->where(['company_id' => $model->id])->limit(3)->all();
         $feedback = CompanyFeedback::find()->where(['company_id' => $model->id, 'status' => 1])->with('user')->all();
@@ -236,6 +337,10 @@ class CompanyController extends Controller
             'socCompany' => $socCompany,
             'categoryCompany' => $categoryCompany,
             'uniqueViews' => $uniqueViews,
+            'optionsCV' => $optionsCV,
+            'optionsCVR' => $optionsCVR,
+            'cvRegion' => $cvRegion,
+            'show' => $show,
         ]);
     }
 
