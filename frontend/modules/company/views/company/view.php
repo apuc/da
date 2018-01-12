@@ -133,7 +133,7 @@ $this->params['breadcrumbs'][] = $model->name;
                 </div>
 
                 <ul class="business__tab-links">
-                    <li class="tab"><a href="#about-company" class="active">О компании</a></li>
+                    <li class="tab active"><a href="#about-company" class="">О компании</a></li>
                     <li class="tab">
                         <a href="#reviews">
                             Отзывы
