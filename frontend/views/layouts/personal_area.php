@@ -33,7 +33,7 @@ AppAsset::register($this);
 
 <?= \frontend\widgets\ShowHeader::widget(); ?>
 <?= Alert::widget() ?>
-<section class="cabinet">
+<section class="cabinet company-statistics">
     <div class="container">
         <?= \frontend\modules\personal_area\widgets\ShowPersonalAreaTollbar::widget(); ?>
 

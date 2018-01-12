@@ -3,20 +3,22 @@
 
 use common\classes\Debug;
 use miloschuman\highcharts\Highcharts;
+use yii\db\Expression;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
+use yii\web\JsExpression;
 
 $countVision = (new Query())
     ->select([
         'company_id',
-        'date' => new \yii\db\Expression("DATE(`date`)"),
-        'sum' => new \yii\db\Expression("SUM(`count`)"),
-        'unique' => new \yii\db\Expression("COUNT(*)")
+        'date' => new Expression("DATE(`date`)"),
+        'sum' => new Expression("SUM(`count`)"),
+        'unique' => new Expression("COUNT(*)")
     ])
     ->from('company_views')
     ->where(['company_id' => 13])
     ->groupBy([
-        new \yii\db\Expression("DATE(`date`)"),
+        new Expression("DATE(`date`)"),
         'company_id',
     ])
     ->all();
@@ -67,8 +69,8 @@ echo Highcharts::widget($optionsCV);
 $cvRegion = (new Query())
     ->select([
         'geobase_city.name',
-        'sum' => new \yii\db\Expression("SUM(`count`)"),
-        'count' => new \yii\db\Expression("COUNT(*)")
+        'sum' => new Expression("SUM(`count`)"),
+        'count' => new Expression("COUNT(*)")
     ])
     ->from('company_views')
     ->leftJoin('geobase_ip', 'ip_address BETWEEN geobase_ip.ip_begin AND geobase_ip.ip_end')
@@ -77,18 +79,19 @@ $cvRegion = (new Query())
     ->groupBy([
         'geobase_ip.city_id',
     ])
+    ->orderBy('sum DESC')
     ->all();
 //    ->createCommand()
 //    ->rawSql;
 
 
 array_walk($cvRegion, function (&$item) {
+    $item['name'] = is_null($item['name']) ? $item['name']= 'Не определёно' : $item['name'];
     $item['sum'] = (int)$item['sum'];
     $item = array_values($item);
 });
-is_null($cvRegion[0][0]) ? $cvRegion[0][0] = 'Не определёно' : $cvRegion[0][0];
 
-
+Debug::prn($cvRegion);
 $optionsCVR = [
     'options' => [
         'chart' => [
@@ -108,7 +111,16 @@ $optionsCVR = [
         'plotOptions' => [
             'pie' => [
                 'innerSize' => 100,
-                'depth' => 45
+                'depth' => 45,
+                'allowPointSelect' => true,
+                'cursor' => 'pointer',
+                'dataLabels' => [
+                    'enabled' => true,
+                    'format' => '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    'style' => [
+                        'color' => new JsExpression("Highcharts.theme && Highcharts.theme.contrastTextColor") || 'black'
+                    ]
+                ]
             ]
         ],
         'series' => [[
