@@ -149,6 +149,7 @@ if(!empty($companies)):
 
     </div>
         <a href="<?= Url::to(['/company/company']) ?>" class="more">посмотреть больше <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+    </div>
 </section>
 
 <?php endif; ?>
