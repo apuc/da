@@ -22,7 +22,10 @@ if(!empty($companies)):
         <div class="company-slider__box">
             <?php
             $count = 0;
+            $i = 0;
+            $countCompanies = count($companies);
             foreach ($companies as $k => $company): ?>
+            <?php $i++;?>
                 <?php if($count == 0): ?>
                     <div class="company-slider__box_item">
                 <?php endif;?>
@@ -135,8 +138,9 @@ if(!empty($companies)):
 
                 <?php
                     $count++;
+
                 ?>
-                <?php if($count == 4) {
+                <?php if($count == 4 || $i == $countCompanies) {
                     $count = 0;
                     echo "</div>";
                 }?>
@@ -146,10 +150,9 @@ if(!empty($companies)):
         </div>
 
 
+            <a href="<?= Url::to(['/company/company']) ?>" class="more">посмотреть больше <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+    </div>
 
-    </div>
-        <a href="<?= Url::to(['/company/company']) ?>" class="more">посмотреть больше <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-    </div>
 </section>
 
 <?php endif; ?>
