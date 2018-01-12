@@ -2,8 +2,11 @@
 
 namespace common\models\db;
 
+use common\classes\Debug;
 use dektrium\user\models\User;
+use himiklab\ipgeobase\IpGeoBase;
 use Yii;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "company_views".
@@ -71,6 +74,16 @@ class CompanyViews extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGeobaseIp()
+    {
+//        return Yii::$app->ipgeobase->getLocation(long2ip($this->ip_address));
+        return $this->hasOne(GeobaseIp::className(), ['ip_end' => 'ip_address']);
     }
 
     /**
