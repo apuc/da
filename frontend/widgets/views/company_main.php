@@ -136,7 +136,7 @@ if(!empty($companies)):
                 <?php
                     $count++;
                 ?>
-                <?php if($count == 4 && next($array)) {
+                <?php if($count == 4) {
                     $count = 0;
                     echo "</div>";
                 }?>
