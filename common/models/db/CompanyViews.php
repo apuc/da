@@ -76,14 +76,6 @@ class CompanyViews extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getGeobaseIp()
-    {
-//        return Yii::$app->ipgeobase->getLocation(long2ip($this->ip_address));
-        return $this->hasOne(GeobaseIp::className(), ['ip_end' => 'ip_address']);
-    }
 
     /**
      * @return mixed

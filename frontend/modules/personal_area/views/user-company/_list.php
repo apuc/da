@@ -40,7 +40,7 @@ $optionsCV = [
 //            'width' => 300,
 //            'height' => 300
         ],
-        'title' => ['text' => 'Просмотры'],
+        'title' => ['text' => 'Количество просмотров'],
         'xAxis' => [
             'categories' => ArrayHelper::getColumn($countVision, function ($item) {
                 return $item['date'];
@@ -48,13 +48,13 @@ $optionsCV = [
             )
         ],
         'yAxis' => [
-            'title' => ['text' => 'Количество просмотров']
+            'title' => ['text' => 'Количество']
         ],
         'series' => [
             [
                 'name' => 'Общие',
 //                'color' => '#ee2e24',
-                'color' => '#ff0200',
+                'color' => 'grey',
                 'data' => ArrayHelper::getColumn($countVision, function ($item) {
                     return (int)$item['sum'];
                 }
@@ -62,7 +62,7 @@ $optionsCV = [
             ],
             [
                 'name' => 'Уникальные',
-                'color' => 'grey',
+                'color' => '#ff0200',
                 'data' => ArrayHelper::getColumn($countVision, function ($item) {
                     return (int)$item['unique'];
                 }
@@ -108,29 +108,30 @@ $optionsCVR = [
                 'alpha' => 45,
                 'beta' => 0
             ],
-//            'width' => 500
+//            'width' => 500,
+//            'height' => 500
         ],
         'title' => [
-            'text' => 'Количество просмотров по городам за весь период времени'
+            'text' => 'Количество просмотров по городам'
         ],
 //        'tooltip' => [
 //            'pointFormat' => '{series.name}: <b>{point}{point.percentage:.1f}%</b>'
 //        ],
-        'plotOptions' => [
-            'pie' => [
-                'innerSize' => 100,
-                'depth' => 45,
-                'allowPointSelect' => true,
-                'cursor' => 'pointer',
-                'dataLabels' => [
-                    'enabled' => true,
-                    'format' => '<b>{point.name}</b>: {point.percentage:.1f} %',
-                    'style' => [
-                        'color' => new \yii\web\JsExpression("Highcharts.theme && Highcharts.theme.contrastTextColor") || 'black'
-                    ]
-                ]
-            ]
-        ],
+//        'plotOptions' => [
+//            'pie' => [
+//                'innerSize' => 100,
+//                'depth' => 45,
+//                'allowPointSelect' => true,
+//                'cursor' => 'pointer',
+//                'dataLabels' => [
+//                    'enabled' => true,
+//                    'format' => '<b>{point.name}</b>: {point.percentage:.1f} %',
+//                    'style' => [
+//                        'color' => new \yii\web\JsExpression("Highcharts.theme && Highcharts.theme.contrastTextColor") || 'black'
+//                    ]
+//                ]
+//            ]
+//        ],
         'series' => [[
             'type' => 'pie',
             'name' => 'Количество просмотров',
@@ -156,13 +157,6 @@ $optionsCVR = [
            class="cabinet__like-block--company-remove">удалить </a>
     </div>
     <p class="cabinet__like-block--company-address"><?= $model['address']; ?></p>
-
-    <p class="cabinet__like-block--company-views">Количество посетителей
-
-        <span class="views"><?= $model['views']; ?></span>
-        <!--<span class="date">30 дней:</span>-->
-    </p>
-
 
 </div>
 
@@ -201,7 +195,7 @@ $optionsCVR = [
     <div class="cabinet-company-statistic__body">
         <div class="cabinet-company-statistic__body--left">
             <h4>Охват аудитории</h4>
-            <p>Количество посетителей <b>2575</b></p>
+            <p>Количество посетителей <b><?= $model->views ?></b></p>
             <p>Количество <span>уникальных</span> посетителей
                 <b><?= CompanyViews::find()->where(['company_id' => $model->id])->count() ?></b></p>
 
@@ -229,8 +223,7 @@ $optionsCVR = [
             </table>
         </div>
         <div class="cabinet-company-statistic__body--right" id="piechart">
-            <div style="width: 100%">
-            <?= Highcharts::widget($optionsCV); ?></div>
+            <?= Highcharts::widget($optionsCV); ?>
             <?= Highcharts::widget($optionsCVR); ?>
         </div>
     </div>
