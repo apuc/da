@@ -1,9 +1,9 @@
 $(document).ready(function () {
     /* close stream post*/
-    $(document).on('click', '.parser__close', function () {
+    /*$(document).on('click', '.parser__close', function () {
         $('.single-parser-element').slideToggle("slow");
         return false;
-    });
+    });*/
 
 
     /*open modal feedback company*/
