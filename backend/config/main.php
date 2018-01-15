@@ -146,6 +146,9 @@ return [
         'company_views' => [
             'class' => 'backend\modules\company_views\CompanyViews',
         ],
+        'products' => [
+            'class' => 'backend\modules\products\Products',
+        ],
 
     ],
     'components' => [
