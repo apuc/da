@@ -8,9 +8,11 @@
  * @var integer $uniqueViews
  * @var array $services
  * @var array $typeSeti
+ * @var array $cvRegion
  */
 
 use common\classes\GeobaseFunction;
+use miloschuman\highcharts\Highcharts;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
@@ -146,6 +148,7 @@ $this->params['breadcrumbs'][] = $model->name;
                             <span class="tabs-counters"><?= \common\classes\CompanyFunction::getCountStock($model->id); ?></span>
                         </a>
                     </li>
+                    <li class="tab"><a href="#statistics">Статистика</a></li>
                 </ul>
 
 
@@ -256,6 +259,49 @@ $this->params['breadcrumbs'][] = $model->name;
                         <?php endif; ?>
                         </div>
                     </div>
+
+                    <div id="statistics" class="business__tab-content--wrapper">
+                        <div class="cabinet-company-statistic">
+                            <div class="cabinet-company-statistic__header">
+                                <h3>Статистика компании</h3>
+                            </div>
+                            <div class="cabinet-company-statistic__body">
+                                <div class="cabinet-company-statistic__body--left">
+                                    <h4>Охват аудитории</h4>
+                                    <p>Количество посетителей <b><?= $model->views ?></b></p>
+                                    <p>Количество <span>уникальных</span> посетителей <b><?= $uniqueViews ?></b></p>
+                                    <?php if ($show) : ?>
+                                        <h5>География </h5>
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                                <td>Город</td>
+                                                <td>Количество</td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php $sum = 0;
+                                            foreach ($cvRegion as $item) {
+                                                $sum += $item[1];
+                                            } ?>
+                                            <?php foreach ($cvRegion as $item): ?>
+                                                <tr>
+                                                    <td><?= $item[0] ?></td>
+                                                    <td><?= Yii::$app->formatter->asPercent($item[1] / $sum, 1) ?></td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="cabinet-company-statistic__body--right" id="piechart">
+                                    <?php if ($show) {
+                                        echo Highcharts::widget($optionsCV);
+                                        echo Highcharts::widget($optionsCVR);
+                                    } ?>
+                                </div>
+                            </div>
+                        </div>
                 </div>
 
                 <?php if(!empty($model['tagss'])): ?>
