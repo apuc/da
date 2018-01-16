@@ -302,6 +302,7 @@ $this->params['breadcrumbs'][] = $model->name;
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
 
                 <?php if(!empty($model['tagss'])): ?>
