@@ -12,5 +12,15 @@ use common\models\db\CategoryShop;
 
 class CategoryProduct extends CategoryShop
 {
-
+    public function behaviors()
+    {
+        return [
+            'slug' => [
+                'class' => 'common\behaviors\Slug',
+                'in_attribute' => 'name',
+                'out_attribute' => 'slug',
+                'translit' => true
+            ],
+        ];
+    }
 }

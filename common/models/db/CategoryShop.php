@@ -11,6 +11,9 @@ use Yii;
  * @property string $name
  * @property string $slug
  * @property int $parent_id
+ * @property string $icon
+ * @property string $meta_title
+ * @property string $meta_description
  */
 class CategoryShop extends \yii\db\ActiveRecord
 {
@@ -28,9 +31,9 @@ class CategoryShop extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'slug'], 'required'],
+            [['name', 'slug', 'meta_title', 'meta_description'], 'required'],
             [['parent_id'], 'integer'],
-            [['name', 'slug'], 'string', 'max' => 255],
+            [['name', 'slug', 'icon', 'meta_title', 'meta_description'], 'string', 'max' => 255],
         ];
     }
 
@@ -41,9 +44,12 @@ class CategoryShop extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Название',
             'slug' => 'Slug',
-            'parent_id' => 'Parent ID',
+            'parent_id' => 'Родитель',
+            'icon' => 'Изображение',
+            'meta_title' => 'Meta Title',
+            'meta_description' => 'Meta Description',
         ];
     }
 }

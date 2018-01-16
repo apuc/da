@@ -2,6 +2,8 @@
 
 namespace backend\modules\products\controllers;
 
+use backend\modules\category\Category;
+use common\classes\Debug;
 use Yii;
 use backend\modules\products\models\CategoryProduct;
 use backend\modules\products\models\CategoryProductSearch;
@@ -67,11 +69,13 @@ class CategoryController extends Controller
         $model = new CategoryProduct();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
+        $category = CategoryProduct::find()->all();
         return $this->render('create', [
             'model' => $model,
+            'category' => $category,
         ]);
     }
 
@@ -86,12 +90,15 @@ class CategoryController extends Controller
     {
         $model = $this->findModel($id);
 
+        /*Debug::prn(Yii::$app->request->post());
+        die();*/
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
-
+        $category = CategoryProduct::find()->where(['!=', 'id', $id])->all();
         return $this->render('update', [
             'model' => $model,
+            'category' => $category,
         ]);
     }
 

@@ -23,6 +23,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'parent_id') ?>
 
+    <?= $form->field($model, 'icon') ?>
+
+    <?php // echo $form->field($model, 'meta_title') ?>
+
+    <?php // echo $form->field($model, 'meta_description') ?>
+
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>

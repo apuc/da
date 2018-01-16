@@ -19,7 +19,7 @@ class CategoryProductSearch extends CategoryProduct
     {
         return [
             [['id', 'parent_id'], 'integer'],
-            [['name', 'slug'], 'safe'],
+            [['name', 'slug', 'icon', 'meta_title', 'meta_description'], 'safe'],
         ];
     }
 
@@ -64,7 +64,10 @@ class CategoryProductSearch extends CategoryProduct
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'slug', $this->slug]);
+            ->andFilterWhere(['like', 'slug', $this->slug])
+            ->andFilterWhere(['like', 'icon', $this->icon])
+            ->andFilterWhere(['like', 'meta_title', $this->meta_title])
+            ->andFilterWhere(['like', 'meta_description', $this->meta_description]);
 
         return $dataProvider;
     }
