@@ -260,18 +260,18 @@ class CompanyController extends Controller
 
             $cvRegion = (new Query())
                 ->select([
-                    'geobase_city.name',
-                    'sum' => new Expression("SUM(`count`)"),
-                    'count' => new Expression("COUNT(*)")
+                    '`gc`.`name`',
+                    '`sum`' => new Expression("SUM(`count`)"),
+                    '`count`' => new Expression("COUNT(*)")
                 ])
-                ->from('company_views')
-                ->leftJoin('geobase_ip', 'ip_address BETWEEN geobase_ip.ip_begin AND geobase_ip.ip_end')
-                ->leftJoin('geobase_city', 'geobase_city.id = geobase_ip.city_id')
-                ->where(['company_id' => $model->id])
+                ->from('`company_views`')
+                ->leftJoin('`geobase_ip_short` AS `gis`', '`ip_address` BETWEEN `gis`.`ip_begin` AND `gis`.`ip_end`')
+                ->leftJoin('`geobase_city` AS `gc`', '`gc`.`id` = `gis`.`city_id`')
+                ->where(['`company_id`' => $model->id])
                 ->groupBy([
-                    'geobase_ip.city_id',
+                    '`gis`.`city_id`',
                 ])
-                ->orderBy('sum DESC')
+                ->orderBy('`sum` DESC')
                 ->all();
 
 

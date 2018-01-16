@@ -4,6 +4,7 @@ use common\models\db\Company;
 use common\models\db\CompanyViews;
 use common\classes\Debug;
 use miloschuman\highcharts\Highcharts;
+use yii\db\Expression;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
 
@@ -19,14 +20,14 @@ if ($show) {
     $countVision = (new Query())
         ->select([
             'company_id',
-            'date' => new \yii\db\Expression("DATE(`date`)"),
-            'sum' => new \yii\db\Expression("SUM(`count`)"),
-            'unique' => new \yii\db\Expression("COUNT(*)")
+            'date' => new Expression("DATE(`date`)"),
+            'sum' => new Expression("SUM(`count`)"),
+            'unique' => new Expression("COUNT(*)")
         ])
         ->from('company_views')
         ->where(['company_id' => $model->id])
         ->groupBy([
-            new \yii\db\Expression("DATE(`date`)"),
+            new Expression("DATE(`date`)"),
             'company_id',
         ])
         ->all();
@@ -69,18 +70,18 @@ if ($show) {
 
     $cvRegion = (new Query())
         ->select([
-            'geobase_city.name',
-            'sum' => new \yii\db\Expression("SUM(`count`)"),
-            'count' => new \yii\db\Expression("COUNT(*)")
+            '`gc`.`name`',
+            '`sum`' => new Expression("SUM(`count`)"),
+            '`count`' => new Expression("COUNT(*)")
         ])
-        ->from('company_views')
-        ->leftJoin('geobase_ip', 'ip_address BETWEEN geobase_ip.ip_begin AND geobase_ip.ip_end')
-        ->leftJoin('geobase_city', 'geobase_city.id = geobase_ip.city_id')
-        ->where(['company_id' => $model->id])
+        ->from('`company_views`')
+        ->leftJoin('`geobase_ip_short` AS `gis`', '`ip_address` BETWEEN `gis`.`ip_begin` AND `gis`.`ip_end`')
+        ->leftJoin('`geobase_city` AS `gc`', '`gc`.`id` = `gis`.`city_id`')
+        ->where(['`company_id`' => $model->id])
         ->groupBy([
-            'geobase_ip.city_id',
+            '`gis`.`city_id`',
         ])
-        ->orderBy('sum DESC')
+        ->orderBy('`sum` DESC')
         ->all();
 
 
