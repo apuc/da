@@ -44,16 +44,33 @@ $metalData = [];
 foreach ($rates as $rate) {
     $metalData[$rate->currencyFrom->char_code]['name'] = $rate->currencyFrom->name;
     $metalData[$rate->currencyFrom->char_code]['data'][] = [strtotime($rate->date) * 1000, $rate->rate];
-} ?>
-<div id="container-metal" style="width:100%; height: 100%;">
-<?= Highstock::widget([
+}
+$hsOptions = [
+    'setupOptions' => [
+        'global' => [
+            'useUTC' => false,
+        ],
+        'lang' => [
+            'months' => [
+                'Января', 'Февраля', 'Марта', 'Апреля',
+                'Мая', 'Июня', 'Июля', 'Августа',
+                'Сентября', 'Октября', 'Ноября', 'Декабря'
+            ],
+            'shortMonths' => ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+            'weekdays' => [
+                'Воскресенье', 'Понедельник', 'Вторник', 'Среда',
+                'Четверг', 'Пятница', 'Суббота',
+            ],
+            'shortWeekdays' => ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб']
+        ],
+    ],
     'options' => [
         'chart' => [
             'type' => 'areaspline',
             'height' => 280
         ],
         'subtitle' => [
-            'text' => 'Металлы',
+            'text' => 'Цена на металлы (руб/грамм)',
         ],
         'rangeSelector' => [
             'selected' => 1,
@@ -98,6 +115,9 @@ foreach ($rates as $rate) {
                     // disabled: { ... }
                 ],
             ],
+            'labelStyle' => [
+                'visibility' => 'hidden'
+            ]
         ],
 
         'yAxis' => [
@@ -179,6 +199,7 @@ foreach ($rates as $rate) {
             ]
         ],
     ]
-]); ?>
-
+]; ?>
+<div id="container-metal" style="width:100%; height: 100%;">
+    <?= Highstock::widget($hsOptions); ?>
 </div>

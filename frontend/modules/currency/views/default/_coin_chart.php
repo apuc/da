@@ -70,7 +70,7 @@ $hsOptions = [
             'height' => 280
         ],
         'subtitle' => [
-            'text' => 'Криптовалюты',
+            'text' => 'Курс криптовалют',
         ],
         'rangeSelector' => [
             'selected' => 1,
@@ -115,6 +115,9 @@ $hsOptions = [
                     // disabled: { ... }
                 ],
             ],
+            'labelStyle' => [
+                'visibility' => 'hidden'
+            ]
         ],
 
         'yAxis' => [
@@ -161,7 +164,7 @@ $hsOptions = [
         ],
         'series' => [
             [
-                'name' => 'BTC',
+                'name' => 'BTC/$',
                 'color' => '#ff8e13',
                 'data' => $coinData['BTC']['data'],
                 'fillColor' => [
@@ -178,7 +181,7 @@ $hsOptions = [
                 ]
             ],
             [
-                'name' => 'ETH',
+                'name' => 'ETH/$',
                 'color' => '#141414',
                 'visible' => false,
                 'data' => $coinData['ETH']['data'],
