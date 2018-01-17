@@ -45,8 +45,21 @@ $this->registerMetaTag([
                         </thead>
                         <tbody>
                         <?php foreach ($rates['rates'] as $rate): ?>
-                            <tr><?php foreach ($rate as $value): ?>
-                                    <td><?= $value ?></td>
+                            <tr><?php foreach ($rate as $key => $value): ?>
+                                    <td>
+                                        <?php if ($key == 'rate') : ?>
+                                            <div>
+                                                <span><?= $value['now'] ?></span>
+                                                <?php if ($value['diff'] > 0): ?>
+                                                    <i style="color: #00ff00" title="<?= '+' . $value['diff'] ?>">↑</i>
+                                                <?php elseif ($value['diff'] < 0): ?>
+                                                    <i style="color: red" title="<?= $value['diff'] ?>">↓</i>
+                                                <?php endif; ?>
+                                            </div>
+                                        <?php else: ?>
+                                            <?= $value ?>
+                                        <?php endif; ?>
+                                    </td>
                                 <?php endforeach; ?></tr>
                         <?php endforeach; ?>
                         </tbody>
