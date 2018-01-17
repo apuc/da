@@ -37,7 +37,7 @@ if ($show) {
             'chart' => [
                 'type' => 'areaspline',
             ],
-            'title' => ['text' => 'Количество просмотров'],
+            'title' => ['text' => 'Количество посетителей'],
             'xAxis' => [
                 'categories' => ArrayHelper::getColumn($countVision, function ($item) {
                     return $item['date'];
@@ -103,11 +103,11 @@ if ($show) {
                 ],
             ],
             'title' => [
-                'text' => 'Количество просмотров по городам'
+                'text' => 'Всего посетителей по городам'
             ],
             'series' => [[
                 'type' => 'pie',
-                'name' => 'Количество просмотров',
+                'name' => 'Количество посетителей',
                 'data' => $cvRegion
             ]]
         ]
@@ -167,7 +167,12 @@ if ($show) {
     <div class="cabinet-company-statistic__body">
         <div class="cabinet-company-statistic__body--left">
             <h4>Охват аудитории</h4>
-            <p>Количество посетителей <b><?= $model->views ?></b></p>
+            <?php $sum = $count = 0;
+            foreach ($cvRegion as $item) {
+                $sum += $item[1];
+                $count += $item[2];
+            } ?>
+            <p>Количество посетителей <b><?= $sum ?></b></p>
             <p>Количество <span>уникальных</span> посетителей
                 <b><?= $uniqueViews ?></b></p>
             <?php if ($show) : ?>
@@ -176,18 +181,16 @@ if ($show) {
                     <thead>
                     <tr>
                         <td>Город</td>
-                        <td>Количество</td>
+                        <td>Общие</td>
+                        <td>Уникальные</td>
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $sum = 0;
-                    foreach ($cvRegion as $item) {
-                        $sum += $item[1];
-                    } ?>
                     <?php foreach ($cvRegion as $item): ?>
                         <tr>
                             <td><?= $item[0] ?></td>
                             <td><?= Yii::$app->formatter->asPercent($item[1] / $sum, 1) ?></td>
+                            <td><?= Yii::$app->formatter->asPercent($item[2] / $count, 1) ?></td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>

@@ -28,11 +28,11 @@ $this->registerJsFile('/js/company.min.js', ['depends' => [\yii\web\JqueryAsset:
 die();*/
 
 $this->params['breadcrumbs'][] = ['label' => 'Все предприятия', 'url' => Url::to(['/company/company'])];
-if(!empty($categoryCompany['category']['categ']->title)){
+if (!empty($categoryCompany['category']['categ']->title)) {
     $this->params['breadcrumbs'][] = ['label' => $categoryCompany['category']['categ']->title, 'url' => Url::to(['/company/company/view-category', 'slug' => $categoryCompany['category']['categ']->slug])];
 
 }
-if(!empty($categoryCompany['category']->title)){
+if (!empty($categoryCompany['category']->title)) {
     $this->params['breadcrumbs'][] = ['label' => $categoryCompany['category']->title, 'url' => Url::to(['/company/company/view-category', 'slug' => $categoryCompany['category']->slug])];
 }
 $this->params['breadcrumbs'][] = $model->name;
@@ -62,29 +62,28 @@ $this->params['breadcrumbs'][] = $model->name;
                     <div class="business__requisites--address">
 
                         <h3><?= $model->name ?></h3>
-                        <?php if($model->verifikation == 1): ?>
+                        <?php if ($model->verifikation == 1): ?>
                             <span class="business__sm-item--label">
                                 <img src="/theme/portal-donbassa/img/icons/ver.png" alt="">
                             </span>
                         <?php endif; ?>
-                        <!--<p><?/*= $model['meta_descr'] */?></p>-->
+                        <!--<p><? /*= $model['meta_descr'] */ ?></p>-->
 
                         <?php
-                            if($model->region_id != 0){
-                                $address = GeobaseFunction::getRegionName($model->region_id) . ', ' .GeobaseFunction::getCityName($model->city_id) . ', ' . $model->address ;
-                            }
-                            else{
-                                $address = $model->address;
-                            }
+                        if ($model->region_id != 0) {
+                            $address = GeobaseFunction::getRegionName($model->region_id) . ', ' . GeobaseFunction::getCityName($model->city_id) . ', ' . $model->address;
+                        } else {
+                            $address = $model->address;
+                        }
                         ?>
 
-                        <p class="concreate-adress"><?= $address;  ?></p>
+                        <p class="concreate-adress"><?= $address; ?></p>
                         <div class="companyDtReg">
                             <span>добавлено:</span>
                             <?= \common\classes\DataTime::time($model->dt_add); ?>
                         </div>
                     </div>
-                    <?php if(!empty($model->email)):?>
+                    <?php if (!empty($model->email)): ?>
                         <div class="business__requisites--site">
 
                             <a href="" target="_blank"><span><?= $model->email; ?></span>
@@ -94,10 +93,10 @@ $this->params['breadcrumbs'][] = $model->name;
                                 подробности</p>-->
 
                         </div>
-                    <?php endif;?>
+                    <?php endif; ?>
                     <div class="business__requisites--links">
                         <div class="business__requisites--links-w">
-                            <span class="unique-views"><?= $uniqueViews ?> просмотров</span>
+                            <span class="unique-views"><?= $uniqueViews ?> посетителей</span>
                             <span class="views"><?= $model->views; ?> просмотров</span>
                         </div>
                         <a class="phone" href="tel:+380667778540">
@@ -108,25 +107,26 @@ $this->params['breadcrumbs'][] = $model->name;
                             <?php endif; ?>
                         </a>
                         <a class="phone" href="tel:+380667778540">
-                            <?php if (isset($model->allPhones[1]->phone )): ?>
-                                <?= $model->allPhones[1]->phone  ?>
+                            <?php if (isset($model->allPhones[1]->phone)): ?>
+                                <?= $model->allPhones[1]->phone ?>
                             <?php elseif (isset($model->getPhones()[1])): ?>
                                 <?= $model->getPhones()[1] ?>
                             <?php endif; ?>
                         </a>
 
-                        <?php if(isset($services['group_link']) && $services['group_link'] == 1 && !empty($socCompany)):
+                        <?php if (isset($services['group_link']) && $services['group_link'] == 1 && !empty($socCompany)):
 
-                                foreach ($typeSeti as $type){
-                                    if(isset($socCompany[$type->id]->link)):
-                                ?>
-                                    <a href="<?= $socCompany[$type->id]->link?>" target="_blank" class="social-wrap__item vk">
+                            foreach ($typeSeti as $type) {
+                                if (isset($socCompany[$type->id]->link)):
+                                    ?>
+                                    <a href="<?= $socCompany[$type->id]->link ?>" target="_blank"
+                                       class="social-wrap__item vk">
                                         <img src="<?= $type->icon ?>" alt="">
                                     </a>
                                 <?php
-                                    endif;
+                                endif;
 
-                                }
+                            }
 
                         endif; ?>
                     </div>
@@ -161,7 +161,8 @@ $this->params['breadcrumbs'][] = $model->name;
 
                                 <?php foreach ($img as $item): ?>
 
-                                    <a href="<?= $item->photo ?>" data-fancybox="gallery" class="business__photos--slide">
+                                    <a href="<?= $item->photo ?>" data-fancybox="gallery"
+                                       class="business__photos--slide">
                                         <img src="<?= $item->photo ?>" alt="">
                                     </a>
 
@@ -171,7 +172,7 @@ $this->params['breadcrumbs'][] = $model->name;
                         <?php endif; ?>
 
                         <div class="business__descr">
-                            <?php if(isset($services['count_text']) && $services['count_text'] != '-'):?>
+                            <?php if (isset($services['count_text']) && $services['count_text'] != '-'): ?>
                                 <?= \yii\helpers\StringHelper::truncate($model->descr, $services['count_text']); ?>
                             <?php else: ?>
                                 <?= $model->descr; ?>
@@ -187,7 +188,7 @@ $this->params['breadcrumbs'][] = $model->name;
 
                                 <?php foreach ($feedback as $item): ?>
                                     <div class="business__reviews--item">
-                                        <?// \common\classes\Debug::prn($item['user_id']) ?>
+                                        <? // \common\classes\Debug::prn($item['user_id']) ?>
 
                                         <div class="business__reviews--avatar">
                                             <?= \common\classes\UserFunction::getUser_avatar_html($item['user_id']); ?>
@@ -199,7 +200,7 @@ $this->params['breadcrumbs'][] = $model->name;
 
                                             <h3><?= \common\classes\UserFunction::getUserName($item['user_id']) ?></h3>
 
-                                            <!--<p><?/*= $model->meta_descr */?></p>-->
+                                            <!--<p><? /*= $model->meta_descr */ ?></p>-->
 
                                             <p class="full"><?= $item->feedback ?></p>
 
@@ -217,13 +218,12 @@ $this->params['breadcrumbs'][] = $model->name;
                             <div class="what-say__servises">
                                 <?php if (!Yii::$app->user->isGuest): ?>
                                     <a href="#" id="add-review"
-                                       data-id="<?= $model->id?>"
-                                       data-name="<?= $model->name?>"
+                                       data-id="<?= $model->id ?>"
+                                       data-name="<?= $model->name ?>"
                                     ><span class="comments-icon"></span>Написать свой отзыв</a>
-                                <?php
-                                    else:
-                                ?>
-                                    <a href="<?= \yii\helpers\Url::to(['/user/login'])?>"><span class="comments-icon"></span>Авторизируйтесь чтобы оставить отзыв</a>
+                                <?php else: ?>
+                                    <a href="<?= \yii\helpers\Url::to(['/user/login']) ?>"><span
+                                                class="comments-icon"></span>Авторизируйтесь чтобы оставить отзыв</a>
                                 <?php endif; ?>
                                 <!--<form action="" class="business__form">
 
@@ -240,23 +240,23 @@ $this->params['breadcrumbs'][] = $model->name;
                     <div class="business__tab-content--wrapper" id="stocks">
                         <h3 class="section-title">Наши акции</h3>
                         <div class="business__stocks--box">
-                        <?php if (!empty($stock)): ?>
-                            <?php foreach ($stock as $item): ?>
-                                <div class="stock__sm-item">
-                                    <div class="stock__sm-item--img">
+                            <?php if (!empty($stock)): ?>
+                                <?php foreach ($stock as $item): ?>
+                                    <div class="stock__sm-item">
+                                        <div class="stock__sm-item--img">
 
-                                        <img src="<?= $item->photo ?>" alt="">
+                                            <img src="<?= $item->photo ?>" alt="">
+                                        </div>
+                                        <div class="stock__sm-item--descr">
+                                            <span class="views"><?= $item->view ?> просмотров</span>
+                                            <p><?= $item->title ?></p>
+                                        </div>
+                                        <div class="stock__sm-item--time">
+                                            <p><?= $item->dt_event ?></p>
+                                        </div>
                                     </div>
-                                    <div class="stock__sm-item--descr">
-                                        <span class="views"><?= $item->view?> просмотров</span>
-                                        <p><?= $item->title ?></p>
-                                    </div>
-                                    <div class="stock__sm-item--time">
-                                        <p><?= $item->dt_event ?></p>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -268,7 +268,12 @@ $this->params['breadcrumbs'][] = $model->name;
                             <div class="cabinet-company-statistic__body">
                                 <div class="cabinet-company-statistic__body--left">
                                     <h4>Охват аудитории</h4>
-                                    <p>Количество посетителей <b><?= $model->views ?></b></p>
+                                    <?php $sum = $count = 0;
+                                    foreach ($cvRegion as $item) {
+                                        $sum += $item[1];
+                                        $count += $item[2];
+                                    } ?>
+                                    <p>Количество посетителей <b><?= $sum ?></b></p>
                                     <p>Количество <span>уникальных</span> посетителей <b><?= $uniqueViews ?></b></p>
                                     <?php if ($show) : ?>
                                         <h5>География </h5>
@@ -276,18 +281,16 @@ $this->params['breadcrumbs'][] = $model->name;
                                             <thead>
                                             <tr>
                                                 <td>Город</td>
-                                                <td>Количество</td>
+                                                <td>Общие</td>
+                                                <td>Уникальные</td>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <?php $sum = 0;
-                                            foreach ($cvRegion as $item) {
-                                                $sum += $item[1];
-                                            } ?>
                                             <?php foreach ($cvRegion as $item): ?>
                                                 <tr>
                                                     <td><?= $item[0] ?></td>
                                                     <td><?= Yii::$app->formatter->asPercent($item[1] / $sum, 1) ?></td>
+                                                    <td><?= Yii::$app->formatter->asPercent($item[2] / $count, 1) ?></td>
                                                 </tr>
                                             <?php endforeach; ?>
                                             </tbody>
@@ -305,21 +308,19 @@ $this->params['breadcrumbs'][] = $model->name;
                     </div>
                 </div>
 
-                <?php if(!empty($model['tagss'])): ?>
+                <?php if (!empty($model['tagss'])): ?>
                     <div class="content__separator"></div>
                     <section class="hashtag">
                         <div class="hashtag__wrapper">
                             <?php
-                            foreach ($model['tagss'] as $tags){ ?>
-                                <a href="<?= Url::to(['/search/tag', 'id' => $tags['tagname']->id])?>">
+                            foreach ($model['tagss'] as $tags) { ?>
+                                <a href="<?= Url::to(['/search/tag', 'id' => $tags['tagname']->id]) ?>">
                                     <div class="hashtag__wrapper--item"><?= $tags['tagname']->tag; ?></div>
                                 </a>
                             <?php } ?>
                         </div>
                     </section>
                 <?php endif; ?>
-
-
 
 
                 <div class="business__location">
@@ -330,7 +331,7 @@ $this->params['breadcrumbs'][] = $model->name;
 
             </div>
 
-            <?/*= \frontend\modules\company\widgets\HotStock::widget() */?>
+            <? /*= \frontend\modules\company\widgets\HotStock::widget() */ ?>
             <?= \frontend\widgets\ShowRightRecommend::widget(); ?>
 
         </div>
