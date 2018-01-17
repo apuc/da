@@ -27,6 +27,8 @@ use Yii;
  * @property string $author
  * @property integer $hot_new
  * @property integer $show_error
+ * @property integer $region_id
+ * @property integer $editor_choice
  *
  * @property CategoryNewsRelations[] $categoryNewsRelations
  */
@@ -50,7 +52,7 @@ class News extends \yii\db\ActiveRecord
             [['title', 'content'/*, 'categoryId'*/], 'required'],
             [['content'], 'string'],
             [
-                ['dt_add', 'dt_update', 'status', 'user_id', 'lang_id', 'views', 'exclude_popular', 'rss', 'hot_new', 'show_error'],
+                ['dt_add', 'dt_update', 'status', 'user_id', 'lang_id', 'views', 'exclude_popular', 'rss', 'hot_new', 'show_error', 'region_id', 'editor_choice'],
                 'integer',
             ],
             [['title', 'slug', 'tags', 'photo', 'meta_title', 'meta_descr'], 'string', 'max' => 255],
@@ -86,7 +88,8 @@ class News extends \yii\db\ActiveRecord
             'author' => Yii::t('news', 'Author'),
             'hot_new' => Yii::t('news', 'Hot new'),
             'show_error' => Yii::t('news', 'Show_error'),
-            /*'categoryId' => Yii::t('news', 'Category'),*/
+            'region_id' => Yii::t('news', 'RegionID'),
+            'editor_choice' => Yii::t('news', 'Editor choice'),
         ];
     }
 
@@ -114,6 +117,18 @@ class News extends \yii\db\ActiveRecord
 
     public static function getCommentsCount($id){
         return Comments::find()->where(['post_type' => 'news', 'post_id' => $id, 'published' => 1])->count();
+    }
+
+    public static function getLikeCount($id){
+        return Likes::find()->where(['post_type' => 'news', 'post_id' => $id])->count();
+    }
+
+    public static function getTags($id){
+        return TagsRelation::find()
+            ->where(['post_id' => $id, 'type' => 'news'])
+            ->with('tags')
+            ->limit(2)
+            ->all();
     }
 
     /*public function getcategory_news_relations()

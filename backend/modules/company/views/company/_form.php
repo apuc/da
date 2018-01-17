@@ -18,7 +18,7 @@ use yii\jui\DatePicker;
 /* @var $form yii\widgets\ActiveForm */
 /* @var $companyPhotos array */
 /* @var $companyPhotosStr string */
-$this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\web\JqueryAsset::className()]);
+//$this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
 
 <div class="company-form">
@@ -33,7 +33,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\we
             'categ',
             null,
             ArrayHelper::map(CategoryCompany::find()->where(['lang_id' => 1, 'parent_id' => 0])->all(), 'id', 'title'),
-            ['class' => 'form-control', 'id' => 'categ_company']
+            ['class' => 'form-control', 'id' => 'categ_company', 'prompt' => 'Выберите категорию']
         );
         ?>
 
@@ -80,8 +80,6 @@ $this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\we
     ]);
     ?>
 
-    <? //\common\classes\Debug::prn(ArrayHelper::map($tags, 'id', 'tag')) ?>
-
     <label class="control-label" for="company-city_id">Начните вводить Ваш город</label>
     <?= Select2::widget([
         'name' => 'Company[city_id]',
@@ -101,23 +99,23 @@ $this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\we
         ['prompt' => 'Выберите тариф']) ?>
 
     <div class="set-services-of-tariff">
-        <?if($model->tariff_id == 4):?>
-            <? $serviceChecked = \common\models\db\ServicesCompanyRelations::find()->where(['company_id' => $model->id])
+        <?php if($model->tariff_id == 4):?>
+            <?php $serviceChecked = \common\models\db\ServicesCompanyRelations::find()->where(['company_id' => $model->id])
                 ->asArray()
                 ->all()?>
-            <? $checked = ArrayHelper::getColumn($serviceChecked, 'services_id')?>
-            <? $services = \common\models\db\Services::find()->asArray()->all() ?>
+            <?php $checked = ArrayHelper::getColumn($serviceChecked, 'services_id')?>
+            <?php $services = \common\models\db\Services::find()->asArray()->all() ?>
 
-            <?foreach ($services as $service):?>
+            <?php foreach ($services as $service):?>
                 <div class="checkbox">
                     <label><input type="checkbox" name="services[][services_id]" value="<?= $service['id']?>"
-                        <?if (in_array($service['id'], $checked)):?>
+                        <?php if (in_array($service['id'], $checked)):?>
                             checked
-                        <?endif;?>
+                        <?php endif;?>
                         ><?= $service['name']?></label>
                 </div>
-                <?endforeach;?>
-        <?endif;?>
+                <?php endforeach;?>
+        <?php endif;?>
     </div>
     <label>Дата окончания тарифа</label>
     <?php if (Yii::$app->controller->action->id === 'create'): ?>
@@ -130,7 +128,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\we
                 'dateFormat' => 'dd-MM-yyyy',
             ]);
             ?>
-        <?else:?>
+        <?php else:?>
         <?= DatePicker::widget([
             //'model' => $model,
             'name' => 'dt_end_tariff',
@@ -141,14 +139,43 @@ $this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\we
             'dateFormat' => 'dd-MM-yyyy',
         ]);
         ?>
-<?endif;?>
+<?php endif;?>
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
+    <?= Html::label('Старый телефон', 'mytext', ['class' => 'control-label']) ?>
+    <textarea class="form-control"><?= $model->phone?></textarea>
+    <div class="phone-dynamic-input">
 
-    <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
+        <?= Html::label('Телефон', 'mytext', ['class' => 'control-label']) ?>
+        <?php if (Yii::$app->controller->action->id == 'create'):?>
+        <div class="input-group multiply-field">
+            <input value="" class="form-control" name="mytext[]" type="text">
+            <a href="#" class="input-group-addon add-input-phone"><span class="glyphicon glyphicon-plus"></span></a>
+        </div>
+
+        <?php elseif (Yii::$app->controller->action->id == 'update'):?>
+
+            <?php if(!empty($phones)):?>
+
+                <?php foreach ($phones as $key => $phone):?>
+                    <div class="input-group <?= ($key == 0) ? 'multiply-field': ''?> ">
+                        <input value="<?= $phone->phone?>" class="form-control" name="mytext[]" type="text">
+                        <a href="#" class="input-group-addon <?= ($key == 0) ? 'add': 'remove'?>-input-phone"><span class="glyphicon glyphicon-<?= ($key == 0) ? 'plus': 'minus'?> "></span></a>
+                    </div>
+                <?php endforeach;?>
+
+            <?php else:?>
+                <div class="input-group multiply-field">
+                    <input value="" class="form-control" name="mytext[]" type="text">
+                    <a href="#" class="input-group-addon add-input-phone"><span class="glyphicon glyphicon-plus"></span></a>
+                </div>
+            <?php endif;?>
+        <?php endif;?>
+    </div>
+
+
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <? /*= $form->field($model, 'photo')->textInput(['maxlength' => true]) */ ?>
     <div class="imgUpload">
         <div class="media__upload_img"><img src="<?= $model->photo; ?>" width="100px"/></div>
         <?php
@@ -197,11 +224,6 @@ $this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\we
         ?>
     </div>
 
-    <? /*= $form->field($model, 'dt_add')->textInput() */ ?>
-
-    <? /*= $form->field($model, 'dt_update')->textInput() */ ?>
-
-    <? /*= $form->field($model, 'descr')->textarea(['rows' => 6]) */ ?>
     <?php echo $form->field($model, 'descr')->widget(CKEditor::className(), [
         'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
             'preset' => 'full',
@@ -234,7 +256,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\we
     <p class="cabinet__add-company-form--title"><b>Соц. сети компании</b></p>
     <div class="cabinet__add-company-form--social">
 
-    <?foreach ($typeSeti as $type):?>
+    <?php foreach ($typeSeti as $type):?>
         <div class="cabinet__add-company-form--social-element">
                             <span class="social-wrap__item">
                                 <img src="<?= $type->icon ?>" alt="">
@@ -242,7 +264,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\we
             <span class="social-name"><?= $type->name; ?></span>
             <input type="text" value="<?= !empty($socCompany[$type->id]->link) ? $socCompany[$type->id]->link : ''?>" name="socicon[<?= $type->id?>][]" class="social-way">
         </div>
-    <?endforeach;?>
+    <?php endforeach;?>
     </div>
 
     <?= $form->field($model, 'recommended')->dropDownList([
@@ -260,7 +282,8 @@ $this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\we
         1 => 'На модерации',
     ]) ?>
 
-    <? /*= $form->field($model, 'slug')->textInput(['maxlength' => true]) */ ?>
+    <?= $form->field($model, 'verifikation')->checkbox(); ?>
+
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('company', 'Create') : Yii::t('company', 'Update'),

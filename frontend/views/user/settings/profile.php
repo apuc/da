@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <ul class="cabinet__tab-links">
         <li class="tab"><a href="<?= \yii\helpers\Url::to('/user/settings/profile')?>" class="active">Настройки профиля</a></li>
         <li class="tab"><a href="<?= \yii\helpers\Url::to('/user/settings/account')?>">Настройки аккаунта</a></li>
-        <li class="tab"><a href="#">Настройки соц.сетей</a></li>
+        <li class="tab"><a href="<?= \yii\helpers\Url::to('/user/settings/networks')?>">Настройки соц.сетей</a></li>
     </ul>
 
     <div class="business__tab-content">
@@ -39,10 +39,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php $form = \yii\widgets\ActiveForm::begin([
                     'id' => 'profile-form',
                     'options' => ['class' => 'cabinet__add-company-form'],
-                    /*'fieldConfig' => [
-                        'template' => "{label}\n<div class=\"col-lg-9\">{input}</div>\n<div class=\"col-sm-offset-3 col-lg-9\">{error}\n{hint}</div>",
-                        'labelOptions' => ['class' => 'col-lg-3 control-label'],
-                    ],*/
                     'enableAjaxValidation' => true,
                     'enableClientValidation' => false,
                     'validateOnBlur' => false,
@@ -50,11 +46,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <p class="cabinet__add-company-form--title">Имя пользователя</p>
         <?= $form->field($model, 'name')->textInput(['class' => 'cabinet__add-company-form--field'])->label(false); ?>
-        <!--<div class="cabinet__add-company-form--block"></div>-->
 
         <p class="cabinet__add-company-form--title">Публичный E-mail</p>
         <?= $form->field($model, 'public_email')->textInput(['class' => 'cabinet__add-company-form--field'])->label(false) ?>
-        <!--<div class="cabinet__add-company-form--block"></div>-->
 
         <p class="cabinet__add-company-form--title">Аватар</p>
 
@@ -77,9 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ])->label('Загрузить аватар с компютера')->fileInput();
             }
             ?>
-       <!-- <div class="cabinet__add-company-form--block"></div>-->
 
-        <?/*= $form->field($model, 'location') */?>
 
                 <?= \yii\helpers\Html::submitButton(Yii::t('user', 'Save'),
                             ['class' => 'cabinet__add-company-form--submit']) ?>

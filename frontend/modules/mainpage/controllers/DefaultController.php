@@ -3,12 +3,15 @@
 namespace frontend\modules\mainpage\controllers;
 
 use common\classes\Debug;
+use common\classes\UserFunction;
 use common\models\db\CategoryCompany;
 use common\models\db\Company;
 use common\models\db\KeyValue;
 use common\models\db\Lang;
 use common\models\db\News;
 use frontend\controllers\MainController;
+use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 
 /**
@@ -20,14 +23,15 @@ class DefaultController extends Controller {
      * @return string
      */
 
-    public $layout = 'portal';
+    //public $layout = 'portal';
 
     public function actionIndex() {
-
+        $keyVal = KeyValue::find()->all();
+        $useReg = UserFunction::getRegionUser();
         return $this->render( 'index',
             [
-                'meta_title' => KeyValue::findOne( [ 'key' => 'main_page_meta_title' ] )->value,
-                'meta_descr' => KeyValue::findOne( [ 'key' => 'main_page_meta_descr' ] )->value,
+                'meta' => ArrayHelper::index($keyVal, 'key'),
+                'useReg' => $useReg,
             ]
     );
     }

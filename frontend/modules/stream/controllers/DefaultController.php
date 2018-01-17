@@ -4,24 +4,41 @@ namespace frontend\modules\stream\controllers;
 
 use backend\modules\comments\models\Comments;
 use common\classes\Debug;
+use common\models\db\KeyValue;
 use common\models\db\VkComments;
 use common\models\db\VkStream;
 use common\models\User;
 use frontend\models\user\Profile;
 use yii\web\Controller;
 use yii\web\Cookie;
+use Yii;
 
 /**
  * Default controller for the `stream` module
  */
 class DefaultController extends Controller
 {
-    public function beforeAction($action)
+    public function init()
+    {
+        $this->on('beforeAction', function ($event) {
+
+            // запоминаем страницу неавторизованного пользователя, чтобы потом отредиректить его обратно с помощью  goBack()
+            if (Yii::$app->getUser()->isGuest) {
+                $request = Yii::$app->getRequest();
+                // исключаем страницу авторизации или ajax-запросы
+                if (!($request->getIsAjax() || strpos($request->getUrl(), 'login') !== false)) {
+                    Yii::$app->getUser()->setReturnUrl($request->getUrl());
+                }
+            }
+        });
+    }
+
+    /*public function beforeAction($action)
     {
        if($action == 'get-new-post')
            $this->enableCsrfValidation = false ;
        return true;
-    }
+    }*/
 
     /**
      * Renders the index view for the module
@@ -44,23 +61,25 @@ class DefaultController extends Controller
         return $this->render('index', [
             'model1' => $result[1],
             'model2' => $result[2],
-            'count' => $count
+            'count' => $count,
+            'meta_title' => KeyValue::findOne( [ 'key' => 'stream_title_page' ] )->value,
+            'meta_desc' => KeyValue::findOne( [ 'key' => 'stream_desc_page' ] )->value,
         ]);
     }
 
     public function actionLoadMore()
     {
-        $dt_add = \Yii::$app->request->post('dt_add');
+        $dt_publish = \Yii::$app->request->post('dt_add');
+
 
         if(\Yii::$app->request->post('step') !== null){
-            $models = VkStream::getPosts(10, \Yii::$app->request->post('step') * 10, $dt_add);
+            $models = VkStream::getPosts(10, \Yii::$app->request->post('step') * 10, $dt_publish);
 
                foreach ($models as $model)
                {
                    $model->getAllComments();
                    $result['render'][] = $this->renderPartial('more-stream', ['item' => $model]);
                }
-
                 $result['count'] = (count($models) < 10) ? 0 : 1;
                 return  json_encode($result);
 
@@ -73,18 +92,22 @@ class DefaultController extends Controller
         $model = VkStream::find()->with('photo', 'comments', 'author', 'group')
             ->where(['slug' => $slug])
             ->one();
-        $model->getAllComments();
 
-        if(!empty($model))
+        if(empty($model))
         {
-            $model->views += 1;
-            $model->save();
+            return $this->render('view', [
+                'model' => $model,
+                'count' => VkStream::getPublishedCount(),
+                ]);
         }
 
+        $model->getAllComments();
+        $model->views += 1;
+        $model->save();
         $interested = VkStream::find()->with('photo', 'comments', 'author', 'group')
             ->where(['status' => 1])
-            ->andWhere(['<', 'dt_add', $model->dt_add])
-            ->orderBy('dt_add DESC')
+            ->andWhere(['<', 'dt_publish', $model->dt_publish])
+            ->orderBy('dt_publish DESC')
             ->limit(10)
             ->offset(0)
             ->all();

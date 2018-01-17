@@ -1,36 +1,10 @@
 <?php
+use yii\helpers\Url;
  ?>
-
-<!--<div class="home-content__sidebar_consultation">
-    <h3>КОНСУЛЬТАЦИИ</h3>
-    <a href="#" class="ask">
-        <span class="ask-icon"></span>
-        <span class="ask-title">Задать вопрос</span>
-    </a>
-    <?php /*foreach ($faq as $item):
-        */?>
-        <a href="<?/*= \yii\helpers\Url::to(['/consulting/consulting/faq-post', 'slug' => $item->slug]); */?>"
-           class="consultation__item">
-            <div class="thumb">
-                <!--<span>A</span>
-                <?php /*if (!empty($item->consulting->photo)): */?>
-                    <img src="<?/*= $item->consulting->photo; */?>" alt="">
-                <?php /*else: */?>
-                    <span><?/*= substr($item->company->user->username, 0, 1); */?></span>
-                <?php /*endif; */?>
-            </div>
-            <p><?/*= $item->question; */?></p>
-        </a>
-    <?php /*endforeach; */?>
-    <a href="<?/*= \yii\helpers\Url::to(['/consulting/consulting']); */?>" class="show-more">посмотреть больше<span
-                class="red-arrow"></span></a>
-</div>-->
-
-
 
 <div class="home-content__sidebar_consultation">
 
-    <h3>КОНСУЛЬТАЦИИ</h3>
+    <h3><a href="/consulting">КОНСУЛЬТАЦИИ</a></h3>
     <!-- <span class="consultation-title"></span> -->
     <a href="#" class="ask">
         <span class="ask-icon"></span>
@@ -38,7 +12,7 @@
     </a>
 
 
-    <?php use yii\helpers\Url;
+    <?php
 
     foreach ($faq as $item):
        /* \common\classes\Debug::prn($item['consulting']);*/
@@ -50,7 +24,7 @@
             <a href="<?= \yii\helpers\Url::to(['/consulting/consulting/faq-post', 'slug' => $val->slug]); ?>" class="consultation__item">
 
                 <div class="thumb">
-                    <img src="<?= $item['consulting']->photo; ?>" alt="">
+                    <img src="<?= $item['consulting']->photo . '?width=50' ?>" alt="">
                 </div>
 
                 <p><?= $val->question; ?></p>

@@ -23,7 +23,7 @@ $this->title = "Выбор тарифа для компании";
 
                 <p>ХОТИТЕ УЗНАТЬ
                     <a href="#stock<?= $item->id; ?>" class="cabinet__packages--about">ПОДРОБНЕЕ?</a></p>
-                <?if($item->id != 4):?>
+                <?php if($item->id != 4):?>
                 <a href="<?= \yii\helpers\Url::to(
                     [
                         '/company/default/to-order',
@@ -33,10 +33,10 @@ $this->title = "Выбор тарифа для компании";
                     ])
                 ?>"
                    class="cabinet__packages--buy">заказать</a>
-                <?else:?>
+                <?php else:?>
                 <a  id="buy4" href="#stock4"
                    class="cabinet__packages--buy cabinet__packages--about">заказать</a>
-                <?endif;?>
+                <?php endif;?>
             </div>
 
         <?php $count++; endforeach; ?>
@@ -59,7 +59,7 @@ $this->title = "Выбор тарифа для компании";
 
                     <ul>
                         <?php foreach ($services as $val): ?>
-                            <li><span class="descr"><?= $val['services']->name?></span><span class="val"><?/*= $val['services']->price*/?></span></li>
+                            <li><span class="descr"><?= $val['services']->name?></span><span class="val"></span></li>
                         <?php endforeach; ?>
 
                         <li><span class="descr">Цена тарифа</span><span class="val"><?= $item->price; ?> руб/год</span></li>

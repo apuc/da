@@ -21,7 +21,7 @@ class AppAssetConsulting extends AssetBundle
 
     ];
     public $js = [
-        '/js/consulting.js',
+        '/js/consulting.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

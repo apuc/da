@@ -1,7 +1,7 @@
 <?php
 echo \yii\helpers\Html::label('Подкатегория');
 echo \yii\helpers\Html::dropDownList(
-    'childrenCategory[]',
+    'idCat[]',
     null,
     \yii\helpers\ArrayHelper::map($cat, 'id', 'name'),
     [

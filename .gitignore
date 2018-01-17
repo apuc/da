@@ -32,3 +32,8 @@ phpunit.phar
 /common/classes/WordFunctions.php
 /frontend/web/media/upload/
 /cgi-bin/
+Would skip repository theme/da-html/
+theme/node_modules/
+theme/package-lock.json
+/node_modules/
+/package-lock.json

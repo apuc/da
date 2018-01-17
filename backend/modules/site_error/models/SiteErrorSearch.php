@@ -56,7 +56,7 @@ class SiteErrorSearch extends SiteError
             // $query->where('0=1');
             return $dataProvider;
         }
-
+        $query->orderBy('dt_add DESC');
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,

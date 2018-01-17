@@ -3,13 +3,16 @@ namespace backend\widgets;
 
 use backend\modules\comments\models\Comments;
 use backend\modules\company_feedback\models\CompanyFeedback;
+use backend\modules\contacting\models\Contacting;
 use backend\modules\site_error\models\SiteError;
 use backend\modules\vk\models\VkStream;
 use common\classes\CompanyFunction;
+use common\classes\Debug;
 use common\classes\UserFunction;
 use common\models\db\News;
 use common\models\db\Poster;
 use dektrium\user\models\User;
+use frontend\modules\board\models\BoardFunction;
 use Yii;
 use yii\base\Widget;
 use yii\helpers\Url;
@@ -19,6 +22,19 @@ class MainMenuAdmin extends Widget
 {
     public function run()
     {
+        $url = Yii::$app->params['site-api'] . '/ads/count-moder-ads?api_key=' . Yii::$app->params['api-key'];
+        if (BoardFunction::isDomainAvailible($url)){
+            $countAds = BoardFunction::fileGetContent($url);
+            $countAds = json_decode($countAds);
+        } else {
+            $countAds = '?!?';
+        }
+
+        $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
+
+
+        $userId = Yii::$app->user->id;
+
         $companyCountModer = CompanyFunction::getCompanyCountModer();
         $CompanyTariffOrderCount = CompanyFunction::getCompanyOrderTarif();
         $countNews = News::find()->where(['status' => 1])->count();
@@ -27,9 +43,31 @@ class MainMenuAdmin extends Widget
         $countPromotions = Stock::find()->where(['status' => 1])->count();
         $countFeedback = CompanyFeedback::find()->where(['status' => 0])->count();
         $countModerStream = VkStream::find()->where(['status' => 0])->count();
-        $countPublishStream = VkStream::find()->where(['status' => 2])->count();
-        $countPublishedStream = VkStream::find()->where(['status' => 1])->count();
-        $countBasketStream = VkStream::find()->where(['status' => 3])->count();
+
+        $countPublishStreamQuery = VkStream::find()
+            ->where(['status' => 2]);
+        $countPublishedStreamQuery = VkStream::find()
+            ->where(['status' => 1])
+            ->andWhere(['<', 'dt_publish', time()]);
+        $countBasketStreamQuery = VkStream::find()
+            ->where(['status' => 3]);
+        $countDefferedStreamQuery = VkStream::find()->where(['status' => 4]);
+
+        if(isset($role['Редактор парсинга']))
+        {
+            $countPublishStreamQuery->andWhere(['user_id' => $userId]);
+            $countPublishedStreamQuery->andWhere(['user_id' => $userId]);
+            $countBasketStreamQuery->andWhere(['user_id' => $userId]);
+            $countDefferedStreamQuery->andWhere(['user_id' => $userId]);
+        }
+
+        $countPublishStream = $countPublishStreamQuery->count();
+        $countPublishedStream = $countPublishedStreamQuery->count();
+        $countBasketStream = $countBasketStreamQuery->count();
+        $countDefferedStream = $countDefferedStreamQuery->count();
+
+        $countContacting = Contacting::find()->where(['status' => 0])->count();
+
 
         echo \yii\widgets\Menu::widget(
             [
@@ -51,8 +89,8 @@ class MainMenuAdmin extends Widget
                             ],
                             [
                                 'label' => 'Фотографии',
-                                'url' => Url::to(['/mainpage/mainpage/photos']),
-                                'active' => Yii::$app->controller->module->id == 'mainpage' && Yii::$app->controller->action->id == 'photos',
+                                'url' => Url::to(['/mainpage/photo']),
+                                'active' => Yii::$app->controller->module->id == 'mainpage' && Yii::$app->controller->id == 'photo',
                             ],
                             [
                                 'label' => 'Развлечения',
@@ -61,8 +99,8 @@ class MainMenuAdmin extends Widget
                             ],
                             [
                                 'label' => 'Премьера',
-                                'url' => Url::to(['/main-premiere']),
-                                'active' => Yii::$app->controller->module->id == 'poster' && Yii::$app->controller->action->id == 'main-premiere',
+                                'url' => Url::to(['/mainpage/main-premiere']),
+                                'active' => Yii::$app->controller->module->id == 'mainpage' && Yii::$app->controller->id == 'main-premiere',
                             ],
 
                             [
@@ -98,6 +136,14 @@ class MainMenuAdmin extends Widget
 
                     ],
                     [
+                        'label' => 'Объявления',
+                        'url' => Url::to(['/board/default']),
+                        'active' => Yii::$app->controller->module->id == 'board',
+                        'visible' => UserFunction::hasPermission(['Объявления']),
+                        'template' => '<a href="{url}"><i class="fa fa-dashboard"></i> <span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countAds . '</small></span></a>',
+
+                    ],
+                    [
                         'label' => 'Новости',
                         'items' => [
                             [
@@ -115,11 +161,13 @@ class MainMenuAdmin extends Widget
                                 'label' => 'Категории',
                                 'url' => Url::to(['/category']),
                                 'active' => Yii::$app->controller->module->id == 'category' && Yii::$app->controller->action->id == 'index',
+                                'visible' => UserFunction::hasPermission(['Категории новостей']),
                             ],
                             [
                                 'label' => 'Главная новость',
                                 'url' => Url::to(['/main_new']),
                                 'active' => Yii::$app->controller->module->id == 'main_new' && Yii::$app->controller->action->id == 'index',
+                                'visible' => UserFunction::hasPermission(['Главная новость']),
                             ],
                         ],
                         'visible' => UserFunction::hasPermission(['Новости']),
@@ -191,6 +239,11 @@ class MainMenuAdmin extends Widget
                                 'visible' => UserFunction::hasPermission(['Отзывы компаний'])
                             ],
                             [
+                                'label' => 'Просмотры',
+                                'url' => Url::to(['/company_views/company-views']),
+                                'active' => Yii::$app->controller->module->id === 'company_views' && Yii::$app->controller->action->id == 'index',
+                            ],
+                            [
                                 'label' => 'Популярные акции',
                                 'url' => Url::to(['/company/company/hot-stock']),
                                 'active' => Yii::$app->controller->module->id === 'company' && Yii::$app->controller->action->id === 'hot-stock',
@@ -237,27 +290,31 @@ class MainMenuAdmin extends Widget
                                 'label' => 'Категории',
                                 'url' => Url::to(['/category_poster']),
                                 'active' => Yii::$app->controller->module->id == 'category_poster' && Yii::$app->controller->action->id == 'index',
+                                'visible' => UserFunction::hasPermission(['Афиша категории']),
                             ],
                             [
                                 'label' => 'Главная Афиша',
                                 'url' => Url::to(['/main-premiere']),
                                 'active' => Yii::$app->controller->module->id == 'poster' && Yii::$app->controller->action->id == 'main-premiere',
+                                'visible' => UserFunction::hasPermission(['Главная Афиша']),
                             ],
                             [
                                 'label' => 'Баннер Афиша',
                                 'url' => Url::to(['/poster/poster/main-poster']),
                                 'active' => Yii::$app->controller->module->id == 'poster' && Yii::$app->controller->action->id == 'main-poster',
-
+                                'visible' => UserFunction::hasPermission(['Баннер Афиша']),
                             ],
                             [
                                 'label' => 'Может заинтересовать',
                                 'url' => Url::to(['/poster/poster/interested-in']),
                                 'active' => Yii::$app->controller->module->id == 'poster' && Yii::$app->controller->action->id == 'interested-in',
+                                'visible' => UserFunction::hasPermission(['Может заинтересовать афиша']),
                             ],
                             [
                                 'label' => 'Слайдер',
                                 'url' => Url::to(['/poster/poster/top-slider']),
                                 'active' => Yii::$app->controller->module->id == 'poster' && Yii::$app->controller->action->id == 'top-slider',
+                                'visible' => UserFunction::hasPermission(['Верхнйи слайдер на странице афиш']),
                             ],
                         ],
                         'visible' => UserFunction::hasPermission(['Афиша']),
@@ -427,40 +484,54 @@ class MainMenuAdmin extends Widget
                                 'label' => 'Группы',
                                 'url' => Url::to(['/vk/vk_groups']),
                                 'active' => Yii::$app->controller->module->id === 'vk' && Yii::$app->controller->id === 'vk_groups',
+                                'visible' => UserFunction::hasPermission(['Группы VK']),
                             ],
                             [
                                 'label' => 'Авторы',
                                 'url' => Url::to(['/vk/vk_authors']),
                                 'active' => Yii::$app->controller->module->id === 'vk' && Yii::$app->controller->id === 'vk_authors',
+                                'visible' => UserFunction::hasPermission(['Авторы VK']),
                             ],
                             [
                                 'label' => 'Комментарии',
                                 'url' => Url::to(['/vk/vk_comments']),
                                 'active' => Yii::$app->controller->module->id === 'vk' && Yii::$app->controller->id === 'vk_comments',
+                                'visible' => UserFunction::hasPermission(['Комментарии VK']),
                             ],
                             [
                                 'label' => 'Поток',
                                 'url' => Url::to(['/vk/vk_stream']),
                                 'active' => Yii::$app->controller->module->id === 'vk' && Yii::$app->controller->id === 'vk_stream',
                                 'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countModerStream . '</small></span></a>',
+                                'visible' => UserFunction::hasPermission(['Поток VK']),
                             ],
                             [
                                 'label' => 'На публикацию',
                                 'url' => Url::to(['/vk/vk_publish']),
                                 'active' => Yii::$app->controller->module->id === 'vk' && Yii::$app->controller->id === 'vk_publish',
                                 'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countPublishStream . '</small></span></a>',
+                                'visible' => UserFunction::hasPermission(['На публикацию VK']),
                             ],
                             [
                                 'label' => 'Корзина',
                                 'url' => Url::to(['/vk/vk_basket']),
                                 'active' => Yii::$app->controller->module->id === 'vk' && Yii::$app->controller->id === 'vk_basket',
                                 'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countBasketStream . '</small></span></a>',
+                                'visible' => UserFunction::hasPermission(['Корзина VK']),
                             ],
                             [
                                 'label' => 'Опубликованные',
                                 'url' => Url::to(['/vk/vk_published']),
-                                'active' => Yii::$app->controller->module->id === 'vk' && Yii::$app->controller->id === 'vk_published',
+                                'active' => Yii::$app->controller->id === 'vk_published' && Yii::$app->controller->action->id === 'index',
                                 'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countPublishedStream . '</small></span></a>',
+                                'visible' => UserFunction::hasPermission(['Опубликованные VK']),
+                            ],
+                            [
+                                'label' => 'Отложенные',
+                                'url' => Url::to(['/vk/vk_published/deffered']),
+                                'active' => Yii::$app->controller->action->id === 'deffered',
+                                'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countDefferedStream . '</small></span></a>',
+                                'visible' => UserFunction::hasPermission(['Отложенные VK']),
                             ],
                         ],
                         'options' => [
@@ -482,6 +553,16 @@ class MainMenuAdmin extends Widget
                                 'label' => 'Валюты',
                                 'url' => Url::to(['/exchange_rates/exchange_rates']),
                                 'active' => Yii::$app->controller->id == 'exchange_rates',
+                            ],
+                            [
+                                'label' => "Валюты ЦБРФ<br>Криптовалюты<br>Металлы",
+                                'url' => Url::to(['/currency/currency']),
+                                'active' => Yii::$app->controller->id == 'currency',
+                            ],
+                            [
+                                'label' => 'Курсы',
+                                'url' => Url::to(['/currency/currency-rate']),
+                                'active' => Yii::$app->controller->id == 'currency-rate' ,
                             ],
                         ],
                         'options' => [
@@ -546,6 +627,7 @@ class MainMenuAdmin extends Widget
                         'label' => 'Обращения',
                         'url' => Url::to(['/contacting/contacting']),
                         'visible' => UserFunction::hasPermission(['Обращения']),
+                        'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countContacting . '</small></span></a>',
                     ],
                     [
                         'label' => 'РОСС-ОПТ',

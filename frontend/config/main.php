@@ -6,7 +6,7 @@ $params = array_merge(
     require(__DIR__ . '/params-local.php')
 );
 
-return [
+return \yii\helpers\ArrayHelper::merge([
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'language' => 'ru-RU',
@@ -52,51 +52,15 @@ return [
         'promotions' => [
             'class' => 'frontend\modules\promotions\Promotions',
         ],
-
-        'sitemap' => [
-            'class' => 'himiklab\sitemap\Sitemap',
-            'models' => [
-                // your models
-                'frontend\models\sitemap\CategoryNews',
-                'frontend\models\sitemap\CategoryCompany',
-                'frontend\models\sitemap\News',
-                'frontend\models\sitemap\Company',
-                'frontend\models\sitemap\CategoryPoster',
-                'frontend\models\sitemap\Poster'
-                /*'backend\modules\category\models\Category',
-                'backend\modules\adsmanager\models\Adsmanager',
-                'backend\modules\news\models\News',*/
-
-                // or configuration for creating a behavior
-            ],
-            'urls'=> [
-                // your additional urls
-                [
-                    'loc' => '/',
-                    'lastmod' => '2016-11-06T19:38:59+03:00',
-                    'priority' => 1,
-                ],
-                [
-                    'loc' => '/all-news',
-                    'lastmod' => '2016-11-06T19:38:59+03:00',
-                    'priority' => 1,
-                ],
-                [
-                    'loc' => '/all-company',
-                    'lastmod' => '2016-11-06T19:38:59+03:00',
-                    'priority' => 1,
-                ],
-                [
-                    'loc' => '/all-poster',
-                    'lastmod' => '2016-11-06T19:38:59+03:00',
-                    'priority' => 1,
-                ],
-            ],
-            'enableGzip' => true, // default is false
-            'cacheExpire' => 1, // 1 second. Default is 24 hours
+        'currency' => [
+            'class' => 'frontend\modules\currency\Currency',
         ],
+
         'stream' => [
             'class' => 'frontend\modules\stream\Stream',
+        ],
+        'exchange' => [
+            'class' => 'frontend\modules\exchange\Exchange',
         ],
     ],
     'components' => [
@@ -146,6 +110,38 @@ return [
                 ],
             ],
         ],
+
+        'authClientCollection' => [
+            'class'   => \yii\authclient\Collection::className(),
+
+            'clients' => [
+                'vkontakte' => [
+                    'class'        => 'dektrium\user\clients\VKontakte',
+                    'clientId'     => '6213596',
+                    'clientSecret' => 'UD0DdeOTDUAEhWntNc5c',
+                    'title' => '',
+                ],
+                'facebook' => [
+                    'class'        => 'dektrium\user\clients\Facebook',
+                    'clientId'     => '393139631141463',
+                    'clientSecret' => 'da146fed3a481f1b6e92a1dd8e58d559',
+                    'title' => '',
+                ],
+                'twitter' => [
+                    'class'          => 'dektrium\user\clients\Twitter',
+                    'consumerKey'    => 'OtX4znMtlHY9pFfBebY3oyGfb',
+                    'consumerSecret' => 'vxHi6mwFxnjCbYbeFlim3l8GDt8Ce078YMW3dfY309EBAhdq5J',
+                    'title'          => '',
+                ],
+                'google' => [
+                    'class'        => 'dektrium\user\clients\Google',
+                    'clientId'     => '136978158391-mp2isb5rqisr158bmmfdnr6j0eqgn629.apps.googleusercontent.com',
+                    'clientSecret' => 'LLTc-C8JQQuHYzjbLAm2AV_I',
+                    'title'          => '',
+                ],
+            ],
+        ],
+
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -160,7 +156,7 @@ return [
         ],
         'request'      => [
             'baseUrl' => '',
-            'class' => 'frontend\components\LangRequest',
+            //'class' => 'frontend\components\LangRequest',
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -202,14 +198,26 @@ return [
                 //'ajax'=> 'ajax/default',
                 //'ajax/send_poll'=> 'ajax/default/send_poll',
                 'promotions' => '/promotions/promotions/index',
-                ['pattern' => 'sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
+                'promotions/<slug>' => '/promotions/promotions/view',
+
                 'stream' => 'stream/default/index',
                 'stream/<slug>' => 'stream/default/view',
+                ['pattern' => 'sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
+                ['pattern' => 'news-sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
+                ['pattern' => 'company-sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
+                ['pattern' => 'poster-sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
+                ['pattern' => 'stream-sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
+
+                'obyavleniya' => 'board/default',
+                'obyavleniya/<page:\d+>' => 'board/default/index',
+                'obyavleniya/category/<slug>' => 'board/default/category-ads',
+                'obyavleniya/category/<slug>/<page:\d+>' => 'board/default/category-ads',
+                'obyavlenie/<id:\d+>/<slug>/' => 'board/default/view',
+
+                'currency/converter' => 'currency/default/converter',
+                'finance' => 'currency/default/all'
+
             ]
-        ],
-        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            'useFileTransport' => false,
         ],
         'language' => 'ru-RU',
         'i18n' => [
@@ -220,6 +228,28 @@ return [
                 ],
             ],
         ],
+        'assetManager' => [
+            'class' => 'yii\web\AssetManager',
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'js' => [
+                        YII_ENV_DEV ? 'jquery.js' : 'jquery.min.js'
+                    ]
+                ],
+                'yii\bootstrap\BootstrapAsset' => [
+                    'css' => [
+                        YII_ENV_DEV ? 'css/bootstrap.css' : 'css/bootstrap.min.css',
+                    ]
+                ],
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    'js' => [
+                        YII_ENV_DEV ? 'js/bootstrap.js' : 'js/bootstrap.min.js',
+                    ]
+                ]
+            ],
+        ],
     ],
     'params' => $params,
-];
+],
+    require(__DIR__ . '/sitemap.php')
+);

@@ -8,12 +8,23 @@
 
 namespace frontend\widgets;
 
+use common\classes\Debug;
+use common\classes\GeobaseFunction;
+use common\classes\UserFunction;
 use yii\base\Widget;
 
 class ShowHeader extends Widget
 {
     public function run()
     {
-        return $this->render('header');
+        $userRegion = UserFunction::getRegionUser();
+        $regionList = GeobaseFunction::getListRegion();
+
+        return $this->render('header',
+            [
+                'regionList' => $regionList,
+                'userRegion' => $userRegion,
+            ]
+        );
     }
 }

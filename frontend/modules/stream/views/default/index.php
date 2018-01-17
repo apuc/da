@@ -1,14 +1,20 @@
 <?php
 /**
  * @var $model \common\models\db\VkStream
+ * @var $count
+ * @var $meta_title
+ * @var $meta_desc
  */
 use common\classes\DateFunctions;
 use common\models\User;
 use frontend\widgets\ShowRightRecommend;
 
-$this->title = 'В соцсетях';
-$this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii\web\JqueryAsset::className()]);
-$this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAsset::className()]);
+$this->title = $meta_title;
+$this->registerMetaTag( [
+    'name'    => 'description',
+    'content' => $meta_desc,
+] );
+$this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
 
 
@@ -22,27 +28,14 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
             <div class="business__content">
 
-                <!--<div class="parser__top-counter">
-
-                    <a href="<?/*= \yii\helpers\Url::to(['/stream/default'])*/?>">Показать
-                        <span class="counter counter-stream-new" data-count="<?/*= $count*/?>" csrf-token="<?/*= Yii::$app->request->getCsrfToken() */?>">0</span> новых записи</a>
-
-                </div>
-
-                <div class="parser__top-link">
-
-                    <a href="#">Подписаться на эту тему</a>
-
-                </div>-->
-
                 <ul class="parser__top-nav">
-                    <li><a href="#">Все материалы <span><?= $count?></span></a></li>
+                    <li><a href="<?= \yii\helpers\Url::to(['/stream'])?>">Все материалы <span><?= $count?></span></a></li>
                     <li><a href="<?= \yii\helpers\Url::to(['/stream'])?>">ВК
-                            <span><?=$count?></span></a></li>
+                            <span><?= $count ?></span></a></li>
                 </ul>
 
                 <div class="parser__wrapper">
-                <?if (!empty($model1)): ?>
+                <?php if (!empty($model1)): ?>
                     <div id="first-column" class="parser__column">
                         <?php foreach ($model1 as $item): ?>
                         <div class="parser__element <?= $item->id ?>">
@@ -54,7 +47,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                         <img src="<?= $item->author->photo ?>" alt="">
                                     <?php endif; ?>
                                     <?php if (!empty($item->group)): ?>
-
+                                        <img src="<?= $item->group->getPhoto() ?>" alt="">
                                     <?php endif; ?>
                                 </div>
 
@@ -68,7 +61,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                     <?php endif; ?>
                                 </div>
 
-                                <span class="date"><?= DateFunctions::getGetNiceDate($item->dt_add) ?></span>
+                                <span class="date"><?= DateFunctions::getGetNiceDate($item->dt_publish) ?></span>
 
                             </a>
 
@@ -83,19 +76,19 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
                                 <p class="parser__element--descr"><?= $item->text ?></p>
                                 <?php if (mb_strlen($item->text) > 131): ?>
-                                    <a href="#" class="parser__element--more">читать далее</a>
+                                    <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug])?>" class="parser__element--more">читать далее</a>
                                 <?php endif; ?>
                             <?php endif; ?>
 
                             <?php if (!empty($item->photo)): ?>
-                                <a data-fancybox="gallery" class="parser__element--photo"
-                                   href="<?= $item->photo[0]->getLargePhoto() ?>">
+                                <a class="parser__element--photo"
+                                   href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>">
                                     <img src="<?= $item->photo[0]->getLargePhoto() ?>" alt="">
                                 </a>
 
                             <?php elseif (!empty($item->gif)): ?>
-                                <a data-fancybox="gallery" class="parser__element--photo"
-                                   href="<?= $item->gif[0]->getLargePreview()?>">
+                                <a class="parser__element--photo"
+                                   href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>">
                                     <img src="<?= $item->gif[0]->getLargePreview()?>" alt="">
                                 </a>
                             <?php endif; ?>
@@ -111,17 +104,17 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                 </a>
 
                                 <a href="#" class="views"><?= $item->views ?></a>
-                                <? if ($item->comment_status == 0):?>
-                                    <?$count = 0?>
-                                <? else:?>
-                                    <?$count = (isset($item->all_comments))? count($item->all_comments) : 0?>
-                                <?endif;?>
+                                <?php if ($item->comment_status == 0):?>
+                                    <?php $count = 0?>
+                                <?php else:?>
+                                    <?php $count = (isset($item->all_comments))? count($item->all_comments) : 0?>
+                                <?php endif;?>
                                 <a href="#" class="comments">
                                     <?= $count ?>
                                 </a>
 
                             </div>
-                            <? if ($item->comment_status != 0): ?>
+                            <?php if ($item->comment_status != 0): ?>
 
                             <div class="parser__element--comments-block">
 
@@ -135,21 +128,36 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                             <?= $comment_item['username'] ?>
                                         </div>
 
-                                        <p><?= $comment_item['text'] ?></p>
+                                            <p><?= $comment_item['text'] ?></p>
+
+                                        <?php if(!empty($comment_item['photo'])): ?>
+                                            <a data-fancybox="gallery" class="parser__element--photo"
+                                               href="<?= $comment_item['photo'] ?>">
+                                                <img src="<?= $comment_item['photo'] ?>" alt="">
+                                            </a>
+                                        <?php endif;?>
+
+                                        <?php if(!empty($comment_item['sticker'])): ?>
+                                            <a data-fancybox="gallery" class="parser__element--photo"
+                                               href="<?= $comment_item['sticker'] ?>">
+                                                <img src="<?= $comment_item['sticker'] ?>" style="width: 20%">
+                                            </a>
+                                        <?php endif;?>
+
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                             </div>
-                            <?endif;?>
+                            <?php endif;?>
 
                         </div>
                     <?php endforeach; ?>
                     </div>
 
-                    <?else:?>
+                    <?php else:?>
                         <h3>Записей пока нет</h3>
-                    <?endif;?>
+                    <?php endif;?>
 
-                    <? if (!empty($model2)): ?>
+                    <?php if (!empty($model2)): ?>
                     <div id="second-column" class="parser__column">
                         <?php foreach ($model2 as $item): ?>
                             <div class="parser__element <?= $item->id ?>">
@@ -161,7 +169,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                             <img src="<?= $item->author->photo ?>" alt="">
                                         <?php endif; ?>
                                         <?php if (!empty($item->group)): ?>
-
+                                            <img src="<?= $item->group->getPhoto() ?>" alt="">
                                         <?php endif; ?>
                                     </div>
 
@@ -175,7 +183,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                         <?php endif; ?>
                                     </div>
 
-                                    <span class="date"><?= DateFunctions::getGetNiceDate($item->dt_add) ?></span>
+                                    <span class="date"><?= DateFunctions::getGetNiceDate($item->dt_publish) ?></span>
 
                                 </a>
 
@@ -190,19 +198,19 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
                                     <p class="parser__element--descr"><?= $item->text ?></p>
                                     <?php if (mb_strlen($item->text) > 131): ?>
-                                        <a href="#" class="parser__element--more">читать далее</a>
+                                        <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug])?>" class="parser__element--more">читать далее</a>
                                     <?php endif; ?>
                                 <?php endif; ?>
 
                                 <?php if (!empty($item->photo)): ?>
-                                    <a data-fancybox="gallery" class="parser__element--photo"
-                                       href="<?= $item->photo[0]->getLargePhoto() ?>">
+                                    <a class="parser__element--photo"
+                                       href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>">
                                         <img src="<?= $item->photo[0]->getLargePhoto() ?>" alt="">
                                     </a>
 
                                 <?php elseif (!empty($item->gif)): ?>
-                                    <a data-fancybox="gallery" class="parser__element--photo"
-                                       href="<?= $item->gif[0]->getLargePreview()?>">
+                                    <a class="parser__element--photo"
+                                       href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>">
                                         <img src="<?= $item->gif[0]->getLargePreview()?>" alt="">
                                     </a>
 
@@ -220,18 +228,18 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
                                     <a href="#" class="views"><?= $item->views ?></a>
 
-                                    <? if ($item->comment_status == 0):?>
-                                        <?$count = 0?>
-                                    <? else:?>
-                                        <?$count = (isset($item->all_comments)) ? count($item->all_comments) : 0?>
-                                    <?endif;?>
+                                    <?php if ($item->comment_status == 0):?>
+                                        <?php $count = 0?>
+                                    <?php else:?>
+                                        <?php $count = (isset($item->all_comments)) ? count($item->all_comments) : 0?>
+                                    <?php endif;?>
                                     <a href="#" class="comments">
                                         <?= $count ?>
                                     </a>
 
                                 </div>
 
-                                <? if ($item->comment_status != 0): ?>
+                                <?php if ($item->comment_status != 0): ?>
                                     <div class="parser__element--comments-block">
 
                                         <?php if (!empty($item->all_comments)): ?>
@@ -240,25 +248,41 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                                     <img src="<?= $comment_item['avatar'] ?>" alt="">
                                                 </div>
 
-                                                <div class="name">
-                                                    <?= $comment_item['username'] ?>
-                                                </div>
 
-                                                <p><?= $comment_item['text'] ?></p>
+                                                    <div class="name">
+                                                        <?= $comment_item['username'] ?>
+                                                    </div>
+
+                                                    <p><?= $comment_item['text'] ?></p>
+
+                                                <?php if(!empty($comment_item['photo'])): ?>
+                                                    <a data-fancybox="gallery" class="parser__element--photo"
+                                                       href="<?= $comment_item['photo'] ?>">
+                                                        <img src="<?= $comment_item['photo'] ?>" alt="">
+                                                    </a>
+                                                <?php endif;?>
+
+                                                <?php if(!empty($comment_item['sticker'])): ?>
+                                                    <a data-fancybox="gallery" class="parser__element--photo"
+                                                       href="<?= $comment_item['sticker'] ?>">
+                                                        <img src="<?= $comment_item['sticker'] ?>" style="width: 20%">
+                                                    </a>
+                                                <?php endif;?>
+
                                             <?php endforeach; ?>
                                         <?php endif; ?>
 
                                     </div>
-                                <?endif;?>
+                                <?php endif;?>
 
                             </div>
                         <?php endforeach; ?>
                     </div>
 
 
-                    <?else:?>
+                    <?php else:?>
                     <h3>Записей пока нет</h3>
-                    <?endif;?>
+                    <?php endif;?>
               <!--  <span class="stream-flag"></span>-->
                 </div>
 
@@ -269,53 +293,9 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                 </div>
 
             </div>
+
+            <?= \frontend\modules\stream\widgets\ShowTopStream::widget(); ?>
             <?= ShowRightRecommend::widget() ?>
-
-            <!--<div id="parser-sidebar" class="business__sidebar stock">-->
-            <!---->
-            <!--    <h3>что посмотреть?</h3>-->
-            <!---->
-            <!--    <a href="#" class="business__sm-item">-->
-            <!---->
-            <!--        <div class="recommend">-->
-            <!--            <span class="recommend__star"></span>-->
-            <!--            Рекомендуем-->
-            <!--        </div>-->
-            <!---->
-            <!--        <div class="business__sm-item--img">-->
-            <!--            <img src="img/business/business-sm.png" alt="">-->
-            <!--        </div>-->
-            <!---->
-            <!--        <p class="business__sm-item--title">Региональный центр восстановления позвоночника и-->
-            <!--            реабилитации</p>-->
-            <!---->
-            <!--        <!--<p class="business__sm-item&#45;&#45;address">-->
-            <!--            <span>Адрес:</span>-->
-            <!--            <span>г. Донецк, проспект Мира, 8а</span>-->
-            <!--        </p>-->
-            <!---->
-            <!--        <ul class="business__sm-item--numbers">-->
-            <!--            <li>+380667778540</li>-->
-            <!--            <li>+380667778540</li>-->
-            <!--        </ul>-->
-            <!---->
-            <!--        <!-- <span class="business__sm-item&#45;&#45;views-icon"></span>-->
-            <!--        <p class="business__sm-item--views">569</p>-->
-            <!---->
-            <!--    </a>-->
-            <!---->
-            <!--    <h3>оставайся с нами</h3>-->
-            <!---->
-            <!--    <script type="text/javascript" src="//vk.com/js/api/openapi.js?146"></script>-->
-            <!---->
-            <!--    <!-- VK Widget -->
-            <!--    <div id="vk_groups"></div>-->
-            <!--    <script type="text/javascript">-->
-            <!--        VK.Widgets.Group("vk_groups", {mode: 3, width: "260", height: "296"}, 20003922);-->
-            <!--    </script>-->
-            <!---->
-            <!--</div>-->
-
         </div>
 
     </div>

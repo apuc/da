@@ -2,6 +2,7 @@
 
 namespace backend\modules\vk\models;
 
+use common\classes\Debug;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -18,8 +19,8 @@ class VkStreamSearch extends VkStream
     public function rules()
     {
         return [
-            [['id', 'from_id', 'owner_id', 'owner_type', 'dt_add', 'from_type'], 'integer'],
-            [['vk_id', 'post_type', 'text'], 'safe'],
+            [['id', 'from_id', 'owner_id', 'owner_type', 'dt_add', 'from_type', 'rss'], 'integer'],
+            [['vk_id', 'post_type', 'text', 'title'], 'safe'],
         ];
     }
 
@@ -36,12 +37,20 @@ class VkStreamSearch extends VkStream
      * Creates data provider instance with search query applied
      *
      * @param array $params
-     *
+     * @param array $condition
+     * @param string $orderBy
      * @return ActiveDataProvider
      */
-    public function search($params, $condition = null)
+    public function search($params, $condition = null, $orderBy)
     {
+        $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
+
         $query = VkStream::find();
+
+        if(isset($role['Редактор парсинга']) && Yii::$app->controller->id != 'vk_stream')
+        {
+            $query->andWhere(['user_id' => Yii::$app->user->id]);
+        }
 
         // add conditions that should always apply here
 
@@ -57,7 +66,16 @@ class VkStreamSearch extends VkStream
             return $dataProvider;
         }
 
-        $query->andWhere($condition);
+        if($condition){
+            foreach ($condition as $key => $cond){
+                if(is_array($cond)){
+                    $query->andWhere($cond);
+                }else
+                    $query->andWhere([$key => $cond]);
+            }
+        }
+
+        //$query->andWhere($condition);
 
         // grid filtering conditions
         $query->andFilterWhere([
@@ -67,13 +85,15 @@ class VkStreamSearch extends VkStream
             'owner_type' => $this->owner_type,
             'dt_add' => $this->dt_add,
             'from_type' => $this->from_type,
+            'rss' => $this->rss,
         ]);
 
         $query->andFilterWhere(['like', 'vk_id', $this->vk_id])
             ->andFilterWhere(['like', 'post_type', $this->post_type])
-            ->andFilterWhere(['like', 'text', $this->text]);
+            ->andFilterWhere(['like', 'text', $this->text])
+            ->andFilterWhere(['like', 'title', $this->title]);
 
-        $query->orderBy('dt_add DESC');
+        $query->orderBy($orderBy.' DESC');
 
         return $dataProvider;
     }

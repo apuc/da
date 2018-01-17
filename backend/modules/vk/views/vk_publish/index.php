@@ -10,7 +10,7 @@ use yii\grid\GridView;
 $this->title = 'Vk Streams';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?$this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => \yii\web\JqueryAsset::className()])?>
+<?php $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => \yii\web\JqueryAsset::className()])?>
 <div class="vk-stream-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -28,14 +28,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) {
                     $domain = \common\models\db\VkGroups::find()->where(['vk_id' => $model->owner_id])->one();
                     if ($domain) {
-                        return Html::a('Ссылка',
+                        return Html::a($domain->name,
                             'https://vk.com/' . $domain->domain . '?w=wall' . $model->vk_id,
                             [
                                 'target' => '_blank',
                             ]);
                     }
-
                 },
+                'filter' => \yii\helpers\ArrayHelper::map(\common\models\db\VkGroups::find()->all(), 'vk_id', 'name')
             ],
             //'from_id',
             //'owner_id',
@@ -57,14 +57,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     if(strlen($model->text) > 200)
                     {
-
                         $string = mb_substr($model->text, 0, 200);
                         $text = '<div>'.$string.'...</div>'.Html::a('Читать далее',['#'], ['class' => 'more']).
                             Html::a('Скрыть',['#'], ['class' => 'closeMore', 'style' => 'display: none']);
                         $text .= '<div class="readMore" style="display: none">'.substr($model->text, strlen($string)).'</div>';
-                    }
+                    }else $text .= '<div>'.$model->text.'...</div>';
 
                     $text .= '<div>';
+
 
                     foreach ((array)$photo as $item) {
                         if (!empty($item->photo_807)) {
@@ -79,13 +79,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                     $text .= '</div><div>';
 
+
                     foreach ((array)$gif as $item) {
 
                         if (!empty($item->gif_link)) {
-                            $text .= '<span>' . Html::img($item->gif_link, ['width' => 300]) . '</span>';
+                            $text .= '<span>' . Html::img($item->getLargePreview(), ['width' => 300]) . '</span>';
                         }
                     }
                     $text .= '</div>';
+
                     return $text;
                 },
             ],

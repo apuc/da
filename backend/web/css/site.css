@@ -115,3 +115,19 @@ a.desc:after {
 .border-black {
     margin-top: 20px;
 }
+
+.sucseesRss, .errorRss {
+    float: left;
+    width: 16px;
+    height: 16px;
+
+}
+
+.sucseesRss {
+    background: url("../img/success.png") no-repeat;
+    background-size: contain;
+}
+.errorRss {
+    background: url("../img/error.png") no-repeat;
+    background-size: contain;
+}

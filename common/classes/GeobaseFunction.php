@@ -8,8 +8,10 @@
 
 namespace common\classes;
 
+use common\models\db\Company;
 use common\models\db\GeobaseCity;
 use common\models\db\GeobaseRegion;
+use yii\helpers\ArrayHelper;
 
 class GeobaseFunction
 {
@@ -54,8 +56,30 @@ class GeobaseFunction
         return $region->name;
     }
 
+    public static function getRegionId($name){
+        $region = GeobaseRegion::find()->where(['name' => $name])->one();
+        return $region->id;
+    }
+
     public static function getCityName($id){
         $city = GeobaseCity::find()->where(['id' => $id])->one();
         return $city->name;
+    }
+
+
+    public static function getListRegion()
+    {
+        $region = Company::find()->select('region_id')
+            ->distinct()
+            ->where(['!=', 'region_id', 0])
+            ->all();
+        $regionList = self::getListRegionName(ArrayHelper::getColumn($region, 'region_id'));
+        return $regionList;
+    }
+
+    public static function getListRegionName($region)
+    {
+        $region = GeobaseRegion::find()->where(['id' => $region])->all();
+        return $region;
     }
 }

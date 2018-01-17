@@ -10,6 +10,7 @@ use yii\grid\GridView;
 $this->title = Yii::t('contacting', 'Contactings');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?php $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => \yii\web\JqueryAsset::className()])?>
 <div class="contacting-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -25,13 +26,39 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'user_id',
+            'username',
+            'email',
             'type',
             'content',
-            'dt_add',
+            [
+                'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    if($model->status)
+                    {
+                        return
+                            Html::a('Посмотреть ответ', ['/contacting/contacting/view', 'id' => $model->id], ['class' => 'btn btn-success send-email']);
+                    }else
+                    return
+                        Html::a('Ответить', ['/contacting/contacting/send-mail', 'id' => $model->id],
+                            ['class' => 'btn btn-danger send-email']);
+
+                },
+            ],
+            [
+                'attribute' => 'dt_add',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return
+                        date('d-m-Y H:i:s', $model->dt_add);
+
+                },
+            ],
+
             // 'dt_update',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 </div>
+

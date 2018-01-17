@@ -52,7 +52,7 @@ $this->registerMetaTag( [
     $company_content  = strip_tags( $company->descr );
     $company_content  = preg_replace( "/\s{2,}/", " ", $company_content );
 
-    $company_content = substr($company_content, 0, $count_symbols) . '...';
+    $company_content = mb_substr($company_content, 0, $count_symbols) . '...';
 
     ?>
 

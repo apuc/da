@@ -28,9 +28,13 @@ $this->registerMetaTag([
                 'activeCategorySlug' => $ajaxCategory,
             ]); ?>
         </div>
-        <div class="search"><input type="text" placeholder="Поиск">
-            <button class="search-consulting-post">Найти</button>
-        </div>
+        <?= \frontend\modules\consulting\widgets\SearchForm::widget() ?>
+        <!--<div class="consultants__main">
+            <form action="" class="search-block">
+                <input type="text" placeholder="Поиск">
+                <button>Найти</button>
+            </form>
+        </div>-->
         <article id="article">
             <h2><?= $postsTitle; ?></h2>
             <div class="laws">

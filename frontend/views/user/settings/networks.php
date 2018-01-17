@@ -23,36 +23,36 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?= $this->render('/_alert', ['module' => Yii::$app->getModule('user')]) ?>
 
-<div class="row">
+<!--<div class="row">
     <div class="col-md-3">
-        <?= $this->render('_menu') ?>
+        <?/*= $this->render('_menu') */?>
     </div>
     <div class="col-md-9">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <?= Html::encode($this->title) ?>
+                <?/*= Html::encode($this->title) */?>
             </div>
             <div class="panel-body">
                 <div class="alert alert-info">
-                    <p><?= Yii::t('user', 'You can connect multiple accounts to be able to log in using them') ?>.</p>
+                    <p><?/*= Yii::t('user', 'You can connect multiple accounts to be able to log in using them') */?>.</p>
                 </div>
-                <?php $auth = Connect::begin([
+                <?php /*$auth = Connect::begin([
                     'baseAuthUrl' => ['/user/security/auth'],
                     'accounts'    => $user->accounts,
                     'autoRender'  => false,
                     'popupMode'   => false,
-                ]) ?>
+                ]) */?>
                 <table class="table">
-                    <?php foreach ($auth->getClients() as $client): ?>
+                    <?php /*foreach ($auth->getClients() as $client): */?>
                         <tr>
                             <td style="width: 32px; vertical-align: middle">
-                                <?= Html::tag('span', '', ['class' => 'auth-icon ' . $client->getName()]) ?>
+                                <?/*= Html::tag('span', '', ['class' => 'auth-icon ' . $client->getName()]) */?>
                             </td>
                             <td style="vertical-align: middle">
-                                <strong><?= $client->getTitle() ?></strong>
+                                <strong><?/*= $client->getTitle() */?></strong>
                             </td>
                             <td style="width: 120px">
-                                <?= $auth->isConnected($client) ?
+                                <?/*= $auth->isConnected($client) ?
                                     Html::a(Yii::t('user', 'Disconnect'), $auth->createClientUrl($client), [
                                         'class' => 'btn btn-danger btn-block',
                                         'data-method' => 'post',
@@ -60,13 +60,62 @@ $this->params['breadcrumbs'][] = $this->title;
                                     Html::a(Yii::t('user', 'Connect'), $auth->createClientUrl($client), [
                                         'class' => 'btn btn-success btn-block',
                                     ])
-                                ?>
+                                */?>
                             </td>
                         </tr>
-                    <?php endforeach; ?>
+                    <?php /*endforeach; */?>
                 </table>
-                <?php Connect::end() ?>
+                <?php /*Connect::end() */?>
             </div>
         </div>
     </div>
+</div>-->
+
+<div class="cabinet__inner-box">
+
+    <h3><?= Html::encode($this->title); ?></h3>
+
+    <ul class="cabinet__tab-links">
+        <li class="tab"><a href="<?= \yii\helpers\Url::to('/user/settings/profile')?>">Настройки профиля</a></li>
+        <li class="tab"><a href="<?= \yii\helpers\Url::to('/user/settings/account')?>">Настройки аккаунта</a></li>
+        <li class="tab"><a href="<?= \yii\helpers\Url::to('/user/settings/networks')?>" class="active">Настройки соц.сетей</a></li>
+    </ul>
+
+    <div class="business__tab-content">
+
+        <?php $auth = Connect::begin([
+            'baseAuthUrl' => ['/user/security/auth'],
+            'accounts'    => $user->accounts,
+            'autoRender'  => false,
+            'popupMode'   => false,
+        ]) ?>
+        <table class="table">
+            <?php foreach ($auth->getClients() as $client): ?>
+                <tr>
+                    <td style="width: 32px; vertical-align: middle">
+                        <?= Html::tag('span', '', ['class' => 'auth-icon ' . $client->getName()]) ?>
+                    </td>
+                    <td style="vertical-align: middle">
+                        <strong><?= $client->getTitle() ?></strong>
+                    </td>
+                    <td style="width: 120px">
+                        <?= $auth->isConnected($client) ?
+                            Html::a(Yii::t('user', 'Disconnect'), $auth->createClientUrl($client), [
+                                'class' => 'btn btn-danger btn-block',
+                                'data-method' => 'post',
+                            ]) :
+                            Html::a(Yii::t('user', 'Connect'), $auth->createClientUrl($client), [
+                                'class' => 'btn btn-success btn-block',
+                            ])
+                        ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php Connect::end() ?>
+
+    </div>
+
+
 </div>
+

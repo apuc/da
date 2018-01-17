@@ -9,6 +9,7 @@
 namespace frontend\modules\promotions\controllers;
 
 use common\classes\Debug;
+use common\models\db\Phones;
 use common\models\db\ServicesCompanyRelations;
 use frontend\modules\company\models\Company;
 use frontend\modules\promotions\models\Stock;
@@ -20,6 +21,21 @@ use yii\web\NotFoundHttpException;
 
 class PromotionsController extends Controller
 {
+    public function init()
+    {
+        $this->on('beforeAction', function ($event) {
+
+            // запоминаем страницу неавторизованного пользователя, чтобы потом отредиректить его обратно с помощью  goBack()
+            if (Yii::$app->getUser()->isGuest) {
+                $request = Yii::$app->getRequest();
+                // исключаем страницу авторизации или ajax-запросы
+                if (!($request->getIsAjax() || strpos($request->getUrl(), 'login') !== false)) {
+                    Yii::$app->getUser()->setReturnUrl($request->getUrl());
+                }
+            }
+        });
+    }
+
     public function behaviors()
     {
         return [
@@ -32,7 +48,7 @@ class PromotionsController extends Controller
                     ],
 
                     [
-                        'actions' => ['index'],
+                        'actions' => ['index', 'view', 'update-view', 'read-more-stock'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -92,6 +108,7 @@ class PromotionsController extends Controller
             $model->user_id = Yii::$app->user->id;
 
             if ($_FILES['Stock']['name']['photo']) {
+
                 $upphoto = New \common\models\UploadPhoto();
                 $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
                 $loc = 'media/upload/userphotos/' . date('dmY') . '/';
@@ -110,6 +127,10 @@ class PromotionsController extends Controller
         }
 
         else {
+
+            /*if(empty($beforeCreate)){
+                Debug::prn($beforeCreate);
+            }*/
 
             return $this->render('create', [
                 'model' => $model,
@@ -183,11 +204,15 @@ class PromotionsController extends Controller
     }
 
 
-    public function actionView($id)
+    public function actionView($slug)
     {
-        $model = Stock::findOne($id);
-
-        return $this->render('view', ['model' => $model]);
+        $model = Stock::find()->with('company')->where(['slug' => $slug])->one();
+        $phones = Phones::find()->where(['company_id' => $model->company['id']])->all();
+       // Debug::prn($slug);
+        return $this->render('view', [
+            'model' => $model,
+            'phones' => $phones
+        ]);
     }
 
     protected function findModel($id)

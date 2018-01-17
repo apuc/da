@@ -10,8 +10,10 @@ use common\classes\GeobaseFunction;
 use common\classes\UserFunction;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
+use common\models\db\CompanyOld;
 use common\models\db\CompanyPhoto;
 use common\models\db\KeyValue;
+use common\models\db\Phones;
 use common\models\db\Services;
 use common\models\db\ServicesCompanyRelations;
 use common\models\db\Stock;
@@ -31,6 +33,8 @@ use yii\filters\VerbFilter;
  */
 class CompanyController extends Controller
 {
+    public $enableCsrfValidation = false;
+
     /**
      * @inheritdoc
      */
@@ -46,12 +50,13 @@ class CompanyController extends Controller
         ];
     }
 
-    public function beforeAction($action)
+   /* public function beforeAction($action)
     {
         $this->enableCsrfValidation = ($action->id !== "update");
+        $this->enableCsrfValidation = ($action->id !== "get_sub_categ");
 
         return parent::beforeAction($action);
-    }
+    }*/
 
     /**
      * Lists all Company models.
@@ -124,6 +129,17 @@ class CompanyController extends Controller
                     $socCompany->save();
                 }
             }
+            //Debug::prn(Yii::$app->request->post('mytext'));
+            if(!empty(Yii::$app->request->post('mytext')))
+            {
+                foreach (Yii::$app->request->post('mytext') as $phone)
+                {
+                    $phones = New Phones();
+                    $phones->phone = $phone;
+                    $phones->company_id = $model->id;
+                    $phones->save();
+                }
+            }
 
             if(!empty(Yii::$app->request->post('Tags')))
             {
@@ -140,7 +156,8 @@ class CompanyController extends Controller
                 'model' => $model,
                 'city' => GeobaseFunction::getArrayCityRegion(),
                 'typeSeti' => $typeSeti,
-                'tags' => $tags
+                'tags' => $tags,
+                'tags_selected' =>[],
             ]);
         }
     }
@@ -160,6 +177,7 @@ class CompanyController extends Controller
         $companyPhotosStr = implode(',', $companyPhotos);
         $typeSeti = SocAvailable::find()->all();
         $socCompany = SocCompany::find()->where(['company_id' => $model->id])->all();
+        $phones = Phones::find()->where(['company_id' => $model->id])->all();
         //Debug::prn($socCompany);
         $socCompany = ArrayHelper::index($socCompany, 'soc_type');
         $tags = Tags::find()->asArray()->all();
@@ -171,7 +189,7 @@ class CompanyController extends Controller
         //Debug::prn(ArrayHelper::getColumn($tags_selected, 'tag_id'));
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-
+            $model->phone = '';
             if($model->tariff_id)
             {
                 ServicesCompanyRelations::deleteAll(['company_id' => $model->id]);
@@ -227,6 +245,18 @@ class CompanyController extends Controller
                 }
             }
 
+            if(!empty(Yii::$app->request->post('mytext')))
+            {
+                Phones::deleteAll(['company_id' => $id]);
+                foreach (Yii::$app->request->post('mytext') as $phone)
+                {
+                    $phones = New Phones();
+                    $phones->phone = $phone;
+                    $phones->company_id = $model->id;
+                    $phones->save();
+                }
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -237,7 +267,8 @@ class CompanyController extends Controller
                 'typeSeti' => $typeSeti,
                 'socCompany' => $socCompany,
                 'tags' => $tags,
-                'tags_selected' => $tags_selected
+                'tags_selected' => $tags_selected,
+                'phones' => $phones
             ]);
         }
     }
@@ -284,10 +315,11 @@ class CompanyController extends Controller
 
     public function actionGet_sub_categ()
     {
+        $id = $_POST['catId'];
         echo Html::dropDownList(
             'sub_categ',
             null,
-            ArrayHelper::map(CategoryCompany::find()->where(['parent_id' => $_POST['catId']])->all(), 'id', 'title'),
+            ArrayHelper::map(CategoryCompany::find()->where(['parent_id' => $id])->all(), 'id', 'title'),
             ['class' => 'form-control', 'id' => 'sub_categ_company']
         );
     }
@@ -333,6 +365,27 @@ class CompanyController extends Controller
             'model' => Services::find()->asArray()->all()
         ]);
         //Debug::prn();
+    }
+
+    public function actionReplacePhone()
+    {
+        $company_old = CompanyOld::find()->all();
+
+        foreach ($company_old as $company)
+        {
+            if(!empty($company->phone)){
+                $company_replace = Company::findOne($company->id);
+
+
+                if(!empty($company_replace) && empty($company_replace->phone)){
+                    $company_replace->phone = $company->phone;
+
+                    if($company_replace->save()){
+                        echo 'номер '.$company_replace->phone.' Добавлен к компании '.$company_replace->id."</br>";
+                    }
+                }
+            }
+        }
     }
 
 }

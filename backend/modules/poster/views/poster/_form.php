@@ -7,6 +7,7 @@ use mihaildev\elfinder\InputFile;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model backend\modules\poster\models\Poster */
@@ -25,13 +26,19 @@ use yii\widgets\ActiveForm;
         'multiple' => 'multiple',
     ]) ?>
 
-    <? /*= $form->field($model, 'slug')->textInput(['maxlength' => true]) */ ?>
+    <label class="control-label" for="company-city_id">Начните вводить теги</label>
+    <?= Select2::widget([
+        'name' => 'Tags',
+        'data' => ArrayHelper::map($tags, 'id', 'tag'),
+        'value' => $tags_selected,
+        //'data' => ['Донецкая область' => ['1'=>'Don','2'=>'Gorl'], 'Rostovskaya' => ['5'=>'rostov']],
+        'options' => ['placeholder' => 'Начните вводить теги ...', 'multiple' => true],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]);
+    ?>
 
-    <? /*= $form->field($model, 'dt_add')->textInput() */ ?>
-
-    <? /*= $form->field($model, 'dt_update')->textInput() */ ?>
-
-    <? /*= $form->field($model, 'descr')->textarea(['rows' => 6]) */ ?>
     <?php echo $form->field($model, 'descr')->widget(CKEditor::className(), [
         'editorOptions' => ElFinder::ckeditorOptions('elfinder', [
             'preset' => 'full',
@@ -45,6 +52,16 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'start')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'region_id')->widget(\kartik\select2\Select2::className(),
+        [
+            'data' => ArrayHelper::map($region, 'id', 'name'),
+            //'data' => ['Донецкая область' => ['1'=>'Don','2'=>'Gorl'], 'Rostovskaya' => ['5'=>'rostov']],
+            'options' => ['placeholder' => 'Начните вводить регион ...'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]) ?>
 
     <div class="imgUpload">
         <div class="media__upload_img"><img src="<?= $model->photo; ?>" width="100px"/></div>
@@ -66,17 +83,6 @@ use yii\widgets\ActiveForm;
         ?>
     </div>
 
-    <? /*= $form->field($model, 'views')->textInput() */ ?>
-
-
-
-    <?php //if (!empty($model->dt_event)): ?>
-    <!--    --><? //= $form->field($model, 'dt_event')->input('datetime',
-    //        ['class' => 'form-control', 'value' => date('Y-m-d', $model->dt_event)]) ?>
-    <?php //else: ?>
-    <!--    --><? //= $form->field($model, 'dt_event')->input('datetime',
-    //        ['class' => 'form-control', 'value' => date('Y-m-d', time())]) ?>
-    <?php //endif; ?>
 
     <?php echo '<label>Дата события</label>';
     echo \kartik\datetime\DateTimePicker::widget([
@@ -109,16 +115,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'phone')->textInput(['maxlength' => true])  ?>
 
     <?= $form->field($model, 'metka')->textInput(['maxlength' => true])  ?>
-
-    <?php //if (!empty($model->dt_event_end)): ?>
-    <!--    --><? //= $form->field($model, 'dt_event_end')->input('date', [
-    //        'class' => 'form-control',
-    //        'value' => date('Y-m-d H:i', $model->dt_event_end),
-    //    ])->label('Дата окончания события') ?>
-    <?php //else: ?>
-    <!--    --><? //= $form->field($model, 'dt_event_end')->input('date',
-    //        ['class' => 'form-control', 'value' => date('Y-m-d', time())])->label('Дата окончания события') ?>
-    <?php //endif; ?>
 
 
     <?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>

@@ -28,28 +28,13 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             url: "/secure/vk/vk_stream/get-comments",
-            dataType: 'json',
+            //dataType: 'json',
             data: {'id': id},
             success: function (html) {
+                console.log(html);
                 $(".content-comments").html('');
                 if(html){
-
-                    for (comment in html)
-                    {
-
-                        string += '<tr>';
-                        string += (html[comment]['author'].id)
-                            ? '<td class="col-sm-2"><img src="'+html[comment]['author'].photo+'" class="img-rounded">'
-                            +'<a href="https://vk.com/' + html[comment]['author'].screen_name + '" target="_blank">'
-                            + html[comment]['author'].first_name +' '+ html[comment]['author'].last_name + '</a></img></td>'
-                            :'<td><a href="https://vk.com/'+html[comment]['author'].link+'" target="_blank">'
-                            + html[comment]['author'].name + '</a></td>';
-                        string += '<td>'+html[comment]['text']+'</td>';
-                        string += '<td class="col-sm-1">'+html[comment]['dt_add']+'</td>';
-                        string += '<td><a href="#" data-id="'+html[comment]['id']+'" class="delete_comments"><span class="glyphicon glyphicon-trash"></span></a></td>'
-                        string += '</tr>';
-                    }
-                    $(".content-comments").append(string);
+                    $(".content-comments").append(html);
                 }else $(".content-comments").append('<tr><td><h3>Комментариев пока нет..</h3></td></tr>');
                 $("#myModal").modal('show');
             }
@@ -210,10 +195,10 @@ $(document).ready(function () {
         $('.dt_public_box').slideToggle();
     });
 
-    $('#categ_company').on('change', function () {
+    $(document).on('change','#categ_company', function () {
         var catId = $(this).val();
         var csrf = $("input[name='_csrf']").val();
-        console.log(csrf);
+        console.log(catId);
         $.ajax({
             type: 'POST',
             url: "/secure/company/company/get_sub_categ",
@@ -394,6 +379,28 @@ $(document).ready(function () {
         return false;
     });
 
+    $(document).on('click', '.verified', function (event) {
+        event.preventDefault();
+        var button = $(this);
+        $.ajax({
+            url: '/secure/comments/comments/update-verified-ajax',
+            data: {
+                id: button.closest('tr').attr('data-key'),
+                _csrf: $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'POST',
+            success: function (data) {
+                console.log(data);
+                if (data.status == 1) {
+                    button.removeClass('btn-danger').addClass('btn-info').text('Проверено');
+                } else {
+                    button.removeClass('btn-info').addClass('btn-danger').text('Не проверено');
+                }
+            }
+        });
+        return false;
+    });
+
 
     $(document).on('click', '.to_plug--tariff', function () {
         var id = $(this).attr('data-id');
@@ -430,6 +437,30 @@ $(document).ready(function () {
         });
 
     });
+
+    $(document).on('click', '.add-input-phone', function () {
+        var html = '';
+        html = '<div class="input-group">'+
+                        '<input value="" class="form-control" name="mytext[]" type="text">'+
+                        '<a href="#" class="input-group-addon remove-input-phone">' +
+                            '<span class="glyphicon glyphicon-minus"></span>' +
+            '           </a>'+
+                '</div>';
+        $('.phone-dynamic-input').append(html);
+        return false;
+    });
+    $(document).on('click', '.remove-input-phone', function () {
+        $(this).parent().remove();
+        return false;
+    });
+
+    //Фильтр объявлений по статусу
+    $(document).on('change', '.status-ads-filter', function () {
+        var status = $(this).val();
+
+        window.location = "/secure/board/default/index?status-ads=" + status;
+    });
+
 });
 
 Share = {

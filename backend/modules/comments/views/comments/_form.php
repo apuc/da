@@ -14,14 +14,21 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'post_type')->dropDownList(['news' => 'Новости', 'page' => 'Страницы']) ?>
+    <?= $form->field($model, 'post_type')->dropDownList(['news' => 'Новости', 'page' => 'Страницы', 'vk_post' => 'ВК']) ?>
 
-    <?= $form->field($model, 'post_id')->dropDownList(\yii\helpers\ArrayHelper::map($news, 'id', 'title')) ?>
+    <?= $form->field($model, 'post_id')->hiddenInput()->label(false); ?>
 
-    <?= $form->field($model, 'user_id')->dropDownList(
-        \yii\helpers\ArrayHelper::map($user, 'id', 'username'),
-        ['prompt' => 'Гость']
-    ) ?>
+    <?= $form->field($model, 'user_id')->widget(\kartik\select2\Select2::className(),
+        [
+            'data' => \yii\helpers\ArrayHelper::map($user, 'id', 'username'),
+            'options' => ['placeholder' => 'Начните вводить login ...', 'multiple' => false],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+
+        ]
+    );
+    ?>
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 

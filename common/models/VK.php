@@ -9,6 +9,8 @@
 
 namespace common\models;
 
+use common\classes\Debug;
+
 class VK
 {
 
@@ -63,6 +65,12 @@ class VK
     public function getGroupWall($domain, $data)
     {
         $data['domain'] = $domain;
+        return $this->request('wall.get', $data);
+    }
+
+    public function getGroupWallByID($owner_id, $data)
+    {
+        $data['owner_id'] = $owner_id;
         return $this->request('wall.get', $data);
     }
 

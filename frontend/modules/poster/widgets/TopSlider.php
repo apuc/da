@@ -15,14 +15,19 @@ use yii\base\Widget;
 
 class TopSlider extends Widget
 {
+    public $useReg;
 
     public function run()
     {
         $topSlider = KeyValue::findOne(['key' => 'poster_page_top_slider']);
-        $posters = Poster::find()
+        $query = Poster::find()
             ->where(['id' => json_decode($topSlider->value)])
-            ->orderBy('views DESC')
-            ->with('categories')
+            ->orderBy('views DESC');
+        if($this->useReg != -1){
+            $query->andWhere("(`region_id` IS NULL OR `region_id`=$this->useReg)");
+
+        }
+        $posters = $query->with('categories')
             ->all();
         return $this->render('top_slider', [
             'posters' => $posters,

@@ -13,28 +13,54 @@
  */
 
 use yii\helpers\Url;
-
-$this->registerJsFile('/js/news.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+use yii\widgets\Breadcrumbs;
+$this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/news.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->registerMetaTag([
-    'name' => 'og:image',
-    'content' => 'http://' . $_SERVER['HTTP_HOST'] . $model->photo,
+    'property' => 'og:url',
+    'content' => yii\helpers\Url::current([], true),
 ]);
-$this->title = $model->meta_title;
 
 $this->registerMetaTag([
-    'name' => 'og:title',
+    'property' => 'og:type',
+    'content' => 'article',
+]);
+
+$this->registerMetaTag([
+    'property' => 'og:title',
     'content' => $newTitle,
 ]);
+
 $this->registerMetaTag([
-    'name' => 'og:description',
+    'property' => 'og:description',
     'content' => $newContent,
 ]);
+
+$this->registerMetaTag([
+    'property' => 'og:image',
+    'content' => 'https://' . $_SERVER['HTTP_HOST'] . $model->photo,
+]);
+$this->registerMetaTag([
+    'property' => 'og:image:secure_url',
+    'content' => 'https://' . $_SERVER['HTTP_HOST'] . $model->photo,
+]);
+
+
+
+$this->title = ($model->meta_title) ? $model->meta_title: $model->title;
+
+
+
 
 $this->registerMetaTag([
     'name' => 'description',
     'content' => $model->meta_descr,
 ]);
+
+$this->params['breadcrumbs'][] = ['label' => 'Все новости', 'url' => Url::to(['/news/news'])];
+$this->params['breadcrumbs'][] = ['label' => $category->title, 'url' => Url::to(['/news/news/category/', 'slug' => $category->slug])];
+$this->params['breadcrumbs'][] = $model->title;
 
 ?>
 <!-- close .header -->
@@ -42,45 +68,32 @@ $this->registerMetaTag([
 <!-- end header.html-->
 
 <main id="main-single-news">
-    <!--<script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
-    <script src="//yastatic.net/share2/share.js"></script>
-    <div class="ya-share2" data-services="collections,vkontakte,facebook,odnoklassniki,moimir"></div>-->
+
     <div class="container">
 
         <article id="article">
 
-            <div class="breadcrumbs">
-                <a href="/">Главная</a> <span>></span> <a href="<?= Url::to([
-                    '/news/news/category/',
-                    'slug' => $category->slug,
-                ]) ?>"><?= $category->title; ?></a>
-            </div>
+            <?= Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                'options' => ['class' => 'breadcrumbs']
+            ]) ?>
 
             <h1><?= $model->title; ?></h1>
+            <?= $this->render('news-info',
+                [
+                    'model' => $model,
+                    'countComments' => $countComments,
+                    'likes' => $likes
+                ]);
+            ?>
 
-            <div class="content-info">
-                <span class="author"><?= $model->author; ?></span>
-                <span class="comments"><?= $countComments . ' ' . \common\classes\WordFunctions::getNumEnding($countComments,
-                        [
-                            'комментарий',
-                            'комментария',
-                            'комментариев',
-                        ]); ?>
-                </span>
-                <span class="views"><?= $model->views; ?> просмотров</span>
-                <span class="data-time"><?= \common\classes\WordFunctions::FullEventDate($model->dt_public) ?></span>
-
-                <a href="#" class="like likes <?= (!empty($thisUserLike)) ? 'active' : ''?>"
-                   csrf-token="<?= Yii::$app->request->getCsrfToken() ?>"
-                   data-id="<?= $model->id; ?>"
-                   data-type="news">
-                    <i class="like-set-icon"></i>
-                    <span class="like-counter"><?= $likes; ?></span>
-                </a>
-            </div>
 
             <div class="thumbnail-wrapper">
+                <?php if(stristr($model->photo, 'http')):?>
+                <img class="thumbnail" src="<?= $model->photo?>" alt="">
+                <?php else: ?>
                 <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($model->photo); ?>" alt="">
+                <?php endif;?>
             </div>
 
 
@@ -89,50 +102,26 @@ $this->registerMetaTag([
                     <?= $model->content; ?>
                 </div>
 
-                <!--<div class="content-info">
-                    <span class="author"><?/*= $model->author; */?></span>
-                    <span class="comments">
-                        <?/*= $countComments . ' ' . \common\classes\WordFunctions::getNumEnding($countComments,
-                            [
-                                'комментарий',
-                                'комментария',
-                                'комментариев',
-                            ]); */?>
-                    </span>
-                    <span class="views" style="color: black"><?/*= $model->views; */?></span>
-                    <span class="data-time"><?/*= \common\classes\WordFunctions::FullEventDate($model->dt_public) */?></span>
-                    <a style="cursor: pointer" csrf-token="<?/*= Yii::$app->request->getCsrfToken() */?>"
-                       data-id="<?/*= $model->id; */?>"
-                       data-type="news"
-                       class="like likes">
-
-                        <?php /*if (!empty($thisUserLike)): */?>
-                            <i class="like-set-icon"></i>
-                        <?php /*else:; */?>
-                            <i class="like-icon"></i>
-                        <?php /*endif; */?>
-
-                        <span class="like-counter">
-                                <?/*= $likes; */?>
-                            </span>
-                    </a>
-                </div>-->
-
-               <!-- <div class="tags">
-                    <h3>Теги:</h3>
-                    <?php
-/*                    foreach ($tags as $tag): */?>
-                        <a><?/*= $tag; */?></a>
-                    <?php /*endforeach; */?>
-                </div>-->
-
-                <?/*= \frontend\modules\news\widgets\RandomNewsByCategory::widget(
+                <?php if(!empty($model['tagss'])): ?>
+                    <div class="content__separator"></div>
+                    <section class="hashtag">
+                        <div class="hashtag__wrapper">
+                            <?php
+                            foreach ($model['tagss'] as $tags){ ?>
+                                <a href="<?= Url::to(['/search/tag', 'id' => $tags['tagname']->id])?>">
+                                    <div class="hashtag__wrapper--item"><?= $tags['tagname']->tag; ?></div>
+                                </a>
+                            <?php } ?>
+                        </div>
+                    </section>
+                <?php endif; ?>
+                <?= $this->render('news-info',
                     [
-                        'categoryId' => $category->id,
-                        'template' => 'bottom',
-                    ]
-                ); */?>
-
+                        'model' => $model,
+                        'countComments' => $countComments,
+                        'likes' => $likes
+                    ]);
+                ?>
                 <?php
                     echo \frontend\modules\news\widgets\ReadTheSame::widget(
                         [
@@ -141,11 +130,10 @@ $this->registerMetaTag([
                         ]
                     );
 
-                    //\common\classes\Debug::prn($readTheSame);
                 ?>
 
                 <?= \frontend\widgets\Share::widget([
-                    'url' => \yii\helpers\Url::base(true) . '/news/' . $model->slug,
+                    'url' => yii\helpers\Url::current([], true),
                     'title' => $model->title,
                     'description' => $model->content,
                     'view' => 'share-news',
@@ -161,7 +149,6 @@ $this->registerMetaTag([
         </article>
         <aside id="aside">
             <div class="scroll">
-                <?/*= \frontend\modules\news\widgets\RandomNewsByCategory::widget(['categoryId' => $category->id]); */?>
                 <?php
                 echo \frontend\modules\news\widgets\ReadTheSame::widget(
                     [
@@ -169,13 +156,17 @@ $this->registerMetaTag([
                     ]
                 );
 
-                //\common\classes\Debug::prn($readTheSame);
                 ?>
 
-                <?= \frontend\modules\news\widgets\MostPopularNews::widget(); ?>
+                <?= \frontend\modules\news\widgets\MostPopularNews::widget(
+                    [
+                        'newsCurrentId' => $model->id,
+                        'useReg' => $useReg,
+                    ]
+                ); ?>
             </div>
         </aside>
 
-       <?= \frontend\modules\news\widgets\WhatElseToRead::widget(); ?>
+       <?= \frontend\modules\news\widgets\WhatElseToRead::widget(['useReg' => $useReg]); ?>
     </div>
 </main>

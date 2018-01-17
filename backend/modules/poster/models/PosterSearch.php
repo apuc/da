@@ -41,7 +41,13 @@ class PosterSearch extends Poster
      */
     public function search($params)
     {
+        $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
         $query = Poster::find();
+
+        if(isset($role['Редактор афиш']))
+        {
+            $query->andWhere(['user_id' => Yii::$app->user->id]);
+        }
 
         // add conditions that should always apply here
 

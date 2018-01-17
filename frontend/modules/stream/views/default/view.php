@@ -1,53 +1,67 @@
 <?php
+/**
+ * @var $model \common\models\db\VkStream
+ * @var $count
+ */
+
 use common\classes\DateFunctions;
 use frontend\widgets\ShowRightRecommend;
 use common\models\User;
 use common\classes\Debug;
 
-$this->title = $model->title.' | da-info';
+$this->title = (empty($model))? '' : $model->title.' | Портал DA Info Pro';
 $this->registerMetaTag([
     'name' => 'description',
-    'content' => $model->meta_descr,
+    'content' => (empty($model->descr)) ? 'На Портале DA Info Pro «' . $model->title . '». Популярное из социальной сети ВКонтакте в рубрике «В соцсетях»: юмор, мемы, мотивация, бизнес, лайфхаки, стиль.' : $model->meta_descr,
 ]);
 
-$this->registerJsFile('/theme/portal-donbassa/js/mansory.js', ['depends' => \yii\web\JqueryAsset::className()]);
-$this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAsset::className()]);
+$this->registerMetaTag([
+    'property' => 'og:title',
+    'content' => $model->title,
+]);
+
+$this->registerMetaTag([
+    'property' => 'og:url',
+    'content' => 'https://da-info.pro/stream/'.$model->slug,
+]);
+
+$this->registerMetaTag([
+    'property' => 'og:site_name',
+    'content' => 'Портал России и ДНР DA Info Pro: новости, компании, афиши, консультации.',
+]);
+
+$this->registerMetaTag([
+    'property' => 'og:image',
+    'content' => (!empty($model->photo[0])) ? $model->photo[0]->getLargePhoto(): '',
+]);
 
 
+
+$this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
+
 <section class="parser">
 
     <div class="container">
 
-        <h3 class="parser__title"><?= $model->title?></h3>
+        <h3 class="parser__title"><?= (empty($model))? '' :$model->title?></h3>
 
         <div class="business__wrapper">
 
             <div class="business__content">
 
-                <!--<div class="parser__top-counter">
-
-                    <a href="<?/*= \yii\helpers\Url::to(['/stream/default'])*/?>">Показать
-                        <span class="counter counter-stream-new" data-count="<?/*= $count*/?>">0</span> новых записи</a>
-
-                </div>
-
-                <div class="parser__top-link">
-
-                    <a href="#">Подписаться на эту тему</a>
-
-                </div>-->
+                <a class="parser__close" href="#">закрыть элемент</a>
 
                 <ul class="parser__top-nav">
-                    <li><a href="#">Все материалы <span><?= $count?></span></a></li>
+                    <li><a href="<?= \yii\helpers\Url::to(['/stream'])?>">Все материалы <span><?= $count?></span></a></li>
                     <li><a href="<?= \yii\helpers\Url::to(['/stream'])?>">ВК
                             <span><?= $count?></span></a></li>
                 </ul>
 
                 <div class="parser__single-wrapper">
 
-                    <? if(!empty($model)): ?>
-                    <div class="parser__element">
+                    <?php if(!empty($model)): ?>
+                    <div class="parser__element single-parser-element">
 
                         <a href="#" class="parser__element--author">
 
@@ -57,7 +71,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                     <img src="<?= $model->author->photo ?>" alt="">
                                 <?php endif; ?>
                                 <?php if (!empty($model->group)): ?>
-
+                                        <img src="<?= $model->group->getPhoto() ?>" alt="">
                                 <?php endif; ?>
                             </div>
 
@@ -71,7 +85,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                 <?php endif; ?>
                             </div>
 
-                            <span class="date"><?= DateFunctions::getGetNiceDate($model->dt_add) ?></span>
+                            <span class="date"><?= DateFunctions::getGetNiceDate($model->dt_publish) ?></span>
 
                         </a>
 
@@ -81,21 +95,23 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
                         <h3 class="parser__element--title"></h3>
 
-                        <p class="parser__element--descr"><?= $model->text?> </p>
+                        <p class="parser__element--descr"><?= nl2br($model->text)?> </p>
 
-                        <?php if (!empty($model->photo)): ?>
-                            <a data-fancybox="gallery" class="parser__element--photo"
-                               href="<?= $model->photo[0]->getLargePhoto() ?>">
-                                <img src="<?= $model->photo[0]->getLargePhoto() ?>" alt="">
-                            </a>
-
+                        <?php
+                        if (!empty($model->photo)): ?>
+                            <?php foreach ($model->photo as $key=>$value):?>
+                                <a data-fancybox="gallery" class="parser__element--photo"
+                                   href="<?= $model->photo[$key]->getLargePhoto() ?>">
+                                    <img src="<?= $model->photo[$key]->getLargePhoto() ?>" alt="">
+                                </a>
+                            <?php endforeach; ?>
                         <?php elseif (!empty($model->gif)): ?>
-                           <?foreach ($model->gif as $gif):?>
+                           <?php foreach ($model->gif as $gif):?>
                             <a data-fancybox="gallery" class="parser__element--photo"
                                href="<?= $gif->gif_link?>">
                                 <img src="<?= $gif->gif_link?>" alt="">
                             </a>
-                            <?endforeach;?>
+                            <?php endforeach;?>
                         <?php endif; ?>
 
                         <div class="parser__element--tools">
@@ -118,41 +134,58 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
                             <a href="#" class="views"><?= $model->views?></a>
 
+                            <a class="parser__close" href="#">закрыть элемент</a>
+
                         </div>
-                        <?if ($model->comment_status != 0):?>
+                        <?php if ($model->comment_status != 0):?>
                             <div class="parser__element--comments-block">
 
                                 <?php if (!empty($model->all_comments)): ?>
                                     <?php foreach ($model->all_comments as $comment_item): ?>
-                                        <div class="avatar">
-                                            <img src="<?= $comment_item['avatar'] ?>" alt="">
+
+                                        <div class="avatar user-photo">
+                                                <?= \common\classes\UserFunction::getUser_avatarStream($comment_item); ?>
                                         </div>
 
                                         <div class="name">
                                             <?= $comment_item['username'] ?>
                                         </div>
+                                            <p><?= $comment_item['text'] ?></p>
 
-                                        <p><?= $comment_item['text'] ?></p>
+                                        <?php if(!empty($comment_item['photo'])): ?>
+                                            <a data-fancybox="gallery" class="parser__element--photo"
+                                               href="<?= $comment_item['photo'] ?>">
+                                                <img src="<?= $comment_item['photo'] ?>" style="width: 50%">
+                                            </a>
+                                        <?php endif;?>
+
+                                        <?php if(!empty($comment_item['sticker'])): ?>
+                                            <a data-fancybox="gallery" class="parser__element--photo"
+                                               href="<?= $comment_item['sticker'] ?>">
+                                                <img src="<?= $comment_item['sticker'] ?>" style="width: 20%">
+                                            </a>
+                                        <?php endif;?>
+
                                     <?php endforeach; ?>
                                 <?php endif; ?>
 
                             </div>
-                        <?endif;?>
+                        <?php endif;?>
                         <?= \frontend\widgets\CommentsStream::widget([
                             'pageTitle' => 'Комментарии к ВК',
                             'postType' => 'vk_post',
                             'postId' => $model->id,
                         ]); ?>
                 </div>
-                    <? else: ?>
+                    <?php else: ?>
                     <h3>Такого поста не существует</h3>
-                    <? endif; ?>
+                    <?php endif; ?>
 
-                <h3 class="parser__title">Смотрите далее: </h3>
+                <h3 class="parser__title">Продолжение ленты: </h3>
 
                 <div class="parser__wrapper">
 
-                    <?if (!empty($interested1)): ?>
+                    <?php if (!empty($interested1)): ?>
 
                     <div id="first-column" class="parser__column">
                         <?php foreach ($interested1 as $item): ?>
@@ -165,7 +198,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                             <img src="<?= $item->author->photo ?>" alt="">
                                         <?php endif; ?>
                                         <?php if (!empty($item->group)): ?>
-
+                                            <img src="<?= $item->group->getPhoto() ?>" alt="">
                                         <?php endif; ?>
                                     </div>
 
@@ -179,7 +212,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                         <?php endif; ?>
                                     </div>
 
-                                    <span class="date"><?= DateFunctions::getGetNiceDate($item->dt_add) ?></span>
+                                    <span class="date"><?= DateFunctions::getGetNiceDate($item->dt_publish) ?></span>
 
                                 </a>
 
@@ -194,18 +227,18 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
                                     <p class="parser__element--descr"><?= $item->text ?></p>
                                     <?php if (mb_strlen($item->text) > 131): ?>
-                                        <a href="#" class="parser__element--more">читать далее</a>
+                                        <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug])?>" class="parser__element--more">читать далее</a>
                                     <?php endif; ?>
                                 <?php endif; ?>
 
                                 <?php if (!empty($item->photo)): ?>
-                                    <a data-fancybox="gallery" class="parser__element--photo"
-                                       href="<?= $item->photo[0]->getLargePhoto() ?>">
+                                    <a class="parser__element--photo"
+                                       href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>">
                                         <img src="<?= $item->photo[0]->getLargePhoto() ?>" alt="">
                                     </a>
                                 <?php elseif (!empty($item->gif)): ?>
-                                    <a data-fancybox="gallery" class="parser__element--photo"
-                                       href="<?= $item->gif[0]->getLargePreview()?>">
+                                    <a class="parser__element--photo"
+                                       href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>">
                                         <img src="<?= $item->gif[0]->getLargePreview()?>" alt="">
                                     </a>
                                 <?php endif; ?>
@@ -226,13 +259,13 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                         <?php
                                         if ($item->comment_status == 0):?>
                                            <?= 0?>
-                                        <?else:?>
+                                        <?php else:?>
                                             <?= (isset($item->all_comments)) ? count($item->all_comments) : 0?>
-                                        <?endif;?>
+                                        <?php endif;?>
                                     </a>
 
                                 </div>
-                                <? if ($item->comment_status != 0): ?>
+                                <?php if ($item->comment_status != 0): ?>
                                     <div class="parser__element--comments-block">
 
                                         <?php if (!empty($item->all_comments)): ?>
@@ -246,20 +279,35 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                                 </div>
 
                                                 <p><?= $comment_item['text'] ?></p>
+
+                                                <?php if(!empty($comment_item['photo'])): ?>
+                                                    <a data-fancybox="gallery" class="parser__element--photo"
+                                                       href="<?= $comment_item['photo'] ?>">
+                                                        <img src="<?= $comment_item['photo'] ?>" alt="">
+                                                    </a>
+                                                <?php endif;?>
+
+                                                <?php if(!empty($comment_item['sticker'])): ?>
+                                                    <a data-fancybox="gallery" class="parser__element--photo"
+                                                       href="<?= $comment_item['sticker'] ?>">
+                                                        <img src="<?= $comment_item['sticker'] ?>" style="width: 20%">
+                                                    </a>
+                                                <?php endif;?>
+
                                             <?php endforeach; ?>
                                         <?php endif; ?>
 
                                     </div>
-                                <?endif;?>
+                                <?php endif;?>
 
                             </div>
                         <?php endforeach; ?>
                     </div>
-                    <?else:?>
+                    <?php else:?>
                         <?$error = 'Больше записей нет'?>
-                    <?endif;?>
+                    <?php endif;?>
 
-                    <?if (!empty($interested2)):?>
+                    <?php if (!empty($interested2)):?>
 
                     <div id="second-column" class="parser__column">
                         <?php foreach ($interested2 as $item): ?>
@@ -272,7 +320,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                         <img src="<?= $item->author->photo ?>" alt="">
                                     <?php endif; ?>
                                     <?php if (!empty($item->group)): ?>
-
+                                        <img src="<?= $item->group->getPhoto() ?>" alt="">
                                     <?php endif; ?>
                                 </div>
 
@@ -286,7 +334,7 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                     <?php endif; ?>
                                 </div>
 
-                                <span class="date"><?= DateFunctions::getGetNiceDate($item->dt_add) ?></span>
+                                <span class="date"><?= DateFunctions::getGetNiceDate($item->dt_publish) ?></span>
 
                             </a>
 
@@ -301,19 +349,19 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
                                 <p class="parser__element--descr"><?= $item->text ?></p>
                                 <?php if (mb_strlen($item->text) > 131): ?>
-                                    <a href="#" class="parser__element--more">читать далее</a>
+                                    <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug])?>" class="parser__element--more">читать далее</a>
                                 <?php endif; ?>
                             <?php endif; ?>
 
                             <?php if (!empty($item->photo)): ?>
-                                <a data-fancybox="gallery" class="parser__element--photo"
-                                   href="<?= $item->photo[0]->getLargePhoto() ?>">
+                                <a class="parser__element--photo"
+                                   href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>">
                                     <img src="<?= $item->photo[0]->getLargePhoto() ?>" alt="">
                                 </a>
 
                             <?php elseif (!empty($item->gif)): ?>
-                                <a data-fancybox="gallery" class="parser__element--photo"
-                                   href="<?= $item->gif[0]->getLargePreview()?>">
+                                <a class="parser__element--photo"
+                                   href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>">
                                     <img src="<?= $item->gif[0]->getLargePreview()?>" alt="">
                                 </a>
                             <?php endif; ?>
@@ -334,13 +382,13 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                     <?php
                                     if ($item->comment_status == 0):?>
                                         <?= 0?>
-                                    <?else:?>
+                                    <?php else:?>
                                         <?= (isset($item->all_comments)) ? count($item->all_comments) : 0?>
-                                    <?endif;?>
+                                    <?php endif;?>
                                 </a>
 
                             </div>
-                            <?if ($item->comment_status) :?>
+                            <?php if ($item->comment_status) :?>
                                 <div class="parser__element--comments-block">
 
                                     <?php if (!empty($item->all_comments)): ?>
@@ -354,31 +402,45 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
                                             </div>
 
                                             <p><?= $comment_item['text'] ?></p>
+
+                                            <?php if(!empty($comment_item['photo'])): ?>
+                                                <a data-fancybox="gallery" class="parser__element--photo"
+                                                   href="<?= $comment_item['photo'] ?>">
+                                                    <img src="<?= $comment_item['photo'] ?>" alt="">
+                                                </a>
+                                            <?php endif;?>
+
+                                            <?php if(!empty($comment_item['sticker'])): ?>
+                                                <a data-fancybox="gallery" class="parser__element--photo"
+                                                   href="<?= $comment_item['sticker'] ?>">
+                                                    <img src="<?= $comment_item['sticker'] ?>" style="width: 20%">
+                                                </a>
+                                            <?php endif;?>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
 
                                 </div>
-                            <?endif;?>
+                            <?php endif;?>
 
                         </div>
                     <?php endforeach; ?>
                     </div>
 
-                    <?else:?>
+                    <?php else:?>
 
-                        <?$error = 'Больше записей нет'?>
+                        <?php $error = 'Больше записей нет'?>
 
-                    <?endif;?>
+                    <?php endif;?>
 
-                    <?if(empty($interested1) && empty($interested2)): ?>
+                    <?php if(empty($interested1) && empty($interested2)): ?>
                         <h3><?= $error?></h3>
-                    <?endif;?>
+                    <?php endif;?>
                         <!--<span class="stream-flag"></span>-->
                 </div>
 
                 <div class="parser__more">
 
-                    <a href="#" data-dt="<?= $model->dt_add?>"  class="show-more show-more-stream" data-step="1" csrf-token="<?= Yii::$app->request->getCsrfToken() ?>">загрузить еще</a>
+                    <a href="#" data-dt="<?= (empty($model))? :$model->dt_publish?>"  class="show-more show-more-stream" data-step="1" csrf-token="<?= Yii::$app->request->getCsrfToken() ?>">загрузить еще</a>
 
                 </div>
 
@@ -388,8 +450,8 @@ $this->registerJsFile('/js/stream_new_post.js', ['depends' => \yii\web\JqueryAss
 
 
         </div>
+            <?= \frontend\modules\stream\widgets\ShowTopStream::widget(); ?>
             <?= ShowRightRecommend::widget() ?>
-
         </div>
 
     </div>

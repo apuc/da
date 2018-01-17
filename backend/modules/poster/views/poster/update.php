@@ -13,12 +13,15 @@ $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'i
 $this->params['breadcrumbs'][] = Yii::t('poster', 'Update');
 ?>
 <div class="poster-update">
-
+    <? //\common\classes\Debug::prn($tags_selected) ?>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,
         'categoriesSelected' => $categoriesSelected,
+        'tags_selected' => $tags_selected,
+        'tags' => $tags,
+        'region' => $region,
     ]) ?>
 
 </div>

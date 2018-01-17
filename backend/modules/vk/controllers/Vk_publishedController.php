@@ -2,6 +2,7 @@
 
 namespace backend\modules\vk\controllers;
 
+use common\classes\Debug;
 use Yii;
 use backend\modules\vk\models\VkStream;
 use backend\modules\vk\models\VkStreamSearch;
@@ -36,9 +37,9 @@ class Vk_publishedController extends Controller
     public function actionIndex()
     {
         $searchModel = new VkStreamSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, ['status' => 1]);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, ['status' => 1, ['<', 'dt_publish', time()]], 'dt_publish');
 
-        return $this->render('index', [
+        return $this->render('../vk_stream/index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -85,12 +86,30 @@ class Vk_publishedController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $request = Yii::$app->request->post();
+            if(!empty($request['VkStream']['dt_publish'])){
+                $model->dt_publish = strtotime($request['VkStream']['dt_publish'].' '.$request['dt_publish_time']);
+            }else
+                $model->dt_publish = time();
+
+            $model->save();
             return $this->redirect(['index']);
         } else {
-            return $this->render('update', [
+            return $this->render('../vk_publish/update', [
                 'model' => $model,
             ]);
         }
+    }
+
+    public function actionDeffered()
+    {
+        $searchModel = new VkStreamSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, ['status' => 4 ], 'dt_publish');
+
+        return $this->render('../vk_stream/index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**

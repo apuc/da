@@ -48,7 +48,6 @@ use kartik\select2\Select2;
     ]);
     ?>
 
-    <? /*= $form->field($model, 'content')->textarea(['rows' => 6]) */ ?>
     <?php echo $form->field($model, 'content')->widget(CKEditor::className(), [
         'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
             'preset' => 'full',
@@ -57,12 +56,6 @@ use kartik\select2\Select2;
         ]),
 
     ]); ?>
-
-    <? /*= $form->field($model, 'dt_add')->textInput() */ ?>
-
-    <? /*= $form->field($model, 'dt_update')->textInput() */ ?>
-
-    <? /*= $form->field($model, 'slug')->textInput(['maxlength' => true]) */ ?>
 
     <div class="dt_public_box_link"><a href="#">Отложенная публикация</a></div>
     <div class="dt_public_box">
@@ -78,7 +71,6 @@ use kartik\select2\Select2;
 
     <?= $form->field($model, 'meta_descr')->textInput(['maxlength' => true]) ?>
 
-    <? /*= $form->field($model, 'photo')->textInput(['maxlength' => true]) */ ?>
     <div class="imgUpload">
         <div class="media__upload_img"><img src="<?= $model->photo; ?>" width="100px"/></div>
         <?php
@@ -107,6 +99,16 @@ use kartik\select2\Select2;
         '3' => 'Отложена',
     ])->label('Статус') ?>
 
+    <?= $form->field($model, 'region_id')->widget(Select2::className(),
+        [
+            'data' => \yii\helpers\ArrayHelper::map($region,'id', 'name'),
+            'options' => ['placeholder' => 'Начните вводить регион ...','class' => 'form-control'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]
+    ); ?>
+
     <?= $form->field($model, 'exclude_popular')->checkbox() ?>
 
     <?= $form->field($model, 'rss')->checkbox() ?>
@@ -116,6 +118,7 @@ use kartik\select2\Select2;
     <?= $form->field($model, 'hot_new')->checkbox(); ?>
 
     <?= $form->field($model, 'show_error')->checkbox(); ?>
+    <?= $form->field($model, 'editor_choice')->checkbox(); ?>
     <br>
 
     <div class="form-group">

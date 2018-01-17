@@ -115,12 +115,18 @@ class MainpageController extends Controller
             $dayFeedCount->value = $request->post('day_feed_count');
 
             $dayFeedCount->save();
+
+            $dayFeedCountDnr = KeyValue::findOne(['key' => 'day_feed_count_dnr']);
+            $dayFeedCountDnr->value = $request->post('day_feed_count_dnr');
+
+            $dayFeedCountDnr->save();
         }
 
         return $this->render('settings', [
             'dayFeedCount' => KeyValue::findOne([
                 'key' => 'day_feed_count',
             ])->value,
+            'dayFeedCountDnr' => KeyValue::findOne(['key' => 'day_feed_count_dnr'])->value,
         ]);
 
     }

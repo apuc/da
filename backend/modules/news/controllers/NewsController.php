@@ -4,8 +4,10 @@ namespace backend\modules\news\controllers;
 
 use backend\modules\category\models\CategoryNews;
 use backend\modules\tags\models\TagsRelation;
+use backend\modules\vk\models\VkStream;
 use common\classes\Debug;
 use common\models\db\CategoryNewsRelations;
+use common\models\db\GeobaseRegion;
 use common\models\db\Lang;
 use Yii;
 use backend\modules\news\models\News;
@@ -114,13 +116,27 @@ class NewsController extends Controller
                 }
             }
 
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
+            if(!empty(Yii::$app->request->get()))
+            {
+                $vk = VkStream::find()->with('photo')->where(['id' => Yii::$app->request->get('id')])->one();
+                $model->content = nl2br($vk->text);
+                $model->photo = (!empty($vk->photo)) ? $vk->photo[0]->getLargePhoto() : '';
+                $vk->scenario = 'saveNews';
+                $vk->status = 3;
+                $vk->save();
+            }
+
+            $region = GeobaseRegion::find()->where(['status' => 1])->all();
+
             return $this->render('create', [
                 'model' => $model,
                 'lang' => $lang,
                 'cats_arr' => [],
-                'tags' => $tags
+                'tags' => $tags,
+                'tags_selected' => [],
+                'region' => $region,
             ]);
         }
     }
@@ -193,12 +209,14 @@ class NewsController extends Controller
 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            $region = GeobaseRegion::find()->where(['status' => 1])->all();
             return $this->render('update', [
                 'model' => $model,
                 'lang' => $lang,
                 'cats_arr' => $cats_arr,
                 'tags' => $tags,
-                'tags_selected' => $tags_selected
+                'tags_selected' => $tags_selected,
+                'region' => $region,
             ]);
         }
     }

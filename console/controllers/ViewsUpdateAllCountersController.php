@@ -10,6 +10,7 @@ namespace console\controllers;
 use common\classes\Debug;
 use common\models\db\Company;
 use common\models\db\News;
+use common\models\db\Stock;
 use yii\console\Controller;
 use yii\helpers\ArrayHelper;
 
@@ -19,6 +20,7 @@ class ViewsUpdateAllCountersController extends Controller
     {
         $this->countNews();
         $this->countCompany();
+        $this->countStock();
     }
 
     protected function countNews()
@@ -35,13 +37,23 @@ class ViewsUpdateAllCountersController extends Controller
         }
     }
 
-    protected function countCompany()
+    /*protected function countCompany()
     {
         $company = Company::find()->where(['status' => 0])->all();
         foreach ($company as $item){
             $randNumber = rand(1,10);
             Company::updateAllCounters(['views' => $randNumber], ['id' => $item->id]);
             echo 'ID компании - ' . $item->id .  ' Увеличено на ' . $randNumber . "\n";
+        }
+    }*/
+
+    protected function countStock()
+    {
+        $stock = Stock::find()->where(['status' => 0])->all();
+        foreach ($stock as $item){
+            $randNumber = rand(1,10);
+            Stock::updateAllCounters(['view' => $randNumber], ['id' => $item->id]);
+            echo 'ID акции - ' . $item->id .  ' Увеличено на ' . $randNumber . "\n";
         }
     }
 

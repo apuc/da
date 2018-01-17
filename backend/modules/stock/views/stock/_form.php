@@ -17,7 +17,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?//= $form->field($model, 'photo')->textInput(['maxlength' => true]) ?>
     <div class="imgUpload">
         <div class="media__upload_img"><img src="<?= $model->photo; ?>" width="100px"/></div>
         <?php
@@ -40,7 +39,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'short_descr')->textarea(['rows' => 6]) ?>
 
-    <?//= $form->field($model, 'descr')->textarea(['rows' => 6]) ?>
     <?php echo $form->field($model, 'descr')->widget(CKEditor::className(), [
         'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
             'preset' => 'full',

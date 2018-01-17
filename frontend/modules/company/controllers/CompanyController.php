@@ -5,11 +5,14 @@ namespace frontend\modules\company\controllers;
 use common\classes\CompanyFunction;
 use common\classes\Debug;
 use common\classes\GeobaseFunction;
+use common\classes\UserFunction;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
 use common\models\db\CompanyFeedback;
 use common\models\db\CompanyPhoto;
+use common\models\db\CompanyViews;
 use common\models\db\KeyValue;
+use common\models\db\Phones;
 use common\models\db\ServicesCompanyRelations;
 use common\models\db\SocAvailable;
 use common\models\db\SocCompany;
@@ -20,6 +23,8 @@ use Yii;
 use frontend\modules\company\models\Company;
 use frontend\modules\company\models\CompanySearch;
 use yii\data\Pagination;
+use yii\db\Expression;
+use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -35,6 +40,21 @@ class CompanyController extends Controller
 {
 
     public $layout = 'portal_page';
+
+    public function init()
+    {
+        $this->on('beforeAction', function ($event) {
+
+            // запоминаем страницу неавторизованного пользователя, чтобы потом отредиректить его обратно с помощью  goBack()
+            if (Yii::$app->getUser()->isGuest) {
+                $request = Yii::$app->getRequest();
+                // исключаем страницу авторизации или ajax-запросы
+                if (!($request->getIsAjax() || strpos($request->getUrl(), 'login') !== false)) {
+                    Yii::$app->getUser()->setReturnUrl($request->getUrl());
+                }
+            }
+        });
+    }
 
     /**
      * @inheritdoc
@@ -73,18 +93,39 @@ class CompanyController extends Controller
 
     public function actionIndex()
     {
-
-        $organizations = Company::find()
+        $useReg = UserFunction::getRegionUser();
+        $organizationsQuery = Company::find()
+            ->with('allPhones')
             ->where([
                 'status' => 0,
-            ])
+            ]);
+        if($useReg != -1){
+            $organizationsQuery->andWhere(
+                [
+                    'region_id' => $useReg,
+                ]
+            );
+        }
+        $organizations = $organizationsQuery
             ->orderBy('RAND()')
-            ->limit(12)
+            ->limit(16)
             ->all();
 
         $wrc = KeyValue::getValue('we_recommend_companies');
-        $wrc = \common\models\db\Company::find()->where(['id' => json_decode($wrc)])->all();
-        $positions = [1, 4, 10];
+        $wrcQuery = \common\models\db\Company::find()
+            ->where(['id' => json_decode($wrc)]);
+
+        if($useReg != -1){
+            $wrcQuery->andWhere(
+                [
+                    'region_id' => $useReg,
+                ]
+            );
+        }
+
+        $wrc = $wrcQuery
+            ->all();
+        $positions = [1, 4, 10, 15];
 
         return $this->render('index', [
             'organizations' => $organizations,
@@ -138,13 +179,131 @@ class CompanyController extends Controller
      * @return mixed
      * @throws \yii\web\NotFoundHttpException
      * @throws \yii\base\InvalidParamException
+     * @throws \yii\db\Exception
      */
     public function actionView($slug)
     {
-        $model = \common\models\db\Company::findOne(['slug' => $slug]);
+
+        $model = Company::find()
+            ->with('allPhones')
+            ->joinWith('tagss.tagname')
+            ->where(['slug' => $slug])
+            //->andWhere(['`tags_relation`.`type`' => 'company'])
+            ->one();
         if (empty($model) || $model->status == 1) {
-            return $this->redirect(['site/error']);
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
+        //Подсчёт количества просмотров
+        Yii::$app->db->createCommand("INSERT INTO `company_views`(`user_id`, `company_id`, `date`, `ip_address`)
+                                            VALUES (:user_id, :company_id, NOW(), :ip_address) 
+                                              ON DUPLICATE KEY UPDATE `count`=`count` + 1",
+                [
+                    ':user_id' => Yii::$app->user->getId() ? Yii::$app->user->getId() : 0,
+                    ':company_id' => $model->id,
+                    ':ip_address' => ip2long(CompanyViews::getIP())
+                ])
+            ->execute();
+        $uniqueViews = CompanyViews::find()->where(['company_id' => $model->id])->count();
+        //Есть ли просмотры по компаниям
+        $show = ((int)$model->views != 0 || (int)$uniqueViews != 0);
+        if ($show) {
+            $countVision = (new Query())
+                ->select([
+                    'company_id',
+                    'date' => new Expression("DATE(`date`)"),
+                    'sum' => new Expression("SUM(`count`)"),
+                    'unique' => new Expression("COUNT(*)")
+                ])
+                ->from('company_views')
+                ->where(['company_id' => $model->id])
+                ->groupBy([
+                    new Expression("DATE(`date`)"),
+                    'company_id',
+                ])
+                ->all();
+
+            $optionsCV = [
+                'options' => [
+                    'chart' => [
+                        'type' => 'areaspline',
+                    ],
+                    'title' => ['text' => 'Количество просмотров'],
+                    'xAxis' => [
+                        'categories' => ArrayHelper::getColumn($countVision, function ($item) {
+                            return $item['date'];
+                        }
+                        )
+                    ],
+                    'yAxis' => [
+                        'title' => ['text' => 'Количество']
+                    ],
+                    'series' => [
+                        [
+                            'name' => 'Общие',
+                            'color' => 'grey',
+                            'data' => ArrayHelper::getColumn($countVision, function ($item) {
+                                return (int)$item['sum'];
+                            }
+                            )
+                        ],
+                        [
+                            'name' => 'Уникальные',
+                            'color' => '#ff0200',
+                            'data' => ArrayHelper::getColumn($countVision, function ($item) {
+                                return (int)$item['unique'];
+                            }
+                            )
+                        ]
+                    ]
+                ]
+            ];
+
+            $cvRegion = (new Query())
+                ->select([
+                    '`gc`.`name`',
+                    '`sum`' => new Expression("SUM(`count`)"),
+                    '`count`' => new Expression("COUNT(*)")
+                ])
+                ->from('`company_views`')
+                ->leftJoin('`geobase_ip_short` AS `gis`', '`ip_address` BETWEEN `gis`.`ip_begin` AND `gis`.`ip_end`')
+                ->leftJoin('`geobase_city` AS `gc`', '`gc`.`id` = `gis`.`city_id`')
+                ->where(['`company_id`' => $model->id])
+                ->groupBy([
+                    '`gis`.`city_id`',
+                ])
+                ->orderBy('`sum` DESC')
+                ->all();
+
+
+            array_walk($cvRegion, function (&$item) {
+                $item['name'] = is_null($item['name']) ? $item['name'] = '?' : $item['name'];
+                $item['sum'] = (int)$item['sum'];
+                $item = array_values($item);
+            });
+
+
+            $optionsCVR = [
+                'options' => [
+                    'chart' => [
+                        'type' => 'pie',
+                        'options3d' => [
+                            'enabled' => true,
+                            'alpha' => 45,
+                            'beta' => 0
+                        ],
+                    ],
+                    'title' => [
+                        'text' => 'Количество просмотров по городам'
+                    ],
+                    'series' => [[
+                        'type' => 'pie',
+                        'name' => 'Количество просмотров',
+                        'data' => $cvRegion
+                    ]]
+                ]
+            ];
+        }
+
         $stoke = Stock::find()->where(['company_id' => $model->id])->limit(3)->all();
         $feedback = CompanyFeedback::find()->where(['company_id' => $model->id, 'status' => 1])->with('user')->all();
         //Debug::prn($feedback);
@@ -161,6 +320,13 @@ class CompanyController extends Controller
 
         $socCompany = ArrayHelper::index($socCompany, 'soc_type');
 
+
+        $categoryCompany = CategoryCompanyRelations::find()
+            ->with('category.categ')
+            ->where(['company_id' => $model->id])
+            ->one();
+
+
         return $this->render('view', [
             'model' => $model,
             'stock' => $stoke,
@@ -169,6 +335,12 @@ class CompanyController extends Controller
             'services' => $services,
             'typeSeti' => $typeSeti,
             'socCompany' => $socCompany,
+            'categoryCompany' => $categoryCompany,
+            'uniqueViews' => $uniqueViews,
+            'optionsCV' => $optionsCV,
+            'optionsCVR' => $optionsCVR,
+            'cvRegion' => $cvRegion,
+            'show' => $show,
         ]);
     }
 
@@ -186,16 +358,13 @@ class CompanyController extends Controller
         $model = new Company();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $phone = '';
-            foreach ($_POST['mytext'] as $item){
-                $phone .= $item . ' ';
-            }
+
             $model->status = 1;
-            $model->phone = $phone;
+            //$model->phone = $phone;
             $model->user_id = Yii::$app->user->id;
             $model->meta_title = $model->name;
             $model->meta_descr =  \yii\helpers\StringHelper::truncate($model->descr, 250);
-            
+
             if ($_FILES['Company']['name']['photo']) {
                 $upphoto = New \common\models\UploadPhoto();
                 $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
@@ -208,6 +377,15 @@ class CompanyController extends Controller
                 $model->photo = '/' . $loc . $_FILES['Company']['name']['photo'];
             }
             $model->save();
+
+            Debug::prn($_POST['mytext']);
+            foreach ($_POST['mytext'] as $item){
+                $phone = New Phones();
+                $phone->phone = $item;
+                $phone->company_id = $model->id;
+                $phone->save();
+            }
+
             $catCompanyRel = new CategoryCompanyRelations();
             $catCompanyRel->cat_id = $_POST['categParent'];
             $catCompanyRel->company_id = $model->id;
@@ -246,19 +424,23 @@ class CompanyController extends Controller
     public function actionUpdate($id)
     {
         $this->layout = "personal_area";
-        $model = Company::find()->where(['id' => $id])->one();
+        $model = Company::find()->with('allPhones')->where(['id' => $id])->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-
-            $phone = '';
+            $model->phone = '';
             if(!empty($_POST['mytext'])){
+                Phones::deleteAll(['company_id' => $model->id]);
                 foreach ($_POST['mytext'] as $item){
-                    $phone .= $item . ' ';
+                    $phone = New Phones();
+                    $phone->phone = $item;
+                    $phone->company_id = $model->id;
+                    if(!empty($item))
+                            $phone->save();
                 }
             }
 
             $model->status = 2;
-            $model->phone = $phone;
+            //$model->phone = $phone;
             $model->user_id = Yii::$app->user->id;
 
             if (!empty($_FILES['Company']['name']['photo'])) {
@@ -397,12 +579,42 @@ class CompanyController extends Controller
         if (empty($cat)) {
             return $this->goHome();
         }
-        $organizations = Company::find()
+
+        $useReg = UserFunction::getRegionUser();
+
+        $arryResult = $cat->id;
+        if ($cat->parent_id == 0) {
+            $category = CategoryCompany::find()->where(['parent_id' => $cat->id])->all();
+            if(!empty($category)){
+                $arryResult = [];
+                $arryResult = ArrayHelper::getColumn($category, 'id');
+                foreach ($category as $item) {
+                    $catP = CategoryCompany::find()->where(['parent_id' => $item->id])->all();
+                    $arryResult = array_merge($arryResult, ArrayHelper::getColumn($catP, 'id'));
+                }
+            }
+        }
+
+
+
+
+        $organizationsQuery = Company::find()
+            ->with('allPhones')
             ->joinWith('categories')
-            ->where(['cat_id' => $cat->id, 'status' => 0])
+            ->where(['cat_id' => $arryResult, 'status' => 0]);
+
+        if($useReg != -1){
+            $organizationsQuery->andWhere(
+                [
+                    'region_id' => $useReg,
+                ]
+            );
+        }
+
+        $organizations = $organizationsQuery
             ->all();
 
-        $positions = [1, 4, 10];
+        $positions = [1, 4, 10, 15, 16, 21, 26, 31, 34, 39, 41];
 
         return $this->render('view_category', [
             'organizations' => $organizations,
@@ -455,12 +667,22 @@ class CompanyController extends Controller
 
     public function actionGetMoreCompany()
     {
-        $organizations = Company::find()
+        $useReg = UserFunction::getRegionUser();
+
+        $organizationsQuery = Company::find()
+            ->with('allPhones')
             ->where([
                 'status' => 0,
-            ])
-            ->orderBy('RAND()')
-            ->limit(12)
+            ]);
+        if($useReg != -1){
+            $organizationsQuery->andWhere(
+                [
+                    'region_id' => $useReg,
+                ]
+            );
+        }
+        $organizations = $organizationsQuery->orderBy('RAND()')
+            ->limit(16)
             ->all();
 
         $post = Yii::$app->request->post();
@@ -469,7 +691,7 @@ class CompanyController extends Controller
         $step = isset($post['step']) ? $post['step'] * 3 : 1;
         $wrc = array_splice($wrc, $step);
         $wrc = \common\models\db\Company::find()->where(['id' => $wrc])->all();
-        $positions = [1, 4, 10];
+        $positions = [1, 4, 10, 15];
 
         return $this->renderPartial('more_company', [
             'organizations' => $organizations,

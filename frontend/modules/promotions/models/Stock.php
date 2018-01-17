@@ -15,6 +15,12 @@ class Stock extends \common\models\db\Stock
     public function behaviors()
     {
         return [
+            'slug' => [
+                'class' => 'common\behaviors\Slug',
+                'in_attribute' => 'title',
+                'out_attribute' => 'slug',
+                'translit' => true
+            ],
             'timestamp' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
                 'attributes' => [
@@ -44,6 +50,9 @@ class Stock extends \common\models\db\Stock
             ->asArray()
             ->all();
 
+        if(empty($company)) {
+            return false;
+        }
         //id ограничейний по акциям
         $service_id = [11, 12, 13];
 

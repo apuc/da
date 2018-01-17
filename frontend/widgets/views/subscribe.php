@@ -5,10 +5,10 @@
  * Date: 15.05.2017
  * Time: 22:11
  */
-$this->registerJsFile('/js/validation.js');
+$this->registerJsFile('/js/validation.min.js');
 ?>
 
-<div class="home-content__wrap_subscribe">
+<div class="home-content__wrap_subscribe" id="subscribe">
     <div class="subscribe__wrap">
         <h3>ПОДПИСАТЬСЯ НА НОВОСТИ</h3>
         <form id="subscribeForm" action="">

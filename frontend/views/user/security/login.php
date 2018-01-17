@@ -28,9 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="row register">
     <div class="col-md-7 col-md-offset-3 register-form-container">
         <div class="panel panel-default">
-<!--            <div class="panel-heading">-->
-<!--                <h3 class="panel-title">--><?//= Html::encode($this->title) ?><!--</h3>-->
-<!--            </div>-->
+
             <div class="panel-body">
                 <?php $form = ActiveForm::begin([
                     'id'                     => 'login-form',
@@ -43,10 +41,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'login', ['inputOptions' => ['autofocus' => 'autofocus', 'class' => 'form-control', 'tabindex' => '1']]) ?>
 
-<!--                --><?//= $form->field($model, 'password', ['inputOptions' => ['class' => 'form-control', 'tabindex' => '2']])->passwordInput()->label(Yii::t('user', 'Password') . ($module->enablePasswordRecovery ? ' (' . Html::a(Yii::t('user', 'Forgot password?'), ['/user/recovery/request'], ['tabindex' => '5']) . ')' : '')) ?>
                 <?= $form->field($model, 'password', ['inputOptions' => ['class' => 'form-control', 'tabindex' => '2']])->passwordInput()->label(Yii::t('user', 'Password') )?>
 
-<!--                --><?//= $form->field($model, 'rememberMe')->checkbox(['tabindex' => '4']) ?>
+                <?= $form->field($model, 'rememberMe')->checkbox(['tabindex' => '3']) ?>
 
                 <?= Html::submitButton(Yii::t('user', 'Sign in'), ['class' => 'btn btn-primary btn-block', 'tabindex' => '3']) ?>
 
@@ -61,14 +58,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php endif; ?>
             </p>
         </div>
-<!--        --><?php //if ($module->enableConfirmation): ?>
-<!--            <p class="text-center">-->
-<!--                --><?//= Html::a(Yii::t('user', 'Didn\'t receive confirmation message?'), ['/user/registration/resend']) ?>
-<!--            </p>-->
-<!--        --><?php //endif ?>
+        <?php /*if ($module->enableConfirmation): */?><!--
+           <p class="text-center">
+                <?/*= Html::a(Yii::t('user', 'Didn\'t receive confirmation message?'), ['/user/registration/resend']) */?>
+           </p>
+        --><?php /*endif */?>
 
-        <?= Connect::widget([
-            'baseAuthUrl' => ['/user/security/auth'],
-        ]) ?>
+        <div class="row-soc-text"><p>или войдите через соц.сеть</p></div>
+        <div class="soc">
+            <?= Connect::widget([
+                'baseAuthUrl' => ['/user/security/auth'],
+            ]) ?>
+
+
+        </div>
     </div>
 </div>

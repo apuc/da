@@ -27,13 +27,17 @@ use yii\helpers\Url;
         <div class="what-say__wrap">
             <?php foreach ($feedbacks as $feedback): ?>
                 <!-- item -->
-                <a href="" class="what-say__wrap_item">
+                <a href="" class="what-say__wrap_item wrap-item-feedback">
 
                     <span class="rew-title"><?= $feedback->company_name ?> </span>
 
                     <div class="thumb">
-                        <span>A</span>
-                        <!-- <img src="img/home-content/what-say-1.png" alt="">-->
+                        <?php $avatar = \common\classes\UserFunction::getUser_avatar_html($feedback->user->id)?>
+                        <?php if (strlen($avatar) > 2): ?>
+                        <?= $avatar?>
+                        <?php else: ?>
+                        <span><?=$avatar ?></span>
+                        <?php endif; ?>
                     </div>
 
                     <div class="rew-wrap">
@@ -47,6 +51,33 @@ use yii\helpers\Url;
             <div class="more-block">
                 <a href="<?= \yii\helpers\Url::to(['/site/design']);?>" class="show-more">посмотреть все</a>
             </div>
+
+        </div>
+
+    </div>
+
+    <div id="modal-item-feedback" class="modal-review">
+        <div class="container">
+            <h3>Отзыв:</h3>
+            <div class="what-say__wrap">
+
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-company-rew" class="modal-company">
+
+        <div class="thumb">
+            <span>A</span>
+            <img src="" alt="">
+        </div>
+
+        <div class="rew-wrap">
+            <h2 class="title">Lorem ipsum dolor sit amet.</h2>
+            <span class="name"></span>
+            <p class="rew-descr"></p>
+
+            <?= \frontend\widgets\FooterSocial::widget() ?>
 
         </div>
 

@@ -31,7 +31,19 @@ $this->params['breadcrumbs'][] = $this->title;
             /*'id',*/
             'name',
             'address',
-            'phone',
+            [
+                'attribute' => 'phone',
+                'value' => function($model)
+                {
+                    $result = '';
+                    $phones = \common\models\db\Phones::find()->where(['company_id' => $model->id])->all();
+                    foreach ($phones as $phone)
+                    {
+                        $result .= $phone->phone."; ";
+                    }
+                    return $result;
+                }
+            ],
             'email:email',
             [                      // the owner name of the model
                 'attribute' => 'photo',

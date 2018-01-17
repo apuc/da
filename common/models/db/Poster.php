@@ -28,6 +28,7 @@ use Yii;
  * @property integer $phone
  * @property integer $metka
  * @property integer $user_id
+ * @property integer $region_id
  */
 class Poster extends \yii\db\ActiveRecord
 {
@@ -46,7 +47,7 @@ class Poster extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'dt_event', 'dt_event_end'], 'required'],
-            [['dt_add', 'dt_update', 'views', 'status', 'rss', 'popular', 'user_id'], 'integer'],
+            [['dt_add', 'dt_update', 'views', 'status', 'rss', 'popular', 'user_id', 'region_id'], 'integer'],
             [['dt_event', 'dt_event_end', 'user_id'], 'safe'],
             [['descr', 'short_descr'], 'string'],
             [['title', 'slug', 'price', 'meta_title', 'meta_descr', 'photo', 'address'], 'string', 'max' => 255],
@@ -83,6 +84,7 @@ class Poster extends \yii\db\ActiveRecord
             'phone' => Yii::t('poster', 'Phone'),
             'metka' => Yii::t('poster', 'Metka'),
             'user_id' => Yii::t('poster', 'user_id'),
+            'region_id' => Yii::t('poster', 'region'),
         ];
     }
 
@@ -94,6 +96,16 @@ class Poster extends \yii\db\ActiveRecord
     public function getCategories()
     {
         return $this->hasMany(CategoryPoster::className(), ['id' => 'cat_id'])->via('posterCategories');
+    }
+
+    public function getCategory()
+    {
+        return $this->hasOne(CategoryPoster::className(), ['id' => 'cat_id'])->via('posterCategories');
+    }
+
+    public function getTagss()
+    {
+        return $this->hasMany(\backend\modules\tags\models\TagsRelation::className(), ['post_id' => 'id']);
     }
 
 

@@ -22,8 +22,8 @@ class SearchController extends Controller
 
         $searchModel = new Search();
 
-        $searchModel->request = $request['request'];
-        $interval = (isset($request['interval'])) ? $request['interval'] : 'week';
+        $searchModel->request = trim($request['request']);
+        $interval = (isset($request['interval'])) ? $request['interval'] : 'year';
         $searchModel->interval = $interval;
         $searchModel->type = (isset($request['type'])) ? $request['type'] : '';
 

@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = Yii::t('comments', 'Update');
 
     <?= $this->render('_form', [
         'model' => $model,
-        'news' => $news,
+        'posts' => $posts,
         'user' => $user,
     ]) ?>
 

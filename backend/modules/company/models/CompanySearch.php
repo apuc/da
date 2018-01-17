@@ -19,7 +19,7 @@ class CompanySearch extends Company
     public function rules()
     {
         return [
-            [['id', 'dt_add', 'dt_update', 'status', 'lang_id'], 'integer'],
+            [['id', 'dt_add', 'dt_update', 'status', 'lang_id', 'region_id'], 'integer'],
             [['name', 'address', 'phone', 'email', 'photo', 'descr', 'slug','vip'], 'safe'],
         ];
     }
@@ -43,7 +43,7 @@ class CompanySearch extends Company
     public function search($params)
     {
         $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
-        $query = Company::find();
+        $query = Company::find()->with('allPhones');
         //Debug::prn($query->where(['user_id' => Yii::$app->user->id]));
 
         if(isset($role['Редактор компаний']))
@@ -63,9 +63,11 @@ class CompanySearch extends Company
             // $query->where('0=1');
             return $dataProvider;
         }
+        //
 
-
-
+        if(!empty($this->name)){
+            $query->andWhere(['id' => $this->name]);
+        }
 
         // grid filtering conditions
         $query->andFilterWhere([
@@ -74,20 +76,20 @@ class CompanySearch extends Company
             'dt_update' => $this->dt_update,
             'status' => $this->status,
             'lang_id' => $this->lang_id,
+            'region_id' => $this->region_id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
+        $query
             ->andFilterWhere(['like', 'address', $this->address])
             ->andFilterWhere(['like', 'phone', $this->phone])
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'photo', $this->photo])
             ->andFilterWhere(['like', 'descr', $this->descr])
-            ->andFilterWhere(['like', 'slug', $this->slug])
+            /*->andFilterWhere(['like', 'slug', $this->slug])*/
             ->andFilterWhere(['like', 'vip', $this->vip]);
 
 
         $query->orderBy('dt_add DESC');
-
         return $dataProvider;
     }
 }

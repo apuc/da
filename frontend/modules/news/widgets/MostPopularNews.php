@@ -19,17 +19,23 @@ use yii\data\SqlDataProvider;
 class MostPopularNews extends Widget
 {
 
+    public $newsCurrentId;
+    public $useReg;
+
     public function run()
     {
-        $currentNewSlug = Yii::$app->request->get()['slug'];
-
         $params = \Yii::$app->params;
 
-        $news = News::find()
-            ->where(['status' => 0, 'exclude_popular' => 0])
+        $query = News::find()
+            ->from('news FORCE INDEX(`views`)')
             ->andWhere(['>=', 'dt_public', time() - 2592000 * $params['countMonth']])
-            ->andWhere(['!=', 'slug', $currentNewSlug])
             ->andWhere(['>', 'views', $params['countView']])
+            ->andWhere(['status' => 0, 'exclude_popular' => 0])
+            ->andWhere(['!=', 'id', $this->newsCurrentId]);
+        if($this->useReg != -1){
+            $query->andWhere("(`region_id` IS NULL OR `region_id`=$this->useReg)");
+        }
+        $news = $query
             ->orderBy('RAND()')
             ->addOrderBy('views ASC')
             ->limit(2)

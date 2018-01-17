@@ -4,6 +4,7 @@ namespace frontend\modules\poster\controllers;
 
 use backend\modules\poster\controllers\PosterController;
 use common\classes\Debug;
+use common\classes\UserFunction;
 use common\models\db\CategoryPoster;
 use common\models\db\CategoryPosterRelations;
 use common\models\db\KeyValue;
@@ -27,7 +28,20 @@ class DefaultController extends Controller
 {
     public $layout = 'portal_page';
 
+    public function init()
+    {
+        $this->on('beforeAction', function ($event) {
 
+            // запоминаем страницу неавторизованного пользователя, чтобы потом отредиректить его обратно с помощью  goBack()
+            if (Yii::$app->getUser()->isGuest) {
+                $request = Yii::$app->getRequest();
+                // исключаем страницу авторизации или ajax-запросы
+                if (!($request->getIsAjax() || strpos($request->getUrl(), 'login') !== false)) {
+                    Yii::$app->getUser()->setReturnUrl($request->getUrl());
+                }
+            }
+        });
+    }
 
     public function behaviors()
     {
@@ -56,17 +70,20 @@ class DefaultController extends Controller
     }
 
     /**
-     * Renders the index view for the module
-     * @return string
+     * @throws \yii\web\HttpException
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        //return $this->render('index');
+        throw new \yii\web\HttpException(404 ,'Страница не найдена.');
     }
 
     public function actionView($slug)
     {
-        $poster = Poster::find()->where(['slug' => $slug])->one();
+        $poster = Poster::find()
+            ->with('category')
+            ->joinWith('tagss.tagname')
+            ->where(['slug' => $slug])->one();
 
         if (empty($poster)) {
             return $this->redirect(['site/error']);
@@ -171,12 +188,14 @@ class DefaultController extends Controller
                 'pageSize' => 12,
             ],
         ]);*/
+        $useReg = UserFunction::getRegionUser();
 
         return $this->render('category2', [
             'category' => CategoryPoster::find()->orderBy('id DESC')->all(),
             //'dataProvider' => $dataProvider,
             'meta_title' => KeyValue::findOne(['key' => 'poster_page_meta_title'])->value,
             'meta_descr' => KeyValue::findOne(['key' => 'poster_page_meta_descr'])->value,
+            'useReg' => $useReg,
         ]);
     }
 
@@ -198,7 +217,8 @@ class DefaultController extends Controller
     }
 
     public function actionSingle_category($slug)
-    {
+    {   $useReg = UserFunction::getRegionUser();
+
         $cat = CategoryPoster::find()->where(['slug' => $slug])->one();
         $query = CategoryPosterRelations::find()
             ->leftJoin('poster', '`category_poster_relations`.`poster_id` = `poster`.`id`')
@@ -217,8 +237,10 @@ class DefaultController extends Controller
 
         return $this->render('category_single', [
             'slug' => $slug,
+            'cat' => $cat,
             'meta_title' => KeyValue::findOne(['key' => 'poster_page_meta_title'])->value,
             'meta_descr' => KeyValue::findOne(['key' => 'poster_page_meta_descr'])->value,
+            'useReg' => $useReg,
         ]);
     }
 
@@ -308,8 +330,8 @@ class DefaultController extends Controller
         $poster = Poster::find()
             ->where(['>=', 'dt_event_end', time()])
             ->orderBy('dt_event')
-            ->offset(((int)$step - 1) * 4)
-            ->limit(4)
+            ->offset($step)
+            ->limit(12)
             ->with('categories')
             ->all();
 

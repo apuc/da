@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    <?= Html::a('Очистить корзину', ['/vk/vk_basket/delete-all'], ['class' => 'btn btn-warning']) ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) {
                     $domain = \common\models\db\VkGroups::find()->where(['vk_id' => $model->owner_id])->one();
                     if ($domain) {
-                        return Html::a('Ссылка',
+                        return Html::a($domain->name,
                             'https://vk.com/' . $domain->domain . '?w=wall' . $model->vk_id,
                             [
                                 'target' => '_blank',
@@ -36,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
 
                 },
+                'filter' => \yii\helpers\ArrayHelper::map(\common\models\db\VkGroups::find()->all(), 'vk_id', 'name')
             ],
             //'from_id',
             //'owner_id',
@@ -62,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         $text = '<div>'.$string.'...</div>'.Html::a('Читать далее',['#'], ['class' => 'more']).
                             Html::a('Скрыть',['#'], ['class' => 'closeMore', 'style' => 'display: none']);
                         $text .= '<div class="readMore" style="display: none">'.substr($model->text, strlen($string)).'</div>';
-                    }
+                    } $text .= '<div>'.$model->text.'...</div>';
 
                     $text .= '<div>';
 
@@ -82,7 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     foreach ((array)$gif as $item) {
 
                         if (!empty($item->gif_link)) {
-                            $text .= '<span>' . Html::img($item->gif_link, ['width' => 300]) . '</span>';
+                            $text .= '<span>' . Html::img($item->getLargePreview(), ['width' => 300]) . '</span>';
                         }
                     }
 
@@ -117,6 +118,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a('Удалить', ['#'], ['class' => 'btn btn-danger delete_from_basket', 'data-id' => $model->id]);
                 },
             ],
+            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 </div>

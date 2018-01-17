@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
 use common\models\db\KeyValue;
@@ -32,7 +33,7 @@ $user = Yii::$app->user->identity;
 <body>
 <?php $this->beginBody() ?>
 
-<?= \frontend\widgets\ShowHeader::widget(); ?>
+<?php echo \frontend\widgets\ShowHeader::widget(); ?>
 
 <section class="home-content">
     <div class="container">
@@ -44,42 +45,64 @@ $user = Yii::$app->user->identity;
             <?= \frontend\widgets\Entertainment::widget(); ?>
 
             <?= \frontend\widgets\SituationMain::widget() ?>
-
-            <?= \frontend\modules\mainpage\widgets\CommunalRates::widget(); ?>
-
-            <?= \frontend\widgets\Subscribe::widget() ?>
+            <?php
+            if ($this->beginCache('communal_rates_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
+                echo \frontend\modules\mainpage\widgets\CommunalRates::widget();
+                $this->endCache();
+            }
+            if ($this->beginCache('subscribe_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
+                echo \frontend\widgets\Subscribe::widget();
+                $this->endCache();
+            }
+            ?>
 
         </div>
 
-        <div class="home-content__tape">
-            <?= \frontend\widgets\DayFeed::widget(); ?>
-        </div>
 
+        <?= \frontend\widgets\DayFeed::widget(['useReg' => 21, 'page' => 'dnr']); ?>
+
+        <?= \frontend\widgets\Consultation::widget(); ?>
         <div class="home-content__sidebar">
 
             <?= \frontend\modules\mainpage\widgets\Stock::widget() ?>
 
         </div>
-        <div class="home-content__sidebar_poll">
-            <?= \frontend\widgets\Poll::widget(); ?>
-        </div>
+        <!--<div class="home-content__sidebar_poll">
+            <?/*= \frontend\widgets\Poll::widget(); */?>
+        </div>-->
 
-        <?= \frontend\widgets\Consultation::widget(); ?>
 
-        <?= \frontend\widgets\ExchangeRatesMain::widget() ?>
 
-        <?= \frontend\widgets\Weather::widget(); ?>
+       <!-- --><?/*= \frontend\widgets\ExchangeRatesMain::widget() */?>
+
+        <?/*= \frontend\widgets\Weather::widget(); */?>
 </section>
+<?php
+/*echo \frontend\widgets\MainPopularSlider::widget(['useReg' => 21]);
 
-<?= \frontend\widgets\MainPopularSlider::widget(); ?>
+if ($this->beginCache('main_posters_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
+    echo \frontend\widgets\MainPosters::widget(['useReg' => 21]);
+    $this->endCache();
+}
 
-<?= \frontend\widgets\MainPosters::widget(); ?>
+echo \frontend\widgets\StreamMain::widget();
 
-<?= \frontend\widgets\CompanyMain::widget(); ?>
+if ($this->beginCache('company_main_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
+    echo \frontend\widgets\CompanyMain::widget(['useReg' => 21]);
+    $this->endCache();
+}
 
-<?= \frontend\widgets\MainPhotos::widget(); ?>
+if ($this->beginCache('main_photos_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
+    echo \frontend\widgets\MainPhotos::widget(['useReg' => 21]);
+    $this->endCache();
+}*/
 
-<?= \frontend\widgets\ShowFooter::widget(); ?>
+if ($this->beginCache('show_footer_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
+    echo \frontend\widgets\ShowFooter::widget();
+    $this->endCache();
+}
+?>
+
 
 <!--<a href="" class="fix-button"><img src="/theme/portal-donbassa/img/home-content/fix-button.png" alt=""></a>-->
 
@@ -208,45 +231,7 @@ $user = Yii::$app->user->identity;
 
 </div>
 
-<div class="modal-review" id="modal-add-comment">
 
-    <h3 class="modal-review__title">Добавить комментарий</h3>
-
-    <p class="modal-review__subtitle">Пишите и хорошее, и плохое.</p>
-
-    <div class="separator"></div>
-
-    <form action="" class="modal-review__form">
-
-        <p>Ваш комментарий</p>
-
-        <textarea id="comment" class="modal-review__textarea" placeholder="Текст сообщения"></textarea>
-
-        <input id="modal-add-comment-submit" class="show-more" type="submit" value="отправить">
-
-    </form>
-
-</div>
-
-<div class="modal-review" id="modal-faq">
-
-    <h3 class="modal-review__title">Добавить комментарий</h3>
-
-    <p class="modal-review__subtitle">Пишите и хорошее, и плохое.</p>
-
-    <div class="separator"></div>
-
-    <form action="" class="modal-review__form">
-
-        <p>Ваш комментарий</p>
-
-        <textarea class="modal-review__textarea" placeholder="Текст сообщения"></textarea>
-
-        <input id="modal-add-comment-submit" class="show-more js-send-ask-question" type="submit" value="отправить">
-
-    </form>
-
-</div>
 <a id="Go_Top" style="display: inline;"><img src="/theme/portal-donbassa/img/icons/button_up.svg" alt=""></a>
 <div id="overlay"></div>
 

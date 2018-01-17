@@ -3,18 +3,11 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use common\models\db\KeyValue;
-use common\models\User;
-use frontend\widgets\ExchangeRates;
+use frontend\assets\MainPageAsset;
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\helpers\Url;
-use yii\widgets\Breadcrumbs;
-use frontend\assets\AppAsset;
 use common\widgets\Alert;
 
-AppAsset::register($this);
+MainPageAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -30,10 +23,12 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-
+<?= Alert::widget() ?>
 <?= \frontend\widgets\ShowHeader::widget(); ?>
 
-<?= $content; ?>
+
+        <?= $content; ?>
+
 <!--<a href="" class="fix-button"><img src="/theme/portal-donbassa/img/home-content/fix-button.png" alt=""></a>-->
 
 <?= \frontend\widgets\ShowFooter::widget(); ?>
@@ -163,25 +158,6 @@ AppAsset::register($this);
 
 </div>
 
-<div class="modal-review" id="modal-add-comment">
-
-    <h3 class="modal-review__title">Добавить комментарий</h3>
-
-    <p class="modal-review__subtitle">Пишите и хорошее, и плохое.</p>
-
-    <div class="separator"></div>
-
-    <form action="" class="modal-review__form">
-
-        <p>Ваш комментарий</p>
-
-        <textarea id="comment" class="modal-review__textarea" placeholder="Текст сообщения"></textarea>
-
-        <input id="modal-add-comment-submit" class="show-more" type="submit" value="отправить">
-
-    </form>
-
-</div>
 <a id="Go_Top" style="display: inline;"><img src="/theme/portal-donbassa/img/icons/button_up.svg" alt=""></a>
 <div id="overlay"></div>
 

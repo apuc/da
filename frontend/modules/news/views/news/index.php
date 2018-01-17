@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
@@ -20,8 +21,9 @@ use yii\widgets\Pjax;
  * @var $hotNews \common\models\db\News
  */
 //$this->title                   = Yii::t( 'news', 'News' );
-$this->params['breadcrumbs'][] = $this->title;
 $this->title = $meta_title;
+$this->params['breadcrumbs'][] = 'Все новости';
+
 $this->registerMetaTag([
     'name' => 'description',
     'content' => $meta_descr,
@@ -31,24 +33,31 @@ $this->registerLinkTag([
     'href' => Url::home(true) . 'all-news',
     'rel' => 'canonical',
 ]);
-
+$this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $md = new \common\classes\Mobile_Detect();
 ?>
 
+
 <section class="news">
     <div class="container">
+
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'options' => ['class' => 'breadcrumbs']
+        ]) ?>
+
+        <!--<div class="breadcrumbs">
+            <a href="/">Главная</a> <span>></span> <a href="<?/*= Url::to([
+                '/news/news/category/',
+                'slug' => '123',
+            ]) */?>"><?/*= 123 */?></a>
+        </div>-->
+
         <div class="news-slider-index-panel">
             <h3>Горячие темы</h3>
             <div class="buttons-wrap">
-                <a href="<?= Url::to(['/site/design']); ?>">подписаться</a>
-
+                <a href="#subscribe" class="subscribe-scroll">подписаться</a>
             </div>
-            <!--<div class="hot-tag">-->
-            <!--    <a href="">Криптовалюты </a>-->
-            <!--    <a href="">Дональд Трамп</a>-->
-            <!--    <a href="">ОПЕК</a>-->
-            <!--    <a href="">Китай Tesla </a>-->
-            <!--</div>-->
         </div>
         <div class="news__wrap">
 
@@ -66,8 +75,11 @@ $md = new \common\classes\Mobile_Detect();
                             'slug' => $currNew->slug,
                         ]); ?>" class="news__wrap_item-lg">
                             <div class="thumb">
-                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>"
-                                     alt="">
+                                <?php if(stristr($currNew->photo, 'http')):?>
+                                    <img class="thumbnail" src="<?= $currNew->photo?>" alt="">
+                                <?php else: ?>
+                                    <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>" alt="">
+                                <?php endif;?>
                                 <div class="content-row">
                                     <span><?= WordFunctions::dateWithMonts($currNew->dt_public); ?></span>
                                     <span><?= $currNew['categoryNewsRelations'][0]['cat']->title; ?></span>
@@ -86,8 +98,11 @@ $md = new \common\classes\Mobile_Detect();
                                 '/news/default/view',
                                 'slug' => $currNew->slug,
                             ]); ?>" class="thumb">
-                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>"
-                                     alt="">
+                                <?php if(stristr($currNew->photo, 'http')):?>
+                                    <img class="thumbnail" src="<?= $currNew->photo?>" alt="">
+                                <?php else: ?>
+                                    <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>" alt="">
+                                <?php endif;?>
                                 <div class="content-row">
                                     <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
                                     <span><small
@@ -110,6 +125,7 @@ $md = new \common\classes\Mobile_Detect();
                 else:
 
                     $currHotNew = $hotNews[$hotNewId];
+
                     ?>
                     <a href="<?= Url::to([
                         '/news/default/view',
@@ -117,12 +133,18 @@ $md = new \common\classes\Mobile_Detect();
                     ]); ?>" class=" news__wrap_item-sm-hot">
                         <!-- thumb -->
                         <div class="thumb">
-                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($currHotNew->photo); ?>" alt="">
+
+                            <?php if(stristr($currHotNew->photo, 'http')):?>
+                                <img class="thumbnail" src="<?= $currHotNew->photo?>" alt="">
+                            <?php else: ?>
+                                <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($currHotNew->photo); ?>" alt="">
+                            <?php endif; ?>
+
                             <div class="content-row">
                                 <span><small class="view-icon"></small><?= $currHotNew->views; ?></span>
                                 <span><small
-                                        class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currNew->id) ?></span>
-                                <span><?= $currNew['categoryNewsRelations'][0]['cat']->title; ?></span>
+                                        class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currHotNew->id) ?></span>
+                                <span><?= $currHotNew['categoryNewsRelations'][0]['cat']->title; ?></span>
                             </div>
                         </div>
                         <!-- thumb -->
@@ -156,9 +178,11 @@ $md = new \common\classes\Mobile_Detect();
     </div>
 </section>
 
-<?= \frontend\modules\news\widgets\PeopleTalk::widget(); ?>
-
+<?= \frontend\widgets\StreamMain::widget();?>
 <?= \frontend\modules\news\widgets\RubricSlider::widget(); ?>
+<? //= \frontend\modules\news\widgets\PeopleTalk::widget(); ?>
+
+
 
 
 

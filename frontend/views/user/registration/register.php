@@ -9,6 +9,7 @@
  * file that was distributed with this source code.
  */
 
+use dektrium\user\widgets\Connect;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -25,9 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="row register">
     <div class="col-md-7 col-md-offset-3 register-form-container">
         <div class="panel panel-default">
-<!--            <div class="panel-heading">-->
-<!--                <h3 class="panel-title">--><?//= Html::encode($this->title) ?><!--</h3>-->
-<!--            </div>-->
             <div class="panel-body">
                 <?php $form = ActiveForm::begin([
                     'id'                     => 'registration-form',
@@ -50,6 +48,15 @@ $this->params['breadcrumbs'][] = $this->title;
             <p class="text-center">
                 <?= Html::a(Yii::t('user', 'Already registered? Sign in!'), ['/user/security/login']) ?>
             </p>
+
+            <div class="row-soc-text"><p>или войдите через соц.сеть</p></div>
+            <div class="soc">
+                <?= Connect::widget([
+                    'baseAuthUrl' => ['/user/security/auth'],
+                ]) ?>
+
+
+            </div>
         </div>
 
     </div>

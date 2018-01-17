@@ -2,28 +2,22 @@
 
 namespace frontend\modules\news\controllers;
 
-use app\models\UploadPhoto;
 use common\classes\Debug;
+use common\classes\UserFunction;
 use common\models\db\CategoryNews;
 use common\models\db\CategoryNewsRelations;
 use common\models\db\KeyValue;
 use common\models\db\Lang;
-use frontend\controllers\MainController;
 use Yii;
 use common\models\db\News;
 use frontend\modules\news\models\NewsSearch;
-use yii\data\Pagination;
-use yii\data\SqlDataProvider;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\validators\RequiredValidator;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
-use yii\data\ActiveDataProvider;
-use yii\helpers\Url;
 
 /**
  * NewsController implements the CRUD actions for News model.
@@ -31,6 +25,24 @@ use yii\helpers\Url;
 class NewsController extends Controller
 {
     public $layout = 'portal_page';
+
+    public $keyValue;
+    public $useReg;
+
+    public function init()
+    {
+        $this->on('beforeAction', function ($event) {
+
+            // запоминаем страницу неавторизованного пользователя, чтобы потом отредиректить его обратно с помощью  goBack()
+            if (Yii::$app->getUser()->isGuest) {
+                $request = Yii::$app->getRequest();
+                // исключаем страницу авторизации или ajax-запросы
+                if (!($request->getIsAjax() || strpos($request->getUrl(), 'login') !== false)) {
+                    Yii::$app->getUser()->setReturnUrl($request->getUrl());
+                }
+            }
+        });
+    }
 
     /**
      * @inheritdoc
@@ -61,6 +73,14 @@ class NewsController extends Controller
         ];
     }
 
+
+    public function beforeAction($action)
+    {
+        $this->keyValue = ArrayHelper::index(KeyValue::find()->all(), 'key');
+        $this->useReg = UserFunction::getRegionUser();
+        return parent::beforeAction($action);
+    }
+
     /**
      * Lists all News models.
      * @return mixed
@@ -68,29 +88,13 @@ class NewsController extends Controller
      */
     public function actionIndex()
     {
+        $model = new NewsSearch();
 
-        $news = News::find()
-            ->where([
-                'status' => 0,
-                'lang_id' => Lang::getCurrent()['id'],
-                'hot_new' => 0,
-            ])
-            ->limit(34)
-            ->orderBy('dt_public DESC')
-            ->with('category')
-            ->all();
-        $hotNews = News::find()
-            ->where([
-                'status' => 0,
-                'lang_id' => Lang::getCurrent()['id'],
-                'hot_new' => 1,
-            ])
-            ->limit(5)
-            ->orderBy('dt_public DESC')
-            ->with('category')
-            ->all();
+        $news = $model->getNews($this->useReg);
+        $hotNews = $model->getHotNews($this->useReg);
 
-        $hotNewsIndexes = [5, 7, 13, 20, 22];
+
+        $hotNewsIndexes = [1, 7, 13, 20, 22];
         $bigNewsIndexes = [14, 28, 38];
         //Debug::prn($hotNews);
         return $this->render('index',
@@ -99,22 +103,28 @@ class NewsController extends Controller
                 'hotNews' => $hotNews,
                 'hotNewsIndexes' => $hotNewsIndexes,
                 'bigNewsIndexes' => $bigNewsIndexes,
-                'meta_descr' => KeyValue::getValue('news_page_meta_descr'),
-                'meta_title' => KeyValue::getValue('news_page_meta_title'),
+                'meta_descr' => $this->keyValue['news_page_meta_descr']->value,
+                'meta_title' => $this->keyValue['news_page_meta_title']->value,
             ]);
     }
 
     public function actionMoreNews()
     {
+
         if (Yii::$app->request->isPost) {
+
             $request = Yii::$app->request->post();
 
-            $news = News::find()
+            $newsQuery = News::find()
                 ->where([
                     'status' => 0,
-                    'lang_id' => Lang::getCurrent()['id'],
                     'hot_new' => 0,
-                ])
+                ]);
+            if($this->useReg != -1){
+                $newsQuery->andWhere("(`region_id` IS NULL OR `region_id`=$this->useReg)");
+
+            }
+            $news = $newsQuery
                 ->offset($request['offset'])
                 ->limit(16)
                 ->orderBy('dt_public DESC')
@@ -130,14 +140,18 @@ class NewsController extends Controller
         if (Yii::$app->request->isPost) {
             $request = Yii::$app->request->post();
 
-            $news = News::find()
+            $newsQuery = News::find()
                 ->joinWith('category')
                 ->where([
                     'status' => 0,
-                    '`news`.`lang_id`' => Lang::getCurrent()['id'],
                     'hot_new' => 0,
                     '`category_news`.`slug`'=>Yii::$app->request->post('category')
-                ])
+                ]);
+            if($this->useReg != -1){
+                $newsQuery->andWhere("(`region_id` IS NULL OR `region_id`=$this->useReg)");
+
+            }
+            $news = $newsQuery
                 ->offset($request['offset'])
                 ->limit(16)
                 ->orderBy('dt_public DESC')
@@ -152,19 +166,6 @@ class NewsController extends Controller
         }
     }
 
-    /**
-     * Displays a single News model.
-     *
-     * @param integer $id
-     *
-     * @return mixed
-     */
-   /* public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }*/
 
     /**
      * Creates a new News model.
@@ -343,25 +344,10 @@ class NewsController extends Controller
         if (empty($cat)) {
             return $this->goHome();
         }
-        $news = CategoryNewsRelations::find()
-            ->leftJoin('news', '`category_news_relations`.`new_id` = `news`.`id`')
-            ->where(['cat_id' => $cat->id])
-            ->andWhere(['status' => 0])
-            ->orderBy('`news`.`id` DESC')
-            ->with('news')
-            ->all();
+        $model = new NewsSearch();
 
-        $hotNews = News::find()
-            ->where([
-                'status' => 0,
-                'lang_id' => Lang::getCurrent()['id'],
-                'hot_new' => 1,
-            ])
-            ->limit(5)
-            ->orderBy('dt_public DESC')
-            ->all();
-
-        //Debug::prn($news);
+        $news = $model->getCategoryNews($this->useReg, $cat->id);
+        $hotNews = $model->getCategoryHotNews($this->useReg, $cat->id);
 
         $hotNewsIndexes = [5, 7, 13, 20, 22];
         $bigNewsIndexes = [14, 28, 38];
@@ -376,30 +362,19 @@ class NewsController extends Controller
                 'meta_descr' => $cat->meta_descr,
                 'meta_title' => $cat->meta_title,
             ]);
-
-        //$countQuery = clone $query;
-        //$pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
-        //$pages->pageSizeParam = false;
-        //
-        //$news = $query->offset($pages->offset)
-        //    ->limit($pages->limit)
-        //    ->all();
-        //
-        //return $this->render('category', [
-        //    'news' => $news,
-        //    'cat' => $cat,
-        //    'pages' => $pages,
-        //]);
     }
 
     public function actionArchive($date)
     {
-        $news = News::find()
+        $query = News::find()
             ->where([
                 'DATE(FROM_UNIXTIME(dt_public))' => $date,
                 'status' => 0,
-                'lang_id' => Lang::getCurrent()['id'],
-            ])
+            ]);
+        if($this->useReg != -1){
+            $query->andWhere("(`region_id` IS NULL OR `region_id`=$this->useReg)");
+        }
+        $news = $query
             ->orderBy('dt_public DESC')
             ->all();
 

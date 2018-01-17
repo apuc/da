@@ -4,3 +4,7 @@ Disallow: /secure
 Disallow: /cgi-bin
 Host: https://da-info.pro
 Sitemap: https://da-info.pro/sitemap.xml
+Sitemap: https://da-info.pro/news-sitemap.xml
+Sitemap: https://da-info.pro/company-sitemap.xml
+Sitemap: https://da-info.pro/poster-sitemap.xml
+Sitemap: https://da-info.pro/stream-sitemap.xml

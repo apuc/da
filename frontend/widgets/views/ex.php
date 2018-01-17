@@ -31,7 +31,7 @@
                     <table>
                         <thead>
                         <tr>
-                            <th>Валюта</th>
+                            <th class="currency-exchange">Валюта</th>
                             <th>Покупка</th>
                             <th>Продажа</th>
                         </tr>
@@ -39,7 +39,7 @@
                         <tbode>
                             <?php foreach ((array)$rate->exchange_rates as $exchange_rate): ?>
                                 <tr>
-                                    <td><?= $exchange_rate->currencies ?></td>
+                                    <td class="currency-exchange"><?= $exchange_rate->currencies ?></td>
                                     <td><?= $exchange_rate->buy ?>
                                         <?php if($exchange_rate->up == 1) :?>
                                             <span class="up"></span>

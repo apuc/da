@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
 use common\classes\Debug;
@@ -19,21 +20,29 @@ use common\classes\Debug;
  */
 
 //$this->title                   = Yii::t( 'news', 'News' );
-$this->params['breadcrumbs'][] = $this->title;
+$this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->title = 'Архив новостей за ' . date('d-m-Y', strtotime($date));
 $this->registerMetaTag([
     'name' => 'description',
     'content' => 'Архив новостей за ' . date('d-m-Y', strtotime($date)),
 ]);
-$md = new \common\classes\Mobile_Detect();
+//$md = new \common\classes\Mobile_Detect();
+$this->params['breadcrumbs'][] = ['label' => 'Все новости', 'url' => Url::to(['/news/news'])];
+$this->params['breadcrumbs'][] = 'Архив новостей за ' . date('d-m-Y', strtotime($date));
+
 ?>
+
 
 <section class="news">
     <div class="container">
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'options' => ['class' => 'breadcrumbs']
+        ]) ?>
         <div class="news-slider-index-panel">
             <h3>Горячие темы</h3>
             <div class="buttons-wrap">
-                <a href="">подписаться</a>
+                <a href="#subscribe" class="subscribe-scroll">подписаться</a>
 
             </div>
             <!--<div class="hot-tag">
@@ -44,7 +53,7 @@ $md = new \common\classes\Mobile_Detect();
             </div>-->
         </div>
         <div class="news__wrap">
-        <?if($news):?>
+        <?php if($news): ?>
             <?php foreach ($news as $new): ?>
                 <!--<div class="news__wrap_item-sm">
                     <div class="thumb">
@@ -88,17 +97,17 @@ $md = new \common\classes\Mobile_Detect();
                 </div>
 
             <?php endforeach; ?>
-            <?elseif(strtotime($date) > time()):?>
+            <?php elseif(strtotime($date) > time()):?>
             <?= $this->render('page_not_news_future')?>
-            <?else:?>
+            <?php else:?>
             <?= $this->render('page_not_news_past')?>
-            <?endif;?>
+            <?php endif; ?>
 
             <?= \frontend\widgets\Subscribe::widget() ?>
         </div>
 
         <div class="news__wrap_buttons">
-            <a href="#go_rubricator" class="businessScroll" style="line-height: 37px;"><span class="rotate-arrow"></span>рубрикатор</a>
+            <a href="#go_rubricator" class="businessScroll"><span class="rotate-arrow"></span>рубрикатор</a>
             <!--<a
                 href=""
                 data-offset="34"
@@ -112,7 +121,9 @@ $md = new \common\classes\Mobile_Detect();
     </div>
 </section>
 
-<?= \frontend\modules\news\widgets\PeopleTalk::widget(); ?>
+<?/*= \frontend\modules\news\widgets\PeopleTalk::widget(); */?>
+
+<?= \frontend\widgets\StreamMain::widget();?>
 
 <?= \frontend\modules\news\widgets\RubricSlider::widget(); ?>
 

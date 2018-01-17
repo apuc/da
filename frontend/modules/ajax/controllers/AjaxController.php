@@ -3,6 +3,7 @@
 namespace frontend\modules\ajax\controllers;
 
 use common\classes\Debug;
+use common\classes\UserFunction;
 use common\models\db\Answers;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryNews;
@@ -16,6 +17,7 @@ use common\models\db\Question;
 use common\models\db\SiteError;
 use common\models\db\News;
 use common\models\db\Subscribe;
+use frontend\models\user\Profile;
 use frontend\widgets\Poll;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -27,7 +29,6 @@ use yii\web\Controller;
  */
 class AjaxController extends Controller
 {
-
     public function actionSend_poll()
     {
         if ($_POST) {
@@ -42,9 +43,10 @@ class AjaxController extends Controller
                     'id' => $_POST['answer'],
                 ])
                 ->one();
+
             $already_poll = Answers::find()
                 ->where([
-                    'user_ip' => $user_ip,
+                    'user_id' => $user,
                     'question_id' => $answer->question,
                 ])
                 ->one();
@@ -98,7 +100,6 @@ class AjaxController extends Controller
             $new_comment->user_id = $current_user;
             $new_comment->content = $request['content'];
             $new_comment->dt_add = time();
-
             $new_comment->save();
 
             // return $this->redirect();
@@ -199,12 +200,20 @@ class AjaxController extends Controller
             $comment->content = Yii::$app->request->post('comment');
             $comment->dt_add = time();
             $comment->parent_id = Yii::$app->request->post('parent_id');
-
+            $comment->published = 1;
             $comment->save();
 
-            return $this->renderPartial('comments-success');
+            $html['successInfo'] =  $this->renderPartial('comments-success');
+            $html['comments'] = \frontend\widgets\Comments::widget([
+                'pageTitle' => 'Комментарии к новости',
+                'postType' => 'news',
+                'postId' => Yii::$app->request->post('post_id'),
+            ]);
 
+            return json_encode($html);
         }
+
+
 
     }
 
@@ -212,9 +221,22 @@ class AjaxController extends Controller
     {
 
         if (Yii::$app->request->isPost) {
-
+            $name = Yii::$app->request->post('name');
+            $email = Yii::$app->request->post('email');
             $newContacting = new Contacting();
-            $newContacting->user_id = (!Yii::$app->user->isGuest) ? Yii::$app->user->id : null;
+            if(!Yii::$app->user->isGuest)
+            {
+                $user = Profile::findOne(['user_id' => Yii::$app->user->id]);
+                $newContacting->user_id = Yii::$app->user->id;
+                $newContacting->username = ($user->name) ? $user->name : Yii::$app->user->identity->username;
+                $newContacting->email = ($user->public_email) ? $user->public_email : Yii::$app->user->identity->email;
+            }elseif ($name && $email)
+            {
+                $newContacting->user_id = null;
+                $newContacting->username = $name;
+                $newContacting->email = $email;
+            }
+            //$newContacting->user_id = (!Yii::$app->user->isGuest) ? Yii::$app->user->id : null;
             $newContacting->type = 'question';
             $newContacting->content = Yii::$app->request->post('content');
 
@@ -282,15 +304,47 @@ class AjaxController extends Controller
     public function actionSendErrorMsg()
     {
         $request = Yii::$app->request->post();
+        //Debug::prn(Yii::$app->request->post('url'));
         $error = new SiteError();
         $error->url = $request['url'];
         $error->user_id = $request['user_id'];
         $error->msg = $request['text'];
+
+        if(Yii::$app->user->isGuest)
+        {
+            $error->username = $request['name'];
+            $error->email = $request['email'];
+        }else{
+            $error->username = UserFunction::getUserName($request['user_id']);
+            $error->email = Yii::$app->user->identity->email;
+        }
+
         $error->dt_add = time();
         $error->save();
+
         if (isset($error->id)){
-            return 1;
+            return true;
         }
-        return 0;
+        return false;
+    }
+
+    public function actionSelectRegion()
+    {
+        $regId = Yii::$app->request->post('regId');
+        if(empty($regId)){
+            $regId = -1;
+        }
+
+        Yii::$app->response->cookies->add(new \yii\web\Cookie([
+            'name' => 'regionId',
+            'value' => $regId,
+            'expire' => time() + 86400,
+        ]));
+
+        Yii::$app->cache->set('show_header_widget', \frontend\widgets\ShowHeader::widget());
+
+
+
+        return true;
     }
 }

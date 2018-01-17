@@ -1,9 +1,11 @@
 <?php
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
+    'timeZone' => 'Europe/Moscow',
     'components' => [
-        'cache' => [
-            'class' => 'yii\caching\FileCache',
+        'ipgeobase' => [
+            'class' => 'himiklab\ipgeobase\IpGeoBase',
+            'useLocalDB' => true,
         ],
     ],
     'controllerMap' => [

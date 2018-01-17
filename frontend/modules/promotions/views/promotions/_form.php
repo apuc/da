@@ -15,70 +15,78 @@ use common\classes\Debug;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<?if($beforeCreate):?>
-<?php
+<?php if ($beforeCreate): ?>
+    <?php
 
-$form = ActiveForm::begin(
-    [
-        'options' => [
-            'class' => 'cabinet__add-company-form',
-            'enctype' => 'multipart/form-data',
-        ],
-    ]);
-?>
+    $form = ActiveForm::begin(
+        [
+            'options' => [
+                'class' => 'cabinet__add-company-form',
+                'enctype' => 'multipart/form-data',
+            ],
+        ]);
+    ?>
 
-<?php
-/*
-if($beforeCreate)
-{
+    <?php
+    /*
+    if($beforeCreate)
+    {
 
-    echo Html::dropDownList(
-        'Stock[company_id]',
-        null,
-        ArrayHelper::map(Company::find()->where(['in', 'id', $company_id])->all(),'id','name'),
-        ['class'=>'cabinet__add-company-form--field', 'id'=>'promotions', 'prompt' => 'Выберите предприятие']
-    );
-}*/
+        echo Html::dropDownList(
+            'Stock[company_id]',
+            null,
+            ArrayHelper::map(Company::find()->where(['in', 'id', $company_id])->all(),'id','name'),
+            ['class'=>'cabinet__add-company-form--field', 'id'=>'promotions', 'prompt' => 'Выберите предприятие']
+        );
+    }*/
 
-$company_id = array_keys($beforeCreate);
-?>
-
+    $company_id = array_keys($beforeCreate);
+    ?>
 
 
     <p class="cabinet__add-company-form--title">Ваши предприятия</p>
-<?= $form->field($model, 'company_id')->dropDownList(
-        ArrayHelper::map(Company::find()->where(['in', 'id', $company_id])->all(), 'id','name'),
-            ['class'=>'cabinet__add-company-form--field', 'id'=>'promotions', 'prompt' => 'Выберите предприятие'])
-        ->label(false)?>
+    <?= $form->field($model, 'company_id')->dropDownList(
+        ArrayHelper::map(Company::find()->where(['in', 'id', $company_id])->all(), 'id', 'name'),
+        ['class' => 'cabinet__add-company-form--field', 'id' => 'promotions', 'prompt' => 'Выберите предприятие'])
+        ->label(false) ?>
 
     <div class="cabinet__add-company-form--block"></div>
 
     <p class="cabinet__add-company-form--title">Заголовок акции</p>
 
-<?= $form->field($model, 'title')->textInput(['maxlength' => true, 'class' => 'cabinet__add-company-form--field'])->label(false) ?>
+    <?= $form->field($model, 'title')->textInput([
+        'maxlength' => true,
+        'class' => 'cabinet__add-company-form--field',
+    ])->label(false) ?>
 
     <div class="cabinet__add-company-form--block"></div>
 
     <p class="cabinet__add-company-form--title">Ссылка</p>
-<?= $form->field($model, 'link')->textInput(['maxlength' => true, 'class' => 'cabinet__add-company-form--field'])->label(false) ?>
+    <?= $form->field($model, 'link')->textInput([
+        'maxlength' => true,
+        'class' => 'cabinet__add-company-form--field',
+    ])->label(false) ?>
 
     <div class="cabinet__add-company-form--block"></div>
 
     <p class="cabinet__add-company-form--title">Дата акции</p>
-<?= $form->field($model, 'dt_event')->textInput(['maxlength' => true, 'class' => 'cabinet__add-company-form--field'])->label(false) ?>
+    <?= $form->field($model, 'dt_event')->textInput([
+        'maxlength' => true,
+        'class' => 'cabinet__add-company-form--field',
+    ])->label(false) ?>
 
     <div class="cabinet__add-company-form--block"></div>
 
     <p class="cabinet__add-company-form--title">Фото акции</p>
 
-<?php echo $form->field($model, 'photo', [
-    'template' => '<label class="cabinet__add-company-form--add-foto">
+    <?php echo $form->field($model, 'photo', [
+        'template' => '<label class="cabinet__add-company-form--add-foto">
                                         <span class="button"></span>
                                         {input}
                                         <img id="blah" src="" alt="" width="160px">
-                                        </label>'
-])->label(false)->fileInput();
-?>
+                                        </label>',
+    ])->label(false)->fileInput();
+    ?>
 
     <!--<label class="cabinet__add-company-form--add-foto">
         <span class="button"></span>
@@ -119,31 +127,39 @@ $company_id = array_keys($beforeCreate);
      </div>-->
 
 
+    <!-- <div class="cabinet__add-company-form--wrapper">
 
-   <!-- <div class="cabinet__add-company-form--wrapper">
+         <p class="cabinet__add-company-form--title">Телефон</p>
 
-        <p class="cabinet__add-company-form--title">Телефон</p>
+         <input class="cabinet__add-company-form--field" name="mytext[]" type="text">
 
-        <input class="cabinet__add-company-form--field" name="mytext[]" type="text">
-
-    </div>-->
+     </div>-->
     <div class="cabinet__add-company-form--block"></div>
     <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>
 
     <p class="cabinet__add-company-form--title">Подробное описание</p>
-    <textarea id="poster-descr" class="cabinet__add-company-form--text" name="Stock[descr]" aria-invalid="false"></textarea>
+    <textarea id="poster-descr" class="cabinet__add-company-form--text" name="Stock[descr]"
+              aria-invalid="false"></textarea>
 
-<?php /*echo $form->field($model, 'descr')->widget(CKEditor::className(), [
+    <?php /*echo $form->field($model, 'descr')->widget(CKEditor::className(), [
 //        'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
 //            'preset' => 'full',
 //            'inline' => false,
 //            'path' => 'frontend/web/media/upload',
 //        ]),
-])->label(false); */?>
+])->label(false); */ ?>
 
 
-<?= Html::submitButton('Сохранить', ['class' => 'cabinet__add-company-form--submit']) ?>
-<?php ActiveForm::end(); ?>
-<?else:?>
-<h3>Нет предприятий для добавления акции</h3>
-<?endif;?>
+    <?= Html::submitButton('Сохранить', ['class' => 'cabinet__add-company-form--submit']) ?>
+    <?php ActiveForm::end(); ?>
+<?php else: ?>
+    <div class="blanket__content">
+        <div class="blanket__content__wrap">
+            <img src="/theme/portal-donbassa/img/blanket/ban.png" alt="">
+            <h2>У Вас нет приедприятий для
+                добавления акции</h2>
+        </div>
+        <a href="<?= \yii\helpers\Url::to(['/company/company/create']) ?>">Добавить предприятие</a>
+        <p>После прохождения модерации вашей компании, вы сможете добавить новые акции</p>
+    </div>
+<?php endif; ?>

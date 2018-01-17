@@ -10,7 +10,7 @@ use yii\grid\GridView;
 $this->title = 'Vk Streams';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?$this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => \yii\web\JqueryAsset::className()])?>
+<?php $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => \yii\web\JqueryAsset::className()])?>
 <div class="vk-stream-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) {
                     $domain = \common\models\db\VkGroups::find()->where(['vk_id' => $model->owner_id])->one();
                     if ($domain) {
-                        return Html::a('Ссылка',
+                        return Html::a($domain->name,
                             'https://vk.com/' . $domain->domain . '?w=wall' . $model->vk_id,
                             [
                                 'target' => '_blank',
@@ -36,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
 
                 },
+                'filter' => \yii\helpers\ArrayHelper::map(\common\models\db\VkGroups::find()->all(), 'vk_id', 'name')
             ],
             //'from_id',
             //'owner_id',
@@ -51,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'text',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    $photo = \common\models\db\VkPhoto::find()->where(['post_id' => $model->id])->all();
+                    $photo = \common\models\db\VkPhoto::find()->where(['post_id' => $model->id, 'comment_id' => ''])->all();
                     $gif = \common\models\db\VkGif::find()->where(['post_id' => $model->id])->all();
                     $text = '';
 
@@ -62,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         $text = '<div>'.$string.'...</div>'.Html::a('Читать далее',['#'], ['class' => 'more']).
                             Html::a('Скрыть',['#'], ['class' => 'closeMore', 'style' => 'display: none']);
                         $text .= '<div class="readMore" style="display: none">'.substr($model->text, strlen($string)).'</div>';
-                    }
+                    }else $text .= '<div>'.$model->text.'...</div>';
 
                     $text .= '<div>';
 
@@ -83,7 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             foreach ((array)$gif as $item) {
 
                                 if (!empty($item->gif_link)) {
-                                    $text .= '<span>' . Html::img($item->gif_link, ['width' => 300]) . '</span>';
+                                    $text .= '<span>' . Html::img($item->getLargePreview(), ['width' => 300]) . '</span>';
                                 }
                             }
                     $text .= '</div>';

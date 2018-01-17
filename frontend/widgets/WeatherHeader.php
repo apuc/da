@@ -18,9 +18,12 @@ class WeatherHeader extends Widget
     public function run()
     {
         $weather = json_decode(KeyValue::findOne(['key' => 'weather'])->value, true);
-        return $this->render('weather-header', [
-            'weather' => $weather[strtotime('now 00:00:00')],
-        ]);
+
+        if(!empty($weather[strtotime('now 00:00:00')])){
+            return $this->render('weather-header', [
+                'weather' => $weather[strtotime('now 00:00:00')],
+            ]);
+        }
     }
 
 }

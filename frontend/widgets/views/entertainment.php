@@ -18,18 +18,36 @@ use yii\helpers\Url;
                 <?php if ($i <= 3): ?>
                     <a href="<?= Url::to(['/company/company/view', 'slug' => $item->slug]) ?>" class="item-small">
                         <div class="thumb">
-                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->photo); ?>" alt="">
+                            <img src="<?= $item->photo  . '?width=300' ?>" alt="">
                         </div>
                         <div class="item-small__content">
                             <h4><?= $item->name; ?></h4>
-                            <!--<p>--><? //= $item->address;?><!--</p>-->
-                            <p><?= explode(';', $item->phone)[0]; ?></p>
+
+                            <?php if (!empty($item->phone)): ?>
+                                <?php $phone = explode(' ', $item->phone) ?>
+                                <ul class="business__sm-item--numbers">
+                                    <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
+                                    <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
+                                </ul>
+
+                            <?php elseif(!empty($item->allPhones)):?>
+                                <ul class="business__sm-item--numbers">
+                                <?php foreach ($item->allPhones as $key => $phones):?>
+                                    <li><?= $phones->phone?></li>
+                                    <?php if ($key == 1):?>
+                                        <?php  break; ?>
+                                    <?php endif; ?>
+                                <?php endforeach;?>
+                                </ul>
+                            <?php endif; ?>
+
+                            <!--<p><?/*= explode(';', $item->phone)[0]; */?></p>-->
                         </div>
                     </a>
                 <?php else: ?>
                     <a href="<?= Url::to(['/company/company/view', 'slug' => $item->slug]) ?>" class="item-large">
                         <div class="thumb">
-                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->photo); ?>" alt="">
+                            <img src="<?= $item->photo  . '?width=300' ?>" alt="">
 
                         </div>
                         <div class="item-small__content">
@@ -39,12 +57,23 @@ use yii\helpers\Url;
                             </span>
                             <?php $phone = explode(' ', $item->phone); ?>
 
-                            <p>
-                                <?= isset($phone[0]) ? $phone[0] : '' ?>
-                            </p>
-                            <p>
-                                <?= isset($phone[1]) ? $phone[1] : '' ?>
-                            </p>
+                            <?php if (!empty($item->phone)): ?>
+                                <?php $phone = explode(' ', $item->phone) ?>
+                                <ul class="business__sm-item--numbers">
+                                    <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
+                                    <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
+                                </ul>
+
+                            <?php elseif(!empty($item->allPhones)):?>
+                                <ul class="business__sm-item--numbers">
+                                    <?php foreach ($item->allPhones as $key => $phones):?>
+                                        <li><?= $phones->phone?></li>
+                                        <?php if ($key == 1):?>
+                                            <?php  break; ?>
+                                        <?php endif; ?>
+                                    <?php endforeach;?>
+                                </ul>
+                            <?php endif; ?>
                         </div>
 
                     </a>
@@ -59,7 +88,7 @@ use yii\helpers\Url;
                 Рекомендуем
             </div>
             <div class="thumb">
-                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($companyBig->photo); ?>" alt="">
+                <img src="<?= $companyBig->photo  . '?width=300' ?>" alt="">
 
             </div>
             <div class="item-small__content">
@@ -67,14 +96,26 @@ use yii\helpers\Url;
                             <span>
                                 Адрес: <?= $companyBig->address;?>
                             </span>
-                <?php $phone = explode(' ', $companyBig->phone); ?>
 
-                <p>
-                    <?= isset($phone[0]) ? $phone[0] : '' ?>
-                </p>
-                <p>
-                    <?= isset($phone[1]) ? $phone[1] : '' ?>
-                </p>
+
+                <?php if (!empty($companyBig->phone)): ?>
+
+                    <?php $phone = explode(' ', $companyBig->phone) ?>
+                    <ul class="business__sm-item--numbers">
+                        <li><?= isset($phone[0]) ? $phone[0] : '' ?></li>
+                        <li> <?= isset($phone[1]) ? $phone[1] : '' ?></li>
+                    </ul>
+
+                <?php elseif(!empty($companyBig->allPhones)):?>
+                    <ul class="business__sm-item--numbers">
+                    <?php foreach ($companyBig->allPhones as $key => $phones):?>
+                        <li><?= $phones->phone?></li>
+                        <?php if ($key == 2):?>
+                            <?php break; ?>
+                        <?php endif; ?>
+                    <?php endforeach;?>
+                    </ul>
+                <?php endif; ?>
             </div>
 
         </a>

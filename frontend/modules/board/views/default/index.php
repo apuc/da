@@ -2,10 +2,20 @@
 /**
  * @var $ads
  * @var $category
+ * @var $meta_title
+ * @var $meta_desc
  */
 
-$this->registerJsFile('/js/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-//$this->registerJsFile('/theme/portal-donbassa/js/ads-filter.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->title = $meta_title;
+$this->registerMetaTag( [
+    'name'    => 'description',
+    'content' => $meta_desc,
+] );
+
+use yii\widgets\LinkPager;
+$this->registerJsFile('/js/jquery-ui-1.12.1/jquery-ui.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+//$this->registerJsFile('/theme/portal-donbassa/js/ads-filter.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 //\common\classes\Debug::prn($ads);
 ?>
 
@@ -48,11 +58,11 @@ $this->registerJsFile('/js/board.js', ['depends' => [\yii\web\JqueryAsset::class
 
                     <div class="average-ad-item">
 
-                        <a href="#" class="average-ad-item-thumb">
+                        <a href="<?= \yii\helpers\Url::to(['view', 'slug' => $item->slug, 'id' => $item->id]); ?>" class="average-ad-item-thumb">
                             <?php if(!empty($item->adsImgs)): ?>
                                 <img src="<?= $item->adsImgs[0]->img_thumb; ?>" alt="">
                             <?php else: ?>
-                                <img src="http://rub-on.ru/img/no-img.png" alt="">
+                                <img src="/theme/portal-donbassa/img/no-image.png" alt="">
                             <?php endif; ?>
                         </a>
 
@@ -88,14 +98,30 @@ $this->registerJsFile('/js/board.js', ['depends' => [\yii\web\JqueryAsset::class
                                 $listcat = array_reverse($listcat);
                                 $k = 1;
                                 foreach ($listcat as $val): ?>
-                                    <a href="<?= \yii\helpers\Url::toRoute(['/obyavleniya/' . $val->slug]); ?>"
+                                    <a href="<?= \yii\helpers\Url::to(['category-ads', 'slug' => $val->slug]); ?>"
                                        class="average-ad-category"><?= $val->name; ?></a>
                                     <?= ($k == count($listcat)) ? '' : '<span class="separatorListCategory">|</span>' ?>
                                     <?php $k++; endforeach ?>
+                                <div class="view"><?= $item->views?></div>
                             </div>
                         </div>
                     </div>
                     <?php endforeach;?>
+                    <div class="pagination">
+                        <?= LinkPager::widget(
+                            [
+                                'pagination' => $pagination,
+                                'options' => [
+                                    'class' => '',
+                                ],
+                                'prevPageCssClass' => 'pagination-prew',
+                                'nextPageCssClass' => 'pagination-next',
+                                'prevPageLabel' => '',
+                                'nextPageLabel' => '',
+                                'activePageCssClass' => 'active',
+
+                            ]) ?>
+                    </div>
 
                 </div>
 

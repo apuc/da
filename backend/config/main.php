@@ -13,6 +13,7 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [
+        'gridview' => ['class' => 'kartik\grid\Module'],
         'news' => [
             'class' => 'backend\modules\news\News',
         ],
@@ -136,6 +137,19 @@ return [
         'tags' => [
             'class' => 'backend\modules\tags\Tags',
         ],
+        'board' => [
+            'class' => 'backend\modules\board\Board',
+        ],
+        'currency' => [
+            'class' => 'backend\modules\currency\Currency',
+        ],
+        'company_views' => [
+            'class' => 'backend\modules\company_views\CompanyViews',
+        ],
+        'products' => [
+            'class' => 'backend\modules\products\Products',
+        ],
+
     ],
     'components' => [
         /*'user' => [
@@ -174,7 +188,7 @@ return [
                 'polls' => 'polls/polls',
                 'entertainment' => 'entertainment/default',
                 'main-premiere' => 'poster/poster/main-premiere',
-                'stock' => 'stock/stock'
+                'stock' => 'stock/stock',
             ],
         ],
 

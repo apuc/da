@@ -8,6 +8,8 @@
 
 namespace backend\modules\vk\models;
 
+use yii\db\ActiveRecord;
+
 class VkStream extends \common\models\db\VkStream
 {
     public function behaviors()
@@ -19,6 +21,23 @@ class VkStream extends \common\models\db\VkStream
                 'out_attribute' => 'slug',
                 'translit' => true
             ],
+        ];
+    }
+
+    public function rules()
+    {
+        $rules = parent::rules();
+        $rules[] = [['title'], 'required'];
+        return $rules;
+    }
+
+    public function scenarios()
+    {
+        if($this->scenario == 'default'){
+            return parent::scenarios();
+        }
+        return [
+            'saveNews' => parent::rules()
         ];
     }
 

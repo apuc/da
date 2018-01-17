@@ -17,15 +17,40 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Обновить информацию', ['/console.php?p=vk/get-group-info'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
+            [
+                'attribute' => 'photo',
+                'format' => 'html',
+                'value' => function($model){
+                    return Html::img($model->photo_200, ['width'=>'50px']);
+                }
+            ],
+            'name',
             'domain',
             'vk_id',
+            [
+                'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function($model)
+                {
+                    if ($model->status == 1) return 'Парсить автоматически';
+                    if ($model->status == 2) return 'Парсить вручную';
+                },
+                'filter' => [1 => 'Парсить автоматически', 2 => 'Парсить вручную']
+            ],
+            [
+                'attribute' => 'Parsing',
+                'format' => 'raw',
+                'value' => function($model){
+                    return Html::a('Парсить', ['/console.php?p=vk/get-stream&id='.$model->id], ['class' => 'btn btn-success', 'data-id' => $model->vk_id]);
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -18,6 +18,7 @@ use Yii;
  * @property string $meta_descr
  * @property string $slug
  * @property integer $lang_id
+ * @property integer $show_menu
  *
  * @property CategoryCompanyRelations[] $categoryCompanyRelations
  */
@@ -38,7 +39,7 @@ class CategoryCompany extends \yii\db\ActiveRecord
     {
         return [
             [['title'], 'required'],
-            [['parent_id', 'dt_add', 'dt_update', 'lang_id'], 'integer'],
+            [['parent_id', 'dt_add', 'dt_update', 'lang_id', 'show_menu'], 'integer'],
             [['descr'], 'string'],
             [['title', 'icon', 'meta_title', 'meta_descr', 'slug'], 'string', 'max' => 255],
         ];
@@ -61,6 +62,7 @@ class CategoryCompany extends \yii\db\ActiveRecord
             'meta_descr' => Yii::t('company', 'Meta Descr'),
             'slug' => Yii::t('company', 'Slug'),
             'lang_id' => Yii::t('company', 'Lang ID'),
+            'show_menu' => Yii::t('company', 'Show Menu'),
         ];
     }
 
@@ -71,4 +73,11 @@ class CategoryCompany extends \yii\db\ActiveRecord
     {
         return $this->hasMany(CategoryCompanyRelations::className(), ['cat_id' => 'id']);
     }
+
+    public function getcateg()
+    {
+        return $this->hasOne(CategoryCompany::className(), ['id' => 'parent_id']);
+    }
+
+
 }

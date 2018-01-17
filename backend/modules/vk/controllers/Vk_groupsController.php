@@ -2,6 +2,7 @@
 
 namespace backend\modules\vk\controllers;
 
+use console\controllers\VkController;
 use Yii;
 use backend\modules\vk\models\VkGroups;
 use backend\modules\vk\models\VkGroupsSearch;
@@ -85,7 +86,7 @@ class Vk_groupsController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,

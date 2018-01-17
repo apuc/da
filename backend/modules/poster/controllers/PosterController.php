@@ -6,6 +6,7 @@ use backend\modules\category\Category;
 use common\classes\Debug;
 use common\classes\WordFunctions;
 use common\models\db\CategoryPosterRelations;
+use common\models\db\GeobaseRegion;
 use common\models\db\KeyValue;
 use Yii;
 use backend\modules\poster\models\Poster;
@@ -14,6 +15,8 @@ use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\modules\tags\models\Tags;
+use backend\modules\tags\models\TagsRelation;
 
 /**
  * PosterController implements the CRUD actions for Poster model.
@@ -78,11 +81,13 @@ class PosterController extends Controller
     public function actionCreate()
     {
         $model = new Poster();
+        $tags = Tags::find()->asArray()->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             $model->dt_event = strtotime($model->dt_event);
             $model->dt_event_end = strtotime($model->dt_event_end);
+            $model->user_id = Yii::$app->user->id;
             $model->save();
 
             foreach ($_POST['cat'] as $cat) {
@@ -91,11 +96,26 @@ class PosterController extends Controller
                 $catNewRel->poster_id = $model->id;
                 $catNewRel->save();
             }
+
+            if(!empty(Yii::$app->request->post('Tags')))
+            {
+                foreach (Yii::$app->request->post('Tags') as $tag)
+                {
+                    $tags = New TagsRelation();
+                    $tags->saveTagsRel($tag, $model->id, 'poster');
+                }
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+
+            $region = GeobaseRegion::find()->all();
             return $this->render('create', [
                 'model' => $model,
                 'categoriesSelected' => [],
+                'tags' => $tags,
+                'tags_selected' => [],
+                'region' => $region,
             ]);
         }
     }
@@ -109,6 +129,11 @@ class PosterController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $tags = Tags::find()->asArray()->all();
+        $tags_selected =ArrayHelper::getColumn(TagsRelation::find()->select('tag_id')
+            ->where(['post_id' => $id, 'type' => 'poster'])
+            ->asArray()
+            ->all(), 'tag_id');
 
         if ($model->load(Yii::$app->request->post())) {
             $model->dt_event = strtotime($model->dt_event);
@@ -122,15 +147,29 @@ class PosterController extends Controller
                 $catNewRel->poster_id = $model->id;
                 $catNewRel->save();
             }
-
             $model->save();
+
+            if(!empty(Yii::$app->request->post('Tags')))
+            {
+                TagsRelation::deleteAll(['post_id' => $id, 'type' => 'poster']);
+                foreach (Yii::$app->request->post('Tags') as $tag)
+                {
+                    $tags = New TagsRelation();
+                    $tags->saveTagsRel($tag, $id, 'poster');
+                }
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            $region = GeobaseRegion::find()->all();
             return $this->render('update', [
                 'model' => $model,
                 'categoriesSelected' => ArrayHelper::getColumn(
                     CategoryPosterRelations::findAll(['poster_id' => $id]),
                     'cat_id'),
+                'tags' => $tags,
+                'tags_selected' => $tags_selected,
+                'region' => $region,
             ]);
         }
     }

@@ -75,6 +75,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 ], [ 'class' => 'form-control', 'prompt' => '' ] ),
             ],
             [
+                'attribute' => 'rss',
+                'format' => 'raw',
+                'value' => function ( $model) {
+                    $html = '';
+                    if ($model->rss == 1) {
+                        $html = '<span class="sucseesRss"></span>';
+                    }else{
+                        $html = '<span class="errorRss"></span>';
+                    }
+                    return $html;
+                },
+                'filter'    => Html::activeDropDownList( $searchModel, 'rss', [
+                    '0' => 'Нет',
+                    '1' => 'Да',
+                ], [ 'class' => 'form-control', 'prompt' => '' ] ),
+            ],
+            [
                 'label' => 'Ссылка',
                 'format'    => 'raw',
                 'value'     => function ( $model ) {
@@ -82,9 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         Yii::$app->urlManagerFrontend->createUrl(['news/default/view', 'slug'=>$model->slug]),
                         ['target' => '_blank']);
                 },
-//                'filter'    => Html::
             ],
-            // 'user_id',
             // 'lang_id',
 
             [ 'class' => 'yii\grid\ActionColumn' ],

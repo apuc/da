@@ -22,6 +22,21 @@ use yii\helpers\Url;
 
 class ConsultingController extends \yii\web\Controller
 {
+    public function init()
+    {
+        $this->on('beforeAction', function ($event) {
+
+            // запоминаем страницу неавторизованного пользователя, чтобы потом отредиректить его обратно с помощью  goBack()
+            if (Yii::$app->getUser()->isGuest) {
+                $request = Yii::$app->getRequest();
+                // исключаем страницу авторизации или ajax-запросы
+                if (!($request->getIsAjax() || strpos($request->getUrl(), 'login') !== false)) {
+                    Yii::$app->getUser()->setReturnUrl($request->getUrl());
+                }
+            }
+        });
+    }
+
     public function actionIndex()
     {
 
@@ -61,7 +76,7 @@ class ConsultingController extends \yii\web\Controller
 
     }
 
-    public function actionDocuments()
+    public function actionDocuments($slug)
     {
         $request = Yii::$app->request;
 
@@ -316,15 +331,54 @@ class ConsultingController extends \yii\web\Controller
     public function actionSearchPost()
     {
         $q = Yii::$app->request->get('q');
-        $result = PostsConsulting::find()->where(['or', ['LIKE', 'title', $q],['LIKE', 'content', $q]])
+        $postConsalting = PostsConsulting::find()->where(['or', ['LIKE', 'title', $q],['LIKE', 'content', $q]])
             ->all();
+        $postDigest = PostsDigest::find()->where(['or', ['LIKE', 'title', $q],['LIKE', 'content', $q]])
+            ->all();
+        $faq = Faq::find()->where(['or', ['LIKE', 'question', $q],['LIKE', 'answer', $q]])
+        ->all();
+
+        $result = array_merge($this->getArrayConsulting($postConsalting, 'post'),
+            $this->getArrayConsulting($postDigest, 'document'), $this->getArrayConsulting($faq, 'faq-post'));
+
         $count = count($result);
 
-        return $this->renderPartial('search_view', [
+        return $this->render('search_view', [
             'posts' => $result,
             'q' => $q,
             'count' => $count
         ]);
+    }
+
+    /*
+     * @param array $consaltings
+     * @param string $type
+     * @return array
+     */
+    private function getArrayConsulting(array $consaltings, $type)
+    {
+        $result = [];
+
+        foreach ($consaltings as $consalting){
+            if('faq-post' != $type){
+                $result[] = [
+                    'title' => $consalting->title,
+                    'text' => $consalting->content,
+                    'dt_add' => $consalting->dt_add,
+                    'slug' => $consalting->slug,
+                    'views' => $consalting->views,
+                    'url' => $type
+                ];
+            }else $result[] = [
+                'title' => $consalting->question,
+                'text' => $consalting->answer,
+                'dt_add' => $consalting->dt_add,
+                'slug' => $consalting->slug,
+                'views' => $consalting->views,
+                'url' => $type
+            ];
+        }
+        return $result;
     }
 
 }

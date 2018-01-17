@@ -48,4 +48,12 @@ class VkGroups extends \yii\db\ActiveRecord
             'name' => 'Имя',
         ];
     }
+
+    public function getPhoto()
+    {
+        if ($this->photo_200) return $this->photo_200;
+        if ($this->photo_100) return $this->photo_100;
+        if ($this->photo_50) return $this->photo_50;
+        else return '';
+    }
 }

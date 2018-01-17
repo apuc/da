@@ -82,14 +82,14 @@ class UserFunction {
 
         $img = 'avatar';
         if(empty($id)){
-            $avatar = Profile::find()->where(['user_id' => Yii::$app->user->id])->one()->$img;
+            $avatar = Profile::find()->where(['user_id' => Yii::$app->user->id])->one()['avatar'];
         }
         else{
-            $avatar = Profile::find()->where(['user_id' => $id])->one()->$img;
+            $avatar = Profile::find()->where(['user_id' => $id])->one()['avatar'];
         }
 
         if(empty($avatar)){
-            $username = self::getUserName();
+            $username = self::getUserName($id);
             $html = '<span>' . mb_substr($username, 0,1) . '</span>' ;
         }else{
             $html = Html::img($avatar);
@@ -98,21 +98,77 @@ class UserFunction {
         return $html;
     }
 
+    public static function getUser_avatarStream(array $userInfo)
+    {
+        $html ='';
+
+        if(!empty($userInfo['avatar'])):
+            $html = '<img src="' . $userInfo['avatar'] . '" alt="">';
+        else:
+            $html = '<span>' . mb_substr($userInfo['username'], 0,1) . '</span>' ;
+        endif;
+
+        return $html;
+    }
+
     //получить имя пользователя. вернет login, если имя не указано
     public static function getUserName($id = null){
         if(empty($id)){
-            $name = Profile::find()->where(['user_id' => Yii::$app->user->id])->one()->name;
+            $name = Profile::find()->where(['user_id' => Yii::$app->user->id])->one()['name'];
             if(empty($name)){
-                $name = User::find()->where(['id' => Yii::$app->user->id])->one()->username;
+                $name = User::find()->where(['id' => Yii::$app->user->id])->one()['username'];
             }
         }
         else{
-            $name = Profile::find()->where(['user_id' => $id])->one()->name;
+            $name = Profile::find()->where(['user_id' => $id])->one()['name'];
             if(empty($name)){
-                $name = User::find()->where(['id' => $id])->one()->username;
+                $name = User::find()->where(['id' => $id])->one()['username'];
             }
         }
-
         return $name;
+    }
+
+    //Получить ip адрес пользователя
+    public static function getRealIpAddr()
+    {
+        if (!empty($_SERVER['HTTP_CLIENT_IP']))
+        {
+            $ip=$_SERVER['HTTP_CLIENT_IP'];
+        }
+        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+        {
+            $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+        else
+        {
+            $ip=$_SERVER['REMOTE_ADDR'];
+        }
+        if($ip == '127.0.0.1') {
+            $ip = '217.118.81.17';//RND
+            //$ip = '144.206.192.6';//Moscow
+        }
+        return $ip;
+    }
+
+    //Получить регион пользователя
+    public static function getRegionUser()
+    {
+        $cookies = Yii::$app->request->cookies;
+        $useReg = $cookies->getValue('regionId');
+
+        if(empty($useReg)){
+            /*$userRegion = Yii::$app->ipgeobase->getLocation(\common\classes\UserFunction::getRealIpAddr());
+            $userRegion = isset($userRegion['region']) ? GeobaseFunction::getRegionId( $userRegion['region']) : -1;*/
+            $userRegion = -1;
+            Yii::$app->response->cookies->add(new \yii\web\Cookie([
+                'name' => 'regionId',
+                'value' => $userRegion,
+                'expire' => time() + 86400,
+            ]));
+        }else{
+            $userRegion = $useReg;
+        }
+
+        return $userRegion;
     }
 }

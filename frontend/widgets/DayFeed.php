@@ -9,21 +9,39 @@
 namespace frontend\widgets;
 
 use common\classes\Debug;
+use common\classes\UserFunction;
 use common\models\db\KeyValue;
 use common\models\db\Lang;
+use Yii;
 use yii\base\Widget;
 
 class DayFeed extends Widget
 {
-
+    public $useReg;
+    public $page = 'page';
     public function run()
     {
+        if($this->page == 'dnr') {
+            $limit = KeyValue::findOne(['key'=>'day_feed_count_dnr']);
+        }else{
+            $limit = KeyValue::findOne(['key'=>'day_feed_count']);
+        }
+
+
+        $query = \common\models\db\News::find()
+            ->from('news FORCE INDEX(`dt_public`)')
+            ->where(['status' => 0]);
+        if($this->useReg != -1){
+            $query->andWhere("(`region_id` IS NULL OR `region_id`=$this->useReg)");
+
+        }
+        $query->andWhere(['<=', 'dt_public', time() ]);
+        $news = $query->orderBy('dt_public DESC')
+            ->limit($limit->value)
+            ->all();
+
         return $this->render('day_feed', [
-            'news' => \common\models\db\News::find()
-                ->where(['lang_id' => Lang::getCurrent()['id'], 'status' => 0])
-                ->orderBy('dt_public DESC')
-                ->limit(KeyValue::findOne(['key'=>'day_feed_count'])->value)
-                ->all(),
+            'news' => $news,
         ]);
     }
 

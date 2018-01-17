@@ -14,30 +14,30 @@ use yii\helpers\Url;
 <?php foreach ($posters as $poster): ?>
     <a href="<?= Url::to(['/poster/default/view', 'slug'=>$poster->slug]) ?>" class="item">
         <div class="thumb">
-            <img src="<?= $poster->photo ?>" alt="">
+            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($poster->photo); ?>" alt="">
         </div>
+
         <div class="contents">
             <span class="type">
                 <?= isset($poster->categories[0]) ? $poster->categories[0]->title : '' ?>
             </span>
-            <h3 style="padding-left: 0"><?= WordFunctions::crop_str_word($poster->title, 6)  ?></h3>
+            <h3 style="padding-left: 0">
+                <?= WordFunctions::crop_str_word($poster->title, 6)  ?>
+            </h3>
             <span class="date">
-                        <?php
-                        if(date('d-m',$poster->dt_event) == date('d-m',$poster->dt_event_end)):
-                            ?>
-                            <?= date('d',$poster->dt_event) . ' '.DateFunctions::getMonthName(date('m',$poster->dt_event))?>
-                            <?php
-                        else:
-                            ?>
-                            <?= date('d',$poster->dt_event) . ' '.DateFunctions::getMonthName(date('m',$poster->dt_event))?> -
-                            <?= date('d',$poster->dt_event_end) . ' '.DateFunctions::getMonthName(date('m',$poster->dt_event_end))?>
-                            <?php
-                        endif;
-                        ?>
-
-
-                <?/*= WordFunctions::dateWithMonts($poster->dt_event) */?><!--, --><?/*= $poster->start; */?>
-                    </span>
+                <?php
+                if(date('d-m',$poster->dt_event) == date('d-m',$poster->dt_event_end)):
+                    ?>
+                    <?= date('d',$poster->dt_event) . ' '.DateFunctions::getMonthName(date('m',$poster->dt_event))?>
+                    <?php
+                else:
+                    ?>
+                    <?= date('d',$poster->dt_event) . ' '.DateFunctions::getMonthName(date('m',$poster->dt_event))?> -
+                    <?= date('d',$poster->dt_event_end) . ' '.DateFunctions::getMonthName(date('m',$poster->dt_event_end))?>
+                    <?php
+                endif;
+                ?>
+             </span>
             <span class="place"><?= $poster->address ?></span>
         </div>
     </a>

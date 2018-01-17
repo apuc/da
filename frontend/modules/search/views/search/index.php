@@ -30,13 +30,15 @@ $this->title = 'Результаты поиска по запросу "' . $requ
         <div class="search-panel__result">
 
             <p><span>По запросу "<?= $request['request']; ?>" найдено <span class="counter"><?= $dataProvider->getTotalCount(); ?></span> результатов. Показывать результаты</span>
-                <a href="#" class="js-search-option"><?= $searchModel::getTypeLabel($interval)?></a>
-                <span class="search-panel__result--option">
-                    <a href="<?= Url::to(['/search/search/index', 'request' => $request['request'], 'interval' => 'year'])?>">за год</a>
-                    <a href="<?= Url::to(['/search/search/index', 'request' => $request['request'], 'interval' => 'month'])?>">за месяц</a>
-                    <a href="<?= Url::to(['/search/search/index', 'request' => $request['request'], 'interval' => 'week'])?>">за неделю</a>
-                    <a href="<?= Url::to(['/search/search/index', 'request' => $request['request'], 'interval' => 'day'])?>">за день</a>
-                 </span>
+                <span class="search-panel__result--wrapper">
+                    <a href="#" class="js-search-option"><?= $searchModel::getTypeLabel($interval)?></a>
+                    <span class="search-panel__result--option">
+                        <a href="<?= Url::to(['/search/search/index', 'request' => $request['request'], 'interval' => 'year'])?>">за год</a>
+                        <a href="<?= Url::to(['/search/search/index', 'request' => $request['request'], 'interval' => 'month'])?>">за месяц</a>
+                        <a href="<?= Url::to(['/search/search/index', 'request' => $request['request'], 'interval' => 'week'])?>">за неделю</a>
+                        <a href="<?= Url::to(['/search/search/index', 'request' => $request['request'], 'interval' => 'day'])?>">за день</a>
+                     </span>
+                </span>
                 <span class="triangle"></span>
             </p>
 
@@ -85,6 +87,7 @@ $this->title = 'Результаты поиска по запросу "' . $requ
                     'emptyText' => 'Поск не дал результатов',
                     'emptyTextOptions' => [
                         'tag' => 'div',
+                        'class' => 'no-result'
                     ],
                     'layout' => "{items}<div class=\"pagination\">{pager}</div>",
                     'pager' => [

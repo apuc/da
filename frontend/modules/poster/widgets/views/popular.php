@@ -2,7 +2,7 @@
 
 <div class="what-to-see">
     <h3>Популярные спектакли сезона</h3>
-    <a href="#" class="view-more">посмотреть больше</a>
+    <a href="<?= \yii\helpers\Url::to(['/poster/default/category'])?>" class="view-more">посмотреть больше</a>
     <div class="afisha-events__wrap">
         <?php foreach ($popularPosters as $poster): ?>
             <a href="<?= \yii\helpers\Url::to(['/poster/default/view','slug'=>$poster->slug]);?>" class="item">

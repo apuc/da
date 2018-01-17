@@ -18,6 +18,9 @@ class Search extends TblViewSearch
     const CONST_NEWS = 1;
     const CONST_POSTER = 2;
     const CONST_COMPANY = 3;
+    const CONST_VK_STREAM = 4;
+    const CONST_CONSALTING = 5;
+    const CONST_DIDGEST = 6;
 
     const CONST_WEEK = 'week';
     const CONST_YEAR = 'year';
@@ -34,6 +37,9 @@ class Search extends TblViewSearch
             self::CONST_NEWS => 'Новости',
             self::CONST_POSTER => 'Афиша',
             self::CONST_COMPANY => 'Предприятия',
+            self::CONST_VK_STREAM => 'В соцсетях',
+            self::CONST_CONSALTING => 'Статьи',
+            self::CONST_DIDGEST => 'Справочник',
             self::CONST_YEAR => 'за год',
             self::CONST_WEEK => 'за неделю',
             self::CONST_MONTH => 'за месяц',
@@ -47,7 +53,6 @@ class Search extends TblViewSearch
         return isset($types[$type]) ? $types[$type] : $default;
     }
 
-
     public function search()
     {
         $query = TblViewSearch::find();
@@ -60,14 +65,21 @@ class Search extends TblViewSearch
             ],
         ]);
 
-        $query->andFilterWhere(['LIKE', 'title', $this->request])
-            ->orFilterWhere(['LIKE', 'descr', $this->request]);
+        $query->andFilterWhere([
+                'AND',
+                ['LIKE', 'title', explode(' ', $this->request)],
+            ]
+        )
+            ->orFilterWhere([
+                'AND',
+                ['LIKE', 'descr', explode(' ', $this->request)],
+            ]);
 
         $query->andFilterWhere(['>=', 'dt_update', self::setInterval($this->interval)]);
         $query->andFilterWhere(['material_type' => $this->type]);
 
         $query->orderBy('dt_update DESC');
-/*Debug::prn($query->createCommand()->rawSql);*/
+        /*Debug::prn($query->createCommand()->rawSql);*/
         return $dataProvider;
     }
 
@@ -87,8 +99,18 @@ class Search extends TblViewSearch
     {
         $query = TblViewSearch::find();
         $query->addSelect('material_type, COUNT(*) AS count');
-        $query->andFilterWhere(['LIKE', 'title', $this->request])
-            ->orFilterWhere(['LIKE', 'descr', $this->request]);
+        $query->andFilterWhere(
+            [
+                'AND',
+                ['LIKE', 'title', explode(' ', $this->request)],
+            ]
+        )
+            ->orFilterWhere(
+                [
+                    'AND',
+                    ['LIKE', 'descr', explode(' ', $this->request)],
+                ]
+        );
 
         $query->andFilterWhere(['>=', 'dt_update', self::setInterval($this->interval)]);
 

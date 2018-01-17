@@ -4,35 +4,56 @@
  * @var $stock \common\models\db\Stock
  * @var $feedback \common\models\db\CompanyFeedback
  * @var $img \common\models\db\CompanyPhoto
+ * @var $categoryCompany
+ * @var integer $uniqueViews
+ * @var array $services
+ * @var array $typeSeti
+ * @var array $cvRegion
  */
 
 use common\classes\GeobaseFunction;
+use miloschuman\highcharts\Highcharts;
+use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
 
 $this->title = $model->meta_title;
 $this->registerMetaTag([
     'name' => 'description',
     'content' => $model->meta_descr,
 ]);
+$this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/company_ajax.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/company.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+/*\common\classes\Debug::prn($categoryCompany);
+die();*/
 
-$this->registerJsFile('/js/company_ajax.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-$this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-//\common\classes\Debug::prn($services);
+$this->params['breadcrumbs'][] = ['label' => 'Все предприятия', 'url' => Url::to(['/company/company'])];
+if(!empty($categoryCompany['category']['categ']->title)){
+    $this->params['breadcrumbs'][] = ['label' => $categoryCompany['category']['categ']->title, 'url' => Url::to(['/company/company/view-category', 'slug' => $categoryCompany['category']['categ']->slug])];
+
+}
+if(!empty($categoryCompany['category']->title)){
+    $this->params['breadcrumbs'][] = ['label' => $categoryCompany['category']->title, 'url' => Url::to(['/company/company/view-category', 'slug' => $categoryCompany['category']->slug])];
+}
+$this->params['breadcrumbs'][] = $model->name;
+
 ?>
 
 <section class="business">
 
     <div class="container">
-
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'options' => ['class' => 'breadcrumbs']
+        ]) ?>
         <div class="business__wrapper">
 
             <div class="business__content business__single-content">
 
-                <h3 class="business__subtitle">Предприятия / <?= $model->name ?>
+                <h1 class="business__subtitle"><?= $model->name ?>
                     <span class="business__status">
-                    <span class="views"><?= $model->views; ?> просмотров</span>
                     </span>
-
-                </h3>
+                </h1>
 
                 <div class="business__requisites">
                     <div class="business__requisites--avatar">
@@ -41,6 +62,11 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                     <div class="business__requisites--address">
 
                         <h3><?= $model->name ?></h3>
+                        <?php if($model->verifikation == 1): ?>
+                            <span class="business__sm-item--label">
+                                <img src="/theme/portal-donbassa/img/icons/ver.png" alt="">
+                            </span>
+                        <?php endif; ?>
                         <!--<p><?/*= $model['meta_descr'] */?></p>-->
 
                         <?php
@@ -53,13 +79,16 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                         ?>
 
                         <p class="concreate-adress"><?= $address;  ?></p>
-
+                        <div class="companyDtReg">
+                            <span>добавлено:</span>
+                            <?= \common\classes\DataTime::time($model->dt_add); ?>
+                        </div>
                     </div>
                     <?php if(!empty($model->email)):?>
                         <div class="business__requisites--site">
 
                             <a href="" target="_blank"><span><?= $model->email; ?></span>
-                                <span><img src="/theme/portal-donbassa//img/icons/golink-icon.png" alt=""></span>
+                                <span><!--<img src="/theme/portal-donbassa//img/icons/golink-icon.png" alt="">--></span>
                             </a>
                             <!--<p>Описание этой ссылки,
                                 подробности</p>-->
@@ -67,14 +96,25 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                         </div>
                     <?php endif;?>
                     <div class="business__requisites--links">
+                        <div class="business__requisites--links-w">
+                            <span class="unique-views"><?= $uniqueViews ?> просмотров</span>
+                            <span class="views"><?= $model->views; ?> просмотров</span>
+                        </div>
                         <a class="phone" href="tel:+380667778540">
-                            <?= isset($model->getPhones()[0]) ? $model->getPhones()[0] : '' ?>
+                            <?php if (isset($model->allPhones[0]->phone)): ?>
+                                <?= $model->allPhones[0]->phone ?>
+                            <?php elseif (isset($model->getPhones()[0])): ?>
+                                <?= $model->getPhones()[0] ?>
+                            <?php endif; ?>
                         </a>
                         <a class="phone" href="tel:+380667778540">
-                            <?= isset($model->getPhones()[1]) ? $model->getPhones()[1] : '' ?>
+                            <?php if (isset($model->allPhones[1]->phone )): ?>
+                                <?= $model->allPhones[1]->phone  ?>
+                            <?php elseif (isset($model->getPhones()[1])): ?>
+                                <?= $model->getPhones()[1] ?>
+                            <?php endif; ?>
                         </a>
 
-                        <?php /*\common\classes\Debug::prn($socCompany);*/?>
                         <?php if(isset($services['group_link']) && $services['group_link'] == 1 && !empty($socCompany)):
 
                                 foreach ($typeSeti as $type){
@@ -95,9 +135,20 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                 </div>
 
                 <ul class="business__tab-links">
-                    <li class="tab"><a href="#about-company" class="active">О компании</a></li>
-                    <li class="tab"><a href="#reviews">Отзывы</a></li>
-                    <li class="tab"><a href="#stocks">Акции</a></li>
+                    <li class="tab active"><a href="#about-company" class="">О компании</a></li>
+                    <li class="tab">
+                        <a href="#reviews">
+                            Отзывы
+                            <span class="tabs-counters"><?= \common\classes\CompanyFunction::getCountReviews($model->id); ?></span>
+                        </a>
+                    </li>
+                    <li class="tab">
+                        <a href="#stocks">
+                            Акции
+                            <span class="tabs-counters"><?= \common\classes\CompanyFunction::getCountStock($model->id); ?></span>
+                        </a>
+                    </li>
+                    <li class="tab"><a href="#statistics">Статистика</a></li>
                 </ul>
 
 
@@ -131,20 +182,22 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
 
                     <div id="reviews" class="business__tab-content--wrapper">
                         <div class="business__reviews">
+
                             <?php if (!empty($feedback)): ?>
 
                                 <?php foreach ($feedback as $item): ?>
                                     <div class="business__reviews--item">
+                                        <?// \common\classes\Debug::prn($item['user_id']) ?>
 
                                         <div class="business__reviews--avatar">
-                                            <?= \common\classes\UserFunction::getUser_avatar_html($item['user']->id); ?>
+                                            <?= \common\classes\UserFunction::getUser_avatar_html($item['user_id']); ?>
                                         </div>
 
                                         <div class="descr">
 
                                             <span class="date"><?= date('H:i d-m-Y', $item->dt_add) ?></span>
 
-                                            <h3><?= \common\classes\UserFunction::getUserName($item['user']->id) ?></h3>
+                                            <h3><?= \common\classes\UserFunction::getUserName($item['user_id']) ?></h3>
 
                                             <!--<p><?/*= $model->meta_descr */?></p>-->
 
@@ -183,7 +236,7 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="business__tab-content--wrapper" id="stocks">
                         <h3 class="section-title">Наши акции</h3>
                         <div class="business__stocks--box">
@@ -191,10 +244,11 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                             <?php foreach ($stock as $item): ?>
                                 <div class="stock__sm-item">
                                     <div class="stock__sm-item--img">
-                                        <span class="views"><?= $item->view?> просмотров</span>
+
                                         <img src="<?= $item->photo ?>" alt="">
                                     </div>
                                     <div class="stock__sm-item--descr">
+                                        <span class="views"><?= $item->view?> просмотров</span>
                                         <p><?= $item->title ?></p>
                                     </div>
                                     <div class="stock__sm-item--time">
@@ -205,9 +259,65 @@ $this->registerJsFile('/js/company.js', ['depends' => [\yii\web\JqueryAsset::cla
                         <?php endif; ?>
                         </div>
                     </div>
+
+                    <div id="statistics" class="business__tab-content--wrapper">
+                        <div class="cabinet-company-statistic">
+                            <div class="cabinet-company-statistic__header">
+                                <h3>Статистика компании</h3>
+                            </div>
+                            <div class="cabinet-company-statistic__body">
+                                <div class="cabinet-company-statistic__body--left">
+                                    <h4>Охват аудитории</h4>
+                                    <p>Количество посетителей <b><?= $model->views ?></b></p>
+                                    <p>Количество <span>уникальных</span> посетителей <b><?= $uniqueViews ?></b></p>
+                                    <?php if ($show) : ?>
+                                        <h5>География </h5>
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                                <td>Город</td>
+                                                <td>Количество</td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php $sum = 0;
+                                            foreach ($cvRegion as $item) {
+                                                $sum += $item[1];
+                                            } ?>
+                                            <?php foreach ($cvRegion as $item): ?>
+                                                <tr>
+                                                    <td><?= $item[0] ?></td>
+                                                    <td><?= Yii::$app->formatter->asPercent($item[1] / $sum, 1) ?></td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="cabinet-company-statistic__body--right" id="piechart">
+                                    <?php if ($show) {
+                                        echo Highcharts::widget($optionsCV);
+                                        echo Highcharts::widget($optionsCVR);
+                                    } ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-
+                <?php if(!empty($model['tagss'])): ?>
+                    <div class="content__separator"></div>
+                    <section class="hashtag">
+                        <div class="hashtag__wrapper">
+                            <?php
+                            foreach ($model['tagss'] as $tags){ ?>
+                                <a href="<?= Url::to(['/search/tag', 'id' => $tags['tagname']->id])?>">
+                                    <div class="hashtag__wrapper--item"><?= $tags['tagname']->tag; ?></div>
+                                </a>
+                            <?php } ?>
+                        </div>
+                    </section>
+                <?php endif; ?>
 
 
 

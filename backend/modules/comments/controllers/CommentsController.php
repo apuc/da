@@ -2,6 +2,8 @@
 
 namespace backend\modules\comments\controllers;
 
+use backend\modules\pages\models\Pages;
+use backend\modules\vk\models\VkStream;
 use common\behaviors\AccessSecure;
 use common\classes\Debug;
 use common\models\db\News;
@@ -102,8 +104,7 @@ class CommentsController extends Controller
      * Lists all Comments models.
      * @return mixed
      */
-    public
-    function actionIndex()
+    public function actionIndex()
     {
         $searchModel = new CommentsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -119,11 +120,9 @@ class CommentsController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public
-    function actionView($id)
+    public function actionView($id)
     {
         Url::remember();
-
 
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -135,8 +134,7 @@ class CommentsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public
-    function actionCreate()
+    public function actionCreate()
     {
         $model = new Comments();
 
@@ -155,28 +153,40 @@ class CommentsController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public
-    function actionUpdate($id)
+    public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-
-            $news = News::find()->all();
+            switch ($model->post_type)
+            {
+                case 'news':
+                    $posts = News::find()->one();
+                    break;
+                case 'page':
+                    $posts = Pages::find()->one();
+                    break;
+                case 'vk_post':
+                    $posts = VkStream::find()->one();
+                    break;
+            }
+            //Debug::prn($model);
+            //$news = News::find()->all();
             $user = User::find()->all();
+            /*Debug::prn($user);
+            die();*/
             return $this->render('update', [
                 'model' => $model,
-                'news' => $news,
+                'posts' => $posts,
                 'user' => $user,
             ]);
         }
     }
 
 
-    public
-    function actionUpdateModerCheckedAjax()
+    public function actionUpdateModerCheckedAjax()
     {
         if (Yii::$app->request->isAjax) {
             $post = Yii::$app->request->post();
@@ -196,8 +206,7 @@ class CommentsController extends Controller
         }
     }
 
-    public
-    function actionUpdatePublishedAjax()
+    public function actionUpdatePublishedAjax()
     {
         if (Yii::$app->request->isAjax) {
             $post = Yii::$app->request->post();
@@ -217,14 +226,33 @@ class CommentsController extends Controller
         }
     }
 
+    public function actionUpdateVerifiedAjax()
+    {
+        if (Yii::$app->request->isAjax) {
+            $post = Yii::$app->request->post();
+            $model = $this->findModel($post['id']);
+            if ($model->verified == 0) {
+                $model->verified = 1;
+            } else {
+                $model->verified = 0;
+            }
+            $model->save();
+
+            Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
+            return [
+                'id' => $post['id'],
+                'status' => $model->verified
+            ];
+        }
+    }
+
     /**
      * Deletes an existing Comments model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
      */
-    public
-    function actionDelete($id)
+    public function actionDelete($id)
     {
         $this->findModel($id)->delete();
 
@@ -238,8 +266,7 @@ class CommentsController extends Controller
      * @return Comments the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected
-    function findModel($id)
+    protected function findModel($id)
     {
         if (($model = Comments::findOne($id)) !== null) {
             return $model;

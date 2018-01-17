@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Url;
 
 ?>
@@ -6,89 +7,83 @@ use yii\helpers\Url;
     <div class="container">
         <h3 class="main-title">популярные новости</h3>
         <span class="separator"></span>
+        <?php /*\common\classes\Debug::prn(array_combine(range(1, count($news)), $news))*/?>
         <div class="news-slider-wrap">
-            <div class=" js-carousel-1 owl-carousel" id="sync1">
-                <?php
+            <?php
+            $slider1 = '';
+            $slider2 = '';
+            $slider3 = '';
+            $slider4 = '';
+            foreach ($news as $key=> $item):
+                //\common\classes\Debug::prn($key);
+                if(empty($item)){ break; }
 
-                foreach ($newsSlider1 as $item): ?>
-                    <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug]) ?>" class="item">
-                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->photo) ?>" alt="">
-                        <div class="content-item">
-                            <div class="content-row">
+                $url = Url::to(['/news/default/view', 'slug' => $item->slug]);
+                $img = $item->photo  . '?width=600';
+                $view = $item->views;
+                $comments = \common\models\db\News::getCommentsCount($item->id);
+                $share = \frontend\widgets\Share::widget([
+                    'url' => \yii\helpers\Url::base(true) . '/news/' . $item->slug,
+                    'title' => $item->title,
+                    'description' => $item->content,
+                ]);
+                $title = $item->title;
+                $content = strip_tags($item->content);
+
+                $sliderOne = "<a href=\"$url\" class=\"item\">
+                        <img src=\"$img\" alt=\"\">
+                        <div class=\"content-item\">
+                            <div class=\"content-row\">
+
                                 <span>Новости</span>
-                                <span><small class="view-icon"></small> <?= $item->views ?></span>
-                                <span><small class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($item->id)?></span>
-                                <?= \frontend\widgets\Share::widget([
-                                    'url' => \yii\helpers\Url::base(true) . '/news/' . $item->slug,
-                                    'title' => $item->title,
-                                    'description' => $item->content,
-                                ]); ?>
+                                <span><small class=\"view-icon\"></small> $view</span>
+                                <span>
+                                    <small class=\"comments-icon\"></small>
+                                    $comments</span>
+                                $share
                             </div>
-                            <div class="item__info">
-                                <h4><?= $item->title; ?></h4>
-                                <p><?= strip_tags($item->content) ?></p>
+                            <div class=\"item__info\">
+                                <h4>$title</h4>
+                                <p>$content</p>
                             </div>
 
                         </div>
-                    </a>
-                <?php endforeach; ?>
+                    </a>";
+
+                ?>
+                <?php if($key%4 == 0 ){
+                    $slider1 .= $sliderOne;
+                }?>
+                <?php if($key%4 == 1 ){
+                    $slider2 .= $sliderOne;
+                }?>
+
+                <?php if($key%4 == 2 ){
+                    $slider3 .= $sliderOne;
+                }?>
+
+                <?php if($key%4 == 3 ){
+                    $slider4 .= "<a href=\"$url\" class=\"item\">
+                        <img
+                                src=\"$img\" alt=\"\">
+                    </a>";
+                }?>
+            <?php endforeach; ?>
+
+            <div class=" js-carousel-1 owl-carousel" id="sync1">
+
+                <?= $slider1; ?>
             </div>
             <div class="js-carousel-2 owl-carousel" id="sync2">
-                <?php foreach ($newsSlider2 as $item): ?>
-                    <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug]) ?>" class="item">
-                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->photo) ?>" alt="">
-                        <div class="content-item">
-                            <div class="content-row">
-                                <span>Новости</span>
-                                <span><small class="view-icon"></small> <?= $item->views ?></span>
-                                <span><small class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($item->id)?></span>
-                                <?= \frontend\widgets\Share::widget(
-                                    [
-                                        'url' => \yii\helpers\Url::base(true) . '/news/' . $item->slug,
-                                        'title' => $item->title,
-                                        'description' => $item->content,
-                                    ]
-                                ); ?>
-                            </div>
-                            <div class="item__info">
-                                <h4><?= $item->title; ?></h4>
-                                <p><?= strip_tags($item->content) ?></p>
-                            </div>
 
-                        </div>
-                    </a>
-                <?php endforeach; ?>
+                <?= $slider2; ?>
             </div>
             <div class="js-carousel-3 owl-carousel">
-                <?php foreach ($newsSlider3 as $item): ?>
-                    <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug]) ?>" class="item">
-                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->photo )?>" alt="">
-                        <div class="content-item">
-                            <div class="content-row">
-                                <span>Новости</span>
-                                <span><small class="view-icon"></small> <?= $item->views; ?></span>
-                                <span><small class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($item->id)?></span>
-                                <?= \frontend\widgets\Share::widget([
-                                    'url' => \yii\helpers\Url::base(true) . '/news/' . $item->slug,
-                                    'title' => $item->title,
-                                    'description' => $item->content,
-                                ]); ?>
-                                <div class="item__info">
-                                    <h4><?= $item->title; ?></h4>
-                                    <p><?= strip_tags($item->content) ?></p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                <?php endforeach; ?>
+                <?= $slider3; ?>
 
             </div>
             <div class="js-carousel-4 owl-carousel">
-                <?php foreach ($newsSlider4 as $item): ?>
-                    <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug]) ?>" class="item"><img
-                                src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->photo); ?>" alt="">
-                    </a>
-                <?php endforeach; ?>
+                <?= $slider4?>
             </div>
             <div class="slider-nav">
                 <a href="#" class="customPrevBtn"></a>

@@ -24,6 +24,8 @@ use common\models\User;
  * @property integer $status
  * @property integer $views
  * @property integer $likes
+ * @property integer $dt_publish
+ * @property integer $user_id
  */
 class VkStream extends \yii\db\ActiveRecord
 {
@@ -44,7 +46,7 @@ class VkStream extends \yii\db\ActiveRecord
     {
         return [
             [['vk_id'], 'required'],
-            [['from_id', 'owner_id', 'owner_type', 'dt_add', 'from_type', 'status', 'views', 'likes', 'comment_status'], 'integer'],
+            [['from_id', 'owner_id', 'owner_type', 'dt_add', 'from_type', 'status', 'views', 'likes', 'comment_status', 'rss', 'user_id'], 'integer'],
             [['text', 'slug', 'title', 'meta_descr'], 'string'],
             [['vk_id', 'post_type'], 'string', 'max' => 255],
         ];
@@ -57,13 +59,13 @@ class VkStream extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'vk_id' => 'Vk ID',
+            'vk_id' => 'ВК',
             'from_id' => 'From ID',
             'owner_id' => 'Owner ID',
             'owner_type' => 'Owner Type',
-            'dt_add' => 'Dt Add',
+            'dt_add' => 'Дата',
             'post_type' => 'Post Type',
-            'text' => 'Text',
+            'text' => 'Текст',
             'from_type' => 'From Type',
             'status' => 'Статус',
             'views' => 'Просмотры',
@@ -77,12 +79,12 @@ class VkStream extends \yii\db\ActiveRecord
 
     public function getPhoto()
     {
-        return $this->hasMany(VkPhoto::className(), ['post_id' => 'id']);
+        return $this->hasMany(VkPhoto::className(), ['post_id' => 'id'])->where(['comment_id' => 0]);
     }
 
     public function getGif()
     {
-        return $this->hasMany(VkGif::className(), ['post_id' => 'id']);
+        return $this->hasMany(VkGif::className(), ['post_id' => 'id'])->where(['comment_id' => 0]);
     }
 
     public function getComments()
@@ -105,14 +107,14 @@ class VkStream extends \yii\db\ActiveRecord
         return Likes::find()->where(['post_type' => 'stream', 'post_id' => $this->id])->count();
     }
 
-    public static function getPosts($limit = 10, $offset = 0, $dt_add = null)
+    public static function getPosts($limit = 10, $offset = 0, $dt_publish = null)
     {
-       if(!$dt_add) $dt_add = time();
+       if(!$dt_publish) $dt_publish = time();
 
         return self::find()
             ->where(['status' => 1])
-            ->andWhere(['<', 'dt_add', $dt_add])
-            ->orderBy('`vk_stream`.`dt_add` DESC')
+            ->andWhere(['<', 'dt_publish', $dt_publish])
+            ->orderBy('`vk_stream`.`dt_publish` DESC')
             ->limit($limit)
             ->offset($offset)
             ->with('gif', 'photo', 'author', 'group')
@@ -120,21 +122,62 @@ class VkStream extends \yii\db\ActiveRecord
 
     }
 
+    public static function getPostsTop($limit = 5)
+    {
+
+        return self::find()
+            ->where(['status' => 1])
+            ->andWhere(['>', 'views', 10])
+            ->andWhere(['<', 'dt_publish', time()])
+            ->orderBy('`vk_stream`.`dt_publish` DESC')
+            ->limit($limit)
+            ->with('gif', 'photo', 'author', 'group')
+            ->orderBy('RAND()')
+            ->all();
+
+    }
+
+    public function getLargePhoto()
+    {
+        $photo = VkPhoto::findOne(['post_id' => $this->id]);
+
+        if(empty($photo)) {
+            return '/theme/portal-donbassa/img/no-image.png';
+        }
+
+        if($photo->photo_1280)
+            return $photo->photo_1280;
+
+        if($photo->photo_807)
+            return $photo->photo_807;
+
+        if($photo->photo_604)
+            return $photo->photo_604;
+
+        if($photo->photo_512)
+            return $photo->photo_512;
+
+        if($photo->photo_130)
+            return $photo->photo_130;
+        return '/theme/portal-donbassa/img/no-image.png';
+    }
+
     public static function getPublishedCount()
     {
         return self::find()
             ->where(['status' => 1])
+            ->andWhere(['<','dt_publish', time()])
             ->count();
     }
 
     public function getAllComments()
     {
-        $vk_comments = VkComments::find()->with('author')->where(['post_id' => $this->id])->all();
+        $vk_comments = VkComments::find()->with('author', 'photo')->where(['post_id' => $this->id])->all();
         $comments = Comments::find()->where(['post_id' => $this->id])
             ->andWhere(['post_type' => 'vk_post'])
             ->andWhere(['published' => 1])
             ->all();
-        //Debug::prn($this->comment_status);
+
         if($this->comment_status != 0)
         {
             if(!empty($comments) && !empty($vk_comments))
@@ -152,10 +195,19 @@ class VkStream extends \yii\db\ActiveRecord
         $comment_result = [];
         if ($vk_comments) {
             foreach ($vk_comments as $comment) {
+                if((stristr($comment->text, '[id'))){
+                    $start = strpos($comment->text,'|')+ 1;
+                    $string = substr($comment->text, $start, strpos($comment->text,']') - $start);
+                    $comment->text = $string.
+                        substr($comment->text, strpos($comment->text,']') + 1 );
+                }
+
                 $comment_result[] = [
-                    'username' => $comment->author->first_name . ' ' . $comment->author->last_name,
-                    'avatar' => $comment->author->photo,
+                    'username' => $comment->author['first_name'] . ' ' . $comment->author['last_name'],
+                    'avatar' => $comment->author['photo'],
                     'text' => $comment->text,
+                    'photo' => (!empty($comment->photo)) ? $comment->photo[0]->getLargePhoto() : '',
+                    'sticker' => (!empty($comment->sticker)) ? $comment->sticker: '',
                 ];
             }
         }

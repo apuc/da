@@ -49,7 +49,7 @@ $this->registerMetaTag( [
     $news_content  = strip_tags( $news->content );
     $news_content  = preg_replace( "/\s{2,}/", " ", $news_content );
 
-    $news_content = substr( $news_content, 0, $count_symbols ) . '...';
+    $news_content = mb_substr( $news_content, 0, $count_symbols ) . '...';
 
     ?>
 

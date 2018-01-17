@@ -3,17 +3,19 @@
 /* @var $this yii\web\View */
 /* @var $name string */
 /* @var $message string */
-/* @var $exception Exception */
+/* @var $exception yii\base\ErrorException */
 
 use yii\helpers\Html;
 use yii\helpers\Url;
 
 $this->title = $name;
+//\common\classes\Debug::prn($exception->getCode());
 
-if ($exception->statusCode == 404){
+if (isset($exception->statusCode) && ($exception->statusCode == 404 || $exception->getCode() == 404)){
     ?>
     <?php if($this->context->module->catchAll):?>
-        Тех работы
+
+        <?= $this->render('teh-work'); ?>
 
     <?php else: ?>
         <section class="dev">
@@ -33,7 +35,7 @@ if ($exception->statusCode == 404){
                     и ответим на все вопросы</p>-->
                 <a href="#" id="send-error-message" class="show-more">сообщить о битой ссылке</a>
             </div>
-            
+
             <div class="dev__elements">
                 <div class="dev__photo">
                     <img src="/theme/portal-donbassa/img/content/404-banner.png" alt="">

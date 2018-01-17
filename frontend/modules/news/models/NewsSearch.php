@@ -2,6 +2,7 @@
 
 namespace frontend\modules\news\models;
 
+use common\models\db\CategoryNewsRelations;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -77,5 +78,79 @@ class NewsSearch extends News
             ->andFilterWhere(['like', 'meta_descr', $this->meta_descr]);
 
         return $dataProvider;
+    }
+
+    public function getNews($useReg)
+    {
+        $newsQuery = News::find()
+            ->from('news FORCE INDEX(`dt_public`)')
+            ->where([
+                'status' => 0,
+                'hot_new' => 0,
+            ]);
+        if($useReg != -1){
+            $newsQuery->andWhere("(`region_id` IS NULL OR `region_id`=$useReg)");
+
+        }
+        $news = $newsQuery
+            ->limit(34)
+            ->orderBy('dt_public DESC')
+            ->with('category')
+            ->all();
+
+        return $news;
+    }
+
+    public function getHotNews($useReg)
+    {
+        $hotNewsQuery = News::find()
+
+            ->where([
+                'hot_new' => 1,
+                'status' => 0,
+            ]);
+        if($useReg != -1){
+            $hotNewsQuery->andWhere("(`region_id` IS NULL OR `region_id`=$useReg)");
+        }
+        $hotNews = $hotNewsQuery->limit(5)
+            ->orderBy('dt_public DESC')
+            ->with('category')
+            ->all();
+
+        return $hotNews;
+    }
+
+    public function getCategoryNews($useReg, $category)
+    {
+        $query = CategoryNewsRelations::find()
+            ->where(['cat_id' => $category])
+            ->joinWith('news');
+
+        if($useReg != -1){
+            $query->andWhere("(`region_id` IS NULL OR `region_id`=$useReg)");
+        }
+        $news = $query
+            ->orderBy('`news`.`dt_public` DESC')
+            ->with('cat')
+            ->limit(34)
+            ->all();
+        return $news;
+    }
+
+    public function getCategoryHotNews($useReg, $category)
+    {
+        $query = CategoryNewsRelations::find()
+            ->where(['cat_id' => $category])
+            ->joinWith('hotNews');
+
+        if($useReg != -1){
+            $query->andWhere("(`region_id` IS NULL OR `region_id`=$useReg)");
+        }
+        $news = $query
+            ->orderBy('`news`.`dt_public` DESC')
+            ->with('cat')
+            ->limit(5)
+            ->all();
+        return $news;
     }
 }

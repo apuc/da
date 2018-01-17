@@ -1,19 +1,22 @@
-<?php //\common\classes\Debug::prn($events); ?>
+<?php
+use yii\helpers\Url;
+//\common\classes\Debug::prn($events); ?>
 <section class="afisha">
     <div class="container">
         <h3 class="main-title">куда сходить</h3>
         <span class="separator"></span>
         <div class="afisha-wrap">
+            <?php
+
+            if (!empty($events)) {?>
             <div class="afisha-wrap__event">
                 <h3>События в ближайшие дни</h3>
                 <?php
-                use yii\helpers\Url;
-
-                if (!empty($events)) {
                     foreach ($events as $event):
+
                         ?>
                         <a href="<?= Url::to(['/poster/default/view', 'slug'=>$event->slug]) ?>" class="item">
-                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($event->photo); ?>" alt="">
+                            <img src="<?= $event->photo  . '?width=155' ?>" alt="">
                             <div class="item-content">
                                 <span class="type"><?= $event->categories[0]->title; ?></span>
                                 <span class="time"><?= date('d',
@@ -23,19 +26,18 @@
                                 <span class="name-item"><?= $event->title; ?></span>
                             </div>
                         </a>
-                    <?php endforeach;
-                }
-                ?>
-
-
+                    <?php endforeach;?>
             </div>
-            <div class="afisha-wrap__yesterday">
+                <?php }
+                ?>
+            <?php if(!empty($premiereImages)): ?>
+                <div class="afisha-wrap__yesterday">
                 <h3>Выбор редакции</h3>
                 <div class="gallery">
                     <div class="main-gallery">
                         <a class="fancybox" rel="gallery1" data-fancybox="gallery"
-                           href="<?= \common\models\UploadPhoto::getImageOrNoImage($premiereImages[0]); ?>">
-                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($premiereImages[0]); ?>" alt=""/>
+                           href="<?= $premiereImages[0]  . '?width=600' ?>">
+                            <img src="<?= $premiereImages[0]  . '?width=600' ?>" alt=""/>
                         </a>
 
                     </div>
@@ -44,23 +46,25 @@
                         $photos = array_slice($premiereImages, 1);
                         foreach ($photos as $photo): ?>
                             <a class="fancybox" rel="gallery1" data-fancybox="gallery"
-                               href="<?= \common\models\UploadPhoto::getImageOrNoImage($photo); ?>">
-                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($photo); ?>" alt=""/>
+                               href="<?= $photo  . '?width=600' ?>">
+                                <img src="<?= $photo  . '?width=50' ?>" alt=""/>
                             </a>
                         <?php endforeach; ?>
                     </div>
                 </div>
                 <p><?= $premiereDescription;?></p>
 
-                <a class="show-more"href="<?= Url::to(['/poster/default/view', 'slug'=>$poster->slug]) ?>">посмотреть</a>
+                <a class="show-more" href="<?= Url::to(['/poster/default/view', 'slug'=>$poster->slug]) ?>">посмотреть</a>
             </div>
+            <?php endif; ?>
+            <?php
+            if (!empty(($movies))) { ?>
             <div class="afisha-wrap__look">
                 <h3>Что посмотреть</h3>
-                <?php
-                if (!empty(($movies))) {
-                    foreach ($movies as $poster): ?>
+
+                    <?php foreach ($movies as $poster): ?>
                         <a href="<?= Url::to(['/poster/default/view', 'slug'=>$poster->slug]) ?>" class="item">
-                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($poster->photo); ?>" alt="">
+                            <img src="<?= $poster->photo  . '?width=155' ?>" alt="">
                             <div class="item-content">
                                 <span class="type"><?= $poster->categories[0]->title; ?></span>
                                 <span class="time"><?= date('d',
@@ -70,9 +74,9 @@
                                 <span class="name-item"><?= $poster->title; ?></span>
                             </div>
                         </a>
-                    <?php endforeach;
-                } ?>
+                    <?php endforeach;?>
             </div>
+            <?php } ?>
         </div>
         <a href="<?= Url::to(['/poster/default/category']) ?>" class="more">посмотреть больше <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
     </div>

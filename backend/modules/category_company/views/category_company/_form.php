@@ -25,13 +25,11 @@ use yii\widgets\ActiveForm;
         'prompt' => 'Нет',
     ]) ?>
 
+    <?= $form->field($model, 'show_menu')
+        ->checkbox() ?>
+
     <?= $form->field($model, 'descr')->textarea(['rows' => 6]) ?>
 
-    <?/*= $form->field($model, 'dt_add')->textInput() */?>
-
-    <?/*= $form->field($model, 'dt_update')->textInput() */?>
-
-    <?/*= $form->field($model, 'icon')->textInput(['maxlength' => true]) */?>
     <div class="imgUpload">
         <div class="media__upload_img"><img src="<?= $model->icon; ?>" width="100px"/></div>
         <?php
@@ -53,8 +51,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'meta_descr')->textInput(['maxlength' => true]) ?>
-
-    <?/*= $form->field($model, 'slug')->textInput(['maxlength' => true]) */?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('company', 'Create') : Yii::t('company', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
