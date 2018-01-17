@@ -17,7 +17,6 @@ use common\models\db\VkGroups;
 use common\models\db\VkPhoto;
 use common\models\db\VkStream;
 use common\models\VK;
-use himiklab\ipgeobase\IpGeoBase;
 use yii\console\Controller;
 
 class VkController extends Controller
@@ -185,10 +184,10 @@ class VkController extends Controller
                 $comm->post_id = $postSysId;
                 $comm->dt_add = $item->date;
                 $comm->text = $item->text;
-                $comm->save();
+                //$comm->save();
                 echo 'comment - ' . $comm->vk_id . ' add' . "\n";
-                $this->savePhoto($item, $postSysId, $comm->id);
-                $this->saveGif($item, $postSysId, $comm->id);
+               // $this->savePhoto($item, $postSysId, $comm->id);
+                //$this->saveGif($item, $postSysId, $comm->id);
             }
             $this->saveAuthors($res->response->profiles);
         }
@@ -203,12 +202,6 @@ class VkController extends Controller
             $res = json_decode($res);
             Debug::prn($res);
         }
-    }
-
-    public function actionGetGeoBase()
-    {
-        $IpGeoBase = new IpGeoBase();
-        $IpGeoBase->updateDB();
     }
 
 }
