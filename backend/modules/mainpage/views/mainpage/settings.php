@@ -13,6 +13,12 @@ use yii\helpers\Html;
 <?= Html::textInput('day_feed_count', $dayFeedCount, ['class' => 'form-control', 'type' => 'number']); ?>
 
 <br>
+
+<?= Html::label('Количество новостей в ленте ДНР:', 'day_feed_count_dnr'); ?>
+
+<?= Html::textInput('day_feed_count_dnr', $dayFeedCountDnr, ['class' => 'form-control', 'type' => 'number']); ?>
+
+<br>
 <?php echo Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
 <?php echo Html::endForm() ?>
 

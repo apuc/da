@@ -18,8 +18,14 @@ use yii\base\Widget;
 class DayFeed extends Widget
 {
     public $useReg;
+    public $page = 'page';
     public function run()
     {
+        if($this->page == 'dnr') {
+            $limit = KeyValue::findOne(['key'=>'day_feed_count_dnr']);
+        }else{
+            $limit = KeyValue::findOne(['key'=>'day_feed_count']);
+        }
 
 
         $query = \common\models\db\News::find()
@@ -31,7 +37,7 @@ class DayFeed extends Widget
         }
         $query->andWhere(['<=', 'dt_public', time() ]);
         $news = $query->orderBy('dt_public DESC')
-            ->limit(KeyValue::findOne(['key'=>'day_feed_count'])->value)
+            ->limit($limit->value)
             ->all();
 
         return $this->render('day_feed', [

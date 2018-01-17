@@ -13,7 +13,10 @@
     <span class="color-zebra"></span>
     <div class="title">
         <h2>Ситуация на блокпостах и КПП</h2>
-        <!--<a href="">Все пункты пропуска<span class="rect-icon"></span></a>-->
+        <a href="/page/situacia-na-blokpostah-i-na-granice-dnr-rf-na-segodna">
+            Все пункты пропуска
+            <span class="rect-icon"></span>
+        </a>
     </div>
 
     <?php foreach ($sit as $s): ?>

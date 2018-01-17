@@ -59,23 +59,23 @@ $user = Yii::$app->user->identity;
         </div>
 
 
-        <?= \frontend\widgets\DayFeed::widget(['useReg' => 21]); ?>
+        <?= \frontend\widgets\DayFeed::widget(['useReg' => 21, 'page' => 'dnr']); ?>
 
-
+        <?= \frontend\widgets\Consultation::widget(); ?>
         <div class="home-content__sidebar">
 
             <?= \frontend\modules\mainpage\widgets\Stock::widget() ?>
 
         </div>
-        <div class="home-content__sidebar_poll">
-            <?= \frontend\widgets\Poll::widget(); ?>
-        </div>
+        <!--<div class="home-content__sidebar_poll">
+            <?/*= \frontend\widgets\Poll::widget(); */?>
+        </div>-->
 
-        <?= \frontend\widgets\Consultation::widget(); ?>
+
 
        <!-- --><?/*= \frontend\widgets\ExchangeRatesMain::widget() */?>
 
-        <?= \frontend\widgets\Weather::widget(); ?>
+        <?/*= \frontend\widgets\Weather::widget(); */?>
 </section>
 <?php
 /*echo \frontend\widgets\MainPopularSlider::widget(['useReg' => 21]);

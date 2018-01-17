@@ -12,7 +12,7 @@ use yii\widgets\MaskedInput;
                 <li><a href="/all-poster">АФИША</a></li>
                 <li><a href="/all-company">ПРЕДПРИЯТИЯ</a></li>
                 <li><a href="/consulting">КОНСУЛЬТАЦИИ</a></li>
-                <li><a href="/site/design">ОБЪЯВЛЕНИЯ</a></li>
+                <li><a href="/obyavleniya">ОБЪЯВЛЕНИЯ</a></li>
             </ul>
 
             <a href="#" class="footer-error-button" id="send-error-message">
