@@ -59,7 +59,14 @@ use yii\helpers\Url;
 <!-- start mobile-second-menu.html-->
 <section class="button-second-menu">
     <div class="container">
-        <a class="button-second-menu" href="#"><i class="fa fa-list" aria-hidden="true"></i> Меню категорий</a>
+        <a href="#">
+            <div class="button-second-menu__hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            Перейти в меню категорий
+        </a>
     </div>
 </section>
 <section class="mobile-second-menu">
