@@ -181,7 +181,7 @@ class DefaultController extends Controller
                         'currency' => $rate->currencyFrom->name,
                         'rate' => [
                             'now' => $rate->rate,
-                            'diff' => number_format($rates_prev[$key] - $rate->rate, 4),
+                            'diff' => number_format($rate->rate - $rates_prev[$key], 4),
                         ],
                     ];
                     if (in_array($rate->currency_from_id, $top) && $rate->currency_to_id == Currency::RUB_ID)
