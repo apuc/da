@@ -44,8 +44,13 @@ class CurrencyRates extends Widget
                 'ct.status' => Currency::STATUS_ACTIVE_FOR_WIDGET,
             ])
             ->andWhere(['!=', 'ct.id', Currency::UAH_ID])
-            ->andWhere(['date' => $date])
-            ->all();
+            ->andWhere(['date' => $date]);
+        //Исключаем рубль из криптовалют
+        if ($this->currencyType === Currency::TYPE_COIN)
+            $rates = $rates->andWhere(['!=', 'ct.id', Currency::RUB_ID])->all();
+        else
+            $rates = $rates->all();
+
 
         switch ($this->currencyType) {
             case Currency::TYPE_COIN:
@@ -55,7 +60,7 @@ class CurrencyRates extends Widget
                         'name' => $rate->currencyFrom->coin->full_name,
                         'USD' => null,
                         'EUR' => null,
-                        'RUB' => null
+//                        'RUB' => null
                     ];
                     $rates_body[$rate->currency_from_id][$rate->currencyTo->char_code] =
                         rtrim(number_format($rate->rate, 6, '.', ' '), "0");
@@ -64,7 +69,7 @@ class CurrencyRates extends Widget
                     'name' => 'Криптовалюта',
                     'USD' => 'USD',
                     'EUR' => 'EUR',
-                    'RUB' => 'RUB',
+//                    'RUB' => 'RUB',
                 ];
                 break;
             case Currency::TYPE_METAL:

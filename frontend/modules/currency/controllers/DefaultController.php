@@ -37,6 +37,12 @@ class DefaultController extends Controller
             ->andWhere(['cf.type' => $type])
             ->orderBy('date DESC')
             ->one();
+        $date_prev = CurrencyRate::find()
+            ->joinWith(['currencyFrom cf'])
+            ->andWhere(['cf.type' => $type])
+            ->andWhere(['<', 'date', $date->date])
+            ->orderBy('date DESC')
+            ->one();
         if (empty($date)) $date = new Expression('CURDATE()');
         switch ($type) {
             case Currency::TYPE_COIN:
@@ -57,8 +63,8 @@ class DefaultController extends Controller
                 foreach ($rates as $rate) {
                     if (!isset($rates_list[$rate->currency_from_id])) $rates_list[$rate->currency_from_id] = [
                         'name' => $rate->currencyFrom->coin->full_name,
-                        'algo' => $rate->currencyFrom->coin->algorithm,
-                        'total' => $rate->currencyFrom->coin->total_coin_supply,
+//                        'algo' => $rate->currencyFrom->coin->algorithm,
+//                        'total' => $rate->currencyFrom->coin->total_coin_supply,
                         'USD' => null,
                         'EUR' => null,
                         'RUB' => null
@@ -75,14 +81,14 @@ class DefaultController extends Controller
                             'value' => 'Название',
                             'class' => 'digital-code'
                         ],
-                        'algo' => [
-                            'value' => 'Алгоритм расчета',
-                            'class' => 'letter-code'
-                        ],
-                        'total' => [
-                            'value' => 'В наличии',
-                            'class' => 'nominal'
-                        ],
+//                        'algo' => [
+//                            'value' => 'Алгоритм расчета',
+//                            'class' => 'letter-code'
+//                        ],
+//                        'total' => [
+//                            'value' => 'В наличии',
+//                            'class' => 'nominal'
+//                        ],
                         'USD' => [
                             'value' => 'USD',
                             'class' => 'course'
@@ -157,24 +163,32 @@ class DefaultController extends Controller
                     ->andWhere(['>=', 'cf.status', Currency::STATUS_ACTIVE])
                     ->andWhere(['>=', 'ct.status', Currency::STATUS_ACTIVE])
                     ->all();
+                $rates_prev = CurrencyRate::find()
+                    ->select('rate')
+                    ->joinWith(['currencyFrom cf', 'currencyTo ct'])
+                    ->where([
+                        'cf.type' => $type,
+                        'date' => $date_prev
+                    ])
+                    ->andWhere(['>=', 'cf.status', Currency::STATUS_ACTIVE])
+                    ->andWhere(['>=', 'ct.status', Currency::STATUS_ACTIVE])
+                    ->column();
                 $rates_list = $top_rates = [];
-                foreach ($rates as $rate) {
+                foreach ($rates as $key => $rate) {
                     $rates_list[$rate->currency_from_id] = [
-                        'code' => $rate->currencyFrom->code,
                         'char_code' => $rate->currencyFrom->char_code,
                         'nominal' => $rate->currencyFrom->nominal,
                         'currency' => $rate->currencyFrom->name,
-                        'rate' => $rate->rate
+                        'rate' => [
+                            'now' => $rate->rate,
+                            'diff' => number_format($rates_prev[$key] - $rate->rate, 4),
+                        ],
                     ];
                     if (in_array($rate->currency_from_id, $top) && $rate->currency_to_id == Currency::RUB_ID)
                         $top_rates[] = [$rate->currencyFrom->name, ($rate->rate . ' Р')];
                 }
                 $rates_list = [
                     'titles' => [
-                        'code' => [
-                            'value' => 'Цифровой код',
-                            'class' => 'digital-code',
-                        ],
                         'char_code' => [
                             'value' => 'Буквенный код',
                             'class' => 'letter-code',

@@ -46,16 +46,34 @@ $currencyData = [];
 foreach ($rates as $rate) {
     $currencyData[$rate->currencyFrom->char_code]['name'] = $rate->currencyFrom->name;
     $currencyData[$rate->currencyFrom->char_code]['data'][] = [strtotime($rate->date) * 1000, $rate->rate];
-} ?>
-<div id="container-currency" style="width:100%; height: 100%;">
-    <?= Highstock::widget([
+}
+
+$hsOptions = [
+    'setupOptions' => [
+        'global' => [
+            'useUTC' => false,
+        ],
+        'lang' => [
+            'months' => [
+                'Января', 'Февраля', 'Марта', 'Апреля',
+                'Мая', 'Июня', 'Июля', 'Августа',
+                'Сентября', 'Октября', 'Ноября', 'Декабря'
+            ],
+            'shortMonths' => ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+            'weekdays' => [
+                'Воскресенье', 'Понедельник', 'Вторник', 'Среда',
+                'Четверг', 'Пятница', 'Суббота',
+            ],
+            'shortWeekdays' => ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб']
+        ],
+    ],
     'options' => [
         'chart' => [
             'type' => 'areaspline',
             'height' => 280
         ],
         'subtitle' => [
-            'text' => 'Валюты',
+            'text' => 'Курсы валют',
         ],
         'rangeSelector' => [
             'selected' => 1,
@@ -100,6 +118,9 @@ foreach ($rates as $rate) {
                     // disabled: { ... }
                 ],
             ],
+            'labelStyle' => [
+                'visibility' => 'hidden'
+            ]
         ],
 
         'yAxis' => [
@@ -146,7 +167,7 @@ foreach ($rates as $rate) {
         ],
         'series' => [
             [
-                'name' => 'USD',
+                'name' => 'USD/руб',
                 'color' => '#4caf50',
                 'data' => $currencyData['USD']['data'],
                 'fillColor' => [
@@ -163,7 +184,7 @@ foreach ($rates as $rate) {
                 ]
             ],
             [
-                'name' => 'EUR',
+                'name' => 'EUR/руб',
                 'color' => '#003399',
                 'visible' => false,
                 'data' => $currencyData['EUR']['data'],
@@ -183,6 +204,7 @@ foreach ($rates as $rate) {
             ]
         ],
     ]
-]); ?>
-
+]; ?>
+<div id="container-currency" style="width:100%; height: 100%;">
+    <?= Highstock::widget($hsOptions); ?>
 </div>

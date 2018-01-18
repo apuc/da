@@ -227,7 +227,7 @@ class CompanyController extends Controller
                     'chart' => [
                         'type' => 'areaspline',
                     ],
-                    'title' => ['text' => 'Количество просмотров'],
+                    'title' => ['text' => 'Количество посетителей'],
                     'xAxis' => [
                         'categories' => ArrayHelper::getColumn($countVision, function ($item) {
                             return $item['date'];
@@ -293,11 +293,11 @@ class CompanyController extends Controller
                         ],
                     ],
                     'title' => [
-                        'text' => 'Количество просмотров по городам'
+                        'text' => 'Всего посетителей по городам'
                     ],
                     'series' => [[
                         'type' => 'pie',
-                        'name' => 'Количество просмотров',
+                        'name' => 'Количество посетителей',
                         'data' => $cvRegion
                     ]]
                 ]
