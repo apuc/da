@@ -10,7 +10,7 @@ use yii\widgets\MaskedInput;
             <ul class="footer__nav">
                 <li><a href="/all-new">НОВОСТИ</a></li>
                 <li><a href="/all-poster">АФИША</a></li>
-                <li><a href="/all-company">ПРЕДПРИЯТИЯ</a></li>
+                <li><a href="/all-company">КОМПАНИИ</a></li>
                 <li><a href="/consulting">КОНСУЛЬТАЦИИ</a></li>
                 <li><a href="/obyavleniya">ОБЪЯВЛЕНИЯ</a></li>
             </ul>
