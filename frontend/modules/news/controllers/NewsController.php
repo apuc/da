@@ -181,8 +181,8 @@ class NewsController extends Controller
 /*
             Debug::prn($model);
             Debug::prn($_FILES);*/
-            //Debug::prn($_POST);
-
+/*            Debug::prn($_POST);
+die();*/
 
             $model->status = 1;
             $model->user_id = Yii::$app->user->getId();
@@ -254,7 +254,7 @@ class NewsController extends Controller
     {
 
         $this->layout = 'personal_area';
-        $model = $this->findModel($id);
+        $model = \frontend\modules\news\models\News::find()->where(['id' => $id])->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
