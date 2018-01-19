@@ -86,7 +86,7 @@ if ($show) {
 
 
     array_walk($cvRegion, function (&$item) {
-        $item['name'] = is_null($item['name']) ? $item['name'] = '?' : $item['name'];
+        $item['name'] = is_null($item['name']) ? $item['name'] = 'Не определено' : $item['name'];
         $item['sum'] = (int)$item['sum'];
         $item = array_values($item);
     });
@@ -179,7 +179,7 @@ if ($show) {
                 <b><?= $uniqueViews ?></b></p>
             <?php if ($show) : ?>
                 <h5>География </h5>
-                <table>
+                <table style="width: 95%">
                     <thead>
                     <tr>
                         <td>Город</td>
