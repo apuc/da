@@ -279,7 +279,7 @@ $this->params['breadcrumbs'][] = $model->name;
                                     <p>Количество <span>уникальных</span> посетителей <b><?= $uniqueViews ?></b></p>
                                     <?php if ($show) : ?>
                                         <h5>География </h5>
-                                        <table>
+                                        <table style="width: 95%">
                                             <thead>
                                             <tr>
                                                 <td>Город</td>
