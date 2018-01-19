@@ -273,6 +273,47 @@ class MainMenuAdmin extends Widget
                             </a>',
                     ],
                     [
+                        'label' => 'Товары',
+                        'items' => [
+                            /*[
+                                'label' => 'Добавить',
+                                'url' => Url::to(['/company/company/create']),
+                                'active' => Yii::$app->controller->module->id == 'company' && Yii::$app->controller->action->id == 'create',
+                            ],*/
+                            [
+                                'label' => 'Категории товаров',
+                                'url' => Url::to(['/products/category']),
+                                'active' => Yii::$app->controller->module->id == 'products' && Yii::$app->controller->id == 'category',
+                                'template' => '<a href="{url}"><span>{label}</span></a>',
+                                //'visible' => UserFunction::hasPermission(['Заявки компаний'])
+                            ],
+                            [
+                                'label' => 'Доп. поля',
+                                'url' => Url::to(['/products/fields']),
+                                'active' => Yii::$app->controller->module->id == 'products' && Yii::$app->controller->id == 'fields',
+                                'template' => '<a href="{url}"><span>{label}</span></a>',
+                                //'visible' => UserFunction::hasPermission(['Заявки компаний'])
+                            ],
+                            [
+                                'label' => 'Значения по умолчанию',
+                                'url' => Url::to(['/products/default-value']),
+                                'active' => Yii::$app->controller->module->id == 'products' && Yii::$app->controller->id == 'default-value',
+                                'template' => '<a href="{url}"><span>{label}</span></a>',
+                                //'visible' => UserFunction::hasPermission(['Заявки компаний'])
+                            ],
+                        ],
+
+                        //'visible' => UserFunction::hasPermission(['Компании']),
+                        'options' => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="#">
+                                    <i class="fa fa-product-hunt"></i> 
+                                    <span>{label}</span> 
+                                      
+                            </a>',
+                    ],
+                    [
                         'label' => 'Афиша',
                         'items' => [
                             [
