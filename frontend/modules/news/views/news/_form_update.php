@@ -29,8 +29,8 @@ $fl= 0;
     <input type="hidden" name="photo" id="" value="<?= $model->photo; ?>">
 
     <?php   if(!empty($selectCat)):?>
-    <? foreach ($selectCat as $item):?>
-        <? if(count($selectCat) == 1):?>
+    <?php foreach ($selectCat as $item):?>
+        <?php if(count($selectCat) == 1):?>
     <div class="cabinet__add-company-form--wrapper">
         <p class="cabinet__add-company-form--title">Категория</p>
         <?php
@@ -42,7 +42,7 @@ $fl= 0;
         <a href="#" class="cabinet__add-pkg addCategAddNewsUser"></a>
         <span class="error_cat"></span>
     </div>
-        <? elseif ($fl == 0):?>
+        <?php elseif ($fl == 0):?>
             <div class="cabinet__add-company-form--wrapper">
                 <p class="cabinet__add-company-form--title">Категория</p>
                 <?php
@@ -54,7 +54,7 @@ $fl= 0;
                 <a href="#" class="cabinet__add-pkg addCategAddNewsUser"></a>
                 <span class="error_cat"></span>
             </div>
-        <?elseif ($fl == (count($selectCat)-1)):?>
+        <?php elseif ($fl == (count($selectCat)-1)):?>
 
             <div class="cabinet__add-company-form--hover-wrapper">
                 <p class="cabinet__add-company-form--title">Категория</p>
@@ -66,7 +66,7 @@ $fl= 0;
                 <p class="cabinet__add-company-form--notice"></p>
                 <span class="error_cat"></span>
             </div>
-            <?else:?>
+            <?php else:?>
             <div class="cabinet__add-company-form--hover-wrapper">
                 <p class="cabinet__add-company-form--title">Категория</p>
                 <?php
@@ -78,12 +78,12 @@ $fl= 0;
                 <p class="cabinet__add-company-form--notice"></p>
                 <span class="error_cat"></span>
             </div>
-            <?endif;?>
-        <? $fl++; ?>
+            <?php endif;?>
+        <?php $fl++; ?>
 
-        <? endforeach; $fl = 0; ?>
+        <?php endforeach; $fl = 0; ?>
     <span class="addSelectCateg"></span>
-    <? endif; ?>
+    <?php endif; ?>
 
 
     <p class="cabinet__add-company-form--title">Заголовок новости</p>
