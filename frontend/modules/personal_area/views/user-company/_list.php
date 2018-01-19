@@ -86,7 +86,7 @@ if ($show) {
 
 
     array_walk($cvRegion, function (&$item) {
-        $item['name'] = is_null($item['name']) ? $item['name'] = '?' : $item['name'];
+        $item['name'] = is_null($item['name']) ? $item['name'] = 'Не определено' : $item['name'];
         $item['sum'] = (int)$item['sum'];
         $item = array_values($item);
     });
