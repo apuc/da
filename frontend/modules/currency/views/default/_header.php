@@ -15,7 +15,7 @@ use yii\web\View;
 $this->registerJs(
     "$.each($('.currency-menu__header').find('a'), function () {
             if (this.href === document.URL) {
-            $(this).parent().addClass('active');
+            $(this).addClass('active');
             }
         })",
     View::POS_READY
