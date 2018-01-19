@@ -83,7 +83,7 @@ if ($show) {
         ])
         ->orderBy('`sum` DESC')
         ->all();
-
+Debug::prn($cvRegion);
 
     array_walk($cvRegion, function (&$item) {
         $item['name'] = is_null($item['name']) ? $item['name'] = '?' : $item['name'];
@@ -91,7 +91,7 @@ if ($show) {
         $item = array_values($item);
     });
 
-
+    Debug::prn($cvRegion);
     $optionsCVR = [
         'options' => [
             'chart' => [
