@@ -6,6 +6,7 @@ use common\classes\Debug;
 use common\models\db\Currency;
 use common\models\db\CurrencyRate;
 use common\models\db\KeyValue;
+use common\models\db\News;
 use common\models\Time;
 use Yii;
 use yii\db\Expression;
@@ -243,11 +244,25 @@ class DefaultController extends Controller
      */
     public function actionAll()
     {
+
+        $economicNews = News::find()
+            ->select(['`news`.title',
+                '`news`.`dt_public`',
+                '`news`.`slug`'])
+            ->leftJoin('`category_news_relations` AS `cnr`', '`cnr`.`new_id` = `news`.`id`')
+            ->where(['`cnr`.`cat_id`' => 6])
+            ->andWhere(['>', '`news`.`dt_public`', time() - Time::MONTH])
+            ->andWhere(['`news`.`status`' => 0])
+            ->andWhere(['<=', '`news`.`dt_public`', time()])
+            ->orderBy('`news`.`dt_public` DESC')
+            ->limit(3)
+            ->all();
         $keyVal = KeyValue::find()->all();
         $meta = ArrayHelper::index($keyVal, 'key');
         return $this->render('all', [
             'meta_title' => $meta['currency_title_all']->value,
             'meta_descr' => $meta['currency_desc_all']->value,
+            'economicNews' => $economicNews,
         ]);
     }
 
