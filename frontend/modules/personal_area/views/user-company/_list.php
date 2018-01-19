@@ -92,6 +92,7 @@ Debug::prn($cvRegion);
     });
 
     Debug::prn($cvRegion);
+    die();
     $optionsCVR = [
         'options' => [
             'chart' => [
