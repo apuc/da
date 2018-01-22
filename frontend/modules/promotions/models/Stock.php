@@ -82,9 +82,14 @@ class Stock extends \common\models\db\Stock
                 ->andWhere(['in', 'status', [0,1]])
                 ->count();
         }
+        //Debug::prn($promotion_count);
 
+        $back_count = [];
         foreach ($services as $service)
         {
+            /*Debug::prn($service['services']['val']);
+            Debug::prn($promotion_count[$service['company_id']]);
+            die();*/
             if($service['services']['val'] === '-')
             {
                 $back_count[$service['company_id']] = '-';

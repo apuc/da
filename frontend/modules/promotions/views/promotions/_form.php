@@ -157,7 +157,7 @@ use common\classes\Debug;
         <div class="blanket__content__wrap">
             <img src="/theme/portal-donbassa/img/blanket/ban.png" alt="">
             <h2>У Вас нет приедприятий для
-                добавления акции</h2>
+                добавления акции или Вы исчермали лимит акций</h2>
         </div>
         <a href="<?= \yii\helpers\Url::to(['/company/company/create']) ?>">Добавить предприятие</a>
         <p>После прохождения модерации вашей компании, вы сможете добавить новые акции</p>
