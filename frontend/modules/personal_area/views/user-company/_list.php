@@ -120,7 +120,11 @@ if ($show) {
         <img src="<?= $model['photo'] ?>" alt="">
     </div>
 
-    <h3 class="cabinet__like-block--company-name"><?= $model['name']; ?></h3>
+    <h3 class="cabinet__like-block--company-name">
+        <a href="<?= \yii\helpers\Url::to(['/company/company/view', 'slug' => $model['slug']])?>">
+            <?= $model['name']; ?>
+        </a>
+    </h3>
     <div class="editing">
         <a href="<?= \yii\helpers\Url::to(['/company/company/update', 'id' => $model['id']]) ?>"
            class="cabinet__like-block--company-edit">редактировать</a>
