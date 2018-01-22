@@ -38,7 +38,7 @@ class UserCompanySearch extends Company
         $query->orderBy('dt_update DESC');
 
 
-        $query->with('tariff');
+        $query->with('tariff', 'allPhones');
         return $dataProvider;
     }
 }

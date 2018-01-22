@@ -129,6 +129,17 @@ if ($show) {
            class="cabinet__like-block--company-remove">удалить </a>
     </div>
     <p class="cabinet__like-block--company-address"><?= $model['address']; ?></p>
+    <p class="cabinet__like-block--company-address"><?= $model['email']; ?></p>
+    <?php if(!empty($model['allPhones'])):?>
+        <p class="cabinet__like-block--company-address">
+        <?php foreach($model['allPhones'] as $phone):
+    ?>
+            <?= $phone->phone . ' '; ?>
+    <?php
+        endforeach;?>
+        </p>
+            <?php
+    endif;?>
 
 </div>
 
