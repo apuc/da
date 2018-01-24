@@ -57,6 +57,8 @@ class Stock extends \common\models\db\Stock
         $services = ServicesCompanyRelations::find()
             ->where(['in', 'company_id', $company_id] )
             ->with('services')
+            //->joinWith('company')
+            //->andWhere(['!=', '`company`.`tariff_id`', 0])
             ->andWhere(['in', 'services_id', $service_id])
             ->asArray()
             ->all();
