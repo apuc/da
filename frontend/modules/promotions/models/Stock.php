@@ -68,7 +68,7 @@ class Stock extends \common\models\db\Stock
             ->andWhere(['in', 'services_id', $service_id])
             ->asArray()
             ->all();
-
+        Debug::prn($services);
         if($this->dateMonth())
         {
             $date = strtotime('first day of this month');
