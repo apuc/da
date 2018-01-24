@@ -1,15 +1,11 @@
 <?php
-
 namespace frontend\modules\promotions\models;
-
 use common\models\db\Likes;
 use Yii;
 use yii\db\ActiveRecord;
 use common\models\db\ServicesCompanyRelations;
 use common\models\db\Company;
 use common\classes\Debug;
-
-
 class Stock extends \common\models\db\Stock
 {
     public function behaviors()
@@ -30,14 +26,12 @@ class Stock extends \common\models\db\Stock
             ],
         ];
     }
-
     public function rules()
     {
         $rules = parent::rules();
         $rules[] = ['company_id', 'required', 'message' => 'Необходимо выбрать компанию'];
         return $rules;
     }
-
     /*
      * Метод возвращает массив, ключом которого является id предприятия,
      * а значением - оставшееся количество акция для этих предприятий
@@ -47,20 +41,18 @@ class Stock extends \common\models\db\Stock
         //Получение всех предприятий данного пользователя
         $company = Company::find()
             ->where(['user_id' => Yii::$app->user->id])
+            ->andWhere(['status' => 0])
             ->asArray()
             ->all();
-
         if(empty($company)) {
             return false;
         }
         //id ограничейний по акциям
         $service_id = [11, 12, 13];
-
         foreach ($company as $comp)
         {
             $company_id[] = $comp['id'];
         }
-
         //Получение компаний у которых подключена услуга акции
         $services = ServicesCompanyRelations::find()
             ->where(['in', 'company_id', $company_id] )
@@ -68,13 +60,11 @@ class Stock extends \common\models\db\Stock
             ->andWhere(['in', 'services_id', $service_id])
             ->asArray()
             ->all();
-
         //Debug::prn($services);
         if($this->dateMonth())
         {
             $date = strtotime('first day of this month');
         }else $date = time() - 86400*31;
-
         foreach ($company_id as $id)
         {
             $promotion_count[$id] = Stock::find()
@@ -84,7 +74,6 @@ class Stock extends \common\models\db\Stock
                 ->count();
         }
         //Debug::prn($promotion_count);
-
         $back_count = [];
         foreach ($services as $service)
         {
@@ -102,12 +91,9 @@ class Stock extends \common\models\db\Stock
                     unset($back_count[$service['company_id']]);
                 }
             }
-
         }
-
         return $back_count;
     }
-
     //Метод проверяет прошёл ли месяц после добавления акции
     public function dateMonth()
     {
@@ -116,17 +102,13 @@ class Stock extends \common\models\db\Stock
             ->min('dt_add')));
         $dateNow = date_create(date('Y-m-d', time()));
         $date_diff = date_diff($date, $dateNow);
-
         if($date_diff->m >= 1) return 1;
         else return 0;
-
     }
-
     public function getCompany()
     {
         return $this->hasOne(Company::className(), ['id' => 'company_id']);
     }
-
     public function getLikesCount()
     {
         return Likes::find()->where(['post_type' => 'stock', 'post_id' => $this->id])->count();
