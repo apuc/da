@@ -242,19 +242,21 @@ $this->params['breadcrumbs'][] = $model->name;
                         <div class="business__stocks--box">
                             <?php if (!empty($stock)): ?>
                                 <?php foreach ($stock as $item): ?>
-                                    <div class="stock__sm-item">
-                                        <div class="stock__sm-item--img">
+                                    <a href="<?= \yii\helpers\Url::to(['/promotions/promotions/view', 'slug' => $item->slug]) ?>">
+                                        <div class="stock__sm-item">
+                                            <div class="stock__sm-item--img">
 
-                                            <img src="<?= $item->photo ?>" alt="">
+                                                <img src="<?= $item->photo ?>" alt="">
+                                            </div>
+                                            <div class="stock__sm-item--descr">
+                                                <span class="views"><?= $item->view ?> просмотров</span>
+                                                <p><?= $item->title ?></p>
+                                            </div>
+                                            <div class="stock__sm-item--time">
+                                                <p><?= $item->dt_event ?></p>
+                                            </div>
                                         </div>
-                                        <div class="stock__sm-item--descr">
-                                            <span class="views"><?= $item->view ?> просмотров</span>
-                                            <p><?= $item->title ?></p>
-                                        </div>
-                                        <div class="stock__sm-item--time">
-                                            <p><?= $item->dt_event ?></p>
-                                        </div>
-                                    </div>
+                                    </a>
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </div>
