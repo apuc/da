@@ -27,7 +27,8 @@
         "himiklab/yii2-sitemap-module" : "*",
         "himiklab/yii2-ipgeobase-component": "*",
         "kartik-v/yii2-export": "*",
-        "miloschuman/yii2-highcharts-widget": "*"
+        "miloschuman/yii2-highcharts-widget": "*",
+        "cagartner/phpquery": "*"
 
     },
     "require-dev": {

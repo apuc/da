@@ -29,6 +29,7 @@ class Currency extends \yii\db\ActiveRecord
     const TYPE_CURRENCY = 1;
     const TYPE_COIN = 2;
     const TYPE_METAL = 3;
+    const TYPE_GSM = 4;
 
     const RUB_ID = 1;
     const USD_ID = 2;
@@ -123,6 +124,7 @@ class Currency extends \yii\db\ActiveRecord
             self::TYPE_CURRENCY => Yii::t('currency', 'Currency'),
             self::TYPE_COIN => Yii::t('currency', 'Coin'),
             self::TYPE_METAL => Yii::t('currency', 'Metal'),
+            self::TYPE_GSM => Yii::t('currency', 'GSM'),
         ];
     }
 
