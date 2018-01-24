@@ -42,6 +42,7 @@ class Stock extends \common\models\db\Stock
         $company = Company::find()
             ->where(['user_id' => Yii::$app->user->id])
             ->andWhere(['status' => 0])
+            ->andWhere(['!=', 'tariff_id', 0])
             ->asArray()
             ->all();
         if(empty($company)) {

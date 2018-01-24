@@ -378,7 +378,7 @@ class CompanyController extends Controller
             }
             $model->save();
 
-            Debug::prn($_POST['mytext']);
+            //Debug::prn($_POST['mytext']);
             foreach ($_POST['mytext'] as $item){
                 $phone = New Phones();
                 $phone->phone = $item;
