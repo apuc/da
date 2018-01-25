@@ -30,6 +30,7 @@ $this->registerJs(
             <li><a href="<?= Url::to(['/currency']) ?>">Валюта</a></li>
             <li><a href="<?= Url::to(['/currency', 'type' => Currency::TYPE_COIN]) ?>">Криптовалюта</a></li>
             <li><a href="<?= Url::to(['/currency', 'type' => Currency::TYPE_METAL]) ?>">Металлы</a></li>
+            <li><a href="<?= Url::to(['/currency', 'type' => Currency::TYPE_GSM]) ?>">Фьючерсы</a></li>
             <li><a href="<?= Url::to(['/currency/converter']) ?>">Конвертер</a></li>
         </ul>
     </div>

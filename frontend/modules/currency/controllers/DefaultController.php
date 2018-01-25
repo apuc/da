@@ -62,6 +62,9 @@ class DefaultController extends Controller
                     ->all();
                 $rates_list = $top_rates = [];
                 foreach ($rates as $rate) {
+                    /**
+                     * @var $rate CurrencyRate
+                     */
                     if (!isset($rates_list[$rate->currency_from_id])) $rates_list[$rate->currency_from_id] = [
                         'name' => $rate->currencyFrom->coin->full_name,
 //                        'algo' => $rate->currencyFrom->coin->algorithm,
@@ -123,10 +126,15 @@ class DefaultController extends Controller
                 $rates_list = $top_rates = [];
 
                 foreach ($rates as $rate) {
+                    /**
+                     * @var $rate CurrencyRate
+                     */
                     $rates_list[$rate->currency_from_id] = [
                         'name' => $rate->currencyFrom->name,
                         'char_code' => $rate->currencyFrom->char_code,
-                        'rate' => $rate->rate
+                        'rate' => [
+                            'now' => $rate->rate
+                        ]
                     ];
 
                     if (in_array($rate->currency_from_id, $top) && $rate->currency_to_id == Currency::RUB_ID)
@@ -144,6 +152,55 @@ class DefaultController extends Controller
                         ],
                         'rate' => [
                             'value' => 'Курс',
+                            'class' => 'course'
+                        ],
+                    ],
+                    'rates' => $rates_list
+                ];
+                break;
+
+            case Currency::TYPE_GSM:
+                $meta_title = $meta['currency_petroleum_title_page']->value;
+                $meta_descr = $meta['currency_petroleum_desc_page']->value;
+//                $top = [2132];
+                $rates = CurrencyRate::find()
+                    ->joinWith(['currencyFrom cf', 'currencyTo ct'])
+                    ->where([
+                        'cf.type' => $type,
+                        'date' => $date
+                    ])
+                    ->andWhere(['>=', 'cf.status', Currency::STATUS_ACTIVE])
+                    ->andWhere(['>=', 'ct.status', Currency::STATUS_ACTIVE])
+                    ->all();
+                $rates_list = $top_rates = [];
+
+                foreach ($rates as $rate) {
+                    /**
+                     * @var $rate CurrencyRate
+                     */
+                    $rates_list[$rate->currency_from_id] = [
+                        'name' => $rate->currencyFrom->name,
+                        'char_code' => $rate->currencyFrom->char_code,
+                        'rate' => [
+                            'now' => $rate->rate
+                        ]
+                    ];
+
+                    /*if (in_array($rate->currency_from_id, $top) && $rate->currency_to_id == Currency::USD_ID)
+                        $top_rates[] = [$rate->currencyFrom->char_code, ('$' . $rate->rate)];*/
+                }
+                $rates_list = [
+                    'titles' => [
+                        'code' => [
+                            'value' => 'Товар',
+                            'class' => 'digital-code'
+                        ],
+                        'char_code' => [
+                            'value' => 'Марка',
+                            'class' => 'letter-code'
+                        ],
+                        'rate' => [
+                            'value' => 'USD/barrel',
                             'class' => 'course'
                         ],
                     ],

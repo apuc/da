@@ -37,24 +37,7 @@ $this->params['breadcrumbs'][] = 'Биржа';
             <?= CurrencyRates::widget(); ?>
             <?= CurrencyRates::widget(['currencyType' => Currency::TYPE_METAL]); ?>
             <?= CurrencyRates::widget(['currencyType' => Currency::TYPE_COIN]); ?>
-            <div class="currency-widget">
-                <h1>
-                    Описание
-                </h1>
-                <ol>
-                    <li>Среднее значение по курсам крупнейших
-                        банков России
-                    </li>
-                    <li>Коммерческий курс валют расчитывается на
-                        основании международного рынка форекс.
-                    </li>
-                    <li>Курсы VISA обновляются один раз в день около 08:00
-                        по Московскому времени, кроме субботы и воскресенья
-                        Обратите внимание, что курс не учитыает % комиссии банка,
-                        выпустившего карту
-                    </li>
-                </ol>
-            </div>
+            <?= CurrencyRates::widget(['currencyType' => Currency::TYPE_GSM]); ?>
             <div class="currency-news">
                 <h3 class="currency-news__title">
                     Финансовые новости недели
@@ -87,6 +70,9 @@ $this->params['breadcrumbs'][] = 'Биржа';
 
             <?= $this->render('_metal_chart', ['count_day' => 14]); ?>
             <br>
+
+<!--            --><?//= $this->render('_oil_chart', ['count_day' => 14]); ?>
+<!--            <br>-->
         </div>
     </div>
 </section>
