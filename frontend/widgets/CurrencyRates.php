@@ -87,6 +87,21 @@ class CurrencyRates extends Widget
                     'rate' => 'RUB',
                 ];
                 break;
+            case Currency::TYPE_GSM:
+                $title = KeyValue::findOne(['key' => 'currency_petroleum_title_page'])->value;
+                foreach ($rates as $rate) {
+                    $rates_body[$rate->currency_from_id] = [
+                        'name' => $rate->currencyFrom->name,
+                        'char_code' => $rate->currencyFrom->char_code,
+                        'rate' => $rate->rate
+                    ];
+                }
+                $rates_title = [
+                    'char_code' => 'Товар',
+                    'currency' => 'Марка',
+                    'rate' => 'USD/barrel',
+                ];
+                break;
             default:
                 $title = KeyValue::findOne(['key' => 'currency_title_page'])->value;
                 foreach ($rates as $rate) {

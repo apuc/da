@@ -45,6 +45,8 @@ class DefaultController extends Controller
             KeyValue::updateAll(['value' => $_POST['currency_converter_desc_page']], ['key' => 'currency_converter_desc_page']);
             KeyValue::updateAll(['value' => $_POST['currency_title_all']], ['key' => 'currency_title_all']);
             KeyValue::updateAll(['value' => $_POST['currency_desc_all']], ['key' => 'currency_desc_all']);
+            KeyValue::updateAll(['value' => $_POST['currency_petroleum_title_page']], ['key' => 'currency_petroleum_title_page']);
+            KeyValue::updateAll(['value' => $_POST['currency_petroleum_desc_page']], ['key' => 'currency_petroleum_desc_page']);
 
         }
         $key_val = KeyValue::find()->all();

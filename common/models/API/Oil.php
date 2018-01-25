@@ -16,45 +16,25 @@ class Oil extends ApiCurrencyAbstract
 {
     public function fetchData()
     {
-        $date = $response = 0;
-        while (!isset($response->Record)) {
-            $ch = curl_init();
-            $dateT = date("d/m/Y", strtotime(date("Y-m-d") . "-$date day"));
-            $url = "http://www.cbr.ru/scripts/xml_metall.asp?date_req1=" . $dateT . "&date_req2=" . $dateT;
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            $data = curl_exec($ch);
-            if ($data != false) {
-                $response = simplexml_load_string($data);
-            } else {
-                $response = false;
-            }
-            curl_close($ch);
-            $date++;
-        };
         $ch = curl_init();
-        $url = 'https://www.bloomberg.com/energy';
+        $url = 'https://oilprice.com/oil-price-charts';
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $html = curl_exec($ch);
         curl_close($ch);
 
         $document = phpQuery::newDocumentHTML($html);
-        $petroleum = $document
-            ->find('.section-front__main-content > .data-tables:first')
-            ->find('.data-table-body');
-        $oil['value'] = $petroleum
-            ->find('tr:eq(1) > td[data-type="value"]')
-            ->html();
-        $oil['name'] = $petroleum
-            ->find('tr:eq(1) > td[data-type="name"])')
-            ->find('.data-table-row-cell__link-block:eq(1)')
-            ->html();
-        phpQuery::unloadDocuments();
+        $petroleum = $document->find('.oilprices__table > .row_holder');
+        $ids = [67, 4183, 4410, 45, 46];
+        $oil = [];
+        foreach ($ids as $key => $id) {
+            $pet = $petroleum->find('tr[data-id=' . $id . ']');
+            $oil[$key]['name'] = $pet->find('td:eq(1)')->text();
+            $oil[$key]['value'] = $pet->find('td.last_price')->text();
+        }
+        unset($pet);
         unset($petroleum);
-        unset($document);
-
+        phpQuery::unloadDocuments($document);
         return $oil;
     }
 
@@ -64,18 +44,19 @@ class Oil extends ApiCurrencyAbstract
         if ($array == false) {
             return false;
         } else {
-            $name = trim($array['name']);
             $currency_list = $rates = [];
-            $currency_list[0]['code'] = 0;
-            $currency_list[0]['char_code'] = explode(" ",$name)[0];
-            $currency_list[0]['name'] = $name;
-            $currency_list[0]['status'] = DbCurrency::STATUS_ACTIVE;
-            $currency_list[0]['type'] = DbCurrency::TYPE_GSM;
+            foreach ($array as $key => $item) {
+                $code = 1000000 + $key;
+                $currency_list[$code]['code'] = $code;
+                $currency_list[$code]['char_code'] = trim($array[$key]['name']);
+                $currency_list[$code]['name'] = 'Нефть';
+                $currency_list[$code]['status'] = DbCurrency::STATUS_ACTIVE_FOR_WIDGET;
+                $currency_list[$code]['type'] = DbCurrency::TYPE_GSM;
 
-            $rates[0]['date'] = new Expression('CURDATE()');
-            $rates[0]['currency_to_id'] = DbCurrency::USD_ID;
-            $rates[0]['rate'] = (float)$array['value'];
-
+                $rates[$code]['date'] = new Expression('CURDATE()');
+                $rates[$code]['currency_to_id'] = DbCurrency::USD_ID;
+                $rates[$code]['rate'] = (float)$array[$key]['value'];
+            }
             return ['currencies' => $currency_list, 'rates' => $rates];
         }
     }
