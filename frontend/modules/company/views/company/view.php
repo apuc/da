@@ -24,8 +24,7 @@ $this->registerMetaTag([
 $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/company_ajax.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/company.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-/*\common\classes\Debug::prn($categoryCompany);
-die();*/
+
 
 $this->params['breadcrumbs'][] = ['label' => 'Все предприятия', 'url' => Url::to(['/company/company'])];
 if (!empty($categoryCompany['category']['categ']->title)) {
@@ -85,18 +84,11 @@ $this->params['breadcrumbs'][] = $model->name;
                     </div>
                     <?php if (!empty($model->email)): ?>
                         <div class="business__requisites--site">
-
-                            <a href="" target="_blank"><span><?= $model->email; ?></span>
-                                <span><!--<img src="/theme/portal-donbassa//img/icons/golink-icon.png" alt="">--></span>
-                            </a>
-                            <!--<p>Описание этой ссылки,
-                                подробности</p>-->
-
+                            <a href="mailto:<?= $model->email; ?>">email:<?= $model->email; ?></a>
                         </div>
                     <?php endif; ?>
                     <div class="business__requisites--links">
                         <div class="business__requisites--links-w">
-                            <span class="unique-views"><?= $uniqueViews ?> посетителей</span>
                             <span class="views"><?= $model->views; ?> просмотров</span>
                         </div>
                         <a class="phone" href="tel:+380667778540">
@@ -149,6 +141,7 @@ $this->params['breadcrumbs'][] = $model->name;
                         </a>
                     </li>
                     <li class="tab"><a href="#statistics">Статистика</a></li>
+                    <li class="tab"><a href="#address">Карта</a></li>
                 </ul>
 
 
@@ -327,7 +320,7 @@ $this->params['breadcrumbs'][] = $model->name;
                 <?php endif; ?>
 
 
-                <div class="business__location">
+                <div id="address" class="business__tab-content--wrapper business__location">
 
                     <div id="map"></div>
 

@@ -9,13 +9,24 @@
 
 use common\classes\Debug;
 use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
 
 $this->title = $meta_title;
 $this->registerMetaTag([
     'name' => 'description',
     'content' => $meta_descr,
 ]);
+$this->params['breadcrumbs'][] = ['label' => 'Биржа', 'url' => Url::to(['/finance'])];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
+<section class="breadcrumbs-wrap">
+    <div class="container">
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'options' => ['class' => 'breadcrumbs']
+        ]) ?>
+    </div>
+</section>
 <section class="exchange-rates">
     <div class="container">
         <div class="e-content">
@@ -50,10 +61,13 @@ $this->registerMetaTag([
                                         <?php if ($key == 'rate') : ?>
                                             <div>
                                                 <span><?= $value['now'] ?></span>
-                                                <?php if ($value['diff'] > 0): ?>
-                                                    <i style="color: #00ff00" title="<?= '+' . $value['diff'] ?>">↑</i>
-                                                <?php elseif ($value['diff'] < 0): ?>
-                                                    <i style="color: red" title="<?= $value['diff'] ?>">↓</i>
+                                                <?php if (isset($value['diff'])): ?>
+                                                    <?php if ($value['diff'] > 0): ?>
+                                                        <i style="color: #00ff00"
+                                                           title="<?= '+' . $value['diff'] ?>">↑</i>
+                                                    <?php elseif ($value['diff'] < 0): ?>
+                                                        <i style="color: red" title="<?= $value['diff'] ?>">↓</i>
+                                                    <?php endif; ?>
                                                 <?php endif; ?>
                                             </div>
                                         <?php else: ?>

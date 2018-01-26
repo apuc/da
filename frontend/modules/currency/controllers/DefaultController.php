@@ -303,9 +303,12 @@ class DefaultController extends Controller
     {
 
         $economicNews = News::find()
-            ->select(['`news`.title',
+            ->select([
+                '`news`.`title`',
                 '`news`.`dt_public`',
-                '`news`.`slug`'])
+                '`news`.`slug`',
+                '`news`.`photo`',
+            ])
             ->leftJoin('`category_news_relations` AS `cnr`', '`cnr`.`new_id` = `news`.`id`')
             ->where(['`cnr`.`cat_id`' => 6])
             ->andWhere(['>', '`news`.`dt_public`', time() - Time::MONTH])
