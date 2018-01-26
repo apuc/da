@@ -10,23 +10,15 @@ $this->title = Yii::t('news', 'Create News');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('news', 'News'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<!--<div class="news-create">
 
-    <h1><?/*= Html::encode($this->title) */?></h1>
-
-    <?/*= $this->render('_form', [
-        'model' => $model,
-    ]) */?>
-
-</div>-->
-
-
-<div class="cabinet__inner-box">
+<div class="cabinet__container cabinet__container_white cabinet__inner-box">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    <div class="right">
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
+    </div>
 
 
 </div>

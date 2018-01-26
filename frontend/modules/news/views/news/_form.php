@@ -11,52 +11,66 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\news\models\News */
 /* @var $form yii\widgets\ActiveForm */
+
+
+
+$this->registerCssFile('/css/board.min.css');
+$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 
 
 <?php $form = ActiveForm::begin(
     [
-        'options' => [
-            'class' => 'cabinet__add-company-form',
-            'enctype' => 'multipart/form-data',
+        'id' => 'create_news',
+        'options' =>
+            [
+                'class' => 'content-forma',
+                'enctype' => 'multipart/form-data',
+            ],
+        'fieldConfig' => [
+            'template' => '<div class="form-line">{label}{input}<div class="memo-error"><p>{error}</p></div><div class="memo"><span class="info-icon"></span><span class="triangle-left"></span>{hint}</div></div>',
+            'inputOptions' => ['class' => 'input-name jsHint'],
+            'labelOptions' => ['class' => 'label-name'],
+            'errorOptions' => ['class' => 'error'],
+
+            'options' => ['class' => 'form-line'],
+            'hintOptions' => ['class' => ''],
+
         ],
+        'errorCssClass' => 'my-error',
     ]);
 ?>
 
     <div class="cabinet__add-company-form--wrapper">
-        <p class="cabinet__add-company-form--title">Категория</p>
+
        <?php
        $items= ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title');
-       $param = ['class' => 'cabinet__add-company-form--field selectCateg', 'prompt' => 'Выберите категорию'];
-       echo $form->field($model, 'categoryId[]')->dropDownList($items, $param)->label(false);
-       /*echo Html::dropDownList(
-            'categoryId[]',
-            null,
-            ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title'),
-            ['class' => 'cabinet__add-company-form--field selectCateg', 'prompt' => 'Выберите категорию']
-
-        )
-        */?>
-        <a href="#" class="cabinet__add-pkg addCategAddNewsUser"></a>
-        <span class="error_cat"></span>
+       $param = ['class' => 'input-name jsHint selectCateg', 'prompt' => 'Выберите категорию'];
+       echo $form->field($model, 'categoryId[]')
+           ->dropDownList($items, $param)
+           ->hint('<b>Выберите категорию новости из списка.</b>')
+           ->label('Категория<span>*</span>');
+       ?>
+        <a href="#" style="position: absolute; top: 16px; right: -30px; z-index: 1;" class="cabinet__add-pkg addCategAddNewsUser"></a>
+        <div class="memo-error errorJS"><p></p><div class="error">Необходимо заполнить «Категория».</div><p></p></div>
     </div>
 
     <span class="addSelectCateg"></span>
 
-    <!--<div class="cabinet__add-company-form--hover-wrapper" data-count="1">
 
-    </div>-->
-
-    <p class="cabinet__add-company-form--title">Заголовок новости</p>
-    <?= $form->field( $model, 'title' )->textInput(['maxlength' => true, 'class' => 'cabinet__add-company-form--field'])->label(false); ?>
-
-    <div class="cabinet__add-company-form--block"></div>
+    <?= $form->field( $model, 'title' )
+    ->textInput(['maxlength' => true])
+    ->hint('<b>Введите заголовок новости.</b>')
+    ->label('Заголовок новости<span>*</span>'); ?>
 
 
 
-    <p class="cabinet__add-company-form--title">Обложка новости</p>
+
+
+   <!-- <p class="cabinet__add-company-form--title">Обложка новости</p>
         <?php
-        if (empty($model->photo)) {
+/*        if (empty($model->photo)) {
             echo $form->field($model, 'photo', [
                 'template' => '<label class="cabinet__add-company-form--add-foto">
                                     <span class="button"></span>
@@ -72,30 +86,16 @@ use yii\widgets\ActiveForm;
                                     {input}</div>'
             ])->label(false)->fileInput();
         }
-        ?>
+        */?>
 
 
 
-
-
-
-
-    <!--<label class="cabinet__add-company-form--add-foto">
-        <span class="button"></span>
-        <input class="input-file" type="file">
-    </label>-->
-
-    <div class="cabinet__add-company-form--block"></div>
 
     <p class="cabinet__add-company-form--title">Текст новости</p>
 
-    <?php echo $form->field( $model, 'content' )->widget( CKEditor::className(), [
-            /*'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
-                'preset' => 'base',
-                'inline' => false,
-                'path' => 'frontend/web/media/upload/users/' . Yii::$app->user->getId(),
-           ]),*/
-    ] )->label(false); ?>
+    --><?php /*echo $form->field( $model, 'content' )->widget( CKEditor::className(), [
+
+    ] )->label(false); */?>
 
 <?= Html::submitButton( $model->isNewRecord ? Yii::t( 'news', 'Create' ) : Yii::t( 'news', 'Update' ), [ 'class' => 'cabinet__add-company-form--submit' ] ) ?>
 <?php ActiveForm::end(); ?>

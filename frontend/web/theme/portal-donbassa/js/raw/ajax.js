@@ -273,9 +273,10 @@ $(document).ready(function () {
                 $(this).addClass('disabled');
             }
         });
-
+        $('.errorJS').css('display', 'none');
         if ($(lastSelect).val() == '') {
-            $('.error_cat').text('Выберите категорию');
+            /*$('.error_cat').text('Выберите категорию');*/
+            $('.errorJS').css('display', 'block');
             return false;
         }
 
