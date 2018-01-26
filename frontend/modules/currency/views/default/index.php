@@ -9,13 +9,24 @@
 
 use common\classes\Debug;
 use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
 
 $this->title = $meta_title;
 $this->registerMetaTag([
     'name' => 'description',
     'content' => $meta_descr,
 ]);
+$this->params['breadcrumbs'][] = ['label' => 'Биржа', 'url' => Url::to(['/finance'])];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
+<section class="breadcrumbs-wrap">
+    <div class="container">
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'options' => ['class' => 'breadcrumbs']
+        ]) ?>
+    </div>
+</section>
 <section class="exchange-rates">
     <div class="container">
         <div class="e-content">

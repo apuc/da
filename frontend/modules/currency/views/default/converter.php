@@ -6,6 +6,8 @@
 
 use common\classes\Debug;
 use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
 
 $this->title = $meta_title;
 $this->registerMetaTag([
@@ -15,8 +17,17 @@ $this->registerMetaTag([
 
 
 $this->registerJsFile('/js/converter.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-
+$this->params['breadcrumbs'][] = ['label' => 'Биржа', 'url' => Url::to(['/finance'])];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
+<section class="breadcrumbs-wrap">
+    <div class="container">
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'options' => ['class' => 'breadcrumbs']
+        ]) ?>
+    </div>
+</section>
 <section class="currency-converter">
     <div class="container">
         <div class="e-content">

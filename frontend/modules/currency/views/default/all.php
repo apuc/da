@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = 'Биржа';
         <div class="e-content">
             <?= $this->render('_header', ['title' => $this->title]); ?>
             <div class="e-content__title-wrapper">
-                <h2>Данные от <span><?= date('d.m.Y') ?></span> Таблица обновляется в течение дня. </h2>
+                <h2>Данные от <span><?= date('d.m.Y') ?></span></h2>
             </div>
             <?= CurrencyRates::widget(); ?>
             <?= CurrencyRates::widget(['currencyType' => Currency::TYPE_METAL]); ?>
@@ -46,6 +46,9 @@ $this->params['breadcrumbs'][] = 'Биржа';
                     <?php foreach ($economicNews as $economicNew) : ?>
                         <a class="currency-news__item"
                            href="<?= Url::to(['/news/default/view', 'slug' => $economicNew->slug]) ?>">
+                            <div class="currency-news__img">
+                                <img src="<?= $economicNew->photo ?>" alt="">
+                            </div>
                             <div class="currency-news--date">
                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                 <span>
