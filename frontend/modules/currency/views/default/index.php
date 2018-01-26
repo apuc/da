@@ -50,10 +50,13 @@ $this->registerMetaTag([
                                         <?php if ($key == 'rate') : ?>
                                             <div>
                                                 <span><?= $value['now'] ?></span>
-                                                <?php if ($value['diff'] > 0): ?>
-                                                    <i style="color: #00ff00" title="<?= '+' . $value['diff'] ?>">↑</i>
-                                                <?php elseif ($value['diff'] < 0): ?>
-                                                    <i style="color: red" title="<?= $value['diff'] ?>">↓</i>
+                                                <?php if (isset($value['diff'])): ?>
+                                                    <?php if ($value['diff'] > 0): ?>
+                                                        <i style="color: #00ff00"
+                                                           title="<?= '+' . $value['diff'] ?>">↑</i>
+                                                    <?php elseif ($value['diff'] < 0): ?>
+                                                        <i style="color: red" title="<?= $value['diff'] ?>">↓</i>
+                                                    <?php endif; ?>
                                                 <?php endif; ?>
                                             </div>
                                         <?php else: ?>
