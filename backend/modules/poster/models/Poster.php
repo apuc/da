@@ -13,6 +13,8 @@ use yii\db\ActiveRecord;
 
 class Poster extends \common\models\db\Poster
 {
+    public $categoryId;
+
     public function behaviors()
     {
         return [
@@ -30,5 +32,19 @@ class Poster extends \common\models\db\Poster
                 ],
             ],
         ];
+    }
+
+    public function attributeLabels()
+    {
+        $label = parent::attributeLabels();
+        $label['categoryId'] = 'Категория';
+        return $label;
+    }
+
+    public function rules()
+    {
+        $rules = parent::rules();
+        $rules['categoryId'] = [['categoryId'], 'required'];
+        return $rules;
     }
 }

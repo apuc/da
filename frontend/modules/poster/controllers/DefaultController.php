@@ -424,7 +424,8 @@ class DefaultController extends Controller
             }
 
             $model->save();
-            foreach ($_POST['cat'] as $cat) {
+
+            foreach ($model['categoryId'] as $cat) {
                 $catNewRel = new CategoryPosterRelations();
                 $catNewRel->cat_id = $cat;
                 $catNewRel->poster_id = $model->id;

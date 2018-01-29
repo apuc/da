@@ -12,6 +12,8 @@ use kartik\select2\Select2;
 /* @var $this yii\web\View */
 /* @var $model backend\modules\poster\models\Poster */
 /* @var $form yii\widgets\ActiveForm */
+/*$model->categoryId = $categoriesSelected;
+\common\classes\Debug::prn($categoriesSelected);*/
 ?>
 
 <div class="poster-form">
@@ -20,11 +22,14 @@ use kartik\select2\Select2;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= Html::dropDownList('cat', $categoriesSelected, ArrayHelper::map(CategoryPoster::find()->all(), 'id', 'title'), [
-        'class' => 'form-control',
-        'id' => 'categ',
-        'multiple' => 'multiple',
-    ]) ?>
+    <?= $form->field($model, 'categoryId[]')->dropDownList(
+        ArrayHelper::map(CategoryPoster::find()->all(), 'id', 'title'),
+        [
+            'multiple' => 'multiple',
+        ]
+    )?>
+
+
 
     <label class="control-label" for="company-city_id">Начните вводить теги</label>
     <?= Select2::widget([

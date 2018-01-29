@@ -1,6 +1,6 @@
 
 
-<a href="<?= \yii\helpers\Url::to(['/poster/default/view', 'slug' => $model['slug']])?>" class="cabinet__like-block--section">Новости</a>
+<a href="<?= \yii\helpers\Url::to(['/poster/default/view', 'slug' => $model['slug']])?>" class="cabinet__like-block--section">Афиша</a>
 
 <a href="<?= \yii\helpers\Url::to(['/poster/default/view', 'slug' => $model['slug']])?>" class="cabinet__like-block--photo">
     <img src="<?= $model['photo']; ?>" alt="">

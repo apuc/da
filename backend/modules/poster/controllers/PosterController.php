@@ -90,7 +90,7 @@ class PosterController extends Controller
             $model->user_id = Yii::$app->user->id;
             $model->save();
 
-            foreach ($_POST['cat'] as $cat) {
+            foreach ($model['categoryId'] as $cat) {
                 $catNewRel = new CategoryPosterRelations();
                 $catNewRel->cat_id = $cat;
                 $catNewRel->poster_id = $model->id;
@@ -141,7 +141,7 @@ class PosterController extends Controller
 
             CategoryPosterRelations::deleteAll(['poster_id' => $id]);
 
-            foreach ($_POST['cat'] as $cat) {
+            foreach ($model['categoryId'] as $cat) {
                 $catNewRel = new CategoryPosterRelations();
                 $catNewRel->cat_id = $cat;
                 $catNewRel->poster_id = $model->id;
