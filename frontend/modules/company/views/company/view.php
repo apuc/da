@@ -83,7 +83,7 @@ $this->params['breadcrumbs'][] = $model->name;
                     </div>
                     <?php if (!empty($model->email)): ?>
                         <div class="business__requisites--site">
-                            <a href="mailto:<?= $model->email; ?>">email:<?= $model->email; ?></a>
+                            <a href="mailto:<?= $model->email; ?>">email:<br/><?= $model->email; ?></a>
                         </div>
                     <?php endif; ?>
                     <div class="business__requisites--links">
