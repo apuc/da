@@ -68,34 +68,34 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
 
 
-   <!-- <p class="cabinet__add-company-form--title">Обложка новости</p>
+   <!-- <p class="cabinet__add-company-form--title">Обложка новости</p>-->
         <?php
-/*        if (empty($model->photo)) {
+        if (empty($model->photo)) {
             echo $form->field($model, 'photo', [
                 'template' => '<label class="cabinet__add-company-form--add-foto">
                                     <span class="button"></span>
                                     {input}
                                     <img id="blah" src="" alt="" width="160px">
                                     </label>'
-            ])->label(false)->fileInput();
+            ])->label('Обложка новости')->fileInput();
         } else {
             echo $form->field($model, 'photo', [
                 'template' => '{label}<div class="selectAvatar">
                                     <span>Нажмите для выбора</span>
                                     <img id="blah" src="' . $model->photo . '" alt="" width="160px">
                                     {input}</div>'
-            ])->label(false)->fileInput();
+            ])->label('Обложка новости')->fileInput();
         }
-        */?>
+        ?>
 
 
 
 
     <p class="cabinet__add-company-form--title">Текст новости</p>
 
-    --><?php /*echo $form->field( $model, 'content' )->widget( CKEditor::className(), [
+    <?php echo $form->field( $model, 'content' )->widget( CKEditor::className(), [
 
-    ] )->label(false); */?>
+    ] )->label(false); ?>
 
 <?= Html::submitButton( $model->isNewRecord ? Yii::t( 'news', 'Create' ) : Yii::t( 'news', 'Update' ), [ 'class' => 'cabinet__add-company-form--submit' ] ) ?>
 <?php ActiveForm::end(); ?>
