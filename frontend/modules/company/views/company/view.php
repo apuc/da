@@ -1,18 +1,18 @@
 <?php
 /**
- * @var $model \common\models\db\Company
- * @var $stock \common\models\db\Stock
- * @var $feedback \common\models\db\CompanyFeedback
- * @var $img \common\models\db\CompanyPhoto
- * @var $categoryCompany
- * @var integer $uniqueViews
+ * @var \common\models\db\Company $model
  * @var array $services
- * @var array $typeSeti
- * @var array $cvRegion
+ * @var SocAvailable $typeSeti
+ * @var array $socCompany
+ * @var array $categoryCompany
+ * @var string $slug
+ * @var array $page
+ * @var array $options
  */
 
+use common\classes\DataTime;
 use common\classes\GeobaseFunction;
-use miloschuman\highcharts\Highcharts;
+use common\models\db\SocAvailable;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
@@ -66,7 +66,6 @@ $this->params['breadcrumbs'][] = $model->name;
                                 <img src="/theme/portal-donbassa/img/icons/ver.png" alt="">
                             </span>
                         <?php endif; ?>
-                        <!--<p><? /*= $model['meta_descr'] */ ?></p>-->
 
                         <?php
                         if ($model->region_id != 0) {
@@ -79,12 +78,12 @@ $this->params['breadcrumbs'][] = $model->name;
                         <p class="concreate-adress"><?= $address; ?></p>
                         <div class="companyDtReg">
                             <span>добавлено:</span>
-                            <?= \common\classes\DataTime::time($model->dt_add); ?>
+                            <?= DataTime::time($model->dt_add); ?>
                         </div>
                     </div>
                     <?php if (!empty($model->email)): ?>
                         <div class="business__requisites--site">
-                            <a href="mailto:<?= $model->email; ?>">email:<?= $model->email; ?></a>
+                            <a href="mailto:<?= $model->email; ?>">email:<br/><?= $model->email; ?></a>
                         </div>
                     <?php endif; ?>
                     <div class="business__requisites--links">
@@ -126,183 +125,10 @@ $this->params['breadcrumbs'][] = $model->name;
 
                 </div>
 
-                <ul class="business__tab-links">
-                    <li class="tab active"><a href="#about-company" class="">О компании</a></li>
-                    <li class="tab">
-                        <a href="#reviews">
-                            Отзывы
-                            <span class="tabs-counters"><?= \common\classes\CompanyFunction::getCountReviews($model->id); ?></span>
-                        </a>
-                    </li>
-                    <li class="tab">
-                        <a href="#stocks">
-                            Акции
-                            <span class="tabs-counters"><?= \common\classes\CompanyFunction::getCountStock($model->id); ?></span>
-                        </a>
-                    </li>
-                    <li class="tab"><a href="#statistics">Статистика</a></li>
-                    <li class="tab"><a href="#address">Карта</a></li>
-                </ul>
-
+                <?= $this->render('_submenu', ['model' => $model, 'slug' => $slug]); ?>
 
                 <div class="business__tab-content">
-
-                    <div id="about-company" class="business__tab-content--wrapper">
-
-                        <?php if (!empty($img)): ?>
-                            <div class="business__photos">
-
-                                <?php foreach ($img as $item): ?>
-
-                                    <a href="<?= $item->photo ?>" data-fancybox="gallery"
-                                       class="business__photos--slide">
-                                        <img src="<?= $item->photo ?>" alt="">
-                                    </a>
-
-                                <?php endforeach; ?>
-
-                            </div>
-                        <?php endif; ?>
-
-                        <div class="business__descr">
-                            <?php if (isset($services['count_text']) && $services['count_text'] != '-'): ?>
-                                <?= \yii\helpers\StringHelper::truncate($model->descr, $services['count_text']); ?>
-                            <?php else: ?>
-                                <?= $model->descr; ?>
-                            <?php endif; ?>
-                        </div>
-
-                    </div>
-
-                    <div id="reviews" class="business__tab-content--wrapper">
-                        <div class="business__reviews">
-
-                            <?php if (!empty($feedback)): ?>
-
-                                <?php foreach ($feedback as $item): ?>
-                                    <div class="business__reviews--item">
-                                        <? // \common\classes\Debug::prn($item['user_id']) ?>
-
-                                        <div class="business__reviews--avatar">
-                                            <?= \common\classes\UserFunction::getUser_avatar_html($item['user_id']); ?>
-                                        </div>
-
-                                        <div class="descr">
-
-                                            <span class="date"><?= date('H:i d-m-Y', $item->dt_add) ?></span>
-
-                                            <h3><?= \common\classes\UserFunction::getUserName($item['user_id']) ?></h3>
-
-                                            <!--<p><? /*= $model->meta_descr */ ?></p>-->
-
-                                            <p class="full"><?= $item->feedback ?></p>
-
-                                        </div>
-
-                                        <!--<div class="links">
-
-                                            <a href="#" class="links__more">Читать весь отзыв</a>
-
-
-                                        </div>-->
-                                    </div>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                            <div class="what-say__servises">
-                                <?php if (!Yii::$app->user->isGuest): ?>
-                                    <a href="#" id="add-review"
-                                       data-id="<?= $model->id ?>"
-                                       data-name="<?= $model->name ?>"
-                                    ><span class="comments-icon"></span>Написать свой отзыв</a>
-                                <?php else: ?>
-                                    <a href="<?= \yii\helpers\Url::to(['/user/login']) ?>"><span
-                                                class="comments-icon"></span>Авторизируйтесь чтобы оставить отзыв</a>
-                                <?php endif; ?>
-                                <!--<form action="" class="business__form">
-
-                                    <textarea class="business__form&#45;&#45;textarea" placeholder="Текст сообщения"></textarea>
-
-                                    <input class="show-more" type="submit" value="отправит">
-
-                                </form>-->
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="business__tab-content--wrapper" id="stocks">
-                        <h3 class="section-title">Наши акции</h3>
-                        <div class="business__stocks--box">
-                            <?php if (!empty($stock)): ?>
-                                <?php foreach ($stock as $item): ?>
-                                    <a href="<?= \yii\helpers\Url::to(['/promotions/promotions/view', 'slug' => $item->slug]) ?>">
-                                        <div class="stock__sm-item">
-                                            <div class="stock__sm-item--img">
-
-                                                <img src="<?= $item->photo ?>" alt="">
-                                            </div>
-                                            <div class="stock__sm-item--descr">
-                                                <span class="views"><?= $item->view ?> просмотров</span>
-                                                <p><?= $item->title ?></p>
-                                            </div>
-                                            <div class="stock__sm-item--time">
-                                                <p><?= $item->dt_event ?></p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-
-                    <div id="statistics" class="business__tab-content--wrapper">
-                        <div class="cabinet-company-statistic">
-                            <div class="cabinet-company-statistic__header">
-                                <h3>Статистика компании</h3>
-                            </div>
-                            <div class="cabinet-company-statistic__body">
-                                <div class="cabinet-company-statistic__body--left">
-                                    <h4>Охват аудитории</h4>
-                                    <?php $sum = $count = 0;
-                                    if ($show) {
-                                        foreach ($cvRegion as $item) {
-                                            $sum += $item[1];
-                                            $count += $item[2];
-                                        }
-                                    } ?>
-                                    <p>Количество посетителей <b><?= $sum ?></b></p>
-                                    <p>Количество <span>уникальных</span> посетителей <b><?= $uniqueViews ?></b></p>
-                                    <?php if ($show) : ?>
-                                        <h5>География </h5>
-                                        <table style="width: 95%">
-                                            <thead>
-                                            <tr>
-                                                <td>Город</td>
-                                                <td>Общие</td>
-                                                <td>Уникальные</td>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <?php foreach ($cvRegion as $item): ?>
-                                                <tr>
-                                                    <td><?= $item[0] ?></td>
-                                                    <td><?= Yii::$app->formatter->asPercent($item[1] / $sum, 1) ?></td>
-                                                    <td><?= Yii::$app->formatter->asPercent($item[2] / $count, 1) ?></td>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="cabinet-company-statistic__body--right" id="piechart">
-                                    <?php if ($show) {
-                                        echo Highcharts::widget($optionsCV);
-                                        echo Highcharts::widget($optionsCVR);
-                                    } ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?= $this->render("_$page", $options); ?>
                 </div>
 
                 <?php if (!empty($model['tagss'])): ?>
@@ -319,16 +145,8 @@ $this->params['breadcrumbs'][] = $model->name;
                     </section>
                 <?php endif; ?>
 
-
-                <div id="address" class="business__tab-content--wrapper business__location">
-
-                    <div id="map"></div>
-
-                </div>
-
             </div>
 
-            <? /*= \frontend\modules\company\widgets\HotStock::widget() */ ?>
             <?= \frontend\widgets\ShowRightRecommend::widget(); ?>
 
         </div>

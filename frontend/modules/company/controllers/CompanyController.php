@@ -3,28 +3,18 @@
 namespace frontend\modules\company\controllers;
 
 use common\classes\CompanyFunction;
-use common\classes\Debug;
 use common\classes\GeobaseFunction;
 use common\classes\UserFunction;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
-use common\models\db\CompanyFeedback;
 use common\models\db\CompanyPhoto;
-use common\models\db\CompanyViews;
 use common\models\db\KeyValue;
 use common\models\db\Phones;
-use common\models\db\ServicesCompanyRelations;
 use common\models\db\SocAvailable;
 use common\models\db\SocCompany;
-use common\models\db\Stock;
-use common\models\db\TariffServicesRelations;
-use frontend\widgets\VipCompanyWidget;
 use Yii;
 use frontend\modules\company\models\Company;
-use frontend\modules\company\models\CompanySearch;
 use yii\data\Pagination;
-use yii\db\Expression;
-use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -176,14 +166,13 @@ class CompanyController extends Controller
      * Displays a single Company model.
      *
      * @param string $slug
+     * @param string $page
      * @return mixed
      * @throws \yii\web\NotFoundHttpException
      * @throws \yii\base\InvalidParamException
-     * @throws \yii\db\Exception
      */
-    public function actionView($slug)
+    public function actionView($slug, $page = 'about')
     {
-
         $model = Company::find()
             ->with('allPhones')
             ->joinWith('tagss.tagname')
@@ -193,122 +182,7 @@ class CompanyController extends Controller
         if (empty($model) || $model->status == 1) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-        //Подсчёт количества просмотров
-        Yii::$app->db->createCommand("INSERT INTO `company_views`(`user_id`, `company_id`, `date`, `ip_address`)
-                                            VALUES (:user_id, :company_id, NOW(), :ip_address) 
-                                              ON DUPLICATE KEY UPDATE `count`=`count` + 1",
-                [
-                    ':user_id' => Yii::$app->user->getId() ? Yii::$app->user->getId() : 0,
-                    ':company_id' => $model->id,
-                    ':ip_address' => ip2long(CompanyViews::getIP())
-                ])
-            ->execute();
-        $uniqueViews = CompanyViews::find()->where(['company_id' => $model->id])->count();
-        //Есть ли просмотры по компаниям
-        $show = ((int)$model->views != 0 || (int)$uniqueViews != 0);
-        if ($show) {
-            $countVision = (new Query())
-                ->select([
-                    'company_id',
-                    'date' => new Expression("DATE(`date`)"),
-                    'sum' => new Expression("SUM(`count`)"),
-                    'unique' => new Expression("COUNT(*)")
-                ])
-                ->from('company_views')
-                ->where(['company_id' => $model->id])
-                ->groupBy([
-                    new Expression("DATE(`date`)"),
-                    'company_id',
-                ])
-                ->all();
 
-            $optionsCV = [
-                'options' => [
-                    'chart' => [
-                        'type' => 'areaspline',
-                    ],
-                    'title' => ['text' => 'Количество посетителей'],
-                    'xAxis' => [
-                        'categories' => ArrayHelper::getColumn($countVision, function ($item) {
-                            return $item['date'];
-                        }
-                        )
-                    ],
-                    'yAxis' => [
-                        'title' => ['text' => 'Количество']
-                    ],
-                    'series' => [
-                        [
-                            'name' => 'Общие',
-                            'color' => 'grey',
-                            'data' => ArrayHelper::getColumn($countVision, function ($item) {
-                                return (int)$item['sum'];
-                            }
-                            )
-                        ],
-                        [
-                            'name' => 'Уникальные',
-                            'color' => '#ff0200',
-                            'data' => ArrayHelper::getColumn($countVision, function ($item) {
-                                return (int)$item['unique'];
-                            }
-                            )
-                        ]
-                    ]
-                ]
-            ];
-
-            $cvRegion = (new Query())
-                ->select([
-                    '`gc`.`name`',
-                    '`sum`' => new Expression("SUM(`count`)"),
-                    '`count`' => new Expression("COUNT(*)")
-                ])
-                ->from('`company_views`')
-                ->leftJoin('`geobase_ip_short` AS `gis`', '`ip_address` BETWEEN `gis`.`ip_begin` AND `gis`.`ip_end`')
-                ->leftJoin('`geobase_city` AS `gc`', '`gc`.`id` = `gis`.`city_id`')
-                ->where(['`company_id`' => $model->id])
-                ->groupBy([
-                    '`gis`.`city_id`',
-                ])
-                ->orderBy('`sum` DESC')
-                ->all();
-
-
-            array_walk($cvRegion, function (&$item) {
-                $item['name'] = is_null($item['name']) ? $item['name'] = 'Не определено' : $item['name'];
-                $item['sum'] = (int)$item['sum'];
-                $item = array_values($item);
-            });
-
-
-            $optionsCVR = [
-                'options' => [
-                    'chart' => [
-                        'type' => 'pie',
-                        'options3d' => [
-                            'enabled' => true,
-                            'alpha' => 45,
-                            'beta' => 0
-                        ],
-                    ],
-                    'title' => [
-                        'text' => 'Всего посетителей по городам'
-                    ],
-                    'series' => [[
-                        'type' => 'pie',
-                        'name' => 'Количество посетителей',
-                        'data' => $cvRegion
-                    ]]
-                ]
-            ];
-        }
-
-        $stoke = Stock::find()->where(['company_id' => $model->id])->limit(3)->all();
-        $feedback = CompanyFeedback::find()->where(['company_id' => $model->id, 'status' => 1])->with('user')->all();
-        //Debug::prn($feedback);
-        $img = CompanyPhoto::findAll(['company_id' => $model->id]);
-        $model->updateCounters(['views' => 1 ]);
         $services = [];
         if($model->dt_end_tariff > time() || $model->dt_end_tariff == 0) {
             $services = CompanyFunction::getServiceCompany($model->id);
@@ -329,18 +203,13 @@ class CompanyController extends Controller
 
         return $this->render('view', [
             'model' => $model,
-            'stock' => $stoke,
-            'feedback' => $feedback,
-            'img' => $img,
             'services' => $services,
             'typeSeti' => $typeSeti,
             'socCompany' => $socCompany,
             'categoryCompany' => $categoryCompany,
-            'uniqueViews' => $uniqueViews,
-            'optionsCV' => $optionsCV,
-            'optionsCVR' => $optionsCVR,
-            'cvRegion' => $cvRegion,
-            'show' => $show,
+            'slug' => $slug,
+            'page' => $page,
+            'options' => $model->getPage($page),
         ]);
     }
 
