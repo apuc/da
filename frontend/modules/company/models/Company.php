@@ -15,6 +15,9 @@ use yii\db\ActiveRecord;
 
 class Company extends \common\models\db\Company
 {
+    public $categ;
+    public $parentCateg;
+
     public function behaviors()
     {
         return [
@@ -48,5 +51,21 @@ class Company extends \common\models\db\Company
     public function getTagss()
     {
         return $this->hasMany(TagsRelation::className(), ['post_id' => 'id']);
+    }
+
+    public function attributeLabels()
+    {
+        $label = parent::attributeLabels();
+        $label['categ'] = 'Категория';
+        $label['parentCateg'] = 'Категория';
+        return $label;
+    }
+
+    public function rules()
+    {
+        $rules = parent::rules();
+        $rules['categ'] = [['categ'], 'required'];
+        $rules['parentCateg'] = [['parentCateg'], 'required'];
+        return $rules;
     }
 }

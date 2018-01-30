@@ -12,41 +12,60 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\company\models\Company */
 /* @var $form yii\widgets\ActiveForm */
+$this->registerCssFile('/css/board.min.css');
+$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 
 <?php $form = ActiveForm::begin(
     [
-        'options' => [
-            'class' => 'cabinet__add-company-form',
-            'enctype' => 'multipart/form-data',
+        'id' => 'create_company',
+        'options' =>
+            [
+                'class' => 'content-forma',
+                'enctype' => 'multipart/form-data',
+            ],
+        'fieldConfig' => [
+            'template' => '<div class="form-line">{label}{input}<div class="memo-error"><p>{error}</p></div><div class="memo"><span class="info-icon"></span><span class="triangle-left"></span>{hint}</div></div>',
+            'inputOptions' => ['class' => 'input-name jsHint'],
+            'labelOptions' => ['class' => 'label-name'],
+            'errorOptions' => ['class' => 'error'],
+
+            'options' => ['class' => 'form-line'],
+            'hintOptions' => ['class' => ''],
+
         ],
+        'errorCssClass' => 'my-error',
     ]);
 ?>
 
-    <p class="cabinet__add-company-form--title">Категория компании</p>
-    <?php
-    echo Html::dropDownList(
+
+   <!-- --><?php
+/*    echo Html::dropDownList(
         'categ',
         null,
         ArrayHelper::map(CategoryCompany::find()->where(['lang_id' => 1, 'parent_id' => '0'])->all(),'id','title'),
         ['class'=>'cabinet__add-company-form--field', 'id'=>'categ_company', 'prompt' => 'Выберите категорию']
     );
-    ?>
+    */?>
+    <?= $form->field($model, 'categ')
+    ->dropDownList(
+        ArrayHelper::map(CategoryCompany::find()->where(['lang_id' => 1, 'parent_id' => '0'])->all(),'id','title'),
+        ['id'=>'categ_company', 'prompt' => 'Категория компании']
+    )->hint('Выберите категорию')->label()?>
     <div class="cabinet__add-company-form--block"></div>
 
 
     <span class="addParentCategory" style="width: 100%;"></span>
 
+    <?= $form->field($model, 'name')
+        ->textInput(['maxlength' => true])
+        ->hint('Введите название компании')
+        ->label('Название компании')
+    ?>
 
-    <p class="cabinet__add-company-form--title">Название компании</p>
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'class' => 'cabinet__add-company-form--field'])->label(false) ?>
-    <div class="cabinet__add-company-form--block"></div>
-
-    <p class="cabinet__add-company-form--title">Город компании</p>
-    <div class="cabinet__add-company-form--select-wrapper">
-        <?= Select2::widget([
-            'name' => 'Company[city_id]',
-            'attribute' => 'state_2',
+    <?= $form->field($model, 'city_id')->widget(Select2::className(),
+        [
             'data' => $city,
             'value' => $model->city_id,
             //'data' => ['Донецкая область' => ['1'=>'Don','2'=>'Gorl'], 'Rostovskaya' => ['5'=>'rostov']],
@@ -54,18 +73,19 @@ use yii\widgets\ActiveForm;
             'pluginOptions' => [
                 'allowClear' => true
             ],
-        ]);
-        ?>
-    </div>
+        ])
+        ->hint('Введите город где находится компания')
+        ->label('Город компании')
+    ?>
 
-    <div class="cabinet__add-company-form--wrapper">
-        <p class="cabinet__add-company-form--title">Адрес компании</p>
-        <?= $form->field($model, 'address')->textInput(['maxlength' => true, 'class' => 'cabinet__add-company-form--field'])->label(false) ?>
 
-       <!-- <a href="#" class="cabinet__add-field"></a>-->
 
-    </div>
-    <p class="cabinet__add-company-form--title">Логотип компании</p>
+
+    <?= $form->field($model, 'address')->textInput(['maxlength' => true])
+        ->hint('Введите адрес компании без указания города')
+        ->label('Адрес компании') ?>
+
+
 
     <?php echo $form->field($model, 'photo', [
             'template' => '<label class="cabinet__add-company-form--add-foto">
@@ -73,7 +93,7 @@ use yii\widgets\ActiveForm;
                                         {input}
                                         <img id="blah" src="" alt="" width="160px">
                                         </label>'
-        ])->label(false)->fileInput();
+        ])->label('Логотип компании')->fileInput();
     ?>
 
     <!--<label class="cabinet__add-company-form--add-foto">
@@ -82,7 +102,7 @@ use yii\widgets\ActiveForm;
         <img id="blah" src="" alt="" width="160px">
     </label>-->
 
-    <div class="cabinet__add-company-form--block"></div>
+    <!--<div class="cabinet__add-company-form--block"></div>-->
 
     <!--<p class="cabinet__add-company-form--title">Сайт компании</p>
 
@@ -117,7 +137,7 @@ use yii\widgets\ActiveForm;
 
     <div class="cabinet__add-company-form--wrapper">
 
-        <p class="cabinet__add-company-form--title">Телефон</p>
+        <label class="label-name">Телефон</label>
 
         <input class="cabinet__add-company-form--field" name="mytext[]" type="text">
 
@@ -125,14 +145,15 @@ use yii\widgets\ActiveForm;
 
     <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>
 
-    <p class="cabinet__add-company-form--title">О компании</p>
+
    <?php
         echo $form->field($model, 'descr')->textarea(
             [
                 'class' => 'cabinet__add-company-form--text',
                 'maxlength' => 100
             ]
-        )->label(false);
+        )
+            ->hint('Введите иныормацию о компании')->label('О компании');
     ?>
 
 <?php /*echo $form->field($model, 'descr')->widget(CKEditor::className(), [

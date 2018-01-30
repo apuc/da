@@ -18,6 +18,7 @@ use common\models\db\SiteError;
 use common\models\db\News;
 use common\models\db\Subscribe;
 use frontend\models\user\Profile;
+use frontend\modules\company\models\Company;
 use frontend\widgets\Poll;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -285,17 +286,9 @@ class AjaxController extends Controller
     public function actionAddParentCategory()
     {
         $catId = Yii::$app->request->post('catId');
+        $model = new Company();
 
-        $html = '<p class="cabinet__add-company-form--title">Категория компании</p>';
-        $html .= Html::dropDownList(
-            'categParent',
-            null,
-            ArrayHelper::map(CategoryCompany::find()->where(['lang_id' => 1, 'parent_id' => $catId])->all(), 'id',
-                'title'),
-            ['class' => 'cabinet__add-company-form--field', 'prompt' => 'Выберите категорию']
-        );
-        $html .= '<div class="cabinet__add-company-form--block"></div>';
-
+        $html = $this->renderPartial('parent-category',['catId' => $catId, 'model' => $model]);
         return $html;
 
     }
