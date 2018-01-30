@@ -62,6 +62,9 @@ return \yii\helpers\ArrayHelper::merge([
         'exchange' => [
             'class' => 'frontend\modules\exchange\Exchange',
         ],
+        'shop' => [
+            'class' => 'frontend\modules\shop\Shop',
+        ],
     ],
     'components' => [
         'mymessages' => [
