@@ -11,7 +11,7 @@ use yii\helpers\Url;
 <ul class="business__tab-links">
 
     <li class="tab active">
-        <a href="<?= Url::to(['/company/company/view', 'slug' => $slug, 'page' => 'about']) ?>">
+        <a href="<?= Url::to(['/company/company/view', 'slug' => $slug]) ?>">
             О компании
         </a>
     </li>

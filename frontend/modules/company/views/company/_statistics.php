@@ -4,7 +4,7 @@
  * @var string $uniqueViews
  * @var array $optionsCVR
  * @var array $optionsCVR
- * @var array $cvRegion
+ * @var array $countViewsRegion
  * @var boolean $show
  */
 
@@ -21,7 +21,7 @@ use miloschuman\highcharts\Highcharts;
                 <h4>Охват аудитории</h4>
                 <?php $sum = $count = 0;
                 if ($show) {
-                    foreach ($cvRegion as $item) {
+                    foreach ($countViewsRegion as $item) {
                         $sum += $item[1];
                         $count += $item[2];
                     }
@@ -39,7 +39,7 @@ use miloschuman\highcharts\Highcharts;
                         </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($cvRegion as $item): ?>
+                        <?php foreach ($countViewsRegion as $item): ?>
                             <tr>
                                 <td><?= $item[0] ?></td>
                                 <td><?= Yii::$app->formatter->asPercent($item[1] / $sum, 1) ?></td>
