@@ -64,6 +64,16 @@ class Company extends \common\models\db\Company
     {
         switch ($page) {
             case 'about':
+                //Подсчёт количества просмотров
+                Yii::$app->db->createCommand("INSERT INTO `company_views`(`user_id`, `company_id`, `date`, `ip_address`)
+                                            VALUES (:user_id, :company_id, NOW(), :ip_address) 
+                                              ON DUPLICATE KEY UPDATE `count`=`count` + 1",
+                    [
+                        ':user_id' => Yii::$app->user->getId() ? Yii::$app->user->getId() : 0,
+                        ':company_id' => $this->id,
+                        ':ip_address' => ip2long(CompanyViews::getIP())
+                    ])
+                    ->execute();
                 $img = CompanyPhoto::findAll(['company_id' => $this->id]);
                 $this->updateCounters(['views' => 1]);
                 $options = [
@@ -85,16 +95,6 @@ class Company extends \common\models\db\Company
                 ];
                 break;
             case 'statistics':
-                //Подсчёт количества просмотров
-                Yii::$app->db->createCommand("INSERT INTO `company_views`(`user_id`, `company_id`, `date`, `ip_address`)
-                                            VALUES (:user_id, :company_id, NOW(), :ip_address) 
-                                              ON DUPLICATE KEY UPDATE `count`=`count` + 1",
-                    [
-                        ':user_id' => Yii::$app->user->getId() ? Yii::$app->user->getId() : 0,
-                        ':company_id' => $this->id,
-                        ':ip_address' => ip2long(CompanyViews::getIP())
-                    ])
-                    ->execute();
                 $uniqueViews = CompanyViews::find()->where(['company_id' => $this->id])->count();
                 //Есть ли просмотры по компаниям
                 $show = ((int)$this->views != 0 || (int)$uniqueViews != 0);
@@ -149,7 +149,7 @@ class Company extends \common\models\db\Company
                             ]
                         ]
                     ];
-                    $cvRegion = (new Query())
+                    $countViewsRegion = (new Query())
                         ->select([
                             '`gc`.`name`',
                             '`sum`' => new Expression("SUM(`count`)"),
@@ -164,7 +164,7 @@ class Company extends \common\models\db\Company
                         ])
                         ->orderBy('`sum` DESC')
                         ->all();
-                    array_walk($cvRegion, function (&$item) {
+                    array_walk($countViewsRegion, function (&$item) {
                         $item['name'] = is_null($item['name']) ? $item['name'] = 'Не определено' : $item['name'];
                         $item['sum'] = (int)$item['sum'];
                         $item = array_values($item);
@@ -185,7 +185,7 @@ class Company extends \common\models\db\Company
                             'series' => [[
                                 'type' => 'pie',
                                 'name' => 'Количество посетителей',
-                                'data' => $cvRegion
+                                'data' => $countViewsRegion
                             ]]
                         ]
                     ];
@@ -194,7 +194,7 @@ class Company extends \common\models\db\Company
                     'uniqueViews' => $uniqueViews,
                     'optionsCV' => $optionsCV,
                     'optionsCVR' => $optionsCVR,
-                    'cvRegion' => $cvRegion,
+                    'countViewsRegion' => $countViewsRegion,
                     'show' => $show,
                 ];
                 break;
