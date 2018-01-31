@@ -5,7 +5,6 @@
  */
 
 use common\classes\DateFunctions;
-use frontend\widgets\ShowRightRecommend;
 use common\models\User;
 use common\classes\Debug;
 
@@ -451,7 +450,6 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
 
         </div>
             <?= \frontend\modules\stream\widgets\ShowTopStream::widget(); ?>
-            <?= ShowRightRecommend::widget() ?>
         </div>
 
     </div>
