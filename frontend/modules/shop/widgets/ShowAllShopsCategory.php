@@ -14,18 +14,10 @@ use yii\base\Widget;
 
 class ShowAllShopsCategory extends Widget
 {
+    public $category;
+
     public function run()
     {
-        $category = CategoryShop::find()->all();
-
-        $categoryTree = $this->categoryTree($category);
-        Debug::prn($category);
-        return $this->render('all-category');
-    }
-
-    protected function categoryTree($category)
-    {
-
-        return $category;
+        return $this->render('all-category', ['category' => $this->category]);
     }
 }

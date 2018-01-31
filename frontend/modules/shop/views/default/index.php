@@ -1,6 +1,10 @@
+<?php
+/**
+ * @var $categoryTree \frontend\modules\shop\models\CategoryShop
+ */
+?>
 
-
-<?= \frontend\modules\shop\widgets\ShowAllShopsCategory::widget(); ?>
+<?= \frontend\modules\shop\widgets\ShowAllShopsCategory::widget(['category' => $categoryTree]); ?>
 
 <div class="shop__stock-banner">
 

@@ -2,6 +2,9 @@
 
 namespace frontend\modules\shop\controllers;
 
+use common\classes\Debug;
+use frontend\modules\shop\models\CategoryShop;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 
 /**
@@ -17,7 +20,18 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
+        $categoryModel = new CategoryShop();
+        $category = CategoryShop::find()->all();
 
-        return $this->render('index');
+
+        $categoryTreeArr = $categoryModel->getArrayTreeCategory($category);
+        /*Debug::dd($categoryModel->outTree(0, 0));
+        Debug::dd($categoryModel->getAllCategory($category, 0));
+        $categoryTree = $categoryModel->getTreeCategory($categoryTreeArr, 0, []);*/
+        return $this->render('index',
+            [
+                'categoryTree' => $categoryTreeArr,
+            ]
+        );
     }
 }
