@@ -174,6 +174,14 @@ return \yii\helpers\ArrayHelper::merge([
                     'pattern' => 'company/company/update',
                     'route' => 'company/company/update',
                 ],
+                [
+                    'pattern' => 'company/company/create',
+                    'route' => 'company/company/create',
+                ],
+                [
+                    'pattern' => 'company/company/delete',
+                    'route' => 'company/company/delete',
+                ],
                 'company/category/<slug>' => 'company/company/view-category',
                 'company/<slug>/<page>' => 'company/company/view',
                 'company/<slug>' => 'company/company/view',
