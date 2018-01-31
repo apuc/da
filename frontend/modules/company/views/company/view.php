@@ -89,20 +89,16 @@ $this->params['breadcrumbs'][] = $model->name;
                         <div class="business__requisites--links-w">
                             <span class="views"><?= $model->views; ?> просмотров</span>
                         </div>
-                        <a class="phone" href="tel:+380667778540">
-                            <?php if (isset($model->allPhones[0]->phone)): ?>
-                                <?= $model->allPhones[0]->phone ?>
-                            <?php elseif (isset($model->getPhones()[0])): ?>
-                                <?= $model->getPhones()[0] ?>
-                            <?php endif; ?>
-                        </a>
-                        <a class="phone" href="tel:+380667778540">
-                            <?php if (isset($model->allPhones[1]->phone)): ?>
-                                <?= $model->allPhones[1]->phone ?>
-                            <?php elseif (isset($model->getPhones()[1])): ?>
-                                <?= $model->getPhones()[1] ?>
-                            <?php endif; ?>
-                        </a>
+                        <?php if (!empty($model->allPhones)): ?>
+                            <?php foreach ($model->allPhones as $phone): ?>
+                                <a class="phone" href="<?= $phone->phone ?>"><?= $phone->phone ?></a>
+                            <?php endforeach; ?>
+                        <?php elseif (!empty($model->phone)): ?>
+                            <?php $phones = explode(' ', $model->phone) ?>
+                            <?php foreach ($phones as $phone): ?>
+                                <a class="phone" href="<?= $phone ?>"><?= $phone ?></a>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
 
                         <?php if (isset($services['group_link']) && $services['group_link'] == 1 && !empty($socCompany)):
 
