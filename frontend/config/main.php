@@ -170,6 +170,10 @@ return \yii\helpers\ArrayHelper::merge([
                 'all-news/<page:\d+>/<per-page:\d+>' => 'news/news/index',
                 'news/<slug>' => 'news/default/view',
                 'company' => 'company/default',
+                [
+                    'pattern' => 'company/company/update',
+                    'route' => 'company/company/update',
+                ],
                 'company/category/<slug>' => 'company/company/view-category',
                 'company/<slug>/<page>' => 'company/company/view',
                 'company/<slug>' => 'company/company/view',
