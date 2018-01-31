@@ -6,10 +6,9 @@
  * @var array $socCompany
  * @var array $categoryCompany
  * @var string $slug
- * @var array $page
+ * @var string $page
  * @var array $options
  */
-
 use common\classes\DataTime;
 use common\classes\GeobaseFunction;
 use common\models\db\SocAvailable;
@@ -125,7 +124,7 @@ $this->params['breadcrumbs'][] = $model->name;
 
                 </div>
 
-                <?= $this->render('_submenu', ['model' => $model, 'slug' => $slug]); ?>
+                <?= $this->render('_submenu', ['model' => $model, 'slug' => $slug, 'page' => $page]); ?>
 
                 <div class="business__tab-content">
                     <?= $this->render("_$page", $options); ?>
