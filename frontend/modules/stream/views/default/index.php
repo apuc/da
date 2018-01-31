@@ -7,7 +7,6 @@
  */
 use common\classes\DateFunctions;
 use common\models\User;
-use frontend\widgets\ShowRightRecommend;
 
 $this->title = $meta_title;
 $this->registerMetaTag( [
@@ -295,7 +294,6 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
             </div>
 
             <?= \frontend\modules\stream\widgets\ShowTopStream::widget(); ?>
-            <?= ShowRightRecommend::widget() ?>
         </div>
 
     </div>
