@@ -12,6 +12,7 @@
 use common\classes\DataTime;
 use common\classes\GeobaseFunction;
 use common\models\db\SocAvailable;
+use frontend\widgets\CompanyRight;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
@@ -142,7 +143,7 @@ $this->params['breadcrumbs'][] = $model->name;
 
             </div>
 
-            <?= \frontend\widgets\ShowRightRecommend::widget(); ?>
+            <?= CompanyRight::widget(); ?>
 
         </div>
 
