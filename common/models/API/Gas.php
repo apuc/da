@@ -27,34 +27,33 @@ class Gas extends ApiCurrencyAbstract
         $document = phpQuery::newDocumentHTML($html);
         $tr = $document->find('table.table:first')
             ->find('tbody > tr');
-        $g = [];
+        $gas = [];
         foreach ($tr as $key => $item) {
             $item = phpQuery::pq($item);
             $name = trim($item->find('td.datatable-item-first')->text());
-            if ($name == 'Crude Oil' || $name == 'Brent') continue;
-            $g[$name]['name'] = $name;
-            $g[$name]['value'] = (float)trim($item->find('td#p')->text());
+            if ($name == 'Газ') {
+                $gas[$key]['name'] = 'Природный ' . $name;
+                $gas[$key]['value'] = (float)trim($item->find('td#p')->text());
+            }
         }
         unset($name);
         unset($item);
         phpQuery::unloadDocuments($document);
-        return $g;
+        return $gas;
     }
 
     public function getData()
     {
         $array = $this->fetchData();
-        var_dump($array);
-        die();
         if ($array == false) {
             return false;
         } else {
             $currency_list = $rates = [];
             foreach ($array as $key => $item) {
-                $code = 1000000 + $key;
+                $code = 2000000 + $key;
                 $currency_list[$code]['code'] = $code;
                 $currency_list[$code]['char_code'] = trim($array[$key]['name']);
-                $currency_list[$code]['name'] = 'Нефть';
+                $currency_list[$code]['name'] = 'Газ';
                 $currency_list[$code]['status'] = DbCurrency::STATUS_ACTIVE_FOR_WIDGET;
                 $currency_list[$code]['type'] = DbCurrency::TYPE_GSM;
 
