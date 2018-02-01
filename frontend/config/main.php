@@ -232,8 +232,17 @@ return \yii\helpers\ArrayHelper::merge([
                 'obyavlenie/<id:\d+>/<slug>/' => 'board/default/view',
 
                 'currency/converter' => 'currency/default/converter',
-                'finance' => 'currency/default/all'
-
+                'finance' => 'currency/default/all',
+                [
+                    'class' => \frontend\components\ShopRule::class,
+                    //'shop/<action:cart|order>' => 'shop/shop/<action>',
+                    //'shop/category' => 'shop/shop/show',
+                    //'shop/<category:.+>' => 'shop/shop/category',
+                ],
+                //'shop/<action:cart|order>'=>'shop/shop/<action>',
+                'shop/product/<slug>'=>'shop/shop/show',
+                'shop/<category:.+>'=>'shop/shop/category',
+                'shop'=>'shop/default/index',
             ]
         ],
         'language' => 'ru-RU',
