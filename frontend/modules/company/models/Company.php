@@ -92,7 +92,7 @@ class Company extends \common\models\db\Company
                 ];
                 break;
             case 'stocks':
-                $stock = Stock::find()->where(['company_id' => $this->id])->limit(3)->all();
+                $stock = Stock::find()->where(['company_id' => $this->id])->all();
                 $options = [
                     'stock' => $stock,
                 ];
