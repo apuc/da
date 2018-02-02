@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </a>
                 <div class="single-actions__wrap">
                     <h2 class="all-actions__title-item">Описание акции
-                        <span class="all-actions__title-item--view">5</span>
+                        <span class="all-actions__title-item--view"><?= $model->view; ?></span>
                     </h2>
                     <p class="single-actions__desc">
                         <?php
