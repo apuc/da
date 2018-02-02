@@ -1,5 +1,8 @@
 <?php
-/** @var Stock $model */
+/** @var Stock $model
+ * @var Stock $item
+ * @var array $stocks
+ */
 
 use common\classes\GeobaseFunction;
 use frontend\modules\promotions\models\Stock;
@@ -34,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="single-actions__single-item">
                 <div class="all-actions__img">
                     <img src="<?= $model->photo ?>" alt="">
-                    <span class="single-actions__prom-cod">ПРОМО КОД: 27-12-16</span>
+                    <span class="single-actions__prom-cod">ПРОМО КОД: </span>
                 </div>
                 <a href="#">
                     <div class="all-actions__company">
@@ -60,7 +63,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         <span class="all-actions__title-item--view">5</span>
                     </h2>
                     <p class="single-actions__desc">
-                        <?= $model->short_descr ?>
+                        <?php
+                        if (!empty($model->descr)) echo $model->descr;
+                        else echo $model->short_descr;
+                        ?>
                     </p>
                 </div>
                 <div class="single-actions__contacts">
