@@ -18,7 +18,7 @@ echo \yii\widgets\Menu::widget(
             [
                 'label' => 'Отзывы',
                 'url' => Url::to(['/company/company/view', 'slug' => $slug, 'page' => 'reviews']),
-                'template' => '<a href="{url}">{label}<span class="tabs-counters">' . CompanyFunction::getCountStock($model->id) . '</span></a>',
+                'template' => '<a href="{url}">{label}<span class="tabs-counters">' . CompanyFunction::getCountReviews($model->id) . '</span></a>',
                 'active' => $page == 'reviews',
             ],
             [
