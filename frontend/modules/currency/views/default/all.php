@@ -74,6 +74,9 @@ $this->params['breadcrumbs'][] = 'Биржа';
             <?= $this->render('_metal_chart', ['count_day' => 14]); ?>
             <br>
 
+            <?= $this->render('_oil_chart', ['count_day' => 14]); ?>
+            <br>
+
         </div>
     </div>
 </section>
