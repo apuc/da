@@ -70,17 +70,10 @@ $statistics = $model->getPage('statistics');
     <div class="cabinet-company-statistic__body">
         <div class="cabinet-company-statistic__body--left">
             <h4>Охват аудитории</h4>
-            <?php $sum = $count = 0;
-            if ($statistics['show']) {
-                foreach ($statistics['countViewsRegion'] as $item) {
-                    $sum += $item[1];
-                    $count += $item[2];
-                }
-            } ?>
-            <p>Количество посетителей <b><?= $sum ?></b></p>
+            <p>Количество посетителей <b><?= $statistics['allViews'] ?></b></p>
             <p>Количество <span>уникальных</span> посетителей
                 <b><?= $statistics['uniqueViews'] ?></b></p>
-            <?php if ($statistics['show']) : ?>
+            <?php if (!empty($statistics['allViews'])) : ?>
                 <h5>География </h5>
                 <table style="width: 95%">
                     <thead>
@@ -94,8 +87,8 @@ $statistics = $model->getPage('statistics');
                     <?php foreach ($statistics['countViewsRegion'] as $item): ?>
                         <tr>
                             <td><?= $item[0] ?></td>
-                            <td><?= Yii::$app->formatter->asPercent($item[1] / $sum, 1) ?></td>
-                            <td><?= Yii::$app->formatter->asPercent($item[2] / $count, 1) ?></td>
+                            <td><?= Yii::$app->formatter->asPercent($item[1] / $statistics['allViews'], 1) ?></td>
+                            <td><?= Yii::$app->formatter->asPercent($item[2] / $statistics['uniqueViews'], 1) ?></td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>
@@ -103,7 +96,7 @@ $statistics = $model->getPage('statistics');
             <?php endif; ?>
         </div>
         <div class="cabinet-company-statistic__body--right" id="piechart">
-            <?php if ($statistics ['show']) {
+            <?php if (!empty($statistics['allViews'])) {
                 echo Highcharts::widget($statistics['optionsCV']);
                 echo Highcharts::widget($statistics['optionsCVR']);
             } ?>

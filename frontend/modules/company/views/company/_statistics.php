@@ -1,11 +1,11 @@
 <?php
 
 /**
- * @var string $uniqueViews
+ * @var integer $allViews
+ * @var integer $uniqueViews
  * @var array $optionsCVR
  * @var array $optionsCVR
  * @var array $countViewsRegion
- * @var boolean $show
  */
 
 use miloschuman\highcharts\Highcharts;
@@ -19,16 +19,9 @@ use miloschuman\highcharts\Highcharts;
         <div class="cabinet-company-statistic__body">
             <div class="cabinet-company-statistic__body--left">
                 <h4>Охват аудитории</h4>
-                <?php $sum = $count = 0;
-                if ($show) {
-                    foreach ($countViewsRegion as $item) {
-                        $sum += $item[1];
-                        $count += $item[2];
-                    }
-                } ?>
-                <p>Количество посетителей <b><?= $sum ?></b></p>
+                <p>Количество посетителей <b><?= $allViews ?></b></p>
                 <p>Количество <span>уникальных</span> посетителей <b><?= $uniqueViews ?></b></p>
-                <?php if ($show) : ?>
+                <?php if ($allViews) : ?>
                     <h5>География </h5>
                     <table style="width: 95%">
                         <thead>
@@ -42,8 +35,8 @@ use miloschuman\highcharts\Highcharts;
                         <?php foreach ($countViewsRegion as $item): ?>
                             <tr>
                                 <td><?= $item[0] ?></td>
-                                <td><?= Yii::$app->formatter->asPercent($item[1] / $sum, 1) ?></td>
-                                <td><?= Yii::$app->formatter->asPercent($item[2] / $count, 1) ?></td>
+                                <td><?= Yii::$app->formatter->asPercent($item[1] / $allViews, 1) ?></td>
+                                <td><?= Yii::$app->formatter->asPercent($item[2] / $uniqueViews, 1) ?></td>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>
@@ -51,7 +44,7 @@ use miloschuman\highcharts\Highcharts;
                 <?php endif; ?>
             </div>
             <div class="cabinet-company-statistic__body--right" id="piechart">
-                <?php if ($show) {
+                <?php if ($allViews) {
                     echo Highcharts::widget($optionsCV);
                     echo Highcharts::widget($optionsCVR);
                 } ?>

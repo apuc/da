@@ -48,6 +48,7 @@ class Company extends \common\models\db\Company
             ],
         ];
     }
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -60,8 +61,10 @@ class Company extends \common\models\db\Company
     {
         return $this->hasMany(TagsRelation::className(), ['post_id' => 'id']);
     }
+
     public function getPage($page)
     {
+        $options = [];
         switch ($page) {
             case 'about':
                 //Подсчёт количества просмотров
@@ -95,25 +98,30 @@ class Company extends \common\models\db\Company
                 ];
                 break;
             case 'statistics':
-                $uniqueViews = CompanyViews::find()->where(['company_id' => $this->id])->count();
-                //Есть ли просмотры по компаниям
-                $show = ((int)$this->views != 0 || (int)$uniqueViews != 0);
-                if ($show) {
-                    $countVision = (new Query())
-                        ->select([
-                            'company_id',
-                            'date' => new Expression("DATE(`date`)"),
-                            'sum' => new Expression("SUM(`count`)"),
-                            'unique' => new Expression("COUNT(*)")
-                        ])
-                        ->from('company_views')
-                        ->where(['company_id' => $this->id])
-                        ->groupBy([
-                            new Expression("DATE(`date`)"),
-                            'company_id',
-                        ])
-                        ->all();
-
+                $allViews = $uniqueViews = 0;
+                $countVision = (new Query())
+                    ->select([
+                        'company_id',
+                        'date' => new Expression("DATE(`date`)"),
+                        'all' => new Expression("SUM(`count`)"),
+                        'unique' => new Expression("COUNT(*)"),
+                    ])
+                    ->from('company_views')
+                    ->where(['company_id' => $this->id])
+                    ->groupBy([
+                        new Expression("DATE(`date`)"),
+                        'company_id',
+                    ])
+                    ->all();
+                foreach ($countVision as $item) {
+                    $allViews += $item['all'];
+                    $uniqueViews += $item['unique'];
+                }
+                $options = [
+                    'allViews' => $allViews,
+                    'uniqueViews' => $uniqueViews,
+                ];
+                if ($allViews) {
                     $optionsCV = [
                         'options' => [
                             'chart' => [
@@ -134,7 +142,7 @@ class Company extends \common\models\db\Company
                                     'name' => 'Общие',
                                     'color' => 'grey',
                                     'data' => ArrayHelper::getColumn($countVision, function ($item) {
-                                        return (int)$item['sum'];
+                                        return (int)$item['all'];
                                     }
                                     )
                                 ],
@@ -189,14 +197,10 @@ class Company extends \common\models\db\Company
                             ]]
                         ]
                     ];
+                    $options['optionsCV'] = $optionsCV;
+                    $options['optionsCVR'] = $optionsCVR;
+                    $options['countViewsRegion'] = $countViewsRegion;
                 }
-                $options = [
-                    'uniqueViews' => $uniqueViews,
-                    'optionsCV' => $optionsCV,
-                    'optionsCVR' => $optionsCVR,
-                    'countViewsRegion' => $countViewsRegion,
-                    'show' => $show,
-                ];
                 break;
             case 'map':
                 $options = [];
