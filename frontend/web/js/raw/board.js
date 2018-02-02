@@ -1,5 +1,23 @@
 $(document).ready(function () {
 
+    $(document).on('click', '.file-preview-frame', function(){
+        var img = $(this).children('.file-preview-image');
+        var imgName = img.attr('title');
+        console.log(img);
+
+        $(this).css('box-shadow', '1px 1px 5px 0 #ff6b00');
+        $('.file-preview-frame').not($(this)).css('box-shadow', '1px 1px 5px 0 #a2958a');
+
+        if(!$('input[name="cover"]').length){
+            $('#prodType').after('<input type="hidden" name="cover" value="'+imgName+'">');
+        }else{
+            $('input[name="cover"]').val(imgName);
+        }
+
+
+        //console.log(imgName);
+    });
+
     //Клик по глвной категории
     $(document).on('click', '.commercial__category-list li', function () {
         var idCat = $(this).data('id');

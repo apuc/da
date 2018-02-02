@@ -257,6 +257,7 @@ class DefaultController extends Controller
         $this->layout = 'personal_area';
         if (Yii::$app->request->post()) {
             if (!empty($_FILES['file']['name'][0])) {
+                Debug::dd($_FILES);
                 if (!file_exists('media/users/' . Yii::$app->user->id)) {
                     mkdir('media/users/' . Yii::$app->user->id . '/');
                 }

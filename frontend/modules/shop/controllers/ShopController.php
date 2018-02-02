@@ -9,6 +9,7 @@
 namespace frontend\modules\shop\controllers;
 
 use common\classes\Debug;
+use frontend\modules\shop\models\CategoryShop;
 use yii\web\Controller;
 
 class ShopController extends Controller
@@ -20,7 +21,9 @@ class ShopController extends Controller
 
     public function actionCategory($category)
     {
-        Debug::prn('Вывод списка товаров категории'. $category);
+        $model = new CategoryShop();
+        $category = $model->getCategoryInfoBySlug($category);
+        Debug::prn( $category);
         //
     }
 

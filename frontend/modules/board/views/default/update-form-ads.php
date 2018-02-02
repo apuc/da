@@ -12,7 +12,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 $this->registerCssFile('/css/board.min.css');
-$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+//$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 
@@ -122,13 +123,15 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         echo FileInput::widget([
             'name' => 'file[]',
             'id' => 'input-5',
-            'attribute' => 'attachment_1',
+            'attribute' => 'attachment_1[]',
             'value' => '@frontend/media/img/1.png',
             'options' => [
                 'multiple' => true,
                 'showCaption' => false,
                 'showUpload' => false,
                 'uploadAsync' => false,
+                'uploadRemove' => false,
+                'showRemove' => false,
             ],
             'pluginOptions' => [
                 'uploadUrl' => Url::to(['/site/upload_file']),
@@ -143,6 +146,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                 'initialPreview' => $preview,
                 'initialPreviewConfig' => $previewConfig
             ],
+
         ]);
 
         ?>
