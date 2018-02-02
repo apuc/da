@@ -92,12 +92,12 @@ $this->params['breadcrumbs'][] = $model->name;
                         </div>
                         <?php if (!empty($model->allPhones)): ?>
                             <?php foreach ($model->allPhones as $phone): ?>
-                                <a class="phone" href="<?= $phone->phone ?>"><?= $phone->phone ?></a>
+                                <a class="phone" href="tel:<?= $phone->phone ?>"><?= $phone->phone ?></a>
                             <?php endforeach; ?>
                         <?php elseif (!empty($model->phone)): ?>
                             <?php $phones = explode(' ', $model->phone) ?>
                             <?php foreach ($phones as $phone): ?>
-                                <a class="phone" href="<?= $phone ?>"><?= $phone ?></a>
+                                <a class="phone" href="tel:<?= $phone ?>"><?= $phone ?></a>
                             <?php endforeach; ?>
                         <?php endif; ?>
 

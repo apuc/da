@@ -100,6 +100,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= $this->render('_metal_chart', ['count_day' => 14]); ?>
             <br>
+
+            <?= $this->render('_oil_chart', ['count_day' => 14]); ?>
+            <br>
+
         </div>
         <!--        --><? //= \frontend\widgets\ShowRightRecommend::widget() ?>
     </div>
