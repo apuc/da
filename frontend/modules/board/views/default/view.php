@@ -135,7 +135,7 @@ $this->registerMetaTag([
 
 
 
-                        <p><?= $ads->content; ?></p>
+                        <p><?= nl2br($ads->content); ?></p>
 
                     </div>
 
