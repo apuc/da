@@ -240,7 +240,7 @@ class DefaultController extends Controller
             $contents = file_get_contents($sURL, false, $context);
             //echo $contents;
             Yii::$app->session->setFlash('success','Ваше объявление успешно добавлено. После прохождения модерации оно будет опубликовано.');
-            return $this->redirect('/personal_area/default/index');
+            return $this->redirect('/personal_area/user-ads/index');
         } else {
             $model = new Ads();
 
@@ -316,7 +316,7 @@ class DefaultController extends Controller
             $contents = file_get_contents($sURL, false, $context);
             //echo $contents;
             Yii::$app->session->setFlash('success','Ваше объявление успешно добавлено. После прохождения модерации оно будет опубликовано.');
-            return $this->redirect('/personal_area/default/index');
+            return $this->redirect('/personal_area/user-ads/index');
         }else{
             $model = new Ads();
             $ads = BoardFunction::fileGetContent($this->siteApi . '/ads/' . $id . '?expand=adsImgs,adsFieldsValues' . '&api_key=' . $this->apiKey );
