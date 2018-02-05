@@ -132,6 +132,7 @@ use common\classes\Debug;
 
     <p class="cabinet__add-company-form--title">Подробное описание</p>
 <!--    <textarea id="poster-descr" class="cabinet__add-company-form--text" name="Stock[descr]" aria-invalid="false">--><?//= $model->descr?><!--</textarea>-->
+    <div style="width: calc(100% - 165px)">
     <?php echo $form->field($model, 'descr')
         ->widget(CKEditor::className(), [
             'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
@@ -141,7 +142,7 @@ use common\classes\Debug;
             ]),
         ])
         ->label(false); ?>
-
+    </div>
 
     <?= Html::submitButton('Сохранить', ['class' => 'cabinet__add-company-form--submit']) ?>
     <?php ActiveForm::end(); ?>
