@@ -59,10 +59,14 @@ $this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::c
                     <div class="average-ad-item">
 
                         <a href="<?= \yii\helpers\Url::to(['view', 'slug' => $item->slug, 'id' => $item->id]); ?>" class="average-ad-item-thumb">
-                            <?php if(!empty($item->adsImgs)): ?>
-                                <img src="<?= $item->adsImgs[0]->img_thumb; ?>" alt="">
+                            <?php if (!empty($item->cover)): ?>
+                                <img src="<?= $item->cover ?>" alt="">
                             <?php else: ?>
-                                <img src="/theme/portal-donbassa/img/no-image.png" alt="">
+                                <?php if(!empty($item->adsImgs)): ?>
+                                    <img src="<?= $item->adsImgs[0]->img_thumb; ?>" alt="">
+                                <?php else: ?>
+                                    <img src="http://rub-on.ru/img/no-img.png" alt="">
+                                <?php endif; ?>
                             <?php endif; ?>
                         </a>
 

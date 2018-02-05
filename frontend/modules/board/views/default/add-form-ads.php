@@ -11,7 +11,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 $this->registerCssFile('/css/board.min.css');
-$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+//$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 
@@ -99,9 +100,11 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     <?= $form->field($model, 'price')->textInput()->hint('Пожалуйста, укажите цену. <b>Обратите внимание, что указание нереальной или условной цены (1 руб., 111 руб.) запрещено</b><b>Внимание, цена указывается в российских рублях</b> ')->label('Цена<span>*</span>'); ?>
 
 
-    <h2 class="soglasie">Фотографии</h2>
+    <h2 class="soglasie">Фотографии
+        <span>(для выбора обложки изображения нажмите на него) </span>
+    </h2>
     <hr class="lineAddAds"/>
-
+    <?= $form->field($model, 'cover')->hiddenInput()->label(false);?>
     <?php
 
     //echo '<label class="control-label">Добавить фото</label>';
@@ -111,7 +114,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         'id' => 'input-5',
         'attribute' => 'attachment_1',
         'value' => '@frontend/media/img/1.png',
-        'options' => [
+        /*'options' => [
             'multiple' => true,
             'showCaption' => false,
             'showUpload' => false,
@@ -127,7 +130,15 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             'overwriteInitial' => false,
             'maxFileCount' => 10,
             'maxFileSize' => 2000,
-        ],
+        ],*/
+        'options' => ['multiple' => true, 'accept' => 'image/*'],
+        'pluginOptions' => [
+            'previewFileType' => 'image',
+            'maxFileCount' => 10,
+            'maxFileSize' => 2000,
+            'language' => "ru",
+            'previewClass' => 'hasEdit',
+        ]
     ]);
 
     ?>

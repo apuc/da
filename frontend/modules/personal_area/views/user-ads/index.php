@@ -19,10 +19,14 @@ $this->registerCssFile('/css/board.min.css');
 
             <div class="cabinet__ads-box">
                 <div class="cabinet__ads-box--img">
-                    <?php if(!empty($item->adsImgs)): ?>
-                        <img src="<?= $item->adsImgs[0]->img_thumb; ?>" alt="">
+                    <?php if (!empty($item->cover)): ?>
+                        <img src="<?= $item->cover ?>" alt="">
                     <?php else: ?>
-                        <img src="http://rub-on.ru/img/no-img.png" alt="">
+                        <?php if(!empty($item->adsImgs)): ?>
+                            <img src="<?= $item->adsImgs[0]->img_thumb; ?>" alt="">
+                        <?php else: ?>
+                            <img src="http://rub-on.ru/img/no-img.png" alt="">
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
                 <div class="cabinet__ads-box--content">

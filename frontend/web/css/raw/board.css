@@ -35,3 +35,9 @@
     top: -1px;
     left: -1px;
 }
+
+.file-sortable .file-drag-handle{
+    display:none
+}
+
+h2 span{font-size: 12px;}

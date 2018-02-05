@@ -176,12 +176,14 @@ class DefaultController extends Controller
 
         if (Yii::$app->request->post()) {
 
-            /*Debug::prn($_POST);
+           /* Debug::prn($_POST);
+            Debug::dd($_FILES);
             die();*/
-            //Debug::prn($_FILES);
+            //Debug::dd($_FILES);
             unset($_POST['_csrf']);
             $_POST['api_key'] = $this->apiKey;
             $_POST['Ads']['content'] = strip_tags($_POST['Ads']['content'], '\n');
+
             if (!empty($_FILES['file']['name'][0])) {
                 if (!file_exists('media/users/' . Yii::$app->user->id)) {
                     mkdir('media/users/' . Yii::$app->user->id . '/');
@@ -212,7 +214,10 @@ class DefaultController extends Controller
                     $i++;
                 }
             }
-            //Debug::prn($_POST);
+            $_POST['Ads']['cover'] = Url::home(true) . 'media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/thumb' . '/' . $_POST['Ads']['cover'];
+
+
+                //Debug::prn($_POST);
 
             $sURL = $this->siteApi . '/ads/create'; // URL-адрес POST
 
@@ -256,8 +261,9 @@ class DefaultController extends Controller
     {
         $this->layout = 'personal_area';
         if (Yii::$app->request->post()) {
+            //Debug::dd($_POST);
             if (!empty($_FILES['file']['name'][0])) {
-                Debug::dd($_FILES);
+
                 if (!file_exists('media/users/' . Yii::$app->user->id)) {
                     mkdir('media/users/' . Yii::$app->user->id . '/');
                 }
@@ -315,6 +321,7 @@ class DefaultController extends Controller
             $model = new Ads();
             $ads = BoardFunction::fileGetContent($this->siteApi . '/ads/' . $id . '?expand=adsImgs,adsFieldsValues' . '&api_key=' . $this->apiKey );
             $ads = json_decode($ads);
+            //Debug::dd($ads);
             $arrCity = BoardFunction::fileGetContent($this->siteApi . '/city/get-city-list');
 
             $categoryList = BoardFunction::fileGetContent($this->siteApi . '/category/get-list-category?id=' . $ads->category_id);

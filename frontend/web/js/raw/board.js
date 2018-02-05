@@ -1,18 +1,50 @@
 $(document).ready(function () {
+    if('input[name="Ads[cover]"]'.length){
+        var cover = $('input[name="Ads[cover]"]').val();
+        if(cover.length){
+            /*var img = $('.file-preview-image');
+            console.log(img);*/
+            setTimeout(function () {
+                $.each($('.file-preview-image'), function () {
+                    var img = $(this).attr('src');
+                    console.log(img);
+                    console.log(cover);
+                    if(img == cover){
+                        $(this).closest('.file-preview-frame').css('box-shadow', '1px 1px 5px 0 #f34942');
+                    }
+                });
+            }, 1000);
+
+            /*$('.file-preview-image').each(function () {
+                console.log(123);
+            });*/
+           /* var imgName = img.attr('src');
+            console.log(123);
+            console.log(img);
+
+            console.log(imgName);*/
+            //img.closest('.file-preview-frame').css('box-shadow', '1px 1px 5px 0 #f34942');
+        }
+    }
 
     $(document).on('click', '.file-preview-frame', function(){
-        var img = $(this).children('.file-preview-image');
+        //alert(123);
+        var img = $(this).find('.file-preview-image');
         var imgName = img.attr('title');
         console.log(img);
+        console.log(imgName);
+        //console.log('-----------------------');
 
-        $(this).css('box-shadow', '1px 1px 5px 0 #ff6b00');
+        $(this).css('box-shadow', '1px 1px 5px 0 #f34942');
         $('.file-preview-frame').not($(this)).css('box-shadow', '1px 1px 5px 0 #a2958a');
 
-        if(!$('input[name="cover"]').length){
-            $('#prodType').after('<input type="hidden" name="cover" value="'+imgName+'">');
+        if(typeof imgName == "undefined" ){
+            $('input[name="Ads[cover]"]').val(img.attr('src'));
         }else{
-            $('input[name="cover"]').val(imgName);
+            $('input[name="Ads[cover]"]').val(imgName);
         }
+
+
 
 
         //console.log(imgName);

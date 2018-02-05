@@ -20,6 +20,7 @@ class Ads extends Model
     public $phone;
     public $mail;
     public $city_id;
+    public $cover;
 
 
     /**
@@ -46,6 +47,7 @@ class Ads extends Model
             ],
             [['content'], 'string', 'max' => 4096],
             [['title',  'mail'], 'string', 'max' => 255],
+            [['cover'], 'safe']
         ];
 
 

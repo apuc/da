@@ -103,8 +103,12 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         <?= $form->field($model, 'price')->textInput(['value' => $ads->price])->hint('Пожалуйста, укажите цену. <b>Обратите внимание, что указание нереальной или условной цены (1 руб., 111 руб.) запрещено</b><b>Внимание, цена указывается в российских рублях</b> ')->label('Цена<span>*</span>'); ?>
 
 
-        <h2 class="soglasie">Фотографии</h2>
+        <h2 class="soglasie">Фотографии
+            <span>(для выбора обложки изображения нажмите на него) </span>
+        </h2>
         <hr class="lineAddAds"/>
+
+        <?= $form->field($model, 'cover')->hiddenInput(['value' => $ads->cover])->label(false);?>
 
         <?php
 //\common\classes\Debug::prn($ads);
@@ -125,7 +129,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             'id' => 'input-5',
             'attribute' => 'attachment_1[]',
             'value' => '@frontend/media/img/1.png',
-            'options' => [
+            /*'options' => [
                 'multiple' => true,
                 'showCaption' => false,
                 'showUpload' => false,
@@ -145,7 +149,17 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                 'maxFileSize' => 2000,
                 'initialPreview' => $preview,
                 'initialPreviewConfig' => $previewConfig
-            ],
+            ],*/
+            'options' => ['multiple' => true, 'accept' => 'image/*'],
+            'pluginOptions' => [
+                'previewFileType' => 'image',
+                'maxFileCount' => 10,
+                'maxFileSize' => 2000,
+                'language' => "ru",
+                'previewClass' => 'hasEdit',
+                'initialPreview' => $preview,
+                'initialPreviewConfig' => $previewConfig
+            ]
 
         ]);
 
@@ -154,11 +168,11 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
         <h2 class="soglasie">Ваши контактные данные</h2>
         <hr class="lineAddAds"/>
-
+        <?php $model->city_id = $ads->city_id; ?>
         <?= $form->field($model, 'city_id')->widget(Select2::className(),[
             'attribute' => 'state_2',
             'data' => $arraregCity,
-            //'value' => $geoInfo['city_id'],
+            //'value' => $ads->city_id,
             //'data' => ['Донецкая область' => ['1'=>'Don','2'=>'Gorl'], 'Rostovskaya' => ['5'=>'rostov']],
             'options' => ['placeholder' => 'Начните вводить Ваш город ...'],
             'pluginOptions' => [
