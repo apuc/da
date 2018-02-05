@@ -131,15 +131,16 @@ use common\classes\Debug;
     <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>
 
     <p class="cabinet__add-company-form--title">Подробное описание</p>
-    <textarea id="poster-descr" class="cabinet__add-company-form--text" name="Stock[descr]" aria-invalid="false"><?= $model->descr?></textarea>
-
-    <?php /*echo $form->field($model, 'descr')->widget(CKEditor::className(), [
-//        'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
-//            'preset' => 'full',
-//            'inline' => false,
-//            'path' => 'frontend/web/media/upload',
-//        ]),
-])->label(false); */?>
+<!--    <textarea id="poster-descr" class="cabinet__add-company-form--text" name="Stock[descr]" aria-invalid="false">--><?//= $model->descr?><!--</textarea>-->
+    <?php echo $form->field($model, 'descr')
+        ->widget(CKEditor::className(), [
+            'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
+                'preset' => 'basic',
+                'inline' => false,
+                'path' => 'frontend/web/media/upload',
+            ]),
+        ])
+        ->label(false); ?>
 
 
     <?= Html::submitButton('Сохранить', ['class' => 'cabinet__add-company-form--submit']) ?>
