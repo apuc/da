@@ -4,7 +4,7 @@
     <img src="<?= $model['photo']; ?>" alt="">
 </a>
 
-<a href="<?= \yii\helpers\Url::to([$model->link])?>" class="cabinet__like-block--comment-descr"><?= $model['title']; ?></a>
+<a href="<?= \yii\helpers\Url::to(['/promotions/promotions/view', 'slug' => $model->slug]) ?>" class="cabinet__like-block--comment-descr"><?= $model['title']; ?></a>
 
 <!--<span class="views">></span>-->
 

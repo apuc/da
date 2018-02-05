@@ -62,12 +62,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     <h2 class="all-actions__title-item">Описание акции
                         <span class="all-actions__title-item--view"><?= $model->view; ?></span>
                     </h2>
-                    <p class="single-actions__desc">
+                    <div class="single-actions__desc">
                         <?php
                         if (!empty($model->descr)) echo $model->descr;
                         else echo $model->short_descr;
                         ?>
-                    </p>
+                    </div>
                 </div>
                 <div class="single-actions__contacts">
                     <h2 class="all-actions__title-item">Контакты</h2>
