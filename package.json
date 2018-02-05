@@ -6,16 +6,15 @@
   "directories": {
     "test": "tests"
   },
-  "dependencies": {
-    "gulp": "^3.9.1",
-    "gulp-rename": "^1.2.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "cssnano": "^3.10.0",
-    "gulp-postcss": "^7.0.0",
+    "gulp": "^3.9.1",
+    "gulp-postcss": "^7.0.1",
+    "gulp-rename": "^1.2.2",
     "gulp-uglify": "^3.0.0",
     "postcss": "^6.0.14",
-    "pump": "^2.0.0"
+    "pump": "^2.0.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

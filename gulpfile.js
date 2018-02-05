@@ -1,4 +1,5 @@
-// команда для установки пакетов
+// команды для установки пакетов
+// npm install -g gulp
 //npm i gulp pump gulp-uglify gulp-rename gulp-postcss cssnano --save-dev
 
 var gulp = require('gulp'),
