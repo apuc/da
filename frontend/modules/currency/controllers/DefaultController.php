@@ -200,7 +200,7 @@ class DefaultController extends Controller
                             'class' => 'letter-code'
                         ],
                         'rate' => [
-                            'value' => 'USD/barrel',
+                            'value' => 'USD',
                             'class' => 'course'
                         ],
                     ],

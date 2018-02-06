@@ -12,6 +12,7 @@ namespace console\controllers;
 use common\classes\Debug;
 use common\models\API\Coin;
 use common\models\API\Currency;
+use common\models\API\Gas;
 use common\models\API\Metal;
 use common\models\API\Oil;
 use yii\console\Controller;
@@ -48,6 +49,13 @@ class ApiController extends Controller
     {
         $oil = new Oil();
         if ($oil->run()) $this->stdout("complete \n", Console::FG_GREEN);
+        else            $this->stdout("error \n", Console::FG_RED);
+    }
+
+    public function actionGetGas()
+    {
+        $gas = new Gas();
+        if ($gas->run()) $this->stdout("complete \n", Console::FG_GREEN);
         else            $this->stdout("error \n", Console::FG_RED);
     }
 }
