@@ -99,7 +99,7 @@ class CurrencyRates extends Widget
                 $rates_title = [
                     'char_code' => 'Товар',
                     'currency' => 'Марка',
-                    'rate' => 'USD/barrel',
+                    'rate' => 'USD',
                 ];
                 break;
             default:
