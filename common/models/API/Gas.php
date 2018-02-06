@@ -31,10 +31,14 @@ class Gas extends ApiCurrencyAbstract
         foreach ($tr as $key => $item) {
             $item = phpQuery::pq($item);
             $name = trim($item->find('td.datatable-item-first')->text());
+            // В наличии такие $name: Нефть, Нефть марки Brent, Газ, Бензин, Топочный мазут, Этанол, Нафта, Пропан
             if ($name == 'Газ') {
                 $gas[$key]['name'] = 'Природный ' . $name;
                 $gas[$key]['value'] = (float)trim($item->find('td#p')->text());
-            }
+            } elseif ($name == 'Пропан') {
+                $gas[$key]['name'] = $name;
+                $gas[$key]['value'] = (float)trim($item->find('td#p')->text());
+            } else continue;
         }
         unset($name);
         unset($item);
@@ -52,8 +56,8 @@ class Gas extends ApiCurrencyAbstract
             foreach ($array as $key => $item) {
                 $code = 2000000 + $key;
                 $currency_list[$code]['code'] = $code;
-                $currency_list[$code]['char_code'] = trim($array[$key]['name']);
-                $currency_list[$code]['name'] = 'Газ';
+                $currency_list[$code]['char_code'] = $array[$key]['name'];
+                $currency_list[$code]['name'] = $array[$key]['name'];
                 $currency_list[$code]['status'] = DbCurrency::STATUS_ACTIVE_FOR_WIDGET;
                 $currency_list[$code]['type'] = DbCurrency::TYPE_GSM;
 
