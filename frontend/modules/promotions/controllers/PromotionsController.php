@@ -207,6 +207,7 @@ class PromotionsController extends Controller
     public function actionView($slug)
     {
         $model = Stock::find()->with('company')->where(['slug' => $slug])->one();
+        $model->updateAllCounters(['view' => 1], ['id' => $model->id]);
         $phones = $model->company->allPhones;
         $stocks = Stock::find()
             ->where(['status' => 0])

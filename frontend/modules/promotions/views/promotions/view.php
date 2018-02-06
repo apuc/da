@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="single-actions__single-item">
                 <div class="all-actions__img">
                     <img src="<?= $model->photo ?>" alt="">
-                    <span class="single-actions__prom-cod">ПРОМО КОД: </span>
+                    <span class="single-actions__prom-cod"><?php if (!empty($model->short_descr)) echo $model->short_descr; ?></span>
                 </div>
                 <a href="#">
                     <div class="all-actions__company">
