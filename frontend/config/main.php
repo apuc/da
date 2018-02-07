@@ -182,6 +182,20 @@ return \yii\helpers\ArrayHelper::merge([
                     'pattern' => 'company/company/delete',
                     'route' => 'company/company/delete',
                 ],
+                [
+                    'pattern' => 'company/set-tariff-company/<id:\d+>',
+                    'route' => 'company/default/set-tariff-company',
+                ],
+                [
+                    //'pattern' => 'company/set-tariff-company/<id:\d+>',
+                    'pattern' => 'company/to-order/<companyId:\d+>/<tariffId:\d+>/<price:\d+>',
+                    'route' => 'company/default/to-order',
+                ],
+                [
+                    //'pattern' => 'company/set-tariff-company/<id:\d+>',
+                    'pattern' => 'company/success-tariff',
+                    'route' => 'company/default/success-tariff',
+                ],
                 'company/category/<slug>' => 'company/company/view-category',
                 'company/<slug>/<page>' => 'company/company/view',
                 'company/<slug>' => 'company/company/view',
@@ -235,9 +249,6 @@ return \yii\helpers\ArrayHelper::merge([
                 'finance' => 'currency/default/all',
                 [
                     'class' => \frontend\components\ShopRule::class,
-                    //'shop/<action:cart|order>' => 'shop/shop/<action>',
-                    //'shop/category' => 'shop/shop/show',
-                    //'shop/<category:.+>' => 'shop/shop/category',
                 ],
                 //'shop/<action:cart|order>'=>'shop/shop/<action>',
                 'shop/product/<slug>'=>'shop/shop/show',

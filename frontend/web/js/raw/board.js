@@ -1,14 +1,14 @@
 $(document).ready(function () {
-    if('input[name="Ads[cover]"]'.length){
+    if('input[name="Ads[cover]"]'.length > 0){
         var cover = $('input[name="Ads[cover]"]').val();
-        if(cover.length){
+        if(typeof cover != "undefined"){
             /*var img = $('.file-preview-image');
             console.log(img);*/
             setTimeout(function () {
                 $.each($('.file-preview-image'), function () {
                     var img = $(this).attr('src');
-                    console.log(img);
-                    console.log(cover);
+                    /*console.log(img);
+                    console.log(cover);*/
                     if(img == cover){
                         $(this).closest('.file-preview-frame').css('box-shadow', '1px 1px 5px 0 #f34942');
                     }

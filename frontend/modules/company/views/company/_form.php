@@ -13,7 +13,8 @@ use yii\widgets\ActiveForm;
 /* @var $model frontend\modules\company\models\Company */
 /* @var $form yii\widgets\ActiveForm */
 $this->registerCssFile('/css/board.min.css');
-$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+//$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 
@@ -48,15 +49,52 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         ['class'=>'cabinet__add-company-form--field', 'id'=>'categ_company', 'prompt' => 'Выберите категорию']
     );
     */?>
-    <?= $form->field($model, 'categ')
+   <!-- <?/*= $form->field($model, 'categ')
     ->dropDownList(
         ArrayHelper::map(CategoryCompany::find()->where(['lang_id' => 1, 'parent_id' => '0'])->all(),'id','title'),
         ['id'=>'categ_company', 'prompt' => 'Категория компании']
-    )->hint('Выберите категорию')->label()?>
-    <div class="cabinet__add-company-form--block"></div>
+    )->hint('Выберите категорию')->label()*/?>
+    <div class="cabinet__add-company-form--block"></div>-->
+
+    <?= $form->field($model, 'categ')->widget(Select2::className(),
+    [
+        'data' => $categoryCompanyAll,
+        'options' => [
+            'multiple' => true,
+            'placeholder' => 'Select a state ...',
+            'class' => 'form-control',
+            'size' => '1'
+        ],
+        'pluginOptions' => [
+            'allowClear' => true,
+            'showToggleAll' => false,
+            'tags' => true,
+            'maximumSelectionLength' => 1
+
+        ],
+    ]);
+    /*echo \kartik\select2\Select2::widget(
+        [
+            'name' => '1231',
+            'attribute' => 'name',
+            'data' => $categoryCompanyAll,
+            'options' => [
+                'multiple' => true,
+                'placeholder' => 'Select a state ...',
+                'class' => 'form-control',
+                'size' => '1'
+            ],
+            'pluginOptions' => [
+                'allowClear' => true,
+                'showToggleAll' => false,
+                'tags' => true,
+                'maximumSelectionLength' => 2
+
+            ],
+        ]); */?>
 
 
-    <span class="addParentCategory" style="width: 100%;"></span>
+    <!--<span class="addParentCategory" style="width: 100%;"></span>-->
 
     <?= $form->field($model, 'name')
         ->textInput(['maxlength' => true])

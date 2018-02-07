@@ -24,7 +24,6 @@ use yii\helpers\ArrayHelper;
 class Company extends \common\models\db\Company
 {
     public $categ;
-    public $parentCateg;
 
     public function behaviors()
     {
@@ -213,7 +212,6 @@ class Company extends \common\models\db\Company
     {
         $label = parent::attributeLabels();
         $label['categ'] = 'Категория';
-        $label['parentCateg'] = 'Категория';
         return $label;
     }
 
@@ -221,7 +219,6 @@ class Company extends \common\models\db\Company
     {
         $rules = parent::rules();
         $rules['categ'] = [['categ'], 'required'];
-        $rules['parentCateg'] = [['parentCateg'], 'required'];
         return $rules;
     }
 }

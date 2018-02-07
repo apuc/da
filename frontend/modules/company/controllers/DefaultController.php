@@ -119,7 +119,7 @@ class DefaultController extends Controller {
             }
         }
 
-        return $this->redirect('success-tariff');
+        return $this->redirect('/company/success-tariff');
     }
 
     public function actionSuccessTariff()

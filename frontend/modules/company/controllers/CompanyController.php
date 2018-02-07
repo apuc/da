@@ -3,6 +3,7 @@
 namespace frontend\modules\company\controllers;
 
 use common\classes\CompanyFunction;
+use common\classes\Debug;
 use common\classes\GeobaseFunction;
 use common\classes\UserFunction;
 use common\models\db\CategoryCompany;
@@ -256,7 +257,7 @@ class CompanyController extends Controller
             }
 
             $catCompanyRel = new CategoryCompanyRelations();
-            $catCompanyRel->cat_id = $_POST['categParent'];
+            $catCompanyRel->cat_id = $model['categ'][0];
             $catCompanyRel->company_id = $model->id;
             $catCompanyRel->save();
 
@@ -274,9 +275,24 @@ class CompanyController extends Controller
         }
 
         else {
+            $categoryCompanyAll = CategoryCompany::find()->select('id, title, parent_id')->asArray()->all();
+            //Debug::dd($categoryCompanyAll);
+            $data = [];
+            foreach ($categoryCompanyAll as $item) {
+                //$data[$item['parent_id']][$item['id']] =  $item;
+                if($item['parent_id'] == 0){
+                    foreach ($categoryCompanyAll as $value){
+                        if($value['parent_id'] == $item['id']){
+                            $data[$item['title']][$value['id']] = $value['title'];
+                        }
+                    }
+                }
+            }
+
             return $this->render('create', [
                 'model' => $model,
                 'city' => GeobaseFunction::getArrayCityRegion(),
+                'categoryCompanyAll' => $data,
             ]);
         }
     }
@@ -326,11 +342,21 @@ class CompanyController extends Controller
                 $model->photo = $_POST['photo'];
             }
             $model->save();
+            CategoryCompanyRelations::deleteAll(['company_id' => $model->id]);
 
-            $catCompanyRel = new CategoryCompanyRelations();
+           // Debug::dd($model['categ']);
+            foreach ($model['categ'] as $item){
+
+                $catCompanyRel = new CategoryCompanyRelations();
+                $catCompanyRel->cat_id = $item;
+                $catCompanyRel->company_id = $model->id;
+                $catCompanyRel->save();
+            }
+
+            /*$catCompanyRel = new CategoryCompanyRelations();
             $catCompanyRel->cat_id = $_POST['categParent'];
             $catCompanyRel->company_id = $model->id;
-            $catCompanyRel->save();
+            $catCompanyRel->save();*/
 
             //Debug::prn($_FILES);
             $i = 0;
@@ -375,13 +401,41 @@ class CompanyController extends Controller
             Yii::$app->session->setFlash('success','Ваше предприятие успешно сохранено. После прохождения модерации оно будет опубликовано.');
             return $this->redirect(['/personal_area/default/index']);
         } else {
-            $companyRel = CategoryCompanyRelations::find()->where(['company_id' => $id])->one();
+            $companyRel = CategoryCompanyRelations::find()->where(['company_id' => $id])->all();
 
-            $selectParentCat = CategoryCompany::find()->where(['id' => $companyRel->cat_id])->one();
-            $selectCat = CategoryCompany::find()->where(['id' => $selectParentCat->parent_id])->one();
+            $categoryCompanyAll = CategoryCompany::find()->select('id, title, parent_id')->asArray()->all();
+            //Debug::dd($categoryCompanyAll);
+            $data = [];
+            foreach ($categoryCompanyAll as $item) {
+                //$data[$item['parent_id']][$item['id']] =  $item;
+                if($item['parent_id'] == 0){
+                    foreach ($categoryCompanyAll as $value){
+                        if($value['parent_id'] == $item['id']){
+                            $data[$item['title']][$value['id']] = $value['title'];
+                        }
+                    }
+                }
+            }
 
+            /*$data = ['Бизнес услуги' =>
+                [
+                    1 => 'Банки',
+                    2 => 'Банки1',
+                ]
+            ];*/
+
+
+
+            //Debug::dd($data);
+
+            //$selectParentCat = CategoryCompany::find()->where(['id' => $companyRel->cat_id])->one();
+            //$selectCat = CategoryCompany::find()->where(['id' => $selectParentCat->parent_id])->one();
+            $services = [];
+            $typeSeti =[];
+            $socCompany = [];
             $img = CompanyPhoto::find()->where(['company_id' => $id])->all();
-            if($model->dt_end_tariff > time() || $model->dt_end_tariff == 0) {
+           // Debug::dd($model);
+            if($model->dt_end_tariff > time() || $model->dt_end_tariff != 0) {
                 $services = CompanyFunction::getServiceCompany($id);
 
                 $typeSeti = SocAvailable::find()->all();
@@ -389,18 +443,20 @@ class CompanyController extends Controller
                 $socCompany = SocCompany::find()->where(['company_id' => $id])->all();
 
 
-                return $this->render('update', [
-                    'model' => $model,
-                    'selectCat' => $selectCat,
-                    'companyRel' => $companyRel,
-                    'selectParentCat' => $selectParentCat,
-                    'services' => $services,
-                    'img' => $img,
-                    'typeSeti' => $typeSeti,
-                    'socCompany' => ArrayHelper::index($socCompany, 'soc_type'),
-                    'city' => GeobaseFunction::getArrayCityRegion(),
-                ]);
             }
+
+            return $this->render('update', [
+                'model' => $model,
+                //'selectCat' => $selectCat,
+                'companyRel' => $companyRel,
+                //'selectParentCat' => $selectParentCat,
+                'services' => $services,
+                'img' => $img,
+                'typeSeti' => $typeSeti,
+                'socCompany' => ArrayHelper::index($socCompany, 'soc_type'),
+                'city' => GeobaseFunction::getArrayCityRegion(),
+                'categoryCompanyAll' => $data,
+            ]);
         }
     }
 
