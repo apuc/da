@@ -1,8 +1,11 @@
 <?php
 
-/** @var array $currency */
-/** @var string $meta_title */
-/** @var string $meta_descr */
+/**
+ * @var array $currency
+ * @var string $meta_title
+ * @var string $meta_descr
+ * @var array $economicNews
+ */
 
 use common\classes\Debug;
 use yii\helpers\Html;
@@ -43,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <input type="number" min="0" name="sum" id="convert-sum">
                     </div>
                     <a href="#" class="convert-arrow">
-                        <i id="arrow"  class="fa fa-angle-right" aria-hidden="true"></i>
+                        <i id="arrow" class="fa fa-angle-right" aria-hidden="true"></i>
                     </a>
                     <div class="convert-wrap">
                         <label for="convert-result">Введите сумму</label>
@@ -86,10 +89,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         принять решение о целесообразности той или иной денежной операции на сегодняшний день.
                     </p>
                     <p>
-                        Подробнее на Рамблер/финансы... <a href="https://finance.rambler.ru/calculators/converter/" target="_blank" rel="nofollow">https://finance.rambler.ru/calculators/converter/</a>
+                        Подробнее на Рамблер/финансы...
+                        <a href="https://finance.rambler.ru/calculators/converter/"
+                           target="_blank" rel="nofollow">https://finance.rambler.ru/calculators/converter/</a>
                     </p>
                 </div>
             </div>
+            <?= $this->render('_finance_news', ['economicNews' => $economicNews]); ?>
         </div>
         <div class="promotions-sidebar">
             <?= $this->render('_currency_chart', ['count_day' => 14]); ?>
@@ -105,6 +111,5 @@ $this->params['breadcrumbs'][] = $this->title;
             <br>
 
         </div>
-        <!--        --><? //= \frontend\widgets\ShowRightRecommend::widget() ?>
     </div>
 </section>

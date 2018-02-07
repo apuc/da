@@ -1,13 +1,14 @@
 <?php
 
-/** @var string $meta_title */
-/** @var string $meta_descr */
-/** @var array $economicNews */
+/**
+ * @var string $meta_title
+ * @var string $meta_descr
+ * @var array $economicNews
+ */
 
 use common\classes\Debug;
 use common\models\db\Currency;
 use frontend\widgets\CurrencyRates;
-use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
 $this->title = $meta_title;
@@ -38,31 +39,8 @@ $this->params['breadcrumbs'][] = 'Биржа';
             <?= CurrencyRates::widget(['currencyType' => Currency::TYPE_METAL]); ?>
             <?= CurrencyRates::widget(['currencyType' => Currency::TYPE_COIN]); ?>
             <?= CurrencyRates::widget(['currencyType' => Currency::TYPE_GSM]); ?>
-            <div class="currency-news">
-                <h3 class="currency-news__title">
-                    Финансовые новости недели
-                </h3>
-                <div class="currency-news__wrapper">
-                    <?php foreach ($economicNews as $economicNew) : ?>
-                        <a class="currency-news__item"
-                           href="<?= Url::to(['/news/default/view', 'slug' => $economicNew->slug]) ?>">
-                            <div class="currency-news__img">
-                                <img src="<?= $economicNew->photo ?>" alt="">
-                            </div>
-                            <div class="currency-news--date">
-                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                                <span>
-                                <?= Yii::$app->formatter->asDate($economicNew->dt_public, 'long'); ?>
-                                <?= date('H:i', $economicNew->dt_public) ?>
-                            </span>
-                            </div>
-                            <div class="currency-news--text">
-                                <p><?= $economicNew->title ?></p>
-                            </div>
-                        </a>
-                    <?php endforeach; ?>
-                </div>
-            </div>
+
+            <?= $this->render('_finance_news', ['economicNews' => $economicNews]); ?>
         </div>
         <div class="promotions-sidebar">
             <?= $this->render('_currency_chart', ['count_day' => 14]); ?>
