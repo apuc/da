@@ -79,17 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </tbody>
                     </table>
                 </div>
-                <div class="e-content__wrapper__description">
-                    <h3>Описание</h3>
-                    <ol>
-                        <li>Среднее значение по курсам крупнейших банков России</li>
-                        <li>Коммерческий курс валют расчитывается на основании международного рынка форекс.</li>
-                        <li>Курсы VISA обновляются один раз в день около 08:00 по Московскому времени, кроме субботы и
-                            воскресенья
-                        </li>
-                    </ol>
-                    <p>Обратите внимание, что курс не учитыает % комиссии банка, выпустившего карту</p>
-                </div>
+                <?= $this->render('_bottom_description', ['title' => $meta_title]); ?>
             </div>
         </div>
         <div class="promotions-sidebar">
