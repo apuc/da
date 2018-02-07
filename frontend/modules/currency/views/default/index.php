@@ -6,6 +6,7 @@
  * @var string $meta_title
  * @var string $meta_descr
  * @var mixed $date
+ * @var string $bottom_descr
  */
 
 use common\classes\Debug;
@@ -80,7 +81,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         </tbody>
                     </table>
                 </div>
-                <?= $this->render('_bottom_description', ['title' => $meta_title]); ?>
+                <div class="e-content__wrapper__description">
+                    <h3>Описание</h3>
+                    <?= $bottom_descr; ?>
+                </div>
             </div>
             <?= $this->render('_finance_news', ['economicNews' => $economicNews]); ?>
         </div>

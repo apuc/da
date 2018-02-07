@@ -5,6 +5,7 @@
  * @var string $meta_title
  * @var string $meta_descr
  * @var array $economicNews
+ * @var string $bottom_descr
  */
 
 use common\classes\Debug;
@@ -78,21 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </form>
                 <div class="e-content__wrapper__description">
                     <h3>Описание</h3>
-                    <p>
-                        Калькулятор курса валют – простой и удобный механизм, позволяющий выполнять моментальные
-                        операции по переводу любых сумм из одних денежных единиц в другие. Конвертер валют онлайн
-                        выполняет автоматический пересчет по курсу ЦБ РФ.
-                    </p>
-                    <p>
-                        С помощью навигации по дате, конвертер валют онлайн по запросу производит расчет денежных
-                        средств согласно предшествующему курсу, что позволит сравнить полученную сумму с актуальной и
-                        принять решение о целесообразности той или иной денежной операции на сегодняшний день.
-                    </p>
-                    <p>
-                        Подробнее на Рамблер/финансы...
-                        <a href="https://finance.rambler.ru/calculators/converter/"
-                           target="_blank" rel="nofollow">https://finance.rambler.ru/calculators/converter/</a>
-                    </p>
+                    <?= $bottom_descr; ?>
                 </div>
             </div>
             <?= $this->render('_finance_news', ['economicNews' => $economicNews]); ?>
