@@ -26,6 +26,21 @@ class DefaultController extends Controller
     {
         $keyVal = KeyValue::find()->all();
         $meta = ArrayHelper::index($keyVal, 'key');
+        $economicNews = News::find()
+            ->select([
+                '`news`.`title`',
+                '`news`.`dt_public`',
+                '`news`.`slug`',
+                '`news`.`photo`',
+            ])
+            ->leftJoin('`category_news_relations` AS `cnr`', '`cnr`.`new_id` = `news`.`id`')
+            ->where(['`cnr`.`cat_id`' => 6])
+            ->andWhere(['>', '`news`.`dt_public`', time() - Time::MONTH])
+            ->andWhere(['`news`.`status`' => 0])
+            ->andWhere(['<=', '`news`.`dt_public`', time()])
+            ->orderBy('`news`.`dt_public` DESC')
+            ->limit(3)
+            ->all();
         //выборка последней даты по типу Валюты(ценности)
         $date = CurrencyRate::find()
             ->joinWith(['currencyFrom cf'])
@@ -272,7 +287,8 @@ class DefaultController extends Controller
             'rates' => $rates_list,
             'meta_title' => $meta_title,
             'meta_descr' => $meta_descr,
-            'date' => $date
+            'date' => $date,
+            'economicNews' => $economicNews,
         ]);
     }
 
@@ -284,6 +300,21 @@ class DefaultController extends Controller
     {
         $keyVal = KeyValue::find()->all();
         $meta = ArrayHelper::index($keyVal, 'key');
+        $economicNews = News::find()
+            ->select([
+                '`news`.`title`',
+                '`news`.`dt_public`',
+                '`news`.`slug`',
+                '`news`.`photo`',
+            ])
+            ->leftJoin('`category_news_relations` AS `cnr`', '`cnr`.`new_id` = `news`.`id`')
+            ->where(['`cnr`.`cat_id`' => 6])
+            ->andWhere(['>', '`news`.`dt_public`', time() - Time::MONTH])
+            ->andWhere(['`news`.`status`' => 0])
+            ->andWhere(['<=', '`news`.`dt_public`', time()])
+            ->orderBy('`news`.`dt_public` DESC')
+            ->limit(3)
+            ->all();
         $model = Currency::findAll(['type' => Currency::TYPE_CURRENCY]);
         $currency = ArrayHelper::map($model, 'char_code', 'name');
         array_walk($currency, function (&$value, $key) {
@@ -292,7 +323,8 @@ class DefaultController extends Controller
         return $this->render('converter', [
             'currency' => $currency,
             'meta_title' => $meta['currency_converter_title_page']->value,
-            'meta_descr' => $meta['currency_converter_desc_page']->value
+            'meta_descr' => $meta['currency_converter_desc_page']->value,
+            'economicNews' => $economicNews,
         ]);
     }
 

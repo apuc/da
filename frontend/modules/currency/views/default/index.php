@@ -1,11 +1,12 @@
 <?php
 
-/** @var array $top_rates */
-/** @var array $rates */
-/** @var string $meta_title */
-/** @var string $meta_descr */
-
-/** @var mixed $date */
+/**
+ * @var array $top_rates
+ * @var array $rates
+ * @var string $meta_title
+ * @var string $meta_descr
+ * @var mixed $date
+ */
 
 use common\classes\Debug;
 use yii\helpers\Url;
@@ -81,6 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <?= $this->render('_bottom_description', ['title' => $meta_title]); ?>
             </div>
+            <?= $this->render('_finance_news', ['economicNews' => $economicNews]); ?>
         </div>
         <div class="promotions-sidebar">
             <?= $this->render('_currency_chart', ['count_day' => 14]); ?>
