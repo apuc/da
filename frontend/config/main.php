@@ -246,6 +246,7 @@ return \yii\helpers\ArrayHelper::merge([
                 'obyavlenie/<id:\d+>/<slug>/' => 'board/default/view',
 
                 'currency/converter' => 'currency/default/converter',
+                'currency/detail-coin' => '/currency/default/detail-coin',
                 'finance' => 'currency/default/all',
                 [
                     'class' => \frontend\components\ShopRule::class,
