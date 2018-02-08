@@ -620,10 +620,23 @@ class MainMenuAdmin extends Widget
                     ],
                     [
                         'label' => 'СЕО',
-                        'url' => Url::to(['/seo']),
-                        'template' => '<a href="{url}"><i class="fa fa-line-chart"></i> <span>{label}</span></a>',
-                        'active' => Yii::$app->controller->module->id == 'seo',
                         'visible' => UserFunction::hasPermission(['СЕО']),
+                        'items' => [
+                            [
+                                'label' => 'Все',
+                                'url' => Url::to(['/seo']),
+                                'active' => Yii::$app->controller->module->id == 'seo',
+                            ],
+                            [
+                                'label' => 'Валюты',
+                                'url' => Url::to(['/seo/default/currency']),
+                                'active' => Yii::$app->controller->action->id === 'currency',
+                            ],
+                        ],
+                        'options' => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="#"><i class="fa fa-usd"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
                     [
                         'label' => 'Переменные',
