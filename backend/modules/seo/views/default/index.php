@@ -75,54 +75,6 @@ use yii\helpers\Html;
     <?php echo Html::textInput('dnr_desc_page', $key_val['dnr_desc_page'], ['class' => 'form-control', 'id' => 'board_desc_page']) ?>
     <br>
 </div>
-<div>
-    <h3>Валюты:</h3>
-    <?php echo Html::label('meta title', 'currency_title_page', ['class' => 'control-label']) ?>
-    <?php echo Html::textInput('currency_title_page', $key_val['currency_title_page'], ['class' => 'form-control', 'id' => 'currency_title_page']) ?>
-    <?php echo Html::label('meta desc', 'currency_desc_page', ['class' => 'control-label']) ?>
-    <?php echo Html::textInput('currency_desc_page', $key_val['currency_desc_page'], ['class' => 'form-control', 'id' => 'currency_desc_page']) ?>
-    <br>
-</div>
-<div>
-    <h3>Криптовалюты:</h3>
-    <?php echo Html::label('meta title', 'currency_coin_title_page', ['class' => 'control-label']) ?>
-    <?php echo Html::textInput('currency_coin_title_page', $key_val['currency_coin_title_page'], ['class' => 'form-control', 'id' => 'currency_coin_title_page']) ?>
-    <?php echo Html::label('meta desc', 'currency_coin_desc_page', ['class' => 'control-label']) ?>
-    <?php echo Html::textInput('currency_coin_desc_page', $key_val['currency_coin_desc_page'], ['class' => 'form-control', 'id' => 'currency_coin_desc_page']) ?>
-    <br>
-</div>
-<div>
-    <h3>Драгметаллы:</h3>
-    <?php echo Html::label('meta title', 'currency_metal_title_page', ['class' => 'control-label']) ?>
-    <?php echo Html::textInput('currency_metal_title_page', $key_val['currency_metal_title_page'], ['class' => 'form-control', 'id' => 'currency_metal_title_page']) ?>
-    <?php echo Html::label('meta desc', 'currency_metal_desc_page', ['class' => 'control-label']) ?>
-    <?php echo Html::textInput('currency_metal_desc_page', $key_val['currency_metal_desc_page'], ['class' => 'form-control', 'id' => 'currency_metal_desc_page']) ?>
-    <br>
-</div>
-<div>
-    <h3>Конвертер валют:</h3>
-    <?php echo Html::label('meta title', 'currency_converter_title_page', ['class' => 'control-label']) ?>
-    <?php echo Html::textInput('currency_converter_title_page', $key_val['currency_converter_title_page'], ['class' => 'form-control', 'id' => 'currency_converter_title_page']) ?>
-    <?php echo Html::label('meta desc', 'currency_converter_desc_page', ['class' => 'control-label']) ?>
-    <?php echo Html::textInput('currency_converter_desc_page', $key_val['currency_converter_desc_page'], ['class' => 'form-control', 'id' => 'currency_converter_desc_page']) ?>
-    <br>
-</div>
-<div>
-    <h3>Валютный рынок:</h3>
-    <?php echo Html::label('meta title', 'currency_title_all', ['class' => 'control-label']) ?>
-    <?php echo Html::textInput('currency_title_all', $key_val['currency_title_all'], ['class' => 'form-control', 'id' => 'currency_title_all']) ?>
-    <?php echo Html::label('meta desc', 'currency_desc_all', ['class' => 'control-label']) ?>
-    <?php echo Html::textInput('currency_desc_all', $key_val['currency_desc_all'], ['class' => 'form-control', 'id' => 'currency_desc_all']) ?>
-    <br>
-</div>
-<div>
-    <h3>Нефтяные фьючерсы:</h3>
-    <?php echo Html::label('meta title', 'currency_petroleum_title_page', ['class' => 'control-label']) ?>
-    <?php echo Html::textInput('currency_petroleum_title_page', $key_val['currency_petroleum_title_page'], ['class' => 'form-control', 'id' => 'currency_petroleum_title_page']) ?>
-    <?php echo Html::label('meta desc', 'currency_petroleum_desc_page', ['class' => 'control-label']) ?>
-    <?php echo Html::textInput('currency_petroleum_desc_page', $key_val['currency_petroleum_desc_page'], ['class' => 'form-control', 'id' => 'currency_petroleum_desc_page']) ?>
-    <br>
-</div>
 <br>
 <?php echo Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
 <?php echo Html::endForm() ?>

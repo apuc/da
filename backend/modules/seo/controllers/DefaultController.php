@@ -35,6 +35,19 @@ class DefaultController extends Controller
             KeyValue::updateAll(['value' => $_POST['board_desc_page']], ['key' => 'board_desc_page']);
             KeyValue::updateAll(['value' => $_POST['dnr_title_page']], ['key' => 'dnr_title_page']);
             KeyValue::updateAll(['value' => $_POST['dnr_desc_page']], ['key' => 'dnr_desc_page']);
+        }
+        $key_val = KeyValue::find()->all();
+
+        return $this->render('index', [
+            'key_val' => ArrayHelper::map($key_val, 'key', 'value'),
+        ]);
+    }
+
+    public function actionCurrency()
+    {
+        if (isset($_POST['currency_title_page'])) {
+
+            //left column
             KeyValue::updateAll(['value' => $_POST['currency_title_page']], ['key' => 'currency_title_page']);
             KeyValue::updateAll(['value' => $_POST['currency_desc_page']], ['key' => 'currency_desc_page']);
             KeyValue::updateAll(['value' => $_POST['currency_coin_title_page']], ['key' => 'currency_coin_title_page']);
@@ -48,10 +61,16 @@ class DefaultController extends Controller
             KeyValue::updateAll(['value' => $_POST['currency_petroleum_title_page']], ['key' => 'currency_petroleum_title_page']);
             KeyValue::updateAll(['value' => $_POST['currency_petroleum_desc_page']], ['key' => 'currency_petroleum_desc_page']);
 
+            //right column
+            KeyValue::updateAll(['value' => $_POST['currency_bottom_description']], ['key' => 'currency_bottom_description']);
+            KeyValue::updateAll(['value' => $_POST['currency_coin_bottom_description']], ['key' => 'currency_coin_bottom_description']);
+            KeyValue::updateAll(['value' => $_POST['currency_metal_bottom_description']], ['key' => 'currency_metal_bottom_description']);
+            KeyValue::updateAll(['value' => $_POST['currency_gsm_bottom_description']], ['key' => 'currency_gsm_bottom_description']);
+            KeyValue::updateAll(['value' => $_POST['currency_converter_bottom_description']], ['key' => 'currency_converter_bottom_description']);
+
         }
         $key_val = KeyValue::find()->all();
-
-        return $this->render('index', [
+        return $this->render('currency', [
             'key_val' => ArrayHelper::map($key_val, 'key', 'value'),
         ]);
     }
