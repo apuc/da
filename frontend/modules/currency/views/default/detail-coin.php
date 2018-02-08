@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     || $key == 'pre_mined_value'
                                     || $key == 'total_coins_free_float'
                                 ) continue; ?>
-                                <td><? //= $coin[0]->coin->getAttributeLabel($key) ?><?= $key ?></td>
+                                <td><?= $key ?></td>
                             <?php endforeach; ?>
                         </tr>
                         </thead>
