@@ -20,6 +20,7 @@ class DefaultController extends Controller
 {
     /**
      * Renders the index view for the module
+     * @param int $type
      * @return string
      */
     public function actionIndex($type = Currency::TYPE_CURRENCY)
@@ -64,6 +65,7 @@ class DefaultController extends Controller
             case Currency::TYPE_COIN:
                 $meta_title = $meta['currency_coin_title_page']->value;
                 $meta_descr = $meta['currency_coin_desc_page']->value;
+                $bottom_descr = $meta['currency_coin_bottom_description']->value;
                 $top = [Currency::BTC_ID];
                 $rates = CurrencyRate::find()
                     ->joinWith(['currencyFrom cf', 'currencyTo ct'])
@@ -128,6 +130,7 @@ class DefaultController extends Controller
             case Currency::TYPE_METAL:
                 $meta_title = $meta['currency_metal_title_page']->value;
                 $meta_descr = $meta['currency_metal_desc_page']->value;
+                $bottom_descr = $meta['currency_metal_bottom_description']->value;
                 $top = [Currency::AU_ID];
                 $rates = CurrencyRate::find()
                     ->joinWith(['currencyFrom cf', 'currencyTo ct'])
@@ -177,6 +180,7 @@ class DefaultController extends Controller
             case Currency::TYPE_GSM:
                 $meta_title = $meta['currency_petroleum_title_page']->value;
                 $meta_descr = $meta['currency_petroleum_desc_page']->value;
+                $bottom_descr = $meta['currency_gsm_bottom_description']->value;
 //                $top = [2132];
                 $rates = CurrencyRate::find()
                     ->joinWith(['currencyFrom cf', 'currencyTo ct'])
@@ -226,6 +230,7 @@ class DefaultController extends Controller
             default:
                 $meta_title = $meta['currency_title_page']->value;
                 $meta_descr = $meta['currency_desc_page']->value;
+                $bottom_descr = $meta['currency_bottom_description']->value;
                 $top = [Currency::USD_ID, Currency::EUR_ID];
                 $rates = CurrencyRate::find()
                     ->joinWith(['currencyFrom cf', 'currencyTo ct'])
@@ -289,6 +294,7 @@ class DefaultController extends Controller
             'meta_descr' => $meta_descr,
             'date' => $date,
             'economicNews' => $economicNews,
+            'bottom_descr' => $bottom_descr,
         ]);
     }
 
@@ -300,6 +306,7 @@ class DefaultController extends Controller
     {
         $keyVal = KeyValue::find()->all();
         $meta = ArrayHelper::index($keyVal, 'key');
+        $bottom_descr = $meta['currency_converter_bottom_description']->value;
         $economicNews = News::find()
             ->select([
                 '`news`.`title`',
@@ -325,6 +332,7 @@ class DefaultController extends Controller
             'meta_title' => $meta['currency_converter_title_page']->value,
             'meta_descr' => $meta['currency_converter_desc_page']->value,
             'economicNews' => $economicNews,
+            'bottom_descr' => $bottom_descr,
         ]);
     }
 
@@ -405,5 +413,35 @@ class DefaultController extends Controller
             }
         }
         return false;
+    }
+
+    public function actionDetailCoin()
+    {
+        $coin = Currency::find()
+            ->with('coin')
+            ->where(['type' => Currency::TYPE_COIN])
+            ->andWhere(['>=', 'status', Currency::STATUS_ACTIVE])
+            ->all();
+
+        $economicNews = News::find()
+            ->select([
+                '`news`.`title`',
+                '`news`.`dt_public`',
+                '`news`.`slug`',
+                '`news`.`photo`',
+            ])
+            ->leftJoin('`category_news_relations` AS `cnr`', '`cnr`.`new_id` = `news`.`id`')
+            ->where(['`cnr`.`cat_id`' => 6])
+            ->andWhere(['>', '`news`.`dt_public`', time() - Time::MONTH])
+            ->andWhere(['`news`.`status`' => 0])
+            ->andWhere(['<=', '`news`.`dt_public`', time()])
+            ->orderBy('`news`.`dt_public` DESC')
+            ->limit(3)
+            ->all();
+
+        return $this->render('detail-coin', [
+            'coin' => $coin,
+            'economicNews' => $economicNews,
+        ]);
     }
 }

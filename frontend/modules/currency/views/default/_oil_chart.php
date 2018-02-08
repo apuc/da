@@ -252,6 +252,6 @@ $hsOptions = [
         ],
     ]
 ]; ?>
-<div id="container-oil" style="width:100%; height: 100%;">
+<div id="container-oil" class="shadow-currency">
     <?= Highstock::widget($hsOptions); ?>
 </div>

@@ -6,6 +6,7 @@
  * @var string $meta_title
  * @var string $meta_descr
  * @var mixed $date
+ * @var string $bottom_descr
  */
 
 use common\classes\Debug;
@@ -40,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             date('d.m.Y', strtotime($date->date)) :
                             date('d.m.Y') ?>
                     </h2>
-                    <a href="#">Архив <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                    <!-- <a href="#">Архив <i class="fa fa-angle-right" aria-hidden="true"></i></a>-->
                 </div>
                 <div class="e-content__wrapper__info">
                     <?php foreach ($top_rates as $rate): ?>
@@ -80,7 +81,17 @@ $this->params['breadcrumbs'][] = $this->title;
                         </tbody>
                     </table>
                 </div>
-                <?= $this->render('_bottom_description', ['title' => $meta_title]); ?>
+                <div class="e-content__wrapper__title">
+                    <br/>
+                    <br/>
+                    <a href="<?= Url::to(['/currency/default/detail-coin']) ?>">
+                        Детальнее<i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <div class="e-content__wrapper__description">
+                    <h3>Описание</h3>
+                    <?= $bottom_descr; ?>
+                </div>
             </div>
             <?= $this->render('_finance_news', ['economicNews' => $economicNews]); ?>
         </div>
