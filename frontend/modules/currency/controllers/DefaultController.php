@@ -20,6 +20,7 @@ class DefaultController extends Controller
 {
     /**
      * Renders the index view for the module
+     * @param int $type
      * @return string
      */
     public function actionIndex($type = Currency::TYPE_CURRENCY)
@@ -412,5 +413,35 @@ class DefaultController extends Controller
             }
         }
         return false;
+    }
+
+    public function actionDetailCoin()
+    {
+        $coin = Currency::find()
+            ->with('coin')
+            ->where(['type' => Currency::TYPE_COIN])
+            ->andWhere(['>=', 'status', Currency::STATUS_ACTIVE])
+            ->all();
+
+        $economicNews = News::find()
+            ->select([
+                '`news`.`title`',
+                '`news`.`dt_public`',
+                '`news`.`slug`',
+                '`news`.`photo`',
+            ])
+            ->leftJoin('`category_news_relations` AS `cnr`', '`cnr`.`new_id` = `news`.`id`')
+            ->where(['`cnr`.`cat_id`' => 6])
+            ->andWhere(['>', '`news`.`dt_public`', time() - Time::MONTH])
+            ->andWhere(['`news`.`status`' => 0])
+            ->andWhere(['<=', '`news`.`dt_public`', time()])
+            ->orderBy('`news`.`dt_public` DESC')
+            ->limit(3)
+            ->all();
+
+        return $this->render('detail-coin', [
+            'coin' => $coin,
+            'economicNews' => $economicNews,
+        ]);
     }
 }
