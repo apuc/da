@@ -283,10 +283,18 @@ $(document).ready(function () {
 
     //Открываем модлку для выбора главной категории
     $(document).on('click', '.select-category-add', function () {
-
+        var type = $(this).attr('datatype');
+        var url;
+        //alert(type);
+        if(type === 'product' ){
+            url = '/shop/products/general-modal';
+        }
+        else{
+            url = '/board/default/general-modal';
+        }
         $.ajax({
             type: 'POST',
-            url: "/board/default/general-modal",
+            url: url,
             data: '',
             success: function (data) {
                 //console.log(data);
@@ -301,15 +309,6 @@ $(document).ready(function () {
         });
     });
 
-    /*$(document).on('click', '#black-overlay', function () {
-        $('#modalType').animate({opacity: 0}, 200,
-            function () {
-                $(this).css('display', 'none');
-                $('#black-overlay').fadeOut(400);
-            }
-        );
-    });*/
-
     //Скрыть модалку
     $(document).on('click', '.close', function () {
         $('#modalType').modal('hide')
@@ -318,20 +317,40 @@ $(document).ready(function () {
     //выбор главной категории
     $(document).on('click', '.modal-body__container', function () {
         var catId = $(this).data('category');
-        $('#ads-category_id').val(catId);
+        var type = $(this).attr('datatype');
+        var url;
+
+        if(type === 'product' ){
+            url = '/shop/products/show-category';
+            $('#products-category_id').val(catId);
+        }
+        else{
+            url = '/board/default/show-category';
+            $('#ads-category_id').val(catId);
+        }
+        //alert(url);
+
 
         $.ajax({
             type: 'POST',
-            url: "/board/default/show-category",
+            url: url,
             data: 'id=' + catId,
             success: function (data) {
                 /*$('.modal-body,.modal-flex').html(data);*/
+
                 if (data) {
-                    $('.modal-body,.modal-flex').html(data);
+                    console.log(data);
+                    $('#categoryModal').html(data);
                 } else {
+                    if(type === 'product' ){
+                        url = '/shop/products/show-category-end';
+                    }
+                    else{
+                        url = '/board/default/show-category-end';
+                    }
                     $.ajax({
                         type: 'POST',
-                        url: "/board/default/show-category-end",
+                        url: url,
                         data: 'id=' + catId,
                         success: function (data) {
                             $('.SelectCategory').html(data);
@@ -365,10 +384,18 @@ $(document).ready(function () {
 
         $('#ads-category_id').val(category);
         //console.log(column);
-
+        var type = $(this).attr('datatype');
+        var url;
+        //alert(type);
+        if(type === 'product' ){
+            url = '/shop/products/show-parent-modal-category';
+        }
+        else{
+            url = '/board/default/show-parent-modal-category';
+        }
         $.ajax({
             type: 'POST',
-            url: "/board/default/show-parent-modal-category",
+            url: url,
             data: 'id=' + category,
             success: function (data) {
                 //console.log(data);
@@ -381,9 +408,15 @@ $(document).ready(function () {
                     }
                 }
                 else {
+                    if(type === 'product' ){
+                        url = '/shop/products/show-category-end';
+                    }
+                    else{
+                        url = '/board/default/show-category-end';
+                    }
                     $.ajax({
                         type: 'POST',
-                        url: "/board/default/show-category-end",
+                        url: url,
                         data: 'id=' + category,
                         success: function (data) {
                             //console.log(data);

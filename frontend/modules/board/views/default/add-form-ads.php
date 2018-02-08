@@ -11,8 +11,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 $this->registerCssFile('/css/board.min.css');
-$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-//$this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+//$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 
@@ -227,7 +227,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                 <h2>Выберите категорию</h2>
                 <span class="krest close"> &times;</span>
             </div>
-            <div class="modal-body modal-flex">
+            <div class="modal-body modal-flex" id="categoryModal">
 
             </div>
 

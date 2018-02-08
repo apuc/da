@@ -23,4 +23,15 @@ class CategoryProduct extends CategoryShop
             ],
         ];
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        $rules = parent::rules();
+        $rules['parent_id'] = ['parent_id', 'default', 'value' => 0];
+        return $rules;
+    }
+
 }
