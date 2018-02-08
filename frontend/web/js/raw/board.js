@@ -79,7 +79,7 @@ $(document).ready(function () {
             },
             success: function(data) {
                 $('.commercial__sidebar-filter--children-category').append(data);
-                console.log(data);
+                //console.log(data);
             }
         });
 
@@ -424,10 +424,15 @@ $(document).ready(function () {
                         }
                     });
                     $('#modalType').modal('hide');
-
+                    if(type === 'product' ){
+                        url = '/shop/products/show-additional-fields';
+                    }
+                    else{
+                        url = '/board/default/show-additional-fields';
+                    }
                     $.ajax({
                         type: 'POST',
-                        url: "/board/default/show-additional-fields",
+                        url: url,
                         data: 'id=' + category,
                         success: function (data) {
                             console.log(data);

@@ -3,6 +3,8 @@
 namespace frontend\modules\shop\controllers;
 
 use common\classes\Debug;
+use common\models\db\CategoryFields;
+use common\models\db\ProductFields;
 use frontend\modules\shop\models\CategoryShop;
 use frontend\modules\shop\models\Products;
 use Yii;
@@ -87,6 +89,37 @@ class ProductsController extends Controller
                 'category' => array_reverse($categoryList),
             ]
         );
+
+    }
+
+    public function actionShowAdditionalFields()
+    {
+        //$id = Yii::$app->request->post('id');
+        $id = 3;
+        $groupFieldsId = CategoryFields::find()
+            ->where(['category_id' => $id])
+            ->all();
+//Debug::prn($groupFieldsId);
+        $html = '';
+        if (!empty($groupFieldsId)) {
+            /*foreach ($adsFields as $adsField) {
+                $adsFieldsAll = AdsFields::find()
+                    ->leftJoin('ads_fields_type', '`ads_fields_type`.`id` = `ads_fields`.`type_id`')
+                    ->leftJoin('ads_fields_default_value',
+                        '`ads_fields_default_value`.`ads_field_id` = `ads_fields`.`id`')
+                    ->where(['`ads_fields`.`id`' => $adsField->fields_id])
+                    ->with('ads_fields_type', 'ads_fields_default_value')
+                    ->all();
+                $html .= $this->renderPartial('add_fields', ['adsFields' => $adsFieldsAll]);
+            }*/
+
+            $fields = json_decode($groupFieldsId);
+            foreach ($fields as $item) {
+                $html .= $this->renderPartial('add_fields', ['adsFields' => $item]);
+            }
+
+        }
+        echo $html;
 
     }
 

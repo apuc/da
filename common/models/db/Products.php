@@ -13,6 +13,9 @@ use Yii;
  * @property int $company_id
  * @property int $category_id
  * @property string $description
+ * @property int $price
+ * @property int $new_price
+ * @property int $status
  * @property string $cover
  * @property int $dt_add
  * @property int $dt_update
@@ -36,8 +39,8 @@ class Products extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'slug', 'company_id', 'category_id', 'description'], 'required'],
-            [['company_id', 'category_id', 'dt_add', 'dt_update'], 'integer'],
+            [['title', 'slug', 'company_id', 'category_id', 'description', 'price'], 'required'],
+            [['company_id', 'category_id', 'price', 'new_price', 'status', 'dt_add', 'dt_update'], 'integer'],
             [['description'], 'string'],
             [['title', 'slug', 'cover'], 'string', 'max' => 255],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => CategoryShop::className(), 'targetAttribute' => ['category_id' => 'id']],
@@ -57,6 +60,9 @@ class Products extends \yii\db\ActiveRecord
             'company_id' => 'Company ID',
             'category_id' => 'Category ID',
             'description' => 'Description',
+            'price' => 'Price',
+            'new_price' => 'New Price',
+            'status' => 'Status',
             'cover' => 'Cover',
             'dt_add' => 'Dt Add',
             'dt_update' => 'Dt Update',
