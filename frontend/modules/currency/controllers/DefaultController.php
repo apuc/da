@@ -25,6 +25,7 @@ class DefaultController extends Controller
      */
     public function actionIndex($type = Currency::TYPE_CURRENCY)
     {
+        $detail = false;
         $keyVal = KeyValue::find()->all();
         $meta = ArrayHelper::index($keyVal, 'key');
         $economicNews = News::find()
@@ -63,6 +64,7 @@ class DefaultController extends Controller
         if (empty($date)) $date = new Expression('CURDATE()');
         switch ($type) {
             case Currency::TYPE_COIN:
+                $detail = true;
                 $meta_title = $meta['currency_coin_title_page']->value;
                 $meta_descr = $meta['currency_coin_desc_page']->value;
                 $bottom_descr = $meta['currency_coin_bottom_description']->value;
@@ -295,6 +297,7 @@ class DefaultController extends Controller
             'date' => $date,
             'economicNews' => $economicNews,
             'bottom_descr' => $bottom_descr,
+            'detail' => $detail,
         ]);
     }
 
