@@ -82,7 +82,12 @@ $this->params['breadcrumbs'][] = 'Акции';
                                     ?>
                                 </div>
                             </div>
-                            <div class="all-actions__description"><?= $item->short_descr; ?></div>
+                            <div class="all-actions__description">
+                                <?php
+                                if ($item->short_descr) echo $item->short_descr;
+                                elseif (!empty($item->descr)) echo mb_substr($item->descr, 0, 110) . '...';
+                                ?>
+                            </div>
                             <div class="all-actions__bottom">
                                 <a href="<?= Url::to(['/promotions/promotions/view', 'slug' => $item->slug]) ?>"
                                    class="all-actions__bottom--more">Подробнее</a>

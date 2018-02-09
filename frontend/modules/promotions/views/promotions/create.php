@@ -8,7 +8,7 @@ use yii\helpers\Html;
 $this->title = 'Добавить акцию';
 ?>
 
-<div class="cabinet__inner-box">
+<div class="cabinet__container cabinet__container_white cabinet__inner-box">
 
     <h3><?= Html::encode($this->title) ?></h3>
 
