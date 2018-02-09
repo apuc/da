@@ -95,11 +95,12 @@ class ProductsController extends Controller
     public function actionShowAdditionalFields()
     {
         //$id = Yii::$app->request->post('id');
-        $id = 3;
+        $id = 2;
         $groupFieldsId = CategoryFields::find()
             ->where(['category_id' => $id])
+            ->with('fields.productFieldsDefaultValues')
             ->all();
-//Debug::prn($groupFieldsId);
+Debug::dd($groupFieldsId);
         $html = '';
         if (!empty($groupFieldsId)) {
             /*foreach ($adsFields as $adsField) {
