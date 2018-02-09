@@ -1,165 +1,111 @@
 <?php
 
-use common\models\db\Stock;
-use common\models\db\Lang;
+use kartik\select2\Select2;
 use mihaildev\ckeditor\CKEditor;
-use mihaildev\elfinder\InputFile;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use frontend\modules\company\models\Company;
-use common\classes\Debug;
+use \mihaildev\elfinder\ElFinder;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\modules\company\models\Company */
+/* @var $model frontend\modules\promotions\models\Stock */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $beforeCreate array */
+
+$this->registerCssFile('/css/board.min.css');
+//$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 
-<?php if ($beforeCreate): ?>
-    <?php
+<div class="right">
+    <?php if ($beforeCreate): ?>
 
-    $form = ActiveForm::begin(
-        [
-            'options' => [
-                'class' => 'cabinet__add-company-form',
-                'enctype' => 'multipart/form-data',
+        <?php $form = ActiveForm::begin([
+            'id' => 'add_ads',
+            'options' =>
+                [
+                    'class' => 'content-forma',
+                    'enctype' => 'multipart/form-data',
+                ],
+            'fieldConfig' => [
+                'template' => '<div class="form-line">{label}{input}<div class="memo-error"><p>{error}</p></div><div class="memo"><span class="info-icon"></span><span class="triangle-left"></span>{hint}</div></div>',
+                'inputOptions' => ['class' => 'input-name jsHint'],
+                'labelOptions' => ['class' => 'label-name'],
+                'errorOptions' => ['class' => 'error'],
+
+                'options' => ['class' => 'form-line'],
+                'hintOptions' => ['class' => ''],
+
             ],
-        ]);
-    ?>
+            'errorCssClass' => 'my-error',
 
-    <?php
-    /*
-    if($beforeCreate)
-    {
+        ]); ?>
 
-        echo Html::dropDownList(
-            'Stock[company_id]',
-            null,
-            ArrayHelper::map(Company::find()->where(['in', 'id', $company_id])->all(),'id','name'),
-            ['class'=>'cabinet__add-company-form--field', 'id'=>'promotions', 'prompt' => 'Выберите предприятие']
-        );
-    }*/
+        <?php $company_id = array_keys($beforeCreate); ?>
 
-    $company_id = array_keys($beforeCreate);
-    ?>
+        <?= $form->field($model, 'company_id')->widget(Select2::className(), [
+            'attribute' => 'state_2',
+            'data' => ArrayHelper::map(Company::find()->where(['in', 'id', $company_id])->all(), 'id', 'name'),
+            'options' => ['placeholder' => 'Начните вводить Вашу компанию ...'],
+            'pluginOptions' => [
+                'allowClear' => true,
+            ],
+        ]); ?>
 
+        <?= $form->field($model, 'title')->textInput(['maxlength' => 70])
+            ->hint('<b>Введите заголовок,</b><br>который будет отображаться в списке акций')
+            ->label('Заголовок акции'); ?>
 
-    <p class="cabinet__add-company-form--title">Ваши предприятия</p>
-    <?= $form->field($model, 'company_id')->dropDownList(
-        ArrayHelper::map(Company::find()->where(['in', 'id', $company_id])->all(), 'id', 'name'),
-        ['class' => 'cabinet__add-company-form--field', 'id' => 'promotions', 'prompt' => 'Выберите предприятие'])
-        ->label(false) ?>
+        <?= $form->field($model, 'link')->textInput()
+            ->hint('<b>Вставьте ссылку.</b><br>Сссылка может вести на сайт вашей компании или же на страницу в соцсетях')
+            ->label('Ссылка'); ?>
 
-    <div class="cabinet__add-company-form--block"></div>
+        <?= $form->field($model, 'dt_event')->textInput()
+            ->hint('<b>Примеры:</b><br>
+                        До конца месяца, с 1 по 10 февраля...')
+            ->label('Длительность акции'); ?>
 
-    <p class="cabinet__add-company-form--title">Заголовок акции</p>
+        <h2 class="soglasie">Добавить фото
+            <span></span>
+        </h2>
+        <?= $form->field($model, 'photo',
+            ['template' => '<label class="cabinet__add-company-form--add-foto"><span class="button"></span>
+                                    {input}<img id="blah" src="" alt="" width="160px">
+                                </label>',
+            ])->label(false)->fileInput(); ?>
 
-    <?= $form->field($model, 'title')->textInput([
-        'maxlength' => true,
-        'class' => 'cabinet__add-company-form--field',
-    ])->label(false) ?>
+        <div class="cabinet__add-company-form--block"></div>
+        <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>
+        <?= $form->field($model, 'short_descr')->textInput()
+            ->hint('<b>Введите краткое описание акции.</b>')
+            ->label('Акционное предложение'); ?>
 
-    <div class="cabinet__add-company-form--block"></div>
-
-    <p class="cabinet__add-company-form--title">Ссылка</p>
-    <?= $form->field($model, 'link')->textInput([
-        'maxlength' => true,
-        'class' => 'cabinet__add-company-form--field',
-    ])->label(false) ?>
-
-    <div class="cabinet__add-company-form--block"></div>
-
-    <p class="cabinet__add-company-form--title">Дата акции</p>
-    <?= $form->field($model, 'dt_event')->textInput([
-        'maxlength' => true,
-        'class' => 'cabinet__add-company-form--field',
-    ])->label(false) ?>
-
-    <div class="cabinet__add-company-form--block"></div>
-
-    <p class="cabinet__add-company-form--title">Фото акции</p>
-
-    <?php echo $form->field($model, 'photo', [
-        'template' => '<label class="cabinet__add-company-form--add-foto">
-                                        <span class="button"></span>
-                                        {input}
-                                        <img id="blah" src="" alt="" width="160px">
-                                        </label>',
-    ])->label(false)->fileInput();
-    ?>
-
-    <!--<label class="cabinet__add-company-form--add-foto">
-        <span class="button"></span>
-        <input id="news-photo" class="input-file" type="file">
-        <img id="blah" src="" alt="" width="160px">
-    </label>-->
-
-    <div class="cabinet__add-company-form--block"></div>
+        <?= $form->field($model, 'descr')
+            ->widget(CKEditor::className(), [
+                'editorOptions' => ElFinder::ckeditorOptions('elfinder', [
+                    'preset' => 'basic',
+                    'inline' => false,
+                    'path' => 'frontend/web/media/upload',
+                ]),
+            ])
+            ->label('Подробное описание'); ?>
 
 
-    <!--<p class="cabinet__add-company-form--title">Сайт компании</p>
-
-    <input class="cabinet__add-company-form--field" type="text">
-
-    <div class="cabinet__add-company-form--block"></div>-->
-
-    <!-- <p class="cabinet__add-company-form--title">Соц. сети</p>
-
-     <div class="cabinet__add-company-form--social">
-         <a href="" class="social-wrap__item vk">
-             <img src="img/soc/vk.png" alt="">
-         </a>
-         <a href="" class="social-wrap__item fb">
-             <img src="img/soc/fb.png" alt="">
-         </a>
-         <a href="" class="social-wrap__item ok">
-             <img src="img/soc/ok-icon.png" alt="">
-         </a>
-         <a href="" class="social-wrap__item vk">
-             <img src="img/soc/vk.png" alt="">
-         </a>
-         <a href="" class="social-wrap__item fb">
-             <img src="img/soc/fb.png" alt="">
-         </a>
-         <a href="" class="social-wrap__item ok">
-             <img src="img/soc/ok-icon.png" alt="">
-         </a>
-     </div>-->
-
-
-    <!-- <div class="cabinet__add-company-form--wrapper">
-
-         <p class="cabinet__add-company-form--title">Телефон</p>
-
-         <input class="cabinet__add-company-form--field" name="mytext[]" type="text">
-
-     </div>-->
-    <div class="cabinet__add-company-form--block"></div>
-    <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>
-
-    <p class="cabinet__add-company-form--title">Подробное описание</p>
-    <textarea id="poster-descr" class="cabinet__add-company-form--text" name="Stock[descr]"
-              aria-invalid="false"></textarea>
-
-    <?php /*echo $form->field($model, 'descr')->widget(CKEditor::className(), [
-//        'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
-//            'preset' => 'full',
-//            'inline' => false,
-//            'path' => 'frontend/web/media/upload',
-//        ]),
-])->label(false); */ ?>
-
-
-    <?= Html::submitButton('Сохранить', ['class' => 'cabinet__add-company-form--submit']) ?>
-    <?php ActiveForm::end(); ?>
-<?php else: ?>
-    <div class="blanket__content">
-        <div class="blanket__content__wrap">
-            <img src="/theme/portal-donbassa/img/blanket/ban.png" alt="">
-            <h2>У Вас нет приедприятий для
-                добавления акции или Вы исчермали лимит акций</h2>
+        <?= Html::submitButton('Сохранить',
+            ['class' => 'cabinet__add-company-form--submit place-ad_publish publish place-ad__publish', 'id' => 'saveInfo']) ?>
+        <?php ActiveForm::end(); ?>
+    <?php else: ?>
+        <div class="blanket__content">
+            <div class="blanket__content__wrap">
+                <img src="/theme/portal-donbassa/img/blanket/ban.png" alt="">
+                <h2>У Вас нет приедприятий для
+                    добавления акции или Вы исчермали лимит акций</h2>
+            </div>
+            <a href="<?= Url::to(['/company/company/create']) ?>">Добавить предприятие</a>
+            <p>После прохождения модерации вашей компании, вы сможете добавить новые акции</p>
         </div>
-        <a href="<?= \yii\helpers\Url::to(['/company/company/create']) ?>">Добавить предприятие</a>
-        <p>После прохождения модерации вашей компании, вы сможете добавить новые акции</p>
-    </div>
-<?php endif; ?>
+    <?php endif; ?>
+</div>
