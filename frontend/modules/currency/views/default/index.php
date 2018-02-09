@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="e-content__wrapper__title">
                     <br/>
                     <br/>
-                    <?php if (!is_null($detail)): ?>
+                    <?php if (!empty($detail)): ?>
                         <a href="<?= Url::to(['/currency/default/detail-coin']) ?>">
                             Детальнее<i class="fa fa-angle-right" aria-hidden="true"></i>
                         </a>
