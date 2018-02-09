@@ -7,6 +7,7 @@
  * @var string $meta_descr
  * @var mixed $date
  * @var string $bottom_descr
+ * @var boolean $detail
  */
 
 use common\classes\Debug;
@@ -84,9 +85,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="e-content__wrapper__title">
                     <br/>
                     <br/>
-                    <a href="<?= Url::to(['/currency/default/detail-coin']) ?>">
-                        Детальнее<i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </a>
+                    <?php if (!is_null($detail)): ?>
+                        <a href="<?= Url::to(['/currency/default/detail-coin']) ?>">
+                            Детальнее<i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </a>
+                    <?php endif; ?>
                 </div>
                 <div class="e-content__wrapper__description">
                     <h3>Описание</h3>
