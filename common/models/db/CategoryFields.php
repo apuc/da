@@ -43,4 +43,11 @@ class CategoryFields extends \yii\db\ActiveRecord
             'fields_id' => 'Fields ID',
         ];
     }
+
+
+    public function getFields()
+    {
+        return $this->hasOne(ProductFields::className(), ['id' => 'fields_id']);
+    }
+
 }
