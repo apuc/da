@@ -382,16 +382,18 @@ $(document).ready(function () {
 
         $(this).addClass('active');
 
-        $('#ads-category_id').val(category);
         //console.log(column);
         var type = $(this).attr('datatype');
         var url;
         //alert(type);
+        console.log(category);
         if(type === 'product' ){
             url = '/shop/products/show-parent-modal-category';
+            $('#products-category_id').val(category);
         }
         else{
             url = '/board/default/show-parent-modal-category';
+            $('#ads-category_id').val(category);
         }
         $.ajax({
             type: 'POST',
@@ -424,6 +426,7 @@ $(document).ready(function () {
                         }
                     });
                     $('#modalType').modal('hide');
+
                     if(type === 'product' ){
                         url = '/shop/products/show-additional-fields';
                     }

@@ -14,6 +14,7 @@ use Yii;
  * @property string $template
  * @property string $name
  * @property int $interval
+ * @property string $hint
  *
  * @property ProductFieldsType $type
  * @property ProductFieldsDefaultValue[] $productFieldsDefaultValues
@@ -36,9 +37,9 @@ class ProductFields extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type_id', 'label', 'category'], 'required'],
+            [['type_id', 'label', 'category', 'hint'], 'required'],
             [['type_id', 'interval'], 'integer'],
-            [['label', 'template', 'name'], 'string', 'max' => 255],
+            [['label', 'template', 'name', 'hint'], 'string', 'max' => 255],
             [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProductFieldsType::className(), 'targetAttribute' => ['type_id' => 'id']],
         ];
     }
@@ -56,6 +57,7 @@ class ProductFields extends \yii\db\ActiveRecord
             'name' => 'Название',
             'interval' => 'Включить интервал для поиска',
             'category' => 'Категория',
+            'hint' => 'Подсказка',
         ];
     }
 
