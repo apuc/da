@@ -100,7 +100,7 @@ class ProductsController extends Controller
             ->where(['category_id' => $id])
             ->with('fields.productFieldsDefaultValues')
             ->all();
-Debug::dd($groupFieldsId);
+//Debug::dd($groupFieldsId);
         $html = '';
         if (!empty($groupFieldsId)) {
             /*foreach ($adsFields as $adsField) {
@@ -114,8 +114,8 @@ Debug::dd($groupFieldsId);
                 $html .= $this->renderPartial('add_fields', ['adsFields' => $adsFieldsAll]);
             }*/
 
-            $fields = json_decode($groupFieldsId);
-            foreach ($fields as $item) {
+            //$fields = json_decode($groupFieldsId);
+            foreach ($groupFieldsId as $item) {
                 $html .= $this->renderPartial('add_fields', ['adsFields' => $item]);
             }
 
