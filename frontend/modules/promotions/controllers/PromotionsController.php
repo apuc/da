@@ -8,10 +8,7 @@
 
 namespace frontend\modules\promotions\controllers;
 
-use common\classes\Debug;
-use common\models\db\Phones;
-use common\models\db\ServicesCompanyRelations;
-use frontend\modules\company\models\Company;
+use common\models\db\Comments;
 use frontend\modules\promotions\models\Stock;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -92,9 +89,7 @@ class PromotionsController extends Controller
 
     public function actionUpdateView()
     {
-        //Debug::prn(Yii::$app->request->post('id'));
-        Stock::updateAllCounters([ 'view' => 1 ], [ 'id' => Yii::$app->request->post('id') ]);
-
+        Stock::updateAllCounters(['view' => 1], ['id' => Yii::$app->request->post('id')]);
     }
 
     public function actionCreate()
@@ -122,22 +117,15 @@ class PromotionsController extends Controller
 
             $model->save();
 
-            Yii::$app->session->setFlash('success','Ваша акция успешно добавлена. После прохождения модерации она будет опубликована.');
+            Yii::$app->session->setFlash('success', 'Ваша акция успешно добавлена. После прохождения модерации она будет опубликована.');
             return $this->redirect(['/personal_area/user-promotions']);
-        }
-
-        else {
-
-            /*if(empty($beforeCreate)){
-                Debug::prn($beforeCreate);
-            }*/
+        } else {
 
             return $this->render('create', [
                 'model' => $model,
                 'beforeCreate' => $beforeCreate
             ]);
         }
-
     }
 
     public function actionUpdate($id)
@@ -145,8 +133,7 @@ class PromotionsController extends Controller
         $this->layout = 'personal_area';
         $model = $this->findModel($id);
         $beforeCreate = $model->beforeCreate();
-        if(!$beforeCreate[$model->company_id])
-        {
+        if (!$beforeCreate[$model->company_id]) {
             $beforeCreate[$model->company_id] = 1;
         }
 
@@ -165,17 +152,15 @@ class PromotionsController extends Controller
                 $upphoto->upload();
 
                 $model->photo = '/' . $loc . $_FILES['Stock']['name']['photo'];
-            }else{
-               $model->photo = $_POST['photo'];
+            } else {
+                $model->photo = $_POST['photo'];
             }
 
             $model->save();
 
-            Yii::$app->session->setFlash('success','Ваша акция успешно отредактирована. После прохождения модерации она будет опубликована.');
+            Yii::$app->session->setFlash('success', 'Ваша акция успешно отредактирована. После прохождения модерации она будет опубликована.');
             return $this->redirect(['/personal_area/user-promotions']);
-        }
-
-        else {
+        } else {
 
             return $this->render('update', [
                 'model' => $model,
@@ -188,16 +173,14 @@ class PromotionsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model)
-        {
+        if ($model) {
             $model->status = 2;
 
-            if ($model->save())
-            {
-                Yii::$app->session->setFlash('success','Акция успешно удалена');
-            }else
-                Yii::$app->session->setFlash('error','Произошла ошибка');
-        }else  Yii::$app->session->setFlash('error','Такой акции не существует');
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', 'Акция успешно удалена');
+            } else
+                Yii::$app->session->setFlash('error', 'Произошла ошибка');
+        } else  Yii::$app->session->setFlash('error', 'Такой акции не существует');
 
         return $this->redirect('/personal_area/user-promotions');
 
@@ -232,4 +215,19 @@ class PromotionsController extends Controller
         }
     }
 
+    public function actionAddComment()
+    {
+        $request = Yii::$app->request->post();
+        $feedback = new Comments();
+        $feedback->post_type = 'promotions';
+        $feedback->post_id = $request['id'];
+        $feedback->user_id = Yii::$app->user->id;
+        $feedback->content = $request['text'];
+        $feedback->dt_add = time();
+        $feedback->parent_id = 0;
+        $feedback->moder_checked = 0;
+        $feedback->published = 1;
+        $feedback->verified = 1;
+        $feedback->save();
+    }
 }
