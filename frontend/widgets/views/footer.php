@@ -86,6 +86,28 @@ use yii\widgets\MaskedInput;
 
 </div>
 
+<div class="modal-review" id="modal-review-promotions">
+
+    <h3 class="modal-review__title">Добавить отзыв</h3>
+
+    <p class="modal-review__subtitle">Будьте правдивы. Пишите и хорошее, и плохое, но ничего не выдумывайте.</p>
+
+    <div class="separator"></div>
+
+    <form action="" class="modal-review__form">
+
+        <p>Ваш отзыв</p>
+
+        <textarea class="modal-review__textarea" name="text_promotions_feedback" maxlength="1000" placeholder="Текст сообщения"></textarea>
+
+        <input type="hidden" name="promotion_name">
+        <input type="hidden" name="promotion_id">
+        <span class="feedback_error"></span>
+        <input id="modal-review-promotions-submit" class="show-more" type="submit" value="отправить">
+    </form>
+
+</div>
+
 <div class="modal-review" id="modal-add-comment">
 
     <h3 class="modal-review__title">Добавить комментарий</h3>

@@ -84,7 +84,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php endif; ?>
                 </div>
                 <div class="all-actions__bottom">
-                    <a href="#" class="all-actions__bottom--comments">Добавить коментарий</a>
+                    <a href="#" class="all-actions__bottom--comments"
+                       id="add-review-promotions"
+                       data-id="<?= $model->id ?>">Добавить коментарий</a>
                     <span class="all-actions__bottom--sale"><?= $model->dt_event; ?></span>
                 </div>
                 <div class="all-actions__favorites"></div>
