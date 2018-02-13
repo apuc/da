@@ -126,8 +126,8 @@ $hsOptions = [
         'yAxis' => [
 //            'endOnTick' => false,
             'opposite' => false,
-            'range' => 1,
-            'maxRange' => 100,
+            'range' => 70,
+            'maxRange' => 70,
             'gridLineColor' => 'red'
         ],
         'legend' => [
