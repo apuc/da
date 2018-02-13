@@ -503,7 +503,43 @@ $(document).ready(function () {
             return false;
         }
     });
-})
+
+    //Получение данных об акции и передача их в форму для отправки коментария
+    $(document).on('click', '#add-review-promotions', function () {
+        var id = $(this).attr('data-id');
+        $("input[name='promotion_id']").val(id);
+
+    });
+    //Отправка коментария об акции
+    $(document).on('click', '#modal-review-promotions-submit', function (e) {
+        var text = $("textarea[name='text_promotions_feedback']").val(),
+            id = $("input[name='promotion_id']").val();
+        if (text !== '') {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: "/promotions/promotions/add-comment/",
+                data: {
+                    '_csrf': yii.getCsrfToken(),
+                    'id': id,
+                    'text': text
+                },
+                success: function () {
+                    $('#modal-review-promotions').animate({opacity: 0}, 200,
+                        function () {
+                            $(this).css('display', 'none');
+                            $('#modal-review-success').css('display', 'block').animate({opacity: 1}, 200);
+                        }
+                    );
+                }
+            });
+            return false;
+        } else {
+            $('.feedback_error').text('Вы не оставили отзыв');
+            return false;
+        }
+    });
+});
 
 function readURL(input) {
     if (input.files && input.files[0]) {
