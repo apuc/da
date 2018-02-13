@@ -1,10 +1,12 @@
 <?php
 
+use kartik\file\FileInput;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\news\models\News */
+/* @var $userCompany frontend\modules\company\models\Company */
 
 $this->registerCssFile('/css/board.min.css');
 //$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
@@ -35,7 +37,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
 <h2 class="soglasie">Общая информация</h2>
 <hr class="lineAddAds"/>
-<?= $form->field($model,'title')->textInput(['maxlength' => 70])
+<?= $form->field($model, 'title')->textInput(['maxlength' => 70])
     ->hint('<b>Введите наименование товара.</b><br>
                         В заголовке <b>не допускается: номер телефона, электронный адрес, ссылки</b><br>
                         Не допускаются заглавные буквы (кроме аббревиатур).'
@@ -61,10 +63,84 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 <span id="additional_fields"></span>
 
 
+<?= $form->field($model, 'company_id')
+    ->dropDownList(\yii\helpers\ArrayHelper::map($userCompany, 'id', 'name'),
+        [
+            'prompt' => 'Выберите компанию',
+        ])
+    ->hint('Выберите компанию которой принадлежит товар')
+    ->label('Компания<span>*</span>')
+?>
+
+<?= $form->field($model, 'price')->textInput()
+    ->hint('Введите цену товара')
+    ->label('Цена<span>*</span>')
+?>
+
+<?= $form->field($model, 'new_price')->textInput()
+    ->hint('Введите цену новую цену товара, если товар продается со скидкой.<br>
+                    Оставьте это поле пустым, если скидки на товар нет')
+    ->label('Новая цена')
+?>
+<h2 class="soglasie">Фотографии
+    <span>(для выбора обложки изображения нажмите на него) </span>
+</h2>
+<hr class="lineAddAds"/>
+<?= $form->field($model, 'cover')->hiddenInput()->label(false);?>
+
+<?php echo FileInput::widget([
+    'name' => 'file[]',
+    'id' => 'input-5',
+    'attribute' => 'attachment_1',
+    'value' => '@frontend/media/img/1.png',
+    /*'options' => [
+    'multiple' => true,
+    'showCaption' => false,
+    'showUpload' => false,
+    'uploadAsync' => false,
+    ],
+    'pluginOptions' => [
+    'uploadUrl' => Url::to(['/site/upload_file']),
+    'language' => "ru",
+    'previewClass' => 'hasEdit',
+    'uploadAsync' => false,
+    'showUpload' => false,
+    'dropZoneEnabled' => false,
+    'overwriteInitial' => false,
+    'maxFileCount' => 10,
+    'maxFileSize' => 2000,
+    ],*/
+    'options' => ['multiple' => true, 'accept' => 'image/*'],
+    'pluginOptions' => [
+        'previewFileType' => 'image',
+        'maxFileCount' => 10,
+        'maxFileSize' => 2000,
+        'language' => "ru",
+        'previewClass' => 'hasEdit',
+    ],
+]);
+
+?>
+
+
+<?= $form->field($model, 'description')->textarea(
+    [
+        'class' => 'area-name jsHint',
+        'maxlength' => 4096,
+    ]
+)
+    ->hint('<b>Добавьте описание вашего товара,</b> укажите преимущества и важные детали.<br>
+                      В описании <b>не допускается указание контактных данных.</b><br>
+                      Описание должно соответствовать заголовку и предлагаемому товару.<br>
+                      Не допускаются заглавные буквы (кроме аббревиатур).<br>
+            ')
+    ->label('Описание<span>*</span>'); ?>
+
 <?= Html::submitButton('Oпубликовать',
     ['class' => 'cabinet__add-company-form--submit place-ad_publish publish place-ad__publish', 'id' => 'saveInfo']) ?>
 <?php ActiveForm::end(); ?>
-<div class="modal modal-wide fade modal-categories" id="modalType" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal modal-wide fade modal-categories" id="modalType" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 

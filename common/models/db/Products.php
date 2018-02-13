@@ -19,7 +19,9 @@ use Yii;
  * @property string $cover
  * @property int $dt_add
  * @property int $dt_update
+ * @property int $user_id
  *
+ * @property ProductFieldsValue[] $productFieldsValues
  * @property CategoryShop $category
  * @property Company $company
  */
@@ -40,7 +42,7 @@ class Products extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'slug', 'company_id', 'category_id', 'description', 'price'], 'required'],
-            [['company_id', 'category_id', 'price', 'new_price', 'status', 'dt_add', 'dt_update'], 'integer'],
+            [['company_id', 'category_id', 'price', 'new_price', 'status', 'dt_add', 'dt_update', 'user_id'], 'integer'],
             [['description'], 'string'],
             [['title', 'slug', 'cover'], 'string', 'max' => 255],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => CategoryShop::className(), 'targetAttribute' => ['category_id' => 'id']],
@@ -66,7 +68,16 @@ class Products extends \yii\db\ActiveRecord
             'cover' => 'Cover',
             'dt_add' => 'Dt Add',
             'dt_update' => 'Dt Update',
+            'user_id' => 'User ID',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProductFieldsValues()
+    {
+        return $this->hasMany(ProductFieldsValue::className(), ['product_id' => 'id']);
     }
 
     /**

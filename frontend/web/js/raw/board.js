@@ -14,40 +14,58 @@ $(document).ready(function () {
                     }
                 });
             }, 1000);
-
-            /*$('.file-preview-image').each(function () {
-                console.log(123);
-            });*/
-           /* var imgName = img.attr('src');
-            console.log(123);
-            console.log(img);
-
-            console.log(imgName);*/
-            //img.closest('.file-preview-frame').css('box-shadow', '1px 1px 5px 0 #f34942');
         }
     }
-
+    if('input[name="Products[cover]"]'.length > 0){
+        var cover = $('input[name="Products[cover]"]').val();
+        if(typeof cover != "undefined"){
+            /*var img = $('.file-preview-image');
+            console.log(img);*/
+            setTimeout(function () {
+                $.each($('.file-preview-image'), function () {
+                    var img = $(this).attr('src');
+                    /*console.log(img);
+                    console.log(cover);*/
+                    if(img == cover){
+                        $(this).closest('.file-preview-frame').css('box-shadow', '1px 1px 5px 0 #f34942');
+                    }
+                });
+            }, 1000);
+        }
+    }
+//Выбор обложки объявления
     $(document).on('click', '.file-preview-frame', function(){
         //alert(123);
         var img = $(this).find('.file-preview-image');
         var imgName = img.attr('title');
-        console.log(img);
-        console.log(imgName);
         //console.log('-----------------------');
 
         $(this).css('box-shadow', '1px 1px 5px 0 #f34942');
         $('.file-preview-frame').not($(this)).css('box-shadow', '1px 1px 5px 0 #a2958a');
 
+        $('input[name="Ads[cover]"]').val(img.attr('src'));
         if(typeof imgName == "undefined" ){
             $('input[name="Ads[cover]"]').val(img.attr('src'));
         }else{
             $('input[name="Ads[cover]"]').val(imgName);
         }
+    });
 
+    //Выбор обложки товара
+    $(document).on('click', '.file-preview-frame', function(){
+        //alert(123);
+        var img = $(this).find('.file-preview-image');
+        var imgName = img.attr('title');
+        //console.log('-----------------------');
 
-
-
-        //console.log(imgName);
+        $(this).css('box-shadow', '1px 1px 5px 0 #f34942');
+        $('.file-preview-frame').not($(this)).css('box-shadow', '1px 1px 5px 0 #a2958a');
+        $('input[name="Products[cover]"]').val(img.attr('src'));
+        if(typeof imgName == "undefined" ){
+            $('input[name="Products[cover]"]').val(img.attr('src'));
+        }else{
+            $('input[name="Products[cover]"]').val(imgName);
+        }
     });
 
     //Клик по глвной категории

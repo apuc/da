@@ -5,6 +5,7 @@ namespace frontend\modules\shop\controllers;
 use common\classes\Debug;
 use common\models\db\CategoryFields;
 use common\models\db\ProductFields;
+use frontend\modules\company\models\Company;
 use frontend\modules\shop\models\CategoryShop;
 use frontend\modules\shop\models\Products;
 use Yii;
@@ -18,13 +19,26 @@ class ProductsController extends Controller
         $model = new Products();
 
         if ($model->load(Yii::$app->request->post()) /*&& $model->save()*/) {
-            Debug::dd($model);
-            //return $this->redirect(['index']);
+
+            $model->cover = 'media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/' . $model->cover;
+            //Debug::dd($model);
+            $model->save();
+            if(!empty($_POST['ProductField'])){
+                $model->saveProductFields($_POST['ProductField'], $model->id);
+            }
+
+            if (!empty($_FILES['file']['name'][0])) {
+                $model->saveProductPhoto($_FILES, $model->id);
+            }
+
+            //Debug::dd($model);
+            return $this->redirect(['index']);
         }
 
-
+        $userCompany =Company::find()->where(['user_id' => Yii::$app->user->id])->all();
         return $this->render('create', [
             'model' => $model,
+            'userCompany' => $userCompany,
         ]);
     }
 
