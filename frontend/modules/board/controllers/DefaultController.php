@@ -214,7 +214,10 @@ class DefaultController extends Controller
                     $i++;
                 }
             }
-            $_POST['Ads']['cover'] = Url::home(true) . 'media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/thumb' . '/' . $_POST['Ads']['cover'];
+            if(!empty($_POST['Ads']['cover'])) {
+                $_POST['Ads']['cover'] = Url::home(true) . 'media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/thumb' . '/' . $_POST['Ads']['cover'];
+            }
+
 
 
                 //Debug::prn($_POST);
@@ -264,6 +267,11 @@ class DefaultController extends Controller
             //Debug::dd($_POST);
             if (!empty($_FILES['file']['name'][0])) {
 
+                if(!empty($_POST['Ads']['cover'])) {
+                    $_POST['Ads']['cover'] = Url::home(true) . 'media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/thumb' . '/' . $_POST['Ads']['cover'];
+                }else{
+                    $_POST['Ads']['cover'] = '';
+                }
                 if (!file_exists('media/users/' . Yii::$app->user->id)) {
                     mkdir('media/users/' . Yii::$app->user->id . '/');
                 }

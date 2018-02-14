@@ -159,6 +159,12 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                 'previewClass' => 'hasEdit',
                 'initialPreview' => $preview,
                 'initialPreviewConfig' => $previewConfig
+            ],
+            'pluginEvents' => [
+                "change" => "function() { $('input[name=\"Ads[cover]\"]').val(''); }",
+                "filereset" => "function() { 
+                    $('input[name=\"Ads[cover]\"]').val('');
+                 }",
             ]
 
         ]);

@@ -19,8 +19,10 @@ class ProductsController extends Controller
         $model = new Products();
 
         if ($model->load(Yii::$app->request->post()) /*&& $model->save()*/) {
+            if(!empty($model->cover)){
+                $model->cover = 'media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/' . $model->cover;
+            }
 
-            $model->cover = 'media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/' . $model->cover;
             //Debug::dd($model);
             $model->save();
             if(!empty($_POST['ProductField'])){
