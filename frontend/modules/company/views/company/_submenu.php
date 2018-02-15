@@ -4,6 +4,7 @@
  * @var string $slug
  * @var string $page
  */
+
 use common\classes\CompanyFunction;
 use yii\helpers\Url;
 
@@ -26,6 +27,11 @@ echo \yii\widgets\Menu::widget(
                 'url' => Url::to(['/company/company/view', 'slug' => $slug, 'page' => 'stocks']),
                 'template' => '<a href="{url}">{label}<span class="tabs-counters">' . CompanyFunction::getCountStock($model->id) . '</span></a>',
                 'active' => $page == 'stocks',
+            ],
+            [
+                'label' => 'Новости',
+                'url' => Url::to(['/company/company/view', 'slug' => $slug, 'page' => 'news']),
+                'active' => $page == 'news',
             ],
             [
                 'label' => 'Статистика',
