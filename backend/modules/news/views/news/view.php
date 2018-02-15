@@ -31,6 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             /*'id',*/
             'title',
+            [
+                'label' => 'Относится к компании',
+                'attribute' => 'company_id',
+                'value' => \yii\helpers\ArrayHelper::getValue($model, 'company.name')
+            ],
             'content:html',
             [                      // the owner name of the model
                 'attribute' => 'dt_add',

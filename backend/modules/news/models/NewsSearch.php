@@ -18,7 +18,7 @@ class NewsSearch extends News
     public function rules()
     {
         return [
-            [['id', 'dt_add', 'dt_update', 'user_id', 'lang_id', 'rss'], 'integer'],
+            [['id', 'dt_add', 'dt_update', 'user_id', 'lang_id', 'rss', 'company_id'], 'integer'],
             [['title', 'content', 'slug', 'tags', 'photo', 'meta_title', 'meta_descr', 'views', 'status'], 'safe'],
         ];
     }
@@ -44,8 +44,7 @@ class NewsSearch extends News
         $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
         $query = News::find();
 
-        if(isset($role['Редактор новостей']))
-        {
+        if (isset($role['Редактор новостей'])) {
             $query->andWhere(['user_id' => Yii::$app->user->id]);
         }
 
@@ -72,6 +71,7 @@ class NewsSearch extends News
             'user_id' => $this->user_id,
             'lang_id' => $this->lang_id,
             'rss' => $this->rss,
+            'company_id' => $this->company_id,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])

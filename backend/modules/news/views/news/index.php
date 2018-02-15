@@ -1,5 +1,6 @@
 <?php
 
+use common\models\db\Company;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -27,6 +28,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'title',
+            [
+                'attribute' => 'company_id',
+                'label' => 'Относится к компании',
+                'value'    => 'company.name',
+                'filter'    => \kartik\select2\Select2::widget(
+                    [
+                        'model' => $searchModel,
+                        'attribute' => 'company_id',
+                        'data' => \yii\helpers\ArrayHelper::map(Company::find()->all(),'id', 'name'),
+                        'options' => ['placeholder' => 'Select a state ...','class' => 'form-control'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ]),
+            ],
             /*'content:ntext',*/
 //            [
 //                'attribute' => 'dt_add',

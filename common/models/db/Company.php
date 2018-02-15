@@ -36,6 +36,7 @@ use yii\helpers\ArrayHelper;
  * @property integer $verifikation
  *
  * @property CategoryCompanyRelations[] $categoryCompanyRelations
+ * @property News[] $news
  */
 class Company extends \yii\db\ActiveRecord
 {
@@ -54,7 +55,7 @@ class Company extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['dt_add', 'dt_update', 'status', 'lang_id', 'views', 'user_id', 'vip', 'tariff_id', 'dt_end_tariff', 'region_id','city_id', 'recommended', 'main', 'verifikation'], 'integer'],            [['descr'], 'string'],
+            [['dt_add', 'dt_update', 'status', 'lang_id', 'views', 'user_id', 'vip', 'tariff_id', 'dt_end_tariff', 'region_id', 'city_id', 'recommended', 'main', 'verifikation'], 'integer'], [['descr'], 'string'],
             [
                 ['name', 'address', 'phone', 'email', 'photo', 'slug', 'meta_title', 'meta_descr'],
                 'string',
@@ -108,44 +109,77 @@ class Company extends \yii\db\ActiveRecord
         return $this->hasMany(CategoryCompanyRelations::className(), ['company_id' => 'id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getCategories()
     {
         return $this->hasMany(CategoryCompany::className(), ['id' => 'cat_id'])->via('categoryCompanyRelations');
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getTariff()
     {
         return $this->hasOne(\common\models\db\Tariff::className(), ['id' => 'tariff_id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getAllPhones()
     {
         return $this->hasMany(Phones::className(), ['company_id' => 'id']);
     }
 
+    /**
+     * @return array
+     */
     public static function getList()
     {
         return ArrayHelper::map(self::find()->all(), 'id', 'name');
     }
 
+    /**
+     * @param $id
+     * @return null|static|$this
+     */
     public static function findById($id)
     {
         return static::findOne($id);
     }
 
+    /**
+     * @return array
+     */
     public function getPhones()
     {
         return explode(' ', $this->phone);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id'=> 'user_id']);
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getStock()
     {
         return $this->hasMany(Stock::className(), ['id' => 'company_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getNews()
+    {
+        return $this->hasMany(News::className(), ['company_id' => 'id']);
     }
 
 }
