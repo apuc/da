@@ -12,6 +12,7 @@ use common\models\db\CategoryCompany;
 use common\models\db\Company;
 use common\models\db\CompanyFeedback;
 use common\models\db\CompanyTariffOrder;
+use common\models\db\Products;
 use common\models\db\ServicesCompanyRelations;
 use common\models\db\Stock;
 use yii\helpers\ArrayHelper;
@@ -124,5 +125,11 @@ class CompanyFunction
     public static function getCountStock($id)
     {
         return Stock::find()->where(['company_id' => $id, 'status' => 0])->count();
+    }
+
+    //Получить количество товаров компании
+    public static function getCountProduct($id)
+    {
+        return Products::find()->where(['company_id' => $id, 'status' => 1])->count();
     }
 }

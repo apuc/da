@@ -95,4 +95,12 @@ class Products extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Company::className(), ['id' => 'company_id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getImages()
+    {
+        return $this->hasMany(ProductsImg::className(), ['product_id' => 'id']);
+    }
 }

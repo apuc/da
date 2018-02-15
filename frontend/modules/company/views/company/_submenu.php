@@ -7,6 +7,12 @@
 use common\classes\CompanyFunction;
 use yii\helpers\Url;
 
+$role = \Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
+if(isset($role['admin'])){
+    $role = 'admin';
+}else{
+    $role = 'user';
+}
 echo \yii\widgets\Menu::widget(
     [
         'items' => [
@@ -26,6 +32,13 @@ echo \yii\widgets\Menu::widget(
                 'url' => Url::to(['/company/company/view', 'slug' => $slug, 'page' => 'stocks']),
                 'template' => '<a href="{url}">{label}<span class="tabs-counters">' . CompanyFunction::getCountStock($model->id) . '</span></a>',
                 'active' => $page == 'stocks',
+            ],
+            [
+                'label' => 'Товары',
+                'url' => Url::to(['/company/company/view', 'slug' => $slug, 'page' => 'products']),
+                'template' => '<a href="{url}">{label}<span class="tabs-counters">' . CompanyFunction::getCountProduct($model->id) . '</span></a>',
+                'active' => $page == 'products',
+                'visible' => $role == 'admin',
             ],
             [
                 'label' => 'Статистика',
