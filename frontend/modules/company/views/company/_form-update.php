@@ -75,10 +75,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     ArrayHelper::map(CategoryCompany::find()->where(['lang_id' => 1, 'parent_id' => '0'])->all(), 'id', 'title'),
     ['class' => 'cabinet__add-company-form--field', 'id' => 'categ_company', 'prompt' => 'Выберите категорию']
 );
-*/ ?><!--
---><?php /* */ ?>
-
-<?php// \common\classes\Debug::dd($companyRel);?>
+*/ ?>
 
 <?php $model->categ = ArrayHelper::getColumn($companyRel, 'cat_id');?>
 
