@@ -2,6 +2,7 @@
 
 use common\classes\Debug;
 use common\models\db\CategoryNews;
+use common\models\db\Company;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\InputFile;
 use yii\helpers\ArrayHelper;
@@ -47,6 +48,16 @@ use kartik\select2\Select2;
         ],
     ]);
     ?>
+
+    <?= $form->field($model, 'company_id')->widget(Select2::className(),
+        [
+            'data' => \yii\helpers\ArrayHelper::map(Company::find()->with('news')->all(),'id', 'name'),
+            'options' => ['placeholder' => 'Начните вводить компанию ...','class' => 'form-control'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]
+    )->label('Относится к компании'); ?>
 
     <?php echo $form->field($model, 'content')->widget(CKEditor::className(), [
         'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [

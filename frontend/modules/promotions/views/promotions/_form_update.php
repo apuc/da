@@ -1,5 +1,6 @@
 <?php
 
+use kartik\file\FileInput;
 use kartik\select2\Select2;
 use mihaildev\ckeditor\CKEditor;
 use yii\helpers\ArrayHelper;
@@ -68,14 +69,24 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                         До конца месяца, с 1 по 10 февраля...')
             ->label('Длительность акции'); ?>
 
-        <h2 class="soglasie">Добавить фото
-            <span></span>
-        </h2>
-        <?= $form->field($model, 'photo',
-            ['template' => '<label class="cabinet__add-company-form--add-foto"><span class="button"></span>
-                                    {input}<img id="blah" src="" alt="" width="160px">
-                                </label>',
-            ])->label(false)->fileInput(); ?>
+        <?= $form->field($model, 'photo')->hiddenInput(['value' => $model->photo])->label(false); ?>
+        <?php echo '<label class="control-label">Добавить фото</label>';
+        echo FileInput::widget([
+            'name' => 'Stock',
+            'options' => ['multiple' => false],
+            'pluginOptions' => [
+                'previewFileType' => 'image',
+                'maxFileCount' => 10,
+                'maxFileSize' => 2000,
+                'language' => "ru",
+                'previewClass' => 'hasEdit',
+                'initialPreview' => "<img src='$model->photo' class='file-preview-image'>",
+                'initialPreviewConfig' => [
+                    'caption' => '',
+                    'url' => '/promotions/promotions/delete?id=' . $model->id
+                ]
+            ],
+        ]); ?>
 
         <div class="cabinet__add-company-form--block"></div>
         <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>
@@ -83,16 +94,17 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             ->hint('<b>Введите краткое описание акции.</b>')
             ->label('Акционное предложение'); ?>
 
-        <?= $form->field($model, 'descr')
-            ->widget(CKEditor::className(), [
-                'editorOptions' => ElFinder::ckeditorOptions('elfinder', [
-                    'preset' => 'basic',
-                    'inline' => false,
-                    'path' => 'frontend/web/media/upload',
-                ]),
-            ])
-            ->label('Подробное описание'); ?>
-
+        <div class="description-action">
+            <?= $form->field($model, 'descr')
+                ->widget(CKEditor::className(), [
+                    'editorOptions' => ElFinder::ckeditorOptions('elfinder', [
+                        'preset' => 'basic',
+                        'inline' => false,
+                        'path' => 'frontend/web/media/upload',
+                    ]),
+                ])
+                ->label('Подробное описание'); ?>
+        </div>
 
         <?= Html::submitButton('Сохранить',
             ['class' => 'cabinet__add-company-form--submit place-ad_publish publish place-ad__publish', 'id' => 'saveInfo']) ?>
