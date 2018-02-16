@@ -61,6 +61,21 @@ class ProductFieldsValue extends \yii\db\ActiveRecord
     {
         return $this->hasOne(ProductFieldsDefaultValue::className(), ['id' => 'value_id']);
     }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getValue()
+    {
+        return $this->hasOne(ProductFieldsDefaultValue::className(), ['id' => 'value_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getField()
+    {
+        return $this->hasOne(ProductFields::className(), ['name' => 'product_fields_name']);
+    }
 
     /**
      * @return \yii\db\ActiveQuery
