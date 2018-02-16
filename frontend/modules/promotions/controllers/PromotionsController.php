@@ -102,17 +102,17 @@ class PromotionsController extends Controller
             $model->status = 1;
             $model->user_id = Yii::$app->user->id;
 
-            if ($_FILES['Stock']['name']['photo']) {
+            if ($_FILES['Stock']['name']) {
 
                 $upphoto = New \common\models\UploadPhoto();
-                $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
+                $upphoto->imageFile = UploadedFile::getInstanceByName('Stock');
                 $loc = 'media/upload/userphotos/' . date('dmY') . '/';
                 if (!is_dir($loc)) {
                     mkdir($loc);
                 }
                 $upphoto->location = $loc;
                 $upphoto->upload();
-                $model->photo = '/' . $loc . $_FILES['Stock']['name']['photo'];
+                $model->photo = '/' . $loc . $_FILES['Stock']['name'];
             }
 
             $model->save();
@@ -141,9 +141,9 @@ class PromotionsController extends Controller
             $model->status = 1;
             $model->user_id = Yii::$app->user->id;
 
-            if ($_FILES['Stock']['name']['photo']) {
+            if ($_FILES['Stock']['name']) {
                 $upphoto = New \common\models\UploadPhoto();
-                $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
+                $upphoto->imageFile = UploadedFile::getInstanceByName('Stock');
                 $loc = 'media/upload/userphotos/' . date('dmY') . '/';
                 if (!is_dir($loc)) {
                     mkdir($loc);
@@ -151,9 +151,9 @@ class PromotionsController extends Controller
                 $upphoto->location = $loc;
                 $upphoto->upload();
 
-                $model->photo = '/' . $loc . $_FILES['Stock']['name']['photo'];
+                $model->photo = '/' . $loc . $_FILES['Stock']['name'];
             } else {
-                $model->photo = $_POST['photo'];
+                $model->photo = $_POST['Stock']['photo'];
             }
 
             $model->save();
