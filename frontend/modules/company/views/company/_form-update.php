@@ -1,11 +1,8 @@
 <?php
 
-use common\models\db\CategoryCompany;
-use common\models\db\Lang;
 use kartik\file\FileInput;
 use kartik\select2\Select2;
 use mihaildev\ckeditor\CKEditor;
-use mihaildev\elfinder\InputFile;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -42,42 +39,13 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     ]);
 ?>
 
-<?php
-/*echo \kartik\select2\Select2::widget(
-    [
-        'name' => '1231',
-        'attribute' => 'name',
-        'data' => $categoryAll,
-        'options' => [
-            'multiple' => true,
-            'placeholder' => 'Select a state ...',
-            'class' => 'form-control',
-            'size' => '1'
-        ],
-        'pluginOptions' => [
-            'allowClear' => true,
-            'showToggleAll' => false,
-            'tags' => true,
-            'maximumSelectionLength' => 2
-
-        ],
-    ]); */ ?>
-
-
 
 <?= $form->field($model, 'slug')->hiddenInput()->label(false); ?>
     <input type="hidden" name="photo" id="" value="<?= $model->photo; ?>">
 
-<?php
-/*echo Html::dropDownList(
-    'categ',
-    $selectCat->id,
-    ArrayHelper::map(CategoryCompany::find()->where(['lang_id' => 1, 'parent_id' => '0'])->all(), 'id', 'title'),
-    ['class' => 'cabinet__add-company-form--field', 'id' => 'categ_company', 'prompt' => 'Выберите категорию']
-);
-*/ ?>
 
-<?php $model->categ = ArrayHelper::getColumn($companyRel, 'cat_id');?>
+<?php $model->categ = ArrayHelper::getColumn($companyRel, 'cat_id'); ?>
+
 
 <?= $form->field($model, 'categ')->widget(Select2::className(),
     [
@@ -97,31 +65,12 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         ],
     ]);
 ?>
-    <!--<div class="cabinet__add-company-form--block"></div>-->
-
-    <!-- <span class="addParentCategory" style="width: 100%;">
-
-        <div class="cabinet__add-company-form--hover-wrapper">
-            <p class="cabinet__add-company-form--title">Категория</p>
-            <? /*= Html::dropDownList(
-                'categParent',
-                $selectParentCat->id,
-                ArrayHelper::map(CategoryCompany::find()->where(['parent_id' => $selectCat->id])->all(), 'id', 'title'),
-                ['class' => 'cabinet__add-company-form--field selectCateg', 'prompt' => 'Выберите категорию']
-
-            ) */ ?>
-            <p class="cabinet__add-company-form--notice"></p>
-        </div>
-        <br/>
-
-    </span>-->
 
 
-<?= $form->field($model, 'name')->textInput([
-    'maxlength' => true,
-])
-->hint('Введите название компании')
-->label('Название компании')
+<?= $form->field($model, 'name')
+    ->textInput(['maxlength' => true])
+    ->hint('Введите название компании')
+    ->label('Название компании')
 ?>
 
 <?= $form->field($model, 'city_id')->widget(Select2::className(),
@@ -142,35 +91,21 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     ->hint('Введите адрес компании без указания города')
     ->label('Адрес компании')
 ?>
-    <!--<div class="cabinet__add-company-form--wrapper">
-        <p class="cabinet__add-company-form--title">Адрес компании</p>
-        <?/*= $form->field($model, 'address')->textInput([
-            'maxlength' => true,
-            'class' => 'cabinet__add-company-form--field',
-        ])->label(false) */?>
 
-        <!-- <a href="#" class="cabinet__add-field"></a>
-
-    </div>-->
-
-
-
-
-<?php echo $form->field($model, 'photo', [
+<?= $form->field($model, 'photo', [
     'template' => '<label class="cabinet__add-company-form--add-foto">
                                         <span class="button"></span>
                                         {input}
                                         <img id="blah" src="' . $model->photo . '" alt="" width="160px">
-                                        </label>'
-])->label('Логотип компании')->fileInput();
+                                        </label>'])
+    ->label('Логотип компании')
+    ->fileInput();
 ?>
 
     <div class="cabinet__add-company-form--block"></div>
 
-
-    <div class="cabinet__add-company-form--wrapper">
-
-        <p class="cabinet__add-company-form--title">Телефон</p>
+    <div class="form-line field-company-phone">
+        <label class="label-name" for="company-phone">Телефон</label>
         <?php // $phone = explode(' ', $model->phone);
         if (!empty($model->allPhones)) {
             $phone = $model->allPhones;
@@ -205,18 +140,14 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             </div>
         <?php }
         ?>
-
-
     </div>
 
     <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>
-
-
-    <p class="cabinet__add-company-form--title">Email компании</p>
-<?= $form->field($model, 'email')->textInput([
-    'maxlength' => true,
-    'class' => 'cabinet__add-company-form--field',
-])->label(false) ?>
+<?= $form->field($model, 'email')
+    ->textInput(['maxlength' => true])
+    ->hint('Введите электронный адрес компании')
+    ->label('Email компании');
+?>
     <div class="cabinet__add-company-form--block"></div>
 
 <?php
@@ -224,62 +155,66 @@ if (isset($services['group_link']) && $services['group_link'] == 1) { ?>
     <p class="cabinet__add-company-form--title">Соц. сети компании</p>
     <div class="cabinet__add-company-form--social">
 
-    <?php
-            foreach ($typeSeti as $type) {
-                ?>
-                <div class="cabinet__add-company-form--social-element">
+        <?php
+        foreach ($typeSeti as $type) {
+            ?>
+            <div class="cabinet__add-company-form--social-element">
                             <span class="social-wrap__item">
                                 <img src="<?= $type->icon ?>" alt="">
                             </span>
-                    <span class="social-name"><?= $type->name; ?></span>
-                    <input type="text"
-                           value="<?= !empty($socCompany[$type->id]->link) ? $socCompany[$type->id]->link : '' ?>"
-                           name="socicon[<?= $type->id ?>][]" class="social-way">
-                </div>
-                <?php
-            }
-      ?>
+                <span class="social-name"><?= $type->name; ?></span>
+                <input type="text"
+                       value="<?= !empty($socCompany[$type->id]->link) ? $socCompany[$type->id]->link : '' ?>"
+                       name="socicon[<?= $type->id ?>][]" class="social-way">
+            </div>
+            <?php
+        }
+        ?>
 
     </div>
     <?php
 }
 ?>
 
-    <p class="cabinet__add-company-form--title">О компании</p>
+
 <?php
+$descTemplate = '<label class="label-name" for="stock-descr">О компании</label><div class="description-action">{input}</div>';
+$descHint = 'Напишите подробное описание компании';
 if (isset($services['count_text'])) {
     if ($services['count_text'] != '-') {
-        echo $form->field($model, 'descr')->textarea(
-            [
+        echo $form->field($model, 'descr', ['template' => $descTemplate])
+            ->textarea([
                 'class' => 'cabinet__add-company-form--text',
                 'maxlength' => $services['count_text'],
-            ]
-        )->label(false);
+            ])
+            ->hint($descHint)
+            ->label(false);
     } else {
-        echo $form->field($model, 'descr')->widget(CKEditor::className(), [
-            //        'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
-            //            'preset' => 'full',
-            //            'inline' => false,
-            //            'path' => 'frontend/web/media/upload',
-            //        ]),
-        ])->label(false);
+        echo $form->field($model, 'descr', ['template' => $descTemplate])
+            ->widget(CKEditor::className(), [
+                //        'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
+                //            'preset' => 'full',
+                //            'inline' => false,
+                //            'path' => 'frontend/web/media/upload',
+                //        ]),
+            ])
+            ->hint($descHint)
+            ->label(false);
     }
 
 } else {
-    echo $form->field($model, 'descr')->textarea(
-        [
+    echo $form->field($model, 'descr', ['template' => $descTemplate])
+        ->textarea([
             'class' => 'cabinet__add-company-form--text',
             'maxlength' => 100,
-        ]
-    )->label(false);
+        ])
+        ->hint($descHint)
+        ->label(false);
 }
-
 ?>
 
 
 <?php
-
-//echo '<label class="control-label">Добавить фото</label>';
 if (isset($services['count_photo'])) {
     ?>
     <p class="cabinet__add-company-form--title">Загрузите фотографии вашей компании</p>
@@ -322,17 +257,7 @@ if (isset($services['count_photo'])) {
         ],
     ]);
 }
-
 ?>
-
-
-<?php /*echo $form->field($model, 'descr')->widget(CKEditor::className(), [
-//        'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
-//            'preset' => 'full',
-//            'inline' => false,
-//            'path' => 'frontend/web/media/upload',
-//        ]),
-])->label(false); */ ?>
 
 
 <?= Html::submitButton('Сохранить', ['class' => 'cabinet__add-company-form--submit']) ?>
