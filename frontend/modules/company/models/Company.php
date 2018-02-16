@@ -15,6 +15,7 @@ use common\models\db\CompanyFeedback;
 use common\models\db\CompanyPhoto;
 use common\models\db\CompanyViews;
 use common\models\db\Stock;
+use common\models\db\News;
 use frontend\modules\shop\models\Products;
 use Yii;
 use yii\db\ActiveRecord;
@@ -95,6 +96,12 @@ class Company extends \common\models\db\Company
                 $stock = Stock::find()->where(['company_id' => $this->id])->all();
                 $options = [
                     'stock' => $stock,
+                ];
+                break;
+            case 'news':
+                $news = News::find()->where(['company_id' => $this->id])->all();
+                $options = [
+                    'news' => $news,
                 ];
                 break;
             case 'products':

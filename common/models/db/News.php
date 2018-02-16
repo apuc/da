@@ -29,8 +29,11 @@ use Yii;
  * @property integer $show_error
  * @property integer $region_id
  * @property integer $editor_choice
+ * @property integer $company_id
  *
  * @property CategoryNewsRelations[] $categoryNewsRelations
+ * @property int $rss [int(1)]
+ * @property Company $company
  */
 class News extends \yii\db\ActiveRecord
 {
@@ -52,12 +55,19 @@ class News extends \yii\db\ActiveRecord
             [['title', 'content'/*, 'categoryId'*/], 'required'],
             [['content'], 'string'],
             [
-                ['dt_add', 'dt_update', 'status', 'user_id', 'lang_id', 'views', 'exclude_popular', 'rss', 'hot_new', 'show_error', 'region_id', 'editor_choice'],
+                ['dt_add', 'dt_update', 'status', 'user_id', 'lang_id', 'views', 'exclude_popular', 'rss', 'hot_new', 'show_error', 'region_id', 'editor_choice', 'company_id'],
                 'integer',
             ],
             [['title', 'slug', 'tags', 'photo', 'meta_title', 'meta_descr'], 'string', 'max' => 255],
             [['author'], 'string', 'max' => 64],
             [['main_slider'], 'safe'],
+            [
+                ['company_id'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Company::className(),
+                'targetAttribute' => ['company_id' => 'id']
+            ],
         ];
     }
 
@@ -90,6 +100,7 @@ class News extends \yii\db\ActiveRecord
             'show_error' => Yii::t('news', 'Show_error'),
             'region_id' => Yii::t('news', 'RegionID'),
             'editor_choice' => Yii::t('news', 'Editor choice'),
+            'company_id' => Yii::t('news', 'Company ID'),
         ];
     }
 
@@ -101,11 +112,17 @@ class News extends \yii\db\ActiveRecord
         return $this->hasMany(CategoryNewsRelations::className(), ['new_id' => 'id'])->with('cat');
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getCategory()
     {
         return $this->hasMany(CategoryNews::className(), ['id' => 'cat_id'])->via('categoryNewsRelations');
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public static function mainSlider()
     {
         return self::find()
@@ -115,15 +132,30 @@ class News extends \yii\db\ActiveRecord
             ->with('category');
     }
 
-    public static function getCommentsCount($id){
+    /**
+     * @param $id
+     * @return int|string
+     */
+    public static function getCommentsCount($id)
+    {
         return Comments::find()->where(['post_type' => 'news', 'post_id' => $id, 'published' => 1])->count();
     }
 
-    public static function getLikeCount($id){
+    /**
+     * @param $id
+     * @return int|string
+     */
+    public static function getLikeCount($id)
+    {
         return Likes::find()->where(['post_type' => 'news', 'post_id' => $id])->count();
     }
 
-    public static function getTags($id){
+    /**
+     * @param $id
+     * @return array|TagsRelation[]|\yii\db\ActiveRecord[]
+     */
+    public static function getTags($id)
+    {
         return TagsRelation::find()
             ->where(['post_id' => $id, 'type' => 'news'])
             ->with('tags')
@@ -131,8 +163,11 @@ class News extends \yii\db\ActiveRecord
             ->all();
     }
 
-    /*public function getcategory_news_relations()
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCompany()
     {
-
-    }*/
+        return $this->hasOne(Company::className(), ['id' => 'company_id']);
+    }
 }

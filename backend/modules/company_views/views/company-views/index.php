@@ -33,8 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'date',
             [
                 'attribute' => 'ip_address',
-                'value' => function($model){
-                    return (long2ip($model->ip_address) . " - ". Yii::$app->ipgeobase->getLocation(long2ip($model->ip_address))['city']);
+                'value' => function ($model) {
+                    $city = Yii::$app->ipgeobase->getLocation(long2ip($model->ip_address));
+                    $city = isset($city['city']) ? " - " . $city['city'] : null;
+                    return (long2ip($model->ip_address) . $city);
                 },
             ],
             'count',
