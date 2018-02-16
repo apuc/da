@@ -88,17 +88,16 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             ->hint('<b>Введите краткое описание акции.</b>')
             ->label('Акционное предложение'); ?>
 
-        <div class="description-action">
-            <?= $form->field($model, 'descr')
-                ->widget(CKEditor::className(), [
-                    'editorOptions' => ElFinder::ckeditorOptions('elfinder', [
-                        'preset' => 'basic',
-                        'inline' => false,
-                        'path' => 'frontend/web/media/upload',
-                    ]),
-                ])
-                ->label('Подробное описание'); ?>
-        </div>
+        <?= $form->field($model, 'descr',
+            ['template' => '<label class="label-name" for="stock-descr">Подробное описание</label><div class="description-action">{input}</div>'])
+            ->widget(CKEditor::className(), [
+                'editorOptions' => ElFinder::ckeditorOptions('elfinder', [
+                    'preset' => 'basic',
+                    'inline' => false,
+                    'path' => 'frontend/web/media/upload',
+                ]),
+            ])
+            ->label(false); ?>
 
         <?= Html::submitButton('Сохранить',
             ['class' => 'cabinet__add-company-form--submit place-ad_publish publish place-ad__publish', 'id' => 'saveInfo']) ?>
