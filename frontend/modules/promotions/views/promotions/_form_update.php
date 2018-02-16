@@ -94,16 +94,17 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             ->hint('<b>Введите краткое описание акции.</b>')
             ->label('Акционное предложение'); ?>
 
-        <?= $form->field($model, 'descr')
-            ->widget(CKEditor::className(), [
-                'editorOptions' => ElFinder::ckeditorOptions('elfinder', [
-                    'preset' => 'basic',
-                    'inline' => false,
-                    'path' => 'frontend/web/media/upload',
-                ]),
-            ])
-            ->label('Подробное описание'); ?>
-
+        <div class="description-action">
+            <?= $form->field($model, 'descr')
+                ->widget(CKEditor::className(), [
+                    'editorOptions' => ElFinder::ckeditorOptions('elfinder', [
+                        'preset' => 'basic',
+                        'inline' => false,
+                        'path' => 'frontend/web/media/upload',
+                    ]),
+                ])
+                ->label('Подробное описание'); ?>
+        </div>
 
         <?= Html::submitButton('Сохранить',
             ['class' => 'cabinet__add-company-form--submit place-ad_publish publish place-ad__publish', 'id' => 'saveInfo']) ?>
