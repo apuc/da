@@ -1,5 +1,10 @@
 <?php
+/**
+ * @var \common\models\db\Poster $model
+ */
 $this->title = 'Добавление афиши мероприятия';
+
+use kartik\file\FileInput;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html; ?>
 
@@ -50,27 +55,48 @@ use yii\helpers\Html; ?>
             <img id="blah" src="" alt="" width="160px">
         </label>-->
 
-    <?php
-    if (empty($model->photo)) {
-        echo $form->field($model, 'photo', [
-            'template' => '<label class="cabinet__add-company-form--add-foto">
-                                    <span class="button"></span>
-                                    {input}
-                                    <img id="blah" src="" alt="" width="160px">
-                                    </label>'
-        ])->label(false)->fileInput();
-    } else {
-        echo $form->field($model, 'photo', [
-            'template' => '
-                    <label class="cabinet__add-company-form--add-foto">
-                                    <span class="button"></span>
-                                    {input}
-                                    <img id="blah" src="' . $model->photo . '" alt="" width="160px">
-                                    </label>'
-        ])->label(false)->fileInput();
-    }
-    ?>
-    <input type="hidden" name="img" value="<?= $model->photo; ?>" id="">
+<!--    --><?php
+//    if (empty($model->photo)) {
+//        echo $form->field($model, 'photo', [
+//            'template' => '<label class="cabinet__add-company-form--add-foto">
+//                                    <span class="button"></span>
+//                                    {input}
+//                                    <img id="blah" src="" alt="" width="160px">
+//                                    </label>'
+//        ])->label(false)->fileInput();
+//    } else {
+//        echo $form->field($model, 'photo', [
+//            'template' => '
+//                    <label class="cabinet__add-company-form--add-foto">
+//                                    <span class="button"></span>
+//                                    {input}
+//                                    <img id="blah" src="' . $model->photo . '" alt="" width="160px">
+//                                    </label>'
+//        ])->label(false)->fileInput();
+//    }
+//    ?>
+<!--    <input type="hidden" name="img" value="--><?//= $model->photo; ?><!--" id="">-->
+
+    <?= $form->field($model, 'photo')->hiddenInput(['value' => $model->photo])->label(false); ?>
+    <?php echo '<label class="control-label">Изменить фото</label>';
+    echo FileInput::widget([
+        'name' => 'Poster',
+        'options' => ['multiple' => false],
+        'pluginOptions' => [
+            'previewFileType' => 'image',
+            'maxFileCount' => 10,
+            'maxFileSize' => 2000,
+            'language' => "ru",
+            'previewClass' => 'hasEdit',
+            'initialPreview' => "<img src='$model->photo' class='file-preview-image'>",
+            'initialPreviewConfig' => [
+                'caption' => '',
+                'url' => '/promotions/promotions/delete?id=' . $model->id
+            ]
+        ],
+    ]); ?>
+
+
 
         <div class="cabinet__add-company-form--block"></div>
 

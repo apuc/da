@@ -411,16 +411,16 @@ class DefaultController extends Controller
             $model->meta_title = $model->title . ' - Афиша на DA-info';
             $model->meta_descr = \yii\helpers\StringHelper::truncate($model->descr, 250) . ' - Афиша на DA-info';
 
-            if ($_FILES['Poster']['name']['photo']) {
+            if ($_FILES['Poster']['name']) {
                 $upphoto = New \common\models\UploadPhoto();
-                $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
+                $upphoto->imageFile = UploadedFile::getInstanceByName('Poster');
                 $loc = 'media/upload/userphotos/' . date('dmY') . '/';
                 if (!is_dir($loc)) {
                     mkdir($loc);
                 }
                 $upphoto->location = $loc;
                 $upphoto->upload();
-                $model->photo = '/' . $loc . $_FILES['Poster']['name']['photo'];
+                $model->photo = '/' . $loc . $_FILES['Poster']['name'];
             }
 
             $model->save();
@@ -466,16 +466,16 @@ class DefaultController extends Controller
             $model->meta_title = $model->title . ' - Афиша на DA-info';
             $model->meta_descr = \yii\helpers\StringHelper::truncate($model->descr, 250) . ' - Афиша на DA-info';
 
-            if (!empty($_FILES['Poster']['name']['photo'])) {
+            if (!empty($_FILES['Poster']['name'])) {
                 $upphoto = New \common\models\UploadPhoto();
-                $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
+                $upphoto->imageFile = UploadedFile::getInstanceByName('Poster');
                 $loc = 'media/upload/userphotos/' . date('dmY') . '/';
                 if (!is_dir($loc)) {
                     mkdir($loc);
                 }
                 $upphoto->location = $loc;
                 $upphoto->upload();
-                $model->photo = '/' . $loc . $_FILES['Poster']['name']['photo'];
+                $model->photo = '/' . $loc . $_FILES['Poster']['name'];
             }else{
                 $model->photo = $_POST['img'];
             }
