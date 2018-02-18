@@ -15,7 +15,7 @@
                 <?php if (!empty($product->cover)): ?>
                     <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $product->cover); ?>" alt="<?= $product->title; ?>">
                 <?php else: ?>
-                    <?= \common\models\UploadPhoto::getImageOrNoImage($product->images[0]->img_thumb); ?>
+                    <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($product->images[0]->img_thumb); ?>">
                 <?php endif; ?>
                 <!--<img src="img/company-shop/1.png" alt="">-->
             </div>
