@@ -3,6 +3,8 @@
  * @var $model \frontend\modules\shop\models\Products
  */
 
+use common\classes\GeobaseFunction;
+
 $this->registerJsFile('/theme/portal-donbassa/js/jquery.zoom.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->registerJsFile('/theme/portal-donbassa/js/slick.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
@@ -114,7 +116,16 @@ $this->registerJsFile('/theme/portal-donbassa/js/slick.min.js', ['depends' => [\
                     <img src="<?= $model['company']->photo ?>" alt="">
                 </div>
                 <h3 class="all-actions__company--title"><?= $model['company']->name ?></h3>
-                <div class="all-actions__company--addres"><?= $model['company']->address ?></div>
+                <?php
+                //\common\classes\Debug::dd($model['company']->region_id);
+                if($model['company']->region_id != 0){
+                    $address = GeobaseFunction::getRegionName($model['company']->region_id) . ', ' .GeobaseFunction::getCityName($model['company']->city_id) . ', ' . $model['company']->address ;
+                }
+                else{
+                    $address = $model['company']->address;
+                }
+                ?>
+                <div class="all-actions__company--addres"><?= $address ?></div>
             </div>
 
             <a href="#" class="single-shop__desires">Добавить в мои желания</a>
@@ -130,7 +141,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/slick.min.js', ['depends' => [\
                     <img src="<?= $model['company']->photo ?>" alt="">
                 </div>
                 <h3 class="all-actions__company--title"><?= $model['company']->name ?></h3>
-                <div class="all-actions__company--addres"><?= $model['company']->address ?></div>
+                <div class="all-actions__company--addres"><?= $address ?></div>
             </a>
         </div>
         <!--<div class="company-rating">

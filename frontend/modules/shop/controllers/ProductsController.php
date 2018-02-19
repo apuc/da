@@ -61,7 +61,7 @@ class ProductsController extends Controller
 
         if ($model->load(Yii::$app->request->post()) /*&& $model->save()*/) {
             if(!empty($model->cover)){
-                $model->cover = 'media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/' . $model->cover;
+                $model->cover = '/media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/thumb/' . $model->cover;
             }
 
             //Debug::dd($model);
@@ -74,10 +74,10 @@ class ProductsController extends Controller
                 $model->saveProductPhoto($_FILES, $model->id);
             }
 
-            //Debug::dd($model);
             return $this->redirect(['index']);
         }
-
+       /* $str = 'image (1).jpg';
+        Debug::dd(str_replace( array('(',')'), '_', $str));*/
         $userCompany =Company::find()->where(['user_id' => Yii::$app->user->id])->all();
         return $this->render('create', [
             'model' => $model,

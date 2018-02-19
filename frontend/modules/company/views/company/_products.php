@@ -12,6 +12,7 @@
         <?php foreach ($products as $product): ?>
         <a href="<?= \yii\helpers\Url::to(['/shop/shop/show', 'slug' => $product->slug])?>" class="business__company-item">
             <div class="business__company-img">
+                <?php $product->cover?>
                 <?php if (!empty($product->cover)): ?>
                     <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $product->cover); ?>" alt="<?= $product->title; ?>">
                 <?php else: ?>
