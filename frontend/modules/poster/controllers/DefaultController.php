@@ -2,7 +2,6 @@
 
 namespace frontend\modules\poster\controllers;
 
-use backend\modules\poster\controllers\PosterController;
 use common\classes\Debug;
 use common\classes\UserFunction;
 use common\models\db\CategoryPoster;
@@ -15,9 +14,6 @@ use yii\data\ActiveDataProvider;
 use yii\data\SqlDataProvider;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use yii\helpers\ArrayHelper;
-use yii\helpers\StringHelper;
-use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\UploadedFile;
 
@@ -432,7 +428,7 @@ class DefaultController extends Controller
                 $catNewRel->save();
             }
             Yii::$app->session->setFlash('success','Ваша афиша успешно добавлена. После прохождения модерации она будет опубликована.');
-            return $this->redirect('/personal_area/default/index');
+            return $this->redirect('/personal_area/user-poster');
         } else {
 
             $categoryPoster = CategoryPoster::find()->all();
@@ -477,19 +473,19 @@ class DefaultController extends Controller
                 $upphoto->upload();
                 $model->photo = '/' . $loc . $_FILES['Poster']['name'];
             }else{
-                $model->photo = $_POST['img'];
+                $model->photo = $_POST['Poster']['photo'];
             }
 
             $model->save();
             CategoryPosterRelations::deleteAll(['poster_id' => $id]);
-            foreach ($_POST['cat'] as $cat) {
+            foreach ($_POST['Poster']['categoryId'] as $cat) {
                 $catNewRel = new CategoryPosterRelations();
-                $catNewRel->cat_id = $cat;
+                $catNewRel->cat_id = (int)$cat;
                 $catNewRel->poster_id = $model->id;
                 $catNewRel->save();
             }
             Yii::$app->session->setFlash('success','Ваша афиша успешно измененна. После прохождения модерации она будет опубликована.');
-            return $this->redirect('/personal_area/default/index');
+            return $this->redirect('/personal_area/user-poster');
         } else {
 
             $categoryPoster = CategoryPoster::find()->all();
