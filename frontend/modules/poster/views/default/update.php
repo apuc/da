@@ -176,7 +176,12 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>
 
         <?= $form->field($model, 'descr')
-            ->textarea(['aria-invalid' => 'false'])
+            ->textarea([
+                'aria-invalid' => 'false',
+                'style' => [
+                    'height' => '200px'
+                ]
+            ])
             ->hint('Введите описание мероприятия')
             ->label('Описание')
         ?>
