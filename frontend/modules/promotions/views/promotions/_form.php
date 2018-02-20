@@ -28,7 +28,6 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             'id' => 'add_ads',
             'options' =>
                 [
-                    'class' => 'content-forma',
                     'enctype' => 'multipart/form-data',
                 ],
             'fieldConfig' => [
@@ -44,63 +43,67 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             'errorCssClass' => 'my-error',
 
         ]); ?>
+        <div class="content-forma">
+            <?php $company_id = array_keys($beforeCreate); ?>
 
-        <?php $company_id = array_keys($beforeCreate); ?>
+            <?= $form->field($model, 'company_id')->widget(Select2::className(), [
+                'attribute' => 'state_2',
+                'data' => ArrayHelper::map(Company::find()->where(['in', 'id', $company_id])->all(), 'id', 'name'),
+                'options' => ['placeholder' => 'Начните вводить Вашу компанию ...'],
+                'pluginOptions' => [
+                    'allowClear' => true,
+                ],
+            ]); ?>
 
-        <?= $form->field($model, 'company_id')->widget(Select2::className(), [
-            'attribute' => 'state_2',
-            'data' => ArrayHelper::map(Company::find()->where(['in', 'id', $company_id])->all(), 'id', 'name'),
-            'options' => ['placeholder' => 'Начните вводить Вашу компанию ...'],
-            'pluginOptions' => [
-                'allowClear' => true,
-            ],
-        ]); ?>
+            <?= $form->field($model, 'title')->textInput(['maxlength' => 70])
+                ->hint('<b>Введите заголовок,</b><br>который будет отображаться в списке акций')
+                ->label('Заголовок акции'); ?>
 
-        <?= $form->field($model, 'title')->textInput(['maxlength' => 70])
-            ->hint('<b>Введите заголовок,</b><br>который будет отображаться в списке акций')
-            ->label('Заголовок акции'); ?>
+            <?= $form->field($model, 'link')->textInput()
+                ->hint('<b>Вставьте ссылку.</b><br>Сссылка может вести на сайт вашей компании или же на страницу в соцсетях')
+                ->label('Ссылка'); ?>
 
-        <?= $form->field($model, 'link')->textInput()
-            ->hint('<b>Вставьте ссылку.</b><br>Сссылка может вести на сайт вашей компании или же на страницу в соцсетях')
-            ->label('Ссылка'); ?>
-
-        <?= $form->field($model, 'dt_event')->textInput()
-            ->hint('<b>Примеры:</b><br>
+            <?= $form->field($model, 'dt_event')->textInput()
+                ->hint('<b>Примеры:</b><br>
                         До конца месяца, с 1 по 10 февраля...')
-            ->label('Длительность акции'); ?>
+                ->label('Длительность акции'); ?>
 
-        <?= $form->field($model, 'photo')->hiddenInput(['value' => $model->photo])->label(false); ?>
-        <?php echo '<label class="control-label">Добавить фото</label>';
-        echo FileInput::widget([
-            'name' => 'Stock',
-            'options' => ['multiple' => false],
-            'pluginOptions' => [
-                'previewFileType' => 'image',
-                'maxFileCount' => 10,
-                'maxFileSize' => 2000,
-                'language' => "ru",
-            ],
-        ]); ?>
+            <?= $form->field($model, 'photo')->hiddenInput(['value' => $model->photo])->label(false); ?>
+            <?php echo '<label class="control-label">Добавить фото</label>';
+            echo FileInput::widget([
+                'name' => 'Stock',
+                'options' => ['multiple' => false],
+                'pluginOptions' => [
+                    'previewFileType' => 'image',
+                    'maxFileCount' => 10,
+                    'maxFileSize' => 2000,
+                    'language' => "ru",
+                ],
+            ]); ?>
 
-        <div class="cabinet__add-company-form--block"></div>
-        <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>
-        <?= $form->field($model, 'short_descr')->textInput()
-            ->hint('<b>Введите краткое описание акции.</b>')
-            ->label('Акционное предложение'); ?>
+            <div class="cabinet__add-company-form--block"></div>
+            <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>
+            <?= $form->field($model, 'short_descr')->textInput()
+                ->hint('<b>Введите краткое описание акции.</b>')
+                ->label('Акционное предложение'); ?>
+        </div>
 
-        <?= $form->field($model, 'descr',
-            ['template' => '<label class="label-name" for="stock-descr">Подробное описание</label><div class="description-action">{input}</div>'])
-            ->widget(CKEditor::className(), [
-                'editorOptions' => ElFinder::ckeditorOptions('elfinder', [
-                    'preset' => 'basic',
-                    'inline' => false,
-                    'path' => 'frontend/web/media/upload',
-                ]),
-            ])
-            ->label(false); ?>
-
-        <?= Html::submitButton('Сохранить',
-            ['class' => 'cabinet__add-company-form--submit place-ad_publish publish place-ad__publish', 'id' => 'saveInfo']) ?>
+        <div style="float: none; clear: both;">
+            <?= $form->field($model, 'descr',
+                ['template' => '<label class="label-name" style="width: 19%" for="stock-descr">Подробное описание</label><div class="description-action" style="width: 81%!important; float: left!important; ">{input}</div>'])
+                ->widget(CKEditor::className(), [
+                    'editorOptions' => ElFinder::ckeditorOptions('elfinder', [
+                        'preset' => 'basic',
+                        'inline' => false,
+                        'path' => 'frontend/web/media/upload',
+                    ]),
+                ])
+                ->label(false); ?>
+        </div>
+        <div class="content-forma">
+            <?= Html::submitButton('Сохранить',
+                ['class' => 'cabinet__add-company-form--submit place-ad_publish publish place-ad__publish', 'id' => 'saveInfo']) ?>
+        </div>
         <?php ActiveForm::end(); ?>
     <?php else: ?>
         <div class="blanket__content">
