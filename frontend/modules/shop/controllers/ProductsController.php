@@ -9,18 +9,59 @@ use frontend\modules\company\models\Company;
 use frontend\modules\shop\models\CategoryShop;
 use frontend\modules\shop\models\Products;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 
 class ProductsController extends Controller
 {
     public $layout = "personal_area";
+
+    public function init()
+    {
+        $this->on('beforeAction', function ($event) {
+
+            // запоминаем страницу неавторизованного пользователя, чтобы потом отредиректить его обратно с помощью  goBack()
+            if (Yii::$app->getUser()->isGuest) {
+                $request = Yii::$app->getRequest();
+                // исключаем страницу авторизации или ajax-запросы
+                if (!($request->getIsAjax() || strpos($request->getUrl(), 'login') !== false)) {
+                    Yii::$app->getUser()->setReturnUrl($request->getUrl());
+                }
+            }
+        });
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    /*[
+                        'actions' => ['create'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],*/
+                ],
+            ],
+        ];
+    }
+
+
     public function actionCreate()
     {
         $model = new Products();
 
         if ($model->load(Yii::$app->request->post()) /*&& $model->save()*/) {
             if(!empty($model->cover)){
-                $model->cover = 'media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/' . $model->cover;
+                $model->cover = '/media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/thumb/' . $model->cover;
             }
 
             //Debug::dd($model);
@@ -33,10 +74,10 @@ class ProductsController extends Controller
                 $model->saveProductPhoto($_FILES, $model->id);
             }
 
-            //Debug::dd($model);
             return $this->redirect(['index']);
         }
-
+       /* $str = 'image (1).jpg';
+        Debug::dd(str_replace( array('(',')'), '_', $str));*/
         $userCompany =Company::find()->where(['user_id' => Yii::$app->user->id])->all();
         return $this->render('create', [
             'model' => $model,

@@ -10,9 +10,9 @@ use yii\helpers\Url;
 ?>
 <?php
 if ($this->beginCache('show_category_shop', ['duration' => Yii::$app->params['hours-for-cache']])){
-    echo Html::a('text', Url::to(['/shop/shop/category', 'category' => ['elektronika', '1231'] ]));
+    /*echo Html::a('text', Url::to(['/shop/shop/category', 'category' => ['elektronika', '1231'] ]));
     echo "<br>";
-    echo Html::a('text', Url::to(['/shop/shop/product', 'slug' => 'shop']));
+    echo Html::a('text', Url::to(['/shop/shop/product', 'slug' => 'shop']));*/
 ?>
 <div class="shop__categories">
 
@@ -30,7 +30,7 @@ if ($this->beginCache('show_category_shop', ['duration' => Yii::$app->params['ho
                 <?php foreach ($category[$cat->id] as $catLv2): ?>
                 <div class="column-sub-menu">
                     <a class="column-sub-menu__title" href="<?= Url::to(['/shop/shop/category', 'category' => [$cat->slug, $catLv2->slug] ])?>"><?= $catLv2->name; ?></a>
-                    <?php if($category[$catLv2->id]): ?>
+                    <?php if(!empty($category[$catLv2->id])): ?>
                     <div class="column-sub-menu__link">
                         <?php foreach ($category[$catLv2->id] as $catLv3): ?>
                             <a href="<?= Url::to(['/shop/shop/category', 'category' => [$cat->slug, $catLv2->slug, $catLv3->slug] ])?>"><?= $catLv3->name; ?></a>

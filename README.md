@@ -1,60 +1,9 @@
-Миграции для user:
+> Всем программистам настойчивая просьба придерживаться общего стиля написания
+кода, а именно PSR-2, PSR-1 (http://www.php-fig.org/psr/psr-2/)
 
-1. yii migrate/up --migrationPath=@vendor/dektrium/yii2-user/migrations
-2. yii migrate/up --migrationPath=@yii/rbac/migrations
+## Содержание
 
-Для закрытия доступа к админпанели не админам в контролере использовать
+### Административные задачи
 
-
-              'AccessSecure' =>
-                [
-                    'class' => AccessSecure::className(),
-                    'rules' => [
-                        [
-                            'actions' => ['login', 'error'],
-                            'allow' => true,
-                        ],
-                        [
-                            'allow' => true,
-                            'roles' => ['admin'],
-                        ],
-                    ],
-                ],
-
-
-Для формирования транслитерации в названиях в composer.json добавить
-
-        "2amigos/yii2-transliterator-helper": "*"
-
-        В моделях
-
-        public function behaviors()
-            {
-                return [
-                    'slug' => [
-                        'class' => 'common\behaviors\Slug',
-                        'in_attribute' => 'title',
-                        'out_attribute' => 'slug',
-                        'translit' => true
-                    ],
-                ];
-            }
-
-ДЛЯ ПОДНЯТИЯ ГОРОДОВ И РЕГИОНОВ
-
-    1) выполнить пиграцию yii migrate/up --migrationPath=@vendor/himiklab/yii2-ipgeobase-component/migrations
-    2) В любом контроллере добавить код и запустить этот контроллер
-    
-            $IpGeoBase = new IpGeoBase();
-            $IpGeoBase->updateDB();
-            
-            
-    3) Убрать изменения вконтроллере
-    
-        
-**Для получения (Валют, Драгметаллов)ЦБ РФ, Криптовалют и их курсов**
-
-    Выполнить команды:
-                    yii api/get-currency
-                    yii api/get-coin
-                    yii api/get-metal
+- [Развертывание среды разработки](https://github.com/apuc/da/blob/master/docs/administrate/installation.md)
+- [Рабочий процесс](https://github.com/apuc/da/blob/master/docs/administrate/workflow.md)

@@ -119,17 +119,25 @@ class Products extends \common\models\db\Products
         $i = 0;
 //Debug::dd($_SERVER['DOCUMENT_ROOT']);
         foreach ($files['file']['name'] as $file) {
-            Image::watermark($files['file']['tmp_name'][$i],
+            /*Image::watermark($files['file']['tmp_name'][$i],
                 $_SERVER['DOCUMENT_ROOT'] . '/frontend/web/img/logo_watermark.png')
                 ->save($dir . $files['file']['name'][$i], ['quality' => 100]);
 
             Image::thumbnail($files['file']['tmp_name'][$i], 142, 100,
                 $mode = \Imagine\Image\ManipulatorInterface::THUMBNAIL_OUTBOUND)
-                ->save($dirThumb . $file, ['quality' => 100]);
+                ->save($dirThumb . $file, ['quality' => 100]);*/
+
+            Image::watermark($files['file']['tmp_name'][$i],
+                $_SERVER['DOCUMENT_ROOT'] . '/frontend/web/img/logo_watermark.png')
+                ->save($dir . str_replace( array('(',')'), '_', $files['file']['name'][$i]), ['quality' => 100]);
+
+            Image::thumbnail($files['file']['tmp_name'][$i], 142, 100,
+                $mode = \Imagine\Image\ManipulatorInterface::THUMBNAIL_OUTBOUND)
+                ->save($dirThumb . str_replace( array('(',')'), '_', $file), ['quality' => 100]);
 
             $prodImg = new ProductsImg();
-            $prodImg->img = $dir . $files['file']['name'][$i];
-            $prodImg->img_thumb = $dirThumb . $file;
+            $prodImg->img = $dir . str_replace( array('(',')'), '_', $files['file']['name'][$i]);
+            $prodImg->img_thumb = $dirThumb . str_replace( array('(',')'), '_', $file);
             $prodImg->product_id = $productId;
             $prodImg->save();
 
