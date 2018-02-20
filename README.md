@@ -5,5 +5,5 @@
 
 ### Административные задачи
 
-- [Развертывание среды разработки](https://github.com/apuc/da/docs/administrate/installation.md)
-- [Рабочий процесс](https://github.com/apuc/da/docs/administrate/workflow.md)
+- [Развертывание среды разработки](https://github.com/apuc/da/blob/master/docs/administrate/installation.md)
+- [Рабочий процесс](https://github.com/apuc/da/blob/master/docs/administrate/workflow.md)
