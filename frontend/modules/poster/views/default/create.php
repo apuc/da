@@ -1,10 +1,15 @@
 <?php
+/**
+ * @var \common\models\db\Poster $model
+ */
+
 $this->title = 'Добавление афиши мероприятия';
 
 $this->registerCssFile('/css/board.min.css');
 $this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
+use kartik\file\FileInput;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html; ?>
 
@@ -84,27 +89,38 @@ use yii\helpers\Html; ?>
                 <input id="news-photo" class="input-file" type="file">
                 <img id="blah" src="" alt="" width="160px">
             </label>-->
-
-        <?php
-        if (empty($model->photo)) {
-            echo $form->field($model, 'photo', [
-                'template' => '<label class="label-name cabinet__add-company-form--add-foto">
-                                        <span class="button"></span>
-                                        Загрузете изображение
-                                        {input}
-                                        <img id="blah" src="" alt="" width="160px">
-                                        </label>'
-            ])->label(false)->fileInput();
-        } else {
-            echo $form->field($model, 'photo', [
-                'template' => '{label}<div class="selectAvatar">
-                                        <span>Нажмите для выбора</span>
-                                        
-                                        <img id="blah" src="' . $model->photo . '" alt="" width="160px">
-                                        {input}</div>'
-            ])->label('Загрузете изображение')->fileInput();
-        }
-        ?>
+        <?= $form->field($model, 'photo')->hiddenInput(['value' => $model->photo])->label(false); ?>
+        <?php echo '<label class="control-label">Добавить фото</label>';
+        echo FileInput::widget([
+            'name' => 'Poster',
+            'options' => ['multiple' => false],
+            'pluginOptions' => [
+                'previewFileType' => 'image',
+                'maxFileCount' => 10,
+                'maxFileSize' => 2000,
+                'language' => "ru",
+            ],
+        ]); ?>
+<!--        --><?php
+//        if (empty($model->photo)) {
+//            echo $form->field($model, 'photo', [
+//                'template' => '<label class="label-name cabinet__add-company-form--add-foto">
+//                                        <span class="button"></span>
+//                                        Загрузете изображение
+//                                        {input}
+//                                        <img id="blah" src="" alt="" width="160px">
+//                                        </label>'
+//            ])->label(false)->fileInput();
+//        } else {
+//            echo $form->field($model, 'photo', [
+//                'template' => '{label}<div class="selectAvatar">
+//                                        <span>Нажмите для выбора</span>
+//
+//                                        <img id="blah" src="' . $model->photo . '" alt="" width="160px">
+//                                        {input}</div>'
+//            ])->label('Загрузете изображение')->fileInput();
+//        }
+//        ?>
 
 
         <?= $form->field( $model, 'price' )
