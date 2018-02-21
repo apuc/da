@@ -253,6 +253,8 @@ return \yii\helpers\ArrayHelper::merge([
                 ],
                 //'shop/<action:cart|order>'=>'shop/shop/<action>',
                 'shop/products/create'=>'shop/products/create',
+                'shop/products/delete'=>'shop/products/delete',
+                'shop/products/update'=>'shop/products/update',
                 'shop/products/general-modal'=>'shop/products/general-modal',
                 'shop/products/show-category'=>'shop/products/show-category',
                 'shop/products/show-parent-modal-category' => 'shop/products/show-parent-modal-category',
