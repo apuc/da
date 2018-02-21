@@ -203,4 +203,30 @@ class ProductsController extends Controller
         Yii::$app->session->setFlash('success','Ваш товар успешно удален.');
         return $this->redirect(['/personal_area/user-products', 'page' => Yii::$app->request->get('page', 1)]);
     }
+
+    /**
+     * Updates an existing News model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     *
+     * @param integer $id
+     *
+     * @return mixed
+     */
+    public function actionUpdate($id)
+    {
+
+        $this->layout = 'personal_area';
+        $model = \frontend\modules\news\models\News::find()->where(['id' => $id])->one();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+
+           // return $this->redirect('/personal_area/default/index');
+        }
+        else{
+
+            return $this->render('update'
+            );
+        }
+    }
 }
