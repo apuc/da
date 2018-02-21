@@ -30,7 +30,7 @@
 
 
     <a href="<?= \yii\helpers\Url::to(['/shop/products/update']); ?>" class="cabinet__like-block--company-edit">редактировать</a>
-    <a data-method="post" href="<?= \yii\helpers\Url::to(['/shop/products/delete']); ?>" data-confirm="Вы уверены, что хотите удалить этот элемент?" class="cabinet__like-block--company-remove">удалить</a>
+    <a data-method="post" href="<?= \yii\helpers\Url::to(['/shop/products/delete', 'id' => $model['id'], 'page' => Yii::$app->request->get('page')]); ?>" data-confirm="Вы уверены, что хотите удалить этот элемент?" class="cabinet__like-block--company-remove">удалить</a>
 
 </div>
 <!--<p class="cabinet__like-block--company-views">Дата проведения: <?/*= $model['dt_event'];*/?></p>-->

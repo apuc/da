@@ -32,7 +32,7 @@ class UserProductsSearch extends Products
         $query->andWhere([
             'user_id' => $params['user_id'],
         ]);
-        //$query->andWhere(['in', 'status', [0, 1]]);
+        $query->andWhere(['in', 'status', [0, 1]]);
         $query->with('company', 'images');
         $query->orderBy('dt_update DESC');
 

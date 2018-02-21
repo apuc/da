@@ -10,6 +10,7 @@ use frontend\modules\shop\models\CategoryShop;
 use frontend\modules\shop\models\Products;
 use Yii;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 
 class ProductsController extends Controller
@@ -37,6 +38,12 @@ class ProductsController extends Controller
     public function behaviors()
     {
         return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
@@ -181,4 +188,19 @@ class ProductsController extends Controller
 
     }
 
+    /**
+     * Deletes an existing News model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
+     * @param integer $id
+     *
+     * @return mixed
+     */
+    public function actionDelete($id)
+    {
+        Products::updateAll(['status' => 3], ['id' => $id]);
+
+        Yii::$app->session->setFlash('success','Ваш товар успешно удален.');
+        return $this->redirect(['/personal_area/user-products', 'page' => Yii::$app->request->get('page', 1)]);
+    }
 }
