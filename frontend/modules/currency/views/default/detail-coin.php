@@ -97,19 +97,6 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <?= $this->render('_finance_news', ['economicNews' => $economicNews]); ?>
         </div>
-        <div class="promotions-sidebar">
-            <?= $this->render('_currency_chart', ['count_day' => 14]); ?>
-            <br>
-
-            <?= $this->render('_coin_chart', ['count_day' => 14]); ?>
-            <br>
-
-            <?= $this->render('_metal_chart', ['count_day' => 14]); ?>
-            <br>
-
-            <?= $this->render('_oil_chart', ['count_day' => 14]); ?>
-            <br>
-
-        </div>
+        <?= $this->render('_all_charts'); ?>
     </div>
 </section>
