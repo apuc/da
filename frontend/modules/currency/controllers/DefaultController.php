@@ -2,12 +2,10 @@
 
 namespace frontend\modules\currency\controllers;
 
-use common\classes\Debug;
 use common\models\db\Currency;
 use common\models\db\CurrencyRate;
 use common\models\db\KeyValue;
 use common\models\db\News;
-use common\models\Time;
 use Yii;
 use yii\db\Expression;
 use yii\helpers\ArrayHelper;
@@ -28,21 +26,7 @@ class DefaultController extends Controller
         $detail = false;
         $keyVal = KeyValue::find()->all();
         $meta = ArrayHelper::index($keyVal, 'key');
-        $economicNews = News::find()
-            ->select([
-                '`news`.`title`',
-                '`news`.`dt_public`',
-                '`news`.`slug`',
-                '`news`.`photo`',
-            ])
-            ->leftJoin('`category_news_relations` AS `cnr`', '`cnr`.`new_id` = `news`.`id`')
-            ->where(['`cnr`.`cat_id`' => 6])
-            ->andWhere(['>', '`news`.`dt_public`', time() - Time::MONTH])
-            ->andWhere(['`news`.`status`' => 0])
-            ->andWhere(['<=', '`news`.`dt_public`', time()])
-            ->orderBy('`news`.`dt_public` DESC')
-            ->limit(3)
-            ->all();
+        $economicNews = News::getLastEconomicNews();
         //выборка последней даты по типу Валюты(ценности)
         $date = CurrencyRate::find()
             ->joinWith(['currencyFrom cf'])
@@ -310,21 +294,7 @@ class DefaultController extends Controller
         $keyVal = KeyValue::find()->all();
         $meta = ArrayHelper::index($keyVal, 'key');
         $bottom_descr = $meta['currency_converter_bottom_description']->value;
-        $economicNews = News::find()
-            ->select([
-                '`news`.`title`',
-                '`news`.`dt_public`',
-                '`news`.`slug`',
-                '`news`.`photo`',
-            ])
-            ->leftJoin('`category_news_relations` AS `cnr`', '`cnr`.`new_id` = `news`.`id`')
-            ->where(['`cnr`.`cat_id`' => 6])
-            ->andWhere(['>', '`news`.`dt_public`', time() - Time::MONTH])
-            ->andWhere(['`news`.`status`' => 0])
-            ->andWhere(['<=', '`news`.`dt_public`', time()])
-            ->orderBy('`news`.`dt_public` DESC')
-            ->limit(3)
-            ->all();
+        $economicNews = News::getLastEconomicNews();
         $model = Currency::findAll(['type' => Currency::TYPE_CURRENCY]);
         $currency = ArrayHelper::map($model, 'char_code', 'name');
         array_walk($currency, function (&$value, $key) {
@@ -345,21 +315,7 @@ class DefaultController extends Controller
     public function actionAll()
     {
 
-        $economicNews = News::find()
-            ->select([
-                '`news`.`title`',
-                '`news`.`dt_public`',
-                '`news`.`slug`',
-                '`news`.`photo`',
-            ])
-            ->leftJoin('`category_news_relations` AS `cnr`', '`cnr`.`new_id` = `news`.`id`')
-            ->where(['`cnr`.`cat_id`' => 6])
-            ->andWhere(['>', '`news`.`dt_public`', time() - Time::MONTH])
-            ->andWhere(['`news`.`status`' => 0])
-            ->andWhere(['<=', '`news`.`dt_public`', time()])
-            ->orderBy('`news`.`dt_public` DESC')
-            ->limit(3)
-            ->all();
+        $economicNews = News::getLastEconomicNews();
         $keyVal = KeyValue::find()->all();
         $meta = ArrayHelper::index($keyVal, 'key');
         return $this->render('all', [
@@ -426,21 +382,7 @@ class DefaultController extends Controller
             ->andWhere(['>=', 'status', Currency::STATUS_ACTIVE])
             ->all();
 
-        $economicNews = News::find()
-            ->select([
-                '`news`.`title`',
-                '`news`.`dt_public`',
-                '`news`.`slug`',
-                '`news`.`photo`',
-            ])
-            ->leftJoin('`category_news_relations` AS `cnr`', '`cnr`.`new_id` = `news`.`id`')
-            ->where(['`cnr`.`cat_id`' => 6])
-            ->andWhere(['>', '`news`.`dt_public`', time() - Time::MONTH])
-            ->andWhere(['`news`.`status`' => 0])
-            ->andWhere(['<=', '`news`.`dt_public`', time()])
-            ->orderBy('`news`.`dt_public` DESC')
-            ->limit(3)
-            ->all();
+        $economicNews = News::getLastEconomicNews();
 
         return $this->render('detail-coin', [
             'coin' => $coin,
