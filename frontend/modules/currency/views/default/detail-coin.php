@@ -10,7 +10,9 @@ use common\models\db\Currency;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
-/** @var Currency $coin */
+/** @var Currency $coin
+ * @var array $economicNews
+ */
 
 
 $meta_title = 'Детальная информация о криптовалютах';
@@ -69,7 +71,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php foreach ($coin as $k => $item): ?>
                             <tr>
                                 <?php foreach ($item->coin as $key => $i): ?>
-                                    <?php if ($key == 'id'
+                                    <?php $id = $item->coin['id'];
+                                    if ($key == 'id'
                                         || $key == 'currency_id'
                                         || $key == 'url'
                                         || $key == 'image_url'
@@ -79,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ) continue; ?>
                                     <td>
                                         <div>
-                                            <span><?= $i ?></span>
+                                            <span><a href="<?= Url::to(['/currency/default/view-coin', 'id' => $id]) ?>"><?= $i ?></a></span>
                                         </div>
                                     </td>
                                 <?php endforeach; ?>

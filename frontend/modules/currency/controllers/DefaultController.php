@@ -389,4 +389,31 @@ class DefaultController extends Controller
             'economicNews' => $economicNews,
         ]);
     }
+
+    public function actionViewCoin($id)
+    {
+        $coin = Currency::findOne([
+            'id' => $id,
+            'type' => Currency::TYPE_COIN,
+            ]);
+        $economicNews = News::find()
+            ->select([
+                '`news`.`title`',
+                '`news`.`dt_public`',
+                '`news`.`slug`',
+                '`news`.`photo`',
+            ])
+            ->leftJoin('`category_news_relations` AS `cnr`', '`cnr`.`new_id` = `news`.`id`')
+            ->where(['`cnr`.`cat_id`' => 6])
+            ->andWhere(['>', '`news`.`dt_public`', time() - Time::MONTH])
+            ->andWhere(['`news`.`status`' => 0])
+            ->andWhere(['<=', '`news`.`dt_public`', time()])
+            ->orderBy('`news`.`dt_public` DESC')
+            ->limit(3)
+            ->all();
+        return $this->render('view-coin', [
+            'coin' => $coin,
+            'economicNews' => $economicNews,
+        ]);
+    }
 }
