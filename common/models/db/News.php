@@ -2,6 +2,7 @@
 
 namespace common\models\db;
 
+use common\models\Time;
 use Yii;
 
 /**
@@ -169,5 +170,28 @@ class News extends \yii\db\ActiveRecord
     public function getCompany()
     {
         return $this->hasOne(Company::className(), ['id' => 'company_id']);
+    }
+
+    /**
+     * @return array|Currency[]|CurrencyRate[]|KeyValue[]|News[]|TagsRelation[]|\yii\db\ActiveRecord[]
+     */
+    public static function getLastEconomicNews()
+    {
+        return News::find()
+            ->select([
+                '`news`.`title`',
+                '`news`.`dt_public`',
+                '`news`.`slug`',
+                '`news`.`photo`',
+            ])
+            ->leftJoin('`category_news_relations` AS `cnr`', '`cnr`.`new_id` = `news`.`id`')
+            ->where(['`cnr`.`cat_id`' => 6])
+            ->andWhere(['>', '`news`.`dt_public`', time() - Time::MONTH])
+            ->andWhere(['`news`.`status`' => 0])
+            ->andWhere(['<=', '`news`.`dt_public`', time()])
+            ->orderBy('`news`.`dt_public` DESC')
+            ->limit(6)
+            ->all();
+
     }
 }
