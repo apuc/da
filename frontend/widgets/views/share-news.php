@@ -2,6 +2,12 @@
 /**
  * @var array $options
  */
+
+if (empty($options['image'])) {
+    $image = '/theme/portal-donbassa/img/logo.png';
+} else {
+    $image = $options['image'];
+}
 ?>
 
 <div class="social-wrapper">
@@ -10,6 +16,6 @@
     <div class="ya-share2"
          data-bare
          data-services="vkontakte,facebook,odnoklassniki,gplus,pinterest,twitter,linkedin,lj,telegram"
-         data-image="<?= $options['image']; ?>">
+         data-image="<?= $image; ?>">
     </div>
 </div>
