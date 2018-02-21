@@ -158,31 +158,17 @@ class ProductsController extends Controller
 
     public function actionShowAdditionalFields()
     {
-        //$id = Yii::$app->request->post('id');
-        $id = 2;
+        $id = Yii::$app->request->post('id');
         $groupFieldsId = CategoryFields::find()
             ->where(['category_id' => $id])
             ->with('fields.productFieldsDefaultValues')
             ->all();
-//Debug::dd($groupFieldsId);
+
         $html = '';
         if (!empty($groupFieldsId)) {
-            /*foreach ($adsFields as $adsField) {
-                $adsFieldsAll = AdsFields::find()
-                    ->leftJoin('ads_fields_type', '`ads_fields_type`.`id` = `ads_fields`.`type_id`')
-                    ->leftJoin('ads_fields_default_value',
-                        '`ads_fields_default_value`.`ads_field_id` = `ads_fields`.`id`')
-                    ->where(['`ads_fields`.`id`' => $adsField->fields_id])
-                    ->with('ads_fields_type', 'ads_fields_default_value')
-                    ->all();
-                $html .= $this->renderPartial('add_fields', ['adsFields' => $adsFieldsAll]);
-            }*/
-
-            //$fields = json_decode($groupFieldsId);
             foreach ($groupFieldsId as $item) {
                 $html .= $this->renderPartial('add_fields', ['adsFields' => $item]);
             }
-
         }
         echo $html;
 
@@ -216,7 +202,10 @@ class ProductsController extends Controller
     {
 
         $this->layout = 'personal_area';
-        $model = \frontend\modules\news\models\News::find()->where(['id' => $id])->one();
+        $model = Products::find()
+            ->where(['id' => $id])
+            ->with('productFieldsValues')
+            ->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
@@ -224,8 +213,17 @@ class ProductsController extends Controller
            // return $this->redirect('/personal_area/default/index');
         }
         else{
+            $userCompany = Company::find()->where(['user_id' => Yii::$app->user->id])->all();
+            $categoryList = $model->getListCategory($model->category_id,[]);
+            $categorySelect = $this->renderPartial('categoryList', ['category' => array_reverse($categoryList)]);
 
-            return $this->render('update'
+
+            return $this->render('update',
+                [
+                    'model' => $model,
+                    'userCompany' => $userCompany,
+                    'categorySelect' => $categorySelect,
+                ]
             );
         }
     }

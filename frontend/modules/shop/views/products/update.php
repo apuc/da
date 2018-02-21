@@ -17,8 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;*/
     <h1><?= Html::encode($this->title) ?></h1>
     <div class="right">
         <?= $this->render('_form-update', [
-            /*'model' => $model,
-            'userCompany' => $userCompany,*/
+            'model' => $model,
+             'userCompany' => $userCompany,
+            'categorySelect' => $categorySelect,
         ]) ?>
     </div>
 
