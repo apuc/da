@@ -83,7 +83,7 @@ class ProductsController extends Controller
                 $model->saveProductPhoto($_FILES, $model->id);
             }
             Yii::$app->session->setFlash('success','Ваш товар успешно сохранен. После прохождения модерации он будет опубликован.');
-            return $this->redirect(['/personal_area/default/index']);
+            return $this->redirect(['/personal_area/user-products']);
         }
        /* $str = 'image (1).jpg';
         Debug::dd(str_replace( array('(',')'), '_', $str));*/
@@ -228,7 +228,7 @@ class ProductsController extends Controller
 
 
             Yii::$app->session->setFlash('success','Ваш товар успешно сохранен. После прохождения модерации он будет опубликован.');
-            return $this->redirect('/personal_area/default/index');
+            return $this->redirect('/personal_area/user-products');
         }
         else{
             $userCompany = Company::find()->where(['user_id' => Yii::$app->user->id])->all();
