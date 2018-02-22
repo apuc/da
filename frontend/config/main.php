@@ -255,6 +255,7 @@ return \yii\helpers\ArrayHelper::merge([
                 'shop/products/create'=>'shop/products/create',
                 'shop/products/delete'=>'shop/products/delete',
                 'shop/products/update'=>'shop/products/update',
+                'shop/product/delete-img'=>'shop/products/delete-img',
                 'shop/products/general-modal'=>'shop/products/general-modal',
                 'shop/products/show-category'=>'shop/products/show-category',
                 'shop/products/show-parent-modal-category' => 'shop/products/show-parent-modal-category',

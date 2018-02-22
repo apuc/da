@@ -6,6 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\news\models\News */
 /* @var $userCompany frontend\modules\company\models\Company */
+/* @var $categorySelect  */
+/* @var $adsField  */
 
 $this->title = 'Редактирование товара';
 /*$this->params['breadcrumbs'][] = ['label' => Yii::t('news', 'News'), 'url' => ['index']];
@@ -20,6 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;*/
             'model' => $model,
              'userCompany' => $userCompany,
             'categorySelect' => $categorySelect,
+            'adsField' => $adsField,
         ]) ?>
     </div>
 
