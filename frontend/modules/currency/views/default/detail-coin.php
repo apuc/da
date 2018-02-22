@@ -7,10 +7,13 @@
  */
 
 use common\models\db\Currency;
+use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
-/** @var Currency $coin
+/**
  * @var array $economicNews
  */
 
@@ -39,58 +42,37 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="container">
         <div class="e-content">
             <?= $this->render('_header', ['title' => $meta_title]); ?>
-
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    [
+                        'attribute' => 'full_name',
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            return Html::a($model->full_name, Url::to(['/currency/default/view-coin', 'id' => $model->id]));
+                        },
+                    ],
+                    'algorithm',
+                    'proof_type',
+                    'fully_premined',
+                    'total_coin_supply',
+                    'sort_order',
+                    'sponsored',
+                ],
+            ]); ?>
             <div class="e-content__wrapper">
                 <div class="e-content__wrapper__title">
                     <h2><?= $meta_title ?></h2>
                 </div>
+
                 <div class="e-content__wrapper__info">
-                    <!--                    --><?php //foreach ($top_rates as $rate): ?>
-                    <!--                        <p>--><? //= $rate[0] ?><!-- — <span> -->
-                    <? //= $rate[1] ?><!--</span></p>-->
-                    <!--                    --><?php //endforeach; ?>
                 </div>
+
                 <div class="e-content__wrapper__table">
-                    <table>
-                        <thead>
-                        <tr>
-                            <?php foreach ($coin[0]->coin as $key => $item): ?>
-                                <?php if ($key == 'id'
-                                    || $key == 'currency_id'
-                                    || $key == 'url'
-                                    || $key == 'image_url'
-                                    || $key == 'symbol'
-                                    || $key == 'pre_mined_value'
-                                    || $key == 'total_coins_free_float'
-                                ) continue; ?>
-                                <td><?= $key ?></td>
-                            <?php endforeach; ?>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach ($coin as $k => $item): ?>
-                            <tr>
-                                <?php foreach ($item->coin as $key => $i): ?>
-                                    <?php $id = $item->coin['id'];
-                                    if ($key == 'id'
-                                        || $key == 'currency_id'
-                                        || $key == 'url'
-                                        || $key == 'image_url'
-                                        || $key == 'symbol'
-                                        || $key == 'pre_mined_value'
-                                        || $key == 'total_coins_free_float'
-                                    ) continue; ?>
-                                    <td>
-                                        <div>
-                                            <span><a href="<?= Url::to(['/currency/default/view-coin', 'id' => $id]) ?>"><?= $i ?></a></span>
-                                        </div>
-                                    </td>
-                                <?php endforeach; ?>
-                            </tr>
-                        <?php endforeach; ?>
-                        </tbody>
-                    </table>
                 </div>
+
                 <div class="e-content__wrapper__description">
                     <h3>Описание</h3>
                     <p>

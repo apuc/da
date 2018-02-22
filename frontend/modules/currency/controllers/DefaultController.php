@@ -2,6 +2,7 @@
 
 namespace frontend\modules\currency\controllers;
 
+use frontend\modules\currency\models\CurrencyCoinSearch;
 use common\models\db\Currency;
 use common\models\db\CurrencyCoin;
 use common\models\db\CurrencyRate;
@@ -377,23 +378,22 @@ class DefaultController extends Controller
 
     public function actionDetailCoin()
     {
-        $coin = Currency::find()
-            ->with('coin')
-            ->where(['type' => Currency::TYPE_COIN])
-            ->andWhere(['>=', 'status', Currency::STATUS_ACTIVE])
-            ->all();
-
+        $searchModel = new CurrencyCoinSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $economicNews = News::getLastEconomicNews();
-
         return $this->render('detail-coin', [
-            'coin' => $coin,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
             'economicNews' => $economicNews,
         ]);
     }
 
     public function actionViewCoin($id)
     {
-        $coin = CurrencyCoin::find()->with('currency')->where(['id' => $id])->one();
+        $coin = CurrencyCoin::find()
+            ->joinWith('currency')
+            ->where(['currency_coin.id' => $id])
+            ->one();
         $economicNews = News::getLastEconomicNews();
 
         return $this->render('view-coin', [
