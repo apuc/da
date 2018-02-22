@@ -36,7 +36,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </div>
 </section>
-<?php \common\classes\Debug::prn($coin); ?>
+<?php \common\classes\Debug::prn($coin->attributes); ?>
+<?php \common\classes\Debug::prn($coin->currency->attributes); ?>
 <section class="exchange-rates">
     <div class="container">
         <div class="e-content">

@@ -3,6 +3,7 @@
 namespace frontend\modules\currency\controllers;
 
 use common\models\db\Currency;
+use common\models\db\CurrencyCoin;
 use common\models\db\CurrencyRate;
 use common\models\db\KeyValue;
 use common\models\db\News;
@@ -392,25 +393,9 @@ class DefaultController extends Controller
 
     public function actionViewCoin($id)
     {
-        $coin = Currency::findOne([
-            'id' => $id,
-            'type' => Currency::TYPE_COIN,
-            ]);
-        $economicNews = News::find()
-            ->select([
-                '`news`.`title`',
-                '`news`.`dt_public`',
-                '`news`.`slug`',
-                '`news`.`photo`',
-            ])
-            ->leftJoin('`category_news_relations` AS `cnr`', '`cnr`.`new_id` = `news`.`id`')
-            ->where(['`cnr`.`cat_id`' => 6])
-            ->andWhere(['>', '`news`.`dt_public`', time() - Time::MONTH])
-            ->andWhere(['`news`.`status`' => 0])
-            ->andWhere(['<=', '`news`.`dt_public`', time()])
-            ->orderBy('`news`.`dt_public` DESC')
-            ->limit(3)
-            ->all();
+        $coin = CurrencyCoin::find()->with('currency')->where(['id' => $id])->one();
+        $economicNews = News::getLastEconomicNews();
+
         return $this->render('view-coin', [
             'coin' => $coin,
             'economicNews' => $economicNews,
