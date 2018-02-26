@@ -70,6 +70,7 @@ class DefaultController extends Controller
                     /**
                      * @var $rate CurrencyRate
                      */
+                    $id = $rate->currencyFrom->coin->id;
                     if (!isset($rates_list[$rate->currency_from_id])) $rates_list[$rate->currency_from_id] = [
                         'name' => $rate->currencyFrom->coin->full_name,
 //                        'algo' => $rate->currencyFrom->coin->algorithm,
@@ -78,6 +79,7 @@ class DefaultController extends Controller
                         'EUR' => null,
                         'RUB' => null
                     ];
+                    $rates_list[$rate->currency_from_id]['id'] = $id;
                     $rates_list[$rate->currency_from_id][$rate->currencyTo->char_code] =
                         rtrim(number_format($rate->rate, 6, '.', ' '), "0");
 

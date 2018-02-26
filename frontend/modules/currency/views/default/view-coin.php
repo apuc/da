@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <section class="exchange-rates">
     <div class="container">
         <div class="e-content">
-            <?= $this->render('_header', ['title' => $meta_title]); ?>
+            <?= $this->render('_header', ['title' => $meta_title, 'coin' => true]); ?>
             <div class="e-content__wrapper">
                 <div class="e-content__wrapper__title">
                     <h2><?= $meta_title ?></h2>

@@ -41,27 +41,49 @@ $this->params['breadcrumbs'][] = $this->title;
 <section class="exchange-rates">
     <div class="container">
         <div class="e-content">
-            <?= $this->render('_header', ['title' => $meta_title]); ?>
-            <?= GridView::widget([
-                'dataProvider' => $dataProvider,
-                'filterModel' => $searchModel,
-                'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
-                    [
-                        'attribute' => 'full_name',
-                        'format' => 'raw',
-                        'value' => function ($model) {
-                            return Html::a($model->full_name, Url::to(['/currency/default/view-coin', 'id' => $model->id]));
-                        },
+            <?= $this->render('_header', ['title' => $meta_title, 'coin' => true]); ?>
+            <div class="e-content__wrapper__table">
+                <?= GridView::widget([
+                    'dataProvider' => $dataProvider,
+                    'filterModel' => $searchModel,
+                    'columns' => [
+                        ['class' => 'yii\grid\SerialColumn'],
+                        [
+                            'attribute' => 'full_name',
+                            'format' => 'raw',
+                            'value' => function ($model) {
+                                return Html::a($model->full_name, Url::to(['/currency/default/view-coin', 'id' => $model->id]));
+                            },
+                        ],
+                        'algorithm',
+                        'proof_type',
+                        [
+                            'attribute' => 'fully_premined',
+                            'value' => function ($model) {
+                                if ($model->fully_premined === 0) return 'Нет';
+                                if ($model->fully_premined === 1) return 'Да';
+                            },
+                            'filter' => [
+                                0 => 'Нет',
+                                1 => 'Да'
+                            ]
+                        ],
+                        'total_coin_supply',
+                        'sort_order',
+                        [
+                            'attribute' => 'sponsored',
+                            'value' => function ($model) {
+                                if ($model->sponsored === 0) return 'Нет';
+                                if ($model->sponsored === 1) return 'Да';
+                            },
+                            'filter' => [
+                                0 => 'Нет',
+                                1 => 'Да'
+                            ]
+                        ],
                     ],
-                    'algorithm',
-                    'proof_type',
-                    'fully_premined',
-                    'total_coin_supply',
-                    'sort_order',
-                    'sponsored',
-                ],
-            ]); ?>
+                ]); ?>
+            </div>
             <div class="e-content__wrapper">
                 <div class="e-content__wrapper__title">
                     <h2><?= $meta_title ?></h2>
