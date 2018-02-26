@@ -4,6 +4,7 @@ namespace backend\widgets;
 use backend\modules\comments\models\Comments;
 use backend\modules\company_feedback\models\CompanyFeedback;
 use backend\modules\contacting\models\Contacting;
+use backend\modules\products\models\Products;
 use backend\modules\site_error\models\SiteError;
 use backend\modules\vk\models\VkStream;
 use common\classes\CompanyFunction;
@@ -68,6 +69,8 @@ class MainMenuAdmin extends Widget
 
         $countContacting = Contacting::find()->where(['status' => 0])->count();
 
+
+        $countProducts = Products::find()->where(['status' => 0])->count();
 
         echo \yii\widgets\Menu::widget(
             [
@@ -275,11 +278,13 @@ class MainMenuAdmin extends Widget
                     [
                         'label' => 'Товары',
                         'items' => [
-                            /*[
-                                'label' => 'Добавить',
-                                'url' => Url::to(['/company/company/create']),
-                                'active' => Yii::$app->controller->module->id == 'company' && Yii::$app->controller->action->id == 'create',
-                            ],*/
+                            [
+                                'label' => 'Товары',
+                                'url' => Url::to(['/products/products']),
+                                'active' => Yii::$app->controller->module->id == 'products' && Yii::$app->controller->id == 'products',
+                                'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countProducts . '</small></span></a>',
+                                //'visible' => UserFunction::hasPermission(['Заявки компаний'])
+                            ],
                             [
                                 'label' => 'Категории товаров',
                                 'url' => Url::to(['/products/category']),
@@ -309,6 +314,7 @@ class MainMenuAdmin extends Widget
                         ],
                         'template' => '<a href="#">
                                     <i class="fa fa-product-hunt"></i> 
+                                    <span class="label bg-red pull-right">'. $countProducts .'</span>
                                     <span>{label}</span> 
                                       
                             </a>',
