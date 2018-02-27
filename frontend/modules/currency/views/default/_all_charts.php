@@ -1,4 +1,4 @@
-<div class="promotions-sidebar">
+<div class="promotions-sidebar" id="promotion-sidebar">
     <?= $this->render('_currency_chart', ['count_day' => 14]); ?>
     <br>
 
