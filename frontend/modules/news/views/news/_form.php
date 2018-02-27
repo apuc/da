@@ -100,6 +100,10 @@ if (empty($model->photo)) {
 }
 ?>
 
+<?= $form->field($model, 'alt')
+    ->textInput(['maxlength' => true])
+    ->hint('<b>Введите alt тэг.</b>')
+    ->label($model->getAttributeLabel('alt')); ?>
 
     <p class="cabinet__add-company-form--title">Текст новости</p>
 

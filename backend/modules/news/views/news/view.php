@@ -57,13 +57,14 @@ $this->params['breadcrumbs'][] = $this->title;
             [                      // the owner name of the model
                 'label' => 'photo',
                 'format' => 'html',
-                'value' => Html::img($model->photo, ['width'=>'200px']),
+                'value' => Html::img($model->photo, ['width' => '200px']),
             ],
+            'alt',
             [                      // the owner name of the model
                 'label' => 'Автор',
                 'attribute' => 'photo',
-                'value' => function($model){
-                    $user = \common\models\User::find()->where(['id'=>$model->user_id])->one();
+                'value' => function ($model) {
+                    $user = \common\models\User::find()->where(['id' => $model->user_id])->one();
                     return !empty($user) ? $user->username : '';
                 },
             ],
@@ -74,8 +75,10 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
     <?php
     $st = strip_tags($model->content);
-    $st = preg_replace("/\s{2,}/"," ",$st);
+    $st = preg_replace("/\s{2,}/", " ", $st);
     ?>
-    <a onclick="Share.vkontakte('<?= 'http://'.$_SERVER['HTTP_HOST'] . '/news/' . $model->slug ?>','<?= $model->title ?>','<?= 'http://'.$_SERVER['HTTP_HOST'] . $model->photo?>','<?= $st ?>')">VK</a>
-    <a onclick="Share.facebook('<?= 'http://'.$_SERVER['HTTP_HOST'] . '/news/' . $model->slug ?>','<?= $model->title ?>','<?= 'http://'.$_SERVER['HTTP_HOST'] . $model->photo?>','<?= $st ?>')">FB</a>
+    <a onclick="Share.vkontakte('<?= 'http://' . $_SERVER['HTTP_HOST'] . '/news/' . $model->slug ?>',
+            '<?= $model->title ?>','<?= 'http://' . $_SERVER['HTTP_HOST'] . $model->photo ?>','<?= $st ?>')">VK</a>
+    <a onclick="Share.facebook('<?= 'http://' . $_SERVER['HTTP_HOST'] . '/news/' . $model->slug ?>',
+            '<?= $model->title ?>','<?= 'http://' . $_SERVER['HTTP_HOST'] . $model->photo ?>','<?= $st ?>')">FB</a>
 </div>
