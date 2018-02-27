@@ -2,6 +2,8 @@
 /**
  * @var $categoryTree \frontend\modules\shop\models\CategoryShop
  */
+$this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/theme/portal-donbassa/js/slick.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 
 <?= \frontend\modules\shop\widgets\ShowAllShopsCategory::widget(['category' => $categoryTree]); ?>
@@ -45,8 +47,8 @@
 
     <div class="shop__top-sales-elements">
 
-        <a href="#" class="shop__top-sales-elements--stock-item">
-
+        <a href="#" class="shop__top-sales-elements--stock-item hidden-xs">
+            <span class="new-label">NEW</span>
             <div class="category-banner">
 
                 <h3>цена снижена</h3>
@@ -78,8 +80,8 @@
         </a>
 
         <a href="#" class="shop__top-sales-elements--item">
-
-                     <span class="category-sale">
+            <span class="hit-label">Хит</span>
+            <span class="category-sale">
                         <span>-45%</span>
                     </span>
 
@@ -100,8 +102,8 @@
         </a>
 
         <a href="#" class="shop__top-sales-elements--item">
-
-                     <span class="category-sale">
+            <span class="hit-label">Хит</span>
+            <span class="category-sale">
                         <span>-45%</span>
                     </span>
 
@@ -121,9 +123,9 @@
 
         </a>
 
-        <a href="#" class="shop__top-sales-elements--item">
-
-                     <span class="category-sale">
+        <a href="#" class="shop__top-sales-elements--item hidden-xs hidden-sm">
+            <span class="hit-label">Хит</span>
+            <span class="category-sale">
                         <span>-45%</span>
                     </span>
 
@@ -165,19 +167,10 @@
         <li><a href="#">Дом и сад</a></li>
     </ul>
 
-    <div class="shop__top-sales-elements">
 
-        <a href="#" class="shop__top-sales-elements--stock-item">
+    <div class="shop__top-sales-elements single-shop-carousel">
 
-            <div class="category-banner">
-
-                <h3>цена снижена</h3>
-
-                <span>
-                            <img src="img/shop/category-banner.png" alt="">
-                        </span>
-
-            </div>
+        <a href="#" class="shop__top-sales-elements--item">
 
             <h3 class="category-name">Смартфон</h3>
             <p class="category-element">iPhone 6s 16Gb</p>
@@ -187,8 +180,70 @@
             </div>
 
             <div class="category-price">
-                <span class="category-price__old">19 990 <i class="fa fa-rub" aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
+                                <span class="category-price__old">19 990 <i class="fa fa-rub"
+                                                                            aria-hidden="true"></i></span>
+                <span class="category-price__new">15 000 <i class="fa fa-rub"
+                                                            aria-hidden="true"></i></span>
+            </div>
+
+            <button class="category-buy">Купить</button>
+
+        </a>
+
+        <a href="#" class="shop__top-sales-elements--item">
+
+            <h3 class="category-name">Смартфон</h3>
+            <p class="category-element">iPhone 6s 16Gb</p>
+
+            <div class="category-photo">
+                <img src="img/shop/category-photo-1.png" alt="">
+            </div>
+
+            <div class="category-price">
+                                <span class="category-price__old">19 990 <i class="fa fa-rub"
+                                                                            aria-hidden="true"></i></span>
+                <span class="category-price__new">15 000 <i class="fa fa-rub"
+                                                            aria-hidden="true"></i></span>
+            </div>
+
+            <button class="category-buy">Купить</button>
+
+        </a>
+
+        <a href="#" class="shop__top-sales-elements--item">
+
+            <h3 class="category-name">Смартфон</h3>
+            <p class="category-element">iPhone 6s 16Gb</p>
+
+            <div class="category-photo">
+                <img src="img/shop/category-photo-1.png" alt="">
+            </div>
+
+            <div class="category-price">
+                                <span class="category-price__old">19 990 <i class="fa fa-rub"
+                                                                            aria-hidden="true"></i></span>
+                <span class="category-price__new">15 000 <i class="fa fa-rub"
+                                                            aria-hidden="true"></i></span>
+            </div>
+
+            <button class="category-buy">Купить</button>
+
+        </a>
+
+        <a href="#" class="shop__top-sales-elements--item">
+
+            <h3 class="category-name">Смартфон</h3>
+            <p class="category-element">iPhone 6s 16Gb</p>
+
+            <div class="category-photo">
+                <img src="img/shop/category-photo-1.png" alt="">
+            </div>
+
+            <div class="category-price">
+                                <span class="category-price__old">19 990 <i class="fa fa-rub"
+                                                                            aria-hidden="true"></i></span>
+                <span class="category-price__new">15 000 <i class="fa fa-rub"
+                                                            aria-hidden="true"></i></span>
             </div>
 
             <button class="category-buy">Купить</button>
@@ -210,8 +265,10 @@
             </div>
 
             <div class="category-price">
-                <span class="category-price__old">19 990 <i class="fa fa-rub" aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
+                                <span class="category-price__old">19 990 <i class="fa fa-rub"
+                                                                            aria-hidden="true"></i></span>
+                <span class="category-price__new">15 000 <i class="fa fa-rub"
+                                                            aria-hidden="true"></i></span>
             </div>
 
             <button class="category-buy">Купить</button>
@@ -228,8 +285,10 @@
             </div>
 
             <div class="category-price">
-                <span class="category-price__old">19 990 <i class="fa fa-rub" aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
+                                <span class="category-price__old">19 990 <i class="fa fa-rub"
+                                                                            aria-hidden="true"></i></span>
+                <span class="category-price__new">15 000 <i class="fa fa-rub"
+                                                            aria-hidden="true"></i></span>
             </div>
 
             <button class="category-buy">Купить</button>
@@ -246,8 +305,10 @@
             </div>
 
             <div class="category-price">
-                <span class="category-price__old">19 990 <i class="fa fa-rub" aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
+                                <span class="category-price__old">19 990 <i class="fa fa-rub"
+                                                                            aria-hidden="true"></i></span>
+                <span class="category-price__new">15 000 <i class="fa fa-rub"
+                                                            aria-hidden="true"></i></span>
             </div>
 
             <button class="category-buy">Купить</button>
@@ -264,8 +325,10 @@
             </div>
 
             <div class="category-price">
-                <span class="category-price__old">19 990 <i class="fa fa-rub" aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
+                                <span class="category-price__old">19 990 <i class="fa fa-rub"
+                                                                            aria-hidden="true"></i></span>
+                <span class="category-price__new">15 000 <i class="fa fa-rub"
+                                                            aria-hidden="true"></i></span>
             </div>
 
             <button class="category-buy">Купить</button>
@@ -282,8 +345,10 @@
             </div>
 
             <div class="category-price">
-                <span class="category-price__old">19 990 <i class="fa fa-rub" aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
+                                <span class="category-price__old">19 990 <i class="fa fa-rub"
+                                                                            aria-hidden="true"></i></span>
+                <span class="category-price__new">15 000 <i class="fa fa-rub"
+                                                            aria-hidden="true"></i></span>
             </div>
 
             <button class="category-buy">Купить</button>
@@ -292,142 +357,23 @@
 
         <a href="#" class="shop__top-sales-elements--item">
 
-            <h3 class="category-name">Смартфон</h3>
-            <p class="category-element">iPhone 6s 16Gb</p>
-
-            <div class="category-photo">
-                <img src="img/shop/category-photo-1.png" alt="">
-            </div>
-
-            <div class="category-price">
-                <span class="category-price__old">19 990 <i class="fa fa-rub" aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-        <a href="#" class="shop__top-sales-elements--item">
+                    <span class="category-sale">
+                        <span>-45%</span>
+                    </span>
 
             <h3 class="category-name">Смартфон</h3>
             <p class="category-element">iPhone 6s 16Gb</p>
 
             <div class="category-photo">
+
                 <img src="img/shop/category-photo-1.png" alt="">
             </div>
 
             <div class="category-price">
-                <span class="category-price__old">19 990 <i class="fa fa-rub" aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-        <a href="#" class="shop__top-sales-elements--item">
-
-            <h3 class="category-name">Смартфон</h3>
-            <p class="category-element">iPhone 6s 16Gb</p>
-
-            <div class="category-photo">
-                <img src="img/shop/category-photo-1.png" alt="">
-            </div>
-
-            <div class="category-price">
-                <span class="category-price__old">19 990 <i class="fa fa-rub" aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-        <a href="#" class="shop__top-sales-elements--item">
-
-            <h3 class="category-name">Смартфон</h3>
-            <p class="category-element">iPhone 6s 16Gb</p>
-
-            <div class="category-photo">
-                <img src="img/shop/category-photo-1.png" alt="">
-            </div>
-
-            <div class="category-price">
-                <span class="category-price__old">19 990 <i class="fa fa-rub" aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-        <a href="#" class="shop__top-sales-elements--item">
-
-            <h3 class="category-name">Смартфон</h3>
-            <p class="category-element">iPhone 6s 16Gb</p>
-
-            <div class="category-photo">
-                <img src="img/shop/category-photo-1.png" alt="">
-            </div>
-
-            <div class="category-price">
-                <span class="category-price__old">19 990 <i class="fa fa-rub" aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-        <a href="#" class="shop__top-sales-elements--item">
-
-            <h3 class="category-name">Смартфон</h3>
-            <p class="category-element">iPhone 6s 16Gb</p>
-
-            <div class="category-photo">
-                <img src="img/shop/category-photo-1.png" alt="">
-            </div>
-
-            <div class="category-price">
-                <span class="category-price__old">19 990 <i class="fa fa-rub" aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-        <a href="#" class="shop__top-sales-elements--item">
-
-            <h3 class="category-name">Смартфон</h3>
-            <p class="category-element">iPhone 6s 16Gb</p>
-
-            <div class="category-photo">
-                <img src="img/shop/category-photo-1.png" alt="">
-            </div>
-
-            <div class="category-price">
-                <span class="category-price__old">19 990 <i class="fa fa-rub" aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-        <a href="#" class="shop__top-sales-elements--item">
-
-            <h3 class="category-name">Смартфон</h3>
-            <p class="category-element">iPhone 6s 16Gb</p>
-
-            <div class="category-photo">
-                <img src="img/shop/category-photo-1.png" alt="">
-            </div>
-
-            <div class="category-price">
-                <span class="category-price__old">19 990 <i class="fa fa-rub" aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
+                                <span class="category-price__old">19 990 <i class="fa fa-rub"
+                                                                            aria-hidden="true"></i></span>
+                <span class="category-price__new">15 000 <i class="fa fa-rub"
+                                                            aria-hidden="true"></i></span>
             </div>
 
             <button class="category-buy">Купить</button>
@@ -435,5 +381,13 @@
         </a>
 
     </div>
+    <ul class="slick-navigation">
+        <li class="prev"><i class="fa fa-2x fa-chevron-left" aria-hidden="true"></i></li>
+        <li class="next"><i class="fa fa-2x fa-chevron-right" aria-hidden="true"></i></li>
+    </ul>
 
+    <ul class="slick-navigation">
+        <li class="prev"><i class="fa fa-2x fa-chevron-left" aria-hidden="true"></i></li>
+        <li class="next"><i class="fa fa-2x fa-chevron-right" aria-hidden="true"></i></li>
+    </ul>
 </div>
