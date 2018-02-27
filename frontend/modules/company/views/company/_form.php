@@ -91,6 +91,10 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 ])->label('Логотип компании')->fileInput();
 ?>
 
+<?= $form->field($model, 'alt')
+    ->textInput(['maxlength' => true])
+    ->label($model->getAttributeLabel('alt')); ?>
+
     <div class="cabinet__add-company-form--block"></div>
 
     <div class="cabinet__add-company-form--wrapper">

@@ -33,13 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'address',
             [
                 'attribute' => 'phone',
-                'value' => function($model)
-                {
+                'value' => function ($model) {
                     $result = '';
                     $phones = \common\models\db\Phones::find()->where(['company_id' => $model->id])->all();
-                    foreach ($phones as $phone)
-                    {
-                        $result .= $phone->phone."; ";
+                    foreach ($phones as $phone) {
+                        $result .= $phone->phone . "; ";
                     }
                     return $result;
                 }
@@ -50,6 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'html',
                 'value' => "<img src='$model->photo' width='200px'>",
             ],
+            'alt',
             /*'dt_add',*/
             /*'dt_update',*/
             'descr:ntext',

@@ -13,7 +13,8 @@ use yii\helpers\Url;
         <a href="<?= Url::to(['/company/company/view', 'slug' => $company->slug]) ?>">
             <div href="<?= Url::to(['/company/company/view', 'slug' => $company->slug]) ?>" class="company-sidebar">
                 <div class="company-sidebar__img">
-                    <img src="<?= $company->photo; ?>" alt="">
+                    <img src="<?= $company->photo; ?>"
+                         alt="<?= !empty($company->alt) ? $company->alt : $company->name ?>">
                 </div>
                 <h2 class="company-sidebar__title"><?= $company->name; ?></h2>
                 <div class="company-sidebar__desc">

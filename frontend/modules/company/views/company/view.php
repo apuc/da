@@ -3,12 +3,14 @@
  * @var \common\models\db\Company $model
  * @var array $services
  * @var SocAvailable $typeSeti
+ * @var SocAvailable $type
  * @var array $socCompany
  * @var array $categoryCompany
  * @var string $slug
  * @var string $page
  * @var array $options
  */
+
 use common\classes\DataTime;
 use common\classes\GeobaseFunction;
 use common\models\db\SocAvailable;
@@ -56,14 +58,16 @@ $this->params['breadcrumbs'][] = $model->name;
 
                 <div class="business__requisites">
                     <div class="business__requisites--avatar">
-                        <img src="<?= $model->photo ?>" alt="">
+                        <img src="<?= $model->photo ?>"
+                             alt="<?= !empty($model->alt) ? $model->alt : $model->name ?>">
                     </div>
                     <div class="business__requisites--address">
 
                         <h3><?= $model->name ?></h3>
                         <?php if ($model->verifikation == 1): ?>
                             <span class="business__sm-item--label">
-                                <img src="/theme/portal-donbassa/img/icons/ver.png" alt="">
+                                <img src="/theme/portal-donbassa/img/icons/ver.png"
+                                     alt="<?= !empty($model->alt) ? $model->alt : $model->name ?>">
                             </span>
                         <?php endif; ?>
 

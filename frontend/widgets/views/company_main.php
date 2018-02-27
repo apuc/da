@@ -4,34 +4,41 @@
  * User: apuc0
  * Date: 16.03.2017
  * Time: 16:28
- * @var $companies \common\models\db\Company
+ *
+ * @var array|Company $companies
+ * @var Company $company
  */
+
 use common\classes\GeobaseFunction;
+use common\models\db\Company;
 use yii\helpers\Url;
-if(!empty($companies)):
-?>
-<section class="company-slider">
 
-    <div class="container">
+if (!empty($companies)):
+    ?>
+    <section class="company-slider">
 
-        <h3 class="main-title">предприятия</h3>
-        <span class="separator"></span>
+        <div class="container">
 
-        <a href="#" class="company__trigger">предприятия</a>
+            <h3 class="main-title">предприятия</h3>
+            <span class="separator"></span>
 
-        <div class="company-slider__box">
-            <?php
-            $count = 0;
-            $i = 0;
-            $countCompanies = count($companies);
-            foreach ($companies as $k => $company): ?>
-            <?php $i++;?>
-                <?php if($count == 0): ?>
-                    <div class="company-slider__box_item">
-                <?php endif;?>
-                    <?php if($count == 1): ?>
+            <a href="#" class="company__trigger">предприятия</a>
+
+            <div class="company-slider__box">
+                <?php
+                $count = 0;
+                $i = 0;
+                $countCompanies = count($companies);
+                foreach ($companies
+
+                as $k => $company): ?>
+                <?php $i++; ?>
+                <?php if ($count == 0): ?>
+                <div class="company-slider__box_item">
+                    <?php endif; ?>
+                    <?php if ($count == 1): ?>
                         <a href="<?= Url::to(['/company/company/view', 'slug' => $company->slug]) ?>"
-                           class="business__big-item <?= ($company->recommended == 1) ? 'favorite' : ''?>">
+                           class="business__big-item <?= ($company->recommended == 1) ? 'favorite' : '' ?>">
 
                             <div class="recommend">
                                 <span class="recommend__star"></span>
@@ -39,7 +46,8 @@ if(!empty($companies)):
                             </div>
 
                             <div class="business__sm-item--img">
-                                <img src="<?= $company->photo  . '?width=300' ?>" alt="">
+                                <img src="<?= $company->photo . '?width=300' ?>"
+                                     alt="<?= !empty($company->alt) ? $company->alt : $company->name ?>">
                             </div>
 
                             <p class="business__sm-item--title"><?= $company->name ?></p>
@@ -47,10 +55,9 @@ if(!empty($companies)):
                             <p class="business__sm-item--address">
                                 <span>Адрес:</span>
                                 <?php
-                                if($company->region_id != 0){
-                                    $address = GeobaseFunction::getRegionName($company->region_id) . ', ' .GeobaseFunction::getCityName($company->city_id) . ', ' . $company->address ;
-                                }
-                                else{
+                                if ($company->region_id != 0) {
+                                    $address = GeobaseFunction::getRegionName($company->region_id) . ', ' . GeobaseFunction::getCityName($company->city_id) . ', ' . $company->address;
+                                } else {
                                     $address = $company->address;
                                 }
                                 ?>
@@ -69,15 +76,15 @@ if(!empty($companies)):
                                     <li> <?= isset($phone[3]) ? $phone[3] : '' ?></li>
                                 </ul>
 
-                            <?php elseif(!empty($company->allPhones)):?>
+                            <?php elseif (!empty($company->allPhones)): ?>
                                 <ul class="business__sm-item--numbers">
-                                <?php foreach ($company->allPhones as $key => $phones):?>
-                                    <?if ($key == 2):?>
+                                <?php foreach ($company->allPhones as $key => $phones): ?>
+                                    <? if ($key == 2): ?>
                                         </ul><ul class="business__sm-item--numbers">
                                     <? endif; ?>
-                                    <li><?= $phones->phone?></li>
-                                    <? if ($key == 4) break;?>
-                                <?php endforeach;?>
+                                    <li><?= $phones->phone ?></li>
+                                    <? if ($key == 4) break; ?>
+                                <?php endforeach; ?>
                                 </ul>
                             <?php endif; ?>
 
@@ -87,7 +94,7 @@ if(!empty($companies)):
                         </a>
                     <?php else: ?>
                         <a href="<?= Url::to(['/company/company/view', 'slug' => $company->slug]) ?>"
-                           class="business__sm-item <?= ($company->recommended == 1) ? 'favorite' : ''?>">
+                           class="business__sm-item <?= ($company->recommended == 1) ? 'favorite' : '' ?>">
 
                             <div class="recommend">
                                 <span class="recommend__star"></span>
@@ -95,7 +102,8 @@ if(!empty($companies)):
                             </div>
 
                             <div class="business__sm-item--img">
-                                <img src="<?= $company->photo  . '?width=300' ?>" alt="">
+                                <img src="<?= $company->photo . '?width=300' ?>"
+                                     alt="<?= !empty($company->alt) ? $company->alt : $company->name ?>">
                             </div>
 
                             <p class="business__sm-item--title"><?= $company->name ?></p>
@@ -103,10 +111,9 @@ if(!empty($companies)):
                             <p class="business__sm-item--address">
                                 <span>Адрес:</span>
                                 <?php
-                                if($company->region_id != 0){
-                                    $address = GeobaseFunction::getRegionName($company->region_id) . ', ' .GeobaseFunction::getCityName($company->city_id) . ', ' . $company->address ;
-                                }
-                                else{
+                                if ($company->region_id != 0) {
+                                    $address = GeobaseFunction::getRegionName($company->region_id) . ', ' . GeobaseFunction::getCityName($company->city_id) . ', ' . $company->address;
+                                } else {
                                     $address = $company->address;
                                 }
                                 ?>
@@ -121,12 +128,12 @@ if(!empty($companies)):
                                 </ul>
 
 
-                            <?php elseif(!empty($company->allPhones)):?>
+                            <?php elseif (!empty($company->allPhones)): ?>
                                 <ul class="business__sm-item--numbers">
-                                <?php foreach ($company->allPhones as $key => $phones):?>
-                                    <li><?= $phones->phone?></li>
-                                    <? if ($key == 2) break;?>
-                                <?php endforeach;?>
+                                    <?php foreach ($company->allPhones as $key => $phones): ?>
+                                        <li><?= $phones->phone ?></li>
+                                        <? if ($key == 2) break; ?>
+                                    <?php endforeach; ?>
                                 </ul>
                             <?php endif; ?>
 
@@ -134,25 +141,27 @@ if(!empty($companies)):
                             <p class="business__sm-item--views"><?= $company->views; ?></p>
 
                         </a>
-                    <?php endif;?>
+                    <?php endif; ?>
 
-                <?php
+                    <?php
                     $count++;
 
-                ?>
-                <?php if($count == 4 || $i == $countCompanies) {
-                    $count = 0;
-                    echo "</div>";
-                }?>
+                    ?>
+                    <?php if ($count == 4 || $i == $countCompanies) {
+                        $count = 0;
+                        echo "</div>";
+                    } ?>
 
 
-            <?php endforeach;?>
-        </div>
+                    <?php endforeach;
+                    ?>
+                </div>
 
 
-            <a href="<?= Url::to(['/company/company']) ?>" class="more">посмотреть больше <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-    </div>
+                <a href="<?= Url::to(['/company/company']) ?>" class="more">посмотреть больше <i
+                            class="fa fa-chevron-right" aria-hidden="true"></i></a>
+            </div>
 
-</section>
+    </section>
 
 <?php endif; ?>
