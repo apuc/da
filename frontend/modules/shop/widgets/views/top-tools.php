@@ -15,30 +15,51 @@
             <option value="6">Категория</option>
         </select>
         <!-- </div>-->
-
-        <input id="shop-search-form-submit" class="shop__top-form--submit" type="submit" value="Найти">
+        <button id="shop-search-form-submit" class="shop__top-form--submit" type="submit"><i
+                    class="fa fa-search" aria-hidden="true"></i></button>
+        <!--<input id="shop-search-form-submit" class="shop__top-form--submit" type="submit" value="Найти">-->
 
     </form>
 
     <div class="shop__top-nav">
 
-        <a href="#" id="shop-toolbar-trigger" class="shop__top-trigger">
+        <!--<a href="#" id="shop-toolbar-trigger" class="shop__top-trigger">-->
 
-            <span></span>
-            <span></span>
-            <span></span>
+        <!--<span></span>-->
+        <!--<span></span>-->
+        <!--<span></span>-->
 
-        </a>
-
+        <!--</a>-->
 
         <ul class="shop__top-nav--navigation">
             <li><a href="#" class="delivery">Доставка</a></li>
-            <li><a href="#" class="basket">Корзина</a></li>
-            <span class="basket-counter">0</span>
+            <li>
+                <a href="#" class="basket">Корзина</a>
+                <span class="basket-counter">0</span>
+            </li>
+
             <li><a href="#" class="my-desires">Мои желания</a></li>
         </ul>
 
+        <div class="button-second-menu">
+            <a href="#">
+                <div class="button-second-menu__hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                меню категорий
+            </a>
+        </div>
+        <ul class="shop__top-nav--navigation-m">
+            <li><a href="#" class="delivery"></a></li>
+            <li>
+                <a href="#" class="basket"></a>
+                <span class="basket-counter">0</span>
+            </li>
 
+            <li><a href="#" class="my-desires"></a></li>
+        </ul>
     </div>
 
 

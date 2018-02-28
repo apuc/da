@@ -5,6 +5,8 @@ namespace frontend\modules\shop\controllers;
 use common\classes\Debug;
 use common\models\db\CategoryFields;
 use common\models\db\ProductFields;
+use common\models\db\ProductFieldsValue;
+use common\models\db\ProductsImg;
 use frontend\modules\company\models\Company;
 use frontend\modules\shop\models\CategoryShop;
 use frontend\modules\shop\models\Products;
@@ -80,8 +82,8 @@ class ProductsController extends Controller
             if (!empty($_FILES['file']['name'][0])) {
                 $model->saveProductPhoto($_FILES, $model->id);
             }
-
-            return $this->redirect(['index']);
+            Yii::$app->session->setFlash('success','Ваш товар успешно сохранен. После прохождения модерации он будет опубликован.');
+            return $this->redirect(['/personal_area/user-products']);
         }
        /* $str = 'image (1).jpg';
         Debug::dd(str_replace( array('(',')'), '_', $str));*/
@@ -208,14 +210,46 @@ class ProductsController extends Controller
             ->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if (!empty($_FILES['file']['name'][0])) {
+                if(!empty($model->cover)){
+                    $model->cover = '/media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/thumb/' . $model->cover;
+                }
+                ProductsImg::deleteAll(['product_id' => $model->id]);
+                $model->saveProductPhoto($_FILES, $model->id);
+            }
+            $model->status = 0;
+            //Debug::dd($model);
+            $model->save();
+            ProductFieldsValue::deleteAll(['product_id' => $model->id]);
+
+            if(!empty($_POST['ProductField'])){
+                $model->saveProductFields($_POST['ProductField'], $model->id);
+            }
 
 
-           // return $this->redirect('/personal_area/default/index');
+            Yii::$app->session->setFlash('success','Ваш товар успешно сохранен. После прохождения модерации он будет опубликован.');
+            return $this->redirect('/personal_area/user-products');
         }
         else{
             $userCompany = Company::find()->where(['user_id' => Yii::$app->user->id])->all();
             $categoryList = $model->getListCategory($model->category_id,[]);
             $categorySelect = $this->renderPartial('categoryList', ['category' => array_reverse($categoryList)]);
+
+            $groupFieldsId = CategoryFields::find()
+                ->where(['category_id' => $model->category_id])
+                ->with('fields.productFieldsDefaultValues')
+                ->all();
+
+            $adsField = '';
+            if (!empty($groupFieldsId)) {
+                foreach ($groupFieldsId as $item) {
+                    $adsField .= $this->renderPartial('add_fields_update',
+                        [
+                            'adsFields' => $item,
+                            'model' => $model['productFieldsValues'],
+                        ]);
+                }
+            }
 
 
             return $this->render('update',
@@ -223,8 +257,15 @@ class ProductsController extends Controller
                     'model' => $model,
                     'userCompany' => $userCompany,
                     'categorySelect' => $categorySelect,
+                    'adsField' => $adsField,
                 ]
             );
         }
+    }
+
+    public function actionDeleteImg()
+    {
+        ProductsImg::deleteAll(['id' => Yii::$app->request->get('id')]);
+        echo 1;
     }
 }

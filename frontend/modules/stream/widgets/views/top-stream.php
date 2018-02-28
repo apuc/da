@@ -1,6 +1,6 @@
 <?php if(!empty($model)): ?>
 
-<div class="promotions-sidebar">
+<div class="promotions-sidebar" id="promotions-sidebar">
     <h3 class="main-title">топ 5 горячих постов</h3>
     <?php foreach ($model as $item): ?>
         <div class="parser__element">

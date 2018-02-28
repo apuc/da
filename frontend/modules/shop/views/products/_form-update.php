@@ -8,6 +8,7 @@ use yii\helpers\Html;
 /* @var $model frontend\modules\news\models\News */
 /* @var $userCompany frontend\modules\company\models\Company */
 /* @var $categorySelect  */
+/* @var $adsField  */
 
 $this->registerCssFile('/css/board.min.css');
 //$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
@@ -59,7 +60,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
 <hr class="lineAddAds"/>
 <span id="additional_fields">
-
+<?= $adsField; ?>
 </span>
 
 
@@ -88,28 +89,27 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 <hr class="lineAddAds"/>
 <?= $form->field($model, 'cover')->hiddenInput()->label(false); ?>
 
-<?php echo FileInput::widget([
+
+<?php
+//\common\classes\Debug::prn($ads);
+        //echo '<label class="control-label">Добавить фото</label>';
+        $preview = [];
+        $previewConfig = [];
+        if(!empty($model['images'])){
+            foreach($model['images'] as $i){
+                $preview[] = "<img src='/$i->img_thumb' class='file-preview-image'>";
+                $previewConfig[] = [
+                    'caption' => '',
+                    'url' => '/shop/product/delete-img?id=' . $i->id
+                ];
+            }
+        }
+
+echo FileInput::widget([
     'name' => 'file[]',
     'id' => 'input-5',
     'attribute' => 'attachment_1',
     'value' => '@frontend/media/img/1.png',
-    /*'options' => [
-    'multiple' => true,
-    'showCaption' => false,
-    'showUpload' => false,
-    'uploadAsync' => false,
-    ],
-    'pluginOptions' => [
-    'uploadUrl' => Url::to(['/site/upload_file']),
-    'language' => "ru",
-    'previewClass' => 'hasEdit',
-    'uploadAsync' => false,
-    'showUpload' => false,
-    'dropZoneEnabled' => false,
-    'overwriteInitial' => false,
-    'maxFileCount' => 10,
-    'maxFileSize' => 2000,
-    ],*/
     'options' => ['multiple' => true, 'accept' => 'image/*'],
     'pluginOptions' => [
         'previewFileType' => 'image',
@@ -117,7 +117,15 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         'maxFileSize' => 2000,
         'language' => "ru",
         'previewClass' => 'hasEdit',
+        'initialPreview' => $preview,
+        'initialPreviewConfig' => $previewConfig
     ],
+    'pluginEvents' => [
+        "change" => "function() { $('input[name=\"Products[cover]\"]').val(''); }",
+        "filereset" => "function() { 
+                    $('input[name=\"Products[cover]\"]').val('');
+                 }",
+    ]
 ]);
 
 ?>
