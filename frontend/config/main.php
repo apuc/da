@@ -232,6 +232,7 @@ return \yii\helpers\ArrayHelper::merge([
                 'promotions/<slug>' => '/promotions/promotions/view',
 
                 'stream' => 'stream/default/index',
+                'stream/<type>/<slug>' => 'stream/default/view',
                 'stream/<slug>' => 'stream/default/view',
                 ['pattern' => 'sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
                 ['pattern' => 'news-sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
