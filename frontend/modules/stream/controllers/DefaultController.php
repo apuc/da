@@ -131,6 +131,7 @@ class DefaultController extends Controller
 
     public function actionView($slug, $type = null)
     {
+        $model = null;
         if(null === $type){
             $model = VkStream::find()->with('photo', 'comments', 'author', 'group')
                 ->where(['slug' => $slug])
