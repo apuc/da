@@ -130,10 +130,6 @@ echo $form->field($model, 'photo', [
 ])->label(false)->fileInput();
 ?>
 
-    <p class="cabinet__add-company-form--title"><?= $model->getAttributeLabel('alt'); ?></p>
-<?= $form->field($model, 'alt')
-    ->textInput(['maxlength' => true, 'class' => 'cabinet__add-company-form--field'])
-    ->label(false); ?>
 
 
     <div class="cabinet__add-company-form--block"></div>
