@@ -1,7 +1,9 @@
 <?php
 /**
  * @var $model \common\models\db\VkStream
- * @var $count
+ * @var $count integer
+ * @var $countVk integer
+ * @var $countTw integer
  */
 
 use common\classes\DateFunctions;
@@ -31,7 +33,7 @@ $this->registerMetaTag([
 
 $this->registerMetaTag([
     'property' => 'og:image',
-    'content' => (!empty($model->photo[0])) ? $model->photo[0]->getLargePhoto(): '',
+    'content' => (!empty($model->photo)) ? $model->photo: '',
 ]);
 
 
@@ -52,9 +54,11 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                 <a class="parser__close" href="#">закрыть элемент</a>
 
                 <ul class="parser__top-nav">
-                    <li><a href="<?= \yii\helpers\Url::to(['/stream'])?>">Все материалы <span><?= $count?></span></a></li>
+                    <li><a href="<?= \yii\helpers\Url::to(['/stream'])?>">Все материалы <span><?= $count ?></span></a></li>
                     <li><a href="<?= \yii\helpers\Url::to(['/stream'])?>">ВК
-                            <span><?= $count?></span></a></li>
+                            <span><?= $countVk ?></span></a></li>
+                    <li><a href="<?= \yii\helpers\Url::to(['/stream'])?>">Tw
+                            <span><?= $countTw ?></span></a></li>
                 </ul>
 
                 <div class="parser__single-wrapper">
@@ -66,21 +70,21 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
 
                             <div class="avatar">
 
-                                <?php if (!empty($model->author)): ?>
+                                <?php if (!empty($model->author->photo)): ?>
                                     <img src="<?= $model->author->photo ?>" alt="">
                                 <?php endif; ?>
-                                <?php if (!empty($model->group)): ?>
-                                        <img src="<?= $model->group->getPhoto() ?>" alt="">
+                                <?php if (!empty($model->group->name)): ?>
+                                        <img src="<?= $model->group->name ?>" alt="">
                                 <?php endif; ?>
                             </div>
 
                             <div class="name">
-                                <?php if (!empty($model->group)): ?>
+                                <?php if (!empty($model->group->name)): ?>
                                     <?= $model->group->name ?>
                                 <?php endif; ?>
 
-                                <?php if (!empty($model->author)): ?>
-                                    <?= $model->author->first_name . ' ' . $model->author->last_name ?>
+                                <?php if (!empty($model->author->name)): ?>
+                                    <?= $model->author->name ?>
                                 <?php endif; ?>
                             </div>
 
@@ -98,17 +102,17 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
 
                         <?php
                         if (!empty($model->photo)): ?>
-                            <?php foreach ($model->photo as $key=>$value):?>
+                            <?php foreach ($model->allPhoto as $p):?>
                                 <a data-fancybox="gallery" class="parser__element--photo"
-                                   href="<?= $model->photo[$key]->getLargePhoto() ?>">
-                                    <img src="<?= $model->photo[$key]->getLargePhoto() ?>" alt="">
+                                   href="<?= $p ?>">
+                                    <img src="<?= $p ?>" alt="">
                                 </a>
                             <?php endforeach; ?>
                         <?php elseif (!empty($model->gif)): ?>
-                           <?php foreach ($model->gif as $gif):?>
+                           <?php foreach ($model->allGif as $gif):?>
                             <a data-fancybox="gallery" class="parser__element--photo"
-                               href="<?= $gif->gif_link?>">
-                                <img src="<?= $gif->gif_link?>" alt="">
+                               href="<?= $gif?>">
+                                <img src="<?= $gif?>" alt="">
                             </a>
                             <?php endforeach;?>
                         <?php endif; ?>
@@ -126,12 +130,12 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                             if ($model->comment_status == 0):
                             $countComment = 0;
                             else:
-                            $countComment = count($model->all_comments);
+                            $countComment = count($model->comments);
                             endif;
                             ?>
                             <a href="#" class="comments count-comments"><?= $countComment?></a>
 
-                            <a href="#" class="views"><?= $model->views?></a>
+                            <a href="#" class="views"><?= $model->views ?></a>
 
                             <a class="parser__close" href="#">закрыть элемент</a>
 
@@ -139,29 +143,29 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                         <?php if ($model->comment_status != 0):?>
                             <div class="parser__element--comments-block">
 
-                                <?php if (!empty($model->all_comments)): ?>
-                                    <?php foreach ($model->all_comments as $comment_item): ?>
+                                <?php if (!empty($model->comments)): ?>
+                                    <?php foreach ($model->comments as $comment_item): ?>
 
                                         <div class="avatar user-photo">
                                                 <?= \common\classes\UserFunction::getUser_avatarStream($comment_item); ?>
                                         </div>
 
                                         <div class="name">
-                                            <?= $comment_item['username'] ?>
+                                            <?= $comment_item->username ?>
                                         </div>
-                                            <p><?= $comment_item['text'] ?></p>
+                                            <p><?= $comment_item->text ?></p>
 
-                                        <?php if(!empty($comment_item['photo'])): ?>
+                                        <?php if(!empty($comment_item->photo)): ?>
                                             <a data-fancybox="gallery" class="parser__element--photo"
-                                               href="<?= $comment_item['photo'] ?>">
-                                                <img src="<?= $comment_item['photo'] ?>" style="width: 50%">
+                                               href="<?= $comment_item->photo ?>">
+                                                <img src="<?= $comment_item->photo ?>" style="width: 50%">
                                             </a>
                                         <?php endif;?>
 
-                                        <?php if(!empty($comment_item['sticker'])): ?>
+                                        <?php if(!empty($comment_item->sticker)): ?>
                                             <a data-fancybox="gallery" class="parser__element--photo"
-                                               href="<?= $comment_item['sticker'] ?>">
-                                                <img src="<?= $comment_item['sticker'] ?>" style="width: 20%">
+                                               href="<?= $comment_item->sticker ?>">
+                                                <img src="<?= $comment_item->sticker ?>" style="width: 20%">
                                             </a>
                                         <?php endif;?>
 
@@ -193,21 +197,21 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                                 <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug])?>" class="parser__element--author">
 
                                     <div class="avatar">
-                                        <?php if (!empty($item->author)): ?>
+                                        <?php if (!empty($item->author->photo)): ?>
                                             <img src="<?= $item->author->photo ?>" alt="">
                                         <?php endif; ?>
-                                        <?php if (!empty($item->group)): ?>
-                                            <img src="<?= $item->group->getPhoto() ?>" alt="">
+                                        <?php if (!empty($item->group->photo)): ?>
+                                            <img src="<?= $item->group->photo ?>" alt="">
                                         <?php endif; ?>
                                     </div>
 
                                     <div class="name">
-                                        <?php if (!empty($item->group)): ?>
+                                        <?php if (!empty($item->group->name)): ?>
                                             <?= $item->group->name ?>
                                         <?php endif; ?>
 
-                                        <?php if (!empty($item->author)): ?>
-                                            <?= $item->author->first_name . ' ' . $item->author->last_name ?>
+                                        <?php if (!empty($item->author->name)): ?>
+                                            <?= $item->author->name ?>
                                         <?php endif; ?>
                                     </div>
 
@@ -216,7 +220,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                                 </a>
 
                                 <div class="social-wrap__item vk">
-                                    <img src="/theme/portal-donbassa/img/soc/vk.png" alt="vk">
+                                    <img src="/theme/portal-donbassa/img/soc/<?= $item->type ?>.png" alt="<?= $item->type ?>">
                                 </div>
 
                                 <!--<h3 class="parser__element--title">F-Secure рассказала об опасностях пиратских версий-->
@@ -224,7 +228,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
 
                                 <?php if (!empty($item->text)): ?>
 
-                                    <p class="parser__element--descr"><?= $item->text ?></p>
+                                    <p class="parser__element--descr"><?= strip_tags($item->text) ?></p>
                                     <?php if (mb_strlen($item->text) > 131): ?>
                                         <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug])?>" class="parser__element--more">читать далее</a>
                                     <?php endif; ?>
@@ -233,12 +237,12 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                                 <?php if (!empty($item->photo)): ?>
                                     <a class="parser__element--photo"
                                        href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>">
-                                        <img src="<?= $item->photo[0]->getLargePhoto() ?>" alt="">
+                                        <img src="<?= $item->photo ?>" alt="">
                                     </a>
-                                <?php elseif (!empty($item->gif)): ?>
+                                <?php elseif (!empty($item->gifPreview)): ?>
                                     <a class="parser__element--photo"
                                        href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>">
-                                        <img src="<?= $item->gif[0]->getLargePreview()?>" alt="">
+                                        <img src="<?= $item->gifPreview?>" alt="">
                                     </a>
                                 <?php endif; ?>
 
@@ -259,7 +263,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                                         if ($item->comment_status == 0):?>
                                            <?= 0?>
                                         <?php else:?>
-                                            <?= (isset($item->all_comments)) ? count($item->all_comments) : 0?>
+                                            <?= (isset($item->comments)) ? count($item->comments) : 0?>
                                         <?php endif;?>
                                     </a>
 
@@ -267,29 +271,31 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                                 <?php if ($item->comment_status != 0): ?>
                                     <div class="parser__element--comments-block">
 
-                                        <?php if (!empty($item->all_comments)): ?>
-                                            <?php foreach ($item->all_comments as $comment_item): ?>
+                                        <?php if (!empty($item->comments)): ?>
+                                            <?php foreach ($item->comments as $comment_item): ?>
                                                 <div class="avatar">
-                                                    <img src="<?= $comment_item['avatar'] ?>" alt="">
+                                                    <?php if(!empty($comment_item->avatar)): ?>
+                                                        <img src="<?= $comment_item->avatar ?>" alt="">
+                                                    <?php endif;?>
                                                 </div>
 
                                                 <div class="name">
-                                                    <?= $comment_item['username'] ?>
+                                                    <?= $comment_item->username ?>
                                                 </div>
 
-                                                <p><?= $comment_item['text'] ?></p>
+                                                <p><?= $comment_item->text ?></p>
 
-                                                <?php if(!empty($comment_item['photo'])): ?>
+                                                <?php if(!empty($comment_item->photo)): ?>
                                                     <a data-fancybox="gallery" class="parser__element--photo"
-                                                       href="<?= $comment_item['photo'] ?>">
-                                                        <img src="<?= $comment_item['photo'] ?>" alt="">
+                                                       href="<?= $comment_item->photo ?>">
+                                                        <img src="<?= $comment_item->photo ?>" alt="">
                                                     </a>
                                                 <?php endif;?>
 
-                                                <?php if(!empty($comment_item['sticker'])): ?>
+                                                <?php if(!empty($comment_item->sticker)): ?>
                                                     <a data-fancybox="gallery" class="parser__element--photo"
-                                                       href="<?= $comment_item['sticker'] ?>">
-                                                        <img src="<?= $comment_item['sticker'] ?>" style="width: 20%">
+                                                       href="<?= $comment_item->sticker ?>">
+                                                        <img src="<?= $comment_item->sticker ?>" style="width: 20%">
                                                     </a>
                                                 <?php endif;?>
 
@@ -315,21 +321,21 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                             <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug])?>" class="parser__element--author">
 
                                 <div class="avatar">
-                                    <?php if (!empty($item->author)): ?>
+                                    <?php if (!empty($item->author->photo)): ?>
                                         <img src="<?= $item->author->photo ?>" alt="">
                                     <?php endif; ?>
-                                    <?php if (!empty($item->group)): ?>
-                                        <img src="<?= $item->group->getPhoto() ?>" alt="">
+                                    <?php if (!empty($item->group->photo)): ?>
+                                        <img src="<?= $item->group->photo ?>" alt="">
                                     <?php endif; ?>
                                 </div>
 
                                 <div class="name">
-                                    <?php if (!empty($item->group)): ?>
+                                    <?php if (!empty($item->group->name)): ?>
                                         <?= $item->group->name ?>
                                     <?php endif; ?>
 
-                                    <?php if (!empty($item->author)): ?>
-                                        <?= $item->author->first_name . ' ' . $item->author->last_name ?>
+                                    <?php if (!empty($item->author->name)): ?>
+                                        <?= $item->author->name ?>
                                     <?php endif; ?>
                                 </div>
 
@@ -338,7 +344,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                             </a>
 
                             <div class="social-wrap__item vk">
-                                <img src="/theme/portal-donbassa/img/soc/vk.png" alt="vk">
+                                <img src="/theme/portal-donbassa/img/soc/<?= $item->type ?>.png" alt="<?= $item->type ?>">
                             </div>
 
                             <!--<h3 class="parser__element--title">F-Secure рассказала об опасностях пиратских версий-->
@@ -346,7 +352,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
 
                             <?php if (!empty($item->text)): ?>
 
-                                <p class="parser__element--descr"><?= $item->text ?></p>
+                                <p class="parser__element--descr"><?= strip_tags($item->text) ?></p>
                                 <?php if (mb_strlen($item->text) > 131): ?>
                                     <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug])?>" class="parser__element--more">читать далее</a>
                                 <?php endif; ?>
@@ -355,13 +361,13 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                             <?php if (!empty($item->photo)): ?>
                                 <a class="parser__element--photo"
                                    href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>">
-                                    <img src="<?= $item->photo[0]->getLargePhoto() ?>" alt="">
+                                    <img src="<?= $item->photo ?>" alt="">
                                 </a>
 
-                            <?php elseif (!empty($item->gif)): ?>
+                            <?php elseif (!empty($item->gifPreview)): ?>
                                 <a class="parser__element--photo"
                                    href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>">
-                                    <img src="<?= $item->gif[0]->getLargePreview()?>" alt="">
+                                    <img src="<?= $item->gifPreview?>" alt="">
                                 </a>
                             <?php endif; ?>
 
@@ -382,39 +388,42 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                                     if ($item->comment_status == 0):?>
                                         <?= 0?>
                                     <?php else:?>
-                                        <?= (isset($item->all_comments)) ? count($item->all_comments) : 0?>
+                                        <?= (isset($item->comments)) ? count($item->comments) : 0?>
                                     <?php endif;?>
                                 </a>
 
                             </div>
-                            <?php if ($item->comment_status) :?>
+                            <?php if ($item->comment_status != 0): ?>
                                 <div class="parser__element--comments-block">
 
-                                    <?php if (!empty($item->all_comments)): ?>
-                                        <?php foreach ($item->all_comments as $comment_item): ?>
+                                    <?php if (!empty($item->comments)): ?>
+                                        <?php foreach ($item->comments as $comment_item): ?>
                                             <div class="avatar">
-                                                <img src="<?= $comment_item['avatar'] ?>" alt="">
+                                                <?php if(!empty($comment_item->avatar)): ?>
+                                                    <img src="<?= $comment_item->avatar ?>" alt="">
+                                                <?php endif;?>
                                             </div>
 
                                             <div class="name">
-                                                <?= $comment_item['username'] ?>
+                                                <?= $comment_item->username ?>
                                             </div>
 
-                                            <p><?= $comment_item['text'] ?></p>
+                                            <p><?= $comment_item->text ?></p>
 
-                                            <?php if(!empty($comment_item['photo'])): ?>
+                                            <?php if(!empty($comment_item->photo)): ?>
                                                 <a data-fancybox="gallery" class="parser__element--photo"
-                                                   href="<?= $comment_item['photo'] ?>">
-                                                    <img src="<?= $comment_item['photo'] ?>" alt="">
+                                                   href="<?= $comment_item->photo ?>">
+                                                    <img src="<?= $comment_item->photo ?>" alt="">
                                                 </a>
                                             <?php endif;?>
 
-                                            <?php if(!empty($comment_item['sticker'])): ?>
+                                            <?php if(!empty($comment_item->sticker)): ?>
                                                 <a data-fancybox="gallery" class="parser__element--photo"
-                                                   href="<?= $comment_item['sticker'] ?>">
-                                                    <img src="<?= $comment_item['sticker'] ?>" style="width: 20%">
+                                                   href="<?= $comment_item->sticker ?>">
+                                                    <img src="<?= $comment_item->sticker ?>" style="width: 20%">
                                                 </a>
                                             <?php endif;?>
+
                                         <?php endforeach; ?>
                                     <?php endif; ?>
 
@@ -437,11 +446,11 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                         <!--<span class="stream-flag"></span>-->
                 </div>
 
-                <div class="parser__more">
+                    <div class="parser__more">
 
-                    <a href="#" data-dt="<?= (empty($model))? :$model->dt_publish?>"  class="show-more show-more-stream" data-step="1" csrf-token="<?= Yii::$app->request->getCsrfToken() ?>">загрузить еще</a>
+                        <a href="#"  class="show-more show-more-stream" data-last-post-dt="<?= $interested2[4]->dt_publish ?>" data-dt="" data-step="1" csrf-token="<?= Yii::$app->request->getCsrfToken() ?>">загрузить еще</a>
 
-                </div>
+                    </div>
 
 
             </div>

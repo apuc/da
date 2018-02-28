@@ -149,7 +149,9 @@ return [
         'products' => [
             'class' => 'backend\modules\products\Products',
         ],
-
+        'tw' => [
+            'class' => 'backend\modules\tw\Tw',
+        ],
     ],
     'components' => [
         /*'user' => [
