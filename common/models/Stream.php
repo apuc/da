@@ -16,6 +16,7 @@ class Stream
 {
     public $id;
     public $title;
+    public $descr;
     public $type;
     public $author;
     public $text;
