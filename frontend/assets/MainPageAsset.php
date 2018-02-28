@@ -41,7 +41,7 @@ class MainPageAsset extends AssetBundle
          '/theme/portal-donbassa/js/headhesive.min.js',
         '/theme/portal-donbassa/js/script.min.js',
         '/theme/portal-donbassa/js/jquery.hc-sticky.min.js',
-        '/theme/portal-donbassa/js/ajax.min.js',
+        '/theme/portal-donbassa/js/raw/ajax.js',
 
 //        '/js/poll_ajax.min.js',
         '/js/comments.min.js',

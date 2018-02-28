@@ -17,21 +17,17 @@ use common\models\User;
            class="parser__element--author">
 
             <div class="avatar">
-                <?php if (!empty($item->author)): ?>
+                <?php if (!empty($item->author->photo)): ?>
                     <img src="<?= $item->author->photo ?>" alt="">
                 <?php endif; ?>
-                <?php if (!empty($item->group)): ?>
-                    <img src="<?= $item->group->getPhoto() ?>" alt="">
+                <?php if (!empty($item->group->photo)): ?>
+                    <img src="<?= $item->group->photo ?>" alt="">
                 <?php endif; ?>
             </div>
 
             <div class="name">
-                <?php if (!empty($item->group)): ?>
+                <?php if (!empty($item->group->name)): ?>
                     <?= $item->group->name ?>
-                <?php endif; ?>
-
-                <?php if (!empty($item->author)): ?>
-                    <?= $item->author->first_name . ' ' . $item->author->last_name ?>
                 <?php endif; ?>
             </div>
 
@@ -40,7 +36,7 @@ use common\models\User;
         </a>
 
         <div class="social-wrap__item vk">
-            <img src="/theme/portal-donbassa/img/soc/vk.png" alt="vk">
+            <img src="/theme/portal-donbassa/img/soc/<?= $item->type ?>.png" alt="<?= $item->type ?>">
         </div>
 
         <!--<h3 class="parser__element--title">F-Secure рассказала об опасностях пиратских версий-->
@@ -48,7 +44,7 @@ use common\models\User;
 
         <?php if (!empty($item->text)): ?>
 
-            <p class="parser__element--descr"><?= $item->text ?></p>
+            <p class="parser__element--descr"><?= strip_tags($item->text) ?></p>
             <?php if (mb_strlen($item->text) > 131): ?>
                 <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>"
                    class="parser__element--more">читать далее</a>
@@ -58,13 +54,13 @@ use common\models\User;
         <?php if (!empty($item->photo)): ?>
             <a class="parser__element--photo"
                href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>">
-                <img class="img-last-stream" src="<?= $item->photo[0]->getLargePhoto() ?>" alt="">
+                <img class="img-last-stream" src="<?= $item->photo ?>" alt="">
             </a>
 
-        <?php elseif (!empty($item->gif)): ?>
+        <?php elseif (!empty($item->gifPreview)): ?>
             <a class="parser__element--photo"
                href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>">
-                <img class="img-last-stream" src="<?= $item->gif[0]->getLargePreview() ?>" alt="">
+                <img class="img-last-stream" src="<?= $item->gifPreview ?>" alt="">
             </a>
         <?php endif; ?>
 
@@ -81,7 +77,7 @@ use common\models\User;
             <a href="#" class="views"><?= $item->views ?></a>
 
             <a href="#" class="comments">
-                <?= ($item->comment_status) ? count($item->all_comments) : 0 ?>
+                <?= ($item->comment_status) ? count($item->comments) : 0 ?>
             </a>
 
         </div>
@@ -91,26 +87,26 @@ use common\models\User;
             <?php if (!empty($item->all_comments)): ?>
                 <?php foreach ($item->all_comments as $comment_item): ?>
                     <div class="avatar">
-                        <img src="<?= $comment_item['avatar'] ?>" alt="">
+                        <img src="<?= $comment_item->avatar ?>" alt="">
                     </div>
 
                     <div class="name">
-                        <?= $comment_item['username'] ?>
+                        <?= $comment_item->username ?>
                     </div>
 
-                    <p><?= $comment_item['text'] ?></p>
+                    <p><?= $comment_item->text ?></p>
 
-                    <?php if(!empty($comment_item['photo'])): ?>
+                    <?php if(!empty($comment_item->photo)): ?>
                         <a data-fancybox="gallery" class="parser__element--photo"
-                           href="<?= $comment_item['photo'] ?>">
-                            <img src="<?= $comment_item['photo'] ?>" alt="">
+                           href="<?= $comment_item->photo ?>">
+                            <img src="<?= $comment_item->photo ?>" alt="">
                         </a>
                     <?php endif;?>
 
-                    <?php if(!empty($comment_item['sticker'])): ?>
+                    <?php if(!empty($comment_item->sticker)): ?>
                         <a data-fancybox="gallery" class="parser__element--photo"
-                           href="<?= $comment_item['sticker'] ?>">
-                            <img src="<?= $comment_item['sticker'] ?>" style="width: 20%">
+                           href="<?= $comment_item->sticker ?>">
+                            <img src="<?= $comment_item->sticker ?>" style="width: 20%">
                         </a>
                     <?php endif;?>
 
