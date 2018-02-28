@@ -22,6 +22,7 @@ use Yii;
  * @property integer $user_id
  * @property integer $recommended
  * @property integer $view
+ * @property string $slug [varchar(255)]
  */
 class Stock extends \yii\db\ActiveRecord
 {
@@ -42,7 +43,7 @@ class Stock extends \yii\db\ActiveRecord
             [['title'], 'required'],
             [['short_descr', 'descr'], 'string'],
             [['dt_add', 'dt_update', 'status', 'main', 'company_id', 'user_id', 'recommended', 'view'], 'integer'],
-            [['title', 'photo', 'dt_event', 'link'], 'string', 'max' => 255],
+            [['title', 'photo', 'dt_event', 'link', 'slug'], 'string', 'max' => 255],
         ];
     }
 
