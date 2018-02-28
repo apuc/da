@@ -12,6 +12,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
+use yii\widgets\LinkPager;
 
 /**
  * @var array $economicNews
@@ -42,48 +43,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="container">
         <div class="e-content">
             <?= $this->render('_header', ['title' => $meta_title, 'coin' => true]); ?>
-            <div class="e-content__wrapper__table">
-                <?= GridView::widget([
-                    'dataProvider' => $dataProvider,
-                    'filterModel' => $searchModel,
-                    'columns' => [
-                        ['class' => 'yii\grid\SerialColumn'],
-                        [
-                            'attribute' => 'full_name',
-                            'format' => 'raw',
-                            'value' => function ($model) {
-                                return Html::a($model->full_name, Url::to(['/currency/default/view-coin', 'id' => $model->id]));
-                            },
-                        ],
-                        'algorithm',
-                        'proof_type',
-                        [
-                            'attribute' => 'fully_premined',
-                            'value' => function ($model) {
-                                if ($model->fully_premined === 0) return 'Нет';
-                                if ($model->fully_premined === 1) return 'Да';
-                            },
-                            'filter' => [
-                                0 => 'Нет',
-                                1 => 'Да'
-                            ]
-                        ],
-                        'total_coin_supply',
-                        'sort_order',
-                        [
-                            'attribute' => 'sponsored',
-                            'value' => function ($model) {
-                                if ($model->sponsored === 0) return 'Нет';
-                                if ($model->sponsored === 1) return 'Да';
-                            },
-                            'filter' => [
-                                0 => 'Нет',
-                                1 => 'Да'
-                            ]
-                        ],
-                    ],
-                ]); ?>
-            </div>
             <div class="e-content__wrapper">
                 <div class="e-content__wrapper__title">
                     <h2><?= $meta_title ?></h2>
@@ -93,6 +52,59 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
 
                 <div class="e-content__wrapper__table">
+                    <?= GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'filterModel' => $searchModel,
+                        'layout' => "{summary}\n{items}",
+                        'columns' => [
+                            ['class' => 'yii\grid\SerialColumn'],
+                            [
+                                'attribute' => 'full_name',
+                                'format' => 'raw',
+                                'value' => function ($model) {
+                                    return Html::a($model->full_name, Url::to(['/currency/default/view-coin', 'id' => $model->id]));
+                                },
+                            ],
+                            'algorithm',
+                            'proof_type',
+                            [
+                                'attribute' => 'fully_premined',
+                                'value' => function ($model) {
+                                    if ($model->fully_premined === 0) return 'Нет';
+                                    if ($model->fully_premined === 1) return 'Да';
+                                },
+                                'filter' => [
+                                    0 => 'Нет',
+                                    1 => 'Да'
+                                ]
+                            ],
+                            'total_coin_supply',
+                            'sort_order',
+                            [
+                                'attribute' => 'sponsored',
+                                'value' => function ($model) {
+                                    if ($model->sponsored === 0) return 'Нет';
+                                    if ($model->sponsored === 1) return 'Да';
+                                },
+                                'filter' => [
+                                    0 => 'Нет',
+                                    1 => 'Да'
+                                ]
+                            ],
+                        ],
+                    ]); ?>
+                    <div class="pagination">
+                        <?= LinkPager::widget([
+                            'pagination' => $dataProvider->pagination,
+                            'options' => [
+                                'class' => '',
+                            ],
+                            'prevPageCssClass' => 'pagination-prew',
+                            'nextPageCssClass' => 'pagination-next',
+                            'prevPageLabel' => '',
+                            'nextPageLabel' => '',
+                            'activePageCssClass' => 'active',]); ?>
+                    </div>
                 </div>
 
                 <div class="e-content__wrapper__description">
