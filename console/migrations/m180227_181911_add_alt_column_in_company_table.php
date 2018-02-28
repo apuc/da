@@ -12,7 +12,7 @@ class m180227_181911_add_alt_column_in_company_table extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('company', 'alt', $this->text()->defaultValue(null));
+        $this->addColumn('company', 'alt', $this->string(255)->defaultValue(null));
     }
 
     /**

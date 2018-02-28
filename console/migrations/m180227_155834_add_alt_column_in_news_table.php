@@ -12,7 +12,7 @@ class m180227_155834_add_alt_column_in_news_table extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('news', 'alt', $this->text()->defaultValue(null));
+        $this->addColumn('news', 'alt', $this->string(255)->defaultValue(null));
     }
 
     /**
