@@ -8,7 +8,10 @@ use common\classes\GeobaseFunction;
 $this->registerJsFile('/theme/portal-donbassa/js/jquery.zoom.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->registerJsFile('/theme/portal-donbassa/js/slick.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/raw/products.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
+
+$this->title = $model->title;
 //\common\classes\Debug::dd($model);
 ?>
 
@@ -86,10 +89,10 @@ $this->registerJsFile('/theme/portal-donbassa/js/slick.min.js', ['depends' => [\
                     <div class="single-shop__info-content--counter">
 
                         <div class="numbers">
-                            <input type="number" min="1" max="999" value="1" class="js-product-quantity number "
+                            <input type="number" min="1" max="999" value="1" class="js-product-quantity number count-add-to-cart "
                                    data-type="single" maxlength="999" pattern="[0-9]{3}">
-                            <a class="minus"><i class="fa fa-minus" aria-hidden="true"></i></a>
-                            <a class="plus"> <i class="fa fa-plus" aria-hidden="true"></i></a>
+                            <a class="minus update-count"><i class="fa fa-minus" aria-hidden="true"></i></a>
+                            <a class="plus update-count"> <i class="fa fa-plus" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </div>
@@ -98,12 +101,15 @@ $this->registerJsFile('/theme/portal-donbassa/js/slick.min.js', ['depends' => [\
             <div class="single-shop__info-item">
                 <div>Общая стоимость</div>
                 <div>
-                    <span class="total-cost">8 022,40 руб. / 2 шт.</span>
+                    <span class="total-cost">
+                        <?= number_format((!empty($model->new_price)) ? $model->new_price : $model->price, 0, '.', ' ') ?> руб. / 1 шт.</span>
                 </div>
             </div>
             <div class="single-shop__info-item">
                 <a href="#" class="button-buy">Купить сейчас</a>
-                <a href="#" class="button-basket">Добавить в корзину</a>
+                <a href="#" class="button-basket add-to-cart" data-id="<?= $model->id; ?>">
+                    Добавить в корзину
+                </a>
                 <!--<a href="#" class="promotion-seller">
                     <span>Акция продавца</span>
                     Получить купон продавца

@@ -12,7 +12,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/slick.min.js', ['depends' => [\
 
     <a href="#">
         <span>акция месяца</span>
-        <img src="img/shop/stock-banner.png" alt="">
+        <img src="/theme/portal-donbassa/img/shop/stock-banner.png" alt="">
     </a>
 
 </div>
@@ -24,22 +24,22 @@ $this->registerJsFile('/theme/portal-donbassa/js/slick.min.js', ['depends' => [\
     <div class="shop__top-sales-nav">
 
         <a href="#" class="shop__top-sales-nav--link">
-            <span class="icon"><img src="img/shop/icons/payment-method-icon.png" alt=""></span>
+            <span class="icon"><img src="/theme/portal-donbassa/img/shop/icons/payment-method-icon.png" alt=""></span>
             <span class="name">Способы <br> оплаты</span>
         </a>
 
         <a href="#" class="shop__top-sales-nav--link">
-            <span class="icon"><img src="img/shop/icons/deliver-icon.png" alt=""></span>
+            <span class="icon"><img src="/theme/portal-donbassa/img/shop/icons/deliver-icon.png" alt=""></span>
             <span class="name">Склады в <br> ДНР</span>
         </a>
 
         <a href="#" class="shop__top-sales-nav--link">
-            <span class="icon"><img src="img/shop/icons/warehouse-icon.png" alt=""></span>
+            <span class="icon"><img src="/theme/portal-donbassa/img/shop/icons/warehouse-icon.png" alt=""></span>
             <span class="name">Ликвидация <br> товара</span>
         </a>
 
         <a href="#" class="shop__top-sales-nav--link">
-            <span class="icon"><img src="img/shop/icons/deliver-icon.png" alt=""></span>
+            <span class="icon"><img src="/theme/portal-donbassa/img/shop/icons/deliver-icon.png" alt=""></span>
             <span class="name">Круглосуточный <br> колл-центр</span>
         </a>
 

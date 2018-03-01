@@ -67,6 +67,12 @@ return \yii\helpers\ArrayHelper::merge([
         ],
     ],
     'components' => [
+        'cart' => [
+            'class' => 'frontend\components\Cart'
+        ],
+        'session'=>[
+            'timeout' => 12*60*60,
+        ],
         'mymessages' => [
             //Обязательно
             'class'    => 'vision\messages\components\MyMessages',
@@ -253,6 +259,8 @@ return \yii\helpers\ArrayHelper::merge([
                     'class' => \frontend\components\ShopRule::class,
                 ],
                 //'shop/<action:cart|order>'=>'shop/shop/<action>',
+                'shop/shop/add-in-cart'=>'shop/shop/add-in-cart',
+                'shop/shop/price-count'=>'shop/shop/price-count',
                 'shop/products/create'=>'shop/products/create',
                 'shop/products/delete'=>'shop/products/delete',
                 'shop/products/update'=>'shop/products/update',

@@ -32,11 +32,11 @@ $this->registerMetaTag([
 
 $this->registerMetaTag([
     'property' => 'og:image',
-    'content' => $ads->adsImgs[0]->img_thumb,
+    'content' => (empty($ads->adsImgs[0]->img_thumb)) ? '/theme/portal-donbassa/img/no-image.png' : $ads->adsImgs[0]->img_thumb,
 ]);
 $this->registerMetaTag([
     'property' => 'og:image:secure_url',
-    'content' => $ads->adsImgs[0]->img_thumb,
+    'content' => (empty($ads->adsImgs[0]->img_thumb)) ? '/theme/portal-donbassa/img/no-image.png' : $ads->adsImgs[0]->img_thumb
 ]);
 
 
