@@ -2,10 +2,11 @@
 namespace frontend\components;
 
 use common\classes\Debug;
-use common\models\db\Order;
-use common\models\db\OrderProduct;
+use frontend\models\sitemap\Company;
+use frontend\modules\shop\models\Products;
 use yii\base\Component;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * Class Cart
@@ -15,117 +16,83 @@ use Yii;
  */
 class Cart extends Component
 {
-    const SESSION_KEY = 'order_id';
+    const SESSION_KEY = 'shop_cart';
 
-    private $_order;
-
-
-    public function add($productId, $count)
+    public function add($shop_id, $product_id, $count=1)
     {
-       /* $this->clean();
-        Debug::dd(123);*/
-        $link = OrderProduct::findOne(['product_id' => $productId, 'order_id' => $this->getOrderId()]);
-        if (!$link) {
-            $link = new OrderProduct();
+        $cart = $this->getCart();
+        if (isset($cart[$shop_id][$product_id])) {
+            $count = $cart[$shop_id][$product_id] + $count;
         }
-        $link->product_id = $productId;
-        $link->order_id = $this->order->id;
-        $link->count += $count;
-        return $link->save();
+
+        $this->update($shop_id, $product_id, $count);
     }
 
-    public function getOrder()
+    public function update($shop_id, $product_id, $count=1)
     {
-        if ($this->_order == null) {
-            $this->_order = Order::findOne(['id' => $this->getOrderId()]);
-        }
-        return $this->_order;
+        $cart = $this->getCart();
+        $cart[$shop_id][$product_id] = $count;
+        $this->setCart($cart);
     }
 
-    public function createOrder()
+    public function delete($shop_id, $product_id)
     {
-        $order = new Order();
-        if ($order->save()) {
-            $this->_order = $order;
-            return true;
-        }
-        return false;
+        $cart = $this->getCart();
+        if (isset($cart[$shop_id][$product_id]))
+            unset($cart[$shop_id][$product_id]);
+
+        $this->setCart($cart);
     }
 
-    private function getOrderId()
-    {
-        if (Yii::$app->session->has(self::SESSION_KEY)) {
-            if ($this->createOrder()) {
-                Yii::$app->session->set(self::SESSION_KEY, $this->_order->id);
-            }
-        }
-        return Yii::$app->session->get(self::SESSION_KEY);
-    }
-
-    public function delete($productId)
-    {
-        $link = OrderProduct::findOne(['product_id' => $productId, 'order_id' => $this->getOrderId()]);
-        if (!$link) {
-            return false;
-        }
-        return $link->delete();
-    }
-
-    public function setCount($productId, $count)
-    {//Debug::dd($this->getOrderId());
-        $link = OrderProduct::findOne(['product_id' => $productId, 'order_id' => $this->getOrderId()]);
-        if (!$link) {
-            return false;
-        }
-        $link->count = $count;
-        return $link->save();
-    }
-
-    public function getStatus()
-    {
-        if (!$this->isEmpty()) {
-            return Yii::t('app', 'В корзине пусто');
-        }
-        /*return Yii::t('app',
-            //'В корзине {productsCount, number} {productsCount, plural, one{товар} few{товара} many{товаров} other{товара}} на сумму {amount} руб.',
-            'В корзине {productsCount, number}',
-            [
-                'productsCount' => $this->order->productsCount($this->order->id),
-                //'amount' => $this->order->amount
-            ]);*/
-        return [
-            'productsCount' => $this->order->productsCount($this->order->id),
-            //'amount' => $this->order->amount
-            ];
-    }
-
-    public function getCountProductsCart()
-    {
-//Debug::dd($this->isEmpty());
-        if (!$this->isEmpty()) {
-            return 0;
-        }
-        return $this->order->productsCount;
-    }
-
-    public function isEmpty()
-    {
-        if (!Yii::$app->session->has(self::SESSION_KEY)) {
-            return true;
-        }
-        /*if( empty($this->order) ) {
-            return false;
-        }*/
-        return $this->order->productsCount ? false : true;
-    }
-
-    public function clean()
+    public function clear()
     {
         Yii::$app->session->remove(self::SESSION_KEY);
     }
 
-   /* public function productsCount()
+    public function isEmpty()
     {
-        return OrderProduct::find()->where(['order_id' => $this->order->id])->count();
-    }*/
+        return !!$this->getCount();
+    }
+
+    public function getCount()
+    {
+        $count = 0;
+        $cart = $this->getCart();
+        foreach ($cart as $products)
+            $count += count($products);
+
+        return $count;
+    }
+
+    public function getCart()
+    {
+        $cart = Yii::$app->session->get(self::SESSION_KEY);
+
+        return $cart ? json_decode($cart, true) : [];
+    }
+
+    public function setCart($cart=null)
+    {
+        if (is_array($cart) && !empty($cart))
+            Yii::$app->session->set(self::SESSION_KEY, json_encode($cart));
+        else $this->clear();
+    }
+
+    public function getCartData()
+    {
+        $cart = $this->getCart();
+        $data = [];
+        if(!empty($cart)){
+            $companies = Company::find()->where(['id' => array_keys($cart)])->indexBy('id')->asArray()->all();
+            foreach ($cart as $company_id=>$items){
+                $data[$company_id] = $companies[$company_id];
+                $products = Products::find()->where(['id' => array_keys($items)])->indexBy('id')->asArray()->all();
+                foreach ($items as $product_id=>$count) {
+                    $data[$company_id]['products'][$product_id] = $products[$product_id] + ['count' => $count];
+                }
+            }
+        }
+
+        return $data;
+    }
 }

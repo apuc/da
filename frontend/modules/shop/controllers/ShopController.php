@@ -37,12 +37,13 @@ class ShopController extends Controller
     public function actionAddInCart()
     {
         $postData = Yii::$app->request->post();
-        /*$postData['product_id'] = 27;
-        $postData['count'] = 1;*/
+        /*$postData['product_id'] = 27;*/
+        $postData['shop_id'] = 20;
+        /*$postData['count'] = 1;*/
         //Debug::dd($postData['product_id']);
         return json_encode([
-            'success' => Yii::$app->cart->add($postData['product_id'], $postData['count']),
-            'cartCount' => Yii::$app->cart->countProductsCart
+            'success' => Yii::$app->cart->add($postData['shop_id'], $postData['product_id'], $postData['count']),
+            'cartCount' => Yii::$app->cart->count
         ]);
     }
 
@@ -76,6 +77,15 @@ class ShopController extends Controller
             $html .= $products->price * $postData['count'];
         }
         return number_format($html, 0, '.', ' ') . 'руб. / ' . $postData['count'] .' шт.';
+    }
+
+    public function actionCart()
+    {
+        $cart = Yii::$app->cart->getCart();
+
+
+
+        return $this->render('cart');
     }
 
     public function actionIndex()
