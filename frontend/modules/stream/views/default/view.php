@@ -91,8 +91,8 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
 
                             </a>
 
-                            <div class="social-wrap__item vk">
-                                <img src="/theme/portal-donbassa/img/soc/vk.png" alt="vk">
+                            <div class="social-wrap__item">
+                                <img src="/theme/portal-donbassa/img/soc/<?= $model->type ?>.png" alt="<?= $model->type ?>">
                             </div>
 
                             <h3 class="parser__element--title"></h3>
