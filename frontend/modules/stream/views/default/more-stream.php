@@ -9,11 +9,15 @@
 use common\classes\DateFunctions;
 use common\models\User;
 
+$itemUrl = [
+        '/stream/default/view',
+        'slug' => $item->slug,
+    ]+($item->type !== 'vk' ? ['type' => $item->type]:[]);
 ?>
 <?php /*foreach ($model as $item): */ ?>
     <div class="parser__element <?= $item->id ?>">
 
-        <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>"
+        <a href="<?= \yii\helpers\Url::to($itemUrl) ?>"
            class="parser__element--author">
 
             <div class="avatar">
@@ -35,7 +39,7 @@ use common\models\User;
 
         </a>
 
-        <div class="social-wrap__item vk">
+        <div class="social-wrap__item">
             <img src="/theme/portal-donbassa/img/soc/<?= $item->type ?>.png" alt="<?= $item->type ?>">
         </div>
 
@@ -46,20 +50,20 @@ use common\models\User;
 
             <p class="parser__element--descr"><?= strip_tags($item->text) ?></p>
             <?php if (mb_strlen($item->text) > 131): ?>
-                <a href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>"
+                <a href="<?= \yii\helpers\Url::to($itemUrl) ?>"
                    class="parser__element--more">читать далее</a>
             <?php endif; ?>
         <?php endif; ?>
 
         <?php if (!empty($item->photo)): ?>
             <a class="parser__element--photo"
-               href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>">
+               href="<?= \yii\helpers\Url::to($itemUrl) ?>">
                 <img class="img-last-stream" src="<?= $item->photo ?>" alt="">
             </a>
 
         <?php elseif (!empty($item->gifPreview)): ?>
             <a class="parser__element--photo"
-               href="<?= \yii\helpers\Url::to(['/stream/default/view', 'slug' => $item->slug]) ?>">
+               href="<?= \yii\helpers\Url::to($itemUrl) ?>">
                 <img class="img-last-stream" src="<?= $item->gifPreview ?>" alt="">
             </a>
         <?php endif; ?>

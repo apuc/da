@@ -17,7 +17,14 @@ $this->registerMetaTag([
 ]);
 $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
-
+<style>
+    .social-wrap__item img{
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        margin-top: 0;
+    }
+</style>
 
 <section class="parser">
 
@@ -73,7 +80,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
 
                                     </a>
 
-                                    <div class="social-wrap__item vk">
+                                    <div class="social-wrap__item">
                                         <img src="/theme/portal-donbassa/img/soc/<?= $item->type ?>.png"
                                              alt="<?= $item->type ?>">
                                     </div>
@@ -203,7 +210,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
 
                                     </a>
 
-                                    <div class="social-wrap__item vk">
+                                    <div class="social-wrap__item">
                                         <img src="/theme/portal-donbassa/img/soc/<?= $item->type ?>.png"
                                              alt="<?= $item->type ?>">
                                     </div>
