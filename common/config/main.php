@@ -43,7 +43,16 @@ return [
                 'settings' => [
                     'class' => '\frontend\controllers\user\SettingController',
                     'layout' => '@frontend/views/layouts/personal_area',
-                ]
+                ],
+                'security' => [
+                    'class' => \dektrium\user\controllers\SecurityController::className(),
+                    'on ' . \dektrium\user\controllers\SecurityController::EVENT_BEFORE_LOGIN => function ($e) {
+                        $cart = !\Yii::$app->cart->isEmpty() ? \Yii::$app->cart->getCart() : null;
+                    },
+                    'on ' . \dektrium\user\controllers\SecurityController::EVENT_AFTER_LOGIN => function ($e) {
+                        if (!empty($cart)) \Yii::$app->cart->setCart($cart);
+                    },
+                ],
             ],
             'modelMap' => [
                 'RegistrationForm' => '\frontend\models\user\RegUserForm',
