@@ -91,7 +91,7 @@ class TwPostsController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            if($model->status === 1){
+            if ($model->status === 1) {
                 $model->dt_publish = time();
             }
             $model->save();
@@ -131,5 +131,14 @@ class TwPostsController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionToPublic($id)
+    {
+        $model = \common\models\db\TwPosts::findOne($id);
+        $model->status = 2;
+        $model->save();
+        Yii::$app->session->setFlash('success', 'Пост добавлен в раздел "На публикацию"');
+        return $this->redirect('index');
     }
 }
