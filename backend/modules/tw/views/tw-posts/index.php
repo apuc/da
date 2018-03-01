@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\tw\models\TwPostsSearch */
@@ -26,10 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'title',
+            //'title',
             //'meta_descr:ntext',
             //'tw_id',
-            //'content:ntext',
+            'content:ntext',
             //'media_url:url',
             'link',
             //'page_id',
@@ -59,6 +60,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ],
             //'slug',
+            [
+                'label' => 'Действия',
+                'format' => 'raw',
+                'value' => function($model){
+                    if($model->status === 0){
+                        return Html::a('На публикацию', Url::to(['to-public', 'id' => $model->id]), ['class' => 'btn btn-success']);
+                    }
+                    return 'Не доступно';
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
