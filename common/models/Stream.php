@@ -17,6 +17,7 @@ class Stream
     public $id;
     public $title;
     public $descr;
+    public $meta_descr;
     public $type;
     public $author;
     public $text;
@@ -106,6 +107,7 @@ class Stream
             $streamItem->group->photo = $item->group->getPhoto();
             $streamItem->group->name = $item->group->name;
         }
+        $streamItem->meta_descr = $item->meta_descr;
         $streamItem->dt_publish = $item->dt_publish;
         $streamItem->likes = $streamItem->getLikesCount();
         $streamItem->comments = $streamItem->getAllComments();
