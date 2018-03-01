@@ -154,6 +154,9 @@ return [
         ],
     ],
     'components' => [
+        'cart' => [
+            'class' => 'frontend\components\Cart'
+        ],
         /*'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
