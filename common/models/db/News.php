@@ -31,6 +31,7 @@ use Yii;
  * @property integer $region_id
  * @property integer $editor_choice
  * @property integer $company_id
+ * @property string $alt
  *
  * @property CategoryNewsRelations[] $categoryNewsRelations
  * @property int $rss [int(1)]
@@ -59,7 +60,7 @@ class News extends \yii\db\ActiveRecord
                 ['dt_add', 'dt_update', 'status', 'user_id', 'lang_id', 'views', 'exclude_popular', 'rss', 'hot_new', 'show_error', 'region_id', 'editor_choice', 'company_id'],
                 'integer',
             ],
-            [['title', 'slug', 'tags', 'photo', 'meta_title', 'meta_descr'], 'string', 'max' => 255],
+            [['title', 'slug', 'tags', 'photo', 'meta_title', 'meta_descr', 'alt'], 'string', 'max' => 255],
             [['author'], 'string', 'max' => 64],
             [['main_slider'], 'safe'],
             [
@@ -102,6 +103,7 @@ class News extends \yii\db\ActiveRecord
             'region_id' => Yii::t('news', 'RegionID'),
             'editor_choice' => Yii::t('news', 'Editor choice'),
             'company_id' => Yii::t('news', 'Company ID'),
+            'alt' => Yii::t('news', 'Alt Tag'),
         ];
     }
 

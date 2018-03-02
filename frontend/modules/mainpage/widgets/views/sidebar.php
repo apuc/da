@@ -1,5 +1,7 @@
 <?php
+
 use yii\helpers\Url;
+
 ?>
 
 
@@ -18,7 +20,8 @@ use yii\helpers\Url;
                 <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['news']->slug]); ?>">
                     <h2>САМОЕ ОБСУЖДАЕМОЕ</h2>
                     <div class="sidebar-discussed__big-item__img">
-                        <img src="<?= $val['news']['photo'] . '?width=300' ?>" alt="">
+                        <img src="<?= $val['news']['photo'] . '?width=300' ?>"
+                             alt="<?= !empty($val['news']->alt) ? $val['news']->alt : $val['news']->title ?>">
                     </div>
                     <div class="sidebar-discussed__big-item__text">
                         <p>
@@ -34,22 +37,25 @@ use yii\helpers\Url;
 
                         <div class="tag">
                             <?php
-                            if(!empty($tag)):
+                            if (!empty($tag)):
                                 foreach ($tag as $t):?>
-                                <a href="<?= Url::to(['/search/tag', 'id' => $t['tags']->id])?>" class="hashteg-mini">
-                                    <?= $t['tags']->tag?>
-                                </a>
+                                    <a href="<?= Url::to(['/search/tag', 'id' => $t['tags']->id]) ?>"
+                                       class="hashteg-mini">
+                                        <?= $t['tags']->tag ?>
+                                    </a>
                                 <?php endforeach;
                             endif;
                             ?>
                         </div>
                         <div class="sidebar-discussed__small-item__text__comments">
                             <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['news']->slug]); ?>">
-                                <img src="/theme/portal-donbassa/img/icons/new-chat-icon.png" alt="">
+                                <img src="/theme/portal-donbassa/img/icons/new-chat-icon.png"
+                                     alt="<?= !empty($val['news']->alt) ? $val['news']->alt : $val['news']->title ?>">
                                 <span><?= $val['cnt'] ?></span>
                             </a>
-                            <p class="business__sm-item--views"><?= $val['news']->views;?></p>
-                            <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['news']->slug]); ?>" class="home-like">
+                            <p class="business__sm-item--views"><?= $val['news']->views; ?></p>
+                            <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['news']->slug]); ?>"
+                               class="home-like">
                                 <i class="fa fa-heart" aria-hidden="true"></i>
                                 <span class="like-counter"><?= \common\models\db\News::getLikeCount($val['news']->id); ?></span>
                             </a>
@@ -62,7 +68,8 @@ use yii\helpers\Url;
             <div class="sidebar-discussed__small-item">
                 <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['news']->slug]); ?>">
                     <div class="sidebar-discussed__small-item__img">
-                        <img src="<?= $val['news']['photo'] . '?width=155' ?>" alt="">
+                        <img src="<?= $val['news']['photo'] . '?width=155' ?>"
+                             alt="<?= !empty($val['news']->alt) ? $val['news']->alt : $val['news']->title ?>">
                     </div>
                     <div class="sidebar-discussed__small-item__text">
                         <p>
@@ -71,11 +78,13 @@ use yii\helpers\Url;
 
                         <div class="sidebar-discussed__small-item__text__comments">
                             <a href="#">
-                                <img src="/theme/portal-donbassa/img/icons/new-chat-icon.png" alt="">
+                                <img src="/theme/portal-donbassa/img/icons/new-chat-icon.png"
+                                     alt="<?= !empty($val['news']->alt) ? $val['news']->alt : $val['news']->title ?>">
                                 <span><?= $val->cnt ?></span>
                             </a>
                             <p class="business__sm-item--views"><?= $val['news']->views; ?></p>
-                            <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['news']->slug]); ?>" class="home-like">
+                            <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['news']->slug]); ?>"
+                               class="home-like">
                                 <i class="fa fa-heart" aria-hidden="true"></i>
                                 <span class="like-counter"><?= \common\models\db\News::getLikeCount($val['news']->id); ?></span>
                             </a>

@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var array $news
+ * @var \common\models\db\News $new
+ */
+?>
+
 <div class="home-content__tape">
     <h2>ЛЕНТА ДНЯ</h2>
     <div class="home-content__tape_wrap">
@@ -24,32 +31,35 @@
 
             if ($key == $newImageId) {
                 ?>
-                <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $new->slug]); ?>" class="tape__item_pic">
-                    <?php if(stristr($new->photo, 'http')):?>
-                        <img class="thumbnail" src="<?= $new->photo . '?width=300' ?>" alt="">
+                <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $new->slug]); ?>"
+                   class="tape__item_pic">
+                    <?php if (stristr($new->photo, 'http')): ?>
+                        <img class="thumbnail" src="<?= $new->photo . '?width=300' ?>"
+                             alt="<?= !empty($new->alt) ? $new->alt : $new->title ?>">
                     <?php else: ?>
-                        <img class="thumbnail" src="<?= $new->photo . '?width=300' ?>" alt="">
-                    <?php endif;?>
+                        <img class="thumbnail" src="<?= $new->photo . '?width=300' ?>"
+                             alt="<?= !empty($new->alt) ? $new->alt : $new->title ?>">
+                    <?php endif; ?>
                     <div class="tape__item_pic--content">
                         <span class="time"><?= date('d.m H:i', $new->dt_public) ?></span>
                         <div class="hide-social">
                             <span onclick="Share.vkontakte(
-                                '<?= $new_url ?>',
-                                '<?= $new_title; ?>',
-                                '<?= $new_img; ?>',
-                                '<?= $new_content; ?>'
-                                ); return false;" ><i class="fa fa-vk  fa-lg"></i></span>
+                                    '<?= $new_url ?>',
+                                    '<?= $new_title; ?>',
+                                    '<?= $new_img; ?>',
+                                    '<?= $new_content; ?>'
+                                    ); return false;"><i class="fa fa-vk  fa-lg"></i></span>
                             <span onclick="Share.twitter('<?= $new_url ?>',
-                                '<?= $new_title ?>')" ><i class="fa fa-twitter fa-lg"></i></span>
+                                    '<?= $new_title ?>')"><i class="fa fa-twitter fa-lg"></i></span>
                             <span onclick="Share.facebook(
-                                '<?= $new_url ?>',
-                                '<?= $new_title; ?>',
-                                '<?= $new_img; ?>',
-                                '<?= $new_content; ?>')" ><i class="fa fa-facebook fa-lg"></i></span>
+                                    '<?= $new_url ?>',
+                                    '<?= $new_title; ?>',
+                                    '<?= $new_img; ?>',
+                                    '<?= $new_content; ?>')"><i class="fa fa-facebook fa-lg"></i></span>
                             <span onclick="Share.odnoklassniki(
-                                '<?= $new_url ?>',
-                                '<?= $new_title; ?>'
-                                )" ><i class="fa fa-odnoklassniki  fa-lg"></i></span>
+                                    '<?= $new_url ?>',
+                                    '<?= $new_title; ?>'
+                                    )"><i class="fa fa-odnoklassniki  fa-lg"></i></span>
 
                         </div>
                         <span class="open-soc"><i class="fa fa-random fa-lg"></i></span>
@@ -61,7 +71,7 @@
             } else {
 
                 ?>
-                <div  class="tape__item">
+                <div class="tape__item">
                     <span class="time"><?= date('H:i', $new->dt_public) ?></span>
                     <div class="hide-social">
                         <a onclick="Share.vkontakte(
@@ -69,18 +79,18 @@
                                 '<?= $new_title; ?>',
                                 '<?= $new_img; ?>',
                                 '<?= $new_content; ?>'
-                                ); return false;" ><i class="fa fa-vk  fa-lg"></i></a>
+                                ); return false;"><i class="fa fa-vk  fa-lg"></i></a>
                         <a onclick="Share.twitter('<?= $new_url ?>',
-                                '<?= $new_title ?>')" ><i class="fa fa-twitter fa-lg"></i></a>
+                                '<?= $new_title ?>')"><i class="fa fa-twitter fa-lg"></i></a>
                         <a onclick="Share.facebook(
                                 '<?= $new_url ?>',
                                 '<?= $new_title; ?>',
                                 '<?= $new_img; ?>',
-                                '<?= $new_content; ?>')" ><i class="fa fa-facebook fa-lg"></i></a>
+                                '<?= $new_content; ?>')"><i class="fa fa-facebook fa-lg"></i></a>
                         <a onclick="Share.odnoklassniki(
                                 '<?= $new_url ?>',
                                 '<?= $new_title; ?>'
-                                )" ><i class="fa fa-odnoklassniki  fa-lg"></i></a>
+                                )"><i class="fa fa-odnoklassniki  fa-lg"></i></a>
 
                     </div>
                     <span class="open-soc"><i class="fa fa-random fa-lg"></i></span>

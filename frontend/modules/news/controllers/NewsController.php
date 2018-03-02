@@ -120,7 +120,7 @@ class NewsController extends Controller
                     'status' => 0,
                     'hot_new' => 0,
                 ]);
-            if($this->useReg != -1){
+            if ($this->useReg != -1) {
                 $newsQuery->andWhere("(`region_id` IS NULL OR `region_id`=$this->useReg)");
 
             }
@@ -145,9 +145,9 @@ class NewsController extends Controller
                 ->where([
                     'status' => 0,
                     'hot_new' => 0,
-                    '`category_news`.`slug`'=>Yii::$app->request->post('category')
+                    '`category_news`.`slug`' => Yii::$app->request->post('category')
                 ]);
-            if($this->useReg != -1){
+            if ($this->useReg != -1) {
                 $newsQuery->andWhere("(`region_id` IS NULL OR `region_id`=$this->useReg)");
 
             }
@@ -178,17 +178,15 @@ class NewsController extends Controller
         $model = new \frontend\modules\news\models\News();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-/*
-            Debug::prn($model);
-            Debug::prn($_FILES);*/
-/*            Debug::prn($_POST);
-die();*/
-
             $model->status = 1;
             $model->user_id = Yii::$app->user->getId();
             $model->dt_public = $model->dt_update;
             $model->meta_title = $model->title;
-            $model->meta_descr =  \yii\helpers\StringHelper::truncate(strip_tags($model->content), 250);
+            $model->meta_descr = \yii\helpers\StringHelper::truncate(strip_tags($model->content), 250);
+
+            if (empty($model->alt)) {
+                $model->alt = $model->title;
+            }
 
             if ($_FILES['News']['name']['photo']) {
                 $upphoto = New \common\models\UploadPhoto();
@@ -212,7 +210,7 @@ die();*/
                 }
             }
 
-            Yii::$app->session->setFlash('success','Ваша новость успешно добавлена. После прохождения модерации она будет опубликована.');
+            Yii::$app->session->setFlash('success', 'Ваша новость успешно добавлена. После прохождения модерации она будет опубликована.');
             return $this->redirect('/personal_area/default/index');
             /*$model->status = 1;
             $model->user_id = Yii::$app->user->getId();
@@ -264,6 +262,10 @@ die();*/
             $model->meta_title = $model->title;
             $model->meta_descr = \yii\helpers\StringHelper::truncate(strip_tags($model->content), 250);
 
+            if (empty($model->alt)) {
+                $model->alt = $model->title;
+            }
+
             if (!empty($_FILES['News']['name']['photo'])) {
                 $upphoto = New \common\models\UploadPhoto();
                 $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
@@ -293,28 +295,26 @@ die();*/
                 }
             }
 
-            Yii::$app->session->setFlash('success','Ваша новость успешно сохранена. После прохождения модерации она будет опубликована.');
+            Yii::$app->session->setFlash('success', 'Ваша новость успешно сохранена. После прохождения модерации она будет опубликована.');
             return $this->redirect('/personal_area/default/index');
-        }
-        else{
+        } else {
 
-            $newsPhoto= News::find()->select(['photo'])->where(['id'=>$id])->one();
+            $newsPhoto = News::find()->select(['photo'])->where(['id' => $id])->one();
             $img = $newsPhoto->photo;
             $selectCat_arr = Array();
-            $i=0;
+            $i = 0;
             $newsRel_1 = CategoryNewsRelations::find()->where(['new_id' => $id])->all();
 
-            foreach ($newsRel_1 as $item){
-                $selectCat_arr[$i]= CategoryNews::find()->where(['id'=>$item->cat_id])->one();
+            foreach ($newsRel_1 as $item) {
+                $selectCat_arr[$i] = CategoryNews::find()->where(['id' => $item->cat_id])->one();
                 $i++;
             }
-            $newsRel=CategoryNewsRelations::find()->where(['new_id'=>$id])->one();
-            $selectCat= CategoryNews::find()->where(['id'=>$newsRel->cat_id])->one();
-           // var_dump($selectCat);
-            return $this->render('update',['model' => $model,'selectCat'=>$selectCat_arr, 'img'=>$img]);
+            $newsRel = CategoryNewsRelations::find()->where(['new_id' => $id])->one();
+            $selectCat = CategoryNews::find()->where(['id' => $newsRel->cat_id])->one();
+            // var_dump($selectCat);
+            return $this->render('update', ['model' => $model, 'selectCat' => $selectCat_arr, 'img' => $img]);
         }
     }
-
 
 
     /**
@@ -324,6 +324,10 @@ die();*/
      * @param integer $id
      *
      * @return mixed
+     * @throws NotFoundHttpException
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
@@ -331,14 +335,14 @@ die();*/
 
         $this->findModel($id)->delete();
 
-        Yii::$app->session->setFlash('success','Ваша новость успешно удалена.');
+        Yii::$app->session->setFlash('success', 'Ваша новость успешно удалена.');
         return $this->redirect('/personal_area/default/index');
     }
 
     public function actionCategory($slug)
     {
-        if( Yii::$app->request->get('page')){
-            throw new \yii\web\HttpException(404 ,'Страница не найдена.');
+        if (Yii::$app->request->get('page')) {
+            throw new \yii\web\HttpException(404, 'Страница не найдена.');
         }
         $cat = \backend\modules\category\models\CategoryNews::getBySlug($slug);
         if (empty($cat)) {
@@ -371,7 +375,7 @@ die();*/
                 'DATE(FROM_UNIXTIME(dt_public))' => $date,
                 'status' => 0,
             ]);
-        if($this->useReg != -1){
+        if ($this->useReg != -1) {
             $query->andWhere("(`region_id` IS NULL OR `region_id`=$this->useReg)");
         }
         $news = $query

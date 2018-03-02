@@ -235,6 +235,10 @@ class CompanyController extends Controller
             $model->meta_title = $model->name;
             $model->meta_descr =  \yii\helpers\StringHelper::truncate($model->descr, 250);
 
+            if (empty($model->alt)) {
+                $model->alt = $model->name;
+            }
+
             if ($_FILES['Company']['name']['photo']) {
                 $upphoto = New \common\models\UploadPhoto();
                 $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
@@ -327,6 +331,10 @@ class CompanyController extends Controller
             $model->status = 2;
             //$model->phone = $phone;
             $model->user_id = Yii::$app->user->id;
+
+            if (empty($model->alt)) {
+                $model->alt = $model->name;
+            }
 
             if (!empty($_FILES['Company']['name']['photo'])) {
                 $upphoto = New \common\models\UploadPhoto();

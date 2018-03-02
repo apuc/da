@@ -67,6 +67,7 @@ class NewsController extends Controller
      * @param integer $id
      *
      * @return mixed
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
@@ -89,6 +90,9 @@ class NewsController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             //Debug::prn($_POST['News']['dt_public']);
             //   $model->status    = ( ! empty( $_POST['dt_public_time'] ) ) ? 3 : 0;
+            if (empty($model->alt)) {
+                $model->alt = $model->title;
+            }
             $model->user_id = Yii::$app->user->getId();
             $model->dt_public = (!empty($_POST['dt_public_time'])) ? strtotime($_POST['News']['dt_public'] . ' ' . $_POST['dt_public_time']) : time();
             $model->save();
@@ -107,10 +111,8 @@ class NewsController extends Controller
                 $catNewRel->save();
             }
 
-            if(!empty(Yii::$app->request->post('Tags')))
-            {
-                foreach (Yii::$app->request->post('Tags') as $tag)
-                {
+            if (!empty(Yii::$app->request->post('Tags'))) {
+                foreach (Yii::$app->request->post('Tags') as $tag) {
                     $tags = New TagsRelation();
                     $tags->saveTagsRel($tag, $model->id, 'news');
                 }
@@ -118,8 +120,7 @@ class NewsController extends Controller
 
             return $this->redirect(['index']);
         } else {
-            if(!empty(Yii::$app->request->get()))
-            {
+            if (!empty(Yii::$app->request->get())) {
                 $vk = VkStream::find()->with('photo')->where(['id' => Yii::$app->request->get('id')])->one();
                 $model->content = nl2br($vk->text);
                 $model->photo = (!empty($vk->photo)) ? $vk->photo[0]->getLargePhoto() : '';
@@ -148,6 +149,7 @@ class NewsController extends Controller
      * @param integer $id
      *
      * @return mixed
+     * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
@@ -156,7 +158,7 @@ class NewsController extends Controller
         $cats = CategoryNewsRelations::find()->where(['new_id' => $id])->all();
         $cats_arr = [];
         $tags = Tags::find()->asArray()->all();
-        $tags_selected =ArrayHelper::getColumn(TagsRelation::find()->select('tag_id')
+        $tags_selected = ArrayHelper::getColumn(TagsRelation::find()->select('tag_id')
             ->where(['post_id' => $id, 'type' => 'news'])
             ->asArray()
             ->all(), 'tag_id');
@@ -181,6 +183,10 @@ class NewsController extends Controller
 //                }
 //            }
 
+            if (empty($model->alt)) {
+                $model->alt = $model->title;
+            }
+
             $model->save();
             CategoryNewsRelations::deleteAll(['new_id' => $model->id]);
             if (!empty(Yii::$app->request->post('categ'))) {
@@ -197,11 +203,9 @@ class NewsController extends Controller
                 $catNewRel->save();
             }
 
-            if(!empty(Yii::$app->request->post('Tags')))
-            {
+            if (!empty(Yii::$app->request->post('Tags'))) {
                 TagsRelation::deleteAll(['post_id' => $id, 'type' => 'news']);
-                foreach (Yii::$app->request->post('Tags') as $tag)
-                {
+                foreach (Yii::$app->request->post('Tags') as $tag) {
                     $tags = New TagsRelation();
                     $tags->saveTagsRel($tag, $id, 'news');
                 }
@@ -228,6 +232,10 @@ class NewsController extends Controller
      * @param integer $id
      *
      * @return mixed
+     * @throws NotFoundHttpException
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {

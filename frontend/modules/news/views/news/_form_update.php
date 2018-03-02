@@ -131,6 +131,7 @@ echo $form->field($model, 'photo', [
 ?>
 
 
+
     <div class="cabinet__add-company-form--block"></div>
 
     <p class="cabinet__add-company-form--title">Текст новости</p>

@@ -1,22 +1,20 @@
+<?php
+
+/**
+ * @var array $news
+ * @var News $new
+ */
+
+use \common\models\db\News;
+
+?>
+
 <div class="home-content__wrap_slider">
     <?php foreach ($news as $new): ?>
-        <!--<div class="item">
-            <a href="<?/*= \yii\helpers\Url::to(["/news/default/view", "slug" => $new->slug]); */?>">
-                <img src="<?/*= $new->photo; */?>" alt="">
-            </a>
-            <div class="content">
-                <div class="content-row">
-                    <span><?/*= \frontend\widgets\MainSlider::getDateNew($new->dt_public); */?></span>
-                    <a href="/news">Новости</a>
-                    <span><small class="view-icon"></small> <?/*= $new->views; */?></span>
-                </div>
-                <h3><?/*= $new->title; */?></h3>
-            </div>
-        </div>-->
-
         <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $new->slug]); ?>" class="item">
 
-            <img src="<?= $new->photo . '?width=600' ?>" alt="">
+            <img src="<?= $new->photo . '?width=600' ?>"
+                 alt="<?= !empty($new->alt) ? $new->alt : $new->title ?>">
 
             <div class="content">
                 <div class="content-row">
@@ -24,7 +22,7 @@
                     <span><?= \frontend\widgets\MainSlider::getDateNew($new->dt_public); ?></span>
                     <span><?= $new['categoryNewsRelations'][0]['cat']->title; ?></span>
                     <span><small class="view-icon"></small><?= $new->views; ?></span>
-                    <span><small class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($new->id)?></span>
+                    <span><small class="comments-icon"></small><?= News::getCommentsCount($new->id) ?></span>
 
                     <?php
                     $new_url = \yii\helpers\Url::base(true) . '/news/' . $new->slug;
@@ -43,40 +41,28 @@
 
                     <div class="hide-social">
                         <span onclick="Share.vkontakte(
-                            '<?= $new_url ?>',
-                            '<?= $new_title; ?>',
-                            '<?= $new_img; ?>',
-                            '<?= $new_content; ?>'
-                            ); return false;" ><i class="fa fa-vk  fa-lg"></i></span>
+                                '<?= $new_url ?>',
+                                '<?= $new_title; ?>',
+                                '<?= $new_img; ?>',
+                                '<?= $new_content; ?>'
+                                ); return false;"><i class="fa fa-vk  fa-lg"></i></span>
                         <span onclick="Share.twitter('<?= $new_url ?>',
-                            '<?= $new_title ?>')" ><i class="fa fa-twitter fa-lg"></i></span>
+                                '<?= $new_title ?>')"><i class="fa fa-twitter fa-lg"></i></span>
                         <span onclick="Share.facebook(
-                            '<?= $new_url ?>',
-                            '<?= $new_title; ?>',
-                            '<?= $new_img; ?>',
-                            '<?= $new_content; ?>')" ><i class="fa fa-facebook fa-lg"></i></span>
+                                '<?= $new_url ?>',
+                                '<?= $new_title; ?>',
+                                '<?= $new_img; ?>',
+                                '<?= $new_content; ?>')"><i class="fa fa-facebook fa-lg"></i></span>
                         <span onclick="Share.odnoklassniki(
-                            '<?= $new_url ?>',
-                            '<?= $new_title; ?>'
-                            )" ><i class="fa fa-odnoklassniki  fa-lg"></i></span>
-
+                                '<?= $new_url ?>',
+                                '<?= $new_title; ?>'
+                                )"><i class="fa fa-odnoklassniki  fa-lg"></i></span>
                     </div>
                     <span class="open-soc"><i class="fa fa-random fa-lg"></i></span>
                 </div>
                 <h3><?= $new->title; ?></h3>
                 <p><?= strip_tags($new->content) ?></p>
             </div>
-
-
-            <!--<div class="content">
-                <div class="content-row">
-                    <span><?/*= \frontend\widgets\MainSlider::getDateNew($new->dt_public); */?></span>
-                    <span>Новости</span>
-                    <span> <?/*= $new->views; */?></span>
-                </div>
-                <h3><?/*= $new->title; */?></h3>
-                <p><?/*= strip_tags($new->content) */?></p>
-            </div>-->
         </a>
     <?php endforeach; ?>
 </div>
