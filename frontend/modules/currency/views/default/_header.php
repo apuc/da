@@ -6,7 +6,9 @@
  * Time: 17:10
  */
 
-/** @var string $title */
+/** @var string $title
+ * @var bool $coin
+ */
 
 use common\models\db\Currency;
 use yii\helpers\Url;
@@ -27,9 +29,9 @@ $this->registerJs(
     <div class="currency-menu__header__right">
         <ul>
             <li><a href="<?= Url::to(['/currency/default/all']) ?>">Валютный рынок</a></li>
-            <li><a href="<?= Url::to(['/currency']) ?>" class="iyujg">Валюта</a></li>
+            <li><a href="<?= Url::to(['/currency']) ?>">Валюта</a></li>
             <li><a href="<?= Url::to(['/currency', 'type' => Currency::TYPE_COIN]) ?>"
-                   class="<?php if ($_SERVER['REQUEST_URI'] === '/currency/detail-coin') echo 'active'; ?>">Криптовалюта</a>
+                   class="<?php if ($coin === true) echo 'active'; ?>">Криптовалюта</a>
             </li>
             <li><a href="<?= Url::to(['/currency', 'type' => Currency::TYPE_METAL]) ?>">Металлы</a></li>
             <li><a href="<?= Url::to(['/currency', 'type' => Currency::TYPE_GSM]) ?>">Фьючерсы</a></li>
