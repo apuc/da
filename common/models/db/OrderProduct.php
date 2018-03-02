@@ -10,7 +10,7 @@ use Yii;
  * @property int $product_id
  * @property int $order_id
  * @property int $count
- * @property string $price
+ * @property int $shop_id
  */
 class OrderProduct extends \yii\db\ActiveRecord
 {
@@ -28,9 +28,8 @@ class OrderProduct extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['product_id', 'order_id'], 'required'],
-            [['product_id', 'order_id', 'count'], 'integer'],
-            [['price'], 'number'],
+            [['product_id', 'order_id', 'shop_id'], 'required'],
+            [['product_id', 'order_id', 'count', 'shop_id'], 'integer'],
         ];
     }
 
@@ -43,26 +42,7 @@ class OrderProduct extends \yii\db\ActiveRecord
             'product_id' => 'Product ID',
             'order_id' => 'Order ID',
             'count' => 'Count',
-            'price' => 'Price',
+            'shop_id' => 'Shop ID',
         ];
     }
-
-    public function createOrder()
-    {
-        return [
-            'product_id' => 'Product ID',
-            'order_id' => 'Order ID',
-            'count' => 'Count',
-            'price' => 'Price',
-        ];
-    }
-
-    public static function primaryKey()
-    {
-        return [
-            'product_id',
-            'order_id',
-        ];
-    }
-
 }

@@ -41,6 +41,8 @@ class Cart extends Component
         if (isset($cart[$shop_id][$product_id]))
             unset($cart[$shop_id][$product_id]);
 
+        if(count($cart[$shop_id]) == 0)
+            unset($cart[$shop_id]);
         $this->setCart($cart);
     }
 

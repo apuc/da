@@ -8,7 +8,7 @@ $(document).ready(function () {
         var count = $('.count-add-to-cart').val();
         $.ajax({
             type: 'POST',
-            url: "/shop/shop/add-in-cart",
+            url: "/shop/cart/add-in-cart",
             data: {
                 product_id: id,
                 count: count,
@@ -24,6 +24,30 @@ $(document).ready(function () {
             }
         });
 
+
+        return false;
+    });
+
+    $(document).on('click', '.delete-product-cart', function () {
+        var product = $(this).attr('product-id');
+        var shop = $(this).attr('shop-id');
+
+        $.ajax({
+            type: 'POST',
+            url: "/shop/cart/delete-from-cart",
+            data: {
+                product_id: product,
+                shop_id: shop,
+                _csrf: $('meta[name=csrf-token]').attr("content")
+            },
+            success: function (data) {
+                //alert(data);
+                console.log(data);
+
+                /*var res = JSON.parse(data);
+                $('.basket-counter').html(res.cartCount);*/
+            }
+        });
 
         return false;
     });
@@ -48,7 +72,7 @@ function priceCount()
     //alert(id);
     $.ajax({
         type: 'POST',
-        url: "/shop/shop/price-count",
+        url: "/shop/cart/price-count",
         data: {
             product_id: id,
             count: count,

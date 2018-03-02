@@ -17,7 +17,6 @@ use Yii;
  */
 class Order extends \yii\db\ActiveRecord
 {
-
     /**
      * @inheritdoc
      */
@@ -32,7 +31,7 @@ class Order extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            //[['first_name', 'last_name', 'email', 'phone', 'address'], 'required'],
+            [['first_name', 'last_name', 'email', 'phone', 'address'], 'required'],
             [['address', 'status'], 'integer'],
             [['first_name', 'last_name', 'email', 'phone'], 'string', 'max' => 255],
         ];
@@ -53,9 +52,4 @@ class Order extends \yii\db\ActiveRecord
             'status' => 'Status',
         ];
     }
-
-    /*public function productsCount($orderId)
-    {
-        return OrderProduct::find()->where(['order_id' => $orderId])->count();
-    }*/
 }
