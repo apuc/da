@@ -4,6 +4,7 @@ $(document).ready(function () {
     $(document).on('click', '.add-to-cart', function () {
 
         var id = $(this).data('id');
+        var shopId = $(this).attr('shop-id');
         var count = $('.count-add-to-cart').val();
         $.ajax({
             type: 'POST',
@@ -11,6 +12,7 @@ $(document).ready(function () {
             data: {
                 product_id: id,
                 count: count,
+                shop_id: shopId,
                 _csrf: $('meta[name=csrf-token]').attr("content")
             },
             success: function (data) {

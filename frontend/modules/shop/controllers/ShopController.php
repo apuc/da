@@ -8,6 +8,7 @@
 
 namespace frontend\modules\shop\controllers;
 
+use common\classes\Cart;
 use common\classes\Debug;
 use frontend\modules\shop\models\CategoryShop;
 use frontend\modules\shop\models\Products;
@@ -37,9 +38,9 @@ class ShopController extends Controller
     public function actionAddInCart()
     {
         $postData = Yii::$app->request->post();
-        /*$postData['product_id'] = 27;*/
+        /*$postData['product_id'] = 27;
         $postData['shop_id'] = 20;
-        /*$postData['count'] = 1;*/
+        $postData['count'] = 1;*/
         //Debug::dd($postData['product_id']);
         return json_encode([
             'success' => Yii::$app->cart->add($postData['shop_id'], $postData['product_id'], $postData['count']),
@@ -81,11 +82,9 @@ class ShopController extends Controller
 
     public function actionCart()
     {
-        $cart = Yii::$app->cart->getCart();
+        $cart = Cart::getCart();
 
-
-
-        return $this->render('cart');
+        return $this->render('cart', ['cart' => $cart]);
     }
 
     public function actionIndex()

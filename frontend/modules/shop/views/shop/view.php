@@ -107,7 +107,7 @@ $this->title = $model->title;
             </div>
             <div class="single-shop__info-item">
                 <a href="#" class="button-buy">Купить сейчас</a>
-                <a href="#" class="button-basket add-to-cart" data-id="<?= $model->id; ?>">
+                <a href="#" class="button-basket add-to-cart" data-id="<?= $model->id; ?>" shop-id="<?= $model['company']->id; ?>">
                     Добавить в корзину
                 </a>
                 <!--<a href="#" class="promotion-seller">
