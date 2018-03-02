@@ -14,11 +14,11 @@ class m180228_074727_create_order_table extends Migration
     {
         $this->createTable('order', [
             'id' => $this->primaryKey(),
-            'first_name' => $this->string(255),
-            'last_name' => $this->string(255),
-            'email' => $this->string(255),
-            'phone' => $this->string(255),
-            'address' => $this->integer(11),
+            'first_name' => $this->string(255)->notNull(),
+            'last_name' => $this->string(255)->notNull(),
+            'email' => $this->string(255)->notNull(),
+            'phone' => $this->string(255)->notNull(),
+            'address' => $this->integer(11)->notNull(),
             'status' => $this->smallInteger(1)->defaultValue(0),
         ]);
     }
