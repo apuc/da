@@ -48,7 +48,7 @@ use yii\helpers\Url;
                 <td>Наименование товара и описание</td>
                 <td class="text-center">Количество</td>
                 <td class="text-center">Цена</td>
-                <td>Доставка и оплата</td>
+                <td><!--Доставка и оплата--></td>
             </tr>
             </thead>
             <tbody>
@@ -73,17 +73,21 @@ use yii\helpers\Url;
                 </td>
                 <td class="text-center">
                     <div class="numbers">
-                        <input type="number" min="1" max="999" value="1" class="js-product-quantity number " data-type="single" maxlength="999" pattern="[0-9]{3}">
+                        <input type="number" min="1" max="999" value="<?= $value['count']; ?>" class="js-product-quantity number " data-type="single" maxlength="999" pattern="[0-9]{3}">
                         <a class="minus"><i class="fa fa-minus" aria-hidden="true"></i></a>
                         <a class="plus"> <i class="fa fa-plus" aria-hidden="true"></i></a>
                     </div>
                 </td>
                 <td class="text-center">
-                    <div class="price-sail">4 022,40 руб. / шт.</div>
-                    <div class="old-price">4 022,40 руб. / шт.</div>
+                    <?php if(empty($value['new_price'])): ?>
+                        <div class="price-sail"><?= number_format($value['price'], 0, '.', ' '); ?> руб. / шт.</div>
+                    <?php else: ?>
+                        <div class="price-sail"><?= number_format($value['new_price'], 0, '.', ' '); ?> руб. / шт.</div>
+                        <div class="old-price"><?= number_format($value['price'], 0, '.', ' '); ?> руб. / шт.</div>
+                    <?php endif; ?>
                 </td>
                 <td>
-                    <a href="#" class="form-btn">заполнить форму доставки</a>
+                    <!--<a href="#" class="form-btn">заполнить форму доставки</a>-->
                     <a href="#" class="delete-product"></a>
                 </td>
             </tr>
@@ -92,11 +96,11 @@ use yii\helpers\Url;
         </table>
         <div class="shop-cart__footer">
             <div class="shop-cart__action">
-                Акция продавца <a href="#">Получить купон продавца</a>
+                <!--Акция продавца <a href="#">Получить купон продавца</a>-->
             </div>
             <div class="shop-cart__info-price">
                 <p class="shop-cart__info-price-desc">
-                    Стоимость: 597,10 руб. <span>Стоимость доставки: 0,00 руб</span>
+                    Стоимость: 597,10 руб. <span><!--Стоимость доставки: 0,00 руб--></span>
                     Общая стоимость: 597,10 руб
                 </p>
                 <a href="#" class="shop-cart__info-price-btn">Заказать у этого продавца</a>
@@ -104,84 +108,6 @@ use yii\helpers\Url;
         </div>
     </div>
     <?php endforeach; ?>
-    <div class="shop-cart__content-wrap">
-
-        <div class="shop-cart__company">
-
-            <h2 class="shop-cart__company-title">Продавец</h2>
-
-            <div class="all-actions__company">
-
-                <div class="all-actions__company--img">
-                    <img src="img/company-action.png" alt="">
-                </div>
-
-                <h3 class="all-actions__company--title">Электромаркет «Вилка-Розетка»</h3>
-
-                <div class="all-actions__company--addres">ДНР, Донецк, ул. Университетская, 56б</div>
-
-            </div>
-            <a href="#" class="shop-cart__company-btn">На страницу компании</a>
-        </div>
-
-        <table class="shop-cart__table-cart">
-            <thead>
-            <tr>
-                <td>Наименование товара и описание</td>
-                <td class="text-center">Количество</td>
-                <td class="text-center">Цена</td>
-                <td>Доставка и оплата</td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>
-                    <div class="product-pic">
-                        <img src="img/shop/cart-tov.png" alt="">
-                    </div>
-                    <div class="product-attribute">
-                        <a href="#" class="product-link">
-                            Стильный рюкзак мужской для
-                            ноутбука 15,6" дюймов
-                        </a>
-                        <span>Стиль: Кэжуал</span>
-                        <span>Тип застёжки: Молния</span>
-                        <a href="#" class="product-more">подробное описание</a>
-                    </div>
-                </td>
-                <td class="text-center">
-                    <div class="numbers">
-                        <input type="number" min="1" max="999" value="1" class="js-product-quantity number " data-type="single" maxlength="999" pattern="[0-9]{3}">
-                        <a class="minus"><i class="fa fa-minus" aria-hidden="true"></i></a>
-                        <a class="plus"> <i class="fa fa-plus" aria-hidden="true"></i></a>
-                    </div>
-                </td>
-                <td class="text-center">
-                    <div class="price-sail">4 022,40 руб. / шт.</div>
-                    <div class="old-price">4 022,40 руб. / шт.</div>
-                </td>
-                <td>
-                    <a href="#" class="form-btn">заполнить форму доставки</a>
-                    <a href="#" class="delete-product"></a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <div class="shop-cart__footer">
-            <div class="shop-cart__action">
-                Акция продавца <a href="#">Получить купон продавца</a>
-            </div>
-            <div class="shop-cart__info-price">
-                <p class="shop-cart__info-price-desc">
-                    Стоимость: 597,10 руб. <span>Стоимость доставки: 0,00 руб</span>
-                    Общая стоимость: 597,10 руб
-                </p>
-                <a href="#" class="shop-cart__info-price-btn">Заказать у этого продавца</a>
-            </div>
-        </div>
-    </div>
-
-
 
     <div class="shop-cart__content-footer">
         <div class="shop-cart__content-footer-desc">
