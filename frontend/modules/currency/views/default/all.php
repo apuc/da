@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = 'Биржа';
 <section class="currency-market">
     <div class="container">
         <div class="e-content">
-            <?= $this->render('_header', ['title' => $this->title]); ?>
+            <?= $this->render('_header', ['title' => $this->title, 'coin' => false]); ?>
             <div class="e-content__title-wrapper">
                 <h2>Данные от <span><?= date('d.m.Y') ?></span></h2>
             </div>

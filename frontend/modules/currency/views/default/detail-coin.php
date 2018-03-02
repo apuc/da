@@ -7,10 +7,16 @@
  */
 
 use common\models\db\Currency;
+use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
+use yii\widgets\LinkPager;
 
-/** @var Currency $coin */
+/**
+ * @var array $economicNews
+ */
 
 
 $meta_title = 'Детальная информация о криптовалютах';
@@ -36,58 +42,71 @@ $this->params['breadcrumbs'][] = $this->title;
 <section class="exchange-rates">
     <div class="container">
         <div class="e-content">
-            <?= $this->render('_header', ['title' => $meta_title]); ?>
-
+            <?= $this->render('_header', ['title' => $meta_title, 'coin' => true]); ?>
             <div class="e-content__wrapper">
                 <div class="e-content__wrapper__title">
                     <h2><?= $meta_title ?></h2>
                 </div>
+
                 <div class="e-content__wrapper__info">
-                    <!--                    --><?php //foreach ($top_rates as $rate): ?>
-                    <!--                        <p>--><? //= $rate[0] ?><!-- — <span> -->
-                    <? //= $rate[1] ?><!--</span></p>-->
-                    <!--                    --><?php //endforeach; ?>
                 </div>
+
                 <div class="e-content__wrapper__table">
-                    <table>
-                        <thead>
-                        <tr>
-                            <?php foreach ($coin[0]->coin as $key => $item): ?>
-                                <?php if ($key == 'id'
-                                    || $key == 'currency_id'
-                                    || $key == 'url'
-                                    || $key == 'image_url'
-                                    || $key == 'symbol'
-                                    || $key == 'pre_mined_value'
-                                    || $key == 'total_coins_free_float'
-                                ) continue; ?>
-                                <td><?= $key ?></td>
-                            <?php endforeach; ?>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach ($coin as $k => $item): ?>
-                            <tr>
-                                <?php foreach ($item->coin as $key => $i): ?>
-                                    <?php if ($key == 'id'
-                                        || $key == 'currency_id'
-                                        || $key == 'url'
-                                        || $key == 'image_url'
-                                        || $key == 'symbol'
-                                        || $key == 'pre_mined_value'
-                                        || $key == 'total_coins_free_float'
-                                    ) continue; ?>
-                                    <td>
-                                        <div>
-                                            <span><?= $i ?></span>
-                                        </div>
-                                    </td>
-                                <?php endforeach; ?>
-                            </tr>
-                        <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                    <?= GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'filterModel' => $searchModel,
+                        'layout' => "{summary}\n{items}",
+                        'columns' => [
+                            ['class' => 'yii\grid\SerialColumn'],
+                            [
+                                'attribute' => 'full_name',
+                                'format' => 'raw',
+                                'value' => function ($model) {
+                                    return Html::a($model->full_name, Url::to(['/currency/default/view-coin', 'id' => $model->id]));
+                                },
+                            ],
+                            'algorithm',
+                            'proof_type',
+                            [
+                                'attribute' => 'fully_premined',
+                                'value' => function ($model) {
+                                    if ($model->fully_premined === 0) return 'Нет';
+                                    if ($model->fully_premined === 1) return 'Да';
+                                },
+                                'filter' => [
+                                    0 => 'Нет',
+                                    1 => 'Да'
+                                ]
+                            ],
+                            'total_coin_supply',
+                            'sort_order',
+                            [
+                                'attribute' => 'sponsored',
+                                'value' => function ($model) {
+                                    if ($model->sponsored === 0) return 'Нет';
+                                    if ($model->sponsored === 1) return 'Да';
+                                },
+                                'filter' => [
+                                    0 => 'Нет',
+                                    1 => 'Да'
+                                ]
+                            ],
+                        ],
+                    ]); ?>
+                    <div class="pagination">
+                        <?= LinkPager::widget([
+                            'pagination' => $dataProvider->pagination,
+                            'options' => [
+                                'class' => '',
+                            ],
+                            'prevPageCssClass' => 'pagination-prew',
+                            'nextPageCssClass' => 'pagination-next',
+                            'prevPageLabel' => '',
+                            'nextPageLabel' => '',
+                            'activePageCssClass' => 'active',]); ?>
+                    </div>
                 </div>
+
                 <div class="e-content__wrapper__description">
                     <h3>Описание</h3>
                     <p>

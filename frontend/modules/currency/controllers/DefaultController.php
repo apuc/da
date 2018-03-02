@@ -2,7 +2,9 @@
 
 namespace frontend\modules\currency\controllers;
 
+use frontend\modules\currency\models\CurrencyCoinSearch;
 use common\models\db\Currency;
+use common\models\db\CurrencyCoin;
 use common\models\db\CurrencyRate;
 use common\models\db\KeyValue;
 use common\models\db\News;
@@ -68,6 +70,7 @@ class DefaultController extends Controller
                     /**
                      * @var $rate CurrencyRate
                      */
+                    $id = $rate->currencyFrom->coin->id;
                     if (!isset($rates_list[$rate->currency_from_id])) $rates_list[$rate->currency_from_id] = [
                         'name' => $rate->currencyFrom->coin->full_name,
 //                        'algo' => $rate->currencyFrom->coin->algorithm,
@@ -76,6 +79,7 @@ class DefaultController extends Controller
                         'EUR' => null,
                         'RUB' => null
                     ];
+                    $rates_list[$rate->currency_from_id]['id'] = $id;
                     $rates_list[$rate->currency_from_id][$rate->currencyTo->char_code] =
                         rtrim(number_format($rate->rate, 6, '.', ' '), "0");
 
@@ -376,15 +380,25 @@ class DefaultController extends Controller
 
     public function actionDetailCoin()
     {
-        $coin = Currency::find()
-            ->with('coin')
-            ->where(['type' => Currency::TYPE_COIN])
-            ->andWhere(['>=', 'status', Currency::STATUS_ACTIVE])
-            ->all();
+        $searchModel = new CurrencyCoinSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $economicNews = News::getLastEconomicNews();
+        return $this->render('detail-coin', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'economicNews' => $economicNews,
+        ]);
+    }
 
+    public function actionViewCoin($id)
+    {
+        $coin = CurrencyCoin::find()
+            ->joinWith('currency')
+            ->where(['currency_coin.id' => $id])
+            ->one();
         $economicNews = News::getLastEconomicNews();
 
-        return $this->render('detail-coin', [
+        return $this->render('view-coin', [
             'coin' => $coin,
             'economicNews' => $economicNews,
         ]);

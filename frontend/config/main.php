@@ -254,6 +254,7 @@ return \yii\helpers\ArrayHelper::merge([
 
                 'currency/converter' => 'currency/default/converter',
                 'currency/detail-coin' => '/currency/default/detail-coin',
+                'currency/view-coin' => '/currency/default/view-coin',
                 'finance' => 'currency/default/all',
                 [
                     'class' => \frontend\components\ShopRule::class,
