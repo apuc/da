@@ -264,6 +264,7 @@ return \yii\helpers\ArrayHelper::merge([
                     'class' => \frontend\components\ShopRule::class,
                 ],
                 //'shop/<action:cart|order>'=>'shop/shop/<action>',
+                'shop/shop/like'=>'shop/shop/like',
                 'shop/cart' => 'shop/cart/cart',
                 'shop/cart/set-count' => 'shop/cart/set-count',
                 'shop/cart/order-one-shop' => 'shop/cart/order-one-shop',

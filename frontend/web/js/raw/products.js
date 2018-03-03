@@ -110,6 +110,24 @@ $(document).ready(function () {
     });
 
 
+    //Добавить товар в с писок желаний
+    $(document).on('click', '.single-shop__desires', function () {
+        var productId = $(this).data('id');
+        $.ajax({
+            type: 'POST',
+            url: "/shop/shop/like",
+            data: {
+                product_id: productId,
+                _csrf: $('meta[name=csrf-token]').attr("content")
+            },
+            success: function (data) {
+                console.log(data);
+                /*$('.total-cost').html(data);*/
+            }
+        });
+    });
+
+
 });
 function priceCount()
 {

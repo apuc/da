@@ -134,7 +134,7 @@ $this->title = $model->title;
                 <div class="all-actions__company--addres"><?= $address ?></div>
             </div>
 
-            <a href="#" class="single-shop__desires">Добавить в мои желания</a>
+            <a href="#" class="single-shop__desires" data-id="<?= $model->id; ?>">Добавить в мои желания</a>
         </div>
     </div>
 </div>

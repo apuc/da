@@ -10,6 +10,7 @@ namespace frontend\modules\shop\controllers;
 
 use common\classes\Cart;
 use common\classes\Debug;
+use common\models\db\LikeProducts;
 use frontend\modules\shop\models\CategoryShop;
 use frontend\modules\shop\models\Products;
 use Yii;
@@ -44,5 +45,29 @@ class ShopController extends Controller
         $model->updateAllCounters(['view' => 1], ['id' => $model->id]);
 
         return $this->render('view', ['model' => $model]);
+    }
+
+    public function actionLike()
+    {
+        $userId = Yii::$app->user->id;
+        if(!$userId) {
+            return true;
+        }
+
+        $postData = Yii::$app->request->post();
+
+        $like = LikeProducts::find()->where(['product_id' => $postData['product_id'], 'user_id' => $userId])->one();
+
+        if(empty($like)) {
+            $like = new LikeProducts();
+            $like->product_id = $postData['product_id'];
+            $like->user_id = $userId;
+
+            $like->save();
+        }else{
+            LikeProducts::deleteAll(['product_id' => $postData['product_id'], 'user_id' => $userId]);
+        }
+
+        return true;
     }
 }
