@@ -181,6 +181,10 @@ return \yii\helpers\ArrayHelper::merge([
                     'route' => 'company/company/update',
                 ],
                 [
+                    'pattern' => 'company/company/get-more-company',
+                    'route' => 'company/company/get-more-company',
+                ],
+                [
                     'pattern' => 'company/company/create',
                     'route' => 'company/company/create',
                 ],
