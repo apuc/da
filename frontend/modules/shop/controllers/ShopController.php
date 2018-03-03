@@ -42,9 +42,21 @@ class ShopController extends Controller
             ->with('productFieldsValues.field', 'company', 'images', 'category')
             ->one();
 
+        $currentUserId  = Yii::$app->user->id;
+        if (!empty($currentUserId)) {
+            $thisUserLike = LikeProducts::find()
+                ->where(['product_id' => $model->id, 'user_id' => $currentUserId])->one();
+            if(!empty($thisUserLike)){
+                $thisUserLike = true;
+            }
+
+        } else {
+            $thisUserLike = false;
+        }
+
         $model->updateAllCounters(['view' => 1], ['id' => $model->id]);
 
-        return $this->render('view', ['model' => $model]);
+        return $this->render('view', ['model' => $model, 'like' => $thisUserLike]);
     }
 
     public function actionLike()
@@ -64,8 +76,10 @@ class ShopController extends Controller
             $like->user_id = $userId;
 
             $like->save();
+            return true;
         }else{
             LikeProducts::deleteAll(['product_id' => $postData['product_id'], 'user_id' => $userId]);
+            return false;
         }
 
         return true;

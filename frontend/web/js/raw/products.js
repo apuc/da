@@ -112,7 +112,9 @@ $(document).ready(function () {
 
     //Добавить товар в с писок желаний
     $(document).on('click', '.single-shop__desires', function () {
-        var productId = $(this).data('id');
+        var elem = $(this);
+        var productId = elem.data('id');
+
         $.ajax({
             type: 'POST',
             url: "/shop/shop/like",
@@ -121,10 +123,15 @@ $(document).ready(function () {
                 _csrf: $('meta[name=csrf-token]').attr("content")
             },
             success: function (data) {
-                console.log(data);
-                /*$('.total-cost').html(data);*/
+                if(data == 1){
+                    elem.addClass('active');
+                }else{
+                    elem.removeClass('active');
+                }
             }
         });
+
+        return false;
     });
 
 
