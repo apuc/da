@@ -73,10 +73,14 @@ $this->registerJsFile('/js/raw/products.js', ['depends' => [\yii\web\JqueryAsset
                         </td>
                         <td class="text-center">
                             <div class="numbers">
-                                <input type="number" min="1" max="999" value="<?= $value['count']; ?>" class="js-product-quantity number "
+                                <input type="number" id="js-product-quantity<?= $value['id']?>" min="1" max="999" value="<?= $value['count']; ?>" class="js-product-quantity number "
                                        data-type="single" maxlength="999" pattern="[0-9]{3}">
-                                <a class="minus"><i class="fa fa-minus" aria-hidden="true"></i></a>
-                                <a class="plus"> <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                <a class="minus">
+                                    <i class="fa fa-minus update-count-cart" aria-hidden="true" shop-id="<?= $item['id']?>" product-id="<?= $value['id']?>"></i>
+                                </a>
+                                <a class="plus">
+                                    <i class="fa fa-plus update-count-cart" aria-hidden="true" shop-id="<?= $item['id']?>" product-id="<?= $value['id']?>"></i>
+                                </a>
                             </div>
                         </td>
                         <td class="text-center">
@@ -110,7 +114,7 @@ $this->registerJsFile('/js/raw/products.js', ['depends' => [\yii\web\JqueryAsset
 
                         Общая стоимость: <?= \common\classes\Cart::getSummShop($item['id'])?> руб
                     </p>
-                    <a href="#" class="shop__info-price-btn">Заказать у этого продавца</a>
+                    <a href="<?= Url::to(['/shop/cart/order-one-shop', 'shopId' => $item['id']])?>" class="shop__info-price-btn">Заказать у этого продавца</a>
                 </div>
             </div>
         </div>
@@ -126,7 +130,7 @@ $this->registerJsFile('/js/raw/products.js', ['depends' => [\yii\web\JqueryAsset
             <!--<div class="cost-goods">Стоимость(3 товара(ов)): <span>805,98</span> руб.</div>-->
             <!--<div class="cost-delivery">Стоимость доставки: <span>94,31</span> руб.</div>-->
             <div class="total-cost">Общая сумма: <span><?= \common\classes\Cart::getSummCart(); ?></span> руб</div>
-            <a href="" class="buy-btn">Оформить заказ</a>
+            <a href="<?= Url::to(['/shop/cart/order-shop'])?>" class="buy-btn">Оформить заказ</a>
         </div>
     </div>
 </div>

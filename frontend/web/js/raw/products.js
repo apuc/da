@@ -52,6 +52,52 @@ $(document).ready(function () {
         return false;
     });
 
+    $('.update-count-cart').click(function () {
+        var product = $(this).attr('product-id');
+        var shop = $(this).attr('shop-id');
+        var count;
+        setTimeout(function () {
+            count = $('#js-product-quantity' + product).val();
+            $.ajax({
+                type: 'POST',
+                url: "/shop/cart/set-count",
+                data: {
+                    product_id: product,
+                    shop_id: shop,
+                    count: count,
+                    _csrf: $('meta[name=csrf-token]').attr("content")
+                },
+                success: function (data) {
+                    $('.shop__content').html(data);
+
+                }
+            });
+        }, 100);
+    });
+
+    //Изменение кол-ва товара в корзине
+    $(document).on('click', '.update-count-cart', function () {
+        var product = $(this).attr('product-id');
+        var shop = $(this).attr('shop-id');
+        var count;
+        setTimeout(function () {
+            count = $('#js-product-quantity' + product).val();
+            $.ajax({
+                type: 'POST',
+                url: "/shop/cart/set-count",
+                data: {
+                    product_id: product,
+                    shop_id: shop,
+                    count: count,
+                    _csrf: $('meta[name=csrf-token]').attr("content")
+                },
+                success: function (data) {
+                    $('.shop__content').html(data);
+
+                }
+            });
+        }, 100);
+    });
 
     $(document).on('click', '.update-count', function () {
         setTimeout(function () {

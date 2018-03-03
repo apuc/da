@@ -12,7 +12,7 @@ use Yii;
  * @property string $last_name
  * @property string $email
  * @property string $phone
- * @property int $address
+ * @property string $address
  * @property int $status
  */
 class Order extends \yii\db\ActiveRecord
@@ -32,8 +32,8 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             [['first_name', 'last_name', 'email', 'phone', 'address'], 'required'],
-            [['address', 'status'], 'integer'],
-            [['first_name', 'last_name', 'email', 'phone'], 'string', 'max' => 255],
+            [['status'], 'integer'],
+            [['first_name', 'last_name', 'email', 'phone', 'address'], 'string', 'max' => 255],
         ];
     }
 

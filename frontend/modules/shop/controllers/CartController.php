@@ -9,6 +9,9 @@
 namespace frontend\modules\shop\controllers;
 
 use common\classes\Cart;
+use common\classes\Debug;
+use common\models\db\Order;
+use common\models\db\OrderProduct;
 use frontend\modules\shop\models\Products;
 use Yii;
 use yii\filters\VerbFilter;
@@ -48,10 +51,15 @@ class CartController extends Controller
     public function actionSetCount()
     {
         $postData = Yii::$app->request->post();
-        return json_encode([
+
+        Yii::$app->cart->update($postData['shop_id'], $postData['product_id'], $postData['count']);
+        $cart = Cart::getCart();
+
+        return $this->renderAjax('cart-ajax', ['cart' => $cart]);
+        /*return json_encode([
             'success' => Yii::$app->cart->setCount($postData['product_id'], $postData['count']),
             'cartStatus' => Yii::$app->cart->status
-        ]);
+        ]);*/
     }
 
     public function actionDeleteFromCart()
@@ -98,5 +106,61 @@ class CartController extends Controller
 
     }
 
+    public function actionOrderOneShop($shopId)
+    {
+        $model = new Order();
+        if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
+            /*Debug::dd($model);*/
+            $cart = \Yii::$app->cart->getCart();
+            //Debug::dd($cart);
+            foreach ($cart[$shopId] as $product=>$count){
+                $orderProducts = new OrderProduct();
 
+                $orderProducts->shop_id = $shopId;
+                $orderProducts->order_id = $model->id;
+                $orderProducts->product_id = $product;
+                $orderProducts->count = $count;
+
+                $orderProducts->save();
+
+                 \Yii::$app->cart->delete($shopId, $product);
+            }
+
+            return $this->redirect(['cart']);
+        }
+
+        return $this->render( 'form-order', [
+            'model' => $model,
+        ] );
+    }
+
+
+    public function actionOrderShop()
+    {
+        $model = new Order();
+        if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
+            /*Debug::dd($model);*/
+            $cart = \Yii::$app->cart->getCart();
+
+            foreach ($cart as $shop => $products){
+                foreach ($products as $product=> $count){
+                    $orderProducts = new OrderProduct();
+
+                    $orderProducts->shop_id = $shop;
+                    $orderProducts->order_id = $model->id;
+                    $orderProducts->product_id = $product;
+                    $orderProducts->count = $count;
+
+                    $orderProducts->save();
+                }
+
+            }
+            Yii::$app->cart->clear();
+            return $this->redirect(['cart']);
+        }
+
+        return $this->render( 'form-order', [
+            'model' => $model,
+        ] );
+    }
 }
