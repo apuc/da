@@ -10,6 +10,7 @@ use Yii;
  *
  * @property int $product_id
  * @property int $user_id
+ * @property int $dt_add
  *
  * @property User $user
  * @property Products $product
@@ -30,8 +31,8 @@ class LikeProducts extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['product_id', 'user_id'], 'required'],
-            [['product_id', 'user_id'], 'integer'],
+            [['product_id', 'user_id', 'dt_add'], 'required'],
+            [['product_id', 'user_id', 'dt_add'], 'integer'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Products::className(), 'targetAttribute' => ['product_id' => 'id']],
         ];

@@ -11,6 +11,7 @@ namespace frontend\modules\personal_area\widgets;
 use common\models\db\Comments;
 use common\models\db\Company;
 use common\models\db\CompanyFeedback;
+use common\models\db\LikeProducts;
 use common\models\db\Likes;
 use common\models\db\Poster;
 use common\models\db\Stock;
@@ -25,7 +26,8 @@ class ShowStatistikUser extends Widget
         $feedbackCount = CompanyFeedback::find()->where(['user_id' => \Yii::$app->user->id])->count();
         $companyCount = Company::find()->where(['user_id' => \Yii::$app->user->id])->count();
         $posterCount = Poster::find()->where(['user_id' => \Yii::$app->user->id])->count();
-        $promotionsCount = Stock::find()->where(['user_id' => \Yii::$app->user->id,])->andWhere(['in', 'status', [0,1]])->count();
+        $promotionsCount = Stock::find()->where(['user_id' => \Yii::$app->user->id])->andWhere(['in', 'status', [0,1]])->count();
+        $desireCount = LikeProducts::find()->where(['user_id' => \Yii::$app->user->id])->count();
 
         return $this->render('stistik-user',
             [
@@ -35,6 +37,7 @@ class ShowStatistikUser extends Widget
                 'company' => $companyCount,
                 'poster' => $posterCount,
                 'promotions' => $promotionsCount,
+                'desireCount' => $desireCount,
             ]
         );
     }

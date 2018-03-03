@@ -74,6 +74,7 @@ class ShopController extends Controller
             $like = new LikeProducts();
             $like->product_id = $postData['product_id'];
             $like->user_id = $userId;
+            $like->dt_add = time();
 
             $like->save();
             return true;
@@ -81,7 +82,5 @@ class ShopController extends Controller
             LikeProducts::deleteAll(['product_id' => $postData['product_id'], 'user_id' => $userId]);
             return false;
         }
-
-        return true;
     }
 }

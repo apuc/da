@@ -19,10 +19,10 @@
         <span><?= $company; ?></span>
         <p>компаний</p>
     </a>
-    <!--<a class="disabled" href="#">
-        <span>0</span>
-        <p>отзывов</p>
-    </a>-->
+    <a href="<?= \yii\helpers\Url::to(['/personal_area/user-desire/index'])?>">
+    <span><?= $desireCount?></span>
+        <p>Мои желания</p>
+    </a>
     <a href="<?= \yii\helpers\Url::to(['/personal_area/user-comments'])?>">
         <span><?= $comments?></span>
         <p>коментария</p>

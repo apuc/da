@@ -15,6 +15,7 @@ class m180303_134144_create_like_products_table extends Migration
         $this->createTable('like_products', [
             'product_id' => $this->integer(11)->notNull(),
             'user_id' => $this->integer(11)->notNull(),
+            'dt_add' => $this->integer(11)->notNull(),
         ]);
 
         $this->addForeignKey(
