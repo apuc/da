@@ -14,6 +14,7 @@ use yii\data\ActiveDataProvider;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
 use yii\web\Controller;
+use yii\web\Response;
 
 /**
  * Default controller for the `rss` module
@@ -195,9 +196,10 @@ class RssController extends Controller {
             ],
         ] );
 
-        $response = Yii::$app->getResponse();
+        /*$response = Yii::$app->getResponse();
         $headers  = $response->getHeaders();
-        $headers->set( 'Content-Type', 'application/rss+xml; charset=utf-8' );
+        $headers->set( 'Content-Type', 'application/rss+xml; charset=utf-8' );*/
+        Yii::$app->response->format = Response::FORMAT_XML;
 
         echo \Zelenin\yii\extensions\Rss\RssView::widget( [
             'dataProvider' => $dataProvider,
