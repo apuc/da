@@ -47,10 +47,10 @@ $this->params['breadcrumbs'][] = 'Акции';
                         <li class="date" data-value="<?= date('Y-m-d', time() + Time::DAY) ?>">
                             Акции за завтра: <?= Yii::$app->formatter->asDate(time() + Time::DAY, 'php:d M'); ?>
                         </li>
-                        <li>Акции на
-                            <input class="date-input" type="text" name="date"
-                                   placeholder="<?= Yii::$app->formatter->asDate(time(), 'php:Y-m-d'); ?>">
-                            <button>Применить</button>
+                        <li data-value="value 4" class="input-date">Акции на
+                            <input class="input-group date" type="text" name="date" data-date-format="yyyy-mm-dd"
+                                   placeholder="гггг-мм-дд">
+                            <button class="submit-stock">Применить</button>
                         </li>
                     </ul>
                 </form>
@@ -101,7 +101,7 @@ $this->params['breadcrumbs'][] = 'Акции';
                                 <a href="<?= Url::to(['/promotions/promotions/view', 'slug' => $stock->slug]) ?>"
                                    class="all-actions__bottom--more">Подробнее</a>
                                 <a href="#" class="all-actions__bottom--comments">Добавить коментарий</a>
-                                <span class="all-actions__bottom--sale"><?= $stock->dt_event; ?></span>
+                                <span class="all-actions__bottom--sale"><?= $stock->dt_event_description; ?></span>
                             </div>
                             <div class="all-actions__favorites"></div>
                         </div>
