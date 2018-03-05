@@ -201,7 +201,7 @@ class RssController extends Controller {
         $headers->set( 'Content-Type', 'application/rss+xml; charset=utf-8' );
         /*Yii::$app->response->format = Response::FORMAT_XML;*/
 
-        echo \Zelenin\yii\extensions\Rss\RssView::widget( [
+        return \Zelenin\yii\extensions\Rss\RssView::widget( [
             'dataProvider' => $dataProvider,
             'channel'      => [
                 'title'       => function ( $widget, \Zelenin\Feed $feed ) {
@@ -250,7 +250,6 @@ class RssController extends Controller {
                 }
             ]
         ] );
-        exit();
     }
 
     public function actionStreamGif_rss() {
