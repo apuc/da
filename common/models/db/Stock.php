@@ -15,7 +15,7 @@ use Yii;
  * @property integer $dt_add
  * @property integer $dt_update
  * @property integer $status
- * @property string $dt_event
+ * @property string $dt_event_description
  * @property string $link
  * @property integer $main
  * @property integer $company_id
@@ -23,6 +23,8 @@ use Yii;
  * @property integer $recommended
  * @property integer $view
  * @property string $slug [varchar(255)]
+ * @property string $dt_event
+ * @property string $dt_event_end
  */
 class Stock extends \yii\db\ActiveRecord
 {
@@ -42,8 +44,9 @@ class Stock extends \yii\db\ActiveRecord
         return [
             [['title'], 'required'],
             [['short_descr', 'descr'], 'string'],
+            [['dt_event', 'dt_event_end'], 'safe'],
             [['dt_add', 'dt_update', 'status', 'main', 'company_id', 'user_id', 'recommended', 'view'], 'integer'],
-            [['title', 'photo', 'dt_event', 'link', 'slug'], 'string', 'max' => 255],
+            [['title', 'photo', 'dt_event_description', 'link', 'slug'], 'string', 'max' => 255],
         ];
     }
 
@@ -61,11 +64,13 @@ class Stock extends \yii\db\ActiveRecord
             'dt_add' => 'Дата добавления',
             'dt_update' => 'Дата редактирования',
             'status' => 'Статус',
-            'dt_event' => 'Дата события',
+            'dt_event_description' => 'Дата события',
             'link' => 'Ссылка',
             'main' => 'На главной',
             'company_id' => 'Компания',
             'recommended' => 'Рекомендуем',
+            'dt_event' => 'Dt Event',
+            'dt_event_end' => 'Dt Event End',
         ];
     }
 

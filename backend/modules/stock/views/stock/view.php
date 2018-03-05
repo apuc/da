@@ -37,6 +37,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'dt_update',
             'status',
             'dt_event',
+            'dt_event_end',
+            'dt_event_description',
             'link',
             'main',
         ],
