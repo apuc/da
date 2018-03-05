@@ -219,11 +219,11 @@ class RssController extends Controller {
                 'title'       => function ( $model, $widget, \Zelenin\Feed $feed ) {
                     return $model->title;
                 },
-                'enclosure'   => function ( $model, $widget, \Zelenin\Feed $feed ) {
+                /*'enclosure'   => function ( $model, $widget, \Zelenin\Feed $feed ) {
                     if ( ! empty( $model->getLargePhoto() ) ) {
                         $feed->addItemEnclosure( $model->getLargePhoto(), 123, 'image/jpeg' );
                     }
-                },
+                },*/
                 'description' => function ( $model, $widget, \Zelenin\Feed $feed ) {
                     return StringHelper::truncateWords( strip_tags( $model->text ), 50 );
                 },
