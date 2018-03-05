@@ -233,14 +233,14 @@ class RssController extends Controller {
                 /*'guid'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
 
                     return 'https://da-info.pro/stream/'.$model->slug;
-                },
+                },*/
                 'pubDate'     => function ( $model, $widget, \Zelenin\Feed $feed ) {
 
                     $date = date( DATE_RSS, $model->dt_publish );
 
                     return $date;
 
-                },*/
+                },
                 'save'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
 
                     $feed->save( 'rss/stream.xml' );
