@@ -1,5 +1,6 @@
 <?php
 
+use kartik\datetime\DateTimePicker;
 use kartik\file\FileInput;
 use kartik\select2\Select2;
 use mihaildev\ckeditor\CKEditor;
@@ -63,10 +64,28 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                 ->hint('<b>Вставьте ссылку.</b><br>Сссылка может вести на сайт вашей компании или же на страницу в соцсетях')
                 ->label('Ссылка'); ?>
 
-            <?= $form->field($model, 'dt_event')->textInput()
+            <?= $form->field($model, 'dt_event')->widget(DateTimePicker::classname(), [
+                'options' => ['placeholder' => 'Выберите дату начала акции ...'],
+
+                'pluginOptions' => [
+                    'autoclose' => true,
+                    'format' => 'yyyy-mm-dd'
+                ]
+            ]); ?>
+
+            <?= $form->field($model, 'dt_event_end')->widget(DateTimePicker::classname(), [
+                'options' => ['placeholder' => 'Выберите дату конца акции ...'],
+
+                'pluginOptions' => [
+                    'autoclose' => true,
+                    'format' => 'yyyy-mm-dd'
+                ]
+            ]); ?>
+
+            <?= $form->field($model, 'dt_event_description')->textInput()
                 ->hint('<b>Примеры:</b><br>
-                        До конца месяца, с 1 по 10 февраля...')
-                ->label('Длительность акции'); ?>
+                        Март-Апрель, До полной распродажи, К празднику...')
+                ->label('Описание длительности акции'); ?>
 
             <?= $form->field($model, 'photo')->hiddenInput(['value' => $model->photo])->label(false); ?>
             <?php echo '<label class="control-label">Добавить фото</label>';

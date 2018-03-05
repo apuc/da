@@ -67,7 +67,17 @@ class PromotionsController extends Controller
 
         if ($post) {
             if (!empty($post['search'])) {
-                $stocks = Stock::find()->andFilterWhere(['like', 'title', $post['search']])->all();
+                $stocks = Stock::find()
+                    ->where(['status' => 0])
+                    ->andFilterWhere(['like', 'title', $post['search']])
+                    ->all();
+            }
+            if (!empty($post['date'])) {
+                $stocks = Stock::find()
+                    ->where(['status' => 0])
+                    ->andWhere(['<=', "dt_event", $post['date']])
+                    ->andWhere(['>=', "dt_event_end", $post['date']])
+                    ->all();
             }
         }
         return $this->render('index', [

@@ -13,6 +13,7 @@ use yii\widgets\Breadcrumbs;
 
 $this->title = "Акции - DA Info";
 $this->registerJsFile('/js/stock.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/promotions.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->params['breadcrumbs'][] = 'Акции';
 
@@ -37,18 +38,18 @@ $this->params['breadcrumbs'][] = 'Акции';
                     <input type="search" name="search" class="all-actions__search" placeholder="Поиск">
                     <ul class="all-actions__select">
                         <li class="init">Текущие и будущие акции</li>
-                        <li data-value="<?= date('Y-m-d', time() - Time::DAY) ?>">
+                        <li class="date" data-value="<?= date('Y-m-d', time() - Time::DAY) ?>">
                             Акции за вчера: <?= Yii::$app->formatter->asDate(time() - Time::DAY, 'php:d M'); ?>
                         </li>
-                        <li data-value="<?= date('Y-m-d', time()) ?>">
+                        <li class="date" data-value="<?= date('Y-m-d', time()) ?>">
                             Акции за сегодня: <?= Yii::$app->formatter->asDate(time(), 'php:d M'); ?>
                         </li>
-                        <li data-value="<?= date('Y-m-d', time() + Time::DAY) ?>">
+                        <li class="date" data-value="<?= date('Y-m-d', time() + Time::DAY) ?>">
                             Акции за завтра: <?= Yii::$app->formatter->asDate(time() + Time::DAY, 'php:d M'); ?>
                         </li>
                         <li>Акции на
-                            <input type="text" placeholder="<?= Yii::$app->formatter->asDate(time(), 'php:d-m-Y'); ?>">
-                            <input type="hidden" name="date" value="">
+                            <input class="date-input" type="text" name="date"
+                                   placeholder="<?= Yii::$app->formatter->asDate(time(), 'php:Y-m-d'); ?>">
                             <button>Применить</button>
                         </li>
                     </ul>
