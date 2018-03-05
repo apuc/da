@@ -47,10 +47,10 @@ $this->params['breadcrumbs'][] = 'Акции';
                         <li class="date" data-value="<?= date('Y-m-d', time() + Time::DAY) ?>">
                             Акции за завтра: <?= Yii::$app->formatter->asDate(time() + Time::DAY, 'php:d M'); ?>
                         </li>
-                        <li>Акции на
-                            <input class="date-input" type="text" name="date"
-                                   placeholder="<?= Yii::$app->formatter->asDate(time(), 'php:Y-m-d'); ?>">
-                            <button>Применить</button>
+                        <li data-value="value 4" class="input-date">Акции на
+                            <input class="input-group date" type="text" name="date" data-date-format="yyyy-mm-dd"
+                                   placeholder="гггг-мм-дд">
+                            <button class="submit-stock">Применить</button>
                         </li>
                     </ul>
                 </form>
