@@ -11,6 +11,7 @@
  */
 
 use common\classes\Debug;
+use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
@@ -33,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <section class="exchange-rates">
     <div class="container">
         <div class="e-content">
-            <?= $this->render('_header', ['title' => $meta_title]); ?>
+            <?= $this->render('_header', ['title' => $meta_title, 'coin' => false]); ?>
 
             <div class="e-content__wrapper">
                 <div class="e-content__wrapper__title">
@@ -61,20 +62,24 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php foreach ($rates['rates'] as $rate): ?>
                             <tr><?php foreach ($rate as $key => $value): ?>
                                     <td>
-                                        <?php if ($key == 'rate') : ?>
-                                            <div>
-                                                <span><?= $value['now'] ?></span>
-                                                <?php if (isset($value['diff'])): ?>
-                                                    <?php if ($value['diff'] > 0): ?>
-                                                        <i style="color: #00ff00"
-                                                           title="<?= '+' . $value['diff'] ?>">↑</i>
-                                                    <?php elseif ($value['diff'] < 0): ?>
-                                                        <i style="color: red" title="<?= $value['diff'] ?>">↓</i>
+                                        <?php if ($key !== 'id') : ?>
+                                            <?php if ($key == 'rate') : ?>
+                                                <div>
+                                                    <span><?= $value['now'] ?></span>
+                                                    <?php if (isset($value['diff'])): ?>
+                                                        <?php if ($value['diff'] > 0): ?>
+                                                            <i style="color: #00ff00"
+                                                               title="<?= '+' . $value['diff'] ?>">↑</i>
+                                                        <?php elseif ($value['diff'] < 0): ?>
+                                                            <i style="color: red" title="<?= $value['diff'] ?>">↓</i>
+                                                        <?php endif; ?>
                                                     <?php endif; ?>
-                                                <?php endif; ?>
-                                            </div>
-                                        <?php else: ?>
-                                            <?= $value ?>
+                                                </div>
+                                            <?php elseif (($key === 'name') && (!empty($detail))): ?>
+                                                <?= Html::a($value, Url::to(['/currency/default/view-coin', 'id' => $rate['id']])) ?>
+                                            <?php else: ?>
+                                                <?= $value ?>
+                                            <?php endif; ?>
                                         <?php endif; ?>
                                     </td>
                                 <?php endforeach; ?></tr>

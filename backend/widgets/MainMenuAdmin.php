@@ -588,6 +588,53 @@ class MainMenuAdmin extends Widget
                         'template' => '<a href="#"><i class="fa fa-vk"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
                     [
+                        'label' => 'Twitter',
+                        'items' => [
+                            [
+                                'label' => 'Страницы',
+                                'url' => Url::to(['/tw/tw-pages']),
+                                'active' => Yii::$app->controller->module->id === 'tw' && Yii::$app->controller->id === 'tw-pages',
+                                'visible' => UserFunction::hasPermission(['Группы VK']),
+                            ],
+                            [
+                                'label' => 'Посты',
+                                'url' => Url::to(['/tw/tw-posts']),
+                                'active' => Yii::$app->controller->module->id === 'tw' && Yii::$app->controller->id === 'tw-posts' && Yii::$app->request->get('TwPostsSearch') === null,
+                                'visible' => UserFunction::hasPermission(['Группы VK']),
+                            ],
+                            [
+                                'label' => 'На модерации',
+                                'url' => Url::to(['/tw/tw-posts', 'TwPostsSearch[status]' => 0]),
+                                'active' => Yii::$app->controller->module->id === 'tw' && Yii::$app->controller->id === 'tw-posts' && Yii::$app->request->get('TwPostsSearch')['status'] === '0',
+                                'visible' => UserFunction::hasPermission(['Группы VK']),
+                            ],
+                            [
+                                'label' => 'Опубликованные',
+                                'url' => Url::to(['/tw/tw-posts', 'TwPostsSearch[status]' => 1]),
+                                'active' => Yii::$app->controller->module->id === 'tw' && Yii::$app->controller->id === 'tw-posts' && Yii::$app->request->get('TwPostsSearch')['status'] === '1',
+                                'visible' => UserFunction::hasPermission(['Группы VK']),
+                            ],
+                            [
+                                'label' => 'На публикацию',
+                                'url' => Url::to(['/tw/tw-posts', 'TwPostsSearch[status]' => 2]),
+                                'active' => Yii::$app->controller->module->id === 'tw' && Yii::$app->controller->id === 'tw-posts' && Yii::$app->request->get('TwPostsSearch')['status'] === '2',
+                                'visible' => UserFunction::hasPermission(['Группы VK']),
+                            ],
+                            //[
+                            //    'label' => 'Авторы',
+                            //    'url' => Url::to(['/vk/vk_authors']),
+                            //    'active' => Yii::$app->controller->module->id === 'vk' && Yii::$app->controller->id === 'vk_authors',
+                            //    'visible' => UserFunction::hasPermission(['Авторы VK']),
+                            //],
+
+                        ],
+                        'options' => [
+                            'class' => 'treeview',
+                        ],
+                        'visible' => UserFunction::hasPermission(['ВК']),
+                        'template' => '<a href="#"><i class="fa fa-twitter"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                    ],
+                    [
                         'label' => 'Курсы валют',
                         'visible' => UserFunction::hasPermission(['Курсы валют']),
                         'items' => [

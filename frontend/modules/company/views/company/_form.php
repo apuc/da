@@ -91,6 +91,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 ])->label('Логотип компании')->fileInput();
 ?>
 
+
     <div class="cabinet__add-company-form--block"></div>
 
     <div class="cabinet__add-company-form--wrapper">

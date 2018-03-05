@@ -13,10 +13,11 @@
         <a href="<?= \yii\helpers\Url::to(['/shop/shop/show', 'slug' => $product->slug])?>" class="business__company-item">
             <div class="business__company-img">
 
-                <?php if (!empty($product->cover)): ?>
+                <?php
+                if (!empty($product->cover)): ?>
                     <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $product->cover); ?>" alt="<?= $product->title; ?>">
                 <?php else: ?>
-                    <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($product->images[0]->img_thumb); ?>">
+                    <img src="<?= \common\models\UploadPhoto::getImageOrNoImage('/'. $product->images[0]->img_thumb); ?>">
                 <?php endif; ?>
                 <!--<img src="img/company-shop/1.png" alt="">-->
             </div>

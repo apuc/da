@@ -43,7 +43,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <a href="#">
                     <div class="all-actions__company">
                         <div class="all-actions__company--img">
-                            <img src="<?= $model->company->photo ?>" alt="">
+                            <img src="<?= $model->company->photo ?>"
+                                 alt="<?= !empty($model->company->alt) ? $model->company->alt : $model->company->name ?>">
                         </div>
                         <h3 class="all-actions__company--title">
                             <a href="<?= Url::to(['/company/company/view', 'slug' => $model->company->slug]); ?>">
@@ -107,7 +108,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             </h2>
                             <div class="all-actions__company">
                                 <div class="all-actions__company--img">
-                                    <img src="<?= $item->company->photo ?>" alt="">
+                                    <img src="<?= $item->company->photo ?>"
+                                         alt="<?= !empty($model->company->alt) ? $model->company->alt : $model->company->name ?>">
                                 </div>
                                 <h3 class="all-actions__company--title">
                                     <a href="<?= Url::to(['/company/company/view', 'slug' => $item['company']->slug]); ?>">

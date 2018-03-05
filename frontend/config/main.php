@@ -67,6 +67,12 @@ return \yii\helpers\ArrayHelper::merge([
         ],
     ],
     'components' => [
+        'cart' => [
+            'class' => 'frontend\components\Cart'
+        ],
+        'session'=>[
+            'timeout' => 12*60*60,
+        ],
         'mymessages' => [
             //Обязательно
             'class'    => 'vision\messages\components\MyMessages',
@@ -175,6 +181,10 @@ return \yii\helpers\ArrayHelper::merge([
                     'route' => 'company/company/update',
                 ],
                 [
+                    'pattern' => 'company/company/get-more-company',
+                    'route' => 'company/company/get-more-company',
+                ],
+                [
                     'pattern' => 'company/company/create',
                     'route' => 'company/company/create',
                 ],
@@ -232,6 +242,7 @@ return \yii\helpers\ArrayHelper::merge([
                 'promotions/<slug>' => '/promotions/promotions/view',
 
                 'stream' => 'stream/default/index',
+                'stream/<type:(tw)>/<slug>' => 'stream/default/view',
                 'stream/<slug>' => 'stream/default/view',
                 ['pattern' => 'sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
                 ['pattern' => 'news-sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
@@ -247,17 +258,27 @@ return \yii\helpers\ArrayHelper::merge([
 
                 'currency/converter' => 'currency/default/converter',
                 'currency/detail-coin' => '/currency/default/detail-coin',
+                'currency/view-coin' => '/currency/default/view-coin',
                 'finance' => 'currency/default/all',
                 [
                     'class' => \frontend\components\ShopRule::class,
                 ],
                 //'shop/<action:cart|order>'=>'shop/shop/<action>',
-                'shop/products/create'=>'shop/products/create',
-                'shop/products/delete'=>'shop/products/delete',
-                'shop/products/update'=>'shop/products/update',
-                'shop/product/delete-img'=>'shop/products/delete-img',
-                'shop/products/general-modal'=>'shop/products/general-modal',
-                'shop/products/show-category'=>'shop/products/show-category',
+                'shop/shop/like'=>'shop/shop/like',
+                'shop/cart' => 'shop/cart/cart',
+                'shop/cart/set-count' => 'shop/cart/set-count',
+                'shop/cart/order-one-shop' => 'shop/cart/order-one-shop',
+                'shop/cart/order-shop' => 'shop/cart/order-shop',
+                'shop/cart/delete-from-cart' => 'shop/cart/delete-from-cart',
+                'shop/cart/clear' => 'shop/cart/clear',
+                'shop/cart/add-in-cart' => 'shop/cart/add-in-cart',
+                'shop/cart/price-count' => 'shop/cart/price-count',
+                'shop/products/create' => 'shop/products/create',
+                'shop/products/delete' => 'shop/products/delete',
+                'shop/products/update' => 'shop/products/update',
+                'shop/product/delete-img' => 'shop/products/delete-img',
+                'shop/products/general-modal' => 'shop/products/general-modal',
+                'shop/products/show-category' => 'shop/products/show-category',
                 'shop/products/show-parent-modal-category' => 'shop/products/show-parent-modal-category',
                 'shop/products/show-category-end' => 'shop/products/show-category-end',
                 'shop/products/show-additional-fields' => 'shop/products/show-additional-fields',

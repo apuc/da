@@ -74,7 +74,8 @@ $this->params['breadcrumbs'][] = 'Акции';
                             </h2>
                             <div class="all-actions__company">
                                 <div class="all-actions__company--img">
-                                    <img src="<?= $stock->company->photo ?>" alt="">
+                                    <img src="<?= $stock->company->photo ?>"
+                                         alt="<?= !empty($stock->company->alt) ? $stock->company->alt : $stock->company->name ?>">
                                 </div>
                                 <h3 class="all-actions__company--title">
                                     <a href="<?= Url::to(['/company/company/view', 'slug' => $stock['company']->slug]); ?>">

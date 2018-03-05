@@ -14,6 +14,7 @@
 
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
+
 $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/news.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
@@ -47,10 +48,7 @@ $this->registerMetaTag([
 ]);
 
 
-
-$this->title = ($model->meta_title) ? $model->meta_title: $model->title;
-
-
+$this->title = ($model->meta_title) ? $model->meta_title : $model->title;
 
 
 $this->registerMetaTag([
@@ -76,7 +74,7 @@ $this->params['breadcrumbs'][] = $model->title;
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                 'options' => ['class' => 'breadcrumbs']
-            ]) ?>
+            ]); ?>
 
             <h1><?= $model->title; ?></h1>
             <?= $this->render('news-info',
@@ -84,16 +82,17 @@ $this->params['breadcrumbs'][] = $model->title;
                     'model' => $model,
                     'countComments' => $countComments,
                     'likes' => $likes
-                ]);
-            ?>
+                ]); ?>
 
 
             <div class="thumbnail-wrapper">
-                <?php if(stristr($model->photo, 'http')):?>
-                <img class="thumbnail" src="<?= $model->photo?>" alt="">
+                <?php if (stristr($model->photo, 'http')): ?>
+                    <img class="thumbnail" src="<?= $model->photo ?>"
+                         alt="<?= !empty($model->alt) ? $model->alt : $model->title ?>">
                 <?php else: ?>
-                <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($model->photo); ?>" alt="">
-                <?php endif;?>
+                    <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($model->photo); ?>"
+                         alt="<?= !empty($model->alt) ? $model->alt : $model->title ?>">
+                <?php endif; ?>
             </div>
 
 
@@ -102,13 +101,13 @@ $this->params['breadcrumbs'][] = $model->title;
                     <?= $model->content; ?>
                 </div>
 
-                <?php if(!empty($model['tagss'])): ?>
+                <?php if (!empty($model['tagss'])): ?>
                     <div class="content__separator"></div>
                     <section class="hashtag">
                         <div class="hashtag__wrapper">
                             <?php
-                            foreach ($model['tagss'] as $tags){ ?>
-                                <a href="<?= Url::to(['/search/tag', 'id' => $tags['tagname']->id])?>">
+                            foreach ($model['tagss'] as $tags) { ?>
+                                <a href="<?= Url::to(['/search/tag', 'id' => $tags['tagname']->id]) ?>">
                                     <div class="hashtag__wrapper--item"><?= $tags['tagname']->tag; ?></div>
                                 </a>
                             <?php } ?>
@@ -122,15 +121,12 @@ $this->params['breadcrumbs'][] = $model->title;
                         'likes' => $likes
                     ]);
                 ?>
-                <?php
-                    echo \frontend\modules\news\widgets\ReadTheSame::widget(
-                        [
-                            'news' => array_slice($readTheSame, 0, 3),
-                            'template' => 'bottom',
-                        ]
-                    );
-
-                ?>
+                <?= \frontend\modules\news\widgets\ReadTheSame::widget(
+                    [
+                        'news' => array_slice($readTheSame, 0, 3),
+                        'template' => 'bottom',
+                    ]
+                ); ?>
 
                 <?= \frontend\widgets\Share::widget([
                     'url' => yii\helpers\Url::current([], true),
@@ -149,14 +145,11 @@ $this->params['breadcrumbs'][] = $model->title;
         </article>
         <aside id="aside">
             <div class="scroll">
-                <?php
-                echo \frontend\modules\news\widgets\ReadTheSame::widget(
+                <?= \frontend\modules\news\widgets\ReadTheSame::widget(
                     [
                         'news' => array_slice($readTheSame, 3),
                     ]
-                );
-
-                ?>
+                ); ?>
 
                 <?= \frontend\modules\news\widgets\MostPopularNews::widget(
                     [
@@ -167,6 +160,6 @@ $this->params['breadcrumbs'][] = $model->title;
             </div>
         </aside>
 
-       <?= \frontend\modules\news\widgets\WhatElseToRead::widget(['useReg' => $useReg]); ?>
+        <?= \frontend\modules\news\widgets\WhatElseToRead::widget(['useReg' => $useReg]); ?>
     </div>
 </main>

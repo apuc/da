@@ -95,40 +95,40 @@ use yii\jui\DatePicker;
     ?>
 
     <?= $form->field($model, 'tariff_id')->dropDownList(
-        ArrayHelper::map(\common\models\db\Tariff::find()->all(), 'id','name'),
+        ArrayHelper::map(\common\models\db\Tariff::find()->all(), 'id', 'name'),
         ['prompt' => 'Выберите тариф']) ?>
 
     <div class="set-services-of-tariff">
-        <?php if($model->tariff_id == 4):?>
+        <?php if ($model->tariff_id == 4): ?>
             <?php $serviceChecked = \common\models\db\ServicesCompanyRelations::find()->where(['company_id' => $model->id])
                 ->asArray()
-                ->all()?>
-            <?php $checked = ArrayHelper::getColumn($serviceChecked, 'services_id')?>
+                ->all() ?>
+            <?php $checked = ArrayHelper::getColumn($serviceChecked, 'services_id') ?>
             <?php $services = \common\models\db\Services::find()->asArray()->all() ?>
 
-            <?php foreach ($services as $service):?>
+            <?php foreach ($services as $service): ?>
                 <div class="checkbox">
-                    <label><input type="checkbox" name="services[][services_id]" value="<?= $service['id']?>"
-                        <?php if (in_array($service['id'], $checked)):?>
-                            checked
-                        <?php endif;?>
-                        ><?= $service['name']?></label>
+                    <label><input type="checkbox" name="services[][services_id]" value="<?= $service['id'] ?>"
+                            <?php if (in_array($service['id'], $checked)): ?>
+                                checked
+                            <?php endif; ?>
+                        ><?= $service['name'] ?></label>
                 </div>
-                <?php endforeach;?>
-        <?php endif;?>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </div>
     <label>Дата окончания тарифа</label>
     <?php if (Yii::$app->controller->action->id === 'create'): ?>
-            <?= DatePicker::widget([
-                //'model' => $model,
-                'name' => 'dt_end_tariff',
-                'id' => 'dt_end_tariff',
-                'attribute' => 'from_date',
-                'language' => 'ru',
-                'dateFormat' => 'dd-MM-yyyy',
-            ]);
-            ?>
-        <?php else:?>
+        <?= DatePicker::widget([
+            //'model' => $model,
+            'name' => 'dt_end_tariff',
+            'id' => 'dt_end_tariff',
+            'attribute' => 'from_date',
+            'language' => 'ru',
+            'dateFormat' => 'dd-MM-yyyy',
+        ]);
+        ?>
+    <?php else: ?>
         <?= DatePicker::widget([
             //'model' => $model,
             'name' => 'dt_end_tariff',
@@ -139,39 +139,39 @@ use yii\jui\DatePicker;
             'dateFormat' => 'dd-MM-yyyy',
         ]);
         ?>
-<?php endif;?>
+    <?php endif; ?>
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
     <?= Html::label('Старый телефон', 'mytext', ['class' => 'control-label']) ?>
-    <textarea class="form-control"><?= $model->phone?></textarea>
+    <textarea class="form-control"><?= $model->phone ?></textarea>
     <div class="phone-dynamic-input">
 
         <?= Html::label('Телефон', 'mytext', ['class' => 'control-label']) ?>
-        <?php if (Yii::$app->controller->action->id == 'create'):?>
-        <div class="input-group multiply-field">
-            <input value="" class="form-control" name="mytext[]" type="text">
-            <a href="#" class="input-group-addon add-input-phone"><span class="glyphicon glyphicon-plus"></span></a>
-        </div>
+        <?php if (Yii::$app->controller->action->id == 'create'): ?>
+            <div class="input-group multiply-field">
+                <input value="" class="form-control" name="mytext[]" type="text">
+                <a href="#" class="input-group-addon add-input-phone"><span class="glyphicon glyphicon-plus"></span></a>
+            </div>
 
-        <?php elseif (Yii::$app->controller->action->id == 'update'):?>
+        <?php elseif (Yii::$app->controller->action->id == 'update'): ?>
 
-            <?php if(!empty($phones)):?>
+            <?php if (!empty($phones)): ?>
 
-                <?php foreach ($phones as $key => $phone):?>
-                    <div class="input-group <?= ($key == 0) ? 'multiply-field': ''?> ">
-                        <input value="<?= $phone->phone?>" class="form-control" name="mytext[]" type="text">
-                        <a href="#" class="input-group-addon <?= ($key == 0) ? 'add': 'remove'?>-input-phone"><span class="glyphicon glyphicon-<?= ($key == 0) ? 'plus': 'minus'?> "></span></a>
+                <?php foreach ($phones as $key => $phone): ?>
+                    <div class="input-group <?= ($key == 0) ? 'multiply-field' : '' ?> ">
+                        <input value="<?= $phone->phone ?>" class="form-control" name="mytext[]" type="text">
+                        <a href="#" class="input-group-addon <?= ($key == 0) ? 'add' : 'remove' ?>-input-phone"><span
+                                    class="glyphicon glyphicon-<?= ($key == 0) ? 'plus' : 'minus' ?> "></span></a>
                     </div>
-                <?php endforeach;?>
+                <?php endforeach; ?>
 
-            <?php else:?>
+            <?php else: ?>
                 <div class="input-group multiply-field">
                     <input value="" class="form-control" name="mytext[]" type="text">
                     <a href="#" class="input-group-addon add-input-phone"><span class="glyphicon glyphicon-plus"></span></a>
                 </div>
-            <?php endif;?>
-        <?php endif;?>
+            <?php endif; ?>
+        <?php endif; ?>
     </div>
-
 
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
@@ -224,6 +224,8 @@ use yii\jui\DatePicker;
         ?>
     </div>
 
+    <?= $form->field($model, 'alt')->textInput(['maxlength' => true]) ?>
+
     <?php echo $form->field($model, 'descr')->widget(CKEditor::className(), [
         'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
             'preset' => 'full',
@@ -238,7 +240,7 @@ use yii\jui\DatePicker;
     <?= $form->field($model, 'vip')->dropDownList([0 => 'Стандарт', 1 => 'VIP'], ['class' => 'form-control']) ?>
 
     <?php
-    if($model->isNewRecord){
+    if ($model->isNewRecord) {
         $model->user_id = 1;
     }
     ?>
@@ -252,19 +254,21 @@ use yii\jui\DatePicker;
                 'allowClear' => true
             ],
         ]
-    );?>
+    ); ?>
     <p class="cabinet__add-company-form--title"><b>Соц. сети компании</b></p>
     <div class="cabinet__add-company-form--social">
 
-    <?php foreach ($typeSeti as $type):?>
-        <div class="cabinet__add-company-form--social-element">
+        <?php foreach ($typeSeti as $type): ?>
+            <div class="cabinet__add-company-form--social-element">
                             <span class="social-wrap__item">
                                 <img src="<?= $type->icon ?>" alt="">
                             </span>
-            <span class="social-name"><?= $type->name; ?></span>
-            <input type="text" value="<?= !empty($socCompany[$type->id]->link) ? $socCompany[$type->id]->link : ''?>" name="socicon[<?= $type->id?>][]" class="social-way">
-        </div>
-    <?php endforeach;?>
+                <span class="social-name"><?= $type->name; ?></span>
+                <input type="text"
+                       value="<?= !empty($socCompany[$type->id]->link) ? $socCompany[$type->id]->link : '' ?>"
+                       name="socicon[<?= $type->id ?>][]" class="social-way">
+            </div>
+        <?php endforeach; ?>
     </div>
 
     <?= $form->field($model, 'recommended')->dropDownList([

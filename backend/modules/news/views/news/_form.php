@@ -102,6 +102,8 @@ use kartik\select2\Select2;
         ?>
     </div>
 
+    <?= $form->field($model, 'alt')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'author')->textInput(['maxlength' => true]); ?>
 
     <?= $form->field($model, 'status')->dropDownList([

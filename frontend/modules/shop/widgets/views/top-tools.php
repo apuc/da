@@ -34,8 +34,8 @@
         <ul class="shop__top-nav--navigation">
             <li><a href="#" class="delivery">Доставка</a></li>
             <li>
-                <a href="#" class="basket">Корзина</a>
-                <span class="basket-counter">0</span>
+                <a href="<?= \yii\helpers\Url::to(['/shop/cart/cart'])?>" class="basket">Корзина</a>
+                <span class="basket-counter"><?= Yii::$app->cart->count; ?></span>
             </li>
 
             <li><a href="#" class="my-desires">Мои желания</a></li>

@@ -34,6 +34,7 @@ use yii\helpers\ArrayHelper;
  * @property integer $recommended
  * @property integer $main
  * @property integer $verifikation
+ * @property string $alt
  *
  * @property CategoryCompanyRelations[] $categoryCompanyRelations
  * @property News[] $news
@@ -57,7 +58,7 @@ class Company extends \yii\db\ActiveRecord
             [['name'], 'required'],
             [['dt_add', 'dt_update', 'status', 'lang_id', 'views', 'user_id', 'vip', 'tariff_id', 'dt_end_tariff', 'region_id', 'city_id', 'recommended', 'main', 'verifikation'], 'integer'], [['descr'], 'string'],
             [
-                ['name', 'address', 'phone', 'email', 'photo', 'slug', 'meta_title', 'meta_descr'],
+                ['name', 'address', 'phone', 'email', 'photo', 'slug', 'meta_title', 'meta_descr', 'alt'],
                 'string',
                 'max' => 255,
             ],
@@ -91,6 +92,7 @@ class Company extends \yii\db\ActiveRecord
             'recommended' => Yii::t('company', 'Recommended'),
             'main' => Yii::t('company', 'Main'),
             'verifikation' => Yii::t('company', 'Verifikation'),
+            'alt' => Yii::t('company', 'Alt Tag'),
         ];
     }
 

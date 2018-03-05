@@ -19,6 +19,8 @@ use yii\widgets\Pjax;
  * @var $meta_title string
  * @var $meta_descr string
  * @var $hotNews \common\models\db\News
+ * @var $currHotNew \common\models\db\News
+ * @var $currNew \common\models\db\News
  */
 //$this->title                   = Yii::t( 'news', 'News' );
 $this->title = $meta_title;
@@ -46,12 +48,6 @@ $md = new \common\classes\Mobile_Detect();
             'options' => ['class' => 'breadcrumbs']
         ]) ?>
 
-        <!--<div class="breadcrumbs">
-            <a href="/">Главная</a> <span>></span> <a href="<?/*= Url::to([
-                '/news/news/category/',
-                'slug' => '123',
-            ]) */?>"><?/*= 123 */?></a>
-        </div>-->
 
         <div class="news-slider-index-panel">
             <h3>Горячие темы</h3>
@@ -75,17 +71,20 @@ $md = new \common\classes\Mobile_Detect();
                             'slug' => $currNew->slug,
                         ]); ?>" class="news__wrap_item-lg">
                             <div class="thumb">
-                                <?php if(stristr($currNew->photo, 'http')):?>
-                                    <img class="thumbnail" src="<?= $currNew->photo?>" alt="">
+                                <?php if (stristr($currNew->photo, 'http')): ?>
+                                    <img class="thumbnail" src="<?= $currNew->photo ?>"
+                                         alt="<?= !empty($currNew->alt) ? $currNew->alt : $currNew->title ?>"">
                                 <?php else: ?>
-                                    <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>" alt="">
-                                <?php endif;?>
+                                    <img class="thumbnail"
+                                         src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>"
+                                         alt="<?= !empty($currNew->alt) ? $currNew->alt : $currNew->title ?>"">
+                                <?php endif; ?>
                                 <div class="content-row">
                                     <span><?= WordFunctions::dateWithMonts($currNew->dt_public); ?></span>
                                     <span><?= $currNew['categoryNewsRelations'][0]['cat']->title; ?></span>
                                     <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
                                     <span><small
-                                            class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currNew->id) ?></span>
+                                                class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currNew->id) ?></span>
                                     <h2><?= $currNew->title; ?></h2>
                                 </div>
 
@@ -98,15 +97,18 @@ $md = new \common\classes\Mobile_Detect();
                                 '/news/default/view',
                                 'slug' => $currNew->slug,
                             ]); ?>" class="thumb">
-                                <?php if(stristr($currNew->photo, 'http')):?>
-                                    <img class="thumbnail" src="<?= $currNew->photo?>" alt="">
+                                <?php if (stristr($currNew->photo, 'http')): ?>
+                                    <img class="thumbnail" src="<?= $currNew->photo ?>"
+                                         alt="<?= !empty($currNew->alt) ? $currNew->alt : $currNew->title ?>">
                                 <?php else: ?>
-                                    <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>" alt="">
-                                <?php endif;?>
+                                    <img class="thumbnail"
+                                         src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>"
+                                         alt="<?= !empty($currNew->alt) ? $currNew->alt : $currNew->title ?>">
+                                <?php endif; ?>
                                 <div class="content-row">
                                     <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
                                     <span><small
-                                            class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currNew->id) ?></span>
+                                                class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currNew->id) ?></span>
                                     <span><?= $currNew['categoryNewsRelations'][0]['cat']->title; ?></span>
                                 </div>
                             </a>
@@ -119,7 +121,7 @@ $md = new \common\classes\Mobile_Detect();
                                 <span><?= WordFunctions::dateWithMonts($currNew->dt_public); ?></span>
                             </div>
                         </div>
-                        <?php
+                    <?php
                     endif;
                     $simpleNewId++;
                 else:
@@ -134,16 +136,19 @@ $md = new \common\classes\Mobile_Detect();
                         <!-- thumb -->
                         <div class="thumb">
 
-                            <?php if(stristr($currHotNew->photo, 'http')):?>
-                                <img class="thumbnail" src="<?= $currHotNew->photo?>" alt="">
+                            <?php if (stristr($currHotNew->photo, 'http')): ?>
+                                <img class="thumbnail" src="<?= $currHotNew->photo ?>"
+                                     alt="<?= !empty($currHotNew->alt) ? $currHotNew->alt : $currHotNew->title ?>">
                             <?php else: ?>
-                                <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($currHotNew->photo); ?>" alt="">
+                                <img class="thumbnail"
+                                     src="<?= \common\models\UploadPhoto::getImageOrNoImage($currHotNew->photo); ?>"
+                                     alt="<?= !empty($currHotNew->alt) ? $currHotNew->alt : $currHotNew->title ?>">
                             <?php endif; ?>
 
                             <div class="content-row">
                                 <span><small class="view-icon"></small><?= $currHotNew->views; ?></span>
                                 <span><small
-                                        class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currHotNew->id) ?></span>
+                                            class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currHotNew->id) ?></span>
                                 <span><?= $currHotNew['categoryNewsRelations'][0]['cat']->title; ?></span>
                             </div>
                         </div>
@@ -167,18 +172,18 @@ $md = new \common\classes\Mobile_Detect();
         <div class="news__wrap_buttons">
             <a href="#go_rubricator" class="businessScroll">рубрикатор</a>
             <a
-                href=""
-                data-offset="34"
-                csrf-token="<?= Yii::$app->getRequest()->getCsrfToken(); ?>"
-                class="show-more show-more-news-js">загрузить
+                    href=""
+                    data-offset="34"
+                    csrf-token="<?= Yii::$app->getRequest()->getCsrfToken(); ?>"
+                    class="show-more show-more-news-js">загрузить
                 БОЛЬШЕ</a>
-            <span href="#" class="archive-news datepicker-here datepicker-wrap" >архив новостей </span>
+            <span href="#" class="archive-news datepicker-here datepicker-wrap">архив новостей </span>
 
         </div>
     </div>
 </section>
 
-<?= \frontend\widgets\StreamMain::widget();?>
+<?= \frontend\widgets\StreamMain::widget(); ?>
 <?= \frontend\modules\news\widgets\RubricSlider::widget(); ?>
 <? //= \frontend\modules\news\widgets\PeopleTalk::widget(); ?>
 

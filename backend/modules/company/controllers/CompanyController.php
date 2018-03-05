@@ -79,6 +79,7 @@ class CompanyController extends Controller
      * @param integer $id
      * @return mixed
      * @throws \yii\base\InvalidParamException
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
@@ -104,6 +105,9 @@ class CompanyController extends Controller
         $tags = Tags::find()->asArray()->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if (empty($model->alt)) {
+                $model->alt = $model->name;
+            }
             /*$model->user_id = Yii::$app->user->getId();*/
             /*$model->save();*/
             //Debug::prn($model->tariff_id);
@@ -168,6 +172,7 @@ class CompanyController extends Controller
      * @param integer $id
      * @return mixed
      * @throws \yii\base\InvalidParamException
+     * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
@@ -189,6 +194,9 @@ class CompanyController extends Controller
         //Debug::prn(ArrayHelper::getColumn($tags_selected, 'tag_id'));
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if (empty($model->alt)) {
+                $model->alt = $model->name;
+            }
             $model->phone = '';
             if($model->tariff_id)
             {
@@ -278,6 +286,10 @@ class CompanyController extends Controller
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {

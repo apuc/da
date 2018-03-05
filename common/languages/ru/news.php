@@ -28,4 +28,5 @@ return [
     'Category' => 'Категория',
     'RegionID' => 'Регион',
     'Editor choice' => 'Выбор редакции',
+    'Alt Tag' => 'Alt тэг',
 ];

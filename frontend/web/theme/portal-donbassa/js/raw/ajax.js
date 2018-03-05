@@ -138,28 +138,33 @@ $(document).ready(function () {
         var csrfToken = $(this).attr('csrf-token');
         var step = $(this).attr('data-step');
         var dt_add = $(this).attr('data-dt');
+        var last_publish_date = $(this).attr('data-last-post-dt');
         //console.log($(".parser__wrapper").css('height').slice(0, -2) > 1850);
         $.ajax({
             url: '/stream/default/load-more',
             type: "POST",
             data: {
-                '_csrf': csrfToken,
-                'step': step,
-                'dt_add': dt_add
+                _csrf: csrfToken,
+                step: step,
+                dt_add: dt_add,
+                last_publish_date: last_publish_date
             },
             success: function (data) {
+                //console.log(data);
                 $('.business__sidebar').removeClass('absolute');
                 $('.business__sidebar').addClass('fixed');
                 var res = JSON.parse(data);
                 var $i = 1;
                 $('.show-more-stream').attr('data-step', parseInt($('.show-more-stream').attr('data-step')) + 1);
                 loadParseItem(res.render, 0);
-                //$(".parser__wrapper").append(res.render);
+                $('.show-more-stream').attr('data-last-post-dt', res.lpd);
                 if (!res.count) {
                     $(".show-more-stream").hide();
                     $(".counter-stream-new").text('0');
-                    //timerUpdate('false');
                 }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR, textStatus, errorThrown);
             }
         });
         return false;

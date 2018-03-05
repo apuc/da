@@ -10,7 +10,7 @@
     <?php if (!empty($model['cover'])): ?>
         <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $model['cover']); ?>" alt="<?= $model['title']; ?>">
     <?php else: ?>
-        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($model['images'][0]->img_thumb); ?>">
+        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage('/' . $model['images'][0]->img_thumb); ?>">
     <?php endif; ?>
 </a>
 

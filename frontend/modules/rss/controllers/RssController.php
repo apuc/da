@@ -14,6 +14,7 @@ use yii\data\ActiveDataProvider;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
 use yii\web\Controller;
+use yii\web\Response;
 
 /**
  * Default controller for the `rss` module
@@ -198,14 +199,14 @@ class RssController extends Controller {
         $response = Yii::$app->getResponse();
         $headers  = $response->getHeaders();
         $headers->set( 'Content-Type', 'application/rss+xml; charset=utf-8' );
+        /*Yii::$app->response->format = Response::FORMAT_XML;*/
 
-        echo \Zelenin\yii\extensions\Rss\RssView::widget( [
+        return \Zelenin\yii\extensions\Rss\RssView::widget( [
             'dataProvider' => $dataProvider,
             'channel'      => [
                 'title'       => function ( $widget, \Zelenin\Feed $feed ) {
                     $feed->addChannelTitle( KeyValue::findOne( [ 'key' => 'rss_stream_title' ] )->value );
                 },
-//                'link'        => Url::toRoute( '/', true ),
                 'link'        => Url::toRoute( '/' . 'rss/stream.xml', true ),
                 'description' => KeyValue::findOne( [ 'key' => 'rss_stream_desc' ] )->value,
                 'language'    => function ( $widget, \Zelenin\Feed $feed ) {
@@ -220,15 +221,6 @@ class RssController extends Controller {
                 'title'       => function ( $model, $widget, \Zelenin\Feed $feed ) {
                     return $model->title;
                 },
-                /*'category'    => function ( $model, $widget, \Zelenin\Feed $feed ) {
-                    $cats = CategoryNewsRelations::find()
-                        ->where( [ 'new_id' => $model->id ] )
-                        ->with( 'cat' )
-                        ->all();
-                    foreach ( $cats as $cat ) {
-                        $feed->addItemCategory( $cat->cat->title );
-                    }
-                },*/
                 'enclosure'   => function ( $model, $widget, \Zelenin\Feed $feed ) {
                     if ( ! empty( $model->getLargePhoto() ) ) {
                         $feed->addItemEnclosure( $model->getLargePhoto(), 123, 'image/jpeg' );
@@ -238,15 +230,11 @@ class RssController extends Controller {
                     return StringHelper::truncateWords( strip_tags( $model->text ), 50 );
                 },
                 'link'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
-                    return 'https://da-info.pro/stream/'.$model->slug/*Url::to( [ '/stream/' . $model->slug ], true )*/;
+                    return 'https://da-info.pro/stream/'.$model->slug;
                 },
                 'guid'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
-                    //$date = date( DATE_RSS, $model->dt_public );
 
-                    return 'https://da-info.pro/stream/'.$model->slug/*Url::to( [
-                        '/stream/' . $model->slug
-                    ], true )*/;
-                    //return $model->slug;
+                    return 'https://da-info.pro/stream/'.$model->slug;
                 },
                 'pubDate'     => function ( $model, $widget, \Zelenin\Feed $feed ) {
 
@@ -259,8 +247,7 @@ class RssController extends Controller {
 
                     $feed->save( 'rss/stream.xml' );
 
-                },
-
+                }
             ]
         ] );
     }

@@ -102,6 +102,8 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     ->fileInput();
 ?>
 
+
+
     <div class="cabinet__add-company-form--block"></div>
 
     <div class="form-line field-company-phone">
