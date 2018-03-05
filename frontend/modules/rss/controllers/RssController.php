@@ -36,7 +36,7 @@ class RssController extends Controller {
         $headers  = $response->getHeaders();
         $headers->set( 'Content-Type', 'application/rss+xml; charset=utf-8' );
 
-        echo \Zelenin\yii\extensions\Rss\RssView::widget( [
+        return \Zelenin\yii\extensions\Rss\RssView::widget( [
             'dataProvider' => $dataProvider,
             'channel'      => [
                 'title'       => function ( $widget, \Zelenin\Feed $feed ) {
@@ -120,7 +120,7 @@ class RssController extends Controller {
 
         $headers->set( 'Content-Type', 'application/rss+xml; charset=utf-8' );
 
-        echo \Zelenin\yii\extensions\Rss\RssView::widget( [
+        return \Zelenin\yii\extensions\Rss\RssView::widget( [
             'dataProvider' => $dataProvider,
             'channel'      => [
                 'title'       => function ( $widget, \Zelenin\Feed $feed ) {
@@ -270,7 +270,7 @@ class RssController extends Controller {
         $headers  = $response->getHeaders();
         $headers->set( 'Content-Type', 'application/rss+xml; charset=utf-8' );
 
-        echo \Zelenin\yii\extensions\Rss\RssView::widget( [
+        return \Zelenin\yii\extensions\Rss\RssView::widget( [
             'dataProvider' => $dataProvider,
             'channel'      => [
                 'title'       => function ( $widget, \Zelenin\Feed $feed ) {
