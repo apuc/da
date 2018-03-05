@@ -29,9 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="single-actions__wrapper">
             <div class="all-actions__header">
                 <h1 class="all-actions__title"><?= $model->title ?></h1>
-                <form action="#">
+                <form action="<?= Url::to(['/promotions/promotions/index']); ?>" method="post">
+                    <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken ?>">
                     <button class="all-actions__button-search"></button>
-                    <input type="search" class="all-actions__search" placeholder="Поиск">
+                    <input type="search" name="search" class="all-actions__search" placeholder="Поиск">
                 </form>
             </div>
             <div class="single-actions__single-item">
@@ -141,7 +142,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     </a>
                 <?php endforeach; ?>
                 <div class="more-block">
-                    <a href="#" data-step="1" id="load-more-company" class="show-more">загрузить больше</a>
+
+
                 </div>
             </div>
 

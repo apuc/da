@@ -1,9 +1,11 @@
 <?php
 
 use common\models\db\Company;
+use kartik\datetime\DateTimePicker;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\InputFile;
 use yii\helpers\Html;
+use yii\jui\DatePicker;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -58,10 +60,27 @@ use yii\widgets\ActiveForm;
             ],
         ]);
 
-     ?>
+    ?>
 
-    <?= $form->field($model, 'dt_event')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'dt_event_description')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'dt_event')->widget(DateTimePicker::classname(), [
+        'options' => ['placeholder' => 'Выберите дату начала акции ...'],
+
+        'pluginOptions' => [
+            'autoclose' => true,
+            'format' => 'yyyy-mm-dd'
+        ]
+    ]); ?>
+
+    <?= $form->field($model, 'dt_event_end')->widget(DateTimePicker::classname(), [
+        'options' => ['placeholder' => 'Выберите дату конца акции ...'],
+
+        'pluginOptions' => [
+            'autoclose' => true,
+            'format' => 'yyyy-mm-dd'
+        ]
+    ]); ?>
     <?= $form->field($model, 'link')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'status')->dropDownList(['1' => 'Неопубликовано', '0' => 'Опубликовано', '2' => 'Удалено']) ?>
