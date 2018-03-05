@@ -205,7 +205,6 @@ class RssController extends Controller {
                 'title'       => function ( $widget, \Zelenin\Feed $feed ) {
                     $feed->addChannelTitle( KeyValue::findOne( [ 'key' => 'rss_stream_title' ] )->value );
                 },
-//                'link'        => Url::toRoute( '/', true ),
                 'link'        => Url::toRoute( '/' . 'rss/stream.xml', true ),
                 'description' => KeyValue::findOne( [ 'key' => 'rss_stream_desc' ] )->value,
                 'language'    => function ( $widget, \Zelenin\Feed $feed ) {
@@ -220,15 +219,6 @@ class RssController extends Controller {
                 'title'       => function ( $model, $widget, \Zelenin\Feed $feed ) {
                     return $model->title;
                 },
-                /*'category'    => function ( $model, $widget, \Zelenin\Feed $feed ) {
-                    $cats = CategoryNewsRelations::find()
-                        ->where( [ 'new_id' => $model->id ] )
-                        ->with( 'cat' )
-                        ->all();
-                    foreach ( $cats as $cat ) {
-                        $feed->addItemCategory( $cat->cat->title );
-                    }
-                },*/
                 'enclosure'   => function ( $model, $widget, \Zelenin\Feed $feed ) {
                     if ( ! empty( $model->getLargePhoto() ) ) {
                         $feed->addItemEnclosure( $model->getLargePhoto(), 123, 'image/jpeg' );
@@ -241,12 +231,8 @@ class RssController extends Controller {
                     return 'https://da-info.pro/stream/'.$model->slug/*Url::to( [ '/stream/' . $model->slug ], true )*/;
                 },
                 'guid'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
-                    //$date = date( DATE_RSS, $model->dt_public );
 
-                    return 'https://da-info.pro/stream/'.$model->slug/*Url::to( [
-                        '/stream/' . $model->slug
-                    ], true )*/;
-                    //return $model->slug;
+                    return 'https://da-info.pro/stream/'.$model->slug;
                 },
                 'pubDate'     => function ( $model, $widget, \Zelenin\Feed $feed ) {
 
