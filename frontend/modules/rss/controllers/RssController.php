@@ -227,10 +227,10 @@ class RssController extends Controller {
                 'description' => function ( $model, $widget, \Zelenin\Feed $feed ) {
                     return StringHelper::truncateWords( strip_tags( $model->text ), 50 );
                 },
-                /*'link'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
+                'link'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
                     return 'https://da-info.pro/stream/'.$model->slug;
                 },
-                'guid'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
+                /*'guid'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
 
                     return 'https://da-info.pro/stream/'.$model->slug;
                 },
