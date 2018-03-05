@@ -56,15 +56,32 @@ class PromotionsController extends Controller
 
     public function actionIndex()
     {
-        $stock = Stock::find()
+        $stocks = Stock::find()
             ->where(['status' => 0])
             ->orderBy('dt_update DESC')
             ->limit(9)
             ->with('company')
             ->all();
         $placeStock = [2, 6, 7];
+        $post = Yii::$app->request->post();
+
+        if ($post) {
+            if (!empty($post['search'])) {
+                $stocks = Stock::find()
+                    ->where(['status' => 0])
+                    ->andFilterWhere(['like', 'title', $post['search']])
+                    ->all();
+            }
+            if (!empty($post['date'])) {
+                $stocks = Stock::find()
+                    ->where(['status' => 0])
+                    ->andWhere(['<=', "dt_event", $post['date']])
+                    ->andWhere(['>=', "dt_event_end", $post['date']])
+                    ->all();
+            }
+        }
         return $this->render('index', [
-            'stock' => $stock,
+            'stocks' => $stocks,
             'placeStock' => $placeStock
         ]);
     }

@@ -1,9 +1,11 @@
 <?php
-/** @var Stock $item
- * @var array $stock
+/**
+ * @var Stock $stock
+ * @var array $stocks
  */
 
 use common\classes\GeobaseFunction;
+use common\models\Time;
 use frontend\modules\promotions\models\Stock;
 use frontend\widgets\CompanyRight;
 use yii\helpers\Url;
@@ -11,6 +13,7 @@ use yii\widgets\Breadcrumbs;
 
 $this->title = "Акции - DA Info";
 $this->registerJsFile('/js/stock.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/promotions.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->params['breadcrumbs'][] = 'Акции';
 
@@ -29,16 +32,24 @@ $this->params['breadcrumbs'][] = 'Акции';
         <div class="all-actions__wrapper">
             <div class="all-actions__header">
                 <h1 class="all-actions__title">Все акции компаний</h1>
-                <form action="#">
+                <form action="<?= Url::to(['/promotions/promotions/index']); ?>" method="post">
+                    <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken ?>">
                     <button class="all-actions__button-search"></button>
-                    <input type="search" class="all-actions__search" placeholder="Поиск">
+                    <input type="search" name="search" class="all-actions__search" placeholder="Поиск">
                     <ul class="all-actions__select">
                         <li class="init">Текущие и будущие акции</li>
-                        <li data-value="value 1">Акции за вчера: 25 января</li>
-                        <li data-value="value 2">Акции за сегодня: 26 января</li>
-                        <li data-value="value 3">Акции за завтра: 27 января</li>
+                        <li class="date" data-value="<?= date('Y-m-d', time() - Time::DAY) ?>">
+                            Акции за вчера: <?= Yii::$app->formatter->asDate(time() - Time::DAY, 'php:d M'); ?>
+                        </li>
+                        <li class="date" data-value="<?= date('Y-m-d', time()) ?>">
+                            Акции за сегодня: <?= Yii::$app->formatter->asDate(time(), 'php:d M'); ?>
+                        </li>
+                        <li class="date" data-value="<?= date('Y-m-d', time() + Time::DAY) ?>">
+                            Акции за завтра: <?= Yii::$app->formatter->asDate(time() + Time::DAY, 'php:d M'); ?>
+                        </li>
                         <li>Акции на
-                            <input type="text" placeholder="26-01-20">
+                            <input class="date-input" type="text" name="date"
+                                   placeholder="<?= Yii::$app->formatter->asDate(time(), 'php:Y-m-d'); ?>">
                             <button>Применить</button>
                         </li>
                     </ul>
@@ -52,57 +63,50 @@ $this->params['breadcrumbs'][] = 'Акции';
                     всё, что продается в магазинах Вашего города.
                 </div>
                 <?php
-                $k = 1;
-
-                foreach ($stock as $item): ?>
-                    <!--                --><?php //Debug::prn($item); if(in_array($k, $placeStock)):?>
-                    <a href="<?= Url::to(['/promotions/promotions/view', 'slug' => $item->slug]) ?>">
+                foreach ($stocks as $stock): ?>
+                    <a href="<?= Url::to(['/promotions/promotions/view', 'slug' => $stock->slug]) ?>">
                         <div class="all-actions__item">
                             <div class="all-actions__img">
-                                <img src="<?= $item->photo ?>" alt="">
+                                <img src="<?= $stock->photo ?>" alt="">
                             </div>
-                            <h2 class="all-actions__title-item"><?= $item->title; ?>
-                                <span class="all-actions__title-item--view"><?= $item->view; ?></span>
+                            <h2 class="all-actions__title-item"><?= $stock->title; ?>
+                                <span class="all-actions__title-item--view"><?= $stock->view; ?></span>
                             </h2>
                             <div class="all-actions__company">
                                 <div class="all-actions__company--img">
-                                    <img src="<?= $item->company->photo ?>"
-                                         alt="<?= !empty($item->company->alt) ? $item->company->alt : $item->company->name ?>">
+                                    <img src="<?= $stock->company->photo ?>"
+                                         alt="<?= !empty($stock->company->alt) ? $stock->company->alt : $stock->company->name ?>">
                                 </div>
                                 <h3 class="all-actions__company--title">
-                                    <a href="<?= Url::to(['/company/company/view', 'slug' => $item['company']->slug]); ?>">
-                                        <?= $item->company->name ?>
+                                    <a href="<?= Url::to(['/company/company/view', 'slug' => $stock['company']->slug]); ?>">
+                                        <?= $stock->company->name ?>
                                     </a>
                                 </h3>
                                 <div class="all-actions__company--addres">
                                     <?php
-                                    if ($item->company->region_id != 0)
-                                        echo GeobaseFunction::getRegionName($item->company->region_id) . ', ' . GeobaseFunction::getCityName($item->company->city_id) . ', ' . $item->company->address;
+                                    if ($stock->company->region_id != 0)
+                                        echo GeobaseFunction::getRegionName($stock->company->region_id) . ', ' . GeobaseFunction::getCityName($stock->company->city_id) . ', ' . $stock->company->address;
                                     else
-                                        echo $item->company->address;
+                                        echo $stock->company->address;
                                     ?>
                                 </div>
                             </div>
                             <div class="all-actions__description">
                                 <?php
-                                if ($item->short_descr) echo $item->short_descr;
-                                elseif (!empty($item->descr)) echo mb_substr($item->descr, 0, 110) . '...';
+                                if ($stock->short_descr) echo $stock->short_descr;
+                                elseif (!empty($stock->descr)) echo mb_substr($stock->descr, 0, 110) . '...';
                                 ?>
                             </div>
                             <div class="all-actions__bottom">
-                                <a href="<?= Url::to(['/promotions/promotions/view', 'slug' => $item->slug]) ?>"
+                                <a href="<?= Url::to(['/promotions/promotions/view', 'slug' => $stock->slug]) ?>"
                                    class="all-actions__bottom--more">Подробнее</a>
                                 <a href="#" class="all-actions__bottom--comments">Добавить коментарий</a>
-                                <span class="all-actions__bottom--sale"><?= $item->dt_event; ?></span>
+                                <span class="all-actions__bottom--sale"><?= $stock->dt_event; ?></span>
                             </div>
                             <div class="all-actions__favorites"></div>
                         </div>
                     </a>
-                    <!--                    --><?php //endif; ?>
-                    <?php $k++; endforeach; ?>
-
-
-                <a href="" data-step="1" id="load-more-company" class="show-more">загрузить больше</a>
+                <?php endforeach; ?>
 
             </div>
 
