@@ -31,7 +31,7 @@ $this->registerJs(
             <li><a href="<?= Url::to(['/currency/default/all']) ?>">Валютный рынок</a></li>
             <li><a href="<?= Url::to(['/currency']) ?>">Валюта</a></li>
             <li><a href="<?= Url::to(['/currency', 'type' => Currency::TYPE_COIN]) ?>"
-                   class="<?php if ($coin === true) echo 'active'; ?>">Криптовалюта</a>
+                   class="<?php if (isset($coin) && $coin === true) echo 'active'; ?>">Криптовалюта</a>
             </li>
             <li><a href="<?= Url::to(['/currency', 'type' => Currency::TYPE_METAL]) ?>">Металлы</a></li>
             <li><a href="<?= Url::to(['/currency', 'type' => Currency::TYPE_GSM]) ?>">Фьючерсы</a></li>
