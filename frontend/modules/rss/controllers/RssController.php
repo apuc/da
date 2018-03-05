@@ -219,28 +219,7 @@ class RssController extends Controller {
                 'title'       => function ( $model, $widget, \Zelenin\Feed $feed ) {
                     return $model->title;
                 },
-                /*'enclosure'   => function ( $model, $widget, \Zelenin\Feed $feed ) {
-                    if ( ! empty( $model->getLargePhoto() ) ) {
-                        $feed->addItemEnclosure( $model->getLargePhoto(), 123, 'image/jpeg' );
-                    }
-                },*/
-                'description' => function ( $model, $widget, \Zelenin\Feed $feed ) {
-                    return StringHelper::truncateWords( strip_tags( $model->text ), 50 );
-                },
-                'link'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
-                    return 'https://da-info.pro/stream/'.$model->slug/*Url::to( [ '/stream/' . $model->slug ], true )*/;
-                },
-                'guid'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
 
-                    return 'https://da-info.pro/stream/'.$model->slug;
-                },
-                'pubDate'     => function ( $model, $widget, \Zelenin\Feed $feed ) {
-
-                    $date = date( DATE_RSS, $model->dt_publish );
-
-                    return $date;
-
-                },
                 'save'        => function ( $model, $widget, \Zelenin\Feed $feed ) {
 
                     $feed->save( 'rss/stream.xml' );
