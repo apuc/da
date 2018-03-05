@@ -259,8 +259,7 @@ class RssController extends Controller {
 
                     $feed->save( 'rss/stream.xml' );
 
-                },
-
+                }
             ]
         ] );
     }
