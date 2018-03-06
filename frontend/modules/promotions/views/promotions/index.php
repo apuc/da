@@ -2,6 +2,9 @@
 /**
  * @var Stock $stock
  * @var array $stocks
+ * @var int $sumStocks
+ * @var int $step
+ * @var bool $isReadMore
  */
 
 use common\classes\GeobaseFunction;
@@ -13,7 +16,6 @@ use yii\widgets\Breadcrumbs;
 
 $this->title = "Акции - DA Info";
 $this->registerJsFile('/js/stock.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-$this->registerJsFile('/js/promotions.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->params['breadcrumbs'][] = 'Акции';
 
@@ -103,11 +105,22 @@ $this->params['breadcrumbs'][] = 'Акции';
                                 <a href="#" class="all-actions__bottom--comments">Добавить коментарий</a>
                                 <span class="all-actions__bottom--sale"><?= $stock->dt_event_description; ?></span>
                             </div>
-                            <div class="all-actions__favorites"></div>
+                            <?php if ($stock->recommended == 1): ?>
+                                <div class="all-actions__favorites"></div>
+                            <?php endif; ?>
                         </div>
                     </a>
                 <?php endforeach; ?>
-
+                <?php if ($isReadMore): ?>
+                    <a href=""
+                       data-page="1"
+                       data-step="<?= $step ?>"
+                       data-sum="<?= $sumStocks ?>"
+                       id="load-more-company"
+                       class="show-more show-more-stock">
+                        загрузить больше
+                    </a>
+                <?php endif; ?>
             </div>
 
         </div>

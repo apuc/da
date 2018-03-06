@@ -1,35 +1,44 @@
 $(document).ready(function () {
     $(document).on('click', '.show-more-stock', function () {
-        var page = parseInt($(this).attr('data-page'));
-        $(this).attr('data-page', page+1);
+        var a = $(this);
+        var page = parseInt(a.attr('data-page'));
+        var step, sum = 0;
         $.ajax({
             url: '/promotions/promotions/read-more-stock',
             type: "POST",
             data: {
-                '_csrf': $("input[name='_csrf']").val(),
+                '_csrf': yii.getCsrfToken(),
                 'page': page
             },
-            success: function (data) {
-                $('.news__wrap_buttons').before(data);
-
-                /*$('.addParentCategory').html(data);*/
-                //$('.addSelectCateg').before(data);
+            success: function (html) {
+                a.before(html);
+                page++;
+                a.attr('data-page', page);
+                step = parseInt(a.attr('data-step'));
+                sum = parseInt(a.attr('data-sum'));
+                if (sum - page * step <= 0) {
+                    a.remove();
+                }
             }
         });
         return false;
     });
 
-    $(document).on('click', '.stockView', function () {
-        //console.log($(this).closest('.stockBlock').attr('data-id'));
-        $.ajax({
-            url: '/promotions/promotions/update-view',
-            type: "POST",
-            data: {
-                '_csrf': $("input[name='_csrf']").val(),
-                'id': $(this).closest('.stockBlock').attr('data-id')
-            },
-            success: function (data) {}
-        });
-
+    $(document).on('click', 'li.date', function () {
+        $('input.input-group').val($(this).data('value'));
+        $('.submit-stock').click();
     });
+
+    // $(document).on('click', '.stockView', function () {
+    //     $.ajax({
+    //         url: '/promotions/promotions/update-view',
+    //         type: "POST",
+    //         data: {
+    //             '_csrf': yii.getCsrfToken(),
+    //             'id': $(this).closest('.stockBlock').attr('data-id')
+    //         },
+    //         success: function (data) {
+    //         }
+    //     });
+    // });
 });
