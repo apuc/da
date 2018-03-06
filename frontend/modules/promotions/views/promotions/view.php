@@ -1,6 +1,6 @@
 <?php
 /** @var Stock $model
- * @var Stock $item
+ * @var Stock $stock
  * @var array $stocks
  */
 
@@ -97,47 +97,49 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="single-actions__interested">
                 <?php
-                foreach ($stocks as $item): ?>
-                    <a href="<?= Url::to(['/promotions/promotions/view', 'slug' => $item->slug]) ?>">
+                foreach ($stocks as $stock): ?>
+                    <a href="<?= Url::to(['/promotions/promotions/view', 'slug' => $stock->slug]) ?>">
                         <div class="all-actions__item">
                             <div class="all-actions__img">
-                                <img src="<?= $item->photo ?>" alt="">
+                                <img src="<?= $stock->photo ?>" alt="">
                             </div>
-                            <h2 class="all-actions__title-item"><?= $item->title; ?>
-                                <span class="all-actions__title-item--view"><?= $item->view; ?></span>
+                            <h2 class="all-actions__title-item"><?= $stock->title; ?>
+                                <span class="all-actions__title-item--view"><?= $stock->view; ?></span>
                             </h2>
                             <div class="all-actions__company">
                                 <div class="all-actions__company--img">
-                                    <img src="<?= $item->company->photo ?>"
+                                    <img src="<?= $stock->company->photo ?>"
                                          alt="<?= !empty($model->company->alt) ? $model->company->alt : $model->company->name ?>">
                                 </div>
                                 <h3 class="all-actions__company--title">
-                                    <a href="<?= Url::to(['/company/company/view', 'slug' => $item['company']->slug]); ?>">
-                                        <?= $item->company->name ?>
+                                    <a href="<?= Url::to(['/company/company/view', 'slug' => $stock['company']->slug]); ?>">
+                                        <?= $stock->company->name ?>
                                     </a>
                                 </h3>
                                 <div class="all-actions__company--addres">
                                     <?php
-                                    if ($item->company->region_id != 0)
-                                        echo GeobaseFunction::getRegionName($item->company->region_id) . ', ' . GeobaseFunction::getCityName($item->company->city_id) . ', ' . $item->company->address;
+                                    if ($stock->company->region_id != 0)
+                                        echo GeobaseFunction::getRegionName($stock->company->region_id) . ', ' . GeobaseFunction::getCityName($stock->company->city_id) . ', ' . $stock->company->address;
                                     else
-                                        echo $item->company->address;
+                                        echo $stock->company->address;
                                     ?>
                                 </div>
                             </div>
                             <div class="all-actions__description">
                                 <?php
-                                if ($item->short_descr) echo $item->short_descr;
-                                elseif (!empty($item->descr)) echo mb_substr($item->descr, 0, 110) . '...';
+                                if ($stock->short_descr) echo $stock->short_descr;
+                                elseif (!empty($stock->descr)) echo mb_substr($stock->descr, 0, 110) . '...';
                                 ?>
                             </div>
                             <div class="all-actions__bottom">
-                                <a href="<?= Url::to(['/promotions/promotions/view', 'slug' => $item->slug]) ?>"
+                                <a href="<?= Url::to(['/promotions/promotions/view', 'slug' => $stock->slug]) ?>"
                                    class="all-actions__bottom--more">Подробнее</a>
                                 <a href="#" class="all-actions__bottom--comments">Добавить коментарий</a>
-                                <span class="all-actions__bottom--sale"><?= $item->dt_event_description; ?></span>
+                                <span class="all-actions__bottom--sale"><?= $stock->dt_event_description; ?></span>
                             </div>
-                            <div class="all-actions__favorites"></div>
+                            <?php if ($stock->recommended == 1): ?>
+                                <div class="all-actions__favorites"></div>
+                            <?php endif; ?>
                         </div>
                     </a>
                 <?php endforeach; ?>

@@ -54,23 +54,32 @@ class PromotionsController extends Controller
         ];
     }
 
+    /**
+     * @return string
+     */
     public function actionIndex()
     {
+        $isReadMore = true;
+        $step = 9;
         $stocks = Stock::find()
             ->where(['status' => 0])
             ->orderBy('dt_update DESC')
-            ->limit(9)
+            ->limit($step)
             ->with('company')
             ->all();
+        $sumStocks = Stock::find()
+            ->where(['status' => 0])
+            ->count();
         $placeStock = [2, 6, 7];
-        $post = Yii::$app->request->post();
 
+        $post = Yii::$app->request->post();
         if ($post) {
             if (!empty($post['search'])) {
                 $stocks = Stock::find()
                     ->where(['status' => 0])
                     ->andFilterWhere(['like', 'title', $post['search']])
                     ->all();
+                $isReadMore = false;
             }
             if (!empty($post['date'])) {
                 $stocks = Stock::find()
@@ -78,28 +87,35 @@ class PromotionsController extends Controller
                     ->andWhere(['<=', "dt_event", $post['date']])
                     ->andWhere(['>=', "dt_event_end", $post['date']])
                     ->all();
+                $isReadMore = false;
             }
         }
         return $this->render('index', [
             'stocks' => $stocks,
+            'sumStocks' => $sumStocks,
+            'step' => $step,
+            'isReadMore' => $isReadMore,
             'placeStock' => $placeStock
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function actionReadMoreStock()
     {
+        $step = 9;
         $request = Yii::$app->request->post();
-
-        $stock = Stock::find()
+        $stocks = Stock::find()
             ->where(['status' => 0])
             ->orderBy('dt_update DESC')
-            ->offset($request['page'] * 9)
-            ->limit(9)
+            ->offset($request['page'] * $step)
+            ->limit($step)
             ->with('company')
             ->all();
         $placeStock = [2, 6, 7];
         return $this->renderPartial('read-more', [
-            'stock' => $stock,
+            'stocks' => $stocks,
             'placeStock' => $placeStock
         ]);
     }
@@ -109,6 +125,9 @@ class PromotionsController extends Controller
         Stock::updateAllCounters(['view' => 1], ['id' => Yii::$app->request->post('id')]);
     }
 
+    /**
+     * @return string|\yii\web\Response
+     */
     public function actionCreate()
     {
         $this->layout = "personal_area";
@@ -145,6 +164,11 @@ class PromotionsController extends Controller
         }
     }
 
+    /**
+     * @param $id
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException
+     */
     public function actionUpdate($id)
     {
         $this->layout = 'personal_area';
@@ -186,6 +210,11 @@ class PromotionsController extends Controller
         }
     }
 
+    /**
+     * @param $id
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
+     */
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
@@ -223,6 +252,11 @@ class PromotionsController extends Controller
         ]);
     }
 
+    /**
+     * @param $id
+     * @return null|static|Stock
+     * @throws NotFoundHttpException
+     */
     protected function findModel($id)
     {
         if (($model = Stock::findOne($id)) !== null) {
