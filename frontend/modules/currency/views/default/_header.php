@@ -34,7 +34,7 @@ $this->registerJs(
                    class="<?php if (isset($coin) && $coin === true) echo 'active'; ?>">Криптовалюта</a>
             </li>
             <li><a href="<?= Url::to(['/currency', 'type' => Currency::TYPE_METAL]) ?>">Металлы</a></li>
-            <li><a href="<?= Url::to(['/currency', 'type' => Currency::TYPE_GSM]) ?>">Фьючерсы</a></li>
+            <li><a href="<?= Url::to(['/currency', 'type' => Currency::TYPE_GSM]) ?>">Сырьё</a></li>
             <li><a href="<?= Url::to(['/currency/converter']) ?>">Конвертер</a></li>
         </ul>
     </div>
