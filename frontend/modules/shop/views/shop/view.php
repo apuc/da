@@ -58,7 +58,8 @@ $this->title = $model->title;
             <a href="#" class="single-shop__deliver">
                 Склады в ДНР
             </a>
-            <?= $rating = 0;
+            <?php
+                $rating = 0;
                 $summArr = ArrayHelper::getColumn($model['reviews'], 'rating');
                 if(!empty($summArr) ){
                     $rating = array_sum($summArr) / count($model['reviews']);
