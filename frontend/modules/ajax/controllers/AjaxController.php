@@ -13,12 +13,14 @@ use common\models\db\Faq;
 use common\models\db\PossibleAnswers;
 use common\models\db\PostsConsulting;
 use common\models\db\PostsDigest;
+use common\models\db\ProductsReviews;
 use common\models\db\Question;
 use common\models\db\SiteError;
 use common\models\db\News;
 use common\models\db\Subscribe;
 use frontend\models\user\Profile;
 use frontend\modules\company\models\Company;
+use frontend\modules\shop\widgets\ReviewsProducts;
 use frontend\widgets\Poll;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -339,5 +341,18 @@ class AjaxController extends Controller
 
 
         return true;
+    }
+
+
+    public function actionAddReviewsProducts()
+    {
+        $form_model = new ProductsReviews();
+        if(\Yii::$app->request->isAjax && $form_model->load(\Yii::$app->request->post())){
+            $form_model->user_id = Yii::$app->user->id;
+            $form_model->dt_add = time();
+            $form_model->save();
+        }
+        echo "Спасибо";
+
     }
 }

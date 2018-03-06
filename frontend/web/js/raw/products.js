@@ -135,6 +135,99 @@ $(document).ready(function () {
     });
 
 
+
+    //Рейтинг
+    $('#input-1-xs').on('rating:change', function(event, value, caption) {
+       $("#productsreviews-rating").val(value);
+
+    });
+
+    $(document).on('submit', '#addReviewsProducts', function(){
+        $.pjax.reload({
+            container: ".single-shop__tab-item",
+            url: '/ajax/ajax/add-reviews-products',
+            data: $(this).serialize(),
+            replace: false,
+            timeout: 10000
+        });
+        return false;
+
+        /*var raiting = $('#reatingValue').val();
+        console.log(raiting);
+        var text = $('#commentText').val();
+        var spirit = $('#reatingValue').attr('data-spirit');
+        var id = $('#reatingValue').attr('data-id-spirit');
+        $.ajax({
+            type: 'POST',
+            url: "/ajax/ajax/add_reviews",
+            data: 'text=' + text + '&raiting=' + raiting + '&id=' + id + '&spirit=' + spirit,
+            success: function (data) {
+                $('.addReviewsFormWr').html('<h3>Ваш отзыв добавлен. После модерации он будет опубликован.</h3>')
+            }
+        });
+        return false;*/
+    });
+
+    $('#addReviewsProducts').on('beforeSubmit', function(){
+        var data = $(this).serialize();
+        $.ajax({
+            url: '/ajax/ajax/add-reviews-products',
+            type: 'POST',
+            data: data,
+            success: function(res){
+                $('#addReviewsProducts').html(res);
+            },
+            error: function(){
+                alert('Error!');
+            }
+        });
+        return false;
+    });
+
+    $('#input-1-xs').rating({
+            theme: "",
+            language: "ru",
+            stars: 5,
+            filledStar: '<i class="fa fa-star fa-fw"></i>',
+            emptyStar: '<i class="fa fa-star fa-fw"></i>',
+            containerClass: "",
+            size: "xs",
+            animate: !0,
+            displayOnly: !1,
+            rtl: !1,
+            showClear: 0,
+            showCaption: !0,
+            starCaptionClasses: {
+                1: "label label-danger badge-danger",
+                2: "label label-warning badge-warning",
+                3: "label label-info badge-info",
+                4: "label label-primary badge-primary",
+                5: "label label-success badge-success"
+            },
+            clearButton: '<i class="glyphicon glyphicon-minus-sign"></i>',
+            clearButtonBaseClass: "clear-rating",
+            clearButtonActiveClass: "clear-rating-active",
+            clearCaptionClass: "label label-default",
+            clearValue: null,
+            captionElement: null,
+            clearElement: null,
+            hoverEnabled: !0,
+            hoverChangeCaption: !0,
+            hoverChangeStars: !0,
+            hoverOnClear: !0,
+            zeroAsNull: !0,
+            defaultCaption: "Stars {rating}",
+            starCaptions: {
+                1: "1",
+                2: "2",
+                3: "3",
+                4: "4",
+                5: "5"
+            },
+            clearCaption: "Нет оценки"
+    }
+    );
+
 });
 function priceCount()
 {

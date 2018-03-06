@@ -8,7 +8,10 @@ use common\classes\GeobaseFunction;
 $this->registerJsFile('/theme/portal-donbassa/js/jquery.zoom.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->registerJsFile('/theme/portal-donbassa/js/slick.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/star-rating.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/raw/products.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+
+$this->registerCssFile('/css/star-rating.min.css');
 
 
 $this->title = $model->title;
@@ -54,7 +57,7 @@ $this->title = $model->title;
             <a href="#" class="single-shop__deliver">
                 Склады в ДНР
             </a>
-            <!--<div class='rating-stars'>
+            <div class='rating-stars'>
                 <ul id='stars'>
                     <li class='star selected' title='Poor' data-value='1'>
                         <i class='fa fa-star fa-fw'></i>
@@ -79,7 +82,7 @@ $this->title = $model->title;
                 <a href="#">
                     199 заказа(ов)
                 </a>
-            </div>-->
+            </div>
         </div>
         <div class="single-shop__info-content">
             <?= $this->render('_price', ['model' => $model]);?>
@@ -231,7 +234,9 @@ $this->title = $model->title;
             </div>
 
             <div class="single-shop__tab-item">
-                <h2 class="single-shop__tab-title">Отзывы товара</h2>
+                <?= \frontend\modules\shop\widgets\ReviewsProducts::widget(['productId' => $model->id]); ?>
+
+
             </div>
 
             <div class="single-shop__tab-item">
