@@ -45,8 +45,8 @@ class Products extends \yii\db\ActiveRecord
             [['company_id', 'category_id', 'price', 'new_price', 'status', 'dt_add', 'dt_update', 'user_id'], 'integer'],
             [['description'], 'string'],
             [['title', 'slug', 'cover'], 'string', 'max' => 255],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => CategoryShop::className(), 'targetAttribute' => ['category_id' => 'id']],
-            [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => CategoryShop::class, 'targetAttribute' => ['category_id' => 'id']],
+            [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::class, 'targetAttribute' => ['company_id' => 'id']],
         ];
     }
 
@@ -77,7 +77,7 @@ class Products extends \yii\db\ActiveRecord
      */
     public function getProductFieldsValues()
     {
-        return $this->hasMany(ProductFieldsValue::className(), ['product_id' => 'id']);
+        return $this->hasMany(ProductFieldsValue::class, ['product_id' => 'id']);
     }
 
     /**
@@ -85,7 +85,7 @@ class Products extends \yii\db\ActiveRecord
      */
     public function getCategory()
     {
-        return $this->hasOne(CategoryShop::className(), ['id' => 'category_id']);
+        return $this->hasOne(CategoryShop::class, ['id' => 'category_id']);
     }
 
     /**
@@ -93,7 +93,7 @@ class Products extends \yii\db\ActiveRecord
      */
     public function getCompany()
     {
-        return $this->hasOne(Company::className(), ['id' => 'company_id']);
+        return $this->hasOne(Company::class, ['id' => 'company_id']);
     }
 
     /**
@@ -101,6 +101,14 @@ class Products extends \yii\db\ActiveRecord
      */
     public function getImages()
     {
-        return $this->hasMany(ProductsImg::className(), ['product_id' => 'id']);
+        return $this->hasMany(ProductsImg::class, ['product_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getReviews()
+    {
+        return $this->hasMany(ProductsReviews::class, ['product_id' => 'id']);
     }
 }

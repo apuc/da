@@ -228,6 +228,29 @@ $(document).ready(function () {
     }
     );
 
+    $('#input-2-xs').rating({
+            theme: "",
+            language: "ru",
+            stars: 5,
+            filledStar: '<i class="fa fa-star fa-fw"></i>',
+            emptyStar: '<i class="fa fa-star fa-fw"></i>',
+            containerClass: "",
+            size: "xs",
+            animate: !0,
+            displayOnly: 1,
+            rtl: !1,
+            showClear: 0,
+            showCaption: 0,
+            hoverEnabled: 0,
+            hoverChangeCaption: !0,
+            hoverChangeStars: !0,
+            hoverOnClear: !0,
+            zeroAsNull: !0,
+            defaultCaption: "Stars {rating}",
+            step: '0.1'
+    }
+    );
+
 });
 function priceCount()
 {

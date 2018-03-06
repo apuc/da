@@ -4,6 +4,7 @@
  */
 
 use common\classes\GeobaseFunction;
+use yii\helpers\ArrayHelper;
 
 $this->registerJsFile('/theme/portal-donbassa/js/jquery.zoom.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
@@ -57,31 +58,23 @@ $this->title = $model->title;
             <a href="#" class="single-shop__deliver">
                 Склады в ДНР
             </a>
+            <?= $rating = 0;
+                $summArr = ArrayHelper::getColumn($model['reviews'], 'rating');
+                if(!empty($summArr) ){
+                    $rating = array_sum($summArr) / count($model['reviews']);
+                }
+
+            ?>
             <div class='rating-stars'>
-                <ul id='stars'>
-                    <li class='star selected' title='Poor' data-value='1'>
-                        <i class='fa fa-star fa-fw'></i>
-                    </li>
-                    <li class='star selected' title='Fair' data-value='2'>
-                        <i class='fa fa-star fa-fw'></i>
-                    </li>
-                    <li class='star selected' title='Good' data-value='3'>
-                        <i class='fa fa-star fa-fw'></i>
-                    </li>
-                    <li class='star selected' title='Excellent' data-value='4'>
-                        <i class='fa fa-star fa-fw'></i>
-                    </li>
-                    <li class='star' title='WOW!!!' data-value='5'>
-                        <i class='fa fa-star fa-fw'></i>
-                    </li>
-                </ul>
+                <input id="input-2-xs" data-step="0.1" value="<?= $rating; ?>">
+
 
                 <a href="#">
-                    <span> 4.9 </span> голоса(ов))
+                    <span> <?= $rating; ?> </span> голоса(ов))
                 </a>
-                <a href="#">
+                <!--<a href="#">
                     199 заказа(ов)
-                </a>
+                </a>-->
             </div>
         </div>
         <div class="single-shop__info-content">
@@ -207,7 +200,7 @@ $this->title = $model->title;
     <div class="single-shop__tabs">
         <ul class="single-shop__tab-links">
             <li>Описание товара</li>
-            <li>Отзывы <span>(123)</span></li>
+            <li>Отзывы <span>(<?= count($model['reviews'])?>)</span></li>
             <li>Доставка и оплата</li>
             <li class="feedback">Связаться с продавцом</li>
         </ul>
@@ -234,7 +227,7 @@ $this->title = $model->title;
             </div>
 
             <div class="single-shop__tab-item">
-                <?= \frontend\modules\shop\widgets\ReviewsProducts::widget(['productId' => $model->id]); ?>
+                <?= \frontend\modules\shop\widgets\ReviewsProducts::widget(['productId' => $model->id, 'reviews' => $model['reviews']]); ?>
 
 
             </div>

@@ -14,17 +14,18 @@ use yii\base\Widget;
 class ReviewsProducts extends Widget
 {
     public $productId;
+    public $reviews;
     public function run()
     {
         $model = new ProductsReviews();
 
-        $reviews = ProductsReviews::find()->where(['product_id' => $this->productId])->all();
+        //$reviews = ProductsReviews::find()->where(['product_id' => $this->productId])->all();
 
         return $this->render('reviews',
             [
                 'model' => $model,
                 'productId' => $this->productId,
-                'reviews' => $reviews,
+                'reviews' => $this->reviews,
             ]);
     }
 }
