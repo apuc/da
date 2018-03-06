@@ -48,8 +48,8 @@ class m180305_080450_create_products_reviews_table extends Migration
      */
     public function down()
     {
-        /*$this->dropForeignKey('products_reviews_to_user_fk', 'products_reviews');
-        $this->dropForeignKey('products_reviews_to_product_fk', 'products_reviews');*/
+        $this->dropForeignKey('products_reviews_to_user_fk', 'products_reviews');
+        $this->dropForeignKey('products_reviews_to_product_fk', 'products_reviews');
 
         $this->dropTable('products_reviews');
     }
