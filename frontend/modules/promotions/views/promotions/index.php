@@ -5,6 +5,7 @@
  * @var int $sumStocks
  * @var int $step
  * @var bool $isReadMore
+ * @var string $request
  */
 
 use common\classes\GeobaseFunction;
@@ -64,6 +65,16 @@ $this->params['breadcrumbs'][] = 'Акции';
                     строительные материалы, мебель, косметику, товары для дома и офиса, услуги и многое другое, то есть
                     всё, что продается в магазинах Вашего города.
                 </div>
+                <?php
+                if (!empty($request)):
+                    if (empty($stocks)) {
+                        $request .= ' ничего не';
+                    }
+                    ?>
+                    <h3>
+                        По запросу <?= $request; ?> найдено:
+                    </h3>
+                <?php endif; ?>
                 <?php
                 foreach ($stocks as $stock): ?>
                     <a href="<?= Url::to(['/promotions/promotions/view', 'slug' => $stock->slug]) ?>">
