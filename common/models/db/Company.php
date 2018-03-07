@@ -35,6 +35,8 @@ use yii\helpers\ArrayHelper;
  * @property integer $main
  * @property integer $verifikation
  * @property string $alt
+ * @property string $delivery
+ * @property string $payment
  *
  * @property CategoryCompanyRelations[] $categoryCompanyRelations
  * @property News[] $news
@@ -56,7 +58,8 @@ class Company extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['dt_add', 'dt_update', 'status', 'lang_id', 'views', 'user_id', 'vip', 'tariff_id', 'dt_end_tariff', 'region_id', 'city_id', 'recommended', 'main', 'verifikation'], 'integer'], [['descr'], 'string'],
+            [['dt_add', 'dt_update', 'status', 'lang_id', 'views', 'user_id', 'vip', 'tariff_id', 'dt_end_tariff', 'region_id', 'city_id', 'recommended', 'main', 'verifikation'], 'integer'],
+            [['descr', 'payment', 'delivery'], 'string'],
             [
                 ['name', 'address', 'phone', 'email', 'photo', 'slug', 'meta_title', 'meta_descr', 'alt'],
                 'string',
@@ -93,6 +96,8 @@ class Company extends \yii\db\ActiveRecord
             'main' => Yii::t('company', 'Main'),
             'verifikation' => Yii::t('company', 'Verifikation'),
             'alt' => Yii::t('company', 'Alt Tag'),
+            'delivery' => Yii::t('company', 'Delivery'),
+            'payment' => Yii::t('company', 'Payment'),
         ];
     }
 

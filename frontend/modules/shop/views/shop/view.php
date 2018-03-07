@@ -235,6 +235,10 @@ $this->title = $model->title;
 
             <div class="single-shop__tab-item">
                 <h2 class="single-shop__tab-title">Доставка и оплата</h2>
+                <?= $model['company']->delivery; ?>
+                <?= $model['company']->payment; ?>
+
+
             </div>
 
             <div>
@@ -254,37 +258,37 @@ $this->title = $model->title;
 
         <a href="#" target="_blank" class="social-wrap__item vk">
 
-            <img src="img/soc/vk.png" alt="vk">
+            <img src="/theme/portal-donbassa/img/soc/vk.png" alt="vk">
             <!-- <span>03</span>-->
         </a>
 
         <a href="#" target="_blank" class="social-wrap__item fb">
 
-            <img src="img/soc/fb.png" alt="fb">
+            <img src="/theme/portal-donbassa/img/soc/fb.png" alt="fb">
             <!-- <span>12</span>-->
         </a>
 
         <a href="#" target="_blank" class="social-wrap__item ok">
 
-            <img src="img/soc/ok-icon.png" alt="ok">
+            <img src="/theme/portal-donbassa/img/soc/ok-icon.png" alt="ok">
             <!-- <span>05</span>-->
         </a>
 
         <a href="#" target="_blank" class="social-wrap__item insta">
 
-            <img src="img/soc/insta-icon.png" alt="instagramm">
+            <img src="/theme/portal-donbassa/img/soc/insta-icon.png" alt="instagramm">
             <!-- <span>63</span>-->
         </a>
 
         <a href="#" target="_blank" class="social-wrap__item google">
 
-            <img src="img/soc/google-icon.png" alt="google">
+            <img src="/theme/portal-donbassa/img/soc/google-icon.png" alt="google">
             <!--<span>36</span>-->
         </a>
 
         <a href="#" target="_blank" class="social-wrap__item twitter">
 
-            <img src="img/soc/twi-icon.png" alt="twitter">
+            <img src="/theme/portal-donbassa/img/soc/twi-icon.png" alt="twitter">
             <!--<span>11</span>-->
         </a>
 

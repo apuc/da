@@ -216,6 +216,24 @@ if (isset($services['count_text'])) {
 ?>
 
 
+<?= $form->field($model, 'delivery')
+    ->textarea([
+        'class' => 'cabinet__add-company-form--text',
+    ])
+    ->hint('Введите информацию о доставки Вашей компании. Если компания не осуществляет доставку,
+        оставьте поле пустым.')
+    ->label('Доставка');
+?>
+
+
+<?= $form->field($model, 'payment')
+    ->textarea([
+        'class' => 'cabinet__add-company-form--text',
+    ])
+    ->hint('Введите информацию о возможных способах оплаты в вашей компании')
+    ->label('Оплаты');
+?>
+
 <?php
 if (isset($services['count_photo'])) {
     ?>

@@ -115,5 +115,24 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 ?>
 
 
+<?= $form->field($model, 'delivery')
+    ->textarea([
+        'class' => 'cabinet__add-company-form--text jsHint',
+    ])
+    ->hint('Введите информацию о доставки Вашей компании. Если компания не осуществляет доставку,
+        оставьте поле пустым.')
+    ->label('Доставка');
+?>
+
+
+<?= $form->field($model, 'payment')
+    ->textarea([
+        'class' => 'cabinet__add-company-form--text jsHint',
+    ])
+    ->hint('Введите информацию о возможных способах оплаты в вашей компании')
+    ->label('Оплаты');
+?>
+
+
 <?= Html::submitButton('Сохранить', ['class' => 'cabinet__add-company-form--submit']) ?>
 <?php ActiveForm::end(); ?>

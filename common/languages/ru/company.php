@@ -32,4 +32,6 @@ return [
     'Verifikation' => 'Верифицированная компания',
     'Show Menu' => 'Выводить в верхнем меню',
     'Alt Tag' => 'Alt тэг',
+    'Payment' => 'Оплата',
+    'Delivery' => 'Доставка',
 ];
