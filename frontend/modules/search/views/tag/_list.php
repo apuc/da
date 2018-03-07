@@ -6,99 +6,35 @@
  * Time: 9:20
  */
 
-//\common\classes\Debug::prn($model['type']);
 
 use common\classes\WordFunctions;
 use yii\helpers\Html;
+use yii\helpers\StringHelper;
+use yii\helpers\Url;
 
 if ($model['type'] == 'news') {
-
-        $url = \yii\helpers\Url::to(['/news/default/view', 'slug' => $model['nslug']]);
-        $materialType = 'Новости';
-        $photo = $model['nphoto'];
-        $title = $model['nn'];
-        $dt = $model['ndt'];
-        $descr = $model['ncontent'];
-        ?>
-        <a href="<?= $url; ?>" class="search-content__item">
-
-            <p class="search-content__item--title"><?= $materialType; ?></p>
-
-            <div class="search-content__item--img">
-                <img src="<?= $photo ?>">
-            </div>
-
-            <div class="search-content__item--content">
-
-                <h3><?= $title; ?></h3>
-                <span><?= WordFunctions::dateWithMonts($dt); ?></span>
-
-                <?= Html::tag('p', yii\helpers\StringHelper::truncate(strip_tags($descr), 150, '...')) ?>
-
-            </div>
-
-        </a>
-        <?php
-
-    //\common\classes\Debug::prn(1);
+    $url = Url::to(['/news/default/view', 'slug' => $model['slug']]);
+    $materialType = 'Новости';
 }
-
 if ($model['type'] == 'company') {
-
-        $url = \yii\helpers\Url::to(['/company/company/view', 'slug' => $model['cslug']]);
-        $materialType = 'Предприятие';
-        $photo = $model['cphoto'];
-        $title = $model['cn'];
-        $dt = $model['cdt'];
-        $descr = $model['ccontent'];
-        ?>
-        <a href="<?= $url; ?>" class="search-content__item">
-
-            <p class="search-content__item--title"><?= $materialType; ?></p>
-
-            <div class="search-content__item--img">
-                <img src="<?= $photo ?>">
-            </div>
-
-            <div class="search-content__item--content">
-
-                <h3><?= $title; ?></h3>
-                <span><?= WordFunctions::dateWithMonts($dt); ?></span>
-
-                <?= Html::tag('p', yii\helpers\StringHelper::truncate(strip_tags($descr), 150, '...')) ?>
-
-            </div>
-
-        </a>
-        <?php
-
+    $url = Url::to(['/company/company/view', 'slug' => $model['slug']]);
+    $materialType = 'Предприятие';
 }
-
 if ($model['type'] == 'poster') {
-    $url = \yii\helpers\Url::to(['/poster/default/view', 'slug' => $model['pslug']]);
+    $url = Url::to(['/poster/default/view', 'slug' => $model['slug']]);
     $materialType = 'Афиша';
-    $photo = $model['pphoto'];
-    $title = $model['pn'];
-    $dt = $model['pdt'];
-    $descr = $model['pcontent'];
-    ?>
-    <a href="<?= $url; ?>" class="search-content__item">
-
-        <p class="search-content__item--title"><?= $materialType; ?></p>
-
-        <div class="search-content__item--img">
-            <img src="<?= $photo ?>">
-        </div>
-
-        <div class="search-content__item--content">
-
-            <h3><?= $title; ?></h3>
-            <span><?= WordFunctions::dateWithMonts($dt); ?></span>
-
-            <?= Html::tag('p', yii\helpers\StringHelper::truncate(strip_tags($descr), 150, '...')) ?>
-
-        </div>
-
-    </a>
-<?php
 }
+?>
+<a href="<?= $url; ?>" class="search-content__item">
+    <p class="search-content__item--title">
+        <?= $materialType; ?>
+    </p>
+    <div class="search-content__item--img">
+        <img src="<?= $model['photo']; ?>">
+    </div>
+    <div class="search-content__item--content">
+        <h3><?= $model['title']; ?></h3>
+        <span><?= WordFunctions::dateWithMonts($model['dt_update']); ?></span>
+        <?= Html::tag('p', StringHelper::truncate(strip_tags($model['content']), 150, '...')) ?>
+    </div>
+</a>
