@@ -17,7 +17,11 @@ class TagController extends Controller
 {
     public function actionIndex()
     {
+        $allTags = Tags::find()->all();
         $request = \Yii::$app->request->get();
+        if (empty($request['id'])) {
+            return $this->render('empty-tag', ['allTags' => $allTags]);
+        }
         $searchModel = new TagSearch();
         $searchModel->tagId = $request['id'];
 
@@ -25,11 +29,9 @@ class TagController extends Controller
 
         $randTags = $searchModel->randTags();
 
-        $allTags = Tags::find()->all();
-
         return $this->render('tag-index', [
             //'searchModel' => $searchModel,
-            'tag' => Tags::find()->where(['id' => $request['id']])->one()->tag,
+            'tag' => Tags::findOne(['id' => $request['id']])->tag,
             'dataProvider' => $dataProvider,
             'randTags' => $randTags,
             'allTags' => $allTags
