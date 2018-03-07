@@ -8,13 +8,9 @@
 
 namespace frontend\modules\search\models;
 
-use backend\modules\tags\models\TagsRelation;
-use common\classes\Debug;
 use common\models\db\Tags;
 use yii\data\ActiveDataProvider;
-use yii\data\SqlDataProvider;
 use yii\db\Query;
-use yii\helpers\ArrayHelper;
 
 class TagSearch
 {
@@ -22,7 +18,6 @@ class TagSearch
 
     public function search()
     {
-        $limit = 15;
         $countArr = count($this->tagId);
         if ($countArr >= 1 && !is_string($this->tagId)) {
             $idStr = implode(',', $this->tagId);
@@ -44,8 +39,7 @@ class TagSearch
                 "`tags_relation`.`type` = 'news' 
                      AND `news`.`id` = `tags_relation`.`post_id`
                      AND `tags_relation`.`tag_id` IN({$idStr})")
-            ->where(['news.status' => 0])
-            ->limit($limit);
+            ->where(['news.status' => 0]);
 
         $queryCompany = (new Query())
             ->select([
@@ -62,8 +56,7 @@ class TagSearch
                 "`tags_relation`.`type` = 'company' 
                      AND `company`.`id` = `tags_relation`.`post_id` 
                      AND `tags_relation`.`tag_id` IN({$idStr})")
-            ->where(['company.status' => 0])
-            ->limit($limit);
+            ->where(['company.status' => 0]);
 
         $queryPoster = (new Query())
             ->select([
@@ -80,8 +73,7 @@ class TagSearch
                 "`tags_relation`.`type` = 'poster' 
                      AND `poster`.`id` = `tags_relation`.`post_id` 
                      AND `tags_relation`.`tag_id` IN({$idStr})")
-            ->where(['poster.status' => 0])
-            ->limit($limit);
+            ->where(['poster.status' => 0]);
 
         $unionQuery = $queryNews->union($queryCompany)->union($queryPoster);
         $query = (new Query())
@@ -92,7 +84,7 @@ class TagSearch
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => $limit,
+                'pageSize' => 15,
                 'pageSizeParam' => false,
             ],
         ]);
