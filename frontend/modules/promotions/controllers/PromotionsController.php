@@ -59,6 +59,7 @@ class PromotionsController extends Controller
      */
     public function actionIndex()
     {
+        $request = '';
         $isReadMore = true;
         $step = 9;
         $stocks = Stock::find()
@@ -80,6 +81,7 @@ class PromotionsController extends Controller
                     ->andFilterWhere(['like', 'title', $post['search']])
                     ->all();
                 $isReadMore = false;
+                $request = '"' . $post['search'] . '"';
             }
             if (!empty($post['date'])) {
                 $stocks = Stock::find()
@@ -88,6 +90,7 @@ class PromotionsController extends Controller
                     ->andWhere(['>=', "dt_event_end", $post['date']])
                     ->all();
                 $isReadMore = false;
+                $request = '"' . $post['date'] . '"';
             }
         }
         return $this->render('index', [
@@ -95,7 +98,9 @@ class PromotionsController extends Controller
             'sumStocks' => $sumStocks,
             'step' => $step,
             'isReadMore' => $isReadMore,
-            'placeStock' => $placeStock
+            'placeStock' => $placeStock,
+            'request' => $request,
+
         ]);
     }
 
