@@ -13,6 +13,7 @@ use common\classes\Debug;
 use common\models\db\Tags;
 use yii\data\ActiveDataProvider;
 use yii\data\SqlDataProvider;
+use yii\db\Query;
 use yii\helpers\ArrayHelper;
 
 class TagSearch
@@ -21,79 +22,77 @@ class TagSearch
 
     public function search()
     {
-        /*$query = TagsRelation::find()->select(
-            '`news`.`title` = cn,
-            `company`.`name` as cn,
-             COUNT(*) as c');
+        $limit = 15;
+        $countArr = count($this->tagId);
+        if ($countArr >= 1 && !is_string($this->tagId)) {
+            $idStr = implode(',', $this->tagId);
+        } else {
+            $idStr = $this->tagId;
+        }
+        $queryNews = (new Query())
+            ->select([
+                'news.id',
+                'tags_relation.type',
+                'news.title AS title',
+                'news.slug',
+                'news.photo',
+                'news.dt_update',
+                'news.content AS content'
+            ])
+            ->from('news')
+            ->innerJoin('tags_relation',
+                "`tags_relation`.`type` = 'news' 
+                     AND `news`.`id` = `tags_relation`.`post_id`
+                     AND `tags_relation`.`tag_id` IN({$idStr})")
+            ->where(['news.status' => 0])
+            ->limit($limit);
+
+        $queryCompany = (new Query())
+            ->select([
+                'company.id',
+                'tags_relation.type',
+                'company.name  AS title',
+                'company.slug',
+                'company.photo',
+                'company.dt_update',
+                'company.descr AS content'
+            ])
+            ->from('company')
+            ->innerJoin('tags_relation',
+                "`tags_relation`.`type` = 'company' 
+                     AND `company`.`id` = `tags_relation`.`post_id` 
+                     AND `tags_relation`.`tag_id` IN({$idStr})")
+            ->where(['company.status' => 0])
+            ->limit($limit);
+
+        $queryPoster = (new Query())
+            ->select([
+                'poster.id',
+                'tags_relation.type',
+                'poster.title AS title',
+                'poster.slug',
+                'poster.photo',
+                'poster.dt_update',
+                'poster.descr AS content'
+            ])
+            ->from('poster')
+            ->innerJoin('tags_relation',
+                "`tags_relation`.`type` = 'poster' 
+                     AND `poster`.`id` = `tags_relation`.`post_id` 
+                     AND `tags_relation`.`tag_id` IN({$idStr})")
+            ->where(['poster.status' => 0])
+            ->limit($limit);
+
+        $unionQuery = $queryNews->union($queryCompany)->union($queryPoster);
+        $query = (new Query())
+            ->from(['unionQuery' => $unionQuery])
+            ->orderBy(['dt_update' => SORT_DESC]);
 
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 15,
-                'pageSizeParam' => false,
-            ],
-        ]);
-
-        $query->leftJoin('news', 'tags_relation.type = \'news\' AND `news`.`id`=`tags_relation`.`post_id`');
-        $query->leftJoin('company', 'tags_relation.type = \'company\' AND `company`.`id`=`tags_relation`.`post_id`');
-
-        $query->with('news', 'company');
-
-        $query->where( ['`tags_relation`.`tag_id`' => $this->tagId] );
-        //Debug::prn($this->tagId);
-        //$query->where(['AND', 'tag_id', [2, 3, 4]]);
-        $query->groupBy('type, post_id');
-
-        $query->orderBy('`news`.`dt_update` DESC');
-        $query->addOrderBy('`company`.`dt_update` DESC');
-        $query->having('c=2');
-
-        Debug::prn($query->createCommand()->rawSql);*/
-        $countArr = count($this->tagId);
-        if($countArr >= 1 && !is_string ($this->tagId)){
-            $idStr = implode(',', $this->tagId);
-        }else{
-            $idStr = $this->tagId;
-        }
-
-
-        $sql = "SELECT 
-            `tags_relation`.`type` as type,
-            `news`.`title` as nn,
-            `news`.`slug` as nslug,
-            `news`.`photo` as nphoto,
-            `news`.`dt_update` as ndt,
-            `news`.`content` as ncontent,
-            `company`.`name` as cn,
-            `company`.`slug` as cslug,
-            `company`.`photo` as cphoto,
-            `company`.`dt_update` as cdt,
-            `company`.`descr` as ccontent,
-            
-            `poster`.`title` as pn,
-            `poster`.`slug` as pslug,
-            `poster`.`photo` as pphoto,
-            `poster`.`dt_update` as pdt,
-            `poster`.`descr` as pcontent,
-            
-            COUNT(*) as c 
-            FROM `tags_relation` 
-            LEFT JOIN `news` ON tags_relation.type = 'news' AND `news`.`id`=`tags_relation`.`post_id` 
-            LEFT JOIN `company` ON tags_relation.type = 'company' AND `company`.`id`=`tags_relation`.`post_id`
-            LEFT JOIN `poster` ON tags_relation.type = 'poster' AND `poster`.`id`=`tags_relation`.`post_id`
-            WHERE `tag_id` IN ($idStr) AND (`news`.`status`=0 OR `company`.`status`=0 OR `poster`.`status`=0)
-
-            GROUP BY type, post_id HAVING c = $countArr
-            ORDER BY `news`.`dt_update`, `company`.`dt_update`, `poster`.`dt_update` DESC";
-
-
-       /* $query  =  TagsRelation::findBySql($sql);*/
-
-        $dataProvider = new SqlDataProvider([
-            'sql' => $sql,
-            'pagination' => [
-                'pageSize' => 15,
+                'pageSize' => $limit,
                 'pageSizeParam' => false,
             ],
         ]);
@@ -107,8 +106,8 @@ class TagSearch
 
         $tags = '';
         foreach ($randTags as $key => $tag) {
-            $tags .= $tag['tag'] ;
-            if($key < 4) {
+            $tags .= $tag['tag'];
+            if ($key < 4) {
                 $tags .= '|';
             }
         }
