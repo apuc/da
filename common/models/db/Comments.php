@@ -23,6 +23,7 @@ class Comments extends \yii\db\ActiveRecord
 {
 
     public $cnt;
+
     /**
      * @inheritdoc
      */
@@ -56,9 +57,9 @@ class Comments extends \yii\db\ActiveRecord
             'content' => Yii::t('comments', 'Content'),
             'dt_add' => Yii::t('comments', 'Dt Add'),
             'parent_id' => Yii::t('comments', 'Parent'),
-            'moder_checked' => Yii::t('comments', 'Отмечено модератором'),
-            'published' => Yii::t('comments', 'Опубликовано'),
-            'verified' => Yii::t('verified', 'Проверка'),
+            'moder_checked' => Yii::t('comments', 'Moder Checked'),
+            'published' => Yii::t('comments', 'Published'),
+            'verified' => Yii::t('comments', 'Verified'),
         ];
     }
 
