@@ -2,6 +2,7 @@
 
 use common\models\db\News;
 use common\models\db\Pages;
+use common\models\db\Stock;
 use common\models\User;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -78,15 +79,23 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                     if ($model->post_type == 'news') {
                         $result = News::find()->where(['id' => $model->post_id])->one();
-                        $html =  Html::a($result->title,
-                            Yii::$app->urlManagerFrontend->createUrl(['news/default/view', 'slug'=>$result->slug]),
+                        $html = Html::a($result->title,
+                            Yii::$app->urlManagerFrontend->createUrl(['news/default/view', 'slug' => $result->slug]),
                             ['target' => '_blank']);
 
                     }
                     if ($model->post_type == 'page') {
                         $result = Pages::find()->where(['id' => $model->post_id])->one();
 
-                        $html =  Html::a($result->title,
+                        $html = Html::a($result->title,
+                            Yii::$app->urlManagerFrontend->createUrl(['page/' . $result->slug]),
+                            ['target' => '_blank']);
+                    }
+
+                    if ($model->post_type == 'promotions') {
+                        $result = Stock::find()->where(['id' => $model->post_id])->one();
+
+                        $html = Html::a($result->title,
                             Yii::$app->urlManagerFrontend->createUrl(['page/' . $result->slug]),
                             ['target' => '_blank']);
                     }
@@ -94,7 +103,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     if ($model->post_type == 'vk_post') {
                         $result = \backend\modules\vk\models\VkStream::find()->where(['id' => $model->post_id])->one();
                         //\common\classes\Debug::prn($result);
-                        $html =  Html::a($result['title'],
+                        $html = Html::a($result['title'],
                             Yii::$app->urlManagerFrontend->createUrl(['stream/' . $result['slug']]),
                             ['target' => '_blank']);
                     }
@@ -180,8 +189,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             Url::to(['update-verified', 'id' => $model->id]),
                             ['class' => 'btn btn-danger verified']
                         );
-                    }
-                    else {
+                    } else {
                         $btn = Html::a(
                             'Проверено',
                             Url::to(['update-verified', 'id' => $model->id]),
