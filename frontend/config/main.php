@@ -70,12 +70,12 @@ return \yii\helpers\ArrayHelper::merge([
         'cart' => [
             'class' => 'frontend\components\Cart'
         ],
-        'session'=>[
-            'timeout' => 12*60*60,
+        'session' => [
+            'timeout' => 12 * 60 * 60,
         ],
         'mymessages' => [
             //Обязательно
-            'class'    => 'vision\messages\components\MyMessages',
+            'class' => 'vision\messages\components\MyMessages',
             //не обязательно
             //класс модели пользователей
             //по-умолчанию \Yii::$app->user->identityClass
@@ -96,12 +96,12 @@ return \yii\helpers\ArrayHelper::merge([
             'enableEmail' => true,
             //задаем функцию для возврата адреса почты
             //в качестве аргумента передается объект модели пользователя
-            'getEmail' => function($user_model) {
+            'getEmail' => function ($user_model) {
                 return $user_model->email;
             },
             //задаем функцию для возврата лого пользователей в списке контактов (для виджета cloud)
             //в качестве аргумента передается id пользователя
-            'getLogo' => function($user_id) {
+            'getLogo' => function ($user_id) {
                 return '\img\ghgsd.jpg';
             },
             //указываем шаблоны сообщений, в них будет передаваться сообщение $message
@@ -121,32 +121,32 @@ return \yii\helpers\ArrayHelper::merge([
         ],
 
         'authClientCollection' => [
-            'class'   => \yii\authclient\Collection::className(),
+            'class' => \yii\authclient\Collection::className(),
 
             'clients' => [
                 'vkontakte' => [
-                    'class'        => 'dektrium\user\clients\VKontakte',
-                    'clientId'     => '6213596',
+                    'class' => 'dektrium\user\clients\VKontakte',
+                    'clientId' => '6213596',
                     'clientSecret' => 'UD0DdeOTDUAEhWntNc5c',
                     'title' => '',
                 ],
                 'facebook' => [
-                    'class'        => 'dektrium\user\clients\Facebook',
-                    'clientId'     => '393139631141463',
+                    'class' => 'dektrium\user\clients\Facebook',
+                    'clientId' => '393139631141463',
                     'clientSecret' => 'da146fed3a481f1b6e92a1dd8e58d559',
                     'title' => '',
                 ],
                 'twitter' => [
-                    'class'          => 'dektrium\user\clients\Twitter',
-                    'consumerKey'    => 'OtX4znMtlHY9pFfBebY3oyGfb',
+                    'class' => 'dektrium\user\clients\Twitter',
+                    'consumerKey' => 'OtX4znMtlHY9pFfBebY3oyGfb',
                     'consumerSecret' => 'vxHi6mwFxnjCbYbeFlim3l8GDt8Ce078YMW3dfY309EBAhdq5J',
-                    'title'          => '',
+                    'title' => '',
                 ],
                 'google' => [
-                    'class'        => 'dektrium\user\clients\Google',
-                    'clientId'     => '136978158391-mp2isb5rqisr158bmmfdnr6j0eqgn629.apps.googleusercontent.com',
+                    'class' => 'dektrium\user\clients\Google',
+                    'clientId' => '136978158391-mp2isb5rqisr158bmmfdnr6j0eqgn629.apps.googleusercontent.com',
                     'clientSecret' => 'LLTc-C8JQQuHYzjbLAm2AV_I',
-                    'title'          => '',
+                    'title' => '',
                 ],
             ],
         ],
@@ -163,7 +163,7 @@ return \yii\helpers\ArrayHelper::merge([
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'request'      => [
+        'request' => [
             'baseUrl' => '',
             //'class' => 'frontend\components\LangRequest',
         ],
@@ -172,30 +172,26 @@ return \yii\helpers\ArrayHelper::merge([
             'showScriptName' => false,
             'rules' => [
                 '' => 'mainpage/default',
-                'news' => 'news/default',
-                'all-news/<page:\d+>/<per-page:\d+>' => 'news/news/index',
-                'news/<slug>' => 'news/default/view',
+
+
+                //==============================PERSONAL_AREA==============================
+                'personal-area' => 'personal_area/default/index',
+                'personal-area/user-news' => 'personal_area/user-news',
+                'personal-area/user-poster' => 'personal_area/user-poster',
+                'personal-area/user-promotions' => 'personal_area/user-promotions',
+                'personal-area/user-company' => 'personal_area/user-company',
+                'personal-area/user-comments' => 'personal_area/user-comments',
+                'personal-area/user-ads' => 'personal_area/user-ads',
+
+
+                //==============================COMPANY==============================
+                'all-company' => 'company/company',
                 'company' => 'company/default',
-                [
-                    'pattern' => 'company/company/update',
-                    'route' => 'company/company/update',
-                ],
-                [
-                    'pattern' => 'company/company/get-more-company',
-                    'route' => 'company/company/get-more-company',
-                ],
-                [
-                    'pattern' => 'company/company/create',
-                    'route' => 'company/company/create',
-                ],
-                [
-                    'pattern' => 'company/company/delete',
-                    'route' => 'company/company/delete',
-                ],
-                [
-                    'pattern' => 'company/set-tariff-company/<id:\d+>',
-                    'route' => 'company/default/set-tariff-company',
-                ],
+                'company/company/get-more-company' => 'company/company/get-more-company',
+                'company/create' => 'company/company/create',
+                'company/update/<id:\d+>' => 'company/company/update',
+                'company/delete/<id:\d+>' => 'company/company/delete',
+                'company/set-tariff-company/<id:\d+>' => 'company/default/set-tariff-company',
                 [
                     //'pattern' => 'company/set-tariff-company/<id:\d+>',
                     'pattern' => 'company/to-order/<companyId:\d+>/<tariffId:\d+>/<price:\d+>',
@@ -209,62 +205,94 @@ return \yii\helpers\ArrayHelper::merge([
                 'company/category/<slug>' => 'company/company/view-category',
                 'company/<slug>/<page>' => 'company/company/view',
                 'company/<slug>' => 'company/company/view',
+
+
+                //==============================NEWS==============================
                 'all-new' => 'news/news',
-                'all-company' => 'company/company',
+                'news' => 'news/default',
+                'all-news/<page:\d+>/<per-page:\d+>' => 'news/news/index',
+                'news/<slug>' => 'news/default/view',
                 'news/category/<slug>' => 'news/news/category',
                 'news/archive/<date>' => 'news/news/archive',
+                'news/update/<id:\d+>' => 'news/news/update',
+                'news/delete/<id:\d+>' => 'news/news/delete',
 
+
+                //==============================POSTER==============================
                 'poster/<slug>' => 'poster/default/view',
                 'all-poster' => 'poster/default/category',
                 'all-poster-archive' => 'site/error',
                 'poster/category/<slug>' => 'poster/default/single_category',
                 'poster-archive/category/<slug>' => 'poster/default/single_archive_category',
                 'poster/archive/<date>' => 'poster/default/archive',
-                'consulting'=> 'consulting/consulting',
-                'consulting/<slug>'=>'/consulting/consulting/view',
-                'faq/<slug>'=>'/consulting/consulting/faq',
-                'faq-categories/<slugcategory>'=>'/consulting/consulting/faq-categories',
-                'faq/<slug>/<faqslug>'=>'/consulting/consulting/faqv',
-                'posts/<slug>'=>'/consulting/consulting/posts',
-                'posts-categories/<slug>'=>'/consulting/consulting/posts-categories',
-                'posts/<slug>/<postslug>'=>'/consulting/consulting/postsv',
-                'documents/<slug>'=>'/consulting/consulting/documents',
-                'documents-categories/<slug>'=>'/consulting/consulting/documents-categories',
-                'documents/<slug>/<catslug>/<postslug>'=>'/consulting/consulting/documentsv',
-                'documents/<slug>/<postslug>'=>'/consulting/consulting/documentsv',
-                '/document/<slug>'=>'/consulting/consulting/document',
-                '/post/<slug>'=>'/consulting/consulting/post',
-                '/faq-post/<slug>'=>'/consulting/consulting/faq-post',
+                'poster/update/<id:\d+>' => 'poster/default/update',
+                'poster/delete/<id:\d+>' => 'poster/default/delete',
+
+
+                //==============================CONSULTING==============================
+                'consulting' => 'consulting/consulting',
+                'consulting/<slug>' => '/consulting/consulting/view',
+                'faq/<slug>' => '/consulting/consulting/faq',
+                'faq-categories/<slugcategory>' => '/consulting/consulting/faq-categories',
+                'faq/<slug>/<faqslug>' => '/consulting/consulting/faqv',
+                'posts/<slug>' => '/consulting/consulting/posts',
+                'posts-categories/<slug>' => '/consulting/consulting/posts-categories',
+                'posts/<slug>/<postslug>' => '/consulting/consulting/postsv',
+                'documents/<slug>' => '/consulting/consulting/documents',
+                'documents-categories/<slug>' => '/consulting/consulting/documents-categories',
+                'documents/<slug>/<catslug>/<postslug>' => '/consulting/consulting/documentsv',
+                'documents/<slug>/<postslug>' => '/consulting/consulting/documentsv',
+                '/document/<slug>' => '/consulting/consulting/document',
+                '/post/<slug>' => '/consulting/consulting/post',
+                '/faq-post/<slug>' => '/consulting/consulting/faq-post',
+
+
+                //==============================PAGES==============================
                 'page/<slug>' => '/pages/default/view',
-                //'ajax'=> 'ajax/default',
-                //'ajax/send_poll'=> 'ajax/default/send_poll',
+
+
+                //==============================PROMOTIONS==============================
                 'promotions' => '/promotions/promotions/index',
                 'promotions/<slug>' => '/promotions/promotions/view',
+                'promotions/update/<id:\d+>' => 'promotions/promotions/update',
+                'promotions/delete/<id:\d+>' => 'promotions/promotions/delete',
 
+
+                //==============================STREAM==============================
                 'stream' => 'stream/default/index',
                 'stream/<type:(tw)>/<slug>' => 'stream/default/view',
                 'stream/<slug>' => 'stream/default/view',
+
+
+                //==============================SITEMAP==============================
                 ['pattern' => 'sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
                 ['pattern' => 'news-sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
                 ['pattern' => 'company-sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
                 ['pattern' => 'poster-sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
                 ['pattern' => 'stream-sitemap', 'route' => 'sitemap/default/index', 'suffix' => '.xml'],
 
+
+                //==============================BOARD==============================
                 'obyavleniya' => 'board/default',
                 'obyavleniya/<page:\d+>' => 'board/default/index',
                 'obyavleniya/category/<slug>' => 'board/default/category-ads',
                 'obyavleniya/category/<slug>/<page:\d+>' => 'board/default/category-ads',
                 'obyavlenie/<id:\d+>/<slug>/' => 'board/default/view',
+                'board/update/<id:\d+>' => 'board/default/update',
+                'board/delete/<id:\d+>' => 'board/default/delete',
 
+
+                //==============================CURRENCY==============================
                 'currency/converter' => 'currency/default/converter',
                 'currency/detail-coin' => '/currency/default/detail-coin',
                 'currency/view-coin' => '/currency/default/view-coin',
                 'finance' => 'currency/default/all',
-                [
-                    'class' => \frontend\components\ShopRule::class,
-                ],
+
+
+                //==============================SHOP==============================
+                ['class' => \frontend\components\ShopRule::class],
                 //'shop/<action:cart|order>'=>'shop/shop/<action>',
-                'shop/shop/like'=>'shop/shop/like',
+                'shop/shop/like' => 'shop/shop/like',
                 'shop/cart' => 'shop/cart/cart',
                 'shop/cart/set-count' => 'shop/cart/set-count',
                 'shop/cart/order-one-shop' => 'shop/cart/order-one-shop',
@@ -282,9 +310,9 @@ return \yii\helpers\ArrayHelper::merge([
                 'shop/products/show-parent-modal-category' => 'shop/products/show-parent-modal-category',
                 'shop/products/show-category-end' => 'shop/products/show-category-end',
                 'shop/products/show-additional-fields' => 'shop/products/show-additional-fields',
-                'shop/product/<slug>'=>'shop/shop/show',
-                'shop/<category:.+>'=>'shop/shop/category',
-                'shop'=>'shop/default/index',
+                'shop/product/<slug>' => 'shop/shop/show',
+                'shop/<category:.+>' => 'shop/shop/category',
+                'shop' => 'shop/default/index',
             ]
         ],
         'language' => 'ru-RU',
