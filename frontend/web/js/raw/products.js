@@ -52,7 +52,7 @@ $(document).ready(function () {
         return false;
     });
 
-    $('.update-count-cart').click(function () {
+    /*$('.update-count-cart').on('click', function () {
         var product = $(this).attr('product-id');
         var shop = $(this).attr('shop-id');
         var count;
@@ -73,7 +73,7 @@ $(document).ready(function () {
                 }
             });
         }, 100);
-    });
+    });*/
 
     //Изменение кол-ва товара в корзине
     $(document).on('click', '.update-count-cart', function () {
@@ -102,8 +102,14 @@ $(document).ready(function () {
     $(document).on('click', '.update-count', function () {
         setTimeout(function () {
             priceCount();
+        }, 1000);
+    });
+    $('.update-count').on( "click", function() {
+        setTimeout(function () {
+            priceCount();
         }, 100);
     });
+
 
     $(document).on('change', '.count-add-to-cart', function () {
         priceCount();
@@ -184,72 +190,77 @@ $(document).ready(function () {
         return false;
     });
 
-    $('#input-1-xs').rating({
-            theme: "",
-            language: "ru",
-            stars: 5,
-            filledStar: '<i class="fa fa-star fa-fw"></i>',
-            emptyStar: '<i class="fa fa-star fa-fw"></i>',
-            containerClass: "",
-            size: "xs",
-            animate: !0,
-            displayOnly: !1,
-            rtl: !1,
-            showClear: 0,
-            showCaption: !0,
-            starCaptionClasses: {
-                1: "label label-danger badge-danger",
-                2: "label label-warning badge-warning",
-                3: "label label-info badge-info",
-                4: "label label-primary badge-primary",
-                5: "label label-success badge-success"
-            },
-            clearButton: '<i class="glyphicon glyphicon-minus-sign"></i>',
-            clearButtonBaseClass: "clear-rating",
-            clearButtonActiveClass: "clear-rating-active",
-            clearCaptionClass: "label label-default",
-            clearValue: null,
-            captionElement: null,
-            clearElement: null,
-            hoverEnabled: !0,
-            hoverChangeCaption: !0,
-            hoverChangeStars: !0,
-            hoverOnClear: !0,
-            zeroAsNull: !0,
-            defaultCaption: "Stars {rating}",
-            starCaptions: {
-                1: "1",
-                2: "2",
-                3: "3",
-                4: "4",
-                5: "5"
-            },
-            clearCaption: "Нет оценки"
+    if($("input").is("#input-2-xs")) {
+        $('#input-1-xs').rating({
+                theme: "",
+                language: "ru",
+                stars: 5,
+                filledStar: '<i class="fa fa-star fa-fw"></i>',
+                emptyStar: '<i class="fa fa-star fa-fw"></i>',
+                containerClass: "",
+                size: "xs",
+                animate: !0,
+                displayOnly: !1,
+                rtl: !1,
+                showClear: 0,
+                showCaption: !0,
+                starCaptionClasses: {
+                    1: "label label-danger badge-danger",
+                    2: "label label-warning badge-warning",
+                    3: "label label-info badge-info",
+                    4: "label label-primary badge-primary",
+                    5: "label label-success badge-success"
+                },
+                clearButton: '<i class="glyphicon glyphicon-minus-sign"></i>',
+                clearButtonBaseClass: "clear-rating",
+                clearButtonActiveClass: "clear-rating-active",
+                clearCaptionClass: "label label-default",
+                clearValue: null,
+                captionElement: null,
+                clearElement: null,
+                hoverEnabled: !0,
+                hoverChangeCaption: !0,
+                hoverChangeStars: !0,
+                hoverOnClear: !0,
+                zeroAsNull: !0,
+                defaultCaption: "Stars {rating}",
+                starCaptions: {
+                    1: "1",
+                    2: "2",
+                    3: "3",
+                    4: "4",
+                    5: "5"
+                },
+                clearCaption: "Нет оценки"
+            }
+        );
     }
-    );
 
-    $('#input-2-xs').rating({
-            theme: "",
-            language: "ru",
-            stars: 5,
-            filledStar: '<i class="fa fa-star fa-fw"></i>',
-            emptyStar: '<i class="fa fa-star fa-fw"></i>',
-            containerClass: "",
-            size: "xs",
-            animate: !0,
-            displayOnly: 1,
-            rtl: !1,
-            showClear: 0,
-            showCaption: 0,
-            hoverEnabled: 0,
-            hoverChangeCaption: !0,
-            hoverChangeStars: !0,
-            hoverOnClear: !0,
-            zeroAsNull: !0,
-            defaultCaption: "Stars {rating}",
-            step: '0.1'
+
+    if($("input").is("#input-2-xs")) {
+        $('#input-2-xs').rating({
+                theme: "",
+                language: "ru",
+                stars: 5,
+                filledStar: '<i class="fa fa-star fa-fw"></i>',
+                emptyStar: '<i class="fa fa-star fa-fw"></i>',
+                containerClass: "",
+                size: "xs",
+                animate: !0,
+                displayOnly: 1,
+                rtl: !1,
+                showClear: 0,
+                showCaption: 0,
+                hoverEnabled: 0,
+                hoverChangeCaption: !0,
+                hoverChangeStars: !0,
+                hoverOnClear: !0,
+                zeroAsNull: !0,
+                defaultCaption: "Stars {rating}",
+                step: '0.1'
+            }
+        );
     }
-    );
 
 });
 function priceCount()

@@ -71,7 +71,7 @@ $this->title = $model->title;
 
 
                 <a href="#">
-                    <span> <?= $rating; ?> </span> голоса(ов))
+                    <span> <?= round($rating, 2); ?> </span> голоса(ов))
                 </a>
                 <!--<a href="#">
                     199 заказа(ов)
@@ -139,7 +139,7 @@ $this->title = $model->title;
     <div class="single-shop__seller">
         <h4 class="single-shop__store-info--title">Продавец</h4>
         <div class="all-actions__company">
-            <a href="#">
+            <a href="<?= \yii\helpers\Url::to(['/company/company/view', 'slug' => $model['company']->slug]) ?> ">
                 <div class="all-actions__company--img">
                     <img src="<?= $model['company']->photo ?>" alt="">
                 </div>
@@ -153,7 +153,7 @@ $this->title = $model->title;
                 Посмотреть статистику компании
             </a>
         </div>-->
-        <a href="#" class="company-page-btn">Перейти на страницу компании</a>
+        <a href="<?= \yii\helpers\Url::to(['/company/company/view', 'slug' => $model['company']->slug]) ?>" class="company-page-btn">Перейти на страницу компании</a>
     </div>
     <!--<div class="single-shop__buy-history">
         <h4 class="single-shop__store-info--title">История покупок</h4>

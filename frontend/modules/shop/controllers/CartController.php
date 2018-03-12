@@ -55,6 +55,7 @@ class CartController extends Controller
         Yii::$app->cart->update($postData['shop_id'], $postData['product_id'], $postData['count']);
         $cart = Cart::getCart();
 
+
         return $this->renderAjax('cart-ajax', ['cart' => $cart]);
         /*return json_encode([
             'success' => Yii::$app->cart->setCount($postData['product_id'], $postData['count']),

@@ -19,7 +19,7 @@ class ShowProductCompany extends Widget
     public function run()
     {
         $model = Products::find()
-            ->where(['company_id' => $this->companyId])
+            ->where(['company_id' => $this->companyId, 'status' => 1])
             ->andWhere(['!=', 'id', $this->productId])
             ->with('images')
             ->limit(5)

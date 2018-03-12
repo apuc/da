@@ -48,7 +48,7 @@ if(Yii::$app->user->isGuest):?>
         <div class="addReviewsFormWr">
             <div class="reatingWr" >
                 <h3>Поставте оценку</h3>
-                <div style="width: 210px;">
+                <div style="width: 141px;">
                     <!--<input id="input-1-xs"  data-min="0" data-max="5" data-step="1" class="rating rating-loading" data-show-clear="false" data-show-caption="false" data-size="xs">-->
                     <input id="input-1-xs" data-step="1">
                     <?= $form->field($model, 'rating')->hiddenInput()

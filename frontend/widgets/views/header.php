@@ -64,6 +64,12 @@ if ($this->beginCache('show_header_widget_end', ['duration' => Yii::$app->params
                     Объявления
                 </a>
             </li>
+            <li>
+                <a href="<?= \yii\helpers\Url::to(['/shop/products/create']) ?>">
+                    <img src="/theme/portal-donbassa/img/icons/shopping-cart-hover.png" alt="">
+                    Товары
+                </a>
+            </li>
         </ul>
     </div>
                 <form action="<?= Url::to(['/search/search/index']) ?>" method="get">

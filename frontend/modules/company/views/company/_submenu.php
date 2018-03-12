@@ -39,7 +39,7 @@ echo \yii\widgets\Menu::widget(
                 'url' => Url::to(['/company/company/view', 'slug' => $slug, 'page' => 'products']),
                 'template' => '<a href="{url}">{label}<span class="tabs-counters">' . CompanyFunction::getCountProduct($model->id) . '</span></a>',
                 'active' => $page == 'products',
-                'visible' => $role == 'admin',
+                //'visible' => $role == 'admin',
             ],
             [
                 'label' => 'Новости',
