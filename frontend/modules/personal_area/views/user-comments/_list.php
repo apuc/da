@@ -23,7 +23,7 @@ if ($model['post_type'] == 'page') {
 if ($model['post_type'] == 'promotions') {
     $post = Stock::find()->where(['id' => $model['post_id']])->one();
     $title = 'Акции';
-    $url = Url::to(['/page/default/view', 'slug' => $post->slug]);
+    $url = Url::to(['/promotions/promotions/view', 'slug' => $post->slug]);
     $img = $post->photo;
 }
 
