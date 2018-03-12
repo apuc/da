@@ -182,6 +182,7 @@ return \yii\helpers\ArrayHelper::merge([
                 'personal-area/user-company' => 'personal_area/user-company',
                 'personal-area/user-comments' => 'personal_area/user-comments',
                 'personal-area/user-ads' => 'personal_area/user-ads',
+                'personal-area/user-products' => 'personal_area/user-products',
 
 
                 //==============================COMPANY==============================
