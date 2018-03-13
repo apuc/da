@@ -2,8 +2,17 @@
 
 use yii\helpers\Html;
 
-/* @var $this yii\web\View */
-/* @var $model frontend\modules\company\models\Company */
+/**
+ * @var $this yii\web\View
+ * @var $model frontend\modules\company\models\Company
+ * @var $companyRel
+ * @var $services
+ * @var $img
+ * @var $city
+ * @var $categoryCompanyAll
+ * @var $socials
+ *
+ */
 
 $this->title = 'Вы редактируете: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('company', 'Companies'), 'url' => ['index']];
@@ -16,15 +25,12 @@ $this->params['breadcrumbs'][] = Yii::t('company', 'Update');
     <div class="right">
         <?= $this->render('_form-update', [
             'model' => $model,
-            //'selectCat' => $selectCat,
             'companyRel' => $companyRel,
-            //'selectParentCat' => $selectParentCat,
             'services' => $services,
             'img' => $img,
-            'typeSeti' => $typeSeti,
-            'socCompany' => $socCompany,
             'city' => $city,
             'categoryCompanyAll' => $categoryCompanyAll,
+            'socials' => $socials
         ]) ?>
     </div>
 

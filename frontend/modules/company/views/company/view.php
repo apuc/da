@@ -105,20 +105,16 @@ $this->params['breadcrumbs'][] = $model->name;
                             <?php endforeach; ?>
                         <?php endif; ?>
 
-                        <?php if (isset($services['group_link']) && $services['group_link'] == 1 && !empty($socCompany)):
-
-                            foreach ($typeSeti as $type) {
-                                if (isset($socCompany[$type->id]->link)):
-                                    ?>
-                                    <a href="<?= $socCompany[$type->id]->link ?>" target="_blank"
-                                       class="social-wrap__item vk">
-                                        <img src="<?= $type->icon ?>" alt="">
+                        <?php if (isset($services['group_link']) && $services['group_link'] == 1 && !empty($model->socCompany)):
+                            foreach ($model->socCompany as $soc) {
+                                /** @var \common\models\db\SocCompany $soc */
+                                if (!empty($soc->link)): ?>
+                                    <a href="<?= $soc->link ?>" target="_blank"
+                                       class="social-wrap__item">
+                                        <img style="width: 24px; height: 24px" src="<?= $soc->socType->icon ?>" alt="">
                                     </a>
-                                <?php
-                                endif;
-
+                                <?php endif;
                             }
-
                         endif; ?>
                     </div>
 

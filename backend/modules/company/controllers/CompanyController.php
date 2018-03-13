@@ -5,7 +5,6 @@ namespace backend\modules\company\controllers;
 use backend\modules\company\models\SocAvailable;
 use backend\modules\tags\models\Tags;
 use backend\modules\tags\models\TagsRelation;
-use common\classes\Debug;
 use common\classes\GeobaseFunction;
 use common\classes\UserFunction;
 use common\models\db\CategoryCompany;
@@ -17,7 +16,6 @@ use common\models\db\Phones;
 use common\models\db\Services;
 use common\models\db\ServicesCompanyRelations;
 use common\models\db\Stock;
-use common\models\db\TariffServicesRelations;
 use backend\modules\company\models\SocCompany;
 use Yii;
 use backend\modules\company\models\Company;
@@ -50,13 +48,13 @@ class CompanyController extends Controller
         ];
     }
 
-   /* public function beforeAction($action)
-    {
-        $this->enableCsrfValidation = ($action->id !== "update");
-        $this->enableCsrfValidation = ($action->id !== "get_sub_categ");
+    /* public function beforeAction($action)
+     {
+         $this->enableCsrfValidation = ($action->id !== "update");
+         $this->enableCsrfValidation = ($action->id !== "get_sub_categ");
 
-        return parent::beforeAction($action);
-    }*/
+         return parent::beforeAction($action);
+     }*/
 
     /**
      * Lists all Company models.
@@ -100,7 +98,6 @@ class CompanyController extends Controller
         $typeSeti = SocAvailable::find()->all();
 
         $socCompany = SocCompany::find()->where(['company_id' => $model->id])->all();
-        //Debug::prn($socCompany);
         $socCompany = ArrayHelper::index($socCompany, 'soc_type');
         $tags = Tags::find()->asArray()->all();
 
@@ -108,12 +105,8 @@ class CompanyController extends Controller
             if (empty($model->alt)) {
                 $model->alt = $model->name;
             }
-            /*$model->user_id = Yii::$app->user->getId();*/
-            /*$model->save();*/
-            //Debug::prn($model->tariff_id);
-            //Debug::prn(Yii::$app->request->post());
-            if(UserFunction::hasRoles(['Редактор компаний'])) $model->user_id = Yii::$app->user->id;
-            if(!$model->setTariff()) $model->save();
+            if (UserFunction::hasRoles(['Редактор компаний'])) $model->user_id = Yii::$app->user->id;
+            if (!$model->setTariff()) $model->save();
 
             $cats_ids = explode(',', $_POST['cats']);
             foreach ($cats_ids as $cats_id) {
@@ -123,9 +116,9 @@ class CompanyController extends Controller
                 $catCompanyRel->save();
             }
 
-            if(!empty($_POST['socicon'])){
+            if (!empty($_POST['socicon'])) {
                 //SocCompany::deleteAll(['company_id' => $id]);
-                foreach ($_POST['socicon'] as $key=>$value){
+                foreach ($_POST['socicon'] as $key => $value) {
                     $socCompany = new SocCompany();
                     $socCompany->company_id = $model->id;
                     $socCompany->link = $value[0];
@@ -133,11 +126,8 @@ class CompanyController extends Controller
                     $socCompany->save();
                 }
             }
-            //Debug::prn(Yii::$app->request->post('mytext'));
-            if(!empty(Yii::$app->request->post('mytext')))
-            {
-                foreach (Yii::$app->request->post('mytext') as $phone)
-                {
+            if (!empty(Yii::$app->request->post('mytext'))) {
+                foreach (Yii::$app->request->post('mytext') as $phone) {
                     $phones = New Phones();
                     $phones->phone = $phone;
                     $phones->company_id = $model->id;
@@ -145,10 +135,8 @@ class CompanyController extends Controller
                 }
             }
 
-            if(!empty(Yii::$app->request->post('Tags')))
-            {
-                foreach (Yii::$app->request->post('Tags') as $tag)
-                {
+            if (!empty(Yii::$app->request->post('Tags'))) {
+                foreach (Yii::$app->request->post('Tags') as $tag) {
                     $tags = New TagsRelation();
                     $tags->saveTagsRel($tag, $model->id, 'company');
                 }
@@ -161,7 +149,7 @@ class CompanyController extends Controller
                 'city' => GeobaseFunction::getArrayCityRegion(),
                 'typeSeti' => $typeSeti,
                 'tags' => $tags,
-                'tags_selected' =>[],
+                'tags_selected' => [],
             ]);
         }
     }
@@ -180,29 +168,24 @@ class CompanyController extends Controller
         $companyPhotos = CompanyPhoto::findAll(['company_id' => $id]);
         $companyPhotos = ArrayHelper::getColumn($companyPhotos, 'photo');
         $companyPhotosStr = implode(',', $companyPhotos);
-        $typeSeti = SocAvailable::find()->all();
-        $socCompany = SocCompany::find()->where(['company_id' => $model->id])->all();
         $phones = Phones::find()->where(['company_id' => $model->id])->all();
-        //Debug::prn($socCompany);
-        $socCompany = ArrayHelper::index($socCompany, 'soc_type');
         $tags = Tags::find()->asArray()->all();
-        $tags_selected =ArrayHelper::getColumn(TagsRelation::find()->select('tag_id')
+        $tags_selected = ArrayHelper::getColumn(TagsRelation::find()->select('tag_id')
             ->where(['post_id' => $id, 'type' => 'company'])
             ->asArray()
             ->all(), 'tag_id');
 
-        //Debug::prn(ArrayHelper::getColumn($tags_selected, 'tag_id'));
+        $socials = $model->getFullAndEmptySocials();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if (empty($model->alt)) {
                 $model->alt = $model->name;
             }
             $model->phone = '';
-            if($model->tariff_id)
-            {
+            if ($model->tariff_id) {
                 ServicesCompanyRelations::deleteAll(['company_id' => $model->id]);
                 $model->setTariff();
-            }else{
+            } else {
                 $model->tariff_id = 0;
                 $model->dt_end_tariff = 0;
                 $model->save();
@@ -210,12 +193,10 @@ class CompanyController extends Controller
 
             CompanyPhoto::deleteAll(['company_id' => $model->id]);
 
-            if(Yii::$app->request->post('company-photos'))
-            {
+            if (Yii::$app->request->post('company-photos')) {
                 $compPhotos = explode(',', Yii::$app->request->post('company-photos'));
 
-                foreach ($compPhotos as $compPhoto)
-                {
+                foreach ($compPhotos as $compPhoto) {
                     $company_photo = New CompanyPhoto();
                     $company_photo->company_id = $model->id;
                     $company_photo->photo = $compPhoto;
@@ -232,32 +213,25 @@ class CompanyController extends Controller
                 $catCompanyRel->save();
             }
 
-            if(!empty($_POST['socicon'])){
-                SocCompany::deleteAll(['company_id' => $id]);
-                foreach ($_POST['socicon'] as $key=>$value){
-                    $socCompany = new SocCompany();
-                    $socCompany->company_id = $id;
-                    $socCompany->link = $value[0];
-                    $socCompany->soc_type = $key;
-                    $socCompany->save();
+            if (SocCompany::loadMultiple($socials, Yii::$app->request->post()) &&
+                SocCompany::validateMultiple($socials)) {
+                foreach ($socials as $soc) {
+                    /** @var SocCompany $soc */
+                    $soc->save();
                 }
             }
-            //Debug::prn(Yii::$app->request->post('Tags'));
-            if(!empty(Yii::$app->request->post('Tags')))
-            {
+
+            if (!empty(Yii::$app->request->post('Tags'))) {
                 TagsRelation::deleteAll(['post_id' => $id, 'type' => 'company']);
-                foreach (Yii::$app->request->post('Tags') as $tag)
-                {
+                foreach (Yii::$app->request->post('Tags') as $tag) {
                     $tags = New TagsRelation();
                     $tags->saveTagsRel($tag, $id, 'company');
                 }
             }
 
-            if(!empty(Yii::$app->request->post('mytext')))
-            {
+            if (!empty(Yii::$app->request->post('mytext'))) {
                 Phones::deleteAll(['company_id' => $id]);
-                foreach (Yii::$app->request->post('mytext') as $phone)
-                {
+                foreach (Yii::$app->request->post('mytext') as $phone) {
                     $phones = New Phones();
                     $phones->phone = $phone;
                     $phones->company_id = $model->id;
@@ -272,8 +246,7 @@ class CompanyController extends Controller
                 'companyPhotos' => $companyPhotos,
                 'companyPhotosStr' => $companyPhotosStr,
                 'city' => GeobaseFunction::getArrayCityRegion(),
-                'typeSeti' => $typeSeti,
-                'socCompany' => $socCompany,
+                'socials' => $socials,
                 'tags' => $tags,
                 'tags_selected' => $tags_selected,
                 'phones' => $phones
@@ -383,17 +356,16 @@ class CompanyController extends Controller
     {
         $company_old = CompanyOld::find()->all();
 
-        foreach ($company_old as $company)
-        {
-            if(!empty($company->phone)){
+        foreach ($company_old as $company) {
+            if (!empty($company->phone)) {
                 $company_replace = Company::findOne($company->id);
 
 
-                if(!empty($company_replace) && empty($company_replace->phone)){
+                if (!empty($company_replace) && empty($company_replace->phone)) {
                     $company_replace->phone = $company->phone;
 
-                    if($company_replace->save()){
-                        echo 'номер '.$company_replace->phone.' Добавлен к компании '.$company_replace->id."</br>";
+                    if ($company_replace->save()) {
+                        echo 'номер ' . $company_replace->phone . ' Добавлен к компании ' . $company_replace->id . "</br>";
                     }
                 }
             }

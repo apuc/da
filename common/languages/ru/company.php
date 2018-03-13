@@ -10,6 +10,7 @@ return [
     'Name' => 'Название',
     'Companies' => 'Компании',
     'Create Company' => 'Добавить компанию',
+    'Update Company: ' => 'Редактировать компанию: ',
     'Address' => 'Адрес',
     'Phone' => 'Телефон',
     'Photo' => 'Изображение',

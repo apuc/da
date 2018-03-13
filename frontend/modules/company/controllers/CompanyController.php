@@ -3,7 +3,6 @@
 namespace frontend\modules\company\controllers;
 
 use common\classes\CompanyFunction;
-use common\classes\Debug;
 use common\classes\GeobaseFunction;
 use common\classes\UserFunction;
 use common\models\db\CategoryCompany;
@@ -11,14 +10,15 @@ use common\models\db\CategoryCompanyRelations;
 use common\models\db\CompanyPhoto;
 use common\models\db\KeyValue;
 use common\models\db\Phones;
-use common\models\db\SocAvailable;
 use common\models\db\SocCompany;
+use common\models\UploadPhoto;
 use Yii;
 use frontend\modules\company\models\Company;
 use yii\data\Pagination;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\StringHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -90,7 +90,7 @@ class CompanyController extends Controller
             ->where([
                 'status' => 0,
             ]);
-        if($useReg != -1){
+        if ($useReg != -1) {
             $organizationsQuery->andWhere(
                 [
                     'region_id' => $useReg,
@@ -106,7 +106,7 @@ class CompanyController extends Controller
         $wrcQuery = \common\models\db\Company::find()
             ->where(['id' => json_decode($wrc)]);
 
-        if($useReg != -1){
+        if ($useReg != -1) {
             $wrcQuery->andWhere(
                 [
                     'region_id' => $useReg,
@@ -177,6 +177,7 @@ class CompanyController extends Controller
         $model = Company::find()
             ->with('allPhones')
             ->joinWith('tagss.tagname')
+            ->joinWith('socCompany')
             ->where(['slug' => $slug])
             //->andWhere(['`tags_relation`.`type`' => 'company'])
             ->one();
@@ -185,28 +186,18 @@ class CompanyController extends Controller
         }
 
         $services = [];
-        if($model->dt_end_tariff > time() || $model->dt_end_tariff == 0) {
+        if ($model->dt_end_tariff > time() || $model->dt_end_tariff == 0) {
             $services = CompanyFunction::getServiceCompany($model->id);
         }
-
-        $typeSeti = SocAvailable::find()->all();
-
-        $socCompany = SocCompany::find()->where(['company_id' => $model->id])->all();
-
-        $socCompany = ArrayHelper::index($socCompany, 'soc_type');
-
 
         $categoryCompany = CategoryCompanyRelations::find()
             ->with('category.categ')
             ->where(['company_id' => $model->id])
             ->one();
 
-
         return $this->render('view', [
             'model' => $model,
             'services' => $services,
-            'typeSeti' => $typeSeti,
-            'socCompany' => $socCompany,
             'categoryCompany' => $categoryCompany,
             'slug' => $slug,
             'page' => $page,
@@ -222,25 +213,22 @@ class CompanyController extends Controller
      */
     public function actionCreate()
     {
-        //$this->goHome();
-
         $this->layout = "personal_area";
         $model = new Company();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             $model->status = 1;
-            //$model->phone = $phone;
             $model->user_id = Yii::$app->user->id;
             $model->meta_title = $model->name;
-            $model->meta_descr =  \yii\helpers\StringHelper::truncate($model->descr, 250);
+            $model->meta_descr = StringHelper::truncate($model->descr, 250);
 
             if (empty($model->alt)) {
                 $model->alt = $model->name;
             }
 
             if ($_FILES['Company']['name']['photo']) {
-                $upphoto = New \common\models\UploadPhoto();
+                $upphoto = New UploadPhoto();
                 $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
                 $loc = 'media/upload/userphotos/' . date('dmY') . '/';
                 if (!is_dir($loc)) {
@@ -252,8 +240,7 @@ class CompanyController extends Controller
             }
             $model->save();
 
-            //Debug::prn($_POST['mytext']);
-            foreach ($_POST['mytext'] as $item){
+            foreach ($_POST['mytext'] as $item) {
                 $phone = New Phones();
                 $phone->phone = $item;
                 $phone->company_id = $model->id;
@@ -265,28 +252,15 @@ class CompanyController extends Controller
             $catCompanyRel->company_id = $model->id;
             $catCompanyRel->save();
 
-            /*$servisec = TariffServicesRelations::find()->where(['tariff_id' => 1])->all();
-
-            foreach ($servisec as $item){
-                $scr = new ServicesCompanyRelations();
-                $scr->services_id = $item->services_id;
-                $scr->company_id = $model->id;
-                $scr->save();
-            }*/
-
-            Yii::$app->session->setFlash('success','Ваше предприятие успешно добавлено. После прохождения модерации оно будет опубликовано.');
-            return $this->redirect(['/personal_area/default/index']);
-        }
-
-        else {
+            Yii::$app->session->setFlash('success', 'Ваше предприятие успешно добавлено. После прохождения модерации оно будет опубликовано.');
+            return $this->redirect(['/personal_area/user-company']);
+        } else {
             $categoryCompanyAll = CategoryCompany::find()->select('id, title, parent_id')->asArray()->all();
-            //Debug::dd($categoryCompanyAll);
             $data = [];
             foreach ($categoryCompanyAll as $item) {
-                //$data[$item['parent_id']][$item['id']] =  $item;
-                if($item['parent_id'] == 0){
-                    foreach ($categoryCompanyAll as $value){
-                        if($value['parent_id'] == $item['id']){
+                if ($item['parent_id'] == 0) {
+                    foreach ($categoryCompanyAll as $value) {
+                        if ($value['parent_id'] == $item['id']) {
                             $data[$item['title']][$value['id']] = $value['title'];
                         }
                     }
@@ -315,16 +289,18 @@ class CompanyController extends Controller
         $this->layout = "personal_area";
         $model = Company::find()->with('allPhones')->where(['id' => $id])->one();
 
+        $socials = $model->getFullAndEmptySocials();
+
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->phone = '';
-            if(!empty($_POST['mytext'])){
+            if (!empty($_POST['mytext'])) {
                 Phones::deleteAll(['company_id' => $model->id]);
-                foreach ($_POST['mytext'] as $item){
+                foreach ($_POST['mytext'] as $item) {
                     $phone = New Phones();
                     $phone->phone = $item;
                     $phone->company_id = $model->id;
-                    if(!empty($item))
-                            $phone->save();
+                    if (!empty($item))
+                        $phone->save();
                 }
             }
 
@@ -337,7 +313,7 @@ class CompanyController extends Controller
             }
 
             if (!empty($_FILES['Company']['name']['photo'])) {
-                $upphoto = New \common\models\UploadPhoto();
+                $upphoto = New UploadPhoto();
                 $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
                 $loc = 'media/upload/userphotos/' . date('dmY') . '/';
                 if (!is_dir($loc)) {
@@ -346,29 +322,21 @@ class CompanyController extends Controller
                 $upphoto->location = $loc;
                 $upphoto->upload();
                 $model->photo = '/' . $loc . $_FILES['Company']['name']['photo'];
-            }else{
+            } else {
                 $model->photo = $_POST['photo'];
             }
             $model->save();
             CategoryCompanyRelations::deleteAll(['company_id' => $model->id]);
 
-           // Debug::dd($model['categ']);
-            foreach ($model['categ'] as $item){
-
+            foreach ($model['categ'] as $item) {
                 $catCompanyRel = new CategoryCompanyRelations();
                 $catCompanyRel->cat_id = $item;
                 $catCompanyRel->company_id = $model->id;
                 $catCompanyRel->save();
             }
 
-            /*$catCompanyRel = new CategoryCompanyRelations();
-            $catCompanyRel->cat_id = $_POST['categParent'];
-            $catCompanyRel->company_id = $model->id;
-            $catCompanyRel->save();*/
-
-            //Debug::prn($_FILES);
             $i = 0;
-            if(!empty($_FILES['fileCompanyPhoto']['name'][0])){
+            if (!empty($_FILES['fileCompanyPhoto']['name'][0])) {
                 $loc = 'media/upload/userphotos/' . date('dmY') . '/';
                 if (!is_dir($loc)) {
                     mkdir($loc);
@@ -376,94 +344,61 @@ class CompanyController extends Controller
                 if (!file_exists('media/upload/userphotos/' . date('dmY') . '/' . $model->id)) {
                     mkdir('media/upload/userphotos/' . date('dmY') . '/' . $model->id . '/');
                 }
-                if (!file_exists('media/upload/userphotos/' . date('dmY') . '/' . $model->id . '/' .date('Y-m-d'))) {
+                if (!file_exists('media/upload/userphotos/' . date('dmY') . '/' . $model->id . '/' . date('Y-m-d'))) {
                     mkdir('media/upload/userphotos/' . date('dmY') . '/' . $model->id . '/' . date('Y-m-d'));
                 }
 
-                $dir = 'media/upload/userphotos/' . date('dmY') . '/' . $model->id . '/'. date('Y-m-d') . '/';
+                $dir = 'media/upload/userphotos/' . date('dmY') . '/' . $model->id . '/' . date('Y-m-d') . '/';
 
                 foreach ($_FILES['fileCompanyPhoto']['name'] as $file) {
 
-                    move_uploaded_file($_FILES['fileCompanyPhoto']['tmp_name'][$i], $dir.$file);
+                    move_uploaded_file($_FILES['fileCompanyPhoto']['tmp_name'][$i], $dir . $file);
 
                     $companyPhoto = new CompanyPhoto;
                     $companyPhoto->company_id = $model->id;
                     $companyPhoto->photo = '/' . $dir . $file;
                     $companyPhoto->save();
                     $i++;
-
                 }
             }
 
-            if(!empty($_POST['socicon'])){
-                SocCompany::deleteAll(['company_id' => $id]);
-                foreach ($_POST['socicon'] as $key=>$value){
-
-                    $socCompany = new SocCompany();
-                    $socCompany->company_id = $id;
-                    $socCompany->link = $value[0];
-                    $socCompany->soc_type = $key;
-                    $socCompany->save();
+            if (SocCompany::loadMultiple($socials, Yii::$app->request->post()) &&
+                SocCompany::validateMultiple($socials)) {
+                foreach ($socials as $soc) {
+                    /** @var SocCompany $soc */
+                    $soc->save();
                 }
             }
-            Yii::$app->session->setFlash('success','Ваше предприятие успешно сохранено. После прохождения модерации оно будет опубликовано.');
-            return $this->redirect(['/personal_area/default/index']);
+            Yii::$app->session->setFlash('success', 'Ваше предприятие успешно сохранено. После прохождения модерации оно будет опубликовано.');
+            return $this->redirect(['/personal_area/user-company']);
         } else {
             $companyRel = CategoryCompanyRelations::find()->where(['company_id' => $id])->all();
-
             $categoryCompanyAll = CategoryCompany::find()->select('id, title, parent_id')->asArray()->all();
-            //Debug::dd($categoryCompanyAll);
             $data = [];
             foreach ($categoryCompanyAll as $item) {
-                //$data[$item['parent_id']][$item['id']] =  $item;
-                if($item['parent_id'] == 0){
-                    foreach ($categoryCompanyAll as $value){
-                        if($value['parent_id'] == $item['id']){
+                if ($item['parent_id'] == 0) {
+                    foreach ($categoryCompanyAll as $value) {
+                        if ($value['parent_id'] == $item['id']) {
                             $data[$item['title']][$value['id']] = $value['title'];
                         }
                     }
                 }
             }
 
-            /*$data = ['Бизнес услуги' =>
-                [
-                    1 => 'Банки',
-                    2 => 'Банки1',
-                ]
-            ];*/
-
-
-
-            //Debug::dd($data);
-
-            //$selectParentCat = CategoryCompany::find()->where(['id' => $companyRel->cat_id])->one();
-            //$selectCat = CategoryCompany::find()->where(['id' => $selectParentCat->parent_id])->one();
             $services = [];
-            $typeSeti =[];
-            $socCompany = [];
             $img = CompanyPhoto::find()->where(['company_id' => $id])->all();
-           // Debug::dd($model);
-            if($model->dt_end_tariff > time() || $model->dt_end_tariff != 0) {
+            if ($model->dt_end_tariff > time() || $model->dt_end_tariff != 0) {
                 $services = CompanyFunction::getServiceCompany($id);
-
-                $typeSeti = SocAvailable::find()->all();
-
-                $socCompany = SocCompany::find()->where(['company_id' => $id])->all();
-
-
             }
 
             return $this->render('update', [
                 'model' => $model,
-                //'selectCat' => $selectCat,
                 'companyRel' => $companyRel,
-                //'selectParentCat' => $selectParentCat,
                 'services' => $services,
                 'img' => $img,
-                'typeSeti' => $typeSeti,
-                'socCompany' => ArrayHelper::index($socCompany, 'soc_type'),
                 'city' => GeobaseFunction::getArrayCityRegion(),
                 'categoryCompanyAll' => $data,
+                'socials' => $socials
             ]);
         }
     }
@@ -478,13 +413,9 @@ class CompanyController extends Controller
      */
     public function actionDelete($id)
     {
-        /*CategoryCompanyRelations::deleteAll(['company_id' => $id]);
-        ServicesCompanyRelations::deleteAll(['company_id' => $id]);
-        $this->findModel($id)->delete();*/
-
         Company::updateAll(['status' => 3], ['id' => $id]);
 
-        Yii::$app->session->setFlash('success','Ваше предприятие успешно удалено.');
+        Yii::$app->session->setFlash('success', 'Ваше предприятие успешно удалено.');
         return $this->redirect(['/personal_area/default/index']);
     }
 
@@ -518,7 +449,7 @@ class CompanyController extends Controller
         $arryResult = $cat->id;
         if ($cat->parent_id == 0) {
             $category = CategoryCompany::find()->where(['parent_id' => $cat->id])->all();
-            if(!empty($category)){
+            if (!empty($category)) {
                 $arryResult = [];
                 $arryResult = ArrayHelper::getColumn($category, 'id');
                 foreach ($category as $item) {
@@ -529,14 +460,12 @@ class CompanyController extends Controller
         }
 
 
-
-
         $organizationsQuery = Company::find()
             ->with('allPhones')
             ->joinWith('categories')
             ->where(['cat_id' => $arryResult, 'status' => 0]);
 
-        if($useReg != -1){
+        if ($useReg != -1) {
             $organizationsQuery->andWhere(
                 [
                     'region_id' => $useReg,
@@ -607,7 +536,7 @@ class CompanyController extends Controller
             ->where([
                 'status' => 0,
             ]);
-        if($useReg != -1){
+        if ($useReg != -1) {
             $organizationsQuery->andWhere(
                 [
                     'region_id' => $useReg,
@@ -633,12 +562,6 @@ class CompanyController extends Controller
         ]);
     }
 
-    /*public static function actionStartwidgetcompany()
-    {
-
-        return VipCompanyWidget::widget();
-
-    }*/
 
     public function actionGetCompany()
     {
