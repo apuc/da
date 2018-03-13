@@ -38,7 +38,7 @@
                 <span class="basket-counter"><?= Yii::$app->cart->count; ?></span>
             </li>
 
-            <li><a href="#" class="my-desires">Мои желания</a></li>
+            <li><a href="<?= \yii\helpers\Url::to(['/personal_area/user-desire'])?>" class="my-desires">Мои желания</a></li>
         </ul>
 
         <div class="button-second-menu">
