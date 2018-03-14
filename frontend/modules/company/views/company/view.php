@@ -14,14 +14,15 @@
 use common\classes\DataTime;
 use common\classes\GeobaseFunction;
 use common\models\db\SocAvailable;
+use frontend\modules\company\models\Company;
 use frontend\widgets\CompanyRight;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
-$this->title = $model->meta_title;
+$this->title = $model->meta_title . " | " . Company::$submenuLabels[$page];
 $this->registerMetaTag([
     'name' => 'description',
-    'content' => $model->meta_descr,
+    'content' => $model->meta_descr . " | " . Company::$submenuLabels[$page],
 ]);
 $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/company_ajax.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);

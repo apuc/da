@@ -27,6 +27,16 @@ class Company extends \common\models\db\Company
 {
     public $categ;
 
+    public static $submenuLabels = [
+        'about' => 'О компании',
+        'reviews' => 'Отзывы',
+        'stocks' => 'Акции',
+        'news' => 'Новости',
+        'products' => 'Товары',
+        'statistics' => 'Статистика',
+        'map' => 'Карта',
+    ];
+
     public function behaviors()
     {
         return [
