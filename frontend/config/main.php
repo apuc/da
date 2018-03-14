@@ -210,6 +210,7 @@ return \yii\helpers\ArrayHelper::merge([
 
                 //==============================NEWS==============================
                 'all-new' => 'news/news',
+                'news/create' => 'news/news/create',
                 'news' => 'news/default',
                 'all-news/<page:\d+>/<per-page:\d+>' => 'news/news/index',
                 'news/<slug>' => 'news/default/view',
@@ -220,6 +221,7 @@ return \yii\helpers\ArrayHelper::merge([
 
 
                 //==============================POSTER==============================
+                'poster/create' => 'poster/default/create',
                 'poster/<slug>' => 'poster/default/view',
                 'all-poster' => 'poster/default/category',
                 'all-poster-archive' => 'site/error',
@@ -253,6 +255,7 @@ return \yii\helpers\ArrayHelper::merge([
 
 
                 //==============================PROMOTIONS==============================
+                'promotions/create' => '/promotions/promotions/create',
                 'promotions' => '/promotions/promotions/index',
                 'promotions/<slug>' => '/promotions/promotions/view',
                 'promotions/update/<id:\d+>' => 'promotions/promotions/update',
@@ -275,6 +278,7 @@ return \yii\helpers\ArrayHelper::merge([
 
                 //==============================BOARD==============================
                 'obyavleniya' => 'board/default',
+                'board/create' => 'board/default/create',
                 'obyavleniya/<page:\d+>' => 'board/default/index',
                 'obyavleniya/category/<slug>' => 'board/default/category-ads',
                 'obyavleniya/category/<slug>/<page:\d+>' => 'board/default/category-ads',
