@@ -1,41 +1,32 @@
 <?php
+
+use frontend\modules\board\widgets\ShowFilterLeft;
+use frontend\modules\board\widgets\ShowFilterTop;
+use frontend\widgets\ShowRightRecommend;
+use yii\widgets\LinkPager;
+
 /**
- * @var $ads
- * @var $category
- * @var $meta_title
- * @var $meta_desc
+ * @var array $ads
+ * @var string $meta_title
+ * @var string $meta_desc
+ * @var yii\data\Pagination $pagination
  */
 
-$this->title = $meta_title;
-$this->registerMetaTag( [
-    'name'    => 'description',
-    'content' => $meta_desc,
-] );
+if (!empty($pagination->page)) {
+    $description = " | Страница " . ($pagination->page + 1) . " из {$pagination->pageCount}";
+} else {
+    $description = '';
+};
 
-use yii\widgets\LinkPager;
+$this->title = $meta_title . $description;
+$this->registerMetaTag([
+    'name' => 'description',
+    'content' => $meta_desc . $description,
+]);
+
 $this->registerJsFile('/js/jquery-ui-1.12.1/jquery-ui.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 //$this->registerJsFile('/theme/portal-donbassa/js/ads-filter.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-//\common\classes\Debug::prn($ads);
-?>
-
-<?php
-/*    foreach ($ads as $item):
-        //\common\classes\Debug::prn($item);
-*/?><!--
-        <?/*= \yii\helpers\Html::a($item->title, \yii\helpers\Url::to(['view', 'slug' => $item->slug, 'id' => $item->id])); */?>
-
-    <?/*= $item->content; */?>
-    <?/*= $item->price; */?>
-
-    <?php /*if(!empty($item->adsImgs)): */?>
-        <img src="<?/*= $item->adsImgs[0]->img_thumb*/?>" alt="">
-    <?php /*else: */?>
-        нет изображения
-    <?php /*endif; */?>
---><?php
-/*    endforeach;*/
-
 ?>
 
 <!-- start commercial-ads.html-->
@@ -47,34 +38,34 @@ $this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::c
 
             <div class="commercial__content">
 
-                <?= \frontend\modules\board\widgets\ShowFilterTop::widget(); ?>
+                <?= ShowFilterTop::widget(); ?>
 
-                <?= \frontend\modules\board\widgets\ShowFilterLeft::widget(); ?>
+                <?= ShowFilterLeft::widget(); ?>
 
                 <div class="commercial__ads">
                     <?php foreach ($ads as $item): ?>
-                    <?php /*\frontend\modules\board\models\BoardFunction::getCategoryById($item->category_id,[])*/?>
 
+                        <div class="average-ad-item">
 
-                    <div class="average-ad-item">
-
-                        <a href="<?= \yii\helpers\Url::to(['view', 'slug' => $item->slug, 'id' => $item->id]); ?>" class="average-ad-item-thumb">
-                            <?php if (!empty($item->cover)): ?>
-                                <img src="<?= $item->cover ?>" alt="">
-                            <?php else: ?>
-                                <?php if(!empty($item->adsImgs)): ?>
-                                    <img src="<?= $item->adsImgs[0]->img_thumb; ?>" alt="">
+                            <a href="<?= \yii\helpers\Url::to(['view', 'slug' => $item->slug, 'id' => $item->id]); ?>"
+                               class="average-ad-item-thumb">
+                                <?php if (!empty($item->cover)): ?>
+                                    <img src="<?= $item->cover ?>" alt="">
                                 <?php else: ?>
-                                    <img src="http://rub-on.ru/img/no-img.png" alt="">
+                                    <?php if (!empty($item->adsImgs)): ?>
+                                        <img src="<?= $item->adsImgs[0]->img_thumb; ?>" alt="">
+                                    <?php else: ?>
+                                        <img src="http://rub-on.ru/img/no-img.png" alt="">
+                                    <?php endif; ?>
                                 <?php endif; ?>
-                            <?php endif; ?>
-                        </a>
+                            </a>
 
-                        <div class="average-ad-item-content">
+                            <div class="average-ad-item-content">
 
                                 <span class="average-ad-price"><?= number_format($item->price, 0, '.', ' '); ?>
                                     <span class="rubl-icon">
-										<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 510.127 510.127">
+										<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
+                                             viewBox="0 0 510.127 510.127">
 											<path d="M34.786,428.963h81.158v69.572c0,3.385,1.083,6.156,3.262,8.322c2.173,2.18,4.951,3.27,8.335,3.27h60.502
 												c3.14,0,5.857-1.09,8.152-3.27c2.295-2.166,3.439-4.938,3.439-8.322v-69.572h182.964c3.377,0,6.156-1.076,8.334-3.256
 												c2.18-2.178,3.262-4.951,3.262-8.336v-46.377c0-3.365-1.082-6.156-3.262-8.322c-2.172-2.18-4.957-3.27-8.334-3.27H199.628v-42.754
@@ -88,29 +79,30 @@ $this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::c
 										</svg>
 									</span>
                                 </span>
-                            <a href="<?= \yii\helpers\Url::to(['view', 'slug' => $item->slug, 'id' => $item->id]); ?>" class="average-ad-title"><?= $item->title?></a>
-                            <p class="average-ad-geo">
-                                <span class="geo-space"></span>
-                                <a class="addressAds" href="#"><?= $item->region->name?></a> |
-                                <a class="addressAds" href="#"><?= $item->city->name?></a>
-                            </p>
-                            <div class="bottom-content">
-                                <p class="average-ad-time"><?= \common\classes\DataTime::time($item->dt_update); ?></p>
+                                <a href="<?= \yii\helpers\Url::to(['view', 'slug' => $item->slug, 'id' => $item->id]); ?>"
+                                   class="average-ad-title"><?= $item->title ?></a>
+                                <p class="average-ad-geo">
+                                    <span class="geo-space"></span>
+                                    <a class="addressAds" href="#"><?= $item->region->name ?></a> |
+                                    <a class="addressAds" href="#"><?= $item->city->name ?></a>
+                                </p>
+                                <div class="bottom-content">
+                                    <p class="average-ad-time"><?= \common\classes\DataTime::time($item->dt_update); ?></p>
 
-                                <?php
-                                $listcat = \frontend\modules\board\models\BoardFunction::getCategoryById($item->category_id,[]);
-                                $listcat = array_reverse($listcat);
-                                $k = 1;
-                                foreach ($listcat as $val): ?>
-                                    <a href="<?= \yii\helpers\Url::to(['category-ads', 'slug' => $val->slug]); ?>"
-                                       class="average-ad-category"><?= $val->name; ?></a>
-                                    <?= ($k == count($listcat)) ? '' : '<span class="separatorListCategory">|</span>' ?>
-                                    <?php $k++; endforeach ?>
-                                <div class="view"><?= $item->views?></div>
+                                    <?php
+                                    $listcat = \frontend\modules\board\models\BoardFunction::getCategoryById($item->category_id, []);
+                                    $listcat = array_reverse($listcat);
+                                    $k = 1;
+                                    foreach ($listcat as $val): ?>
+                                        <a href="<?= \yii\helpers\Url::to(['category-ads', 'slug' => $val->slug]); ?>"
+                                           class="average-ad-category"><?= $val->name; ?></a>
+                                        <?= ($k == count($listcat)) ? '' : '<span class="separatorListCategory">|</span>' ?>
+                                        <?php $k++; endforeach ?>
+                                    <div class="view"><?= $item->views ?></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <?php endforeach;?>
+                    <?php endforeach; ?>
                     <div class="pagination">
                         <?= LinkPager::widget(
                             [
@@ -131,7 +123,7 @@ $this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::c
 
             </div>
 
-            <?= \frontend\widgets\ShowRightRecommend::widget(); ?>
+            <?= ShowRightRecommend::widget(); ?>
 
         </div>
 

@@ -50,7 +50,11 @@ class DefaultController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['index', 'category-ads', 'view', 'get-children-category', 'show-city-list', 'search', 'general-modal', 'show-category', 'show-parent-modal-category', 'ShowCategoryEnd', 'show-additional-fields'],
+                        'actions' => [
+                            'index', 'category-ads', 'view', 'get-children-category', 'show-city-list',
+                            'search', 'general-modal', 'show-category', 'show-parent-modal-category',
+                            'ShowCategoryEnd', 'show-additional-fields'
+                        ],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -72,14 +76,9 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-
-        /*Debug::prn(Yii::$app->request->userIP);
-        Debug::prn($_SERVER);*/
-
-
-
-        $url = $this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page',1) . '&api_key=' . $this->apiKey;
-        if (!BoardFunction::isDomainAvailible($url)){
+        $url = $this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page='
+            . Yii::$app->request->get('page', 1) . '&api_key=' . $this->apiKey;
+        if (!BoardFunction::isDomainAvailible($url)) {
             return $this->render('error');
         }
 
@@ -89,9 +88,9 @@ class DefaultController extends Controller
 
         $rez = json_decode($rez);
 
-        if(!isset($rez->_meta->totalCount)){
+        if (!isset($rez->_meta->totalCount)) {
             echo $rez;
-        }else{
+        } else {
             $pagination = new Pagination([
                 'defaultPageSize' => 10,
                 'totalCount' => $rez->_meta->totalCount,
@@ -101,26 +100,24 @@ class DefaultController extends Controller
                 [
                     'ads' => $rez->ads,
                     'pagination' => $pagination,
-                    'meta_title' => KeyValue::findOne( [ 'key' => 'board_title_page' ] )->value,
-                    'meta_desc' => KeyValue::findOne( [ 'key' => 'board_desc_page' ] )->value,
+                    'meta_title' => KeyValue::findOne(['key' => 'board_title_page'])->value,
+                    'meta_desc' => KeyValue::findOne(['key' => 'board_desc_page'])->value,
                 ]
             );
         }
-
-       // Debug::prn($rez);
-        /**/
     }
 
     public function actionCategoryAds($slug)
     {
-        $cat = BoardFunction::fileGetContent($this->siteApi . '/category/get-category-by-slug?cat=' . Yii::$app->request->get('slug') . '&api_key=' . $this->apiKey);
+        $cat = BoardFunction::fileGetContent($this->siteApi . '/category/get-category-by-slug?cat='
+            . Yii::$app->request->get('slug') . '&api_key=' . $this->apiKey);
         //$cat = file_get_contents($this->siteApi . '/category/get-category-by-slug?cat=' . Yii::$app->request->get('slug') . '&api_key=' . $this->apiKey);
         $cat = json_decode($cat);
         // Debug::prn($cat);
 
 
-        $rez = BoardFunction::fileGetContent($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page',
-                1) . '&catId=' . $cat->id . '&api_key=' . $this->apiKey);
+        $rez = BoardFunction::fileGetContent($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page='
+            . Yii::$app->request->get('page', 1) . '&catId=' . $cat->id . '&api_key=' . $this->apiKey);
         /*$rez = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page',
                 1) . '&catId=' . $cat->id . '&api_key=' . $this->apiKey);*/
 
@@ -145,17 +142,16 @@ class DefaultController extends Controller
     public function actionView($slug, $id)
     {
         $url = $this->siteApi . '/ads/' . $id . '?expand=adsImgs,adsFieldsValues' . '&api_key=' . $this->apiKey;
-        if (!BoardFunction::isDomainAvailible($url)){
+        if (!BoardFunction::isDomainAvailible($url)) {
             return $this->render('error');
         }
 
         $ads = BoardFunction::fileGetContent($url);
 
         $ads = json_decode($ads);
-        if(!isset($ads->title)){
+        if (!isset($ads->title)) {
             echo $ads;
-        }
-        else {
+        } else {
             return $this->render('view',
                 [
                     'ads' => $ads,
@@ -169,16 +165,16 @@ class DefaultController extends Controller
     {
         $this->layout = 'personal_area';
         $url = $this->siteApi;
-        if (!BoardFunction::isDomainAvailible($url)){
+        if (!BoardFunction::isDomainAvailible($url)) {
             return $this->render('error');
         }
 
 
         if (Yii::$app->request->post()) {
 
-           /* Debug::prn($_POST);
-            Debug::dd($_FILES);
-            die();*/
+            /* Debug::prn($_POST);
+             Debug::dd($_FILES);
+             die();*/
             //Debug::dd($_FILES);
             unset($_POST['_csrf']);
             $_POST['api_key'] = $this->apiKey;
@@ -214,25 +210,23 @@ class DefaultController extends Controller
                     $i++;
                 }
             }
-            if(!empty($_POST['Ads']['cover'])) {
+            if (!empty($_POST['Ads']['cover'])) {
                 $_POST['Ads']['cover'] = Url::home(true) . 'media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/thumb' . '/' . $_POST['Ads']['cover'];
             }
 
 
-
-                //Debug::prn($_POST);
+            //Debug::prn($_POST);
 
             $sURL = $this->siteApi . '/ads/create'; // URL-адрес POST
-
 
 
             $sPD = http_build_query($_POST); // Данные POST
             $aHTTP = [
                 'http' => // Обертка, которая будет использоваться
                     [
-                        'method'  => 'POST', // Метод запроса
+                        'method' => 'POST', // Метод запроса
                         // Ниже задаются заголовки запроса
-                        'header'  => 'Content-type: application/x-www-form-urlencoded',
+                        'header' => 'Content-type: application/x-www-form-urlencoded',
                         'content' => $sPD,
                     ],
                 'ssl' => array(
@@ -242,7 +236,7 @@ class DefaultController extends Controller
             $context = stream_context_create($aHTTP);
             $contents = file_get_contents($sURL, false, $context);
             //echo $contents;
-            Yii::$app->session->setFlash('success','Ваше объявление успешно добавлено. После прохождения модерации оно будет опубликовано.');
+            Yii::$app->session->setFlash('success', 'Ваше объявление успешно добавлено. После прохождения модерации оно будет опубликовано.');
             return $this->redirect('/personal_area/user-ads/index');
         } else {
             $model = new Ads();
@@ -267,9 +261,9 @@ class DefaultController extends Controller
             //Debug::dd($_POST);
             if (!empty($_FILES['file']['name'][0])) {
 
-                if(!empty($_POST['Ads']['cover'])) {
+                if (!empty($_POST['Ads']['cover'])) {
                     $_POST['Ads']['cover'] = Url::home(true) . 'media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/thumb' . '/' . $_POST['Ads']['cover'];
-                }else{
+                } else {
                     $_POST['Ads']['cover'] = '';
                 }
                 if (!file_exists('media/users/' . Yii::$app->user->id)) {
@@ -306,14 +300,13 @@ class DefaultController extends Controller
             $sURL = $this->siteApi . '/ads/update'; // URL-адрес POST
 
 
-
             $sPD = http_build_query($_POST); // Данные POST
             $aHTTP = [
                 'http' => // Обертка, которая будет использоваться
                     [
-                        'method'  => 'PATCH', // Метод запроса
+                        'method' => 'PATCH', // Метод запроса
                         // Ниже задаются заголовки запроса
-                        'header'  => 'Content-type: application/x-www-form-urlencoded',
+                        'header' => 'Content-type: application/x-www-form-urlencoded',
                         'content' => $sPD,
                     ],
                 'ssl' => array(
@@ -323,11 +316,11 @@ class DefaultController extends Controller
             $context = stream_context_create($aHTTP);
             $contents = file_get_contents($sURL, false, $context);
             //echo $contents;
-            Yii::$app->session->setFlash('success','Ваше объявление успешно добавлено. После прохождения модерации оно будет опубликовано.');
+            Yii::$app->session->setFlash('success', 'Ваше объявление успешно добавлено. После прохождения модерации оно будет опубликовано.');
             return $this->redirect('/personal_area/user-ads/index');
-        }else{
+        } else {
             $model = new Ads();
-            $ads = BoardFunction::fileGetContent($this->siteApi . '/ads/' . $id . '?expand=adsImgs,adsFieldsValues' . '&api_key=' . $this->apiKey );
+            $ads = BoardFunction::fileGetContent($this->siteApi . '/ads/' . $id . '?expand=adsImgs,adsFieldsValues' . '&api_key=' . $this->apiKey);
             $ads = json_decode($ads);
             //Debug::dd($ads);
             $arrCity = BoardFunction::fileGetContent($this->siteApi . '/city/get-city-list');
@@ -365,7 +358,7 @@ class DefaultController extends Controller
 
     public function actionDeleteImg()
     {
-        $contents = file_get_contents($this->siteApi . '/ads/delimg?id='. $_GET['id']);
+        $contents = file_get_contents($this->siteApi . '/ads/delimg?id=' . $_GET['id']);
         echo 1;
     }
 
@@ -421,8 +414,8 @@ class DefaultController extends Controller
             [
                 'ads' => $rez->ads,
                 'pagination' => $pagination,
-                'meta_title' => 'Поиск ' . KeyValue::findOne( [ 'key' => 'board_title_page' ] )->value,
-                'meta_desc' => 'Поиск ' . KeyValue::findOne( [ 'key' => 'board_desc_page' ] )->value,
+                'meta_title' => 'Поиск ' . KeyValue::findOne(['key' => 'board_title_page'])->value,
+                'meta_desc' => 'Поиск ' . KeyValue::findOne(['key' => 'board_desc_page'])->value,
             ]
         );
 
@@ -521,15 +514,15 @@ class DefaultController extends Controller
     public function actionDelete($id)
     {
 
-        $contents = BoardFunction::fileGetContent($this->siteApi . '/ads/edit?id='. $id);
+        $contents = BoardFunction::fileGetContent($this->siteApi . '/ads/edit?id=' . $id);
         echo $contents;
         //Yii::$app->session->setFlash('success','Ваше объявление успешно добавлено. После прохождения модерации оно будет опубликовано.');
         //return $this->redirect('/personal_area/user-ads');
     }
 
-    public function actionPublicAds( $id )
+    public function actionPublicAds($id)
     {
-        BoardFunction::fileGetContent($this->siteApi . '/ads/edit-status?id=' . $id . '&status=2' .'&api_key=' . $this->apiKey);
+        BoardFunction::fileGetContent($this->siteApi . '/ads/edit-status?id=' . $id . '&status=2' . '&api_key=' . $this->apiKey);
 
         Yii::$app->session->setFlash('success', 'Объявление обновлено');
         return $this->redirect(['/personal_area/user-ads/']);
