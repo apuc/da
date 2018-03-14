@@ -36,6 +36,33 @@ class Cart
         return $data;
     }
 
+    public static function getCartOneShop($shopId)
+    {
+        $cart = \Yii::$app->cart->getCart();
+        $data = [];
+        //Debug::dd($cart);
+        if(!empty($cart)){
+            $companies = Company::find()->where(['id' => $shopId])->indexBy('id')->asArray()->all();
+            $data[$shopId] = $companies[$shopId];
+            foreach ($cart[$shopId] as $product_id=>$items){
+                //Debug::dd($company_id);
+
+                //Debug::prn($product_id);
+                $products = Products::find()
+                    ->where(['id' => $product_id])
+                    ->indexBy('id')
+                    ->asArray()
+                    ->with('images')
+                    ->all();
+
+                $data[$shopId]['products'][$product_id] = $products[$product_id] + ['count' => $items];
+
+            }
+        }
+//Debug::dd($data);
+        return $data;
+    }
+
     public static function getSummShop($shopId)
     {
         $cart = self::getCart();

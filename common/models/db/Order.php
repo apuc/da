@@ -44,11 +44,11 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'first_name' => 'First Name',
-            'last_name' => 'Last Name',
+            'first_name' => 'Имя',
+            'last_name' => 'Фамилия',
             'email' => 'Email',
-            'phone' => 'Phone',
-            'address' => 'Address',
+            'phone' => 'Телефон',
+            'address' => 'Адрес',
             'status' => 'Status',
         ];
     }

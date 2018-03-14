@@ -129,9 +129,10 @@ class CartController extends Controller
 
             return $this->redirect(['cart']);
         }
-
+        $cart = Cart::getCartOneShop($shopId);
         return $this->render( 'form-order', [
             'model' => $model,
+            'cart' => $cart
         ] );
     }
 
@@ -139,10 +140,11 @@ class CartController extends Controller
     public function actionOrderShop()
     {
         $model = new Order();
+
         if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
             /*Debug::dd($model);*/
-            $cart = \Yii::$app->cart->getCart();
 
+            $cart = \Yii::$app->cart->getCart();
             foreach ($cart as $shop => $products){
                 foreach ($products as $product=> $count){
                     $orderProducts = new OrderProduct();
@@ -159,9 +161,10 @@ class CartController extends Controller
             Yii::$app->cart->clear();
             return $this->redirect(['cart']);
         }
-
+        $cart = Cart::getCart();
         return $this->render( 'form-order', [
             'model' => $model,
+            'cart' => $cart
         ] );
     }
 }
