@@ -21,7 +21,7 @@ if (!empty($pagination->page)) {
 $this->title = $meta_title . $description;
 $this->registerMetaTag([
     'name' => 'description',
-    'content' => $meta_desc,
+    'content' => $meta_desc . $description,
 ]);
 
 $this->registerJsFile('/js/jquery-ui-1.12.1/jquery-ui.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
