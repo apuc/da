@@ -64,7 +64,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                 ->hint('<b>Вставьте ссылку.</b><br>Сссылка может вести на сайт вашей компании или же на страницу в соцсетях')
                 ->label('Ссылка'); ?>
 
-            <?= $form->field($model, 'dt_event')->widget(DateTimePicker::classname(), [
+            <?= $form->field($model, 'dt_event')->widget(DateTimePicker::class, [
                 'options' => ['placeholder' => 'Выберите дату начала акции ...'],
 
                 'pluginOptions' => [
@@ -73,7 +73,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                 ]
             ]); ?>
 
-            <?= $form->field($model, 'dt_event_end')->widget(DateTimePicker::classname(), [
+            <?= $form->field($model, 'dt_event_end')->widget(DateTimePicker::class, [
                 'options' => ['placeholder' => 'Выберите дату конца акции ...'],
 
                 'pluginOptions' => [
