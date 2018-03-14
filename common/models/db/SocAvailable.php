@@ -53,4 +53,12 @@ class SocAvailable extends \yii\db\ActiveRecord
     {
         return $this->hasMany(SocCompany::className(), ['soc_type' => 'id']);
     }
+
+    /**
+     * @return array
+     */
+    public static function getIds()
+    {
+        return self::find()->select('id')->column();
+    }
 }

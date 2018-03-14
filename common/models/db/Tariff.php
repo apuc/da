@@ -19,6 +19,12 @@ use Yii;
  */
 class Tariff extends \yii\db\ActiveRecord
 {
+
+    const ID_BASIC = 1;
+    const ID_MEDIUM = 2;
+    const ID_MAXIMUM = 3;
+    const ID_CUSTOM = 4;
+
     /**
      * @inheritdoc
      */

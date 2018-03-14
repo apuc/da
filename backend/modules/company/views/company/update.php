@@ -2,14 +2,21 @@
 
 use yii\helpers\Html;
 
-/* @var $this yii\web\View */
-/* @var $model backend\modules\company\models\Company */
-/* @var $companyPhotos array */
-/* @var $companyPhotosStr string */
+/**
+ * @var $this yii\web\View
+ * @var $model backend\modules\company\models\Company
+ * @var $companyPhotos array
+ * @var $companyPhotosStr string
+ * @var array $city
+ * @var $tags
+ * @var $tags_selected
+ * @var $phones
+ * @var array $socials
+ * */
 
-$this->title = Yii::t('company', 'Update {modelClass}: ', [
-    'modelClass' => 'Company',
-]) . $model->name;
+$this->title = Yii::t('company', 'Update Company: ', [
+        'modelClass' => 'Company',
+    ]) . $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('company', 'Companies'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('company', 'Update');
@@ -23,11 +30,10 @@ $this->params['breadcrumbs'][] = Yii::t('company', 'Update');
         'companyPhotos' => $companyPhotos,
         'companyPhotosStr' => $companyPhotosStr,
         'city' => $city,
-        'typeSeti' => $typeSeti,
-        'socCompany' => $socCompany,
         'tags' => $tags,
         'tags_selected' => $tags_selected,
-        'phones' => $phones
+        'phones' => $phones,
+        'socials' => $socials
     ]) ?>
 
 </div>

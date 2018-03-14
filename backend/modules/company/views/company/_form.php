@@ -1,23 +1,30 @@
 <?php
 
+/**
+ * @var $this yii\web\View
+ * @var $model backend\modules\company\models\Company
+ * @var $form yii\widgets\ActiveForm
+ * @var $companyPhotos array
+ * @var $companyPhotosStr string
+ * @var $socials array
+ * @var $soc SocCompany
+ */
+
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
 use common\models\db\Lang;
-use kartik\file\FileInput;
+use common\models\db\Services;
+use common\models\db\ServicesCompanyRelations;
+use common\models\db\SocCompany;
+use common\models\db\Tariff;
 use kartik\select2\Select2;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\InputFile;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\jui\DatePicker;
 
-/* @var $this yii\web\View */
-/* @var $model backend\modules\company\models\Company */
-/* @var $form yii\widgets\ActiveForm */
-/* @var $companyPhotos array */
-/* @var $companyPhotosStr string */
 //$this->registerJsFile('/theme/portal-donbassa/js/ajax.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
 
@@ -95,16 +102,16 @@ use yii\jui\DatePicker;
     ?>
 
     <?= $form->field($model, 'tariff_id')->dropDownList(
-        ArrayHelper::map(\common\models\db\Tariff::find()->all(), 'id', 'name'),
+        ArrayHelper::map(Tariff::find()->all(), 'id', 'name'),
         ['prompt' => 'Выберите тариф']) ?>
 
     <div class="set-services-of-tariff">
-        <?php if ($model->tariff_id == 4): ?>
-            <?php $serviceChecked = \common\models\db\ServicesCompanyRelations::find()->where(['company_id' => $model->id])
+        <?php if ($model->tariff_id == Tariff::ID_CUSTOM): ?>
+            <?php $serviceChecked = ServicesCompanyRelations::find()->where(['company_id' => $model->id])
                 ->asArray()
                 ->all() ?>
             <?php $checked = ArrayHelper::getColumn($serviceChecked, 'services_id') ?>
-            <?php $services = \common\models\db\Services::find()->asArray()->all() ?>
+            <?php $services = Services::find()->asArray()->all() ?>
 
             <?php foreach ($services as $service): ?>
                 <div class="checkbox">
@@ -255,21 +262,25 @@ use yii\jui\DatePicker;
             ],
         ]
     ); ?>
-    <p class="cabinet__add-company-form--title"><b>Соц. сети компании</b></p>
-    <div class="cabinet__add-company-form--social">
-
-        <?php foreach ($typeSeti as $type): ?>
-            <div class="cabinet__add-company-form--social-element">
-                            <span class="social-wrap__item">
-                                <img src="<?= $type->icon ?>" alt="">
-                            </span>
-                <span class="social-name"><?= $type->name; ?></span>
-                <input type="text"
-                       value="<?= !empty($socCompany[$type->id]->link) ? $socCompany[$type->id]->link : '' ?>"
-                       name="socicon[<?= $type->id ?>][]" class="social-way">
-            </div>
-        <?php endforeach; ?>
-    </div>
+    <?php if ($model->tariff_id >= Tariff::ID_MAXIMUM): ?>
+        <p class="cabinet__add-company-form--title"><b>Соц. сети компании</b></p>
+        <div class="cabinet__add-company-form--social">
+            <?php foreach ($socials as $key => $soc): ?>
+                <div class="cabinet__add-company-form--social-element">
+                    <?= $form->field($soc, "[$key]link",
+                        [
+                            'template' => '<span class="social-wrap__item">
+                                           <img src=' . "{$soc->getSocType()->one()->icon}" . ' alt="">
+                                       </span>
+                                   {label}
+                                   {input}'
+                        ])
+                        ->textInput()
+                        ->label($soc->getSocType()->one()->name); ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
 
     <?= $form->field($model, 'recommended')->dropDownList([
         0 => 'Нет',

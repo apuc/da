@@ -1,5 +1,7 @@
 <?php
 
+use common\models\db\SocAvailable;
+use common\models\db\Tariff;
 use kartik\file\FileInput;
 use kartik\select2\Select2;
 use mihaildev\ckeditor\CKEditor;
@@ -8,9 +10,15 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model frontend\modules\company\models\Company */
-/* @var $form yii\widgets\ActiveForm */
+/**
+ * @var $this yii\web\View
+ * @var $model frontend\modules\company\models\Company
+ * @var $form yii\widgets\ActiveForm
+ * @var SocAvailable $type
+ * @var array $companyRel
+ * @var array $categoryCompanyAll
+ * @var array $socials
+ * */
 $this->registerCssFile('/css/board.min.css');
 //$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
@@ -103,7 +111,6 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 ?>
 
 
-
     <div class="cabinet__add-company-form--block"></div>
 
     <div class="form-line field-company-phone">
@@ -152,31 +159,22 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 ?>
     <div class="cabinet__add-company-form--block"></div>
 
-<?php
-if (isset($services['group_link']) && $services['group_link'] == 1) { ?>
-    <p class="cabinet__add-company-form--title">Соц. сети компании</p>
-    <div class="cabinet__add-company-form--social">
 
-        <?php
-        foreach ($typeSeti as $type) {
-            ?>
-            <div class="cabinet__add-company-form--social-element">
-                            <span class="social-wrap__item">
-                                <img src="<?= $type->icon ?>" alt="">
-                            </span>
-                <span class="social-name"><?= $type->name; ?></span>
-                <input type="text"
-                       value="<?= !empty($socCompany[$type->id]->link) ? $socCompany[$type->id]->link : '' ?>"
-                       name="socicon[<?= $type->id ?>][]" class="social-way">
-            </div>
-            <?php
-        }
-        ?>
-
-    </div>
-    <?php
-}
-?>
+<?php if (isset($services['group_link']) && $services['group_link'] == 1): ?>
+    <p class="cabinet__add-company-form--title"><b>Соц. сети компании</b></p>
+    <?php foreach ($socials as $key => $soc): ?>
+        <?= $form->field($soc, "[$key]link",
+            [
+                'template' => '<span class="social-wrap__item">
+                                           <img src=' . "{$soc->getSocType()->one()->icon}" . ' alt="">
+                                       </span>
+                                   {label}
+                                   {input}'
+            ])
+            ->textInput()
+            ->label($soc->getSocType()->one()->name); ?>
+    <?php endforeach; ?>
+<?php endif; ?>
 
 
 <?php

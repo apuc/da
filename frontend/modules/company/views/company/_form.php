@@ -4,9 +4,13 @@ use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model frontend\modules\company\models\Company */
-/* @var $form yii\widgets\ActiveForm */
+/**
+ * @var $this yii\web\View
+ * @var $model frontend\modules\company\models\Company
+ * @var $form yii\widgets\ActiveForm
+ * @var array $categoryCompanyAll
+ * @var array $city
+ */
 $this->registerCssFile('/css/board.min.css');
 //$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);

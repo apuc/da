@@ -189,4 +189,30 @@ class Company extends \yii\db\ActiveRecord
         return $this->hasMany(News::className(), ['company_id' => 'id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSocCompany()
+    {
+        return $this->hasMany(SocCompany::className(), ['company_id' => 'id']);
+    }
+
+    /**
+     * @return array
+     */
+    public function getFullAndEmptySocials()
+    {
+        $allTypes = SocAvailable::getIds();
+        $currentSocial = $this->getSocCompany()->all();
+        $currentSocialTypes = ArrayHelper::getColumn($currentSocial, 'soc_type');
+        $diffSocModels = array_diff($allTypes, $currentSocialTypes);
+        $newSocial = [];
+        foreach ($diffSocModels as $type) {
+            $newSocial[] = new SocCompany([
+                'company_id' => $this->id,
+                'soc_type' => $type
+            ]);
+        }
+        return array_merge($currentSocial, $newSocial);
+    }
 }
