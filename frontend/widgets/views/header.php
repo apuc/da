@@ -41,7 +41,7 @@ if ($this->beginCache('show_header_widget_end', ['duration' => Yii::$app->params
         <span>Добавить на сайт</span>
         <ul class="list">
             <li>
-                <a href="<?= \yii\helpers\Url::to(['/company/company/create']) ?>">
+                <a href="<?= \yii\helpers\Url::toRoute(['/company/company/create']) ?>">
                     <img src="/theme/portal-donbassa/img/icons/tag-hover-icon.png" alt="">
                     Предприятие
                 </a>
