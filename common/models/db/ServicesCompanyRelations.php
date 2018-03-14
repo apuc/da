@@ -30,8 +30,8 @@ class ServicesCompanyRelations extends \yii\db\ActiveRecord
     {
         return [
             [['services_id', 'company_id'], 'integer'],
-            [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::className(), 'targetAttribute' => ['company_id' => 'id']],
-            [['services_id'], 'exist', 'skipOnError' => true, 'targetClass' => Services::className(), 'targetAttribute' => ['services_id' => 'id']],
+            [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::class, 'targetAttribute' => ['company_id' => 'id']],
+            [['services_id'], 'exist', 'skipOnError' => true, 'targetClass' => Services::class, 'targetAttribute' => ['services_id' => 'id']],
         ];
     }
 
@@ -51,7 +51,7 @@ class ServicesCompanyRelations extends \yii\db\ActiveRecord
      */
     public function getCompany()
     {
-        return $this->hasOne(Company::className(), ['id' => 'company_id']);
+        return $this->hasOne(Company::class, ['id' => 'company_id']);
     }
 
     /**
@@ -59,6 +59,11 @@ class ServicesCompanyRelations extends \yii\db\ActiveRecord
      */
     public function getServices()
     {
-        return $this->hasOne(Services::className(), ['id' => 'services_id']);
+        return $this->hasOne(Services::class, ['id' => 'services_id']);
+    }
+
+    public static function primaryKey()
+    {
+        return ['company_id', 'services_id'];
     }
 }

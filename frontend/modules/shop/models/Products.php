@@ -14,6 +14,8 @@ use common\models\db\ProductFieldsDefaultValue;
 use common\models\db\ProductFieldsType;
 use common\models\db\ProductFieldsValue;
 use common\models\db\ProductsImg;
+use common\models\db\ServicesCompanyRelations;
+use frontend\modules\company\models\Company;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\imagine\Image;
@@ -143,5 +145,35 @@ class Products extends \common\models\db\Products
 
             $i++;
         }
+    }
+
+
+
+    public function beforeCreate()
+    {
+        //Получение всех предприятий данного пользователя
+        /*$company = Company::find()
+            ->where(['user_id' => Yii::$app->user->id])
+            ->andWhere(['status' => 0])
+            ->andWhere(['tariff_id' => [3,4]])
+            ->asArray()
+            ->all();*/
+
+        $company = ServicesCompanyRelations::find()
+            ->joinWith(['company', 'services'])
+            ->where(['`company`.`user_id`' => Yii::$app->user->id])
+            ->andWhere(['`company`.`tariff_id`' => [3,4]])
+            //->andWhere(['services_id' => 25])
+            ->all();
+
+        //Debug::dd($services);
+
+        if(empty($company)) {
+            return false;
+        }
+
+        return $company;
+
+
     }
 }

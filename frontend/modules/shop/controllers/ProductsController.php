@@ -13,6 +13,7 @@ use frontend\modules\shop\models\Products;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 
 class ProductsController extends Controller
@@ -67,6 +68,12 @@ class ProductsController extends Controller
     public function actionCreate()
     {
         $model = new Products();
+        $beforeCreate = $model->beforeCreate();
+       // Debug::prn();
+        if(!$beforeCreate){
+            return $this->render('not-add');
+        }
+        //Debug::prn($beforeCreate);
 
         if ($model->load(Yii::$app->request->post()) /*&& $model->save()*/) {
             if(!empty($model->cover)){
@@ -87,10 +94,10 @@ class ProductsController extends Controller
         }
        /* $str = 'image (1).jpg';
         Debug::dd(str_replace( array('(',')'), '_', $str));*/
-        $userCompany =Company::find()->where(['user_id' => Yii::$app->user->id])->all();
+        //$userCompany =Company::find()->where(['user_id' => Yii::$app->user->id])->all();
         return $this->render('create', [
             'model' => $model,
-            'userCompany' => $userCompany,
+            'userCompany' => ArrayHelper::getColumn($beforeCreate, 'company'),
         ]);
     }
 
