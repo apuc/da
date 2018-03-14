@@ -179,7 +179,7 @@ class PromotionsController extends Controller
         $this->layout = 'personal_area';
         $model = $this->findModel($id);
         $beforeCreate = $model->beforeCreate();
-        if (!$beforeCreate[$model->company_id]) {
+        if (!array_key_exists($model->company_id, $beforeCreate)) {
             $beforeCreate[$model->company_id] = 1;
         }
 
