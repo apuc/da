@@ -6,6 +6,7 @@
  */
 
 use common\classes\CompanyFunction;
+use frontend\modules\company\models\Company;
 use yii\helpers\Url;
 
 $role = \Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
@@ -18,41 +19,41 @@ echo \yii\widgets\Menu::widget(
     [
         'items' => [
             [
-                'label' => 'О компании',
+                'label' => Company::$submenuLabels['about'],
                 'url' => Url::to(['/company/company/view', 'slug' => $slug]),
                 'active' => $page == 'about',
             ],
             [
-                'label' => 'Отзывы',
+                'label' => Company::$submenuLabels['reviews'],
                 'url' => Url::to(['/company/company/view', 'slug' => $slug, 'page' => 'reviews']),
                 'template' => '<a href="{url}">{label}<span class="tabs-counters">' . CompanyFunction::getCountReviews($model->id) . '</span></a>',
                 'active' => $page == 'reviews',
             ],
             [
-                'label' => 'Акции',
+                'label' => Company::$submenuLabels['stocks'],
                 'url' => Url::to(['/company/company/view', 'slug' => $slug, 'page' => 'stocks']),
                 'template' => '<a href="{url}">{label}<span class="tabs-counters">' . CompanyFunction::getCountStock($model->id) . '</span></a>',
                 'active' => $page == 'stocks',
             ],
             [
-                'label' => 'Товары',
+                'label' => Company::$submenuLabels['products'],
                 'url' => Url::to(['/company/company/view', 'slug' => $slug, 'page' => 'products']),
                 'template' => '<a href="{url}">{label}<span class="tabs-counters">' . CompanyFunction::getCountProduct($model->id) . '</span></a>',
                 'active' => $page == 'products',
                 //'visible' => $role == 'admin',
             ],
             [
-                'label' => 'Новости',
+                'label' => Company::$submenuLabels['news'],
                 'url' => Url::to(['/company/company/view', 'slug' => $slug, 'page' => 'news']),
                 'active' => $page == 'news',
             ],
             [
-                'label' => 'Статистика',
+                'label' => Company::$submenuLabels['statistics'],
                 'url' => Url::to(['/company/company/view', 'slug' => $slug, 'page' => 'statistics']),
                 'active' => $page == 'statistics',
             ],
             [
-                'label' => 'Карта',
+                'label' => Company::$submenuLabels['map'],
                 'url' => Url::to(['/company/company/view', 'slug' => $slug, 'page' => 'map']),
                 'active' => $page == 'map',
             ],
