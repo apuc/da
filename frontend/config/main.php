@@ -121,7 +121,7 @@ return \yii\helpers\ArrayHelper::merge([
         ],
 
         'authClientCollection' => [
-            'class' => \yii\authclient\Collection::className(),
+            'class' => \yii\authclient\Collection::class,
 
             'clients' => [
                 'vkontakte' => [
