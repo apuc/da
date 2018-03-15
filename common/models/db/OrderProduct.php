@@ -45,4 +45,13 @@ class OrderProduct extends \yii\db\ActiveRecord
             'shop_id' => 'Shop ID',
         ];
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProducts()
+    {
+        return $this->hasOne(Products::class, ['id' => 'product_id']);
+    }
+
 }

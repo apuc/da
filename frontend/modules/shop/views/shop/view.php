@@ -104,7 +104,7 @@ $this->title = $model->title;
             </div>
             <div class="single-shop__info-item">
                 <a href="#" class="button-buy">Купить сейчас</a>
-                <a href="#" class="button-basket add-to-cart" data-id="<?= $model->id; ?>" shop-id="<?= $model['company']->id; ?>">
+                <a href="#" class="button-basket add-to-cart" id="add-cart-btn" data-id="<?= $model->id; ?>" shop-id="<?= $model['company']->id; ?>">
                     Добавить в корзину
                 </a>
                 <!--<a href="#" class="promotion-seller">
@@ -293,4 +293,16 @@ $this->title = $model->title;
         </a>
 
     </div>
+</div>
+
+<div id="modal-add-cart">
+
+    <h1 class="modalAdd-cartTitle">Товар был добавлен в корзину. <span> Товаров в Вашей корзине: <span class="modal-count-cart">1</span></span></h1>
+
+    <a href="#" class="go-cart">Перейти к корзине</a>
+
+    <button class="close-cart" id="modal_close">Вернуться на сайт</button>
+
+
+
 </div>
