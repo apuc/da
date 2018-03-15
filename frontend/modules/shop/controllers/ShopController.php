@@ -31,8 +31,10 @@ class ShopController extends Controller
     {
         $model = new CategoryShop();
         $category = $model->getCategoryInfoBySlug($category);
-        Debug::prn( $category);
+        //Debug::prn( $category);
         //
+
+        return $this->render('category');
     }
 
     public function actionShow($slug)
