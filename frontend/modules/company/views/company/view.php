@@ -9,6 +9,8 @@
  * @var string $slug
  * @var string $page
  * @var array $options
+ * @var \common\models\db\Phones $phone
+ * @var \common\models\db\Messenger $messenger
  */
 
 use common\classes\DataTime;
@@ -27,7 +29,7 @@ $this->registerMetaTag([
 $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/company_ajax.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/company.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-
+//\common\classes\Debug::prn($model->allPhones);
 
 $this->params['breadcrumbs'][] = ['label' => 'Все предприятия', 'url' => Url::to(['/company/company'])];
 if (!empty($categoryCompany['category']['categ']->title)) {
@@ -97,12 +99,22 @@ $this->params['breadcrumbs'][] = $model->name;
                         </div>
                         <?php if (!empty($model->allPhones)): ?>
                             <?php foreach ($model->allPhones as $phone): ?>
-                                <a class="phone" href="tel:<?= $phone->phone ?>"><?= $phone->phone ?></a>
+                                <div style="display: flex; margin-top: 10px">
+                                    <?php foreach ($phone->messengeres as $messenger): ?>
+                                        <img src="<?= $messenger->icon; ?>" alt="<?= $messenger->name; ?>" height="20px"
+                                             width="20px" style="margin-right: 3px">
+                                    <?php endforeach; ?>
+                                    <a class="phone" href="tel:<?= $phone->phone ?>">
+                                        <?= $phone->phone ?>
+                                    </a>
+                                </div>
                             <?php endforeach; ?>
                         <?php elseif (!empty($model->phone)): ?>
                             <?php $phones = explode(' ', $model->phone) ?>
                             <?php foreach ($phones as $phone): ?>
-                                <a class="phone" href="tel:<?= $phone ?>"><?= $phone ?></a>
+                                <a class="phone" href="tel:<?= $phone ?>">
+                                    <?= $phone ?>
+                                </a>
                             <?php endforeach; ?>
                         <?php endif; ?>
 

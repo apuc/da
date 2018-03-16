@@ -178,6 +178,7 @@ class CompanyController extends Controller
         $socials = $model->getFullAndEmptySocials();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            \common\classes\Debug::dd($_POST);
             if (empty($model->alt)) {
                 $model->alt = $model->name;
             }
@@ -229,15 +230,15 @@ class CompanyController extends Controller
                 }
             }
 
-            if (!empty(Yii::$app->request->post('mytext'))) {
-                Phones::deleteAll(['company_id' => $id]);
-                foreach (Yii::$app->request->post('mytext') as $phone) {
-                    $phones = New Phones();
-                    $phones->phone = $phone;
-                    $phones->company_id = $model->id;
-                    $phones->save();
-                }
-            }
+//            if (!empty(Yii::$app->request->post('mytext'))) {
+//                Phones::deleteAll(['company_id' => $id]);
+//                foreach (Yii::$app->request->post('mytext') as $phone) {
+//                    $phones = New Phones();
+//                    $phones->phone = $phone;
+//                    $phones->company_id = $model->id;
+//                    $phones->save();
+//                }
+//            }
 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

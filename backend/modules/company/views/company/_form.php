@@ -13,6 +13,8 @@
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
 use common\models\db\Lang;
+use common\models\db\Messenger;
+use common\models\db\Phones;
 use common\models\db\Services;
 use common\models\db\ServicesCompanyRelations;
 use common\models\db\SocCompany;
@@ -20,6 +22,8 @@ use common\models\db\Tariff;
 use kartik\select2\Select2;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\InputFile;
+use unclead\multipleinput\MultipleInput;
+use unclead\multipleinput\MultipleInputColumn;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -29,7 +33,16 @@ use yii\jui\DatePicker;
 ?>
 
 <div class="company-form">
+    <?php
+    foreach ($phones as $phone) {
 
+
+        $currentMessengeresIds = $phone->getMessengeres()->select('id')->column();
+        $newMessengeresIds = $phone->getMessengeresArray();
+        var_dump($currentMessengeresIds);
+        var_dump($newMessengeresIds);
+    }
+    ?>
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'lang_id')->dropDownList(ArrayHelper::map(Lang::find()->all(), 'id', 'name')) ?>
