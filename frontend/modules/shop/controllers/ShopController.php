@@ -56,6 +56,7 @@ class ShopController extends Controller
 
     public function actionShow($slug)
     {
+        $this->layout = 'single-shop';
         $model = Products::find()
             ->where(['slug' => $slug])
             ->with('productFieldsValues.field', 'company', 'images', 'category', 'reviews')
