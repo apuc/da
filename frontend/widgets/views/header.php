@@ -38,6 +38,7 @@ if ($this->beginCache('show_header_widget_end', ['duration' => Yii::$app->params
     <!-- <?/*= \frontend\widgets\WeatherHeader::widget(); */ ?>
                 --><?/*= ExchangeRates::widget() */ ?>
     <div class="fix-button-head" id="fix-button-head">
+        <i class="fa fa-plus" aria-hidden="true"></i>
         <span>Добавить на сайт</span>
         <ul class="list">
             <li>
