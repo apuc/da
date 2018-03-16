@@ -15,12 +15,13 @@ use frontend\modules\shop\models\CategoryShop;
 use frontend\modules\shop\models\Products;
 use Yii;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 
 class ShopController extends Controller
 {
 
-    public $layout = 'single-shop';
+    public $layout = 'shop';
 
     public function actionIndex()
     {
@@ -30,11 +31,27 @@ class ShopController extends Controller
     public function actionCategory($category)
     {
         $model = new CategoryShop();
-        $category = $model->getCategoryInfoBySlug($category);
+        $categoryModel = $model->getCategoryInfoBySlug($category);
+
+        //$cat = $model->getEndCategory($category);
+        //Debug::dd($cat);
+
         //Debug::prn( $category);
         //
+        if($model->getEndCategory($category)){
+            $category = CategoryShop::find()->all();
+            $categoryTreeArr = $categoryModel->getArrayTreeCategory($category);
+//Debug::dd(ArrayHelper::index($category, 'id'));
+            return $this->render('category',
+                [
+                    'categoryInfo' => $categoryModel,
+                    'categoryTreeArr' => $categoryTreeArr,
+                    'ollCategory' => ArrayHelper::index($category, 'id'),
+                ]);
+        }
 
-        return $this->render('category');
+        return $this->render('list-products');
+
     }
 
     public function actionShow($slug)

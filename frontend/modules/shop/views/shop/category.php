@@ -1,3 +1,12 @@
+<?php
+/**
+ * @var $this yii\web\View
+ * @var $categoryInfo \frontend\modules\shop\models\CategoryShop
+ */
+
+$this->title = $categoryInfo->name;
+?>
+
 <div class="breadcrumbs-wrap">
     <ul class="breadcrumbs">
         <li><a href="#">Главная</a></li>
@@ -6,102 +15,14 @@
         <li><a href="#">Женская одежда и аксессуары</a></li>
     </ul>
 </div>
-<h1 class="shop__title">Женская одежда и аксессуары</h1>
-<aside class="shop__sidebars">
-    <a href="#" class="mobile-menu-broad-close">
-        <i class="fa fa-times" aria-hidden="true"></i>
-    </a>
-
-
-    <div class="shop__sidebars--wrap">
-
-        <h4 class="shop__sidebars-title">Техника для дома</h4>
-        <ul class="shop__nav">
-            <li><a href="#">Стиральные машины</a></li>
-            <li><a href="#">Пылесосы</a></li>
-            <li><a href="#">Швейное оборудование</a></li>
-            <li><a href="#">Утюги</a></li>
-            <li><a href="#">Пароочистители и отпариватели</a></li>
-            <li  class="broad-more">
-                <ul class="shop-hidden">
-                    <li><a href="#">Холодильники, морозильники, винные шкафы</a></li>
-                    <li><a href="#">Посудомоечные машины</a></li>
-                    <li><a href="#">Плиты</a></li>
-                    <li><a href="#">Вытяжки</a></li>
-                    <li><a href="#">Подогреватели посуды</a></li>
-                </ul>
-                <a href="#" class="slide-text">eщё</a>
-            </li>
-        </ul>
-    </div>
-
-    <div class="shop__sidebars--wrap">
-        <h4 class="shop__sidebars-title">Крупная техника для кухни</h4>
-        <ul class="shop__nav">
-            <li><a href="#">Холодильники, морозильники, винные шкафы</a></li>
-            <li><a href="#">Посудомоечные машины</a></li>
-            <li><a href="#">Плиты</a></li>
-            <li><a href="#">Вытяжки</a></li>
-            <li><a href="#">Подогреватели посуды</a></li>
-            <li  class="broad-more">
-                <ul class="shop-hidden">
-                    <li><a href="#">Холодильники, морозильники, винные шкафы</a></li>
-                    <li><a href="#">Посудомоечные машины</a></li>
-                    <li><a href="#">Плиты</a></li>
-                    <li><a href="#">Вытяжки</a></li>
-                    <li><a href="#">Подогреватели посуды</a></li>
-                </ul>
-                <a href="#" class="slide-text">eщё</a>
-            </li>
-        </ul>
-    </div>
-
-
-
-    <div class="shop__sidebars--wrap">
-
-        <h4 class="shop__sidebars-title">Техника для дома</h4>
-        <ul class="shop__nav">
-            <li><a href="#">Стиральные машины</a></li>
-            <li><a href="#">Пылесосы</a></li>
-            <li><a href="#">Швейное оборудование</a></li>
-            <li><a href="#">Утюги</a></li>
-            <li><a href="#">Пароочистители и отпариватели</a></li>
-            <li  class="broad-more">
-                <ul class="shop-hidden">
-                    <li><a href="#">Холодильники, морозильники, винные шкафы</a></li>
-                    <li><a href="#">Посудомоечные машины</a></li>
-                    <li><a href="#">Плиты</a></li>
-                    <li><a href="#">Вытяжки</a></li>
-                    <li><a href="#">Подогреватели посуды</a></li>
-                </ul>
-                <a href="#" class="slide-text">eщё</a>
-            </li>
-        </ul>
-    </div>
-
-    <div class="shop__sidebars--wrap">
-        <h4 class="shop__sidebars-title">Крупная техника для кухни</h4>
-        <ul class="shop__nav">
-            <li><a href="#">Холодильники, морозильники, винные шкафы</a></li>
-            <li><a href="#">Посудомоечные машины</a></li>
-            <li><a href="#">Плиты</a></li>
-            <li><a href="#">Вытяжки</a></li>
-            <li><a href="#">Подогреватели посуды</a></li>
-            <li  class="broad-more">
-                <ul class="shop-hidden">
-                    <li><a href="#">Холодильники, морозильники, винные шкафы</a></li>
-                    <li><a href="#">Посудомоечные машины</a></li>
-                    <li><a href="#">Плиты</a></li>
-                    <li><a href="#">Вытяжки</a></li>
-                    <li><a href="#">Подогреватели посуды</a></li>
-                </ul>
-                <a href="#" class="slide-text">eщё</a>
-            </li>
-        </ul>
-    </div>
-
-</aside>
+<h1 class="shop__title"><?= $this->title; ?></h1>
+<?= $this->render('_left-category',
+    [
+        'categoryId' => $categoryInfo->id,
+        'categoryTreeArr' => $categoryTreeArr,
+        'ollCategory' => $ollCategory,
+    ]
+); ?>
 <div class="shop__top-sales">
 
     <div class="shop__top-sales-nav">

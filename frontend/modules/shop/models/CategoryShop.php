@@ -8,6 +8,8 @@
 
 namespace frontend\modules\shop\models;
 
+use common\classes\Debug;
+
 class CategoryShop extends \common\models\db\CategoryShop
 {
     public function getArrayTreeCategory($category)
@@ -26,13 +28,29 @@ class CategoryShop extends \common\models\db\CategoryShop
 
     public function getCategoryUrlEnd($category)
     {
+        //Debug::dd($category);
         $category = explode('/', $category);
         $slug = array_pop($category);
+
         return $slug;
     }
 
     public function getCategoryInfoBySlug($category)
     {
         return CategoryShop::find()->where(['slug' => $this->getCategoryUrlEnd($category)])->one();
+    }
+
+    public function getEndCategory($category)
+    {
+        //Debug::dd($this->getCategoryUrlEnd($category));
+        $cat = $this->getCategoryInfoBySlug($category);
+
+        $catCount = CategoryShop::find()->where(['parent_id' => $cat->id])->count();
+
+        if($catCount > 0){
+            return true;
+        }
+
+        return false;
     }
 }
