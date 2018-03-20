@@ -31,8 +31,8 @@ class CategoryShop extends \common\models\db\CategoryShop
         //Debug::dd($category);
         $category = explode('/', $category);
         $slug = array_pop($category);
-        if(is_int((int)$slug)){
-            //Debug::dd(1231);
+        //Debug::dd((int)$slug);
+        if(is_int($slug)){
             $slug = array_pop($category);
         }
         //Debug::dd($slug);
