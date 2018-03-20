@@ -8,6 +8,7 @@
  * @var $companyPhotosStr string
  * @var $socials array
  * @var $soc SocCompany
+ * @var $phone Phones
  */
 
 use common\models\db\CategoryCompany;
@@ -33,16 +34,7 @@ use yii\jui\DatePicker;
 ?>
 
 <div class="company-form">
-    <?php
-    foreach ($phones as $phone) {
 
-
-        $currentMessengeresIds = $phone->getMessengeres()->select('id')->column();
-        $newMessengeresIds = $phone->getMessengeresArray();
-        var_dump($currentMessengeresIds);
-        var_dump($newMessengeresIds);
-    }
-    ?>
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'lang_id')->dropDownList(ArrayHelper::map(Lang::find()->all(), 'id', 'name')) ?>
@@ -161,11 +153,9 @@ use yii\jui\DatePicker;
         ?>
     <?php endif; ?>
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
-    <?= Html::label('Старый телефон', 'mytext', ['class' => 'control-label']) ?>
-    <textarea class="form-control"><?= $model->phone ?></textarea>
     <div class="phone-dynamic-input">
 
-        <?= Html::label('Телефон', 'mytext', ['class' => 'control-label']) ?>
+        <?= Html::label('Телефон(-ы)', 'mytext', ['class' => 'control-label']) ?>
         <?php if (Yii::$app->controller->action->id == 'create'): ?>
             <div class="input-group multiply-field">
                 <input value="" class="form-control" name="mytext[]" type="text">
@@ -177,17 +167,39 @@ use yii\jui\DatePicker;
             <?php if (!empty($phones)): ?>
 
                 <?php foreach ($phones as $key => $phone): ?>
-                    <div class="input-group <?= ($key == 0) ? 'multiply-field' : '' ?> ">
-                        <input value="<?= $phone->phone ?>" class="form-control" name="mytext[]" type="text">
-                        <a href="#" class="input-group-addon <?= ($key == 0) ? 'add' : 'remove' ?>-input-phone"><span
-                                    class="glyphicon glyphicon-<?= ($key == 0) ? 'plus' : 'minus' ?> "></span></a>
+                    <div class="input-group <?= ($key == 0) ? 'multiply-field' : '' ?> " data-id="<?= $phone->id ?>">
+                        <?= Html::hiddenInput('Phones[' . $phone->id . '][id]', $phone->id) ?>
+                        <?= Html::textInput('Phones[' . $phone->id . '][phone]', $phone->phone, ['class' => 'form-control']) ?>
+                        <?= Html::checkboxList('Phones[][messengeres]', $phone->messengeresArray, ArrayHelper::map(Messenger::find()->all(), "id", "name"),
+                            [
+                                'item' =>
+                                    function ($index, $label, $name, $checked, $value) use ($phone) {
+                                        return Html::checkbox("Phones[" . $phone->id . "][messengeresArray][]", $checked, [
+                                            'value' => $value,
+                                            'label' => $label,
+                                            'labelOptions' => [
+                                                'class' => 'ckbox ckbox-primary col-md-2',
+                                            ],
+                                        ]);
+                                    },
+                            ]);
+                        ?>
+                        <a href="#"
+                           class="input-group-addon <?= ($key == 0) ? 'add' : 'remove' ?>-input-phone"
+                           data-iterator="0">
+                            <span class="glyphicon glyphicon-<?= ($key == 0) ? 'plus' : 'minus' ?> ">
+                            </span>
+                        </a>
                     </div>
                 <?php endforeach; ?>
 
             <?php else: ?>
                 <div class="input-group multiply-field">
-                    <input value="" class="form-control" name="mytext[]" type="text">
-                    <a href="#" class="input-group-addon add-input-phone"><span class="glyphicon glyphicon-plus"></span></a>
+                    <input value="" class="form-control" name="Phones[]" type="text">
+                    <a href="#" class="input-group-addon add-input-phone">
+                        <span class="glyphicon glyphicon-plus">
+                        </span>
+                    </a>
                 </div>
             <?php endif; ?>
         <?php endif; ?>

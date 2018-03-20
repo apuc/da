@@ -10,6 +10,7 @@ use Yii;
  * @property integer $id
  * @property string $phone
  * @property integer $company_id
+ * @property array $messengeresArray
  */
 class Phones extends \yii\db\ActiveRecord
 {
@@ -32,6 +33,7 @@ class Phones extends \yii\db\ActiveRecord
         return [
             [['company_id'], 'integer'],
             [['phone'], 'string', 'max' => 50],
+            [['messengeresArray'], 'safe']
         ];
     }
 
@@ -65,7 +67,7 @@ class Phones extends \yii\db\ActiveRecord
 
     public function getMessengeresArray()
     {
-        if (empty($this->_messengeresArray)) {
+        if ($this->_messengeresArray === null) {
             $this->_messengeresArray = $this->getMessengerPhones()->select('messenger_id')->column();
         }
 
@@ -79,7 +81,6 @@ class Phones extends \yii\db\ActiveRecord
 
     public function afterSave($insert, $changedAttributes)
     {
-        \common\classes\Debug::dd(234234);
         $this->updateMessengeres();
         parent::afterSave($insert, $changedAttributes);
     }
@@ -88,8 +89,6 @@ class Phones extends \yii\db\ActiveRecord
     {
         $currentMessengeresIds = $this->getMessengeres()->select('id')->column();
         $newMessengeresIds = $this->getMessengeresArray();
-        \common\classes\Debug::prn($currentMessengeresIds);
-        \common\classes\Debug::dd($newMessengeresIds);
         foreach (array_filter(array_diff($newMessengeresIds, $currentMessengeresIds)) as $messengerId) {
             /** @var Messenger $messenger */
             if ($messenger = Messenger::findOne($messengerId)) {
