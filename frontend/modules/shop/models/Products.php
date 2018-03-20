@@ -9,6 +9,7 @@
 namespace frontend\modules\shop\models;
 
 use common\classes\Debug;
+use common\classes\Shop;
 use common\models\db\ProductFields;
 use common\models\db\ProductFieldsDefaultValue;
 use common\models\db\ProductFieldsType;
@@ -17,7 +18,9 @@ use common\models\db\ProductsImg;
 use common\models\db\ServicesCompanyRelations;
 use frontend\modules\company\models\Company;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\imagine\Image;
 
 class Products extends \common\models\db\Products
@@ -29,7 +32,7 @@ class Products extends \common\models\db\Products
                 'class' => 'common\behaviors\Slug',
                 'in_attribute' => 'title',
                 'out_attribute' => 'slug',
-                'translit' => true
+                'translit' => true,
             ],
             'timestamp' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
@@ -40,7 +43,6 @@ class Products extends \common\models\db\Products
             ],
         ];
     }
-
 
     /**
      * @inheritdoc
@@ -73,13 +75,12 @@ class Products extends \common\models\db\Products
         return $arr;
     }
 
-
     //Сохранение доп полей товара
     public function saveProductFields($productFields, $productId)
     {
-        if(!empty($productFields)){
-            foreach ($productFields as $name=>$value) {
-                if(!empty($value)){
+        if (!empty($productFields)) {
+            foreach ($productFields as $name => $value) {
+                if (!empty($value)) {
                     $productFieldsOne = ProductFields::find()->where(['name' => $name])->one();
 
                     $type = ProductFieldsType::find()->where(['id' => $productFieldsOne->type])->one()->type;
@@ -87,13 +88,13 @@ class Products extends \common\models\db\Products
                     $productFieldVal = new ProductFieldsValue();
 
                     $productFieldVal->product_id = $productId;
-                    if($type == 'text'){
+                    if ($type == 'text') {
                         $productFieldVal->product_fields_name = $name;
                         $productFieldVal->value = $value;
                     }
-                    if($type == 'select'){
+                    if ($type == 'select') {
                         $productFieldVal->product_fields_name = $name;
-                        $productFieldVal->value = ProductFieldsDefaultValue::find()->where(['id'=>$value])->one()->value;
+                        $productFieldVal->value = ProductFieldsDefaultValue::find()->where(['id' => $value])->one()->value;
                         $productFieldVal->value_id = $value;
                     }
 
@@ -131,23 +132,21 @@ class Products extends \common\models\db\Products
 
             Image::watermark($files['file']['tmp_name'][$i],
                 $_SERVER['DOCUMENT_ROOT'] . '/frontend/web/img/logo_watermark.png')
-                ->save($dir . str_replace( array('(',')'), '_', $files['file']['name'][$i]), ['quality' => 100]);
+                ->save($dir . str_replace(array('(', ')'), '_', $files['file']['name'][$i]), ['quality' => 100]);
 
             Image::thumbnail($files['file']['tmp_name'][$i], 142, 100,
                 $mode = \Imagine\Image\ManipulatorInterface::THUMBNAIL_OUTBOUND)
-                ->save($dirThumb . str_replace( array('(',')'), '_', $file), ['quality' => 100]);
+                ->save($dirThumb . str_replace(array('(', ')'), '_', $file), ['quality' => 100]);
 
             $prodImg = new ProductsImg();
-            $prodImg->img = $dir . str_replace( array('(',')'), '_', $files['file']['name'][$i]);
-            $prodImg->img_thumb = $dirThumb . str_replace( array('(',')'), '_', $file);
+            $prodImg->img = $dir . str_replace(array('(', ')'), '_', $files['file']['name'][$i]);
+            $prodImg->img_thumb = $dirThumb . str_replace(array('(', ')'), '_', $file);
             $prodImg->product_id = $productId;
             $prodImg->save();
 
             $i++;
         }
     }
-
-
 
     public function beforeCreate()
     {
@@ -162,18 +161,42 @@ class Products extends \common\models\db\Products
         $company = ServicesCompanyRelations::find()
             ->joinWith(['company', 'services'])
             ->where(['`company`.`user_id`' => Yii::$app->user->id])
-            ->andWhere(['`company`.`tariff_id`' => [3,4]])
+            ->andWhere(['`company`.`tariff_id`' => [3, 4]])
             //->andWhere(['services_id' => 25])
             ->all();
 
         //Debug::dd($services);
 
-        if(empty($company)) {
+        if (empty($company)) {
             return false;
         }
 
         return $company;
 
+    }
 
+    /**
+     * @param $idCategory integer
+     * @return ActiveDataProvider
+     */
+    public function listProduct($idCategory)
+    {
+        $query = Products::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $category = ArrayHelper::merge(Shop::getChildrenCategory($idCategory), [$idCategory]);
+
+        // grid filtering conditions
+        $query->where(['category_id' => $category, 'status' => 1]);
+
+        $query->orderBy('dt_update DESC');
+
+        $query->with('images');
+        return $dataProvider;
     }
 }

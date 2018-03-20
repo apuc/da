@@ -2,18 +2,46 @@
 /**
  * @var $this yii\web\View
  * @var $categoryInfo \frontend\modules\shop\models\CategoryShop
+ * @var $prducts \frontend\modules\shop\models\Products
+ * @var $categoryTreeArr
+ * @var $ollCategory
+ * @var $categoryList
  */
 
-$this->title = $categoryInfo->name;
+use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
+
+$this->title = $categoryInfo->meta_title;
+
+$this->registerMetaTag([
+    'name' => 'description',
+    'content' => $categoryInfo->meta_description,
+]);
+
+$this->params['breadcrumbs'][] = ['label' => 'Все категории', 'url' => Url::to(['/news/news'])];
+$categoryList = array_reverse($categoryList);
+//\common\classes\Debug::dd($categoryList);
+if(isset($categoryList[1])){
+    $this->params['breadcrumbs'][] =
+        [
+            'label' => $categoryList[0]->name,
+        'url' => Url::to(['/shop/shop/category', 'category' => [$categoryList[0]->slug]]) ];
+}
+//$this->params['breadcrumbs'][] = ['label' => $category->title, 'url' => Url::to(['/news/news/category/', 'slug' => $category->slug])];
+$this->params['breadcrumbs'][] = $categoryInfo->name;
 ?>
 
 <div class="breadcrumbs-wrap">
-    <ul class="breadcrumbs">
+    <?= Breadcrumbs::widget([
+        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+        'options' => ['class' => 'breadcrumbs']
+    ]); ?>
+   <!-- <ul class="breadcrumbs">
         <li><a href="#">Главная</a></li>
         <li><a href="#">Все категории</a></li>
         <li><a href="#">Телефоны...</a></li>
         <li><a href="#">Женская одежда и аксессуары</a></li>
-    </ul>
+    </ul>-->
 </div>
 <h1 class="shop__title"><?= $this->title; ?></h1>
 <?= $this->render('_left-category',
@@ -27,9 +55,7 @@ $this->title = $categoryInfo->name;
 
     <div class="shop__top-sales-nav">
 
-        <h3 class="shop__top-sales-nav--title">Популярные товары
-            этой категории
-        </h3>
+        <h3 class="shop__top-sales-nav--title">Товары из категории</h3>
 
         <a href="#" class="shop__top-sales-nav--link">
             <span class="icon"><img src="img/shop/icons/payment-method-icon.png" alt=""></span>
@@ -53,136 +79,36 @@ $this->title = $categoryInfo->name;
 
     </div>
 
-    <div class="shop__top-sales-elements">
+    <!--<div class="shop__top-sales-elements">-->
+        <?= \yii\widgets\ListView::widget([
+            'dataProvider' => $products,
+            'itemView' => '_list',
+            'options' => ['class' => 'shop__top-sales-elements'],
+            'itemOptions' => [
+                'tag' => false,
+                //'class' => 'shop__top-sales-elements--item',
+            ],
+            'emptyText' => '<div class="cabinet__add-element"><p>Раздел пока пуст</p></div>',
+            'emptyTextOptions' => [
+                'tag' => 'div',
+            ],
+            'layout' => "{items}<div class=\"pagination\">{pager}</div>",
+            'pager' => [
+                'options' => [
+                    'class' => '',
+                ],
+                'prevPageCssClass' => 'pagination-prew',
+                'nextPageCssClass' => 'pagination-next',
+                'prevPageLabel' => '',
+                'nextPageLabel' => '',
+                'activePageCssClass' => 'active',
+                'maxButtonCount' => 5,
+            ],
+        ])?>
 
-        <a href="#" class="shop__top-sales-elements--item">
-            <h3 class="category-name">Механический мод</h3>
-            <p class="category-element">Eleaf iStick TC</p>
 
-            <div class="category-photo">
-                <img src="img/broad.png" alt="">
-            </div>
 
-            <div class="category-price">
-                <span class="category-price__new">3 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
-            </div>
 
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-        <a href="#" class="shop__top-sales-elements--item">
-            <h3 class="category-name">Механический мод</h3>
-            <p class="category-element">Eleaf iStick TC</p>
-
-            <div class="category-photo">
-                <img src="img/broad.png" alt="">
-            </div>
-
-            <div class="category-price">
-                <span class="category-price__new">3 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-        <a href="#" class="shop__top-sales-elements--item">
-            <h3 class="category-name">Механический мод</h3>
-            <p class="category-element">Eleaf iStick TC</p>
-
-            <div class="category-photo">
-                <img src="img/broad.png" alt="">
-            </div>
-
-            <div class="category-price">
-                <span class="category-price__new">3 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-        <a href="#" class="shop__top-sales-elements--item">
-            <h3 class="category-name">Механический мод</h3>
-            <p class="category-element">Eleaf iStick TC</p>
-
-            <div class="category-photo">
-                <img src="img/broad.png" alt="">
-            </div>
-
-            <div class="category-price">
-                <span class="category-price__new">3 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-        <a href="#" class="shop__top-sales-elements--item">
-            <h3 class="category-name">Механический мод</h3>
-            <p class="category-element">Eleaf iStick TC</p>
-
-            <div class="category-photo">
-                <img src="img/broad.png" alt="">
-            </div>
-
-            <div class="category-price">
-                <span class="category-price__new">3 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-        <a href="#" class="shop__top-sales-elements--item">
-            <h3 class="category-name">Механический мод</h3>
-            <p class="category-element">Eleaf iStick TC</p>
-
-            <div class="category-photo">
-                <img src="img/broad.png" alt="">
-            </div>
-
-            <div class="category-price">
-                <span class="category-price__new">3 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-        <a href="#" class="shop__top-sales-elements--item">
-            <h3 class="category-name">Механический мод</h3>
-            <p class="category-element">Eleaf iStick TC</p>
-
-            <div class="category-photo">
-                <img src="img/broad.png" alt="">
-            </div>
-
-            <div class="category-price">
-                <span class="category-price__new">3 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-        <a href="#" class="shop__top-sales-elements--item">
-            <h3 class="category-name">Механический мод</h3>
-            <p class="category-element">Eleaf iStick TC</p>
-
-            <div class="category-photo">
-                <img src="img/broad.png" alt="">
-            </div>
-
-            <div class="category-price">
-                <span class="category-price__new">3 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-    </div>
+   <!-- </div>-->
 
 </div>

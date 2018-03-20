@@ -33,12 +33,17 @@ class ShopController extends Controller
         $model = new CategoryShop();
         $categoryModel = $model->getCategoryInfoBySlug($category);
 
+        $modelProduct = new Products();
+        $prducts = $modelProduct->listProduct($categoryModel->id);
+
+        $categoryList = \common\classes\Shop::getListCategoryAllInfo($categoryModel->id, []);
+
         //$cat = $model->getEndCategory($category);
         //Debug::dd($cat);
 
         //Debug::prn( $category);
         //
-        if($model->getEndCategory($category)){
+        if ($model->getEndCategory($category)) {
             $category = CategoryShop::find()->all();
             $categoryTreeArr = $categoryModel->getArrayTreeCategory($category);
 //Debug::dd(ArrayHelper::index($category, 'id'));
@@ -47,6 +52,8 @@ class ShopController extends Controller
                     'categoryInfo' => $categoryModel,
                     'categoryTreeArr' => $categoryTreeArr,
                     'ollCategory' => ArrayHelper::index($category, 'id'),
+                    'products' => $prducts,
+                    'categoryList' => $categoryList,
                 ]);
         }
 
@@ -62,11 +69,11 @@ class ShopController extends Controller
             ->with('productFieldsValues.field', 'company', 'images', 'category', 'reviews')
             ->one();
 
-        $currentUserId  = Yii::$app->user->id;
+        $currentUserId = Yii::$app->user->id;
         if (!empty($currentUserId)) {
             $thisUserLike = LikeProducts::find()
                 ->where(['product_id' => $model->id, 'user_id' => $currentUserId])->one();
-            if(!empty($thisUserLike)){
+            if (!empty($thisUserLike)) {
                 $thisUserLike = true;
             }
 
@@ -82,7 +89,7 @@ class ShopController extends Controller
     public function actionLike()
     {
         $userId = Yii::$app->user->id;
-        if(!$userId) {
+        if (!$userId) {
             return true;
         }
 
@@ -90,7 +97,7 @@ class ShopController extends Controller
 
         $like = LikeProducts::find()->where(['product_id' => $postData['product_id'], 'user_id' => $userId])->one();
 
-        if(empty($like)) {
+        if (empty($like)) {
             $like = new LikeProducts();
             $like->product_id = $postData['product_id'];
             $like->user_id = $userId;
@@ -98,7 +105,7 @@ class ShopController extends Controller
 
             $like->save();
             return true;
-        }else{
+        } else {
             LikeProducts::deleteAll(['product_id' => $postData['product_id'], 'user_id' => $userId]);
             return false;
         }
