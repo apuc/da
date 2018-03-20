@@ -2,7 +2,7 @@
 /**
  * @var $this yii\web\View
  * @var $categoryInfo \frontend\modules\shop\models\CategoryShop
- * @var $prducts \frontend\modules\shop\models\Products
+ * @var $products \frontend\modules\shop\models\Products
  * @var $categoryTreeArr
  * @var $ollCategory
  * @var $categoryList

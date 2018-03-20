@@ -30,14 +30,17 @@ class ShopController extends Controller
 
     public function actionCategory($category)
     {
+        //Debug::dd($category);
         $model = new CategoryShop();
         $categoryModel = $model->getCategoryInfoBySlug($category);
 
+
+
         $modelProduct = new Products();
-        $prducts = $modelProduct->listProduct($categoryModel->id);
+        $products = $modelProduct->listProduct($categoryModel->id);
 
         $categoryList = \common\classes\Shop::getListCategoryAllInfo($categoryModel->id, []);
-
+        //Debug::dd( $categoryList);
         //$cat = $model->getEndCategory($category);
         //Debug::dd($cat);
 
@@ -52,7 +55,7 @@ class ShopController extends Controller
                     'categoryInfo' => $categoryModel,
                     'categoryTreeArr' => $categoryTreeArr,
                     'ollCategory' => ArrayHelper::index($category, 'id'),
-                    'products' => $prducts,
+                    'products' => $products,
                     'categoryList' => $categoryList,
                 ]);
         }

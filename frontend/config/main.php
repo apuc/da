@@ -316,7 +316,9 @@ return \yii\helpers\ArrayHelper::merge([
                 'shop/products/show-category-end' => 'shop/products/show-category-end',
                 'shop/products/show-additional-fields' => 'shop/products/show-additional-fields',
                 'shop/product/<slug>' => 'shop/shop/show',
+                'shop/<category:.+>/<page:\d+>' => 'shop/shop/category',
                 'shop/<category:.+>' => 'shop/shop/category',
+
                 'shop' => 'shop/default/index',
             ]
         ],

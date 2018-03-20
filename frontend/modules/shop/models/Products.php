@@ -187,6 +187,10 @@ class Products extends \common\models\db\Products
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 16,
+                'pageSizeParam' => false,
+            ],
         ]);
 
         $category = ArrayHelper::merge(Shop::getChildrenCategory($idCategory), [$idCategory]);
