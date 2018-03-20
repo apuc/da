@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $categoryInfo->name;
         <li><a href="#">Женская одежда и аксессуары</a></li>
     </ul>-->
 </div>
-<h1 class="shop__title"><?= $this->title; ?></h1>
+<h1 class="shop__title"><?= $categoryInfo->name; ?></h1>
 <?= $this->render('_left-category',
     [
         'categoryId' => $categoryInfo->id,

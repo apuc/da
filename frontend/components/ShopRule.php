@@ -16,6 +16,7 @@ class ShopRule implements UrlRuleInterface {
 
     public function createUrl($manager, $route, $params)
     {
+        Debug::dd($route);
         if ($route === 'shop/shop/category') {
             $url = '';
             foreach ($params['category'] as $item) {
