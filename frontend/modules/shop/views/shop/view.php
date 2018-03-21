@@ -23,7 +23,6 @@ $categoryList = ArrayHelper::toArray($categoryList);
 //\common\classes\Debug::dd($categoryList);
 foreach ($categoryList as $key=>$item){
     $url = '';
-    //\common\classes\Debug::prn($key);
     if($key == 1){
         $url = $categoryList[$key - 1]['slug'];
     }
@@ -35,24 +34,14 @@ foreach ($categoryList as $key=>$item){
             'label' => $item['name'],
             'url' => Url::to(['/shop/shop/category', 'category' => [$url, $item['slug']]]) ];
 
-    //\common\classes\Debug::prn($key);
-}
-/*if(isset($categoryList[1])){
-    $this->params['breadcrumbs'][] =
-        [
-            'label' => $categoryList[0]->name,
-            'url' => Url::to(['/shop/shop/category', 'category' => [$categoryList[0]->slug]]) ];
-}*/
 
-/*if(isset($categoryList[1])){
-    $this->params['breadcrumbs'][] =
-        [
-            'label' => $categoryList[0]->name,
-            'url' => Url::to(['/shop/shop/category', 'category' => [$categoryList[0]->slug]]) ];
-}*/
+}
+
 $this->params['breadcrumbs'][] = $model->title;
 
-$this->title = $model->title;
+$region = GeobaseFunction::getRegionName($model['company']->region_id);
+
+$this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
 //\common\classes\Debug::dd($model);
 ?>
 
@@ -157,7 +146,7 @@ $this->title = $model->title;
                 <?php
                 //\common\classes\Debug::dd($model['company']->region_id);
                 if($model['company']->region_id != 0){
-                    $address = GeobaseFunction::getRegionName($model['company']->region_id) . ', ' .GeobaseFunction::getCityName($model['company']->city_id) . ', ' . $model['company']->address ;
+                    $address = $region . ', ' .GeobaseFunction::getCityName($model['company']->city_id) . ', ' . $model['company']->address ;
                 }
                 else{
                     $address = $model['company']->address;
