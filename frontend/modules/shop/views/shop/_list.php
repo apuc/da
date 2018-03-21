@@ -3,7 +3,7 @@
 //\common\classes\Debug::prn($model['title']);
 
 ?>
-<a href="<?= \yii\helpers\Url::to(['/shop/shop/show', 'slug' => $model['slug']])?>" class="shop__top-sales-elements--item">
+<a href="<?= \yii\helpers\Url::to(['/shop/shop/show', 'slug' => $model['slug']])?>" class="shop__top-sales-elements--item shop__top-sales-home-elements--item">
     <h3 class="category-name"><?= $model['title']; ?></h3>
     <!--<p class="category-element">Eleaf iStick TC</p>-->
 
