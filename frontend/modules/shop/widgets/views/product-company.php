@@ -22,7 +22,7 @@ if(!empty($model)):
                         <?php if (!empty($item->cover)): ?>
                             <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $item->cover); ?>" alt="<?= $item->title; ?>">
                         <?php else: ?>
-                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage('/' . $item->images[0]->img_thumb); ?> alt="<?= $item->title; ?>">
+                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage('/' . $item->images[0]->img_thumb); ?>" alt="<?= $item->title; ?>">
                         <?php endif; ?>
                     </div>
 
