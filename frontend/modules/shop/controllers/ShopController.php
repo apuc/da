@@ -23,11 +23,22 @@ class ShopController extends Controller
 
     public $layout = 'shop';
 
+    /**
+     * Вывод страницы все категории магазина
+     */
     public function actionIndex()
     {
         Debug::prn('Вывод списка всех товаров');
     }
 
+    /**
+     * вывод старницы промежуточной категории со списком товаров всех категорий
+     * входящих в текущую или вывод списка товаров последней категории с фильтром
+     * по этим товарам
+     *
+     * @param $category
+     * @return string
+     */
     public function actionCategory($category)
     {
         //Debug::dd($category);
@@ -64,6 +75,11 @@ class ShopController extends Controller
 
     }
 
+    /**
+     * Вывод страницы карточки товара
+     * @param $slug
+     * @return string
+     */
     public function actionShow($slug)
     {
         $this->layout = 'single-shop';
@@ -89,6 +105,10 @@ class ShopController extends Controller
         return $this->render('view', ['model' => $model, 'like' => $thisUserLike]);
     }
 
+    /**
+     * Добавить в мои желания товар
+     * @return bool
+     */
     public function actionLike()
     {
         $userId = Yii::$app->user->id;

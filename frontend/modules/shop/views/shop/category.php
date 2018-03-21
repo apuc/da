@@ -18,7 +18,7 @@ $this->registerMetaTag([
     'content' => $categoryInfo->meta_description,
 ]);
 
-$this->params['breadcrumbs'][] = ['label' => 'Все категории', 'url' => Url::to(['/news/news'])];
+$this->params['breadcrumbs'][] = ['label' => 'Все категории', 'url' => Url::to(['/shop/shop/index'])];
 $categoryList = array_reverse($categoryList);
 //\common\classes\Debug::dd($categoryList);
 if(isset($categoryList[1])){
