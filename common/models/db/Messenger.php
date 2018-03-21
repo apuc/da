@@ -29,7 +29,7 @@ class Messenger extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'string', 'max' => 255],
+            [['name', 'icon' ], 'string', 'max' => 255],
         ];
     }
 
@@ -41,6 +41,7 @@ class Messenger extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('messenger', 'ID'),
             'name' => Yii::t('messenger', 'Name'),
+            'icon' => Yii::t('messenger', 'Icon'),
         ];
     }
 
