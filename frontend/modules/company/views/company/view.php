@@ -153,3 +153,29 @@ $this->params['breadcrumbs'][] = $model->name;
     </div>
 
 </section>
+
+<a href="#" class="feedback-btn">
+    <div class="pulse1"></div>
+    <div class="pulse2"></div>
+    <div class="icon-puls-btn"></div>
+</a>
+
+<div id="feedback-modal">
+
+    <h2 class="feedback-modal-title">наши контакты</h2>
+
+    <p class="feedback-modal-desk"><b>нажмите на номер</b> чтобы связаться <br> прямо сейчас!</p>
+
+    <?php if (!empty($model->allPhones)): ?>
+        <?php foreach ($model->allPhones as $phone): ?>
+            <a class="feedback-modal-phone" href="tel:<?= $phone->phone ?>">
+                <?= $phone->phone ?></a>
+        <?php endforeach; ?>
+    <?php elseif (!empty($model->phone)): ?>
+        <?php $phones = explode(' ', $model->phone) ?>
+        <?php foreach ($phones as $phone): ?>
+            <a class="feedback-modal-phone" href="tel:<?= $phone ?>"><?= $phone ?></a>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
+</div>
