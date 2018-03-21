@@ -47,4 +47,27 @@ class Shop
         //$arrEnd = array_reverse($arr);
         return $arr;
     }
+
+
+    public static function getAllCategory(){
+        $category = CategoryShop::find()->all();
+        $catArr = [];
+
+        foreach ($category as $item) {
+            //Debug::prn($item);
+            if($item->parent_id == 0){
+                $catArr[$item->id]['id'] = $item->id;
+                $catArr[$item->id]['name'] = $item->name;
+                $catArr[$item->id]['slug'] = $item->slug;
+                $catArr[$item->id]['img'] = $item->icon;
+
+                foreach ($category as $value) {
+                    if($value->parent_id == $item->id){
+                        $catArr[$item->id]['childs'][] = $value;
+                    }
+                }
+            }
+        }
+        return $catArr;
+    }
 }

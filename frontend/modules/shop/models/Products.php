@@ -177,9 +177,10 @@ class Products extends \common\models\db\Products
 
     /**
      * @param $idCategory integer
+     * @param $limit integer
      * @return ActiveDataProvider
      */
-    public function listProduct($idCategory)
+    public function listProduct($limit = 16, $idCategory = null)
     {
         $query = Products::find();
 
@@ -188,16 +189,21 @@ class Products extends \common\models\db\Products
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 16,
+                'pageSize' => $limit,
                 'pageSizeParam' => false,
             ],
         ]);
 
-        $category = ArrayHelper::merge(Shop::getChildrenCategory($idCategory), [$idCategory]);
+        $category = [];
 
+        if(!empty($idCategory)){
+            $category = ArrayHelper::merge(Shop::getChildrenCategory($idCategory), [$idCategory]);
+        }
         // grid filtering conditions
-        $query->where(['category_id' => $category, 'status' => 1]);
+        $query->where(['status' => 1]);
 
+        $query->filterWhere(['category_id' => $category]);
+//Debug::dd($query->createCommand()->rawSql);
         $query->orderBy('dt_update DESC');
 
         $query->with('images');

@@ -27,7 +27,6 @@ if(isset($categoryList[1])){
             'label' => $categoryList[0]->name,
         'url' => Url::to(['/shop/shop/category', 'category' => [$categoryList[0]->slug]]) ];
 }
-//$this->params['breadcrumbs'][] = ['label' => $category->title, 'url' => Url::to(['/news/news/category/', 'slug' => $category->slug])];
 $this->params['breadcrumbs'][] = $categoryInfo->name;
 ?>
 

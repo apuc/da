@@ -10,6 +10,7 @@ namespace frontend\modules\shop\controllers;
 
 use common\classes\Cart;
 use common\classes\Debug;
+use common\classes\Shop;
 use common\models\db\LikeProducts;
 use frontend\modules\shop\models\CategoryShop;
 use frontend\modules\shop\models\Products;
@@ -28,7 +29,19 @@ class ShopController extends Controller
      */
     public function actionIndex()
     {
-        Debug::prn('Вывод списка всех товаров');
+        //Debug::prn('Вывод списка всех товаров');
+        $category = Shop::getAllCategory();
+
+        $modelProduct = new Products();
+        $products = $modelProduct->listProduct(12);
+
+        //Debug::dd($category);
+        return $this->render('all-category',
+            [
+                'category' => $category,
+                'products' => $products,
+            ]
+        );
     }
 
     /**
@@ -48,7 +61,7 @@ class ShopController extends Controller
 
 
         $modelProduct = new Products();
-        $products = $modelProduct->listProduct($categoryModel->id);
+        $products = $modelProduct->listProduct(16, $categoryModel->id);
 
         $categoryList = \common\classes\Shop::getListCategoryAllInfo($categoryModel->id, []);
         //Debug::dd( $categoryList);

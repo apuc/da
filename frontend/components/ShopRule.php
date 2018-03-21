@@ -38,7 +38,12 @@ class ShopRule implements UrlRuleInterface {
                 }
                 $url = substr($url, 0, -1);
                 if (isset($params['category'])) {
-                    return '/shop/' . $url . '/' . $params['page'];
+                    $url = '/shop/' . $url;
+
+                    if(isset($params['page'])){
+                        $url .= '/' . $params['page'];
+                    }
+                    return $url;
                 }
             }
 
