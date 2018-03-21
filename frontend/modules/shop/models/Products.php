@@ -202,7 +202,7 @@ class Products extends \common\models\db\Products
         // grid filtering conditions
         $query->where(['status' => 1]);
 
-        $query->filterWhere(['category_id' => $category]);
+        $query->andFilterWhere(['category_id' => $category]);
 //Debug::dd($query->createCommand()->rawSql);
         $query->orderBy('dt_update DESC');
 

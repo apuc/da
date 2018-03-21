@@ -115,7 +115,14 @@ class ShopController extends Controller
 
         $model->updateAllCounters(['view' => 1], ['id' => $model->id]);
 
-        return $this->render('view', ['model' => $model, 'like' => $thisUserLike]);
+        $categoryList = \common\classes\Shop::getListCategoryAllInfo($model->category_id, []);
+        return $this->render('view',
+            [
+                'model' => $model,
+                'like' => $thisUserLike,
+                'categoryList' => $categoryList,
+            ]
+        );
     }
 
     /**

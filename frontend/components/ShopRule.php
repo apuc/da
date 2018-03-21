@@ -24,8 +24,9 @@ class ShopRule implements UrlRuleInterface {
             //Debug::dd($params);
             if (is_array($params['category'])){
                 foreach ($params['category'] as $item) {
-
-                    $url .= $item . '/';
+                    if(!empty($item)){
+                        $url .= $item . '/';
+                    }
                 }
                 $url = substr($url, 0, -1);
                 if (isset($params['category'])) {

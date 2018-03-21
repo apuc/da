@@ -89,7 +89,7 @@ if ($this->beginCache('show_category_shop', ['duration' => Yii::$app->params['ho
 
         <div class="shop__categories--title">
             <span>Категории</span>
-            <a href="#">Смотреть все ></a>
+            <a href="<?= Url::to(['/shop/shop/index']); ?>">Смотреть все ></a>
         </div>
 
         <ul class="shop__categories--list">
