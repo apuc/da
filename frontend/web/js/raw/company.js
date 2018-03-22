@@ -44,5 +44,27 @@ $(document).ready(function () {
             });
         });
     });
+    $('.company__add-phone').on('click', function (event) {
+        var elem = $(this);
+        var iterator = elem.data('iterator');
+        $.ajax({
+            url: '/company/company/add-phone',
+            data: {
+                iterator: iterator,
+                _csrf: yii.getCsrfToken()
+            },
+            type: 'POST',
+            success: function (html) {
+                elem.data('iterator', iterator + 1);
+                $('.phones').append(html);
+            }
+        });
+        return false;
+    });
+
+    $('.company__remove-phone').on('click', function () {
+        $(this).remove();
+        console.log('remove phone');
+    });
     /*close business sidebar script*/
 });

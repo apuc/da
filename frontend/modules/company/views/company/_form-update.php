@@ -1,5 +1,6 @@
 <?php
 
+use common\models\db\Messenger;
 use common\models\db\SocAvailable;
 use common\models\db\Tariff;
 use kartik\file\FileInput;
@@ -22,6 +23,7 @@ use yii\widgets\ActiveForm;
 $this->registerCssFile('/css/board.min.css');
 //$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/raw/company.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 
@@ -113,44 +115,54 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
     <div class="cabinet__add-company-form--block"></div>
 
-    <div class="form-line field-company-phone">
-        <label class="label-name" for="company-phone">Телефон</label>
-        <?php // $phone = explode(' ', $model->phone);
-        if (!empty($model->allPhones)) {
-            $phone = $model->allPhones;
-        }
-
-        if (empty($phone[0])) { ?>
-            <input value="" class="cabinet__add-company-form--field" name="mytext[]" type="text">
-            <a href="#" class="cabinet__add-field"
-               max-count="<?= (isset($services['count_phone']) ? $services['count_phone'] : ''); ?>"></a>
-            <!--<a href="#" class="cabinet__remove-pkg"></a>-->
-        <?php } else {
-            ?>
+    <div class="form-line field-company-phone phones">
+        <label class="label-name" for="company-phone">Телефон(-ы)</label>
+        <?php if (!empty($phones)): ?>
             <div class="cabinet__add-company-form--hover-wrapper">
-                <?php foreach ($phone as $key => $item): ?>
-                    <?php if (!empty($item)): ?>
-
-                        <div class="cabinet__add-company-form--hover-elements">
-                            <p class="cabinet__add-company-form--title"></p>
-                            <input value="<?= $item->phone; ?>" class="cabinet__add-company-form--field" name="mytext[]"
-                                   type="text">
+                <?php foreach ($phones as $key => $phone): ?>
+                    <div class="cabinet__add-company-form--hover-elements">
+                        <p class="cabinet__add-company-form--title"></p>
+                        <div class="input-group <?= ($key == 0) ? 'multiply-field' : '' ?> "
+                             data-id="<?= $phone->id ?>">
+                            <?= Html::hiddenInput('Phones[' . $phone->id . '][id]', $phone->id) ?>
+                            <?= Html::textInput('Phones[' . $phone->id . '][phone]', $phone->phone, ['class' => 'form-control']) ?>
                             <?php if ($key != 0): ?>
-                                <a href="#" class="cabinet__remove-pkg"></a>
+                                <a href="#" class="cabinet__remove-pkg company__remove-phone"></a>
                             <?php else: ?>
-                                <a href="#" class="cabinet__add-field"
+                                <a href="#" class="cabinet__add-field company__add-phone" data-iterator="0"
                                    max-count="<?= (isset($services['count_phone']) ? $services['count_phone'] : ''); ?>"></a>
                             <?php endif; ?>
+                            <?= Html::checkboxList('Phones[][messengeres]', $phone->messengeresArray, ArrayHelper::map(Messenger::find()->all(), "id", "name"),
+                                [
+                                    'item' =>
+                                        function ($index, $label, $name, $checked, $value) use ($phone) {
+                                            return Html::checkbox("Phones[" . $phone->id . "][messengeresArray][]", $checked, [
+                                                'value' => $value,
+                                                'label' => $label,
+                                                'labelOptions' => [
+                                                    'class' => 'ckbox col-md-3',
+                                                ],
+                                            ]);
+                                        },
+                                ]);
+                            ?>
                             <p class="cabinet__add-company-form--notice"></p>
                         </div>
-                    <?php endif; ?>
-
+                    </div>
                 <?php endforeach; ?>
             </div>
-        <?php }
-        ?>
+        <?php else: ?>
+            <div class="cabinet__add-company-form--hover-wrapper">
+                <div class="cabinet__add-company-form--hover-elements">
+                    <p class="cabinet__add-company-form--title"></p>
+                    <div class="input-group multiply-field" data-id="0">
+                        <?= Html::hiddenInput('Phones[][id]', 0) ?>
+                        <?= Html::textInput('Phones[][phone]', '', ['class' => 'form-control']) ?>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
-
     <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>
 <?= $form->field($model, 'email')
     ->textInput(['maxlength' => true])

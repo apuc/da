@@ -11,6 +11,7 @@ use yii\helpers\Html;
  * @var $city
  * @var $categoryCompanyAll
  * @var $socials
+ * @var $phones
  *
  */
 
@@ -30,7 +31,8 @@ $this->params['breadcrumbs'][] = Yii::t('company', 'Update');
             'img' => $img,
             'city' => $city,
             'categoryCompanyAll' => $categoryCompanyAll,
-            'socials' => $socials
+            'socials' => $socials,
+            'phones' => $phones,
         ]) ?>
     </div>
 

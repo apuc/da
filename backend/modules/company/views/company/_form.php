@@ -157,11 +157,10 @@ use yii\jui\DatePicker;
 
         <?= Html::label('Телефон(-ы)', 'mytext', ['class' => 'control-label']) ?>
         <?php if (Yii::$app->controller->action->id == 'create'): ?>
-            <div class="input-group multiply-field">
-                <input value="" class="form-control" name="mytext[]" type="text">
-                <a href="#" class="input-group-addon add-input-phone"><span class="glyphicon glyphicon-plus"></span></a>
+            <div class="input-group multiply-field" data-id="0">
+                <?= Html::hiddenInput('Phones[0][id]', 0) ?>
+                <?= Html::textInput('Phones[0][phone]', '', ['class' => 'form-control']) ?>
             </div>
-
         <?php elseif (Yii::$app->controller->action->id == 'update'): ?>
 
             <?php if (!empty($phones)): ?>
@@ -194,12 +193,9 @@ use yii\jui\DatePicker;
                 <?php endforeach; ?>
 
             <?php else: ?>
-                <div class="input-group multiply-field">
-                    <input value="" class="form-control" name="Phones[]" type="text">
-                    <a href="#" class="input-group-addon add-input-phone">
-                        <span class="glyphicon glyphicon-plus">
-                        </span>
-                    </a>
+                <div class="input-group multiply-field" data-id="0">
+                    <?= Html::hiddenInput('Phones[0][id]', 0) ?>
+                    <?= Html::textInput('Phones[0][phone]', '', ['class' => 'form-control']) ?>
                 </div>
             <?php endif; ?>
         <?php endif; ?>
