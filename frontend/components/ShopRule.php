@@ -16,15 +16,39 @@ class ShopRule implements UrlRuleInterface {
 
     public function createUrl($manager, $route, $params)
     {
+
         if ($route === 'shop/shop/category') {
             $url = '';
-            foreach ($params['category'] as $item) {
-                $url .= $item . '/';
+            //Debug::prn($manager);
+            // Debug::dd($route);
+            //Debug::dd($params);
+            if (is_array($params['category'])){
+                foreach ($params['category'] as $item) {
+                    if(!empty($item)){
+                        $url .= $item . '/';
+                    }
+                }
+                $url = substr($url, 0, -1);
+                if (isset($params['category'])) {
+                    return '/shop/' . $url ;
+                }
+            }else{
+                foreach ([$params['category']] as $item) {
+
+                    $url .= $item . '/';
+                }
+                $url = substr($url, 0, -1);
+                if (isset($params['category'])) {
+                    $url = '/shop/' . $url;
+
+                    if(isset($params['page'])){
+                        $url .= '/' . $params['page'];
+                    }
+                    return $url;
+                }
             }
-            $url = substr($url, 0, -1);
-            if (isset($params['category'])) {
-                return '/shop/' . $url ;
-            }
+
+           return $route;
         }
 
         if($route === 'shop/shop/product') {

@@ -3,7 +3,7 @@
  * @var $model \frontend\modules\shop\models\Products
  */
 ?>
-<?php if(empty($model->new_price)): ?>
+<?php if (empty($model->new_price)): ?>
     <div class="single-shop__info-item">
         <div>Цена:</div>
         <div>
@@ -24,7 +24,8 @@
         <div>Цена со скидкой:</div>
         <div>
             <span class="price-sail"><?= number_format($model->new_price, 0, '.', ' '); ?> руб. / шт.</span>
-            <a href="#" class="discount"><span class="discount-sale"><?= round($sale) ?>%</span> <!--Осталось дней: 6--></a>
+            <a href="#" class="discount"><span class="discount-sale"><?= round($sale) ?>%</span> <!--Осталось дней: 6-->
+            </a>
         </div>
 
     </div>

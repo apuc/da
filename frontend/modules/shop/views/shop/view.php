@@ -5,6 +5,8 @@
 
 use common\classes\GeobaseFunction;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
 
 $this->registerJsFile('/theme/portal-donbassa/js/jquery.zoom.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
@@ -14,18 +16,40 @@ $this->registerJsFile('/js/raw/products.js', ['depends' => [\yii\web\JqueryAsset
 
 $this->registerCssFile('/css/star-rating.min.css');
 
+$this->params['breadcrumbs'][] = ['label' => 'Все категории', 'url' => Url::to(['/shop/shop/index'])];
+$categoryList = array_reverse($categoryList);
+//\common\classes\Debug::dd($categoryList);
+$categoryList = ArrayHelper::toArray($categoryList);
+//\common\classes\Debug::dd($categoryList);
+foreach ($categoryList as $key=>$item){
+    $url = '';
+    if($key == 1){
+        $url = $categoryList[$key - 1]['slug'];
+    }
+    if($key == 2){
+        $url = $categoryList[$key - 2]['slug'] . '/' . $categoryList[$key - 1]['slug'];
+    }
+    $this->params['breadcrumbs'][] =
+        [
+            'label' => $item['name'],
+            'url' => Url::to(['/shop/shop/category', 'category' => [$url, $item['slug']]]) ];
 
-$this->title = $model->title;
+
+}
+
+$this->params['breadcrumbs'][] = $model->title;
+
+$region = GeobaseFunction::getRegionName($model['company']->region_id);
+
+$this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
 //\common\classes\Debug::dd($model);
 ?>
 
 <div class="breadcrumbs-wrap">
-    <ul class="breadcrumbs">
-        <li><a href="#">Главная</a></li>
-        <li><a href="#">Все категории</a></li>
-        <li><a href="#">Телефоны...</a></li>
-        <li><a href="#">Мобильные телефоны</a></li>
-    </ul>
+    <?= Breadcrumbs::widget([
+        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+        'options' => ['class' => 'breadcrumbs']
+    ]); ?>
 </div>
 <div class="single-shop__detail">
     <div class="single-shop__gallery">
@@ -104,7 +128,7 @@ $this->title = $model->title;
             </div>
             <div class="single-shop__info-item">
                 <a href="#" class="button-buy">Купить сейчас</a>
-                <a href="#" class="button-basket add-to-cart" data-id="<?= $model->id; ?>" shop-id="<?= $model['company']->id; ?>">
+                <a href="#" class="button-basket add-to-cart" id="add-cart-btn" data-id="<?= $model->id; ?>" shop-id="<?= $model['company']->id; ?>">
                     Добавить в корзину
                 </a>
                 <!--<a href="#" class="promotion-seller">
@@ -122,7 +146,7 @@ $this->title = $model->title;
                 <?php
                 //\common\classes\Debug::dd($model['company']->region_id);
                 if($model['company']->region_id != 0){
-                    $address = GeobaseFunction::getRegionName($model['company']->region_id) . ', ' .GeobaseFunction::getCityName($model['company']->city_id) . ', ' . $model['company']->address ;
+                    $address = $region . ', ' .GeobaseFunction::getCityName($model['company']->city_id) . ', ' . $model['company']->address ;
                 }
                 else{
                     $address = $model['company']->address;
@@ -293,4 +317,16 @@ $this->title = $model->title;
         </a>
 
     </div>
+</div>
+
+<div id="modal-add-cart">
+
+    <h1 class="modalAdd-cartTitle">Товар был добавлен в корзину. <span> Товаров в Вашей корзине: <span class="modal-count-cart">1</span></span></h1>
+
+    <a href="#" class="go-cart">Перейти к корзине</a>
+
+    <button class="close-cart" id="modal_close">Вернуться на сайт</button>
+
+
+
 </div>

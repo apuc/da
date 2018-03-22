@@ -29,7 +29,7 @@ $this->registerMetaTag([
 $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/company_ajax.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/company.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-//\common\classes\Debug::prn($model->allPhones);
+
 
 $this->params['breadcrumbs'][] = ['label' => 'Все предприятия', 'url' => Url::to(['/company/company'])];
 if (!empty($categoryCompany['category']['categ']->title)) {
@@ -104,9 +104,9 @@ $this->params['breadcrumbs'][] = $model->name;
                                         <img src="<?= $messenger->icon; ?>" alt="<?= $messenger->name; ?>" height="20px"
                                              width="20px" style="margin-right: 3px">
                                     <?php endforeach; ?>
-                                    <a class="phone" href="tel:<?= $phone->phone ?>">
-                                        <?= $phone->phone ?>
-                                    </a>
+                                        <a class="phone" href="tel:<?= $phone->phone ?>">
+                                            <img src="/theme/portal-donbassa/img/icons/phone-icon-single-company.png" alt="">
+                                            <?= $phone->phone ?></a>
                                 </div>
                             <?php endforeach; ?>
                         <?php elseif (!empty($model->phone)): ?>
@@ -163,3 +163,29 @@ $this->params['breadcrumbs'][] = $model->name;
     </div>
 
 </section>
+
+<a href="#" class="feedback-btn">
+    <div class="pulse1"></div>
+    <div class="pulse2"></div>
+    <div class="icon-puls-btn"></div>
+</a>
+
+<div id="feedback-modal">
+
+    <h2 class="feedback-modal-title">наши контакты</h2>
+
+    <p class="feedback-modal-desk"><b>нажмите на номер</b> чтобы связаться <br> прямо сейчас!</p>
+
+    <?php if (!empty($model->allPhones)): ?>
+        <?php foreach ($model->allPhones as $phone): ?>
+            <a class="feedback-modal-phone" href="tel:<?= $phone->phone ?>">
+                <?= $phone->phone ?></a>
+        <?php endforeach; ?>
+    <?php elseif (!empty($model->phone)): ?>
+        <?php $phones = explode(' ', $model->phone) ?>
+        <?php foreach ($phones as $phone): ?>
+            <a class="feedback-modal-phone" href="tel:<?= $phone ?>"><?= $phone ?></a>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
+</div>

@@ -121,7 +121,7 @@ return \yii\helpers\ArrayHelper::merge([
         ],
 
         'authClientCollection' => [
-            'class' => \yii\authclient\Collection::className(),
+            'class' => \yii\authclient\Collection::class,
 
             'clients' => [
                 'vkontakte' => [
@@ -316,8 +316,13 @@ return \yii\helpers\ArrayHelper::merge([
                 'shop/products/show-parent-modal-category' => 'shop/products/show-parent-modal-category',
                 'shop/products/show-category-end' => 'shop/products/show-category-end',
                 'shop/products/show-additional-fields' => 'shop/products/show-additional-fields',
+
+                'shop/all-category/<page:\d+>' => 'shop/shop/index',
+                'shop/all-category' => 'shop/shop/index',
                 'shop/product/<slug>' => 'shop/shop/show',
+                'shop/<category:.+>/<page:\d+>' => 'shop/shop/category',
                 'shop/<category:.+>' => 'shop/shop/category',
+
                 'shop' => 'shop/default/index',
             ]
         ],
