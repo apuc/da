@@ -1,23 +1,34 @@
+<?php
+/**
+ * @var $this yii\web\View
+ * @var $category \frontend\modules\shop\models\CategoryShop
+ */
+?>
+
 <div class="shop__top-tools">
 
-    <form id="shop-search-form" class="shop__top-form">
+    <form id="shop-search-form" class="shop__top-form" action="<?= \yii\helpers\Url::to(['/shop/shop/search'])?>">
+        <?= \yii\helpers\Html::textInput(
+            'textSearch',
+            null,
+            [
+                'class' => 'shop__top-form--field',
+                'placeholder' => 'Я ищу...',
+            ]
+        ) ?>
 
-        <input class="shop__top-form--field" type="text" placeholder="Я ищу...">
+        <?= \yii\helpers\Html::dropDownList(
+            'categorySearch',
+            null,
+            \yii\helpers\ArrayHelper::map($category, 'id', 'name'),
+            [
+                'class' => 'shop__top-form--field-category',
+                'prompt' => 'Все категории',
+            ]
+        ) ?>
 
-        <!-- <div class="shop__top-form&#45;&#45;select-wrapper">-->
-        <select class="shop__top-form--field-category">
-            <option value="0">Все категории</option>
-            <option value="1">Категория</option>
-            <option value="2">Категория</option>
-            <option value="3">Категория</option>
-            <option value="4">Категория</option>
-            <option value="5">Категория</option>
-            <option value="6">Категория</option>
-        </select>
-        <!-- </div>-->
         <button id="shop-search-form-submit" class="shop__top-form--submit" type="submit"><i
                     class="fa fa-search" aria-hidden="true"></i></button>
-        <!--<input id="shop-search-form-submit" class="shop__top-form--submit" type="submit" value="Найти">-->
 
     </form>
 
@@ -34,11 +45,12 @@
         <ul class="shop__top-nav--navigation">
             <li><a href="#" class="delivery">Доставка</a></li>
             <li>
-                <a href="<?= \yii\helpers\Url::to(['/shop/cart/cart'])?>" class="basket">Корзина</a>
+                <a href="<?= \yii\helpers\Url::to(['/shop/cart/cart']) ?>" class="basket">Корзина</a>
                 <span class="basket-counter"><?= Yii::$app->cart->count; ?></span>
             </li>
 
-            <li><a href="<?= \yii\helpers\Url::to(['/personal_area/user-desire'])?>" class="my-desires">Мои желания</a></li>
+            <li><a href="<?= \yii\helpers\Url::to(['/personal_area/user-desire']) ?>" class="my-desires">Мои желания</a>
+            </li>
         </ul>
 
         <div class="button-second-menu">
