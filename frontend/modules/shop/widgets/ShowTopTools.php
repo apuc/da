@@ -8,12 +8,17 @@
 
 namespace frontend\modules\shop\widgets;
 
+use frontend\modules\shop\models\CategoryShop;
 use yii\base\Widget;
 
 class ShowTopTools extends Widget
 {
     public function run()
     {
-        return $this->render('top-tools');
+        $category = CategoryShop::find()->where(['parent_id' => 0])->all();
+        return $this->render('top-tools',
+            [
+                'category' => $category,
+            ]);
     }
 }

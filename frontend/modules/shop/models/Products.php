@@ -178,9 +178,10 @@ class Products extends \common\models\db\Products
     /**
      * @param $idCategory integer
      * @param $limit integer
+     * @param $text string
      * @return ActiveDataProvider
      */
-    public function listProduct($limit = 16, $idCategory = null)
+    public function listProduct($limit = 16, $idCategory = null, $text = '')
     {
         $query = Products::find();
 
@@ -203,6 +204,11 @@ class Products extends \common\models\db\Products
         $query->where(['status' => 1]);
 
         $query->andFilterWhere(['category_id' => $category]);
+        $query->andFilterWhere([
+                'AND',
+                ['LIKE', 'title', explode(' ', $text)],
+            ]
+        );
 //Debug::dd($query->createCommand()->rawSql);
         $query->orderBy('dt_update DESC');
 

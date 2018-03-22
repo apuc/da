@@ -29,13 +29,11 @@ class ShopController extends Controller
      */
     public function actionIndex()
     {
-        //Debug::prn('Вывод списка всех товаров');
         $category = Shop::getAllCategory();
 
         $modelProduct = new Products();
         $products = $modelProduct->listProduct(12);
 
-        //Debug::dd($category);
         return $this->render('all-category',
             [
                 'category' => $category,
@@ -54,26 +52,17 @@ class ShopController extends Controller
      */
     public function actionCategory($category)
     {
-        //Debug::dd($category);
         $model = new CategoryShop();
         $categoryModel = $model->getCategoryInfoBySlug($category);
-
-
 
         $modelProduct = new Products();
         $products = $modelProduct->listProduct(16, $categoryModel->id);
 
         $categoryList = \common\classes\Shop::getListCategoryAllInfo($categoryModel->id, []);
-        //Debug::dd( $categoryList);
-        //$cat = $model->getEndCategory($category);
-        //Debug::dd($cat);
 
-        //Debug::prn( $category);
-        //
         if ($model->getEndCategory($category)) {
             $category = CategoryShop::find()->all();
             $categoryTreeArr = $categoryModel->getArrayTreeCategory($category);
-//Debug::dd(ArrayHelper::index($category, 'id'));
             return $this->render('category',
                 [
                     'categoryInfo' => $categoryModel,
@@ -84,7 +73,12 @@ class ShopController extends Controller
                 ]);
         }
 
-        return $this->render('list-products');
+        return $this->render('list-products',
+            [
+                'categoryInfo' => $categoryModel,
+                'products' => $products,
+                'categoryList' => $categoryList,
+            ]);
 
     }
 
@@ -152,5 +146,20 @@ class ShopController extends Controller
             LikeProducts::deleteAll(['product_id' => $postData['product_id'], 'user_id' => $userId]);
             return false;
         }
+    }
+
+    /**
+     * SEARCH
+     */
+    public function actionSearch()
+    {
+        $get = Yii::$app->request->get();
+        $modelProduct = new Products();
+        $products = $modelProduct->listProduct(16, $get['categorySearch'], $get['textSearch']);
+
+        return $this->render('search',
+            [
+                'products' => $products,
+            ]);
     }
 }
