@@ -10,4 +10,5 @@ return [
     'Update Messenger: {nameAttribute}' => 'Изменить мессенджер: {nameAttribute}',
     'Name' => 'Имя',
     'Icon' => 'Иконка',
+    'Link' => 'Ссылка',
 ];

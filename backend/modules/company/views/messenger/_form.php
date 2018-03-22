@@ -30,6 +30,9 @@ use yii\widgets\ActiveForm;
         'buttonName' => 'Выбрать изображение',
     ]);
     ?>
+
+    <?= $form->field($model, 'link')->textInput(['maxlength' => true]) ?>
+
     <br/>
 
     <div class="form-group">

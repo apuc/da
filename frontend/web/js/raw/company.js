@@ -44,7 +44,7 @@ $(document).ready(function () {
             });
         });
     });
-    $('.company__add-phone').on('click', function (event) {
+    $(document).on('click', '.company__add-phone', function (event) {
         var elem = $(this);
         var iterator = elem.data('iterator');
         $.ajax({
@@ -62,8 +62,8 @@ $(document).ready(function () {
         return false;
     });
 
-    $('.company__remove-phone').on('click', function () {
-        $(this).remove();
+    $(document).on('click', '.company__remove-phone', function () {
+        $(this).parent('.input-group').remove();
         console.log('remove phone');
     });
     /*close business sidebar script*/

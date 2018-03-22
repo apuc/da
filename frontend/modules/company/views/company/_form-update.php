@@ -122,8 +122,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                 <?php foreach ($phones as $key => $phone): ?>
                     <div class="cabinet__add-company-form--hover-elements">
                         <p class="cabinet__add-company-form--title"></p>
-                        <div class="input-group <?= ($key == 0) ? 'multiply-field' : '' ?> "
-                             data-id="<?= $phone->id ?>">
+                        <div class="input-group" data-id="<?= $phone->id ?>">
                             <?= Html::hiddenInput('Phones[' . $phone->id . '][id]', $phone->id) ?>
                             <?= Html::textInput('Phones[' . $phone->id . '][phone]', $phone->phone, ['class' => 'form-control']) ?>
                             <?php if ($key != 0): ?>
@@ -155,7 +154,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             <div class="cabinet__add-company-form--hover-wrapper">
                 <div class="cabinet__add-company-form--hover-elements">
                     <p class="cabinet__add-company-form--title"></p>
-                    <div class="input-group multiply-field" data-id="0">
+                    <div class="input-group" data-id="0">
                         <?= Html::hiddenInput('Phones[][id]', 0) ?>
                         <?= Html::textInput('Phones[][phone]', '', ['class' => 'form-control']) ?>
                     </div>

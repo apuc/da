@@ -12,6 +12,7 @@ use Yii;
  *
  * @property MessengerPhone[] $messengerPhones
  * @property string $icon [varchar(255)]
+ * @property string $link [varchar(255)]
  */
 class Messenger extends \yii\db\ActiveRecord
 {
@@ -29,7 +30,7 @@ class Messenger extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'icon' ], 'string', 'max' => 255],
+            [['name', 'icon', 'link'], 'string', 'max' => 255],
         ];
     }
 
@@ -42,6 +43,7 @@ class Messenger extends \yii\db\ActiveRecord
             'id' => Yii::t('messenger', 'ID'),
             'name' => Yii::t('messenger', 'Name'),
             'icon' => Yii::t('messenger', 'Icon'),
+            'link' => Yii::t('messenger', 'Link'),
         ];
     }
 

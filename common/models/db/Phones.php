@@ -105,4 +105,9 @@ class Phones extends \yii\db\ActiveRecord
             }
         }
     }
+
+    public function getClearPhone()
+    {
+        return preg_replace("/[^0-9]/", '', $this->phone);
+    }
 }

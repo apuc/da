@@ -101,12 +101,16 @@ $this->params['breadcrumbs'][] = $model->name;
                             <?php foreach ($model->allPhones as $phone): ?>
                                 <div style="display: flex; margin-top: 10px">
                                     <?php foreach ($phone->messengeres as $messenger): ?>
-                                        <img src="<?= $messenger->icon; ?>" alt="<?= $messenger->name; ?>" height="20px"
-                                             width="20px" style="margin-right: 3px">
+                                        <a target="_blank" href="<?= $messenger->link ?><?= $phone->getClearPhone() ?>">
+                                            <img src="<?= $messenger->icon; ?>" alt="<?= $messenger->name; ?>"
+                                                 height="20px"
+                                                 width="20px" style="margin-right: 3px">
+                                        </a>
                                     <?php endforeach; ?>
-                                        <a class="phone" href="tel:<?= $phone->phone ?>">
-                                            <img src="/theme/portal-donbassa/img/icons/phone-icon-single-company.png" alt="">
-                                            <?= $phone->phone ?></a>
+                                    <a class="phone" href="tel:<?= $phone->phone ?>">
+                                        <img src="/theme/portal-donbassa/img/icons/phone-icon-single-company.png"
+                                             alt="">
+                                        <?= $phone->phone ?></a>
                                 </div>
                             <?php endforeach; ?>
                         <?php elseif (!empty($model->phone)): ?>
