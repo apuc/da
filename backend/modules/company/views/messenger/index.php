@@ -27,7 +27,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'name',
-            'icon',
+            [
+                'attribute' => 'icon',
+                'value' => function ($messenger) {
+                    return Html::img($messenger->icon, ['style' => 'height:30px']);
+                },
+                'format' => 'raw'
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
