@@ -15,7 +15,8 @@ class m180314_134721_create_messenger_table extends Migration
         $this->createTable('messenger', [
             'id' => $this->primaryKey(),
             'name' => $this->string(255),
-            'icon' => $this->string(255)
+            'icon' => $this->string(255),
+            'link' => $this->string(255)
         ]);
     }
 

@@ -14,10 +14,12 @@ class m180314_135050_insert_messengeres_in_messenger_table extends Migration
     {
         $this->insert('messenger', [
             'name' => 'Viber',
+            'link' => 'viber://add?number='
         ]);
 
         $this->insert('messenger', [
             'name' => 'WhatsApp',
+            'link' => 'https://api.whatsapp.com/send?phone='
         ]);
     }
 
