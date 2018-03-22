@@ -87,6 +87,9 @@ class Phones extends \yii\db\ActiveRecord
 
     public function updateMessengeres()
     {
+        if (is_null($this->_messengeresArray)) {
+            MessengerPhone::deleteAll(['phone_id' => $this->id]);
+        }
         $currentMessengeresIds = $this->getMessengeres()->select('id')->column();
         $newMessengeresIds = $this->getMessengeresArray();
         foreach (array_filter(array_diff($newMessengeresIds, $currentMessengeresIds)) as $messengerId) {
