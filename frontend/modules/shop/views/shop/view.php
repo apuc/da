@@ -155,7 +155,7 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
                <!-- <div class="all-actions__company--addres"><?/*= $address */?></div>
             </div>-->
 
-            <a href="#" class="single-shop__desires <?= !$like ?: 'active'?>" data-id="<?= $model->id; ?>">Добавить в мои желания</a>
+            <a href="#" class="single-shop__desires add-product-like <?= !$like ?: 'active'?>" data-id="<?= $model->id; ?>">Добавить в мои желания</a>
         </div>
     </div>
 </div>
@@ -266,8 +266,22 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
             </div>
 
             <div>
-                <h2 class="single-shop__tab-title">Форма для связи с продавцом или не знаю как должна
-                    отрабатывать кнопка</h2>
+                <h4>Адрес</h4>
+                <?= $address; ?>
+                <h4>E-mail:</h4>
+                <?= $model['company']->email; ?>
+                <h4>Телефоны</h4>
+                <?php if (!empty($model['company']->allPhones)): ?>
+                    <?php foreach ($model['company']->allPhones as $phone): ?>
+                        <a class="feedback-modal-phone" href="tel:<?= $phone->phone ?>">
+                            <?= $phone->phone ?></a>
+                    <?php endforeach; ?>
+                <?php elseif (!empty($model['company']->phone)): ?>
+                    <?php $phones = explode(' ', $model->phone) ?>
+                    <?php foreach ($model['company'] as $phone): ?>
+                        <a class="feedback-modal-phone" href="tel:<?= $phone ?>"><?= $phone ?></a>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
 
         </div>
