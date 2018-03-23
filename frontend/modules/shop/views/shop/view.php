@@ -95,7 +95,7 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
 
 
                 <a href="#">
-                    <span> <?= round($rating, 2); ?> </span> голоса(ов))
+                    <span> <?= round($rating, 2); ?> </span> голоса(ов)
                 </a>
                 <!--<a href="#">
                     199 заказа(ов)
@@ -127,7 +127,7 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
                 </div>
             </div>
             <div class="single-shop__info-item">
-                <a href="#" class="button-buy">Купить сейчас</a>
+                <!--<a href="#" class="button-buy">Купить сейчас</a>-->
                 <a href="#" class="button-basket add-to-cart" id="add-cart-btn" data-id="<?= $model->id; ?>" shop-id="<?= $model['company']->id; ?>">
                     Добавить в корзину
                 </a>
@@ -138,11 +138,11 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
             </div>
         </div>
         <div class="single-shop__info-footer">
-            <div class="all-actions__company">
+           <!-- <div class="all-actions__company">
                 <div class="all-actions__company--img">
-                    <img src="<?= $model['company']->photo ?>" alt="">
+                    <img src="<?/*= $model['company']->photo */?>" alt="">
                 </div>
-                <h3 class="all-actions__company--title"><?= $model['company']->name ?></h3>
+                <h3 class="all-actions__company--title"><?/*= $model['company']->name */?></h3>-->
                 <?php
                 //\common\classes\Debug::dd($model['company']->region_id);
                 if($model['company']->region_id != 0){
@@ -152,8 +152,8 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
                     $address = $model['company']->address;
                 }
                 ?>
-                <div class="all-actions__company--addres"><?= $address ?></div>
-            </div>
+               <!-- <div class="all-actions__company--addres"><?/*= $address */?></div>
+            </div>-->
 
             <a href="#" class="single-shop__desires <?= !$like ?: 'active'?>" data-id="<?= $model->id; ?>">Добавить в мои желания</a>
         </div>
