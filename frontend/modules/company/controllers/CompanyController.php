@@ -7,6 +7,7 @@ use common\classes\GeobaseFunction;
 use common\classes\UserFunction;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
+use common\models\db\CompanyFeedback;
 use common\models\db\CompanyPhoto;
 use common\models\db\KeyValue;
 use common\models\db\Phones;
@@ -15,6 +16,8 @@ use common\models\UploadPhoto;
 use Yii;
 use frontend\modules\company\models\Company;
 use yii\data\Pagination;
+use yii\db\Expression;
+use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -194,6 +197,15 @@ class CompanyController extends Controller
             ->with('category.categ')
             ->where(['company_id' => $model->id])
             ->one();
+        $rating = Yii::$app->db->createCommand(
+            "SELECT AVG(`rating`) AS `rating`, COUNT(`rating`) AS `count`
+                    FROM `company_feedback`
+                    WHERE `company_id` = :company_id
+                    GROUP BY `company_id`",
+            [
+                ':company_id' => $model->id,
+            ])
+            ->queryAll();
 
         return $this->render('view', [
             'model' => $model,
@@ -202,6 +214,7 @@ class CompanyController extends Controller
             'slug' => $slug,
             'page' => $page,
             'options' => $model->getPage($page),
+            'rating' => $rating,
         ]);
     }
 

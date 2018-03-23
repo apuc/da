@@ -2,6 +2,7 @@
 /**
  * @var $model \common\models\db\Company
  * @var $feedback \common\models\db\CompanyFeedback
+ * @var $item \common\models\db\CompanyFeedback
  */
 
 use common\classes\UserFunction;
@@ -15,6 +16,7 @@ use common\classes\UserFunction;
                     <div class="business__reviews--avatar">
                         <?= \common\classes\UserFunction::getUser_avatar_html($item['user_id']); ?>
                     </div>
+                    <?php \common\classes\Debug::prn($item->rating); ?>
                     <div class="descr">
                         <span class="date"><?= date('H:i d-m-Y', $item->dt_add) ?></span>
                         <h3><?= UserFunction::getUserName($item['user_id']) ?></h3>

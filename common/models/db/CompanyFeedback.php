@@ -8,14 +8,15 @@ use Yii;
 /**
  * This is the model class for table "company_feedback".
  *
- * @property integer $id
- * @property integer $user_id
+ * @property int $id
+ * @property int $user_id
  * @property string $company_name
  * @property string $feedback
- * @property integer $dt_add
- * @property integer $dt_update
- * @property integer $company_id
- * @property integer $status
+ * @property int $dt_add
+ * @property int $dt_update
+ * @property int $company_id
+ * @property int $status
+ * @property int $rating
  */
 class CompanyFeedback extends \yii\db\ActiveRecord
 {
@@ -34,7 +35,7 @@ class CompanyFeedback extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'feedback', 'company_id'], 'required'],
-            [['user_id', 'dt_add', 'dt_update', 'company_id', 'status'], 'integer'],
+            [['user_id', 'dt_add', 'dt_update', 'company_id', 'status', 'rating'], 'integer'],
             [['feedback'], 'string'],
             [['company_name'], 'string', 'max' => 255],
         ];
@@ -54,6 +55,7 @@ class CompanyFeedback extends \yii\db\ActiveRecord
             'dt_update' => 'Дата редактирования',
             'company_id' => 'Компания',
             'status' => 'Статус',
+            'rating' => 'Rating',
         ];
     }
 

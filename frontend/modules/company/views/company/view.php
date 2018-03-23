@@ -26,7 +26,11 @@ $this->registerMetaTag([
 ]);
 $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/company_ajax.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-$this->registerJsFile('/js/company.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+//$this->registerJsFile('/js/company.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/raw/company.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/star-rating.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+
+$this->registerCssFile('/css/star-rating.min.css');
 
 
 $this->params['breadcrumbs'][] = ['label' => 'Все предприятия', 'url' => Url::to(['/company/company'])];
@@ -40,7 +44,11 @@ if (!empty($categoryCompany['category']->title)) {
 $this->params['breadcrumbs'][] = $model->name;
 
 ?>
+<?php
+$count = $rating[0]['count'];
+$rating = $rating[0]['rating'];
 
+?>
 <section class="business">
 
     <div class="container">
@@ -56,7 +64,12 @@ $this->params['breadcrumbs'][] = $model->name;
                     <span class="business__status">
                     </span>
                 </h1>
-
+                <div class='rating-stars'>
+                    <input id="input-2-xs" data-step="0.1" value="<?= $rating; ?>">
+                    <a href="#">
+                        <span> <?= $count; ?> </span> голоса(ов))
+                    </a>
+                </div>
                 <div class="business__requisites">
                     <div class="business__requisites--avatar">
                         <img src="<?= $model->photo ?>"
@@ -170,11 +183,6 @@ $this->params['breadcrumbs'][] = $model->name;
         <?php foreach ($model->allPhones as $phone): ?>
             <a class="feedback-modal-phone" href="tel:<?= $phone->phone ?>">
                 <?= $phone->phone ?></a>
-        <?php endforeach; ?>
-    <?php elseif (!empty($model->phone)): ?>
-        <?php $phones = explode(' ', $model->phone) ?>
-        <?php foreach ($phones as $phone): ?>
-            <a class="feedback-modal-phone" href="tel:<?= $phone ?>"><?= $phone ?></a>
         <?php endforeach; ?>
     <?php endif; ?>
 
