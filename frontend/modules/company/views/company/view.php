@@ -113,13 +113,6 @@ $this->params['breadcrumbs'][] = $model->name;
                                         <?= $phone->phone ?></a>
                                 </div>
                             <?php endforeach; ?>
-                        <?php elseif (!empty($model->phone)): ?>
-                            <?php $phones = explode(' ', $model->phone) ?>
-                            <?php foreach ($phones as $phone): ?>
-                                <a class="phone" href="tel:<?= $phone ?>">
-                                    <?= $phone ?>
-                                </a>
-                            <?php endforeach; ?>
                         <?php endif; ?>
 
                         <?php if (isset($services['group_link']) && $services['group_link'] == 1 && !empty($model->socCompany)):
