@@ -148,8 +148,7 @@ use yii\jui\DatePicker;
         ?>
     <?php endif; ?>
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
-    <?= Html::label('Старый телефон', 'mytext', ['class' => 'control-label']) ?>
-    <textarea class="form-control"><?= $model->phone ?></textarea>
+
     <div class="phone-dynamic-input">
 
         <?= Html::label('Телефон', 'mytext', ['class' => 'control-label']) ?>

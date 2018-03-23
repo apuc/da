@@ -20,7 +20,7 @@ class CompanySearch extends Company
     {
         return [
             [['id', 'dt_add', 'dt_update', 'status', 'lang_id', 'region_id'], 'integer'],
-            [['name', 'address', 'phone', 'email', 'photo', 'descr', 'slug','vip'], 'safe'],
+            [['name', 'address', 'email', 'photo', 'descr', 'slug', 'vip'], 'safe'],
         ];
     }
 
@@ -46,8 +46,7 @@ class CompanySearch extends Company
         $query = Company::find()->with('allPhones');
         //Debug::prn($query->where(['user_id' => Yii::$app->user->id]));
 
-        if(isset($role['Редактор компаний']))
-        {
+        if (isset($role['Редактор компаний'])) {
             $query->andWhere(['user_id' => Yii::$app->user->id]);
         }
         // add conditions that should always apply here
@@ -65,7 +64,7 @@ class CompanySearch extends Company
         }
         //
 
-        if(!empty($this->name)){
+        if (!empty($this->name)) {
             $query->andWhere(['id' => $this->name]);
         }
 
@@ -81,7 +80,6 @@ class CompanySearch extends Company
 
         $query
             ->andFilterWhere(['like', 'address', $this->address])
-            ->andFilterWhere(['like', 'phone', $this->phone])
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'photo', $this->photo])
             ->andFilterWhere(['like', 'descr', $this->descr])
