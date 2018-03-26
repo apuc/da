@@ -292,7 +292,6 @@ class CompanyController extends Controller
         $socials = $model->getFullAndEmptySocials();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->phone = '';
             if (!empty($_POST['mytext'])) {
                 Phones::deleteAll(['company_id' => $model->id]);
                 foreach ($_POST['mytext'] as $item) {
@@ -305,7 +304,6 @@ class CompanyController extends Controller
             }
 
             $model->status = 2;
-            //$model->phone = $phone;
             $model->user_id = Yii::$app->user->id;
 
             if (empty($model->alt)) {
