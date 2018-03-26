@@ -26,8 +26,8 @@ $this->registerMetaTag([
 ]);
 $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/company_ajax.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-//$this->registerJsFile('/js/company.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-$this->registerJsFile('/js/raw/company.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/company.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+//$this->registerJsFile('/js/raw/company.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/star-rating.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->registerCssFile('/css/star-rating.min.css');
@@ -63,13 +63,14 @@ $rating = $rating[0]['rating'];
                 <h1 class="business__subtitle"><?= $model->name ?>
                     <span class="business__status">
                     </span>
+                    <div class='rating-stars'>
+                        <input id="input-2-xs" data-step="0.1" value="<?= $rating; ?>">
+                        <a href="#">
+                            <span> <?= $count; ?> </span> голоса(ов))
+                        </a>
+                    </div>
                 </h1>
-                <div class='rating-stars'>
-                    <input id="input-2-xs" data-step="0.1" value="<?= $rating; ?>">
-                    <a href="#">
-                        <span> <?= $count; ?> </span> голоса(ов))
-                    </a>
-                </div>
+
                 <div class="business__requisites">
                     <div class="business__requisites--avatar">
                         <img src="<?= $model->photo ?>"

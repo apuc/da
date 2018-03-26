@@ -34,7 +34,7 @@ class CompanyFeedback extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'feedback', 'company_id'], 'required'],
+            [['user_id', 'feedback', 'company_id', 'rating'], 'required'],
             [['user_id', 'dt_add', 'dt_update', 'company_id', 'status', 'rating'], 'integer'],
             [['feedback'], 'string'],
             [['company_name'], 'string', 'max' => 255],
@@ -55,7 +55,7 @@ class CompanyFeedback extends \yii\db\ActiveRecord
             'dt_update' => 'Дата редактирования',
             'company_id' => 'Компания',
             'status' => 'Статус',
-            'rating' => 'Rating',
+            'rating' => 'Рейтинг',
         ];
     }
 

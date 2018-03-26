@@ -607,4 +607,21 @@ class CompanyController extends Controller
         CompanyPhoto::deleteAll(['id' => $_GET['id']]);
         echo 1;
     }
+
+    /**
+     * @return string
+     */
+    public function actionAddFeedback()
+    {
+        if (!empty(Yii::$app->request->post())) {
+            $companyFeedback = new CompanyFeedback();
+            if ($companyFeedback->load(Yii::$app->request->post())) {
+                $companyFeedback->dt_add = time();
+                $companyFeedback->status = 0;
+                $companyFeedback->company_name = Company::findOne(['id' => Yii::$app->request->post()['CompanyFeedback']['company_id']])->name;
+                $companyFeedback->save();
+            }
+        }
+        return "Спасибо, Ваш отзыв будет проверен и опубликован модератором";
+    }
 }
