@@ -23,8 +23,6 @@ use common\models\db\Tariff;
 use kartik\select2\Select2;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\InputFile;
-use unclead\multipleinput\MultipleInput;
-use unclead\multipleinput\MultipleInputColumn;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;

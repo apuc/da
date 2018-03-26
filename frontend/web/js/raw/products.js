@@ -119,7 +119,8 @@ $(document).ready(function () {
 
 
     //Добавить товар в с писок желаний
-    $(document).on('click', '.single-shop__desires', function () {
+    $('.add-product-like').on('click', function () {
+
         var elem = $(this);
         var productId = elem.data('id');
 

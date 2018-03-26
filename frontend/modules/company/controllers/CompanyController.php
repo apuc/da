@@ -312,7 +312,6 @@ class CompanyController extends Controller
             }
 
             $model->status = 2;
-            //$model->phone = $phone;
             $model->user_id = Yii::$app->user->id;
 
             if (empty($model->alt)) {

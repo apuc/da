@@ -178,11 +178,6 @@ $this->params['breadcrumbs'][] = $model->name;
             <a class="feedback-modal-phone" href="tel:<?= $phone->phone ?>">
                 <?= $phone->phone ?></a>
         <?php endforeach; ?>
-    <?php elseif (!empty($model->phone)): ?>
-        <?php $phones = explode(' ', $model->phone) ?>
-        <?php foreach ($phones as $phone): ?>
-            <a class="feedback-modal-phone" href="tel:<?= $phone ?>"><?= $phone ?></a>
-        <?php endforeach; ?>
     <?php endif; ?>
 
 </div>

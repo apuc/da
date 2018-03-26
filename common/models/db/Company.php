@@ -13,7 +13,6 @@ use yii\helpers\ArrayHelper;
  * @property integer $id
  * @property string $name
  * @property string $address
- * @property string $phone
  * @property string $email
  * @property string $photo
  * @property integer $dt_add
@@ -61,7 +60,7 @@ class Company extends \yii\db\ActiveRecord
             [['dt_add', 'dt_update', 'status', 'lang_id', 'views', 'user_id', 'vip', 'tariff_id', 'dt_end_tariff', 'region_id', 'city_id', 'recommended', 'main', 'verifikation'], 'integer'],
             [['descr', 'payment', 'delivery'], 'string'],
             [
-                ['name', 'address', 'phone', 'email', 'photo', 'slug', 'meta_title', 'meta_descr', 'alt'],
+                ['name', 'address', 'email', 'photo', 'slug', 'meta_title', 'meta_descr', 'alt'],
                 'string',
                 'max' => 255,
             ],
@@ -77,7 +76,6 @@ class Company extends \yii\db\ActiveRecord
             'id' => Yii::t('company', 'ID'),
             'name' => Yii::t('company', 'Name'),
             'address' => Yii::t('company', 'Address'),
-            'phone' => Yii::t('company', 'Phone'),
             'email' => Yii::t('company', 'Email'),
             'photo' => Yii::t('company', 'Photo'),
             'dt_add' => Yii::t('company', 'Dt Add'),
@@ -155,14 +153,6 @@ class Company extends \yii\db\ActiveRecord
     public static function findById($id)
     {
         return static::findOne($id);
-    }
-
-    /**
-     * @return array
-     */
-    public function getPhones()
-    {
-        return explode(' ', $this->phone);
     }
 
     /**
