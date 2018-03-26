@@ -181,7 +181,6 @@ class CompanyController extends Controller
             if (empty($model->alt)) {
                 $model->alt = $model->name;
             }
-            $model->phone = '';
             if ($model->tariff_id) {
                 ServicesCompanyRelations::deleteAll(['company_id' => $model->id]);
                 $model->setTariff();
