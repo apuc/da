@@ -101,11 +101,6 @@ $this->params['breadcrumbs'][] = $model->name;
                                     <img src="/theme/portal-donbassa/img/icons/phone-icon-single-company.png" alt="">
                                     <?= $phone->phone ?></a>
                             <?php endforeach; ?>
-                        <?php elseif (!empty($model->phone)): ?>
-                            <?php $phones = explode(' ', $model->phone) ?>
-                            <?php foreach ($phones as $phone): ?>
-                                <a class="phone" href="tel:<?= $phone ?>"><?= $phone ?></a>
-                            <?php endforeach; ?>
                         <?php endif; ?>
 
                         <?php if (isset($services['group_link']) && $services['group_link'] == 1 && !empty($model->socCompany)):
@@ -170,11 +165,6 @@ $this->params['breadcrumbs'][] = $model->name;
         <?php foreach ($model->allPhones as $phone): ?>
             <a class="feedback-modal-phone" href="tel:<?= $phone->phone ?>">
                 <?= $phone->phone ?></a>
-        <?php endforeach; ?>
-    <?php elseif (!empty($model->phone)): ?>
-        <?php $phones = explode(' ', $model->phone) ?>
-        <?php foreach ($phones as $phone): ?>
-            <a class="feedback-modal-phone" href="tel:<?= $phone ?>"><?= $phone ?></a>
         <?php endforeach; ?>
     <?php endif; ?>
 

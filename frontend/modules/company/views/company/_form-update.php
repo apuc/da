@@ -115,7 +115,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
     <div class="form-line field-company-phone">
         <label class="label-name" for="company-phone">Телефон</label>
-        <?php // $phone = explode(' ', $model->phone);
+        <?php
         if (!empty($model->allPhones)) {
             $phone = $model->allPhones;
         }
