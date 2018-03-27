@@ -129,13 +129,12 @@ class CompanyController extends Controller
                     $socCompany->save();
                 }
             }
-            if (!empty(Yii::$app->request->post('mytext'))) {
-                foreach (Yii::$app->request->post('mytext') as $phone) {
-                    $phones = New Phones();
-                    $phones->phone = $phone;
-                    $phones->company_id = $model->id;
-                    $phones->save();
-                }
+
+            if (!empty(Yii::$app->request->post('Phones'))) {
+                $phone = New Phones();
+                $phone->load(Yii::$app->request->post());
+                $phone->company_id = $model->id;
+                $phone->save();
             }
 
             if (!empty(Yii::$app->request->post('Tags'))) {
@@ -279,6 +278,13 @@ class CompanyController extends Controller
     public function actionDelete($id)
     {
         CategoryCompanyRelations::deleteAll(['company_id' => $id]);
+        $phones = Phones::find()->select('id')->where(['company_id' => $id])->column();
+        if (!empty($phones)) {
+            foreach ($phones as $phone) {
+                MessengerPhone::deleteAll(['phone_id' => $phone]);
+            }
+            Phones::deleteAll(['company_id' => $id]);
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

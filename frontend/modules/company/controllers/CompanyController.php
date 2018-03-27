@@ -10,6 +10,7 @@ use common\models\db\CategoryCompanyRelations;
 use common\models\db\CompanyPhoto;
 use common\models\db\KeyValue;
 use common\models\db\Messenger;
+use common\models\db\MessengerPhone;
 use common\models\db\Phones;
 use common\models\db\SocCompany;
 use common\models\UploadPhoto;
@@ -241,14 +242,13 @@ class CompanyController extends Controller
             }
             $model->save();
 
-            if (isset($post['Phones'])) {
-                foreach ($post['Phones'] as $item) {
-                    $phone = New Phones();
-                    $phone->phone = $item['phone'];
-                    $phone->company_id = $model->id;
-                    $phone->save();
-                }
+            if (!empty(Yii::$app->request->post('Phones'))) {
+                $phone = New Phones();
+                $phone->load($post);
+                $phone->company_id = $model->id;
+                $phone->save();
             }
+
             $catCompanyRel = new CategoryCompanyRelations();
             $catCompanyRel->cat_id = $model['categ'][0];
             $catCompanyRel->company_id = $model->id;
@@ -421,7 +421,13 @@ class CompanyController extends Controller
     public function actionDelete($id)
     {
         Company::updateAll(['status' => 3], ['id' => $id]);
-
+        $phones = Phones::find()->select('id')->where(['company_id' => $id])->column();
+        if (!empty($phones)) {
+            foreach ($phones as $phone) {
+                MessengerPhone::deleteAll(['phone_id' => $phone]);
+            }
+            Phones::deleteAll(['company_id' => $id]);
+        }
         Yii::$app->session->setFlash('success', 'Ваше предприятие успешно удалено.');
         return $this->redirect(['/personal_area/default/index']);
     }

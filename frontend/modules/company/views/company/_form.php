@@ -1,6 +1,8 @@
 <?php
 
+use common\models\db\Messenger;
 use kartik\select2\Select2;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -99,11 +101,22 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     <div class="cabinet__add-company-form--block"></div>
 
     <div class="cabinet__add-company-form--wrapper">
-
-        <label class="label-name">Телефон</label>
-
-        <input class="cabinet__add-company-form--field" name="Phones[][phone]" type="text">
-
+        <?= Html::label('Телефон', 'Phones', ['class' => 'label-name']) ?>
+        <?= Html::textInput('Phones[phone]', '', ['class' => 'cabinet__add-company-form--field']) ?>
+        <?= Html::checkboxList('Phones[messengeres]', '', ArrayHelper::map(Messenger::find()->all(), "id", "name"),
+            [
+                'item' =>
+                    function ($index, $label, $name, $checked, $value) {
+                        return Html::checkbox("Phones[messengeresArray][]", $checked, [
+                            'value' => $value,
+                            'label' => $label,
+                            'labelOptions' => [
+                                'class' => 'col-md-4',
+                            ],
+                        ]);
+                    },
+            ]);
+        ?>
     </div>
 
     <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>
