@@ -9,6 +9,8 @@
  * @var string $slug
  * @var string $page
  * @var array $options
+ * @var \common\models\db\Phones $phone
+ * @var \common\models\db\Messenger $messenger
  */
 
 use common\classes\DataTime;
@@ -111,14 +113,18 @@ $rating = $rating[0]['rating'];
                         </div>
                         <?php if (!empty($model->allPhones)): ?>
                             <?php foreach ($model->allPhones as $phone): ?>
-                                <a class="phone" href="tel:<?= $phone->phone ?>">
-                                    <img src="/theme/portal-donbassa/img/icons/phone-icon-single-company.png" alt="">
-                                    <?= $phone->phone ?></a>
-                            <?php endforeach; ?>
-                        <?php elseif (!empty($model->phone)): ?>
-                            <?php $phones = explode(' ', $model->phone) ?>
-                            <?php foreach ($phones as $phone): ?>
-                                <a class="phone" href="tel:<?= $phone ?>"><?= $phone ?></a>
+                                <div class="business__requisites--links-tel">
+                                    <?php foreach ($phone->messengeres as $messenger): ?>
+                                        <a target="_blank" href="<?= $messenger->link ?><?= $phone->getClearPhone() ?>">
+                                            <img class="business__requisites--links-icon" src="<?= $messenger->icon; ?>"
+                                                 alt="<?= $messenger->name; ?>">
+                                        </a>
+                                    <?php endforeach; ?>
+                                    <a class="phone" href="tel:<?= $phone->phone ?>">
+                                        <img src="/theme/portal-donbassa/img/icons/phone-icon-single-company.png"
+                                             alt="">
+                                        <?= $phone->phone ?></a>
+                                </div>
                             <?php endforeach; ?>
                         <?php endif; ?>
 

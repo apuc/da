@@ -44,6 +44,28 @@ $(document).ready(function () {
             });
         });
     });
+    $(document).on('click', '.company__add-phone', function (event) {
+        var elem = $(this);
+        var iterator = elem.data('iterator');
+        $.ajax({
+            url: '/company/company/add-phone',
+            data: {
+                iterator: iterator,
+                _csrf: yii.getCsrfToken()
+            },
+            type: 'POST',
+            success: function (html) {
+                elem.data('iterator', iterator + 1);
+                $('.phones').append(html);
+            }
+        });
+        return false;
+    });
+
+    $(document).on('click', '.company__remove-phone', function () {
+        $(this).parent('.input-group').remove();
+        console.log('remove phone');
+    });
 
     $('#input-1-xs').on('rating:change', function (event, value, caption) {
         $("#companyfeedback-rating").val(value);

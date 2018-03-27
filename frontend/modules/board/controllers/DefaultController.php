@@ -457,16 +457,17 @@ class DefaultController extends Controller
         $category = json_decode($category);
         $catName = BoardFunction::fileGetContent($this->siteApi . '/category/view?id=' . $id);
         $catName = json_decode($catName);
-        //Debug::prn($category);
+
         if (!empty($category)) {
-            echo $this->renderPartial('shw_category',
+            return $this->renderPartial('shw_category',
                 [
                     'category' => $category,
                     'title' => $catName->name,
                 ]);
-        } else {
-            return false;
         }
+
+        return false;
+
     }
 
     public function actionShowCategoryEnd()

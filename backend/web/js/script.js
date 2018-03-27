@@ -33,9 +33,9 @@ $(document).ready(function () {
             success: function (html) {
                 console.log(html);
                 $(".content-comments").html('');
-                if(html){
+                if (html) {
                     $(".content-comments").append(html);
-                }else $(".content-comments").append('<tr><td><h3>Комментариев пока нет..</h3></td></tr>');
+                } else $(".content-comments").append('<tr><td><h3>Комментариев пока нет..</h3></td></tr>');
                 $("#myModal").modal('show');
             }
         });
@@ -43,11 +43,11 @@ $(document).ready(function () {
 
     $(".closeMore").on('click', function (e) {
         e.preventDefault();
-        var  i = $(this).next(".readMore").text().length;
+        var i = $(this).next(".readMore").text().length;
         var text = $(this).prev().prev('div').text();
         i = $(this).prev().prev('div').text().length - i;
         $(this).prev().prev('div').text('');
-        $(this).prev().prev('div').text(text.slice(0, i)+'...');
+        $(this).prev().prev('div').text(text.slice(0, i) + '...');
         $(this).prev().css('display', '');
         $(this).css('display', 'none');
     });
@@ -59,10 +59,9 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             url: "/secure/vk/vk_basket/delete",
-            data: {'id':id},
+            data: {'id': id},
             success: function (data) {
-                if(data)
-                {
+                if (data) {
                     tr.html('');
                 }
             }
@@ -79,7 +78,7 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             url: "/secure/vk/vk_stream/set-status",
-            data: {'id':id,'status':status},
+            data: {'id': id, 'status': status},
             success: function () {
                 tr.html('');
             }
@@ -94,10 +93,9 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             url: "/secure/vk/vk_stream/del-comment",
-            data: {'id':id},
+            data: {'id': id},
             success: function (data) {
-                if(data)
-                {
+                if (data) {
                     tr.html('');
                 }
             }
@@ -113,17 +111,15 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             url: "/secure/vk/vk_stream/set-status",
-            data: {'id':id,'status':status},
+            data: {'id': id, 'status': status},
             success: function () {
-
-              if (a.data('status') == 1)
-              {
-                  a.text('Снять публикацию');
-                  a.data('status', 0);
-              }else {
-                  a.text('Опубликовать');
-                  a.data('status' , 1);
-              }
+                if (a.data('status') == 1) {
+                    a.text('Снять публикацию');
+                    a.data('status', 0);
+                } else {
+                    a.text('Опубликовать');
+                    a.data('status', 1);
+                }
             }
         });
         return false;
@@ -195,7 +191,7 @@ $(document).ready(function () {
         $('.dt_public_box').slideToggle();
     });
 
-    $(document).on('change','#categ_company', function () {
+    $(document).on('change', '#categ_company', function () {
         var catId = $(this).val();
         var csrf = $("input[name='_csrf']").val();
         console.log(catId);
@@ -265,7 +261,6 @@ $(document).ready(function () {
             $(this).closest('.panel-primary').remove();
         }
     });
-
 
 
     /*============================================================
@@ -439,18 +434,38 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '.add-input-phone', function () {
-        var html = '';
-        html = '<div class="input-group">'+
-                        '<input value="" class="form-control" name="mytext[]" type="text">'+
-                        '<a href="#" class="input-group-addon remove-input-phone">' +
-                            '<span class="glyphicon glyphicon-minus"></span>' +
-            '           </a>'+
-                '</div>';
-        $('.phone-dynamic-input').append(html);
+        var elem = $(this);
+        var iterator = elem.data('iterator');
+
+        $.ajax({
+            url: '/secure/company/company/add-phone',
+            data: {
+                iterator: iterator,
+                _csrf: yii.getCsrfToken()
+            },
+            type: 'POST',
+            success: function (html) {
+                elem.data('iterator', iterator + 1);
+                $('.phone-dynamic-input').append(html);
+            }
+        });
         return false;
     });
+
     $(document).on('click', '.remove-input-phone', function () {
-        $(this).parent().remove();
+        var elem = $(this);
+        var id = elem.parent().data('id');
+        $.ajax({
+            url: '/secure/company/company/remove-phone',
+            data: {
+                _csrf: yii.getCsrfToken(),
+                id: id
+            },
+            type: 'POST',
+            success: function () {
+                elem.parent().remove();
+            }
+        });
         return false;
     });
 

@@ -78,11 +78,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php foreach ($phones as $phone): ?>
                             <span class="single-actions__phone"><?= $phone->phone ?></span>
                         <?php endforeach; ?>
-                    <?php elseif (!empty($model->phone)): ?>
-                        <?php $phones = explode(' ', $model->phone) ?>
-                        <?php foreach ($phones as $phone): ?>
-                            <span class="single-actions__phone"><?= $phone ?></span>
-                        <?php endforeach; ?>
                     <?php endif; ?>
                 </div>
                 <div class="all-actions__bottom">

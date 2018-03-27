@@ -102,7 +102,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
         <label class="label-name">Телефон</label>
 
-        <input class="cabinet__add-company-form--field" name="mytext[]" type="text">
+        <input class="cabinet__add-company-form--field" name="Phones[][phone]" type="text">
 
     </div>
 

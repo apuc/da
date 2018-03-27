@@ -92,7 +92,7 @@ class ShopController extends Controller
         $this->layout = 'single-shop';
         $model = Products::find()
             ->where(['slug' => $slug])
-            ->with('productFieldsValues.field', 'company', 'images', 'category', 'reviews')
+            ->with('productFieldsValues.field', 'company.allPhones', 'images', 'category', 'reviews')
             ->one();
 
         $currentUserId = Yii::$app->user->id;
