@@ -7,6 +7,7 @@ use common\classes\GeobaseFunction;
 use common\classes\UserFunction;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
+use common\models\db\CompanyFeedback;
 use common\models\db\CompanyPhoto;
 use common\models\db\KeyValue;
 use common\models\db\Messenger;
@@ -172,6 +173,7 @@ class CompanyController extends Controller
      * @return mixed
      * @throws \yii\web\NotFoundHttpException
      * @throws \yii\base\InvalidParamException
+     * @throws \yii\db\Exception
      */
     public function actionView($slug, $page = 'about')
     {
@@ -195,6 +197,15 @@ class CompanyController extends Controller
             ->with('category.categ')
             ->where(['company_id' => $model->id])
             ->one();
+        $rating = Yii::$app->db->createCommand(
+            "SELECT AVG(`rating`) AS `rating`, COUNT(`rating`) AS `count`
+                    FROM `company_feedback`
+                    WHERE `company_id` = :company_id
+                    GROUP BY `company_id`",
+            [
+                ':company_id' => $model->id,
+            ])
+            ->queryAll();
 
         return $this->render('view', [
             'model' => $model,
@@ -203,6 +214,7 @@ class CompanyController extends Controller
             'slug' => $slug,
             'page' => $page,
             'options' => $model->getPage($page),
+            'rating' => $rating,
         ]);
     }
 
@@ -609,4 +621,22 @@ class CompanyController extends Controller
             'messengers' => ArrayHelper::map(Messenger::find()->all(), 'id', 'name'),
         ]);
     }
+
+    /**
+     * @return string
+     */
+    public function actionAddFeedback()
+    {
+        if (!empty(Yii::$app->request->post())) {
+            $companyFeedback = new CompanyFeedback();
+            if ($companyFeedback->load(Yii::$app->request->post())) {
+                $companyFeedback->dt_add = time();
+                $companyFeedback->status = 0;
+                $companyFeedback->company_name = Company::findOne(['id' => Yii::$app->request->post()['CompanyFeedback']['company_id']])->name;
+                $companyFeedback->save();
+            }
+        }
+        return "Спасибо, Ваш отзыв будет проверен и опубликован модератором";
+    }
+
 }
