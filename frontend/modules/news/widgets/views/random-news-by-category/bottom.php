@@ -5,7 +5,9 @@
 
     <div class="content-single-wrapper__read-more--links">
         <?php foreach ($news as $new): ?>
-            <a href="<?= \yii\helpers\Url::to(['/news/default/view', 'slug' => $new->slug])?>"><?= $new->title; ?></a>
+            <a href="<?= \yii\helpers\Url::to(['/news/default/view', 'slug' => $new->slug])?>" title="<?= $new->title;?>">
+                <?= $new->title; ?>
+            </a>
         <?php endforeach; ?>
     </div>
 

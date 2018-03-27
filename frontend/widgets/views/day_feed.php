@@ -32,7 +32,7 @@
             if ($key == $newImageId) {
                 ?>
                 <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $new->slug]); ?>"
-                   class="tape__item_pic">
+                   class="tape__item_pic" title="<?= $new->title; ?>">
                     <?php if (stristr($new->photo, 'http')): ?>
                         <img class="thumbnail" src="<?= $new->photo . '?width=300' ?>"
                              alt="<?= !empty($new->alt) ? $new->alt : $new->title ?>">
@@ -95,7 +95,7 @@
                     </div>
                     <span class="open-soc"><i class="fa fa-random fa-lg"></i></span>
                     <h4>
-                        <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $new->slug]); ?>">
+                        <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $new->slug]); ?>" title="<?= $new->title; ?>">
                             <?= $new->title; ?>
                         </a>
                     </h4>

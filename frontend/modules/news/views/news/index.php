@@ -69,7 +69,7 @@ $md = new \common\classes\Mobile_Detect();
                         <a href="<?= Url::to([
                             '/news/default/view',
                             'slug' => $currNew->slug,
-                        ]); ?>" class="news__wrap_item-lg">
+                        ]); ?>" class="news__wrap_item-lg" title="<?= $currNew->title; ?>">
                             <div class="thumb">
                                 <?php if (stristr($currNew->photo, 'http')): ?>
                                     <img class="thumbnail" src="<?= $currNew->photo ?>"
@@ -96,7 +96,7 @@ $md = new \common\classes\Mobile_Detect();
                             <a href="<?= Url::to([
                                 '/news/default/view',
                                 'slug' => $currNew->slug,
-                            ]); ?>" class="thumb">
+                            ]); ?>" class="thumb" title="<?= $currNew->title; ?>">
                                 <?php if (stristr($currNew->photo, 'http')): ?>
                                     <img class="thumbnail" src="<?= $currNew->photo ?>"
                                          alt="<?= !empty($currNew->alt) ? $currNew->alt : $currNew->title ?>">
@@ -117,7 +117,7 @@ $md = new \common\classes\Mobile_Detect();
                                 <p><a href="<?= Url::to([
                                         '/news/default/view',
                                         'slug' => $currNew->slug,
-                                    ]); ?>"><?= $currNew->title; ?></a></p>
+                                    ]); ?>" title="<?= $currNew->title; ?>"><?= $currNew->title; ?></a></p>
                                 <span><?= WordFunctions::dateWithMonts($currNew->dt_public); ?></span>
                             </div>
                         </div>
@@ -132,7 +132,7 @@ $md = new \common\classes\Mobile_Detect();
                     <a href="<?= Url::to([
                         '/news/default/view',
                         'slug' => $currHotNew->slug,
-                    ]); ?>" class=" news__wrap_item-sm-hot">
+                    ]); ?>" class=" news__wrap_item-sm-hot" title="<?= $currHotNew->title; ?>">
                         <!-- thumb -->
                         <div class="thumb">
 
