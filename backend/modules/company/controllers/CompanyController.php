@@ -5,6 +5,7 @@ namespace backend\modules\company\controllers;
 use backend\modules\company\models\SocAvailable;
 use backend\modules\tags\models\Tags;
 use backend\modules\tags\models\TagsRelation;
+use common\classes\Debug;
 use common\classes\GeobaseFunction;
 use common\classes\UserFunction;
 use common\models\db\CategoryCompany;
@@ -12,6 +13,8 @@ use common\models\db\CategoryCompanyRelations;
 use common\models\db\CompanyOld;
 use common\models\db\CompanyPhoto;
 use common\models\db\KeyValue;
+use common\models\db\Messenger;
+use common\models\db\MessengerPhone;
 use common\models\db\Phones;
 use common\models\db\Services;
 use common\models\db\ServicesCompanyRelations;
@@ -178,6 +181,7 @@ class CompanyController extends Controller
         $socials = $model->getFullAndEmptySocials();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $post = Yii::$app->request->post();
             if (empty($model->alt)) {
                 $model->alt = $model->name;
             }
@@ -228,15 +232,24 @@ class CompanyController extends Controller
                 }
             }
 
-            if (!empty(Yii::$app->request->post('mytext'))) {
-                Phones::deleteAll(['company_id' => $id]);
-                foreach (Yii::$app->request->post('mytext') as $phone) {
-                    $phones = New Phones();
-                    $phones->phone = $phone;
-                    $phones->company_id = $model->id;
-                    $phones->save();
+
+            $phones = Phones::findAll(['company_id' => $id]);
+            $post['Phones'] = array_values($post['Phones']);
+            $diff = count($post['Phones']) - count($phones);
+            if ($diff > 0) {
+                for ($i = 0; $i < $diff; $i++) {
+                    $phone = new Phones();
+                    $phone->company_id = $id;
+                    $phones[] = $phone;
                 }
             }
+            if (Phones::loadMultiple($phones, $post) && Phones::validateMultiple($phones)) {
+                foreach ($phones as $phone) {
+                    /** @var Phones $phone */
+                    $phone->save();
+                }
+            }
+
 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -338,9 +351,25 @@ class CompanyController extends Controller
         ]);
     }
 
-    public function actionUploadFile()
+    public function actionAddPhone()
     {
+        return $this->renderPartial('phone', [
+            'iterator' => Yii::$app->request->post('iterator'),
+            'messengeres' => ArrayHelper::map(Messenger::find()->all(), 'id', 'name'),
+        ]);
+    }
 
+    public function actionRemovePhone()
+    {
+        $id = Yii::$app->request->post('id');
+        MessengerPhone::deleteAll(['phone_id' => $id]);
+        $phone = Phones::findOne(['id' => $id]);
+        if (!is_null($phone)) {
+            if (!$phone->delete()) {
+                return 0;
+            }
+        }
+        return 1;
     }
 
     public function actionGetServices()
@@ -348,7 +377,6 @@ class CompanyController extends Controller
         return $this->renderPartial('checkbox-services', [
             'model' => Services::find()->asArray()->all()
         ]);
-        //Debug::prn();
     }
 
     public function actionReplacePhone()
