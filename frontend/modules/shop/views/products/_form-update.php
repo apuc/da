@@ -144,6 +144,47 @@ echo FileInput::widget([
             ')
     ->label('Описание<span>*</span>'); ?>
 
+
+<h2 class="soglasie">Оплата и доствка для этого товара</h2>
+<span>По умолчанию будут использованы условия оплаты и доставки из информации о компании</span>
+<?php
+$chk = false;
+$style = 'display: none';
+    if(!empty($model->payment || $model->delivery)){
+        $chk = true;
+        $style = 'display: block';
+    }
+?>
+
+<?= Html::label('Изменить'); ?>
+<?= Html::checkbox('edit-payment', $chk, ['class' => 'edit-payment', 'id' => 'edit-payment'] ); ?>
+<hr class="lineAddAds"/>
+
+<div class="edit-payment-form-field" style="<?= $style; ?>">
+    <?= $form->field($model, 'payment')->textarea(
+        [
+            'class' => 'area-name jsHint',
+            'maxlength' => 4096,
+        ]
+    )
+        ->hint('Добавьте описание оплаты для этого товара.<br>
+                <b>Оставьте поле пустым для использования информации из информации о компании.</b><br>
+            ')
+        ->label('Оплата'); ?>
+
+    <?= $form->field($model, 'delivery')->textarea(
+        [
+            'class' => 'area-name jsHint',
+            'maxlength' => 4096,
+        ]
+    )
+        ->hint('Добавьте описание доставки для этого товара.<br>
+                <b>Оставьте поле пустым для использования информации из информации о компании.</b><br>
+            ')
+        ->label('Доставка'); ?>
+</div>
+
+
 <?= Html::submitButton('Oпубликовать',
     ['class' => 'cabinet__add-company-form--submit place-ad_publish publish place-ad__publish', 'id' => 'saveInfo']) ?>
 <?php ActiveForm::end(); ?>

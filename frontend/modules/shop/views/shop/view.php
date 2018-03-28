@@ -21,19 +21,19 @@ $categoryList = array_reverse($categoryList);
 //\common\classes\Debug::dd($categoryList);
 $categoryList = ArrayHelper::toArray($categoryList);
 //\common\classes\Debug::dd($categoryList);
-foreach ($categoryList as $key=>$item){
+foreach ($categoryList as $key => $item) {
     $url = '';
-    if($key == 1){
+    if ($key == 1) {
         $url = $categoryList[$key - 1]['slug'];
     }
-    if($key == 2){
+    if ($key == 2) {
         $url = $categoryList[$key - 2]['slug'] . '/' . $categoryList[$key - 1]['slug'];
     }
     $this->params['breadcrumbs'][] =
         [
             'label' => $item['name'],
-            'url' => Url::to(['/shop/shop/category', 'category' => [$url, $item['slug']]]) ];
-
+            'url' => Url::to(['/shop/shop/category', 'category' => [$url, $item['slug']]]),
+        ];
 
 }
 
@@ -48,7 +48,7 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
 <div class="breadcrumbs-wrap">
     <?= Breadcrumbs::widget([
         'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        'options' => ['class' => 'breadcrumbs']
+        'options' => ['class' => 'breadcrumbs'],
     ]); ?>
 </div>
 <div class="single-shop__detail">
@@ -57,25 +57,24 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
         <div class="single-shop__slider-nav">
             <?php foreach ($model['images'] as $item): ?>
                 <div class="single-shop__nav-item">
-                    <img src="/<?= $item->img_thumb; ?>" alt="<?= $model->title?>">
+                    <img src="/<?= $item->img_thumb; ?>" alt="<?= $model->title ?>">
                 </div>
             <?php endforeach; ?>
         </div>
-
 
         <div class="single-shop__slider">
+
             <?php foreach ($model['images'] as $item): ?>
-                <div class="single-shop__slider-item">
-                    <img src="/<?= $item->img; ?>" alt="<?= $model->title?>">
-                </div>
+                <a href="/<?= $item->img; ?>" class="single-shop__slider-item" data-fancybox="shop">
+                    <img src="/<?= $item->img; ?>" alt="<?= $model->title ?>">
+                </a>
             <?php endforeach; ?>
         </div>
-
-
     </div>
+
     <div class="single-shop__info">
         <div class="single-shop__info-header">
-            <h2 class="single-shop__product-title"><?= $model->title?></h2>
+            <h2 class="single-shop__product-title"><?= $model->title ?></h2>
             <a href="#" class="single-shop__payment-method">
                 Способы оплаты
             </a>
@@ -83,11 +82,11 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
                 Склады в ДНР
             </a>
             <?php
-                $rating = 0;
-                $summArr = ArrayHelper::getColumn($model['reviews'], 'rating');
-                if(!empty($summArr) ){
-                    $rating = array_sum($summArr) / count($model['reviews']);
-                }
+            $rating = 0;
+            $summArr = ArrayHelper::getColumn($model['reviews'], 'rating');
+            if (!empty($summArr)) {
+                $rating = array_sum($summArr) / count($model['reviews']);
+            }
 
             ?>
             <div class='rating-stars'>
@@ -103,14 +102,15 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
             </div>
         </div>
         <div class="single-shop__info-content">
-            <?= $this->render('_price', ['model' => $model]);?>
+            <?= $this->render('_price', ['model' => $model]); ?>
             <div class="single-shop__info-item">
                 <div>Количетсво</div>
                 <div>
                     <div class="single-shop__info-content--counter">
 
                         <div class="numbers">
-                            <input type="number" min="1" max="999" value="1" class="js-product-quantity number count-add-to-cart "
+                            <input type="number" min="1" max="999" value="1"
+                                   class="js-product-quantity number count-add-to-cart "
                                    data-type="single" maxlength="999" pattern="[0-9]{3}">
                             <a class="minus update-count"><i class="fa fa-minus" aria-hidden="true"></i></a>
                             <a class="plus update-count"> <i class="fa fa-plus" aria-hidden="true"></i></a>
@@ -123,12 +123,14 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
                 <div>Общая стоимость</div>
                 <div>
                     <span class="total-cost">
-                        <?= number_format((!empty($model->new_price)) ? $model->new_price : $model->price, 0, '.', ' ') ?> руб. / 1 шт.</span>
+                        <?= number_format((!empty($model->new_price)) ? $model->new_price : $model->price, 0, '.',
+                            ' ') ?> руб. / 1 шт.</span>
                 </div>
             </div>
             <div class="single-shop__info-item">
                 <!--<a href="#" class="button-buy">Купить сейчас</a>-->
-                <a href="#" class="button-basket add-to-cart" id="add-cart-btn" data-id="<?= $model->id; ?>" shop-id="<?= $model['company']->id; ?>">
+                <a href="#" class="button-basket add-to-cart" id="add-cart-btn" data-id="<?= $model->id; ?>"
+                   shop-id="<?= $model['company']->id; ?>">
                     Добавить в корзину
                 </a>
                 <!--<a href="#" class="promotion-seller">
@@ -138,24 +140,24 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
             </div>
         </div>
         <div class="single-shop__info-footer">
-           <!-- <div class="all-actions__company">
+            <!-- <div class="all-actions__company">
                 <div class="all-actions__company--img">
-                    <img src="<?/*= $model['company']->photo */?>" alt="">
+                    <img src="<? /*= $model['company']->photo */ ?>" alt="">
                 </div>
-                <h3 class="all-actions__company--title"><?/*= $model['company']->name */?></h3>-->
-                <?php
-                //\common\classes\Debug::dd($model['company']->region_id);
-                if($model['company']->region_id != 0){
-                    $address = $region . ', ' .GeobaseFunction::getCityName($model['company']->city_id) . ', ' . $model['company']->address ;
-                }
-                else{
-                    $address = $model['company']->address;
-                }
-                ?>
-               <!-- <div class="all-actions__company--addres"><?/*= $address */?></div>
+                <h3 class="all-actions__company--title"><? /*= $model['company']->name */ ?></h3>-->
+            <?php
+            //\common\classes\Debug::dd($model['company']->region_id);
+            if ($model['company']->region_id != 0) {
+                $address = $region . ', ' . GeobaseFunction::getCityName($model['company']->city_id) . ', ' . $model['company']->address;
+            } else {
+                $address = $model['company']->address;
+            }
+            ?>
+            <!-- <div class="all-actions__company--addres"><? /*= $address */ ?></div>
             </div>-->
 
-            <a href="#" class="single-shop__desires add-product-like <?= !$like ?: 'active'?>" data-id="<?= $model->id; ?>">Добавить в мои желания</a>
+            <a href="#" class="single-shop__desires add-product-like <?= !$like ?: 'active' ?>"
+               data-id="<?= $model->id; ?>">Добавить в мои желания</a>
         </div>
     </div>
 </div>
@@ -177,7 +179,8 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
                 Посмотреть статистику компании
             </a>
         </div>-->
-        <a href="<?= \yii\helpers\Url::to(['/company/company/view', 'slug' => $model['company']->slug]) ?>" class="company-page-btn">Перейти на страницу компании</a>
+        <a href="<?= \yii\helpers\Url::to(['/company/company/view', 'slug' => $model['company']->slug]) ?>"
+           class="company-page-btn">Перейти на страницу компании</a>
     </div>
     <!--<div class="single-shop__buy-history">
         <h4 class="single-shop__store-info--title">История покупок</h4>
@@ -225,7 +228,7 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
     <div class="single-shop__tabs">
         <ul class="single-shop__tab-links">
             <li>Описание товара</li>
-            <li>Отзывы <span>(<?= count($model['reviews'])?>)</span></li>
+            <li>Отзывы <span>(<?= count($model['reviews']) ?>)</span></li>
             <li>Доставка и оплата</li>
             <li class="feedback">Связаться с продавцом</li>
         </ul>
@@ -236,14 +239,14 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
                 <div class="single-shop__characteristics-wrap">
                     <ul>
                         <?php foreach ($model['productFieldsValues'] as $item): ?>
-                            <li><?= $item['field']->label?>:<span> <?= $item->value?></span></li>
-                        <?php endforeach;?>
+                            <li><?= $item['field']->label ?>:<span> <?= $item->value ?></span></li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
                 <h2 class="single-shop__tab-title">Описание товара</h2>
                 <div class="single-shop__characteristics-wrap">
                     <div class="single-shop__description-img">
-                        <img src="/<?= $model['images'][0]->img?>" alt="Описание">
+                        <img src="/<?= $model['images'][0]->img ?>" alt="Описание">
                     </div>
                     <div class="single-shop__description">
                         <?= $model->description; ?>
@@ -252,41 +255,57 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
             </div>
 
             <div class="single-shop__tab-item">
-                <?= \frontend\modules\shop\widgets\ReviewsProducts::widget(['productId' => $model->id, 'reviews' => $model['reviews']]); ?>
+                <?= \frontend\modules\shop\widgets\ReviewsProducts::widget([
+                    'productId' => $model->id,
+                    'reviews' => $model['reviews'],
+                ]); ?>
 
 
             </div>
 
             <div class="single-shop__tab-item">
                 <h2 class="single-shop__tab-title">Доставка и оплата</h2>
-                <?= $model['company']->delivery; ?>
-                <?= $model['company']->payment; ?>
 
+                <?php// \common\classes\Debug::prn($model); ?>
+                <?php
+                if (empty($model->delivery)) {
+                    echo $model['company']->delivery;
+                } else {
+                    echo $model->delivery;
+                }
+                echo "<br />";
+                ?>
+
+                <?php
+                if (empty($model->payment)) {
+                    echo $model['company']->payment;
+                } else {
+                    echo $model->payment;
+                }
+                ?>
 
             </div>
 
             <div>
                 <h4>Адрес</h4>
                 <?= $address; ?>
-                <h4>E-mail:</h4>
+                    <h4>E-mail:</h4>
                 <?= $model['company']->email; ?>
-                <h4>Телефоны</h4>
+                    <h4>Телефоны</h4>
                 <?php if (!empty($model['company']->allPhones)): ?>
                     <?php foreach ($model['company']->allPhones as $phone): ?>
-                        <a class="feedback-modal-phone" href="tel:<?= $phone->phone ?>">
-                            <?= $phone->phone ?></a>
-                    <?php endforeach; ?>
+                <a class="feedback-modal-phone" href="tel:<?= $phone->phone ?>">
+                    <?= $phone->phone ?></a>
+                <?php endforeach; ?>
                 <?php endif; ?>
             </div>
 
         </div>
     </div>
-    <?=\frontend\modules\shop\widgets\ShowProductCompany::widget(
-        [
-            'productId' => $model->id,
-            'companyId' => $model->company_id,
-        ]
-    )?>
+    <?= \frontend\modules\shop\widgets\ShowProductCompany::widget(
+    ['productId' => $model->id,
+    'companyId' => $model->company_id,]
+    ) ?>
     <div class="social-wrapper-shop">
 
         <a href="#" target="_blank" class="social-wrap__item vk">
@@ -330,12 +349,12 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
 
 <div id="modal-add-cart">
 
-    <h1 class="modalAdd-cartTitle">Товар был добавлен в корзину. <span> Товаров в Вашей корзине: <span class="modal-count-cart">1</span></span></h1>
+    <h1 class="modalAdd-cartTitle">Товар был добавлен в корзину. <span> Товаров в Вашей корзине: <span
+                    class="modal-count-cart">1</span></span></h1>
 
-    <a href="<?= Url::to(['/shop/cart'])?>" class="go-cart">Перейти к корзине</a>
+    <a href="<?= Url::to(['/shop/cart']) ?>" class="go-cart">Перейти к корзине</a>
 
     <button class="close-cart" id="modal_close">Вернуться на сайт</button>
-
 
 
 </div>

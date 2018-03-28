@@ -10,8 +10,8 @@ use yii\helpers\Html;
 
 $this->registerCssFile('/css/board.min.css');
 //$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-$this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-$this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::class]]);
+$this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 ?>
 
 <?php $form = ActiveForm::begin([
@@ -139,7 +139,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 <h2 class="soglasie">Оплата и доствка для этого товара</h2>
 <span>По умолчанию будут использованы условия оплаты и доставки из информации о компании</span>
 <?= Html::label('Изменить'); ?>
-<?= Html::checkbox('edit-payment', false, ['class' => 'edit-payment'] ); ?>
+<?= Html::checkbox('edit-payment', false, ['class' => 'edit-payment', 'id' => 'edit-payment'] ); ?>
 <hr class="lineAddAds"/>
 
 <div class="edit-payment-form-field" style="display: none">
@@ -152,7 +152,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         ->hint('Добавьте описание оплаты для этого товара.<br>
                 <b>Оставьте поле пустым для использования информации из информации о компании.</b><br>
             ')
-        ->label('Оплата<span>*</span>'); ?>
+        ->label('Оплата'); ?>
 
     <?= $form->field($model, 'delivery')->textarea(
         [
@@ -163,7 +163,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         ->hint('Добавьте описание доставки для этого товара.<br>
                 <b>Оставьте поле пустым для использования информации из информации о компании.</b><br>
             ')
-        ->label('Доставка<span>*</span>'); ?>
+        ->label('Доставка'); ?>
 </div>
 
 <?= Html::submitButton('Oпубликовать',
