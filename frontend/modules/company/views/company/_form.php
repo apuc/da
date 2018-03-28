@@ -100,23 +100,29 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
     <div class="cabinet__add-company-form--block"></div>
 
-    <div class="cabinet__add-company-form--wrapper">
-        <?= Html::label('Телефон', 'Phones', ['class' => 'label-name']) ?>
-        <?= Html::textInput('Phones[phone]', '', ['class' => 'cabinet__add-company-form--field']) ?>
-        <?= Html::checkboxList('Phones[messengeres]', '', ArrayHelper::map(Messenger::find()->all(), "id", "name"),
-            [
-                'item' =>
-                    function ($index, $label, $name, $checked, $value) {
-                        return Html::checkbox("Phones[messengeresArray][]", $checked, [
-                            'value' => $value,
-                            'label' => $label,
-                            'labelOptions' => [
-                                'class' => 'col-md-4',
-                            ],
-                        ]);
-                    },
-            ]);
-        ?>
+    <div class="cabinet__add-company-form--wrapper" style="flex-wrap: wrap; margin-bottom: 40px;">
+        <div class="input__wrap" style="width: 100%;">
+            <?= Html::label('Телефон', 'Phones', ['class' => 'label-name']) ?>
+            <?= Html::textInput('Phones[phone]', '', ['class' => 'input-name', 'id' => 'Phones']) ?>
+        </div>
+
+        <div class="messengers-choice" style="display: flex; flex-wrap: wrap; width: 70%; margin-left: auto;">
+            <p style="width: 100%; margin-bottom: -1px">Выберите перечисленные мессенджеры, если у вас привязан к ним
+                телефон</p>
+            <?= Html::checkboxList('Phones[messengeres]', '', ArrayHelper::map(Messenger::find()->all(), "id", "name"),
+                [
+                    'item' =>
+                        function ($index, $label, $name, $checked, $value) {
+                            return Html::checkbox("Phones[messengeresArray][]", $checked, [
+                                'value' => $value,
+                                'label' => $label
+                            ]);
+                        },
+                    'class' => 'checkbox-wrap',
+                    'style' => 'width: 100%; display: flex; justify-content: space-around;'
+                ]);
+            ?>
+        </div>
     </div>
 
     <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>

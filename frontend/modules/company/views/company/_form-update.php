@@ -19,6 +19,7 @@ use yii\widgets\ActiveForm;
  * @var array $companyRel
  * @var array $categoryCompanyAll
  * @var array $socials
+ * @var \common\models\db\Phones $phone
  * */
 $this->registerCssFile('/css/board.min.css');
 //$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
@@ -115,54 +116,73 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
     <div class="cabinet__add-company-form--block"></div>
 
-    <div class="form-line field-company-phone phones">
-        <label class="label-name" for="company-phone">Телефон(-ы)</label>
-        <?php if (!empty($phones)): ?>
-            <div class="cabinet__add-company-form--hover-wrapper">
-                <?php foreach ($phones as $key => $phone): ?>
-                    <div class="cabinet__add-company-form--hover-elements">
-                        <p class="cabinet__add-company-form--title"></p>
-                        <div class="input-group" data-id="<?= $phone->id ?>">
-                            <?= Html::hiddenInput('Phones[' . $phone->id . '][id]', $phone->id) ?>
-                            <?= Html::textInput('Phones[' . $phone->id . '][phone]', $phone->phone, ['class' => 'form-control']) ?>
-                            <?php if ($key != 0): ?>
-                                <a href="#" class="cabinet__remove-pkg company__remove-phone"></a>
-                            <?php else: ?>
-                                <a href="#" class="cabinet__add-field company__add-phone" data-iterator="0"
-                                   max-count="<?= (isset($services['count_phone']) ? $services['count_phone'] : ''); ?>"></a>
-                            <?php endif; ?>
-                            <?= Html::checkboxList('Phones[][messengeres]', $phone->messengeresArray, ArrayHelper::map(Messenger::find()->all(), "id", "name"),
-                                [
-                                    'item' =>
-                                        function ($index, $label, $name, $checked, $value) use ($phone) {
-                                            return Html::checkbox("Phones[" . $phone->id . "][messengeresArray][]", $checked, [
-                                                'value' => $value,
-                                                'label' => $label,
-                                                'labelOptions' => [
-                                                    'class' => 'ckbox col-md-3',
-                                                ],
-                                            ]);
-                                        },
-                                ]);
-                            ?>
-                            <p class="cabinet__add-company-form--notice"></p>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        <?php else: ?>
-            <div class="cabinet__add-company-form--hover-wrapper">
-                <div class="cabinet__add-company-form--hover-elements">
-                    <p class="cabinet__add-company-form--title"></p>
-                    <div class="input-group" data-id="0">
-                        <?= Html::hiddenInput('Phones[][id]', 0) ?>
-                        <?= Html::textInput('Phones[][phone]', '', ['class' => 'form-control']) ?>
-                    </div>
+<?php if (!empty($phones)): ?>
+    <div class="cabinet__add-company-form--wrapper" data-iterator="0" style="flex-wrap: wrap; margin-bottom: 40px;">
+        <?php foreach ($phones as $key => $phone): ?>
+            <div class="phones__wrap">
+                <div class="input__wrap" style="position: relative; width: 100%;">
+                    <?= Html::label('Телефон', 'Phones', ['class' => 'label-name']) ?>
+                    <?= Html::hiddenInput('Phones[' . $phone->id . '][id]', $phone->id) ?>
+                    <?= Html::textInput('Phones[' . $phone->id . '][phone]', $phone->phone, ['class' => 'input-name', 'id' => 'Phones']) ?>
+                    <?php if ($key != 0): ?>
+                        <button type="button" class="cabinet__remove-pkg company__remove-phone"
+                                style="position: absolute; top: 11px; right: 5px; border: none;"></button>
+                    <?php else: ?>
+                        <button type="button" class="cabinet__add-field company__add-phone"
+                                style="position: absolute; top: 11px; right: 5px; border: none;" data-iterator="0"
+                                max-count="<?= (isset($services['count_phone']) ? $services['count_phone'] : ''); ?>"></button>
+                    <?php endif; ?>
+                </div>
+
+                <div class="messengers-choice" style="display: flex; flex-wrap: wrap; width: 70%; margin-left: auto;">
+                    <p style="width: 100%; margin-bottom: -1px">Выберите мессенджеры, если у вас привязан к ним
+                        телефон</p>
+                    <?= Html::checkboxList('Phones[][messengeres]', $phone->messengeresArray, ArrayHelper::map(Messenger::find()->all(), "id", "name"),
+                        [
+                            'item' =>
+                                function ($index, $label, $name, $checked, $value) use ($phone) {
+                                    return Html::checkbox("Phones[" . $phone->id . "][messengeresArray][]", $checked, [
+                                        'value' => $value,
+                                        'label' => $label
+                                    ]);
+                                },
+                            'class' => 'checkbox-wrap',
+                            'style' => 'display: flex; justify-content: space-around; width: 100%; margin-top: 5px;'
+                        ]);
+                    ?>
                 </div>
             </div>
-        <?php endif; ?>
+        <?php endforeach; ?>
     </div>
-    <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>
+<?php else: ?>
+    <div class="cabinet__add-company-form--wrapper" data-iterator="0" style="flex-wrap: wrap; margin-bottom: 40px;">
+        <div class="input__wrap" style="position: relative; width: 100%;">
+            <?= Html::label('Телефон', 'Phones', ['class' => 'label-name']) ?>
+            <?= Html::textInput('Phones[phone]', '', ['class' => 'input-name', 'id' => 'Phones']) ?>
+            <button type="button" class="cabinet__add-field company__add-phone"
+                    style="position: absolute; top: 11px; right: 5px; border: none;" data-iterator="0"
+                    max-count="<?= (isset($services['count_phone']) ? $services['count_phone'] : ''); ?>"></button>
+        </div>
+
+        <div class="messengers-choice" style="display: flex; flex-wrap: wrap; width: 70%; margin-left: auto;">
+            <p style="width: 100%; margin-bottom: -1px">Выберите мессенджеры, если у вас привязан к ним телефон</p>
+            <?= Html::checkboxList('Phones[messengeres]', '', ArrayHelper::map(Messenger::find()->all(), "id", "name"),
+                [
+                    'item' =>
+                        function ($index, $label, $name, $checked, $value) {
+                            return Html::checkbox("Phones[messengeresArray][]", $checked, [
+                                'value' => $value,
+                                'label' => $label
+                            ]);
+                        },
+                    'class' => 'checkbox-wrap',
+                    'style' => 'display: flex; justify-content: space-around; width: 100%; margin-top: 5px;'
+                ]);
+            ?>
+        </div>
+    </div>
+<?php endif; ?>
+
 <?= $form->field($model, 'email')
     ->textInput(['maxlength' => true])
     ->hint('Введите электронный адрес компании')
@@ -189,7 +209,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
 
 <?php
-$descTemplate = '<label class="label-name" for="stock-descr">О компании</label><div class="description-action">{input}</div>';
+$descTemplate = '<label class="label-name" for="company-descr">О компании</label><div class="description-action">{input}</div>';
 $descHint = 'Напишите подробное описание компании';
 if (isset($services['count_text'])) {
     if ($services['count_text'] != '-') {
