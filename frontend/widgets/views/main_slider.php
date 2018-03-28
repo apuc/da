@@ -11,7 +11,7 @@ use \common\models\db\News;
 
 <div class="home-content__wrap_slider">
     <?php foreach ($news as $new): ?>
-        <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $new->slug]); ?>" class="item">
+        <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $new->slug]); ?>" class="item" title="<?= $new->title?>">
 
             <img src="<?= $new->photo . '?width=600' ?>"
                  alt="<?= !empty($new->alt) ? $new->alt : $new->title ?>">

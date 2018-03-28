@@ -332,7 +332,7 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
 
     <h1 class="modalAdd-cartTitle">Товар был добавлен в корзину. <span> Товаров в Вашей корзине: <span class="modal-count-cart">1</span></span></h1>
 
-    <a href="#" class="go-cart">Перейти к корзине</a>
+    <a href="<?= Url::to(['/shop/cart'])?>" class="go-cart">Перейти к корзине</a>
 
     <button class="close-cart" id="modal_close">Вернуться на сайт</button>
 

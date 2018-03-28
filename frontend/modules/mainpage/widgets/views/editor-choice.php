@@ -11,7 +11,8 @@ if (!empty($news)): ?>
     <div class="editors-choice">
         <h2>выбор редакции</h2>
         <?php foreach ($news as $item): ?>
-            <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug,]); ?>" class="news__wrap_item-lg">
+            <a href="<?= Url::to(['/news/default/view', 'slug' => $item->slug,]); ?>"
+               class="news__wrap_item-lg" title="<?= $item->title?>">
                 <div class="thumb">
                     <img src="<?= $item->photo . '?width=255' ?>"
                          alt="<?= !empty($item->alt) ? $item->alt : $item->title ?>">

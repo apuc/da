@@ -136,6 +136,36 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             ')
     ->label('Описание<span>*</span>'); ?>
 
+<h2 class="soglasie">Оплата и доствка для этого товара</h2>
+<span>По умолчанию будут использованы условия оплаты и доставки из информации о компании</span>
+<?= Html::label('Изменить'); ?>
+<?= Html::checkbox('edit-payment', false, ['class' => 'edit-payment'] ); ?>
+<hr class="lineAddAds"/>
+
+<div class="edit-payment-form-field" style="display: none">
+    <?= $form->field($model, 'payment')->textarea(
+        [
+            'class' => 'area-name jsHint',
+            'maxlength' => 4096,
+        ]
+    )
+        ->hint('Добавьте описание оплаты для этого товара.<br>
+                <b>Оставьте поле пустым для использования информации из информации о компании.</b><br>
+            ')
+        ->label('Оплата<span>*</span>'); ?>
+
+    <?= $form->field($model, 'delivery')->textarea(
+        [
+            'class' => 'area-name jsHint',
+            'maxlength' => 4096,
+        ]
+    )
+        ->hint('Добавьте описание доставки для этого товара.<br>
+                <b>Оставьте поле пустым для использования информации из информации о компании.</b><br>
+            ')
+        ->label('Доставка<span>*</span>'); ?>
+</div>
+
 <?= Html::submitButton('Oпубликовать',
     ['class' => 'cabinet__add-company-form--submit place-ad_publish publish place-ad__publish', 'id' => 'saveInfo']) ?>
 <?php ActiveForm::end(); ?>

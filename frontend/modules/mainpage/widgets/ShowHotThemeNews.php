@@ -10,31 +10,25 @@ class ShowHotThemeNews extends Widget
 {
 
     public $useReg;
+
     public function run()
     {
         $query = \frontend\modules\news\models\News::find()
             ->from('news FORCE INDEX(`dt_public`)')
-            ->where([ 'hot_new' => 1, 'status' => 0,])
+            ->where(['hot_new' => 1, 'status' => 0,])
             ->andWhere(['<=', 'dt_public', time() - 86400]);
-        if($this->useReg != -1){
+        if ($this->useReg != -1) {
             $query->andWhere("(`region_id` IS NULL OR `region_id`=$this->useReg)");
 
         }
 
         $news = $query
-            ->with('tagss.tagname','category')
+            ->with('tagss.tagname', 'category')
             ->orderBy('dt_public DESC')
             ->limit(10)
-
             ->all();
         $newsAll = array_chunk($news, 5);
-        /*$newsLeftt = array_slice($news, -4);
-        $newsRight = array_slice($news, 4);*/
 
-/*        Debug::prn(count($newsRight));
-        Debug::prn(count($newsLeftt));
-        //Debug::prn(count($newsAll[1]));
-die();*/
         return $this->render('hot-theme',
             [
                 'newsLeft' => $newsAll[0],

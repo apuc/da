@@ -14,16 +14,16 @@ $(document).ready(function () {
             var dataId = $(this).attr('data-id'),
                 mainBlock = $('#business-sidebar-main'),
                 hoverBlock = $('#business-sidebar-hover-' + dataId);
-                /*$.ajax({
-                    url: 'company/company/get-company',
-                    type: 'GET',
-                    data: {
-                        catId: dataId,
-                    },
-                    success: function(data) {
-                        console.log(data);
-                    }
-                });*/
+            /*$.ajax({
+                url: 'company/company/get-company',
+                type: 'GET',
+                data: {
+                    catId: dataId,
+                },
+                success: function(data) {
+                    console.log(data);
+                }
+            });*/
             if (hoverBlock.length > 0) {
                 mainBlock.animate({width: "toggle"}, 400, function () {
                     hoverBlock.animate({width: "toggle"}, 400, function () {
@@ -65,4 +65,133 @@ $(document).ready(function () {
     $(document).on('click', '.company__remove-phone', function () {
         $(this).closest('.phones__wrap').remove();
     });
+
+    $('#input-1-xs').on('rating:change', function (event, value, caption) {
+        $("#companyfeedback-rating").val(value);
+    });
+
+    $(document).on('submit', '#addCompanyReviews', function () {
+        $.pjax.reload({
+            container: ".business__reviews",
+            url: '/company/company/add-feedback',
+            data: $(this).serialize(),
+            replace: false,
+            timeout: 10000
+        });
+        return false;
+    });
+
+    $('#addCompanyReviews').on('beforeSubmit', function () {
+        var data = $(this).serialize();
+        $.ajax({
+            url: '/company/company/add-feedback',
+            type: 'POST',
+            data: data,
+            success: function (res) {
+                console.log(res);
+                console.log(data);
+                $('#addCompanyReviews').html(res);
+            },
+            error: function () {
+                alert('Error!');
+            }
+        });
+        return false;
+    });
+
+    if ($("input").is("#input-2-xs")) {
+        $('#input-1-xs').rating({
+                theme: "",
+                language: "ru",
+                stars: 5,
+                filledStar: '<i class="fa fa-star fa-fw"></i>',
+                emptyStar: '<i class="fa fa-star fa-fw"></i>',
+                containerClass: "",
+                size: "xs",
+                animate: !0,
+                displayOnly: !1,
+                rtl: !1,
+                showClear: 0,
+                showCaption: !0,
+                starCaptionClasses: {
+                    1: "label label-danger badge-danger",
+                    2: "label label-warning badge-warning",
+                    3: "label label-info badge-info",
+                    4: "label label-primary badge-primary",
+                    5: "label label-success badge-success"
+                },
+                clearButton: '<i class="glyphicon glyphicon-minus-sign"></i>',
+                clearButtonBaseClass: "clear-rating",
+                clearButtonActiveClass: "clear-rating-active",
+                clearCaptionClass: "label label-default",
+                clearValue: null,
+                captionElement: null,
+                clearElement: null,
+                hoverEnabled: !0,
+                hoverChangeCaption: !0,
+                hoverChangeStars: !0,
+                hoverOnClear: !0,
+                zeroAsNull: !0,
+                defaultCaption: "Stars {rating}",
+                starCaptions: {
+                    1: "1",
+                    2: "2",
+                    3: "3",
+                    4: "4",
+                    5: "5"
+                },
+                clearCaption: "Нет оценки"
+            }
+        );
+    }
+
+    if ($("input").is("#input-2-xs")) {
+        $('#input-2-xs').rating({
+                theme: "",
+                language: "ru",
+                stars: 5,
+                filledStar: '<i class="fa fa-star fa-fw"></i>',
+                emptyStar: '<i class="fa fa-star fa-fw"></i>',
+                containerClass: "",
+                size: "xs",
+                animate: !0,
+                displayOnly: 1,
+                rtl: !1,
+                showClear: 0,
+                showCaption: 0,
+                hoverEnabled: 0,
+                hoverChangeCaption: !0,
+                hoverChangeStars: !0,
+                hoverOnClear: !0,
+                zeroAsNull: !0,
+                defaultCaption: "Stars {rating}",
+                step: '0.1'
+            }
+        );
+    }
+    $('input#input-user-xs').each(function (indx, element) {
+        $(element).rating({
+                theme: "",
+                language: "ru",
+                stars: 5,
+                filledStar: '<i class="fa fa-star fa-fw"></i>',
+                emptyStar: '<i class="fa fa-star fa-fw"></i>',
+                containerClass: "",
+                size: "xs",
+                animate: !0,
+                displayOnly: 1,
+                rtl: !1,
+                showClear: 0,
+                showCaption: 0,
+                hoverEnabled: 0,
+                hoverChangeCaption: !0,
+                hoverChangeStars: !0,
+                hoverOnClear: !0,
+                zeroAsNull: !0,
+                defaultCaption: "Stars {rating}",
+                step: '1'
+            }
+        );
+    });
+    /*close business sidebar script*/
 });

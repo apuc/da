@@ -13,7 +13,7 @@
                 <a href="<?= \yii\helpers\Url::to([
                     "/news/default/view",
                     "slug" => $new->slug,
-                ]); ?>"><?= $new->title; ?></a>
+                ]); ?>" title="<?= $new->title;?>"><?= $new->title; ?></a>
             </li>
         <?php endforeach; ?>
     </ul>

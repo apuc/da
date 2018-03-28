@@ -55,28 +55,12 @@ $this->params['breadcrumbs'][] = 'Архив новостей за ' . date('d-m
         <div class="news__wrap">
         <?php if($news): ?>
             <?php foreach ($news as $new): ?>
-                <!--<div class="news__wrap_item-sm">
-                    <div class="thumb">
-                        <img src="<?/*= $new->photo; */?>" alt="">
-                        <div class="content-row">
-                            <span><small class="view-icon"></small> <?/*= $new->views; */?></span>
-                            <a>Новости</a>
-                        </div>
-                    </div>
-                    <div class="content-item">
-                        <p><a href="<?/*= Url::to([
-                                '/news/default/view',
-                                'slug' => $new->slug,
-                            ]); */?>"><?/*= $new->title; */?></a></p>
-                        <span><?/*= WordFunctions::dateWithMonts($new->dt_public); */?></span>
-                    </div>
-                </div>-->
                 <div class="news__wrap_item-sm">
                     <!-- thumb -->
                     <a href="<?= Url::to([
                         '/news/default/view',
                         'slug' => $new->slug,
-                    ]); ?>" class="thumb">
+                    ]); ?>" class="thumb" title="<?= $new->title; ?>">
                         <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($new->photo); ?>"
                              alt="">
                         <div class="content-row">
@@ -91,7 +75,7 @@ $this->params['breadcrumbs'][] = 'Архив новостей за ' . date('d-m
                         <p><a href="<?= Url::to([
                                 '/news/default/view',
                                 'slug' => $new->slug,
-                            ]); ?>"><?= $new->title; ?></a></p>
+                            ]); ?>" title="<?= $new->title; ?>"><?= $new->title; ?></a></p>
                         <span><?= WordFunctions::dateWithMonts($new->dt_public); ?></span>
                     </div>
                 </div>
