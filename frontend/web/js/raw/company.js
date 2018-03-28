@@ -45,8 +45,7 @@ $(document).ready(function () {
         });
     });
     $(document).on('click', '.company__add-phone', function (event) {
-        var elem = $(this);
-        var iterator = elem.data('iterator');
+        var iterator = parseInt($('.cabinet__add-company-form--wrapper').data('iterator'));
         $.ajax({
             url: '/company/company/add-phone',
             data: {
@@ -55,16 +54,15 @@ $(document).ready(function () {
             },
             type: 'POST',
             success: function (html) {
-                elem.data('iterator', iterator + 1);
-                $('.phones').append(html);
+                iterator = iterator + 1;
+                $('.cabinet__add-company-form--wrapper').data('iterator', iterator);
+                $('.cabinet__add-company-form--wrapper').append(html);
             }
         });
         return false;
     });
 
     $(document).on('click', '.company__remove-phone', function () {
-        $(this).parent('.input-group').remove();
-        console.log('remove phone');
+        $(this).closest('.phones__wrap').remove();
     });
-    /*close business sidebar script*/
 });
