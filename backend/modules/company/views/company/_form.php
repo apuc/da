@@ -150,14 +150,28 @@ use yii\jui\DatePicker;
         ]);
         ?>
     <?php endif; ?>
-    <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
-    <div class="phone-dynamic-input">
 
-        <?= Html::label('Телефон(-ы)', 'mytext', ['class' => 'control-label']) ?>
+    <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
+
+    <div class="phone-dynamic-input">
+        <?= Html::label('Телефон', 'Phones', ['class' => 'control-label']) ?>
         <?php if (Yii::$app->controller->action->id == 'create'): ?>
             <div class="input-group multiply-field" data-id="0">
-                <?= Html::hiddenInput('Phones[0][id]', 0) ?>
-                <?= Html::textInput('Phones[0][phone]', '', ['class' => 'form-control']) ?>
+                <?= Html::textInput('Phones[phone]', '', ['class' => 'form-control']) ?>
+                <?= Html::checkboxList('Phones[messengeres]', '', ArrayHelper::map(Messenger::find()->all(), "id", "name"),
+                    [
+                        'item' =>
+                            function ($index, $label, $name, $checked, $value) {
+                                return Html::checkbox("Phones[messengeresArray][]", $checked, [
+                                    'value' => $value,
+                                    'label' => $label,
+                                    'labelOptions' => [
+                                        'class' => 'ckbox ckbox-primary col-md-2',
+                                    ],
+                                ]);
+                            },
+                    ]);
+                ?>
             </div>
         <?php elseif (Yii::$app->controller->action->id == 'update'): ?>
 
@@ -189,7 +203,6 @@ use yii\jui\DatePicker;
                         </a>
                     </div>
                 <?php endforeach; ?>
-
             <?php else: ?>
                 <div class="input-group multiply-field" data-id="0">
                     <?= Html::hiddenInput('Phones[0][id]', 0) ?>
@@ -201,6 +214,7 @@ use yii\jui\DatePicker;
 
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+
 
     <div class="imgUpload">
         <div class="media__upload_img"><img src="<?= $model->photo; ?>" width="100px"/></div>
@@ -221,7 +235,9 @@ use yii\jui\DatePicker;
         ]);
         ?>
     </div>
-    <br>
+    <br/>
+
+
     <?= Html::label('Фото компании', 'input-5', ['class' => 'control-label']) ?>
     <div class="imgUpload">
         <div class="media__upload_img">
@@ -250,9 +266,11 @@ use yii\jui\DatePicker;
         ?>
     </div>
 
+
     <?= $form->field($model, 'alt')->textInput(['maxlength' => true]) ?>
 
-    <?php echo $form->field($model, 'descr')->widget(CKEditor::className(), [
+
+    <?= $form->field($model, 'descr')->widget(CKEditor::className(), [
         'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
             'preset' => 'full',
             'inline' => false,
@@ -260,8 +278,12 @@ use yii\jui\DatePicker;
         ]),
     ]); ?>
 
+
     <?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
+
+
     <?= $form->field($model, 'meta_descr')->textInput(['maxlength' => true]) ?>
+
 
     <?= $form->field($model, 'vip')->dropDownList([0 => 'Стандарт', 1 => 'VIP'], ['class' => 'form-control']) ?>
 
