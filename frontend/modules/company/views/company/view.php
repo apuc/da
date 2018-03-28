@@ -46,11 +46,7 @@ if (!empty($categoryCompany['category']->title)) {
 $this->params['breadcrumbs'][] = $model->name;
 
 ?>
-<?php
-$count = $rating[0]['count'];
-$rating = $rating[0]['rating'];
 
-?>
 <section class="business">
 
     <div class="container">
@@ -65,6 +61,15 @@ $rating = $rating[0]['rating'];
                 <h1 class="business__subtitle"><?= $model->name ?>
                     <span class="business__status">
                     </span>
+                    <?php
+                    if (empty($rating)) {
+                        $count = 0;
+                        $rating = 0;
+                    } else {
+                        $count = $rating[0]['count'];
+                        $rating = $rating[0]['rating'];
+                    }
+                    ?>
                     <div class='rating-stars'>
                         <input id="input-2-xs" data-step="0.1" value="<?= $rating; ?>">
                         <a href="#">
