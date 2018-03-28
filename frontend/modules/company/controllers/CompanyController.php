@@ -7,8 +7,10 @@ use common\classes\GeobaseFunction;
 use common\classes\UserFunction;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
+use common\models\db\CompanyFeedback;
 use common\models\db\CompanyPhoto;
 use common\models\db\KeyValue;
+use common\models\db\Messenger;
 use common\models\db\Phones;
 use common\models\db\SocCompany;
 use common\models\UploadPhoto;
@@ -171,6 +173,7 @@ class CompanyController extends Controller
      * @return mixed
      * @throws \yii\web\NotFoundHttpException
      * @throws \yii\base\InvalidParamException
+     * @throws \yii\db\Exception
      */
     public function actionView($slug, $page = 'about')
     {
@@ -194,6 +197,15 @@ class CompanyController extends Controller
             ->with('category.categ')
             ->where(['company_id' => $model->id])
             ->one();
+        $rating = Yii::$app->db->createCommand(
+            "SELECT AVG(`rating`) AS `rating`, COUNT(`rating`) AS `count`
+                    FROM `company_feedback`
+                    WHERE `company_id` = :company_id
+                    GROUP BY `company_id`",
+            [
+                ':company_id' => $model->id,
+            ])
+            ->queryAll();
 
         return $this->render('view', [
             'model' => $model,
@@ -202,6 +214,7 @@ class CompanyController extends Controller
             'slug' => $slug,
             'page' => $page,
             'options' => $model->getPage($page),
+            'rating' => $rating,
         ]);
     }
 
@@ -217,7 +230,7 @@ class CompanyController extends Controller
         $model = new Company();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-
+            $post = Yii::$app->request->post();
             $model->status = 1;
             $model->user_id = Yii::$app->user->id;
             $model->meta_title = $model->name;
@@ -240,13 +253,14 @@ class CompanyController extends Controller
             }
             $model->save();
 
-            foreach ($_POST['mytext'] as $item) {
-                $phone = New Phones();
-                $phone->phone = $item;
-                $phone->company_id = $model->id;
-                $phone->save();
+            if (isset($post['Phones'])) {
+                foreach ($post['Phones'] as $item) {
+                    $phone = New Phones();
+                    $phone->phone = $item['phone'];
+                    $phone->company_id = $model->id;
+                    $phone->save();
+                }
             }
-
             $catCompanyRel = new CategoryCompanyRelations();
             $catCompanyRel->cat_id = $model['categ'][0];
             $catCompanyRel->company_id = $model->id;
@@ -290,16 +304,22 @@ class CompanyController extends Controller
         $model = Company::find()->with('allPhones')->where(['id' => $id])->one();
 
         $socials = $model->getFullAndEmptySocials();
-
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if (!empty($_POST['mytext'])) {
-                Phones::deleteAll(['company_id' => $model->id]);
-                foreach ($_POST['mytext'] as $item) {
-                    $phone = New Phones();
-                    $phone->phone = $item;
-                    $phone->company_id = $model->id;
-                    if (!empty($item))
-                        $phone->save();
+            $post = Yii::$app->request->post();
+            $phones = $model->allPhones;
+            $post['Phones'] = array_values($post['Phones']);
+            $diff = count($post['Phones']) - count($phones);
+            if ($diff > 0) {
+                for ($i = 0; $i < $diff; $i++) {
+                    $phone = new Phones();
+                    $phone->company_id = $id;
+                    $phones[] = $phone;
+                }
+            }
+            if (Phones::loadMultiple($phones, $post) && Phones::validateMultiple($phones)) {
+                foreach ($phones as $phone) {
+                    /** @var Phones $phone */
+                    $phone->save();
                 }
             }
 
@@ -396,7 +416,8 @@ class CompanyController extends Controller
                 'img' => $img,
                 'city' => GeobaseFunction::getArrayCityRegion(),
                 'categoryCompanyAll' => $data,
-                'socials' => $socials
+                'socials' => $socials,
+                'phones' => $model->allPhones
             ]);
         }
     }
@@ -592,4 +613,30 @@ class CompanyController extends Controller
         CompanyPhoto::deleteAll(['id' => $_GET['id']]);
         echo 1;
     }
+
+    public function actionAddPhone()
+    {
+        return $this->renderPartial('one_phone', [
+            'iterator' => Yii::$app->request->post('iterator'),
+            'messengers' => ArrayHelper::map(Messenger::find()->all(), 'id', 'name'),
+        ]);
+    }
+
+    /**
+     * @return string
+     */
+    public function actionAddFeedback()
+    {
+        if (!empty(Yii::$app->request->post())) {
+            $companyFeedback = new CompanyFeedback();
+            if ($companyFeedback->load(Yii::$app->request->post())) {
+                $companyFeedback->dt_add = time();
+                $companyFeedback->status = 0;
+                $companyFeedback->company_name = Company::findOne(['id' => Yii::$app->request->post()['CompanyFeedback']['company_id']])->name;
+                $companyFeedback->save();
+            }
+        }
+        return "Спасибо, Ваш отзыв будет проверен и опубликован модератором";
+    }
+
 }

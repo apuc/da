@@ -23,7 +23,7 @@ use yii\helpers\Url;
                     <a href="<?= Url::to([
                         '/news/default/view',
                         'slug' => $currNew->slug,
-                    ]); ?>" class="news__wrap_item-lg">
+                    ]); ?>" class="news__wrap_item-lg" title="<?= $currNew->title;?>">
                         <div class="thumb">
                             <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>"
                                  alt="">
@@ -44,7 +44,7 @@ use yii\helpers\Url;
                         <a href="<?= Url::to([
                             '/news/default/view',
                             'slug' => $currNew->slug,
-                        ]); ?>" class="thumb">
+                        ]); ?>" class="thumb" title="<?= $currNew->title;?>">
                             <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>"
                                  alt="">
                             <div class="content-row">
@@ -73,7 +73,7 @@ use yii\helpers\Url;
                 <a href="<?= Url::to([
                     '/news/default/view',
                     'slug' => $currHotNew->slug,
-                ]); ?>" class=" news__wrap_item-sm-hot">
+                ]); ?>" class=" news__wrap_item-sm-hot" title="<?= $currHotNew->title;?>">
                     <!-- thumb -->
                     <div class="thumb">
                         <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($currHotNew->photo); ?>" alt="">

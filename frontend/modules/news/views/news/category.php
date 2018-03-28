@@ -58,13 +58,13 @@ $md = new \common\classes\Mobile_Detect();
                         <a href="<?= Url::to([
                             '/news/default/view',
                             'slug' => $currNew->slug,
-                        ]); ?>" class="news__wrap_item-lg">
+                        ]); ?>" class="news__wrap_item-lg" title="<?= $currNew->title; ?>">
                             <div class="thumb">
                                 <?php if(stristr($currNew->photo, 'http')):?>
                                     <img class="thumbnail" src="<?= $currNew->photo?>" alt="">
                                 <?php else: ?>
                                     <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>" alt="">
-                                <?php endif;?>
+                                <?php endif ?>
                                 <div class="content-row">
                                     <span><?= WordFunctions::dateWithMonts($currNew->dt_public); ?></span>
                                     <span><?= $cat->title; ?></span>
@@ -82,7 +82,7 @@ $md = new \common\classes\Mobile_Detect();
                             <a href="<?= Url::to([
                                 '/news/default/view',
                                 'slug' => $currNew->slug,
-                            ]); ?>" class="thumb">
+                            ]); ?>" class="thumb" title="<?= $currNew->title; ?>">
                                 <?php if(stristr($currNew->photo, 'http')):?>
                                     <img class="thumbnail" src="<?= $currNew->photo?>" alt="">
                                 <?php else: ?>
@@ -114,7 +114,7 @@ $md = new \common\classes\Mobile_Detect();
                     <a href="<?= Url::to([
                         '/news/default/view',
                         'slug' => $currHotNew['hotNews']->slug,
-                    ]); ?>" class=" news__wrap_item-sm-hot">
+                    ]); ?>" class=" news__wrap_item-sm-hot" title="<?= $currHotNew['hotNews']->title; ?>">
                         <!-- thumb -->
                         <div class="thumb">
                             <?php if(stristr($currHotNew['hotNews']->photo, 'http')):?>

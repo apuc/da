@@ -188,7 +188,9 @@ return \yii\helpers\ArrayHelper::merge([
                 //==============================COMPANY==============================
                 'all-company' => 'company/company',
                 'company' => 'company/default',
+                'company/company/add-feedback' => 'company/company/add-feedback',
                 'company/company/get-more-company' => 'company/company/get-more-company',
+                'company/company/add-phone' => 'company/company/add-phone',
                 'company/create' => 'company/company/create',
                 'company/update/<id:\d+>' => 'company/company/update',
                 'company/delete/<id:\d+>' => 'company/company/delete',
