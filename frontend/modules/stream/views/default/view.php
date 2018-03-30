@@ -147,7 +147,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                                         <?php foreach ($model->comments as $comment_item): ?>
 
                                             <div class="avatar user-photo">
-                                                <?= \common\classes\UserFunction::getUser_avatarStream($comment_item); ?>
+                                                <?= \common\classes\UserFunction::getUser_avatarStream((array)$comment_item); ?>
                                             </div>
 
                                             <div class="name">
