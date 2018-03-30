@@ -2,16 +2,13 @@
 
 namespace frontend\modules\news\controllers;
 
-use common\classes\Debug;
 use common\classes\UserFunction;
 use common\models\db\CategoryNews;
 use common\models\db\CategoryNewsRelations;
-use common\models\db\Comments;
-use common\models\db\Lang;
 use common\models\db\Likes;
 use common\models\db\News;
+use common\models\db\NewsComments;
 use Yii;
-use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -66,10 +63,9 @@ class DefaultController extends Controller
         }
 
 
-        $countComments = Comments::find()
+        $countComments = NewsComments::find()
             ->where([
-                'post_id' => $new->id,
-                'post_type' => 'news',
+                'news_id' => $new->id,
                 'published' => 1
             ])
             ->count();

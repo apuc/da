@@ -4,14 +4,56 @@
  * User: apuc0
  * Date: 25.02.2018
  * Time: 13:15
+ *
+ * @property $id
+ * @property $title
+ * @property $descr
+ * @property $meta_descr
+ * @property $type
+ * @property $author
+ * @property $text
+ * @property $photo
+ * @property $allPhoto
+ * @property $gif
+ * @property $allGif
+ * @property $gifPreview
+ * @property $group
+ * @property $slug
+ * @property $views
+ * @property $comment_status
+ * @property $comments
+ * @property $likes
+ * @property $dt_publish
  */
 
 namespace common\models;
 
-use common\classes\Debug;
-use common\models\db\Comments;
 use common\models\db\Likes;
+use common\models\db\VkStreamComments;
 
+/**
+ * Class Stream
+ * @package common\models
+ * @property $id
+ * @property $title
+ * @property $descr
+ * @property $meta_descr
+ * @property $type
+ * @property $author
+ * @property $text
+ * @property $photo
+ * @property $allPhoto
+ * @property $gif
+ * @property $allGif
+ * @property $gifPreview
+ * @property $group
+ * @property $slug
+ * @property $views
+ * @property $comment_status
+ * @property $comments
+ * @property $likes
+ * @property $dt_publish
+ */
 class Stream
 {
     public $id;
@@ -34,6 +76,10 @@ class Stream
     public $likes;
     public $dt_publish;
 
+    /**
+     * @param array $data
+     * @return array
+     */
     public static function create(Array $data)
     {
         $result = [];
@@ -43,9 +89,13 @@ class Stream
         return $result;
     }
 
+    /**
+     * @param $item
+     * @return bool|Stream
+     */
     public static function createItem($item)
     {
-        if(!empty($item)){
+        if (!empty($item)) {
             if (isset($item->tw_id)) {
                 return self::createTw($item);
             }
@@ -56,6 +106,10 @@ class Stream
         return false;
     }
 
+    /**
+     * @param $item
+     * @return Stream
+     */
     public static function createTw($item)
     {
         $streamItem = new self();
@@ -78,6 +132,10 @@ class Stream
         return $streamItem;
     }
 
+    /**
+     * @param $item
+     * @return Stream
+     */
     public static function createVk($item)
     {
         $streamItem = new self();
@@ -92,14 +150,14 @@ class Stream
         $streamItem->text = $item->text;
         if (!empty($item->photo)) {
             $streamItem->photo = $item->photo[0]->getLargePhoto();
-            foreach ((array)$item->photo as $p){
+            foreach ((array)$item->photo as $p) {
                 $streamItem->allPhoto[] = $p->getLargePhoto();
             }
         }
         if (!empty($item->gif)) {
             $streamItem->gifPreview = $item->gif[0]->getLargePreview();
             $streamItem->gif = $item->gif[0]->gif_link;
-            foreach ((array)$item->gif as $g){
+            foreach ((array)$item->gif as $g) {
                 $streamItem->allGif[] = $g->gif_link;
             }
         }
@@ -114,6 +172,9 @@ class Stream
         return $streamItem;
     }
 
+    /**
+     * @return int|string
+     */
     public function getLikesCount()
     {
         return Likes::find()->where(['post_type' => $this->type, 'post_id' => $this->id])->count();
@@ -124,22 +185,26 @@ class Stream
      */
     public function getComments()
     {
-        return Comments::find()->where(['post_id' => $this->id])
-            ->andWhere(['post_type' => $this->type . '_post'])
+        return VkStreamComments::find()
+            ->where(['vk_stream_id' => $this->id])
             ->andWhere(['published' => 1])
             ->all();
     }
 
+    /**
+     * @return array
+     */
     public function getAllComments()
     {
         $arr = [];
-        $comm = $this->getComments();
-        if ($comm) {
-            foreach ($comm as $item) {
+        $comments = $this->getComments();
+        if ($comments) {
+            /** @var VkStreamComments $comment */
+            foreach ($comments as $comment) {
                 $commObj = new StreamComments();
-                $commObj->text = $item->content;
-                if (null !== $item->user_id) {
-                    $user = User::findOne($item->user_id);
+                $commObj->text = $comment->content;
+                if (null !== $comment->user_id) {
+                    $user = User::findOne($comment->user_id);
                     $commObj->username = $user->username;
                 }
                 $arr[] = $commObj;
@@ -150,18 +215,32 @@ class Stream
 
 }
 
+/**
+ * Class StreamAuthor
+ * @package common\models
+ */
 class StreamAuthor
 {
     public $photo;
     public $name;
 }
 
+/**
+ * Class StreamGroup
+ * @package common\models
+ */
 class StreamGroup
 {
     public $photo;
     public $name;
 }
 
+/**
+ * Class StreamComments
+ * @package common\models
+ * @property string $username
+ * @property string $text
+ */
 class StreamComments
 {
     public $username;

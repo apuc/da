@@ -51,7 +51,7 @@ use yii\helpers\Url;
                             <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['news']->slug]); ?>">
                                 <img src="/theme/portal-donbassa/img/icons/new-chat-icon.png"
                                      alt="<?= !empty($val['news']->alt) ? $val['news']->alt : $val['news']->title ?>">
-                                <span><?= $val['cnt'] ?></span>
+                                <span><?= $val['count'] ?></span>
                             </a>
                             <p class="business__sm-item--views"><?= $val['news']->views; ?></p>
                             <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['news']->slug]); ?>"
@@ -80,7 +80,7 @@ use yii\helpers\Url;
                             <a href="#">
                                 <img src="/theme/portal-donbassa/img/icons/new-chat-icon.png"
                                      alt="<?= !empty($val['news']->alt) ? $val['news']->alt : $val['news']->title ?>">
-                                <span><?= $val->cnt ?></span>
+                                <span><?= $val->count ?></span>
                             </a>
                             <p class="business__sm-item--views"><?= $val['news']->views; ?></p>
                             <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['news']->slug]); ?>"

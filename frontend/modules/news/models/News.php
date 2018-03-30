@@ -10,8 +10,7 @@ namespace frontend\modules\news\models;
 
 
 use backend\modules\tags\models\TagsRelation;
-use common\models\db\Comments;
-use common\models\db\Tags;
+use common\models\db\NewsComments;
 use yii\db\ActiveRecord;
 
 class News extends \common\models\db\News
@@ -44,7 +43,7 @@ class News extends \common\models\db\News
 
     public function getComments()
     {
-        return $this->hasMany(Comments::className(), ['post_id' => 'id']);
+        return $this->hasMany(NewsComments::className(), ['news_id' => 'id']);
     }
 
 

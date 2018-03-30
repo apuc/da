@@ -9,9 +9,11 @@
 namespace frontend\widgets;
 
 use common\classes\CommentsFunction;
-use common\classes\Debug;
+use common\models\db\NewsComments;
+use common\models\db\PagesComments;
+use common\models\db\StockComments;
+use common\models\db\VkStreamComments;
 use yii\base\Widget;
-use yii\helpers\ArrayHelper;
 
 class Comments extends Widget
 {
@@ -22,16 +24,35 @@ class Comments extends Widget
 
     public function run()
     {
+        switch ($this->postType) {
+            case 'news':
+                $query = NewsComments::find()->where([
+                    'news_id' => $this->postId,
+                    'published' => 1
+                ]);
+                break;
+            case 'page':
+                $query = PagesComments::find()->where([
+                    'pages_id' => $this->postId,
+                    'published' => 1
+                ]);
+                break;
+            case 'vk_post':
+                $query = VkStreamComments::find()->where([
+                    'vk_stream_id' => $this->postId,
+                    'published' => 1
+                ]);
+                break;
+            case 'stock':
+                $query = StockComments::find()->where([
+                    'stock_id' => $this->postId,
+                    'published' => 1
+                ]);
+                break;
+        }
 
-        $comments = \common\models\db\Comments::find()
-            ->where([
-                'post_type' => $this->postType,
-                'post_id' => $this->postId,
-                //'parent_id' => 0,
-                'published' => 1
-            ])
+        $comments = $query
             ->orderBy('id')
-            //->with('childComments')
             ->with('user')
             ->asArray()
             ->all();
@@ -40,16 +61,16 @@ class Comments extends Widget
         $cats = array();
 
         foreach ($comments as $item) {
-            $cats[$item['parent_id']][$item['id']] =  $item;
+            $cats[$item['parent_id']][$item['id']] = $item;
         }
 
 
         return $this->render('comments/' . $renderView,
             [
-                'comments' => CommentsFunction::buildTree($cats, 0),
+                'comments' => CommentsFunction::buildTree($cats, 0, $this->postType),
                 'postType' => $this->postType,
                 'postId' => $this->postId,
-                'pageTitle'=>$this->pageTitle
+                'pageTitle' => $this->pageTitle
             ]
         );
     }

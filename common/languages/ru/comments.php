@@ -6,11 +6,20 @@
  * Time: 14:06
  */
 return [
-    'Comments' => 'Комментарии',
+    'Update' => 'Редактировать',
+    'Delete' => 'Удалить',
+    'Save' => 'Сохранить',
+
+    'News Comments' => 'Комментарии к новостям',
+    'Pages Comments' => 'Комментарии к страницам',
+    'Stock Comments' => 'Комментарии к акциям',
+    'Vk Stream Comments' => 'Комментарии ко Вконтакте',
     'Content' => 'Комментарий',
-    'Post Type' => 'Тип поста',
-    'Post ID' => 'ID поста',
-    'User ID' => 'ID пользователя',
+    'News ID' => 'Новость',
+    'Pages ID' => 'Страница',
+    'Stock ID' => 'Акция',
+    'Vk Stream ID' => 'Пост VK',
+    'User ID' => 'Пользователь',
     'Dt Add' => 'Дата добавления',
     'Update {modelClass}: ' => 'Редактирование комментария: ',
     'Parent' => 'ID родителя',

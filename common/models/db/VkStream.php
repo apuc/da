@@ -173,8 +173,8 @@ class VkStream extends \yii\db\ActiveRecord
     public function getAllComments()
     {
         $vk_comments = VkComments::find()->with('author', 'photo')->where(['post_id' => $this->id])->all();
-        $comments = Comments::find()->where(['post_id' => $this->id])
-            ->andWhere(['post_type' => 'vk_post'])
+        $comments = VkStreamComments::find()
+            ->where(['vk_stream_id' => $this->id])
             ->andWhere(['published' => 1])
             ->all();
 
