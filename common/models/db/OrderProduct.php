@@ -54,4 +54,25 @@ class OrderProduct extends \yii\db\ActiveRecord
         return $this->hasOne(Products::class, ['id' => 'product_id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCompany()
+    {
+        return $this->hasOne(Company::class, ['id' => 'shop_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOrder()
+    {
+        return $this->hasOne(Order::class, ['id' => 'order_id']);
+    }
+
+
+    public static function primaryKey()
+    {
+        return ['shop_id'];
+    }
 }

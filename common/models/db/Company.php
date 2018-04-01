@@ -205,4 +205,9 @@ class Company extends \yii\db\ActiveRecord
         }
         return array_merge($currentSocial, $newSocial);
     }
+
+    public function getCompanyFeedback()
+    {
+        return $this->hasMany(CompanyFeedback::class,  ['company_id' => 'id']);
+    }
 }

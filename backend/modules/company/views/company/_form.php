@@ -8,11 +8,14 @@
  * @var $companyPhotosStr string
  * @var $socials array
  * @var $soc SocCompany
+ * @var $phone Phones
  */
 
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
 use common\models\db\Lang;
+use common\models\db\Messenger;
+use common\models\db\Phones;
 use common\models\db\Services;
 use common\models\db\ServicesCompanyRelations;
 use common\models\db\SocCompany;
@@ -147,33 +150,63 @@ use yii\jui\DatePicker;
         ]);
         ?>
     <?php endif; ?>
+
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
     <div class="phone-dynamic-input">
-
-        <?= Html::label('Телефон', 'mytext', ['class' => 'control-label']) ?>
+        <?= Html::label('Телефон', 'Phones', ['class' => 'control-label']) ?>
         <?php if (Yii::$app->controller->action->id == 'create'): ?>
-            <div class="input-group multiply-field">
-                <input value="" class="form-control" name="mytext[]" type="text">
-                <a href="#" class="input-group-addon add-input-phone"><span class="glyphicon glyphicon-plus"></span></a>
+            <div class="input-group multiply-field" data-id="0">
+                <?= Html::textInput('Phones[phone]', '', ['class' => 'form-control']) ?>
+                <?= Html::checkboxList('Phones[messengeres]', '', ArrayHelper::map(Messenger::find()->all(), "id", "name"),
+                    [
+                        'item' =>
+                            function ($index, $label, $name, $checked, $value) {
+                                return Html::checkbox("Phones[messengeresArray][]", $checked, [
+                                    'value' => $value,
+                                    'label' => $label,
+                                    'labelOptions' => [
+                                        'class' => 'ckbox ckbox-primary col-md-2',
+                                    ],
+                                ]);
+                            },
+                    ]);
+                ?>
             </div>
-
         <?php elseif (Yii::$app->controller->action->id == 'update'): ?>
 
             <?php if (!empty($phones)): ?>
 
                 <?php foreach ($phones as $key => $phone): ?>
-                    <div class="input-group <?= ($key == 0) ? 'multiply-field' : '' ?> ">
-                        <input value="<?= $phone->phone ?>" class="form-control" name="mytext[]" type="text">
-                        <a href="#" class="input-group-addon <?= ($key == 0) ? 'add' : 'remove' ?>-input-phone"><span
-                                    class="glyphicon glyphicon-<?= ($key == 0) ? 'plus' : 'minus' ?> "></span></a>
+                    <div class="input-group <?= ($key == 0) ? 'multiply-field' : '' ?> " data-id="<?= $phone->id ?>">
+                        <?= Html::hiddenInput('Phones[' . $phone->id . '][id]', $phone->id) ?>
+                        <?= Html::textInput('Phones[' . $phone->id . '][phone]', $phone->phone, ['class' => 'form-control']) ?>
+                        <?= Html::checkboxList('Phones[][messengeres]', $phone->messengeresArray, ArrayHelper::map(Messenger::find()->all(), "id", "name"),
+                            [
+                                'item' =>
+                                    function ($index, $label, $name, $checked, $value) use ($phone) {
+                                        return Html::checkbox("Phones[" . $phone->id . "][messengeresArray][]", $checked, [
+                                            'value' => $value,
+                                            'label' => $label,
+                                            'labelOptions' => [
+                                                'class' => 'ckbox ckbox-primary col-md-2',
+                                            ],
+                                        ]);
+                                    },
+                            ]);
+                        ?>
+                        <a href="#"
+                           class="input-group-addon <?= ($key == 0) ? 'add' : 'remove' ?>-input-phone"
+                           data-iterator="0">
+                            <span class="glyphicon glyphicon-<?= ($key == 0) ? 'plus' : 'minus' ?> ">
+                            </span>
+                        </a>
                     </div>
                 <?php endforeach; ?>
-
             <?php else: ?>
-                <div class="input-group multiply-field">
-                    <input value="" class="form-control" name="mytext[]" type="text">
-                    <a href="#" class="input-group-addon add-input-phone"><span class="glyphicon glyphicon-plus"></span></a>
+                <div class="input-group multiply-field" data-id="0">
+                    <?= Html::hiddenInput('Phones[0][id]', 0) ?>
+                    <?= Html::textInput('Phones[0][phone]', '', ['class' => 'form-control']) ?>
                 </div>
             <?php endif; ?>
         <?php endif; ?>
@@ -181,6 +214,7 @@ use yii\jui\DatePicker;
 
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+
 
     <div class="imgUpload">
         <div class="media__upload_img"><img src="<?= $model->photo; ?>" width="100px"/></div>
@@ -201,7 +235,9 @@ use yii\jui\DatePicker;
         ]);
         ?>
     </div>
-    <br>
+    <br/>
+
+
     <?= Html::label('Фото компании', 'input-5', ['class' => 'control-label']) ?>
     <div class="imgUpload">
         <div class="media__upload_img">
@@ -230,9 +266,11 @@ use yii\jui\DatePicker;
         ?>
     </div>
 
+
     <?= $form->field($model, 'alt')->textInput(['maxlength' => true]) ?>
 
-    <?php echo $form->field($model, 'descr')->widget(CKEditor::className(), [
+
+    <?= $form->field($model, 'descr')->widget(CKEditor::className(), [
         'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
             'preset' => 'full',
             'inline' => false,
@@ -240,8 +278,12 @@ use yii\jui\DatePicker;
         ]),
     ]); ?>
 
+
     <?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
+
+
     <?= $form->field($model, 'meta_descr')->textInput(['maxlength' => true]) ?>
+
 
     <?= $form->field($model, 'vip')->dropDownList([0 => 'Стандарт', 1 => 'VIP'], ['class' => 'form-control']) ?>
 

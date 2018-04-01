@@ -49,7 +49,7 @@ AppAsset::register($this);
                     <span></span>
                     Донецк
                 </p>-->
-
+                <?= \frontend\modules\personal_area\widgets\ShowOrderInfo::widget(); ?>
             </div>
 
             <?= \frontend\modules\personal_area\widgets\ShowStatisticUser::widget(); ?>

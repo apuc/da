@@ -283,6 +283,11 @@ class MainMenuAdmin extends Widget
                                 'visible' => UserFunction::hasPermission(['Социальные сети компаний'])
 
                             ],
+                            [
+                                'label' => 'Мессенджеры',
+                                'url' => Url::to(['/company/messenger']),
+                                'active' => Yii::$app->controller->module->id === 'messenger' && Yii::$app->controller->action->id === 'messenger',
+                            ],
                         ],
 
                         'visible' => UserFunction::hasPermission(['Компании']),

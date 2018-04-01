@@ -113,7 +113,6 @@ $(document).ready(function () {
             url: "/secure/vk/vk_stream/set-status",
             data: {'id': id, 'status': status},
             success: function () {
-
                 if (a.data('status') == 1) {
                     a.text('Снять публикацию');
                     a.data('status', 0);
@@ -427,7 +426,7 @@ $(document).ready(function () {
                 companyId: companyId,
                 tariffId: tariffId,
                 timeEnd: timeEnd,
-                _csrf: yii.getCsrfToken(),
+                _csrf: yii.getCsrfToken()
             },
             type: 'POST',
             success: function (data) {
@@ -438,18 +437,38 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '.add-input-phone', function () {
-        var html = '';
-        html = '<div class="input-group">' +
-            '<input value="" class="form-control" name="mytext[]" type="text">' +
-            '<a href="#" class="input-group-addon remove-input-phone">' +
-            '<span class="glyphicon glyphicon-minus"></span>' +
-            '           </a>' +
-            '</div>';
-        $('.phone-dynamic-input').append(html);
+        var elem = $(this);
+        var iterator = elem.data('iterator');
+
+        $.ajax({
+            url: '/secure/company/company/add-phone',
+            data: {
+                iterator: iterator,
+                _csrf: yii.getCsrfToken()
+            },
+            type: 'POST',
+            success: function (html) {
+                elem.data('iterator', iterator + 1);
+                $('.phone-dynamic-input').append(html);
+            }
+        });
         return false;
     });
+
     $(document).on('click', '.remove-input-phone', function () {
-        $(this).parent().remove();
+        var elem = $(this);
+        var id = elem.parent().data('id');
+        $.ajax({
+            url: '/secure/company/company/remove-phone',
+            data: {
+                _csrf: yii.getCsrfToken(),
+                id: id
+            },
+            type: 'POST',
+            success: function () {
+                elem.parent().remove();
+            }
+        });
         return false;
     });
 

@@ -479,4 +479,16 @@ $(document).ready(function () {
     });
 
 
+    //Изменение оплаты и доставки товара
+    $(document).on('click', '#edit-payment', function () {
+        if ($(this).prop('checked')) {
+            $('.edit-payment-form-field').css('display', 'block');
+        } else {
+            $('#products-payment').val('');
+            $('#products-delivery').val('');
+            $('.edit-payment-form-field').css('display', 'none');
+        }
+    });
+
+
 });

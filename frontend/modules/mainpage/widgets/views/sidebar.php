@@ -17,7 +17,7 @@ use yii\helpers\Url;
         <?php if ($key == 0): ?>
             <div class="sidebar-discussed__big-item">
 
-                <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['news']->slug]); ?>">
+                <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['news']->slug]); ?>" title="<?= $val['news']->title?>">
                     <h2>САМОЕ ОБСУЖДАЕМОЕ</h2>
                     <div class="sidebar-discussed__big-item__img">
                         <img src="<?= $val['news']['photo'] . '?width=300' ?>"
@@ -66,7 +66,7 @@ use yii\helpers\Url;
             </div>
         <?php else: ?>
             <div class="sidebar-discussed__small-item">
-                <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['news']->slug]); ?>">
+                <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['news']->slug]); ?>" title="<?= $val['news']->title?>">
                     <div class="sidebar-discussed__small-item__img">
                         <img src="<?= $val['news']['photo'] . '?width=155' ?>"
                              alt="<?= !empty($val['news']->alt) ? $val['news']->alt : $val['news']->title ?>">
