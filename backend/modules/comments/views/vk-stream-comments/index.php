@@ -18,6 +18,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <?= Html::a('Отметить все', ['multi-moder-checked-ajax'], [
+        'id' => 'btn-multi-moder-checked',
+        'class' => 'btn btn-success',
+    ]);
+    ?>
+
+    <?= Html::a('Опубликовать все', ['multi-published-ajax'], [
+        'id' => 'btn-multi-published',
+        'class' => 'btn btn-success',
+    ]);
+    ?>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -27,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\CheckboxColumn',
                 'checkboxOptions' => function ($model) {
-                    return ['value' => $model->id];
+                    return ['value' => $model->id, 'data-type' => 'vk_stream'];
                 }
             ],
             //id

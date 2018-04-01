@@ -140,11 +140,6 @@ class MainMenuAdmin extends Widget
                         'template' => '<a href="{url}"><i class="fa fa-comments"></i> <span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . CommentsFunction::getCountNotModerComments() . '</small></span></a>',
                         'items' => [
                             [
-                                'label' => 'Старые коментарии',
-                                'url' => Url::to(['/comments/comments']),
-                                'active' => Yii::$app->controller->id == 'comments',
-                            ],
-                            [
                                 'label' => 'к Новостям',
                                 'url' => Url::to(['/comments/news-comments']),
                                 'active' => Yii::$app->controller->id == 'news-comments',
