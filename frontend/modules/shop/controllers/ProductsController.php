@@ -80,7 +80,7 @@ class ProductsController extends Controller
                 $model->cover = '/media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/thumb/' . $model->cover;
             }
 
-            //Debug::dd($model);
+            Debug::dd($_POST['ProductField']);
             $model->save();
             if(!empty($_POST['ProductField'])){
                 $model->saveProductFields($_POST['ProductField'], $model->id);
@@ -167,11 +167,17 @@ class ProductsController extends Controller
 
     public function actionShowAdditionalFields()
     {
-        $id = Yii::$app->request->post('id');
+        //$id = Yii::$app->request->post('id');
+        $id = 2;
         $groupFieldsId = CategoryFields::find()
+            ->joinWith('fields.productFieldsDefaultValues')
             ->where(['category_id' => $id])
-            ->with('fields.productFieldsDefaultValues')
+            ->groupBy('id')
+            //->with('fields.productFieldsDefaultValues');
+        //Debug::dd($groupFieldsId->createCommand()->rawSql);
             ->all();
+
+       // Debug::dd($groupFieldsId);
 
         $html = '';
         if (!empty($groupFieldsId)) {

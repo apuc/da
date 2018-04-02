@@ -97,6 +97,10 @@ class Products extends \common\models\db\Products
                         $productFieldVal->value = ProductFieldsDefaultValue::find()->where(['id' => $value])->one()->value;
                         $productFieldVal->value_id = $value;
                     }
+                    if ($type == 'checkbox') {
+                        $productFieldVal->product_fields_name = $name;
+                        $productFieldVal->value = $value;
+                    }
 
                     $productFieldVal->save();
                 }

@@ -49,3 +49,22 @@ if($adsFields['fields']->type->type == 'select'){
     </div>
     <?php
 }
+
+if ($adsFields['fields']->type->type == 'checkbox') {
+    //\common\classes\Debug::prn($adsFields);
+    ?>
+    <div class="form-line field-ads-<?= $adsFields['fields']->name; ?>">
+        <div class="form-line">
+            <?= \yii\helpers\Html::label($adsFields['fields']->label, 'name',['class' => 'label-name'])?>
+
+            <?= \yii\helpers\Html::checkbox(
+                'ProductField[' .$adsFields['fields']->name . ']',
+                $valueField[$adsFields['fields']->name]->value,
+                ['class' => 'input-name jsHint']
+            )
+            ?>
+            <div class="error"><div class="help-block"></div></div>
+            <div class="memo"><span class="info-icon"></span><span class="triangle-left"></span><?= $adsFields['fields']->hint; ?></div>
+        </div>
+    </div>
+<?php }
