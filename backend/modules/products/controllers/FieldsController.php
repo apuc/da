@@ -106,8 +106,9 @@ class FieldsController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        //$this->findModel($id)->delete();
+        ProductFields::updateAll(['status' => 0], ['id' => $id]);
+        //Debug::dd($id);
         return $this->redirect(['index']);
     }
 

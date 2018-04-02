@@ -57,6 +57,7 @@ class ProductFieldsSearch extends ProductFields
             return $dataProvider;
         }
 
+        $query->where(['status' => 1]);
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
