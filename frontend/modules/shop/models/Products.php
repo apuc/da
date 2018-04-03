@@ -80,7 +80,10 @@ class Products extends \common\models\db\Products
     {
         if (!empty($productFields)) {
             foreach ($productFields as $name => $value) {
-                if (!empty($value)) {
+                /*var_dump($value);
+                die();*/
+                if (isset($value)) {
+                   // Debug::dd($value);
                     $productFieldsOne = ProductFields::find()->where(['name' => $name])->one();
 
                     $type = ProductFieldsType::find()->where(['id' => $productFieldsOne->type])->one()->type;
@@ -88,6 +91,7 @@ class Products extends \common\models\db\Products
                     $productFieldVal = new ProductFieldsValue();
 
                     $productFieldVal->product_id = $productId;
+                    //Debug::dd($type);
                     if ($type == 'text') {
                         $productFieldVal->product_fields_name = $name;
                         $productFieldVal->value = $value;
@@ -98,8 +102,16 @@ class Products extends \common\models\db\Products
                         $productFieldVal->value_id = $value;
                     }
                     if ($type == 'checkbox') {
+                        //Debug::dd(123);
                         $productFieldVal->product_fields_name = $name;
                         $productFieldVal->value = $value;
+                    }
+                    if ($type == 'checkboxList') {
+
+                        //Debug::prn(321);
+                        $productFieldVal->product_fields_name = $name;
+                        $productFieldVal->value = json_encode($value);
+                        //$productFieldVal->value_id = json_encode($value);
                     }
 
                     $productFieldVal->save();
