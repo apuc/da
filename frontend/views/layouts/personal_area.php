@@ -52,7 +52,7 @@ AppAsset::register($this);
                 <?= \frontend\modules\personal_area\widgets\ShowOrderInfo::widget(); ?>
             </div>
 
-            <?= \frontend\modules\personal_area\widgets\ShowStatistikUser::widget(); ?>
+            <?= \frontend\modules\personal_area\widgets\ShowStatisticUser::widget(); ?>
 
             <?= $content; ?>
         </div>

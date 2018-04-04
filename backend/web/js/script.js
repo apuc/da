@@ -68,7 +68,7 @@ $(document).ready(function () {
         });
 
         return false;
-    })
+    });
 
     $(document).on('click', '.stream_edit', function () {
         var id = $(this).data('id');
@@ -193,7 +193,7 @@ $(document).ready(function () {
 
     $(document).on('change', '#categ_company', function () {
         var catId = $(this).val();
-        var csrf = $("input[name='_csrf']").val();
+        var csrf = yii.getCsrfToken();
         console.log(catId);
         $.ajax({
             type: 'POST',
@@ -215,7 +215,7 @@ $(document).ready(function () {
             type: 'POST',
             url: "/secure/polls/polls/get_pa",
             data: {
-                _csrf: $('[name = _csrf]').val()
+                _csrf: yii.getCsrfToken(),
             },
             success: function (data) {
                 $(data).insertBefore('#add_pa');
@@ -241,7 +241,7 @@ $(document).ready(function () {
 
         $('#poster-dt_event_end').val($(this).val());
 
-    })
+    });
 
 
     $(document).on('change', '.itemImg2', function () {
@@ -269,22 +269,22 @@ $(document).ready(function () {
     $(document).on('click', '#btn-multi-moder-checked', function () {
         event.preventDefault();
         var checkedInputs = $('input[name="selection[]"]:checked');
+        var type = $('input[name="selection[]"]').data('type');
         var keyList = [];
         $.each(checkedInputs, function () {
             keyList.push($(this).val());
         });
         console.log(keyList);
-        //var button = $(this);
         $.ajax({
             url: '/secure/comments/comments/multi-moder-checked-ajax',
             data: {
+                _csrf: yii.getCsrfToken(),
                 keyList: keyList,
-                _csrf: $('meta[name="csrf-token"]').attr('content')
+                type: type
             },
             type: 'POST',
             success: function (data) {
                 console.log(data);
-
                 $.each(data, function () {
                     var post = $('tr[data-key="' + this.id + '"]');
                     if (post.length > 0) {
@@ -302,22 +302,22 @@ $(document).ready(function () {
     $(document).on('click', '#btn-multi-published', function () {
         event.preventDefault();
         var checkedInputs = $('input[name="selection[]"]:checked');
+        var type = $('input[name="selection[]"]').data('type');
         var keyList = [];
         $.each(checkedInputs, function () {
             keyList.push($(this).val());
         });
         console.log(keyList);
-        //var button = $(this);
         $.ajax({
             url: '/secure/comments/comments/multi-published-ajax',
             data: {
+                _csrf: yii.getCsrfToken(),
                 keyList: keyList,
-                _csrf: $('meta[name="csrf-token"]').attr('content')
+                type: type
             },
             type: 'POST',
             success: function (data) {
                 console.log(data);
-
                 $.each(data, function () {
                     var post = $('tr[data-key="' + this.id + '"]');
                     if (post.length > 0) {
@@ -337,8 +337,9 @@ $(document).ready(function () {
         $.ajax({
             url: '/secure/comments/comments/update-moder-checked-ajax',
             data: {
-                id: button.closest('tr').attr('data-key'),
-                _csrf: $('meta[name="csrf-token"]').attr('content')
+                _csrf: yii.getCsrfToken(),
+                id: button.closest('tr').data('key'),
+                type: button.closest('tr').find('input').data('type')
             },
             type: 'POST',
             success: function (data) {
@@ -358,8 +359,9 @@ $(document).ready(function () {
         $.ajax({
             url: '/secure/comments/comments/update-published-ajax',
             data: {
-                id: button.closest('tr').attr('data-key'),
-                _csrf: $('meta[name="csrf-token"]').attr('content')
+                _csrf: yii.getCsrfToken(),
+                id: button.closest('tr').data('key'),
+                type: button.closest('tr').find('input').data('type')
             },
             type: 'POST',
             success: function (data) {
@@ -380,8 +382,9 @@ $(document).ready(function () {
         $.ajax({
             url: '/secure/comments/comments/update-verified-ajax',
             data: {
-                id: button.closest('tr').attr('data-key'),
-                _csrf: $('meta[name="csrf-token"]').attr('content')
+                _csrf: yii.getCsrfToken(),
+                id: button.closest('tr').data('key'),
+                type: button.closest('tr').find('input').data('type')
             },
             type: 'POST',
             success: function (data) {
@@ -423,7 +426,7 @@ $(document).ready(function () {
                 companyId: companyId,
                 tariffId: tariffId,
                 timeEnd: timeEnd,
-                _csrf: $('meta[name="csrf-token"]').attr('content')
+                _csrf: yii.getCsrfToken()
             },
             type: 'POST',
             success: function (data) {

@@ -141,7 +141,7 @@ class News extends \yii\db\ActiveRecord
      */
     public static function getCommentsCount($id)
     {
-        return Comments::find()->where(['post_type' => 'news', 'post_id' => $id, 'published' => 1])->count();
+        return NewsComments::find()->where(['news_id' => $id, 'published' => 1])->count();
     }
 
     /**

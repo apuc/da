@@ -5,7 +5,7 @@ $(document).ready(function () {
         $('#modal-add-comment-submit').attr('data-post-id', $(this).attr('data-post-id'));
         $('#modal-add-comment-submit').attr('data-parent-id', $(this).attr('data-parent-id'));
         $('#comment').val('');
-    })
+    });
 
     $(document).on('click', '#modal-add-comment-submit', function () {
 
@@ -15,7 +15,7 @@ $(document).ready(function () {
                 url: '/ajax/ajax/add-comment',
                 type: "POST",
                 data: {
-                    _csrf: $('meta[name=csrf-token]').attr("content"),
+                    _csrf: yii.getCsrfToken(),
                     comment: comment,
                     post_type: $(this).attr('data-post-type'),
                     post_id: $(this).attr('data-post-id'),
@@ -33,4 +33,4 @@ $(document).ready(function () {
         return false;
     })
 
-})
+});

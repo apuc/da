@@ -2,18 +2,14 @@
 
 namespace backend\modules\comments\controllers;
 
-use backend\modules\pages\models\Pages;
-use backend\modules\vk\models\VkStream;
 use common\behaviors\AccessSecure;
 use common\classes\Debug;
-use common\models\db\News;
-use dektrium\user\models\User;
+use common\models\db\NewsComments;
+use common\models\db\PagesComments;
+use common\models\db\StockComments;
+use common\models\db\VkStreamComments;
 use Yii;
-use backend\modules\comments\models\Comments;
-use backend\modules\comments\models\CommentsSearch;
-use yii\helpers\Url;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
@@ -57,19 +53,22 @@ class CommentsController extends Controller
         return false;*/
     }
 
+    /**
+     * @return array
+     */
     public function actionMultiModerCheckedAjax()
     {
         $response = [];
         if (Yii::$app->request->isAjax) {
             $post = Yii::$app->request->post();
-            foreach ($post['keyList'] as $item) {
-                $model = Comments::findOne($item);
+            foreach ($post['keyList'] as $id) {
+                $model = $this->findModelByType($id, $post['type']);
                 if ($model->moder_checked == 0) {
                     $model->moder_checked = 1;
                 }
                 $model->save();
                 $response[] = [
-                    'id' => $item,
+                    'id' => $id,
                     'status' => $model->moder_checked
                 ];
             }
@@ -78,19 +77,22 @@ class CommentsController extends Controller
         return $response;
     }
 
+    /**
+     * @return array
+     */
     public function actionMultiPublishedAjax()
     {
         $response = [];
         if (Yii::$app->request->isAjax) {
             $post = Yii::$app->request->post();
-            foreach ($post['keyList'] as $item) {
-                $model = Comments::findOne($item);
+            foreach ($post['keyList'] as $id) {
+                $model = $this->findModelByType($id, $post['type']);
                 if ($model->published == 0) {
                     $model->published = 1;
                 }
                 $model->save();
                 $response[] = [
-                    'id' => $item,
+                    'id' => $id,
                     'status' => $model->published
                 ];
             }
@@ -99,98 +101,14 @@ class CommentsController extends Controller
         return $response;
     }
 
-
     /**
-     * Lists all Comments models.
-     * @return mixed
+     * @return array
      */
-    public function actionIndex()
-    {
-        $searchModel = new CommentsSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Displays a single Comments model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        Url::remember();
-
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
-     * Creates a new Comments model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new Comments();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Updates an existing Comments model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            switch ($model->post_type)
-            {
-                case 'news':
-                    $posts = News::find()->one();
-                    break;
-                case 'page':
-                    $posts = Pages::find()->one();
-                    break;
-                case 'vk_post':
-                    $posts = VkStream::find()->one();
-                    break;
-            }
-            //Debug::prn($model);
-            //$news = News::find()->all();
-            $user = User::find()->all();
-            /*Debug::prn($user);
-            die();*/
-            return $this->render('update', [
-                'model' => $model,
-                'posts' => $posts,
-                'user' => $user,
-            ]);
-        }
-    }
-
-
     public function actionUpdateModerCheckedAjax()
     {
         if (Yii::$app->request->isAjax) {
             $post = Yii::$app->request->post();
-            $model = $this->findModel($post['id']);
+            $model = $this->findModelByType($post['id'], $post['type']);
             if ($model->moder_checked == 0) {
                 $model->moder_checked = 1;
             } else {
@@ -206,11 +124,14 @@ class CommentsController extends Controller
         }
     }
 
+    /**
+     * @return array
+     */
     public function actionUpdatePublishedAjax()
     {
         if (Yii::$app->request->isAjax) {
             $post = Yii::$app->request->post();
-            $model = $this->findModel($post['id']);
+            $model = $this->findModelByType($post['id'], $post['type']);
             if ($model->published == 0) {
                 $model->published = 1;
             } else {
@@ -226,11 +147,14 @@ class CommentsController extends Controller
         }
     }
 
+    /**
+     * @return array
+     */
     public function actionUpdateVerifiedAjax()
     {
         if (Yii::$app->request->isAjax) {
             $post = Yii::$app->request->post();
-            $model = $this->findModel($post['id']);
+            $model = $this->findModelByType($post['id'], $post['type']);
             if ($model->verified == 0) {
                 $model->verified = 1;
             } else {
@@ -247,31 +171,26 @@ class CommentsController extends Controller
     }
 
     /**
-     * Deletes an existing Comments model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
+     * @param $id
+     * @param $type
+     * @return null|object
      */
-    public function actionDelete($id)
+    public function findModelByType($id, $type)
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the Comments model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Comments the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = Comments::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+        switch ($type) {
+            case 'news':
+                $model = NewsComments::findOne(['id' => $id]);
+                break;
+            case 'pages':
+                $model = PagesComments::findOne(['id' => $id]);
+                break;
+            case 'vk_stream':
+                $model = VkStreamComments::findOne(['id' => $id]);
+                break;
+            case 'stock':
+                $model = StockComments::findOne(['id' => $id]);
+                break;
         }
+        return $model;
     }
 }

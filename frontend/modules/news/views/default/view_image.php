@@ -117,6 +117,7 @@ $this->registerMetaTag( [
     </div>
 </div>
 <?= \frontend\widgets\Comments::widget([
-    'post_id'=>$news->id,
-    'post_type'=>'news',
+    'pageTitle' => 'Комментарии к новости',
+    'postType' => 'news',
+    'postId' => $news->id,
 ]); ?>

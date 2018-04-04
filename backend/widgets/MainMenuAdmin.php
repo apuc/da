@@ -7,6 +7,7 @@ use backend\modules\contacting\models\Contacting;
 use backend\modules\products\models\Products;
 use backend\modules\site_error\models\SiteError;
 use backend\modules\vk\models\VkStream;
+use common\classes\CommentsFunction;
 use common\classes\CompanyFunction;
 use common\classes\Debug;
 use common\classes\UserFunction;
@@ -132,11 +133,34 @@ class MainMenuAdmin extends Widget
                     ],
                     [
                         'label' => 'Коментарии',
-                        'url' => Url::to(['/comments/comments']),
-                        'active' => Yii::$app->controller->module->id == 'comments',
                         'visible' => UserFunction::hasPermission(['Коментарии']),
-                        'template' => '<a href="{url}"><i class="fa fa-comments"></i> <span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . Comments::getCountNotModerComments() . '</small></span></a>',
+                        'options' => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="{url}"><i class="fa fa-comments"></i> <span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . CommentsFunction::getCountNotModerComments() . '</small></span></a>',
+                        'items' => [
+                            [
+                                'label' => 'к Новостям',
+                                'url' => Url::to(['/comments/news-comments']),
+                                'active' => Yii::$app->controller->id == 'news-comments',
+                            ],
+                            [
+                                'label' => 'к Страницам',
+                                'url' => Url::to(['/comments/pages-comments']),
+                                'active' => Yii::$app->controller->id == 'pages-comments',
+                            ],
+                            [
+                                'label' => 'к Акциям',
+                                'url' => Url::to(['/comments/stock-comments']),
+                                'active' => Yii::$app->controller->id == 'stock-comments',
+                            ],
+                            [
+                                'label' => 'к Постам из VK',
+                                'url' => Url::to(['/comments/vk-stream-comments']),
+                                'active' => Yii::$app->controller->id == 'vk-stream-comments',
+                            ],
 
+                        ],
                     ],
                     [
                         'label' => 'Объявления',

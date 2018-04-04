@@ -1,4 +1,12 @@
 <?php
+/**
+ * @var int $likes
+ * @var int $promotions
+ * @var int $poster
+ * @var int $company
+ * @var int $desireCount
+ * @var int $comments
+ */
 ?>
 
 

@@ -8,37 +8,33 @@
 
 namespace frontend\modules\mainpage\widgets;
 
-use common\classes\Debug;
 use common\classes\UserFunction;
-use common\models\db\Comments;
-use common\models\db\TagsRelation;
+use common\models\db\NewsComments;
 use yii\base\Widget;
 
 class ShowRightSidebar extends Widget
 {
     public $tagId = 1;
+
     public function run()
     {
         $useReg = UserFunction::getRegionUser();
-        $query = Comments::find()
-            ->select('post_id, count(*) AS cnt')
-            ->where(['`comments`.`post_type`' => 'news']);
-        if($useReg != -1){
+        $query = NewsComments::find()
+            ->select('news_id, count(*) AS count');
+        if ($useReg != -1) {
             $query->joinWith('news');
             $query->andWhere("(`news`.`region_id` IS NULL OR `news`.`region_id`=$useReg)");
-        }else{
+        } else {
             $query->with('news');
         }
 
         $news = $query
-            ->groupBy('`comments`.`post_id`')
+            ->groupBy('`news_comments`.`news_id`')
             ->orderBy('RAND()')
-            //->orderBy('cnt DESC')
             ->limit(5)
             ->all();
 
 
-       // Debug::prn($news);
         return $this->render('sidebar',
             [
                 'news' => $news,
