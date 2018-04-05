@@ -355,7 +355,7 @@ $(document).ready(function () {
                 /*$('.modal-body,.modal-flex').html(data);*/
 
                 if (data) {
-                    //console.log(data);
+                   // console.log(data);
                     $('#categoryModal').html(data);
                 } else {
                     if(type === 'product' ){
@@ -411,6 +411,10 @@ $(document).ready(function () {
             url = '/board/default/show-parent-modal-category';
             $('#ads-category_id').val(category);
         }
+
+        console.log(type);
+        console.log(url);
+        console.log(category);
         $.ajax({
             type: 'POST',
             url: url,
