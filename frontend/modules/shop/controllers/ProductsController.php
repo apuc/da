@@ -185,7 +185,7 @@ class ProductsController extends Controller
                 $html .= $this->renderPartial('add_fields', ['adsFields' => $item]);
             }
         }
-        echo $html;
+        return $html;
 
     }
 
