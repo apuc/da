@@ -80,7 +80,6 @@ $(document).ready(function () {
             },
             success: function(data) {
                 $('.commercial__sidebar-filter--children-category').html(data);
-                console.log(data);
             }
         });
 
@@ -97,7 +96,6 @@ $(document).ready(function () {
             },
             success: function(data) {
                 $('.commercial__sidebar-filter--children-category').append(data);
-                //console.log(data);
             }
         });
 
@@ -357,7 +355,7 @@ $(document).ready(function () {
                 /*$('.modal-body,.modal-flex').html(data);*/
 
                 if (data) {
-                    console.log(data);
+                    //console.log(data);
                     $('#categoryModal').html(data);
                 } else {
                     if(type === 'product' ){
@@ -400,11 +398,11 @@ $(document).ready(function () {
 
         $(this).addClass('active');
 
-        //console.log(column);
+
         var type = $(this).attr('datatype');
         var url;
         //alert(type);
-        console.log(category);
+
         if(type === 'product' ){
             url = '/shop/products/show-parent-modal-category';
             $('#products-category_id').val(category);
@@ -418,7 +416,7 @@ $(document).ready(function () {
             url: url,
             data: 'id=' + category,
             success: function (data) {
-                //console.log(data);
+
                 if (data) {
                     if (column == 0) {
                         $('div[data-parent="1"]').html(data);
@@ -439,7 +437,7 @@ $(document).ready(function () {
                         url: url,
                         data: 'id=' + category,
                         success: function (data) {
-                            //console.log(data);
+
                             $('.SelectCategory').html(data);
                         }
                     });
@@ -456,7 +454,7 @@ $(document).ready(function () {
                         url: url,
                         data: 'id=' + category,
                         success: function (data) {
-                            console.log(data);
+
                             $('#additional_fields').html(data);
                         }
                     });

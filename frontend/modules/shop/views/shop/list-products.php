@@ -27,6 +27,8 @@ if(isset($categoryList[2])){
             'url' => Url::to(['/shop/shop/category', 'category' => [$categoryList[0]->slug, $categoryList[1]->slug]]) ];
 }
 $this->params['breadcrumbs'][] = $categoryInfo->name;
+
+$this->registerJsFile('/js/raw/filter.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 ?>
 
 <div class="breadcrumbs-wrap">
@@ -36,29 +38,7 @@ $this->params['breadcrumbs'][] = $categoryInfo->name;
     ]); ?>
 </div>
 
-<div class="shop__filter-bar">
-
-    <div class="shop__filter">
-        <h2 class="shop__filter-title">Смежные категории</h2>
-        <ul class="shop__filter-list">
-            <li><a href="#">Сумки и чемоданы</a></li>
-            <li><a href="#">Сумки на плечо</a></li>
-            <li><a href="#">Сумки с короткими ручками</a></li>
-            <li><a href="#">Сумки через плечо</a></li>
-            <li><a href="#">Сумки через плечо</a></li>
-        </ul>
-    </div>
-
-    <div class="shop__filter">
-        <h2 class="shop__filter-title">Цвета</h2>
-        <ul class="shop__filter-list">
-            <li><a href="#">Коричневый</a></li>
-            <li><a href="#">Синий</a></li>
-            <li><a href="#">Красный</a></li>
-            <li><a href="#">Серый</a></li>
-        </ul>
-    </div>
-</div>
+<?= \frontend\modules\shop\widgets\ShowFilterLeftProducts::widget(['categoryId' => $categoryInfo->id]);?>
 
 <div class="shop__filter-content">
 

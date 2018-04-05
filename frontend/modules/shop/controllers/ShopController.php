@@ -162,4 +162,12 @@ class ShopController extends Controller
                 'products' => $products,
             ]);
     }
+
+    /**
+     * FILTER
+     */
+    public function actionFilter()
+    {
+        Debug::prn(Yii::$app->request->post());
+    }
 }

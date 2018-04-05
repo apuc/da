@@ -167,8 +167,8 @@ class ProductsController extends Controller
 
     public function actionShowAdditionalFields()
     {
-        //$id = Yii::$app->request->post('id');
-        $id = 2;
+        $id = Yii::$app->request->post('id');
+        //$id = 2;
         $groupFieldsId = CategoryFields::find()
             ->joinWith('fields.productFieldsDefaultValues')
             ->where(['category_id' => $id])
