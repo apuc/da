@@ -412,14 +412,13 @@ $(document).ready(function () {
             $('#ads-category_id').val(category);
         }
 
-        console.log(type);
-        console.log(url);
-        console.log(category);
+
         $.ajax({
             type: 'POST',
             url: url,
             data: 'id=' + category,
             success: function (data) {
+                console.log(data);
 
                 if (data) {
                     if (column == 0) {
