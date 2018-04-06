@@ -231,4 +231,33 @@ class Products extends \common\models\db\Products
         $query->with('images');
         return $dataProvider;
     }
+
+
+    public function listProductFilter($limit = 16, $idCategory, $params)
+    {
+        ArrayHelper::remove($params, 'category');
+
+        //Debug::dd($idCategory);
+        $query = Products::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => $limit,
+                'pageSizeParam' => false,
+            ],
+        ]);
+
+
+        // grid filtering conditions
+        $query->where(['category_id' => $idCategory, 'status' => 1]);
+
+//Debug::dd($query->createCommand()->rawSql);
+        $query->orderBy('dt_update DESC');
+
+        $query->with('images');
+        return $dataProvider;
+    }
 }

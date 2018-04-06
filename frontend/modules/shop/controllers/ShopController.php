@@ -56,9 +56,17 @@ class ShopController extends Controller
         $categoryModel = $model->getCategoryInfoBySlug($category);
 
         $modelProduct = new Products();
-        $products = $modelProduct->listProduct(16, $categoryModel->id);
+        if( count(Yii::$app->request->get()) > 1){
+            $products = $modelProduct->listProductFilter(16, $categoryModel->id, Yii::$app->request->get());
+        }
+        else{
+            $products = $modelProduct->listProduct(16, $categoryModel->id);
+        }
+
 
         $categoryList = \common\classes\Shop::getListCategoryAllInfo($categoryModel->id, []);
+
+
 
         if ($model->getEndCategory($category)) {
             $category = CategoryShop::find()->all();

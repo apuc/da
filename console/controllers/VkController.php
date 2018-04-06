@@ -23,7 +23,7 @@ use yii\console\Controller;
 class VkController extends Controller
 {
 
-    public $count = 50;
+    public $count = 20;
     public $vk;
 
     public function actionIndex()
