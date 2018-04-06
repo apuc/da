@@ -237,7 +237,7 @@ class Products extends \common\models\db\Products
     {
         ArrayHelper::remove($params, 'category');
 
-        //Debug::dd($idCategory);
+        //Debug::dd($params);
         $query = Products::find();
 
         // add conditions that should always apply here
@@ -250,14 +250,26 @@ class Products extends \common\models\db\Products
             ],
         ]);
 
-
+        $query->joinWith(['productFieldsValues', 'images']);
         // grid filtering conditions
         $query->where(['category_id' => $idCategory, 'status' => 1]);
 
+        foreach ($params as $key => $value){
+            $query->andFilterWhere(
+                ['OR',
+                    [
+                        '`product_fields_value`.`product_fields_name`' => $key,
+                        '`product_fields_value`.`value_id`' => $value
+                    ]
+                ]
+            );
+        }
+
+
 //Debug::dd($query->createCommand()->rawSql);
         $query->orderBy('dt_update DESC');
-
-        $query->with('images');
+        $query->groupBy('`products`.`id`');
+        //$query->with('images');
         return $dataProvider;
     }
 }

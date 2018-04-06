@@ -63,7 +63,6 @@ class ShopController extends Controller
             $products = $modelProduct->listProduct(16, $categoryModel->id);
         }
 
-
         $categoryList = \common\classes\Shop::getListCategoryAllInfo($categoryModel->id, []);
 
 
