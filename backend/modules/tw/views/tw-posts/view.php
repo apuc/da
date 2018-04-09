@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'page_icon',
             'dt_add',
             'dt_publish',
-            'status',
+            ['attribute' => 'status', 'value' => $model->statusText],
             'slug',
         ],
     ]) ?>

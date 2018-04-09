@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'tw_id',
             'screen_name',
             'icon',
-            'status',
+	        ['attribute' => 'status', 'value' => $model->statusText],
         ],
     ]) ?>
 
