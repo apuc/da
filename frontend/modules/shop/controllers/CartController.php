@@ -42,8 +42,8 @@ class CartController extends Controller
         //$postData['product_id'] = 27;
         /* $postData['shop_id'] = 20;
          $postData['count'] = 1;*/
-        //Debug::dd($postData['product_id']);
-        $htmlCart = '';
+        Debug::dd($postData['product_id']);
+        //$htmlCart = '';
         $cart = Cart::getProductsWithBuy($postData['product_id']);
         //Debug::dd($cart);
         $htmlCart = $this->renderPartial('modal-cart', ['model' => $cart]);

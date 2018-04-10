@@ -20,6 +20,7 @@ $(document).ready(function () {
                 //console.log(data);
 
                 var res = JSON.parse(data);
+                console.log(res);
                 $('.basket-counter').html(res.cartCount);
                 $('.modal-count-cart').html(res.cartCount);
                 $('#modal_close').after(res.cart);
