@@ -17,6 +17,7 @@ class ShowFilterLeftProducts extends Widget
 {
     public $categoryId;
 
+
     public function run()
     {
 
@@ -44,6 +45,7 @@ class ShowFilterLeftProducts extends Widget
         return $this->render('filter-left', [
             'html' => $html,
             'fieldsName' => json_encode($fieldsName),
+            'category' => $this->categoryId,
         ]);
     }
 }

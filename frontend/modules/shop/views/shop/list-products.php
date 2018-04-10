@@ -38,7 +38,12 @@ $this->registerJsFile('/js/raw/filter.js', ['depends' => [\yii\web\JqueryAsset::
     ]); ?>
 </div>
 
-<?= \frontend\modules\shop\widgets\ShowFilterLeftProducts::widget(['categoryId' => $categoryInfo->id]);?>
+<?= \frontend\modules\shop\widgets\ShowFilterLeftProducts::widget(
+        [
+            'categoryId' => $categoryInfo->id,
+        ]
+);
+?>
 
 <div class="shop__filter-content">
 

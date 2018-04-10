@@ -6,9 +6,7 @@ $(document).ready(function () {
             attributesFieldsProductsFilter[$(this).attr('name')].push($(this).val());
         }
         else{
-
             attributesFieldsProductsFilter[$(this).attr('name')].splice(attributesFieldsProductsFilter[$(this).attr('name')].indexOf($(this).val()), 1);
-
         }
 
         setFilter();
@@ -30,11 +28,16 @@ function setFilter() {
             }
         }
     }
-
+//console.log(attributesFieldsProductsFilter);
     $.ajax({
         type: 'POST',
         url: "/shop/shop/filter",
-        data: attributesFieldsProductsFilter,
+        //data: attributesFieldsProductsFilter,
+        data:
+            {
+                filter: JSON.stringify(attributesFieldsProductsFilter),
+                category: category
+            },
         success: function (data) {
             console.log(data);
         }

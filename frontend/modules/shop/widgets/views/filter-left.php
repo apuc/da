@@ -1,5 +1,6 @@
 <script>
     var attributesFieldsProductsFilter = <?= $fieldsName ?>;
+    var category = <?= $category ?>;
 
 </script>
 

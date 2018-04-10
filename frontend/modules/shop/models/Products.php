@@ -237,7 +237,7 @@ class Products extends \common\models\db\Products
     {
         ArrayHelper::remove($params, 'category');
 
-        //Debug::dd($params);
+        Debug::dd($params);
         $query = Products::find();
 
         // add conditions that should always apply here
