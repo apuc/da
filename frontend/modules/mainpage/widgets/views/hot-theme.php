@@ -16,7 +16,7 @@ if ($this->beginCache('show_hot_theme_news_widget' . $userReg, ['duration' => Yi
             foreach ($newsLeft as $key => $val): ?>
                 <?php if ($key == 0): ?>
 
-                    <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val->slug]); ?>">
+                    <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val->slug]); ?>" title="<?= $val->title; ?>">
                         <div class="left-column__content">
                             <h2><?= $val->title ?></h2>
                             <p>
@@ -51,7 +51,7 @@ if ($this->beginCache('show_hot_theme_news_widget' . $userReg, ['duration' => Yi
                         </div>
                     </a>
                 <?php else: ?>
-                    <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val->slug]); ?>">
+                    <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val->slug]); ?>" title="<?= $val->title?>">
                         <div class="item">
                             <img src="<?= $val->photo . '?width=155' ?>"
                                  alt="<?= !empty($val->alt) ? $val->alt : $val->title ?>">
@@ -97,7 +97,7 @@ if ($this->beginCache('show_hot_theme_news_widget' . $userReg, ['duration' => Yi
                     ?><div class="right-column__content">
                 <?php endif;
                 if ($key < 3):?>
-                    <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val->slug]); ?>">
+                    <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val->slug]); ?>" title="<?= $val->title?>">
                         <div class="right-column__content__text-wrap">
                             <p><?= $val->title; ?></p>
                             <div class="wrap-icon">
@@ -115,7 +115,7 @@ if ($this->beginCache('show_hot_theme_news_widget' . $userReg, ['duration' => Yi
                     <?php if ($key == 3): ?>
                         </div><div class="right-column__content">
                         <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val->slug]); ?>"
-                           class="news__wrap_item-lg">
+                           class="news__wrap_item-lg" title="<?= $val->title?>">
                             <div class="thumb">
                                 <img src="<?= $val->photo . '?width=300' ?>"
                                      alt="<?= !empty($val->alt) ? $val->alt : $val->title ?>">
@@ -131,7 +131,7 @@ if ($this->beginCache('show_hot_theme_news_widget' . $userReg, ['duration' => Yi
                         </a>
                     <?php else: ?>
                         <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val->slug]); ?>"
-                           class="news__wrap_item-lg">
+                           class="news__wrap_item-lg" title="<?= $val->title?>">
                             <div class="thumb">
                                 <img src="<?= $val->photo . '?width=300' ?>"
                                      alt="<?= !empty($val->alt) ? $val->alt : $val->title ?>">

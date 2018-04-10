@@ -80,7 +80,10 @@ class Products extends \common\models\db\Products
     {
         if (!empty($productFields)) {
             foreach ($productFields as $name => $value) {
-                if (!empty($value)) {
+                /*var_dump($value);
+                die();*/
+                if (isset($value)) {
+                   // Debug::dd($value);
                     $productFieldsOne = ProductFields::find()->where(['name' => $name])->one();
 
                     $type = ProductFieldsType::find()->where(['id' => $productFieldsOne->type])->one()->type;
@@ -88,6 +91,7 @@ class Products extends \common\models\db\Products
                     $productFieldVal = new ProductFieldsValue();
 
                     $productFieldVal->product_id = $productId;
+                    //Debug::dd($type);
                     if ($type == 'text') {
                         $productFieldVal->product_fields_name = $name;
                         $productFieldVal->value = $value;
@@ -96,6 +100,18 @@ class Products extends \common\models\db\Products
                         $productFieldVal->product_fields_name = $name;
                         $productFieldVal->value = ProductFieldsDefaultValue::find()->where(['id' => $value])->one()->value;
                         $productFieldVal->value_id = $value;
+                    }
+                    if ($type == 'checkbox') {
+                        //Debug::dd(123);
+                        $productFieldVal->product_fields_name = $name;
+                        $productFieldVal->value = $value;
+                    }
+                    if ($type == 'checkboxList') {
+
+                        //Debug::prn(321);
+                        $productFieldVal->product_fields_name = $name;
+                        $productFieldVal->value = json_encode($value);
+                        //$productFieldVal->value_id = json_encode($value);
                     }
 
                     $productFieldVal->save();
@@ -213,6 +229,47 @@ class Products extends \common\models\db\Products
         $query->orderBy('dt_update DESC');
 
         $query->with('images');
+        return $dataProvider;
+    }
+
+
+    public function listProductFilter($limit = 16, $idCategory, $params)
+    {
+        ArrayHelper::remove($params, 'category');
+
+        Debug::dd($params);
+        $query = Products::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => $limit,
+                'pageSizeParam' => false,
+            ],
+        ]);
+
+        $query->joinWith(['productFieldsValues', 'images']);
+        // grid filtering conditions
+        $query->where(['category_id' => $idCategory, 'status' => 1]);
+
+        foreach ($params as $key => $value){
+            $query->andFilterWhere(
+                ['OR',
+                    [
+                        '`product_fields_value`.`product_fields_name`' => $key,
+                        '`product_fields_value`.`value_id`' => $value
+                    ]
+                ]
+            );
+        }
+
+
+//Debug::dd($query->createCommand()->rawSql);
+        $query->orderBy('dt_update DESC');
+        $query->groupBy('`products`.`id`');
+        //$query->with('images');
         return $dataProvider;
     }
 }

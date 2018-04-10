@@ -80,7 +80,7 @@ class ProductsController extends Controller
                 $model->cover = '/media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/thumb/' . $model->cover;
             }
 
-            //Debug::dd($model);
+            //Debug::dd($_POST['ProductField']);
             $model->save();
             if(!empty($_POST['ProductField'])){
                 $model->saveProductFields($_POST['ProductField'], $model->id);
@@ -168,10 +168,16 @@ class ProductsController extends Controller
     public function actionShowAdditionalFields()
     {
         $id = Yii::$app->request->post('id');
+        //$id = 2;
         $groupFieldsId = CategoryFields::find()
+            ->joinWith('fields.productFieldsDefaultValues')
             ->where(['category_id' => $id])
-            ->with('fields.productFieldsDefaultValues')
+            ->groupBy('id')
+            //->with('fields.productFieldsDefaultValues');
+        //Debug::dd($groupFieldsId->createCommand()->rawSql);
             ->all();
+
+       // Debug::dd($groupFieldsId);
 
         $html = '';
         if (!empty($groupFieldsId)) {
@@ -179,7 +185,7 @@ class ProductsController extends Controller
                 $html .= $this->renderPartial('add_fields', ['adsFields' => $item]);
             }
         }
-        echo $html;
+        return $html;
 
     }
 
@@ -226,10 +232,12 @@ class ProductsController extends Controller
             }
             $model->status = 0;
             //Debug::dd($model);
+
             $model->save();
             ProductFieldsValue::deleteAll(['product_id' => $model->id]);
 
             if(!empty($_POST['ProductField'])){
+               // Debug::dd($_POST['ProductField']);
                 $model->saveProductFields($_POST['ProductField'], $model->id);
             }
 
@@ -243,8 +251,9 @@ class ProductsController extends Controller
             $categorySelect = $this->renderPartial('categoryList', ['category' => array_reverse($categoryList)]);
 
             $groupFieldsId = CategoryFields::find()
+                ->joinWith('fields.productFieldsDefaultValues')
                 ->where(['category_id' => $model->category_id])
-                ->with('fields.productFieldsDefaultValues')
+                ->groupBy('id')
                 ->all();
 
             $adsField = '';

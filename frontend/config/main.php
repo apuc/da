@@ -188,7 +188,9 @@ return \yii\helpers\ArrayHelper::merge([
                 //==============================COMPANY==============================
                 'all-company' => 'company/company',
                 'company' => 'company/default',
+                'company/company/add-feedback' => 'company/company/add-feedback',
                 'company/company/get-more-company' => 'company/company/get-more-company',
+                'company/company/add-phone' => 'company/company/add-phone',
                 'company/create' => 'company/company/create',
                 'company/update/<id:\d+>' => 'company/company/update',
                 'company/delete/<id:\d+>' => 'company/company/delete',
@@ -298,6 +300,7 @@ return \yii\helpers\ArrayHelper::merge([
                 ['class' => \frontend\components\ShopRule::class],
                 //'shop/<action:cart|order>'=>'shop/shop/<action>',
                 'shop/shop/like' => 'shop/shop/like',
+                'shop/shop/filter' => 'shop/shop/filter',
                 'shop/cart' => 'shop/cart/cart',
                 'shop/cart/set-count' => 'shop/cart/set-count',
                 'shop/cart/order-one-shop' => 'shop/cart/order-one-shop',

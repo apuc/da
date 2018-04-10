@@ -259,6 +259,11 @@ class MainMenuAdmin extends Widget
                                 'visible' => UserFunction::hasPermission(['Социальные сети компаний'])
 
                             ],
+                            [
+                                'label' => 'Мессенджеры',
+                                'url' => Url::to(['/company/messenger']),
+                                'active' => Yii::$app->controller->module->id === 'messenger' && Yii::$app->controller->action->id === 'messenger',
+                            ],
                         ],
 
                         'visible' => UserFunction::hasPermission(['Компании']),
@@ -598,16 +603,17 @@ class MainMenuAdmin extends Widget
                             ],
                             [
                                 'label' => 'Посты',
-                                'url' => Url::to(['/tw/tw-posts']),
-                                'active' => Yii::$app->controller->module->id === 'tw' && Yii::$app->controller->id === 'tw-posts' && Yii::$app->request->get('TwPostsSearch') === null,
+                                'url' => Url::to(['/tw/tw-posts', 'TwPostsSearch[status]' => 0]),
+                                //'active' => Yii::$app->controller->module->id === 'tw' && Yii::$app->controller->id === 'tw-posts' && Yii::$app->request->get('TwPostsSearch') === null,
+	                            'active' => Yii::$app->controller->module->id === 'tw' && Yii::$app->controller->id === 'tw-posts' && Yii::$app->request->get('TwPostsSearch')['status'] === '0',
                                 'visible' => UserFunction::hasPermission(['Группы VK']),
                             ],
-                            [
+                            /*[
                                 'label' => 'На модерации',
                                 'url' => Url::to(['/tw/tw-posts', 'TwPostsSearch[status]' => 0]),
                                 'active' => Yii::$app->controller->module->id === 'tw' && Yii::$app->controller->id === 'tw-posts' && Yii::$app->request->get('TwPostsSearch')['status'] === '0',
                                 'visible' => UserFunction::hasPermission(['Группы VK']),
-                            ],
+                            ],*/
                             [
                                 'label' => 'Опубликованные',
                                 'url' => Url::to(['/tw/tw-posts', 'TwPostsSearch[status]' => 1]),

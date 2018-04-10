@@ -80,7 +80,6 @@ $(document).ready(function () {
             },
             success: function(data) {
                 $('.commercial__sidebar-filter--children-category').html(data);
-                console.log(data);
             }
         });
 
@@ -97,7 +96,6 @@ $(document).ready(function () {
             },
             success: function(data) {
                 $('.commercial__sidebar-filter--children-category').append(data);
-                //console.log(data);
             }
         });
 
@@ -357,7 +355,7 @@ $(document).ready(function () {
                 /*$('.modal-body,.modal-flex').html(data);*/
 
                 if (data) {
-                    console.log(data);
+                   // console.log(data);
                     $('#categoryModal').html(data);
                 } else {
                     if(type === 'product' ){
@@ -400,11 +398,11 @@ $(document).ready(function () {
 
         $(this).addClass('active');
 
-        //console.log(column);
+
         var type = $(this).attr('datatype');
         var url;
         //alert(type);
-        console.log(category);
+
         if(type === 'product' ){
             url = '/shop/products/show-parent-modal-category';
             $('#products-category_id').val(category);
@@ -413,12 +411,15 @@ $(document).ready(function () {
             url = '/board/default/show-parent-modal-category';
             $('#ads-category_id').val(category);
         }
+
+
         $.ajax({
             type: 'POST',
             url: url,
             data: 'id=' + category,
             success: function (data) {
-                //console.log(data);
+                console.log(data);
+
                 if (data) {
                     if (column == 0) {
                         $('div[data-parent="1"]').html(data);
@@ -439,7 +440,7 @@ $(document).ready(function () {
                         url: url,
                         data: 'id=' + category,
                         success: function (data) {
-                            //console.log(data);
+
                             $('.SelectCategory').html(data);
                         }
                     });
@@ -456,7 +457,7 @@ $(document).ready(function () {
                         url: url,
                         data: 'id=' + category,
                         success: function (data) {
-                            console.log(data);
+
                             $('#additional_fields').html(data);
                         }
                     });
@@ -475,6 +476,18 @@ $(document).ready(function () {
             $('.place-ad__publish').prop('disabled', false);
         } else {
             $('.place-ad__publish').prop('disabled', true);
+        }
+    });
+
+
+    //Изменение оплаты и доставки товара
+    $(document).on('click', '#edit-payment', function () {
+        if ($(this).prop('checked')) {
+            $('.edit-payment-form-field').css('display', 'block');
+        } else {
+            $('#products-payment').val('');
+            $('#products-delivery').val('');
+            $('.edit-payment-form-field').css('display', 'none');
         }
     });
 

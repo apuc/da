@@ -39,8 +39,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'status',
-                'value' => function($model){
-                    return $model->status === 1 ? 'Активна' : 'Не активна';
+                'value' => function($model) {
+                    return $model->statusText;
                 },
             ],
             [

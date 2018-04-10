@@ -46,28 +46,25 @@ $this->params['breadcrumbs'][] = $this->title;
             //'dt_public',
             [
                 'attribute' => 'status',
-                'value' => function($model){
+                'value' => function($model) {
                     return $model->statusText;
                 },
                 'filter' => Html::dropDownList(
-                        'TwPostsSearch[status]',
-                        $searchModel->status,
-                    [
-                        0 => 'На модерации',
-                        1 => 'Опубликовано',
-                        2 => 'На публикацию'
-                    ], ['class' => 'form-control', 'prompt' => 'Все']),
+                    'TwPostsSearch[status]',
+                    $searchModel->status,
+                    $searchModel->statuses,
+                    ['class' => 'form-control', 'prompt' => 'Все']
+                ),
 
             ],
             //'slug',
             [
                 'label' => 'Действия',
                 'format' => 'raw',
-                'value' => function($model){
-                    if($model->status === 0){
-                        return Html::a('На публикацию', Url::to(['to-public', 'id' => $model->id]), ['class' => 'btn btn-success']);
-                    }
-                    return 'Не доступно';
+                'value' => function($model) {
+	                return $model->status === \common\models\db\TwPosts::STATUS_MODERATION
+	                    ? Html::a('На публикацию', Url::to(['to-public', 'id' => $model->id]), ['class' => 'btn btn-success'])
+	                    : 'Не доступно';
                 }
             ],
 

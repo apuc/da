@@ -1,6 +1,6 @@
 <?php
 
-//\common\classes\Debug::prn($model['title']);
+//\common\classes\Debug::prn($model);
 
 ?>
 <a href="<?= \yii\helpers\Url::to(['/shop/shop/show', 'slug' => $model['slug']])?>" class="shop__top-sales-elements--item shop__top-sales-home-elements--item">
@@ -12,7 +12,11 @@
         if (!empty($model['cover'])): ?>
             <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $model['cover']); ?>" alt="<?= $model['title']; ?>">
         <?php else: ?>
-            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage('/'. $model['images'][0]->img_thumb); ?>">
+            <?php if(!empty($model['images'][0]->img_thumb)): ?>
+                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage('/'. $model['images'][0]->img_thumb); ?>">
+            <?php else:?>
+                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $model['cover']); ?>" alt="<?= $model['title']; ?>">
+            <?php endif; ?>
         <?php endif; ?>
     </div>
 

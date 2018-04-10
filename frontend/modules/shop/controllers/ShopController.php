@@ -56,9 +56,16 @@ class ShopController extends Controller
         $categoryModel = $model->getCategoryInfoBySlug($category);
 
         $modelProduct = new Products();
-        $products = $modelProduct->listProduct(16, $categoryModel->id);
+        if( count(Yii::$app->request->get()) > 1){
+            $products = $modelProduct->listProductFilter(16, $categoryModel->id, Yii::$app->request->get());
+        }
+        else{
+            $products = $modelProduct->listProduct(16, $categoryModel->id);
+        }
 
         $categoryList = \common\classes\Shop::getListCategoryAllInfo($categoryModel->id, []);
+
+
 
         if ($model->getEndCategory($category)) {
             $category = CategoryShop::find()->all();
@@ -158,6 +165,26 @@ class ShopController extends Controller
         $products = $modelProduct->listProduct(16, $get['categorySearch'], $get['textSearch']);
 
         return $this->render('search',
+            [
+                'products' => $products,
+            ]);
+    }
+
+    /**
+     * FILTER
+     */
+    public function actionFilter()
+    {
+        $request = Yii::$app->request->post();
+        Debug::dd(json_decode($request['filter'])) ;
+        //$model = new CategoryShop();
+        //$categoryModel = $model->getCategoryInfoBySlug();
+
+        $modelProduct = new Products();
+
+        $products = $modelProduct->listProductFilter(16, $request['category'], $request['filter']);
+
+        return $this->renderPartial('filter-products',
             [
                 'products' => $products,
             ]);

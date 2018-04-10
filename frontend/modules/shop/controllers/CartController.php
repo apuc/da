@@ -39,12 +39,13 @@ class CartController extends Controller
     {
 
         $postData = Yii::$app->request->post();
-        $postData['product_id'] = 27;
-       /* $postData['shop_id'] = 20;
-        $postData['count'] = 1;*/
+        //$postData['product_id'] = 27;
+        /* $postData['shop_id'] = 20;
+         $postData['count'] = 1;*/
         //Debug::dd($postData['product_id']);
-        $htmlCart = '';
+        //$htmlCart = '';
         $cart = Cart::getProductsWithBuy($postData['product_id']);
+        //Debug::dd($cart);
         $htmlCart = $this->renderPartial('modal-cart', ['model' => $cart]);
         return json_encode([
             'success' => Yii::$app->cart->add($postData['shop_id'], $postData['product_id'], $postData['count']),
@@ -59,7 +60,6 @@ class CartController extends Controller
 
         Yii::$app->cart->update($postData['shop_id'], $postData['product_id'], $postData['count']);
         $cart = Cart::getCart();
-
 
         return $this->renderAjax('cart-ajax', ['cart' => $cart]);
         /*return json_encode([
@@ -79,18 +79,17 @@ class CartController extends Controller
         return $this->redirect('cart');
     }
 
-
     public function actionPriceCount()
     {
         $postData = Yii::$app->request->post();
         $products = Products::find()->where(['id' => $postData['product_id']])->one();
         $html = '';
-        if(!empty( $products->new_price )){
+        if (!empty($products->new_price)) {
             $html .= $products->new_price * $postData['count'];
-        }else{
+        } else {
             $html .= $products->price * $postData['count'];
         }
-        return number_format($html, 0, '.', ' ') . 'руб. / ' . $postData['count'] .' шт.';
+        return number_format($html, 0, '.', ' ') . 'руб. / ' . $postData['count'] . ' шт.';
     }
 
     public function actionClear()
@@ -103,10 +102,9 @@ class CartController extends Controller
     public function actionCart()
     {
         $cart = Cart::getCart();
-        if ($cart){
+        if ($cart) {
             return $this->render('cart', ['cart' => $cart]);
-        }
-        else{
+        } else {
             return $this->render('not-cart');
         }
 
@@ -115,11 +113,11 @@ class CartController extends Controller
     public function actionOrderOneShop($shopId)
     {
         $model = new Order();
-        if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             /*Debug::dd($model);*/
             $cart = \Yii::$app->cart->getCart();
             //Debug::dd($cart);
-            foreach ($cart[$shopId] as $product=>$count){
+            foreach ($cart[$shopId] as $product => $count) {
                 $orderProducts = new OrderProduct();
 
                 $orderProducts->shop_id = $shopId;
@@ -129,29 +127,28 @@ class CartController extends Controller
 
                 $orderProducts->save();
 
-                 \Yii::$app->cart->delete($shopId, $product);
+                \Yii::$app->cart->delete($shopId, $product);
             }
 
             return $this->redirect(['cart']);
         }
         $cart = Cart::getCartOneShop($shopId);
-        return $this->render( 'form-order', [
+        return $this->render('form-order', [
             'model' => $model,
-            'cart' => $cart
-        ] );
+            'cart' => $cart,
+        ]);
     }
-
 
     public function actionOrderShop()
     {
         $model = new Order();
 
-        if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             /*Debug::dd($model);*/
 
             $cart = \Yii::$app->cart->getCart();
-            foreach ($cart as $shop => $products){
-                foreach ($products as $product=> $count){
+            foreach ($cart as $shop => $products) {
+                foreach ($products as $product => $count) {
                     $orderProducts = new OrderProduct();
 
                     $orderProducts->shop_id = $shop;
@@ -163,13 +160,16 @@ class CartController extends Controller
                 }
 
             }
+            $summCart = Cart::getSummCart();
             Yii::$app->cart->clear();
-            return $this->redirect(['cart']);
+            $order = Order::find()->where(['id' => $model->id])->one();
+
+            return $this->render('thanks-order', ['order' => $order, 'summCart' => $summCart]);
         }
         $cart = Cart::getCart();
-        return $this->render( 'form-order', [
+        return $this->render('form-order', [
             'model' => $model,
-            'cart' => $cart
-        ] );
+            'cart' => $cart,
+        ]);
     }
 }

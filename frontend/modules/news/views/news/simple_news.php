@@ -7,7 +7,7 @@ foreach($news as $new): ?>
         <a href="<?= Url::to([
             '/news/default/view',
             'slug' => $new->slug,
-        ]); ?>" class="thumb">
+        ]); ?>" class="thumb" title="<?= $new->title; ?>">
             <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($new->photo); ?>" alt="">
             <div class="content-row">
                 <span><small class="view-icon"></small> <?= $new->views; ?></span>

@@ -15,7 +15,8 @@
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
-$this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js',
+    ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/news.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->registerMetaTag([
@@ -47,9 +48,7 @@ $this->registerMetaTag([
     'content' => 'https://' . $_SERVER['HTTP_HOST'] . $model->photo,
 ]);
 
-
 $this->title = ($model->meta_title) ? $model->meta_title : $model->title;
-
 
 $this->registerMetaTag([
     'name' => 'description',
@@ -57,7 +56,10 @@ $this->registerMetaTag([
 ]);
 
 $this->params['breadcrumbs'][] = ['label' => 'Все новости', 'url' => Url::to(['/news/news'])];
-$this->params['breadcrumbs'][] = ['label' => $category->title, 'url' => Url::to(['/news/news/category/', 'slug' => $category->slug])];
+$this->params['breadcrumbs'][] = [
+    'label' => $category->title,
+    'url' => Url::to(['/news/news/category/', 'slug' => $category->slug]),
+];
 $this->params['breadcrumbs'][] = $model->title;
 
 ?>
@@ -73,7 +75,7 @@ $this->params['breadcrumbs'][] = $model->title;
 
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                'options' => ['class' => 'breadcrumbs']
+                'options' => ['class' => 'breadcrumbs'],
             ]); ?>
 
             <h1><?= $model->title; ?></h1>
@@ -81,20 +83,21 @@ $this->params['breadcrumbs'][] = $model->title;
                 [
                     'model' => $model,
                     'countComments' => $countComments,
-                    'likes' => $likes
+                    'likes' => $likes,
                 ]); ?>
 
 
-            <div class="thumbnail-wrapper">
-                <?php if (stristr($model->photo, 'http')): ?>
-                    <img class="thumbnail" src="<?= $model->photo ?>"
-                         alt="<?= !empty($model->alt) ? $model->alt : $model->title ?>">
-                <?php else: ?>
-                    <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($model->photo); ?>"
-                         alt="<?= !empty($model->alt) ? $model->alt : $model->title ?>">
-                <?php endif; ?>
-            </div>
+            <?php if (stristr($model->photo, 'http')):
+                $img = $model->photo;
+            else:
+                $img = \common\models\UploadPhoto::getImageOrNoImage($model->photo);
+            endif;
+            $alt = !empty($model->alt) ? $model->alt : $model->title;
+            ?>
 
+            <a href="<?= $img; ?>" class="thumbnail-wrapper" data-fancybox="news">
+                <img class="thumbnail" src="<?= $img; ?>" alt="<?= $alt; ?>">
+            </a>
 
             <div class="content-single-wrapper">
                 <div class="content-single">
@@ -118,7 +121,7 @@ $this->params['breadcrumbs'][] = $model->title;
                     [
                         'model' => $model,
                         'countComments' => $countComments,
-                        'likes' => $likes
+                        'likes' => $likes,
                     ]);
                 ?>
                 <?= \frontend\modules\news\widgets\ReadTheSame::widget(
