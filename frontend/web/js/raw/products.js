@@ -17,13 +17,13 @@ $(document).ready(function () {
             },
             success: function (data) {
                 //alert(data);
-                //console.log(data);
+                console.log(data);
 
-                var res = JSON.parse(data);
-                console.log(res);
+                /*var res = JSON.parse(data);
+
                 $('.basket-counter').html(res.cartCount);
                 $('.modal-count-cart').html(res.cartCount);
-                $('#modal_close').after(res.cart);
+                $('#modal_close').after(res.cart);*/
             }
         });
 
