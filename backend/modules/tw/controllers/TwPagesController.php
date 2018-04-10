@@ -145,7 +145,7 @@ class TwPagesController extends Controller
         $data = $connection->get("statuses/user_timeline",
             array('count' => 1, 'exclude_replies' => true, 'screen_name' => $model->screen_name));
         $model->title = $data[0]->user->name;
-        $model->tw_id = $data[0]->user->id;
+        $model->tw_id = (string)$data[0]->user->id;
         $model->icon = $data[0]->user->profile_image_url_https;
         $model->save();
         Yii::$app->session->setFlash('success', 'Данные получены');
