@@ -19,12 +19,19 @@ use Yii;
  * @property string $page_icon
  * @property int $dt_add
  * @property int $dt_publish
- * @property int $status
+ * @property string $status
  * @property int $comment_status
  * @property string $slug
+ * 
+ * @property array $statuses
+ * @property string $statusText
  */
 class TwPosts extends \yii\db\ActiveRecord
 {
+	const STATUS_MODERATION = 0;
+	const STATUS_PUBLISHED = 1;
+	const STATUS_TO_PUBLISH = 2;
+
     /**
      * @inheritdoc
      */
@@ -44,6 +51,7 @@ class TwPosts extends \yii\db\ActiveRecord
             [['page_id', 'dt_add', 'dt_publish', 'status', 'comment_status'], 'integer'],
             [['title', 'media_url', 'link', 'page_title', 'page_icon', 'slug'], 'string', 'max' => 255],
             [['tw_id'], 'string', 'max' => 100],
+	        [['status'], 'in', 'range' => array_keys($this->getStatuses())]
         ];
     }
 
@@ -73,14 +81,15 @@ class TwPosts extends \yii\db\ActiveRecord
 
     public function getStatusText()
     {
-        if($this->status === 0){
-            return 'На модерации';
-        }
-        if($this->status === 1){
-            return 'Опубликовано';
-        }
-        if($this->status === 2){
-            return 'На публикацию';
-        }
+        return $this->statuses[$this->status];
+    }
+
+    public function getStatuses()
+    {
+    	return [
+    		self::STATUS_MODERATION => 'На модерации',
+		    self::STATUS_PUBLISHED => 'Опубликовано',
+		    self::STATUS_TO_PUBLISH => 'На публикацию',
+	    ];
     }
 }
