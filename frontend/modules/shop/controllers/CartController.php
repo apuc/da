@@ -42,10 +42,10 @@ class CartController extends Controller
         //$postData['product_id'] = 27;
         /* $postData['shop_id'] = 20;
          $postData['count'] = 1;*/
-        Debug::dd($postData['product_id']);
+        //Debug::dd($postData['product_id']);
         //$htmlCart = '';
         $cart = Cart::getProductsWithBuy($postData['product_id']);
-        //Debug::dd($cart);
+        Debug::dd($cart);
         $htmlCart = $this->renderPartial('modal-cart', ['model' => $cart]);
         return json_encode([
             'success' => Yii::$app->cart->add($postData['shop_id'], $postData['product_id'], $postData['count']),
