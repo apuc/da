@@ -112,7 +112,7 @@ class Cart
             ->limit(4)
             ->all();
 
-        if (empty($product)) {
+        /*if (empty($product)) {
             $product = Products::find()
                 ->where(['status' => 1])
                 ->andWhere(['!=', 'id', $productId])
@@ -120,7 +120,7 @@ class Cart
                 ->orderBy('RAND()')
                 ->limit(4)
                 ->all();
-        }
+        }*/
 
         return $product;
     }
