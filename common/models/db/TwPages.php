@@ -9,13 +9,19 @@ use Yii;
  *
  * @property int $id
  * @property string $title
- * @property int $tw_id
+ * @property string $tw_id
  * @property string $screen_name
  * @property string $icon
- * @property int $status
+ * @property string $status
+ * 
+ * @property array $statuses
+ * @property string $statusText
  */
 class TwPages extends \yii\db\ActiveRecord
 {
+	const STATUS_INACTIVE = 0;
+	const STATUS_ACTIVE = 1;
+
     /**
      * @inheritdoc
      */
@@ -30,7 +36,8 @@ class TwPages extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tw_id', 'status'], 'integer'],
+	        [['tw_id'], 'string', 'max' => 32],
+	        [['status'], 'integer'],
             [['screen_name'], 'required'],
             [['title', 'screen_name', 'icon'], 'string', 'max' => 255],
         ];
@@ -49,5 +56,18 @@ class TwPages extends \yii\db\ActiveRecord
             'icon' => 'Иконка',
             'status' => 'Статус',
         ];
+    }
+
+    public function getStatusText()
+    {
+    	return $this->statuses[$this->status];
+    }
+
+    public function getStatuses()
+    {
+    	return [
+    		self::STATUS_INACTIVE => 'Не активна',
+		    self::STATUS_ACTIVE => 'Активна',
+	    ];
     }
 }

@@ -30,11 +30,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'comment_status')->checkbox() ?>
 
-    <?= $form->field($model, 'status')->dropDownList([
-        0 => 'На модерации',
-        1 => 'Опубликовано',
-        2 => 'На публикацию'
-    ]) ?>
+    <?= $form->field($model, 'status')->dropDownList($model->statuses) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
