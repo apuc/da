@@ -53,7 +53,7 @@ class VK
      */
     public function request($method, $params)
     {
-        $request = $this->createRequest($method, $params);
+        $request = $this->createRequest($method, $params); 
         return file_get_contents($request);
     }
 
