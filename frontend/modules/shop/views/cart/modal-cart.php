@@ -7,6 +7,7 @@ use yii\helpers\Url;
 
 <div class="shop__top-sales-elements ">
     <?php
+    \common\classes\Debug::dd($model);
     if (!empty($model)):
         foreach ($model as $item):?>
             <?php //\common\classes\Debug::dd($item);
