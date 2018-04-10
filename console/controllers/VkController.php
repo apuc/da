@@ -34,13 +34,16 @@ class VkController extends Controller
     private function getVk()
     {
         $this->vk = new VK([
-            'client_id' => '6029267',
-            'client_secret' => '0QKWLW7n6XumtJV7VJ6h',
-            'access_token' => '90fc0cc0178c0130800af68e6051952c869b88a713b1d787982d39c70660a561c8378c432e8c6dcdb077a',
+            //'client_id' => '6029267',
+            'client_id' => '6301353',
+            //'client_secret' => '0QKWLW7n6XumtJV7VJ6h',
+            'client_secret' => 'jV9DdZuX0bb6sA6E4X8r',
+            //'access_token' => '90fc0cc0178c0130800af68e6051952c869b88a713b1d787982d39c70660a561c8378c432e8c6dcdb077a',
+            'access_token' => 'a8235934b3c144afc7e700ab9a436790e18fabe94f7963820cb9636f9987cb78f45e7a9254969fd7e155a',
         ]);
     }
 
-    public function actionGetStream($group_id = null)
+    public function actionGetStream($group_id = 1)
     {
         $this->getVk();
 
@@ -50,13 +53,13 @@ class VkController extends Controller
         }else $groups = VkGroups::find()->where(['status' => 1])->all();
 
         foreach ($groups as $group) {
-            if(stristr($group->domain, 'public')){
+            if(false !== stripos($group->domain, 'public')){
                 $res = $this->vk->getGroupWallByID($group->vk_id, ['count' => $this->count, 'extended' => 1]);
             }else
                 $res = $this->vk->getGroupWall($group->domain, ['count' => $this->count, 'extended' => 1]);
 
             $res = json_decode($res);
-            //Debug::prn($res);
+            Debug::prn($res);
             if(isset($res->response->profiles))
             {
                 $this->saveAuthors($res->response->profiles);
