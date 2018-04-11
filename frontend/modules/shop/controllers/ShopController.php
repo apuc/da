@@ -176,13 +176,16 @@ class ShopController extends Controller
     public function actionFilter()
     {
         $request = Yii::$app->request->post();
-        Debug::dd(json_decode($request['filter'])) ;
+        //Debug::prn($request);
+        //$request['category'] = 2;
+
+        //Debug::dd(json_decode($request['filter'])) ;
         //$model = new CategoryShop();
         //$categoryModel = $model->getCategoryInfoBySlug();
 
         $modelProduct = new Products();
 
-        $products = $modelProduct->listProductFilter(16, $request['category'], $request['filter']);
+        $products = $modelProduct->listProductFilter(16, $request['category'], json_decode($request['filter']) );
 
         return $this->renderPartial('filter-products',
             [

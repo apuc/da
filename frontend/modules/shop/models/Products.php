@@ -83,7 +83,7 @@ class Products extends \common\models\db\Products
                 /*var_dump($value);
                 die();*/
                 if (isset($value)) {
-                   // Debug::dd($value);
+                    // Debug::dd($value);
                     $productFieldsOne = ProductFields::find()->where(['name' => $name])->one();
 
                     $type = ProductFieldsType::find()->where(['id' => $productFieldsOne->type])->one()->type;
@@ -213,7 +213,7 @@ class Products extends \common\models\db\Products
 
         $category = [];
 
-        if(!empty($idCategory)){
+        if (!empty($idCategory)) {
             $category = ArrayHelper::merge(Shop::getChildrenCategory($idCategory), [$idCategory]);
         }
         // grid filtering conditions
@@ -232,12 +232,24 @@ class Products extends \common\models\db\Products
         return $dataProvider;
     }
 
-
     public function listProductFilter($limit = 16, $idCategory, $params)
     {
         ArrayHelper::remove($params, 'category');
 
-        Debug::dd($params);
+        if (is_array($params)) {
+            $minPrice = ArrayHelper::remove($params, 'minPrice');
+            $maxPrice = ArrayHelper::remove($params, 'maxPrice');
+            $saleFilter = ArrayHelper::remove($params, 'saleFilter');
+        } else {
+            $minPrice = $params->minPrice;
+            unset($params->minPrice);
+            $maxPrice = $params->maxPrice;
+            unset($params->maxPrice);
+            $saleFilter = $params->saleFilter;
+            unset($params->saleFilter);
+        }
+
+        //Debug::dd( $params );
         $query = Products::find();
 
         // add conditions that should always apply here
@@ -254,16 +266,45 @@ class Products extends \common\models\db\Products
         // grid filtering conditions
         $query->where(['category_id' => $idCategory, 'status' => 1]);
 
-        foreach ($params as $key => $value){
-            $query->andFilterWhere(
-                ['OR',
+        foreach ($params as $key => $value) {
+            //Debug::prn(substr($key, 0, -2));
+            if (!empty($value)) {
+                $query->andFilterWhere(
                     [
-                        '`product_fields_value`.`product_fields_name`' => $key,
-                        '`product_fields_value`.`value_id`' => $value
+                        'OR',
+                        [
+                            '`product_fields_value`.`product_fields_name`' => str_replace("[]", "", $key),
+                            //'`product_fields_value`.`product_fields_name`' => $key,
+                            '`product_fields_value`.`value_id`' => $value,
+                        ],
                     ]
-                ]
-            );
+                );
+            }
+
         }
+
+        //Debug::prn($saleFilter);
+        if(!empty($saleFilter)){
+            $query->andWhere(['not', ['new_price' => null]]);
+        }
+
+        if (!empty($minPrice)) {
+            if (!empty($saleFilter)) {
+                $query->andWhere(['>=', 'new_price', $minPrice]);
+            } else {
+                $query->andWhere(['>=', 'price', $minPrice]);
+            }
+
+        }
+
+        if (!empty($maxPrice)) {
+            if (!empty($saleFilter)) {
+                $query->andWhere(['<=', 'new_price', $minPrice]);
+            } else {
+                $query->andWhere(['<=', 'price', $minPrice]);
+            }
+        }
+
 
 
 //Debug::dd($query->createCommand()->rawSql);

@@ -11,6 +11,25 @@ $(document).ready(function () {
 
         setFilter();
     });
+
+    $(document).on('click', '.saleFilter', function () {
+        console.log(attributesFieldsProductsFilter);
+        if($($(this)).prop('checked')) {
+            attributesFieldsProductsFilter['saleFilter'] = $("input[name='saleFilter']").val();
+        }
+        else{
+            attributesFieldsProductsFilter['saleFilter'] = '';
+        }
+
+        setFilter();
+    });
+
+    $(document).on('change', '.price-filter', function () {
+        //console.log(attributesFieldsProductsFilter);
+        attributesFieldsProductsFilter['minPrice'] = $("input[name='minPrice']").val();
+        attributesFieldsProductsFilter['maxPrice'] = $("input[name='maxPrice']").val();
+        setFilter();
+    });
 });
 
 
@@ -21,13 +40,29 @@ function setFilter() {
     var title = 'Hello World';
     var url = '?';
 
+    /*var minPrice = attributesFieldsProductsFilter[$(this).attr('name')].splice(attributesFieldsProductsFilter['minPrice']);*/
+    /*var maxPrice = $("input[name='maxPrice']").val()*/
+
     for(var key in filter) {
-        if(filter[key].length > 0){
-            for (var j = 0; j < filter[key].length; j++ ){
-                url += key + '=' + filter[key][j] + '&'
+        console.log(filter[key]);
+        if(filter[key].length > 0 ){
+            if(Array.isArray(filter[key])){
+                for (var j = 0; j < filter[key].length; j++ ){
+                    url += key + '=' + filter[key][j] + '&'
+                }
             }
+            else{
+                url += key + '=' + filter[key] + '&'
+            }
+
         }
     }
+    /*if(minPrice){
+        url += 'minPrice=' + minPrice + '&';
+    }*/
+    /*if(maxPrice){
+        url += 'maxPrice=' + maxPrice + '&';
+    }*/
 //console.log(attributesFieldsProductsFilter);
     $.ajax({
         type: 'POST',
@@ -37,9 +72,12 @@ function setFilter() {
             {
                 filter: JSON.stringify(attributesFieldsProductsFilter),
                 category: category
+                /*minPrice: minPrice,
+                maxPrice: maxPrice,*/
             },
         success: function (data) {
             console.log(data);
+            $('.shop__top-sales-elements').html(data);
         }
     });
 

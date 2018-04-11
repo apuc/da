@@ -21,6 +21,9 @@ class ShowFilterLeftProducts extends Widget
     public function run()
     {
 
+        $getFilter = \Yii::$app->request->get();
+
+        //Debug::prn($getFilter);
 
         $fields = CategoryFields::find()
             ->joinWith('fields.productFieldsDefaultValues')
@@ -36,10 +39,15 @@ class ShowFilterLeftProducts extends Widget
         if (!empty($fields)) {
             foreach ($fields as $item) {
                 //Debug::dd($item);
-                $fieldsName[$item['fields']->name.'[]'] = [];
-                $html .= $this->render('fields_filter', ['adsFields' => $item]);
+
+                $fieldsName[$item['fields']->name.'[]'] = (isset($getFilter[$item['fields']->name])) ? $getFilter[$item['fields']->name] : [];
+                $html .= $this->render('fields_filter', ['adsFields' => $item, 'getFilter' => $getFilter]);
             }
         }
+
+        $fieldsName['minPrice'] = '';
+        $fieldsName['maxPrice'] = '';
+        $fieldsName['saleFilter'] = (isset($getFilter['saleFilter'])) ? $getFilter['saleFilter'] : '';
 
         //return $html;
         return $this->render('filter-left', [

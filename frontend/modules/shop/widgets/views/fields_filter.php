@@ -38,19 +38,29 @@
             $arr[$item->id] = $item->value;
         }
 
+        /*if(isset($getFilter[$adsFields['fields']->name]) ){
+            \common\classes\Debug::prn($getFilter[$adsFields['fields']->name]);
+        }*/
+
         ?>
 
-        <div class="shop__filter-title"><?= $adsFields['fields']->label ?>
+        <div class="shop__filter-title <?= (isset($getFilter[$adsFields['fields']->name])) ? 'active' : ''?>"><?= $adsFields['fields']->label ?>
             <div class="shop__filter-list">
                 <?= \yii\helpers\Html::checkboxList(
-                        $adsFields['fields']->name,
-                    null,
+                    $adsFields['fields']->name,
+                    (isset($getFilter[$adsFields['fields']->name])) ? $getFilter[$adsFields['fields']->name] : null,
                     $arr,
                     [
-                        'itemOptions' =>
-                            [
-                                'class' => 'filter-search'
-                            ]
+                        'item' => function ($index, $label, $name, $checked, $value) {
+                            $ch = '';
+                            $class = '';
+                            if ($checked == 1) {
+                                $ch = "checked";
+                                $class = 'active';
+                            }
+                            return "<label class=\"$class\"><input type=\"checkbox\" class=\"filter-search\" name=\"$name\" value=\"$value\" $ch> $label</label>";
+                        },
+
                     ]
                 )
                 ?>
@@ -60,29 +70,29 @@
     }
 
     if ($adsFields['fields']->type->type == 'checkbox') {
-        //\common\classes\Debug::prn($adsFields);
-        ?>
+    //\common\classes\Debug::prn($adsFields);
+    ?>
 
-        <div class="shop__filter-title"><?= $adsFields['fields']->label ?>
-            <div class="shop__filter-list">
-                <?= \yii\helpers\Html::checkbox('ProductField[' . $adsFields['fields']->name . ']', false) ?>
-            </div>
+    <div class="shop__filter-title"><?= $adsFields['fields']->label ?>
+        <div class="shop__filter-list">
+            <?= \yii\helpers\Html::checkbox('ProductField[' . $adsFields['fields']->name . ']', false) ?>
         </div>
+    </div>
 
-        <!--<div class="form-line field-ads-<?/*= $adsFields['fields']->name; */?>">
+    <!--<div class="form-line field-ads-<?/*= $adsFields['fields']->name; */ ?>">
             <div class="form-line">
-                <?/*= \yii\helpers\Html::label($adsFields['fields']->label, 'name', ['class' => 'label-name']) */?>
+                <?/*= \yii\helpers\Html::label($adsFields['fields']->label, 'name', ['class' => 'label-name']) */ ?>
 
-                <?/*= \yii\helpers\Html::hiddenInput('ProductField[' . $adsFields['fields']->name . ']', 0) */?>
+                <?/*= \yii\helpers\Html::hiddenInput('ProductField[' . $adsFields['fields']->name . ']', 0) */ ?>
                 <?/*= \yii\helpers\Html::checkbox('ProductField[' . $adsFields['fields']->name . ']', false,
-                    ['class' => 'input-name jsHint']) */?>
+                    ['class' => 'input-name jsHint']) */ ?>
 
 
                 <div class="error">
                     <div class="help-block"></div>
                 </div>
                 <div class="memo"><span class="info-icon"></span><span
-                            class="triangle-left"></span><?/*= $adsFields['fields']->hint; */?></div>
+                            class="triangle-left"></span><?/*= $adsFields['fields']->hint; */ ?></div>
             </div>
         </div>-->
     <?php }
@@ -94,24 +104,24 @@
             $arr[$item->id] = $item->value;
         }
 
-        */?><!--
-        <div class="form-line field-ads-<?/*= $adsFields['fields']->name; */?>">
+        */ ?><!--
+        <div class="form-line field-ads-<? /*= $adsFields['fields']->name; */ ?>">
             <div class="form-line">
-                <?/*= \yii\helpers\Html::label($adsFields['fields']->label, 'name1', ['class' => 'label-name']) */?>
+                <? /*= \yii\helpers\Html::label($adsFields['fields']->label, 'name1', ['class' => 'label-name']) */ ?>
 
-                <?/*= \yii\helpers\Html::checkboxList('ProductField[' . $adsFields['fields']->name . ']',
+                <? /*= \yii\helpers\Html::checkboxList('ProductField[' . $adsFields['fields']->name . ']',
                     null,
                     $arr,
-                    ['class' => 'input-name jsHint']) */?>
+                    ['class' => 'input-name jsHint']) */ ?>
                 <div class="error">
                     <div class="help-block"></div>
                 </div>
                 <div class="memo"><span class="info-icon"></span><span
-                            class="triangle-left"></span><?/*= $adsFields['fields']->hint; */?></div>
+                            class="triangle-left"></span><? /*= $adsFields['fields']->hint; */ ?></div>
             </div>
         </div>
         --><?php
-/*    }*/
+    /*    }*/
     ?>
 
 </div>
