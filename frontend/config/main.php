@@ -65,6 +65,9 @@ return \yii\helpers\ArrayHelper::merge([
         'shop' => [
             'class' => 'frontend\modules\shop\Shop',
         ],
+        'turbo' => [
+            'class' => 'frontend\modules\turbo\Turbo',
+        ],
     ],
     'components' => [
         'cart' => [
