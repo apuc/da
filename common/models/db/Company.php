@@ -160,7 +160,7 @@ class Company extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
     /**
@@ -168,7 +168,7 @@ class Company extends \yii\db\ActiveRecord
      */
     public function getStock()
     {
-        return $this->hasMany(Stock::className(), ['id' => 'company_id']);
+        return $this->hasMany(Stock::class, ['id' => 'company_id']);
     }
 
     /**
@@ -176,7 +176,7 @@ class Company extends \yii\db\ActiveRecord
      */
     public function getNews()
     {
-        return $this->hasMany(News::className(), ['company_id' => 'id']);
+        return $this->hasMany(News::class, ['company_id' => 'id']);
     }
 
     /**
@@ -184,7 +184,7 @@ class Company extends \yii\db\ActiveRecord
      */
     public function getSocCompany()
     {
-        return $this->hasMany(SocCompany::className(), ['company_id' => 'id']);
+        return $this->hasMany(SocCompany::class, ['company_id' => 'id']);
     }
 
     /**

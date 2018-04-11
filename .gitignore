@@ -37,3 +37,4 @@ theme/node_modules/
 theme/package-lock.json
 /node_modules/
 /package-lock.json
+!/common/classes/
