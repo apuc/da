@@ -9,7 +9,9 @@
 namespace frontend\modules\shop\controllers;
 
 use common\classes\Cart;
+use common\classes\DaMail;
 use common\classes\Debug;
+use common\classes\UserFunction;
 use common\models\db\Order;
 use common\models\db\OrderProduct;
 use frontend\modules\shop\models\Products;
@@ -114,7 +116,6 @@ class CartController extends Controller
     {
         $model = new Order();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            /*Debug::dd($model);*/
             $cart = \Yii::$app->cart->getCart();
             //Debug::dd($cart);
             foreach ($cart[$shopId] as $product => $count) {
@@ -129,7 +130,19 @@ class CartController extends Controller
 
                 \Yii::$app->cart->delete($shopId, $product);
             }
+            DaMail::createMsg()->setSubject('Новый заказ')
+                ->setTo(UserFunction::getUserByShopId($shopId)->email)
+                ->setFrom(['noreply@da-info.pro' => 'DA-Info'])
+                ->setTpl('layouts/html')
+                ->setContent('<div>Вы получили новый заказ</div>')
+                ->send();
 
+            DaMail::createMsg()->setSubject('Заказ принят')
+                ->setTo($model->email)
+                ->setFrom(['noreply@da-info.pro' => 'DA-Info'])
+                ->setTpl('layouts/html')
+                ->setContent('<div>Ваш заказ принят</div>')
+                ->send();
             return $this->redirect(['cart']);
         }
         $cart = Cart::getCartOneShop($shopId);

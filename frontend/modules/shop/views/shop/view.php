@@ -271,7 +271,6 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
             <div class="single-shop__tab-item">
                 <h2 class="single-shop__tab-title">Доставка и оплата</h2>
 
-                <?php// \common\classes\Debug::prn($model); ?>
                 <?php
                 if (empty($model->delivery)) {
                     echo $model['company']->delivery;
