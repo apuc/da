@@ -146,7 +146,7 @@ echo FileInput::widget([
 
 
 <h2 class="soglasie">Оплата и доствка для этого товара</h2>
-<span>По умолчанию будут использованы условия оплаты и доставки из информации о компании</span>
+<span class="description-add-product">По умолчанию будут использованы условия оплаты и доставки из информации о компании</span>
 <?php
 $chk = false;
 $style = 'display: none';
@@ -155,9 +155,12 @@ $style = 'display: none';
         $style = 'display: block';
     }
 ?>
+<label class="edit-product-cabinet">
+    <?= Html::checkbox('edit-payment', $chk, ['class' => 'edit-payment', 'id' => 'edit-payment'] ); ?>
+    Изменить
+</label>
 
-<?= Html::label('Изменить'); ?>
-<?= Html::checkbox('edit-payment', $chk, ['class' => 'edit-payment', 'id' => 'edit-payment'] ); ?>
+
 <hr class="lineAddAds"/>
 
 <div class="edit-payment-form-field" style="<?= $style; ?>">
