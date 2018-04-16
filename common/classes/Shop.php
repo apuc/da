@@ -9,6 +9,7 @@
 namespace common\classes;
 
 use common\models\db\CategoryShop;
+use common\models\db\Company;
 use yii\helpers\ArrayHelper;
 
 class Shop
@@ -36,11 +37,12 @@ class Shop
      * @param $arr
      * @return array
      */
-    public static function getListCategoryAllInfo($id,$arr){
+    public static function getListCategoryAllInfo($id, $arr)
+    {
         $category = CategoryShop::find()->where(['id' => $id])->one();
         $arr[] = $category;
 
-        if($category->parent_id != 0){
+        if ($category->parent_id != 0) {
             $arr = self::getListCategoryAllInfo($category->parent_id, $arr);
         }
 
@@ -48,26 +50,37 @@ class Shop
         return $arr;
     }
 
-
-    public static function getAllCategory(){
+    public static function getAllCategory()
+    {
         $category = CategoryShop::find()->all();
         $catArr = [];
 
         foreach ($category as $item) {
             //Debug::prn($item);
-            if($item->parent_id == 0){
+            if ($item->parent_id == 0) {
                 $catArr[$item->id]['id'] = $item->id;
                 $catArr[$item->id]['name'] = $item->name;
                 $catArr[$item->id]['slug'] = $item->slug;
                 $catArr[$item->id]['img'] = $item->icon;
 
                 foreach ($category as $value) {
-                    if($value->parent_id == $item->id){
+                    if ($value->parent_id == $item->id) {
                         $catArr[$item->id]['childs'][] = $value;
                     }
                 }
             }
         }
         return $catArr;
+    }
+
+    public static function getShopsByUserId($userId)
+    {
+        if($userId){
+            $model = Company::find()->where(['user_id' => $userId])->all();
+            if($model){
+                return $model;
+            }
+        }
+        return false;
     }
 }
