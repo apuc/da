@@ -260,6 +260,18 @@ class Products extends \common\models\db\Products
                 'pageSize' => $limit,
                 'pageSizeParam' => false,
             ],
+            /*'sort' => [
+                'attributes' => [
+                    'name',
+                    'lessons_dt' => [
+                        'asc' => ['`lessons`.`lessons_dt` is null' => SORT_ASC],
+                    ],
+                    'teacher' => [
+                        'asc' => ['`teacher`.`name`' => SORT_ASC],
+                        'desc' => ['`teacher`.`name`' => SORT_DESC],
+                    ],
+                ],
+            ],*/
         ]);
 
         $query->joinWith(['productFieldsValues', 'images']);

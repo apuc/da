@@ -24,6 +24,12 @@ $(document).ready(function () {
         setFilter();
     });
 
+
+    $(document).on('change', '.sortFilter', function () {
+        attributesFieldsProductsFilter['sort'].push($(this).val());
+        setFilter();
+    });
+
     $(document).on('change', '.price-filter', function () {
         //console.log(attributesFieldsProductsFilter);
         attributesFieldsProductsFilter['minPrice'] = $("input[name='minPrice']").val();

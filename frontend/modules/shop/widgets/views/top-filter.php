@@ -20,11 +20,10 @@
 
     <div class="shop__filter-search--select">
         <label for="select">Сортировать по:</label>
-        <select id="select">
-            <option>по умолчанию</option>
-            <option>новые</option>
-            <option>по цене</option>
-            <option>по дате</option>
+        <select id="select" class="sortFilter">
+            <option value="default">по умолчанию</option>
+            <option value="cheap">от дешевых к дорогим</option>
+            <option value="expensive">от дорогих к дешевым</option>
         </select>
     </div>
     <div class="shop__filter-search--check">

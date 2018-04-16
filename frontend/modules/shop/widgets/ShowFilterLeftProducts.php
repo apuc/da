@@ -48,6 +48,7 @@ class ShowFilterLeftProducts extends Widget
         $fieldsName['minPrice'] = '';
         $fieldsName['maxPrice'] = '';
         $fieldsName['saleFilter'] = (isset($getFilter['saleFilter'])) ? $getFilter['saleFilter'] : '';
+        $fieldsName['sort'] = (isset($getFilter['sort'])) ? $getFilter['sort'] : '';
 
         //return $html;
         return $this->render('filter-left', [
