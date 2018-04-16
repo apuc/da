@@ -137,9 +137,11 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     ->label('Описание<span>*</span>'); ?>
 
 <h2 class="soglasie">Оплата и доствка для этого товара</h2>
-<span>По умолчанию будут использованы условия оплаты и доставки из информации о компании</span>
-<?= Html::label('Изменить'); ?>
-<?= Html::checkbox('edit-payment', false, ['class' => 'edit-payment', 'id' => 'edit-payment'] ); ?>
+<span class="description-add-product">По умолчанию будут использованы условия оплаты и доставки из информации о компании</span>
+<label class="edit-product-cabinet">
+    <?= Html::checkbox('edit-payment', false, ['class' => 'edit-payment', 'id' => 'edit-payment'] ); ?>
+    Изменить
+</label>
 <hr class="lineAddAds"/>
 
 <div class="edit-payment-form-field" style="display: none">
