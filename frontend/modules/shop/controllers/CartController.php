@@ -115,7 +115,10 @@ class CartController extends Controller
     public function actionOrderOneShop($shopId)
     {
         $model = new Order();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->shop_id = $shopId;
+            $model->dt_add = time();
+            $model->save();
             $cart = \Yii::$app->cart->getCart();
             //Debug::dd($cart);
             foreach ($cart[$shopId] as $product => $count) {
@@ -137,11 +140,11 @@ class CartController extends Controller
                 ->setContent('<div>Вы получили новый заказ</div>')
                 ->send();
 
-            DaMail::createMsg()->setSubject('Заказ принят')
+            DaMail::createMsg()->setSubject('Заказ ожидает обработки')
                 ->setTo($model->email)
                 ->setFrom(['noreply@da-info.pro' => 'DA-Info'])
                 ->setTpl('layouts/html')
-                ->setContent('<div>Ваш заказ принят</div>')
+                ->setContent('<div>Ваш заказ ожидает обработки</div>')
                 ->send();
             return $this->redirect(['cart']);
         }
