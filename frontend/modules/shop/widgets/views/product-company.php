@@ -19,10 +19,15 @@ if(!empty($model)):
                     <!--<p class="category-element">iPhone 6s 16Gb</p>-->
 
                     <div class="category-photo">
-                        <?php if (!empty($item->cover)): ?>
+                        <?php
+                        if (!empty($item->cover)): ?>
                             <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $item->cover); ?>" alt="<?= $item->title; ?>">
                         <?php else: ?>
-                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage('/' . $item->images[0]->img_thumb); ?>" alt="<?= $item->title; ?>">
+                            <?php if(!empty($item->images[0]->img_thumb)): ?>
+                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage('/'. $item->images[0]->img_thumb); ?>">
+                            <?php else:?>
+                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $item->cover); ?>" alt="<?= $item->title; ?>">
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
 
