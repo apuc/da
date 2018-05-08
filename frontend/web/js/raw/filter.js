@@ -26,7 +26,8 @@ $(document).ready(function () {
 
 
     $(document).on('change', '.sortFilter', function () {
-        attributesFieldsProductsFilter['sort'].push($(this).val());
+        attributesFieldsProductsFilter['sort'] = $(this).val();
+        console.log(attributesFieldsProductsFilter);
         setFilter();
     });
 

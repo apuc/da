@@ -21,9 +21,9 @@
     <div class="shop__filter-search--select">
         <label for="select">Сортировать по:</label>
         <select id="select" class="sortFilter">
-            <option value="default">по умолчанию</option>
-            <option value="cheap">от дешевых к дорогим</option>
-            <option value="expensive">от дорогих к дешевым</option>
+            <option value="default" <?= (isset($get['sort'])&&$get['sort'] == 'default') ? 'selected' : ''?>>по умолчанию</option>
+            <option value="cheap" <?= (isset($get['sort'])&&$get['sort'] == 'cheap') ? 'selected' : ''?>>от дешевых к дорогим</option>
+            <option value="expensive" <?= (isset($get['sort'])&&$get['sort'] == 'expensive') ? 'selected' : ''?>>от дорогих к дешевым</option>
         </select>
     </div>
     <div class="shop__filter-search--check">

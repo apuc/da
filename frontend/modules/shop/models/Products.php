@@ -240,6 +240,7 @@ class Products extends \common\models\db\Products
             $minPrice = ArrayHelper::remove($params, 'minPrice');
             $maxPrice = ArrayHelper::remove($params, 'maxPrice');
             $saleFilter = ArrayHelper::remove($params, 'saleFilter');
+            $sort = ArrayHelper::remove($params, 'sort');
         } else {
             $minPrice = $params->minPrice;
             unset($params->minPrice);
@@ -247,6 +248,8 @@ class Products extends \common\models\db\Products
             unset($params->maxPrice);
             $saleFilter = $params->saleFilter;
             unset($params->saleFilter);
+            $sort = $params->sort;
+            unset($params->sort);
         }
 
         //Debug::dd( $params );
@@ -260,18 +263,6 @@ class Products extends \common\models\db\Products
                 'pageSize' => $limit,
                 'pageSizeParam' => false,
             ],
-            /*'sort' => [
-                'attributes' => [
-                    'name',
-                    'lessons_dt' => [
-                        'asc' => ['`lessons`.`lessons_dt` is null' => SORT_ASC],
-                    ],
-                    'teacher' => [
-                        'asc' => ['`teacher`.`name`' => SORT_ASC],
-                        'desc' => ['`teacher`.`name`' => SORT_DESC],
-                    ],
-                ],
-            ],*/
         ]);
 
         $query->joinWith(['productFieldsValues', 'images']);
@@ -296,7 +287,7 @@ class Products extends \common\models\db\Products
         }
 
         //Debug::prn($saleFilter);
-        if(!empty($saleFilter)){
+        if (!empty($saleFilter)) {
             $query->andWhere(['not', ['new_price' => null]]);
         }
 
@@ -317,11 +308,27 @@ class Products extends \common\models\db\Products
             }
         }
 
+        if (!empty($sort)) {
+            switch ($sort){
+                case 'cheap':
+                    $query->orderBy('price DESC');
+                    break;//От дешовых к дорогим
+                case 'expensive':
 
+                    $query->orderBy('price');
+
+                    break;//От дорогих к дешовым
+                default:
+                    $query->orderBy('dt_update DESC');
+            }
+        }else{
+            $query->orderBy('dt_update DESC');
+        }
 
 //Debug::dd($query->createCommand()->rawSql);
-        $query->orderBy('dt_update DESC');
+
         $query->groupBy('`products`.`id`');
+        
         //$query->with('images');
         return $dataProvider;
     }
