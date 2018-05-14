@@ -42,6 +42,8 @@ use yii\helpers\ArrayHelper;
  */
 class Company extends \yii\db\ActiveRecord
 {
+
+
     /**
      * @inheritdoc
      */

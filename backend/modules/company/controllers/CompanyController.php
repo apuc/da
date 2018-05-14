@@ -277,15 +277,19 @@ class CompanyController extends Controller
      */
     public function actionDelete($id)
     {
-        CategoryCompanyRelations::deleteAll(['company_id' => $id]);
-        $phones = Phones::find()->select('id')->where(['company_id' => $id])->column();
-        if (!empty($phones)) {
-            foreach ($phones as $phone) {
-                MessengerPhone::deleteAll(['phone_id' => $phone]);
-            }
-            Phones::deleteAll(['company_id' => $id]);
-        }
-        $this->findModel($id)->delete();
+        $company = Company::findById($id);
+        if($company)
+            $company->status = Company::COMPANY_DELETED;
+        $company->save();
+//        CategoryCompanyRelations::deleteAll(['company_id' => $id]);
+//        $phones = Phones::find()->select('id')->where(['company_id' => $id])->column();
+//        if (!empty($phones)) {
+//            foreach ($phones as $phone) {
+//                MessengerPhone::deleteAll(['phone_id' => $phone]);
+//            }
+//            Phones::deleteAll(['company_id' => $id]);
+//        }
+//        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }

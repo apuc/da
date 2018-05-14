@@ -31,7 +31,6 @@ class DefaultController extends Controller
         $item->setAttribute('xmlns:turbo', 'http://turbo.yandex.ru');
 
         $channel = new Item('channel');
-
         foreach ((array)$model as $new) {
             //Создаем item
             $adItem = new Item('item');
@@ -48,6 +47,7 @@ class DefaultController extends Controller
             $adItem->addChildItem($content);
 
             $channel->addChildItem($adItem);
+
         }
 
         $item->addChildItem($channel);

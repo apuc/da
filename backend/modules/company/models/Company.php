@@ -16,6 +16,19 @@ use common\models\db\ServicesCompanyRelations;
 
 class Company extends \common\models\db\Company
 {
+    const COMPANY_PUBLISHED = 0;
+    const COMPANY_NEW = 1;
+    const COMPANY_MODERATED = 2;
+    const COMPANY_DELETED = 3;
+
+    public static function getStatusName($id){
+        switch($id){
+            case self::COMPANY_PUBLISHED : return "Опубликована";
+            case self::COMPANY_NEW : return "Новая";
+            case self::COMPANY_MODERATED : return "На модерации";
+            case self::COMPANY_DELETED : return "Удалена";
+        }
+    }
     public function behaviors()
     {
         return [
