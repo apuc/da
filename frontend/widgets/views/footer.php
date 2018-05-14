@@ -4,25 +4,38 @@ use yii\widgets\MaskedInput;
 <footer class="footer">
     <div class="container">
         <div class="footer__logo">
-            <img src="/theme/portal-donbassa/img/logo.png" alt="Logo">
+            <img src="img/logo.png" alt="Logo">
         </div>
+
+
         <div class="footer__main">
+
             <ul class="footer__nav">
-                <li><a href="/all-new">НОВОСТИ</a></li>
-                <li><a href="/all-poster">АФИША</a></li>
-                <li><a href="/all-company">КОМПАНИИ</a></li>
-                <li><a href="/consulting">КОНСУЛЬТАЦИИ</a></li>
-                <li><a href="/obyavleniya">ОБЪЯВЛЕНИЯ</a></li>
+                <li><a href="#">НОВОСТИ</a></li>
+                <li><a href="#">АФИША</a></li>
+                <li><a href="#">ДОСУГ</a></li>
+                <li><a href="#">ПРЕДПРИЯТИЯ</a></li>
+                <li><a href="#">КОНСУЛЬТАЦИИ</a></li>
+                <li><a href="#">ОБЪЯВЛЕНИЯ</a></li>
             </ul>
 
             <a href="#" class="footer-error-button" id="send-error-message">
                 сообщить об ошибке
             </a>
-            <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicinor incididunt ut labore et dolore magn aliqua. Ut enim
-                ad minim veniam, quis nostrud exercitation
-                ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor n reprehenderit in
-                voluptate velit esse cillum dolor</p>-->
 
+            <div class="footer__links-rules">
+                <div class="footer__links-wrap">
+                    <a href="http://da-info.pro/page/politika-konfidencialnosti">Политика конфиденциальности</a>
+                    <a href="http://da-info.pro/page/pravila-polzovania-sajtom-da-infopro">Правила пользования
+                        сайтом</a>
+                </div>
+                <div class="footer__links-wrap">
+                    <a href="http://da-info.pro/page/soglasie-na-obrabotku-personalnyh-dannyh">Согласие на обработку
+                        персональных данных</a>
+                    <a href="http://da-info.pro/page/kontakty">Контакты</a>
+                </div>
+
+            </div>
         </div>
         <div class="footer__social">
             <?= \frontend\widgets\FooterSocial::widget() ?>

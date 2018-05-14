@@ -275,7 +275,7 @@ if (isset($services['count_photo'])) {
             $preview[] = "<img src='$i->photo' class='file-preview-image'>";
             $previewConfig[] = [
                 'caption' => '',
-                'url' => '/company/company/delete-img?id=' . $i->id,
+                'url' => Url::to(['company/delete-img', 'id' => $i->id]),
             ];
         }
     }

@@ -21,7 +21,8 @@ class Company extends \common\models\db\Company
     const COMPANY_MODERATED = 2;
     const COMPANY_DELETED = 3;
 
-    public static function getStatusName($id){
+    public static function getStatusName($id)
+    {
         switch($id){
             case self::COMPANY_PUBLISHED : return "Опубликована";
             case self::COMPANY_NEW : return "Новая";
