@@ -617,7 +617,7 @@ class CompanyController extends Controller
     public function actionDeleteImg()
     {
         CompanyPhoto::deleteAll(['id' => $_GET['id']]);
-        echo 1;
+        return 1;
     }
 
     public function actionAddPhone()
