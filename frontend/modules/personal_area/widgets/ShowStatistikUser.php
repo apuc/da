@@ -24,7 +24,7 @@ class ShowStatistikUser extends Widget
         $likeCount = Likes::find()->where(['user_id' => \Yii::$app->user->id])->count();
         $commentsCount = Comments::find()->where(['user_id' => \Yii::$app->user->id])->count();
         $feedbackCount = CompanyFeedback::find()->where(['user_id' => \Yii::$app->user->id])->count();
-        $companyCount = Company::find()->where(['user_id' => \Yii::$app->user->id])->count();
+        $companyCount = Company::find()->where(['user_id' => \Yii::$app->user->id])->andWhere(['!=', 'status', 3])->count();
         $posterCount = Poster::find()->where(['user_id' => \Yii::$app->user->id])->count();
         $promotionsCount = Stock::find()->where(['user_id' => \Yii::$app->user->id])->andWhere(['in', 'status', [0,1]])->count();
         $desireCount = LikeProducts::find()->where(['user_id' => \Yii::$app->user->id])->count();
