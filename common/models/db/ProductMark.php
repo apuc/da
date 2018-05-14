@@ -58,4 +58,25 @@ class ProductMark extends \yii\db\ActiveRecord
             'mark' => 'Mark',
         ];
     }
+
+    public static function hasMark($productId, $mark)
+    {
+        return (bool)self::findOne(['product_id' => $productId, 'mark' => $mark]);
+    }
+
+    public static function setMark($productId, $mark)
+    {
+        if (!self::hasMark($productId, $mark)) {
+            $model = new self();
+            $model->product_id = $productId;
+            $model->mark = $mark;
+            return $model->save();
+        }
+        return true;
+    }
+
+    public static function delMark($productId, $mark)
+    {
+        return self::deleteAll(['product_id' => $productId, 'mark' => $mark]);
+    }
 }

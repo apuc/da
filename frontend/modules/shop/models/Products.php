@@ -95,22 +95,26 @@ class Products extends \common\models\db\Products
                     if ($type == 'text') {
                         $productFieldVal->product_fields_name = $name;
                         $productFieldVal->value = $value;
+                        $productFieldVal->product_field_id = ProductFields::getIdByName($name);
                     }
                     if ($type == 'select') {
                         $productFieldVal->product_fields_name = $name;
                         $productFieldVal->value = ProductFieldsDefaultValue::find()->where(['id' => $value])->one()->value;
                         $productFieldVal->value_id = $value;
+                        $productFieldVal->product_field_id = ProductFields::getIdByName($name);
                     }
                     if ($type == 'checkbox') {
                         //Debug::dd(123);
                         $productFieldVal->product_fields_name = $name;
                         $productFieldVal->value = $value;
+                        $productFieldVal->product_field_id = ProductFields::getIdByName($name);
                     }
                     if ($type == 'checkboxList') {
 
                         //Debug::prn(321);
                         $productFieldVal->product_fields_name = $name;
                         $productFieldVal->value = json_encode($value);
+                        $productFieldVal->product_field_id = ProductFields::getIdByName($name);
                         //$productFieldVal->value_id = json_encode($value);
                     }
 

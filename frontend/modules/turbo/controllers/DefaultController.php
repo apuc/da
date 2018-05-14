@@ -23,8 +23,8 @@ class DefaultController extends Controller
 
     public function actionNews()
     {
-        $model = News::find()->orderBy('id DESC')->all();
-
+        $model = News::find()->orderBy('id DESC')->limit(1000)->all();
+        //echo count($model);exit();
         $item = new Item('rss');
         $item->setAttribute('xmlns:yandex', 'http://news.yandex.ru');
         $item->setAttribute('xmlns:media', 'http://search.yahoo.com/mrss/');

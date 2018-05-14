@@ -12,6 +12,7 @@ use Yii;
  * @property string $product_fields_name
  * @property string $value
  * @property int $value_id
+ * @property int $product_field_id
  *
  * @property ProductFieldsDefaultValue $value0
  * @property Products $product
@@ -33,10 +34,22 @@ class ProductFieldsValue extends \yii\db\ActiveRecord
     {
         return [
             [['product_id'], 'required'],
-            [['product_id', 'value_id'], 'integer'],
+            [['product_id', 'value_id', 'product_field_id'], 'integer'],
             [['product_fields_name', 'value'], 'string', 'max' => 255],
-            [['value_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProductFieldsDefaultValue::className(), 'targetAttribute' => ['value_id' => 'id']],
-            [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Products::className(), 'targetAttribute' => ['product_id' => 'id']],
+            [
+                ['value_id'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => ProductFieldsDefaultValue::className(),
+                'targetAttribute' => ['value_id' => 'id'],
+            ],
+            [
+                ['product_id'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Products::className(),
+                'targetAttribute' => ['product_id' => 'id'],
+            ],
         ];
     }
 
@@ -51,6 +64,7 @@ class ProductFieldsValue extends \yii\db\ActiveRecord
             'product_fields_name' => 'Product Fields Name',
             'value' => 'Value',
             'value_id' => 'Value ID',
+            'product_field_id' => 'Value ID',
         ];
     }
 
@@ -61,6 +75,7 @@ class ProductFieldsValue extends \yii\db\ActiveRecord
     {
         return $this->hasOne(ProductFieldsDefaultValue::className(), ['id' => 'value_id']);
     }
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -75,6 +90,11 @@ class ProductFieldsValue extends \yii\db\ActiveRecord
     public function getField()
     {
         return $this->hasOne(ProductFields::className(), ['name' => 'product_fields_name']);
+    }
+
+    public function getFieldById()
+    {
+        return $this->hasOne(ProductFields::className(), ['id' => 'product_field_id']);
     }
 
     /**
