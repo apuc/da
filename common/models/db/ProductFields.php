@@ -14,6 +14,7 @@ use Yii;
  * @property string $template
  * @property string $name
  * @property int $interval
+ * @property int $for_similar
  * @property string $hint
  *
  * @property ProductFieldsType $type
@@ -39,8 +40,15 @@ class ProductFields extends \yii\db\ActiveRecord
         return [
             [['type_id', 'label', 'category', 'hint'], 'required'],
             [['type_id', 'interval'], 'integer'],
+            [['for_similar'], 'boolean'],
             [['label', 'template', 'name', 'hint'], 'string', 'max' => 255],
-            [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProductFieldsType::className(), 'targetAttribute' => ['type_id' => 'id']],
+            [
+                ['type_id'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => ProductFieldsType::className(),
+                'targetAttribute' => ['type_id' => 'id'],
+            ],
         ];
     }
 
@@ -58,9 +66,18 @@ class ProductFields extends \yii\db\ActiveRecord
             'interval' => 'Включить интервал для поиска',
             'category' => 'Категория',
             'hint' => 'Подсказка',
+            'for_similar' => 'Поле учавствует в поиске идентичных',
         ];
     }
 
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            $this->for_similar = $this->for_similar ?: null;
+            return true;
+        }
+        return false;
+    }
 
     /**
      * @return \yii\db\ActiveQuery
@@ -86,9 +103,10 @@ class ProductFields extends \yii\db\ActiveRecord
         return $this->hasMany(CategoryFields::className(), ['fields_id' => 'id']);
     }
 
-    public function afterSave($insert, $changedAttributes){
+    public function afterSave($insert, $changedAttributes)
+    {
         parent::afterSave($insert, $changedAttributes);
-        if(!$this->isNewRecord){
+        if (!$this->isNewRecord) {
             CategoryFields::deleteAll(['fields_id' => $this->id]);
         }
 
@@ -103,5 +121,14 @@ class ProductFields extends \yii\db\ActiveRecord
             $fieldCategory->fields_id = $id;
             $fieldCategory->save();
         }
+    }
+
+    public static function getIdByName($name)
+    {
+        $model = self::findOne(['name' => $name]);
+        if($model){
+            return $model->id;
+        }
+        return false;
     }
 }

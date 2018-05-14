@@ -167,6 +167,24 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             ')
         ->label('Доставка'); ?>
 </div>
+<br>
+<h2 class="soglasie">Акция с товаром</h2>
+<label class="edit-product-cabinet">
+    <?= Html::checkbox('Products[stock]', false, ['class' => 'edit-payment', 'id' => 'add-stock'] ); ?>
+    Акционный товар
+</label>
+<hr class="lineAddAds"/>
+
+<div class="edit-stock-form-field" style="display: none">
+    <?= $form->field($model, 'stock_descr')->textarea(
+        [
+            'class' => 'area-name jsHint',
+            'maxlength' => 4096,
+        ]
+    )->hint('Добавьте описание акции.<br>')
+        ->label('Описание акции');
+    ?>
+</div>
 
 <?= Html::submitButton('Oпубликовать',
     ['class' => 'cabinet__add-company-form--submit place-ad_publish publish place-ad__publish', 'id' => 'saveInfo']) ?>

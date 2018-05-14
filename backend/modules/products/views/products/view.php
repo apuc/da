@@ -16,6 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Опубликовать', ['published', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?php if($model->hitValue): ?>
+        <?= Html::a('Это хит продаж', ['hit', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
+        <?php else: ?>
+        <?= Html::a('Это не хит продаж', ['hit', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
+        <?php endif; ?>
         <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [

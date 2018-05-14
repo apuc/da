@@ -5,6 +5,7 @@ namespace backend\modules\products\controllers;
 use backend\modules\products\models\Products;
 use backend\modules\products\models\ProductsSearch;
 use common\classes\Debug;
+use common\models\db\ProductMark;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -64,5 +65,20 @@ class ProductsController extends Controller
         Products::updateAll(['status' => 3], ['id' => $id]);
 
         return $this->redirect(['index']);
+    }
+
+    public function actionHit($id)
+    {
+        $model = ProductMark::findOne(['product_id' => $id, 'mark' => ProductMark::MARK_HIT]);
+        if($model === null){
+            $model = new ProductMark();
+            $model->mark = ProductMark::MARK_HIT;
+            $model->product_id = $id;
+            $model->save();
+        }
+        else {
+            $model->delete();
+        }
+        return $this->redirect(['view', 'id' => $id]);
     }
 }
