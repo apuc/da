@@ -31,6 +31,8 @@ $model->category = \yii\helpers\ArrayHelper::getColumn($model['fieldsCategory'],
 
     <?= $form->field($model, 'interval')->checkbox() ?>
 
+    <?= $form->field($model, 'for_similar')->checkbox() ?>
+
     <?= $form->field($model, 'hint')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'category')->widget(\kartik\select2\Select2::className(),

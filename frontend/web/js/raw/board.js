@@ -491,5 +491,14 @@ $(document).ready(function () {
         }
     });
 
+    $(document).on('click', '#add-stock', function () {
+        if ($(this).prop('checked')) {
+            $('.edit-stock-form-field').css('display', 'block');
+        } else {
+            $('#products-stock_descr').val('');
+            $('.edit-stock-form-field').css('display', 'none');
+        }
+    });
+
 
 });
