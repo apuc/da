@@ -176,7 +176,7 @@ class CompanyController extends Controller
      * @throws \yii\base\InvalidParamException
      * @throws \yii\db\Exception
      */
-    public function actionView($slug, $page = 'about')
+    public function actionView($slug, $place = 'about')
     {
         $model = Company::find()
             ->with('allPhones')
@@ -213,8 +213,8 @@ class CompanyController extends Controller
             'services' => $services,
             'categoryCompany' => $categoryCompany,
             'slug' => $slug,
-            'page' => $page,
-            'options' => $model->getPage($page),
+            'page' => $place,
+            'options' => $model->getPage($place),
             'rating' => $rating,
         ]);
     }

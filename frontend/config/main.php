@@ -209,7 +209,7 @@ return \yii\helpers\ArrayHelper::merge([
                     'route' => 'company/default/success-tariff',
                 ],
                 'company/category/<slug>' => 'company/company/view-category',
-                'company/<slug>/<page>' => 'company/company/view',
+                'company/<slug>/<place>' => 'company/company/view',
                 'company/<slug>' => 'company/company/view',
 
 

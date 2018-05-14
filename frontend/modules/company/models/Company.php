@@ -115,11 +115,13 @@ class Company extends \common\models\db\Company
                 ];
                 break;
             case 'products':
-                $products = Products::find()
+                /*$products = Products::find()
                     ->where(['company_id' => $this->id, 'status' => 1])
                     ->with('images')
                     ->orderBy('dt_update DESC')
-                    ->all();
+                    ->all();*/
+                $modelProducts = new Products();
+                $products = $modelProducts->listProductCompany(12, $this->id);
                 $options = [
                     'products' => $products,
                 ];

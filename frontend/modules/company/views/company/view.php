@@ -73,7 +73,7 @@ $this->params['breadcrumbs'][] = $model->name;
                     <div class='rating-stars'>
                         <input id="input-2-xs" data-step="0.1" value="<?= $rating; ?>">
                         <a href="#">
-                            <span> <?= $count; ?> </span> голоса(ов))
+                            <span> <?= $count; ?> </span> голоса(ов)
                         </a>
                     </div>
                 </h1>
