@@ -1,38 +1,90 @@
 <?php
+
 use yii\widgets\MaskedInput;
+
 ?>
 <footer class="footer">
+
     <div class="container">
+
         <div class="footer__logo">
-            <img src="/theme/portal-donbassa/img/logo.png" alt="Logo">
+            <img src="img/logo_watermark.png" alt="Logo">
         </div>
+
+
         <div class="footer__main">
+
             <ul class="footer__nav">
-                <li><a href="/all-new">НОВОСТИ</a></li>
-                <li><a href="/all-poster">АФИША</a></li>
-                <li><a href="/all-company">КОМПАНИИ</a></li>
-                <li><a href="/consulting">КОНСУЛЬТАЦИИ</a></li>
-                <li><a href="/obyavleniya">ОБЪЯВЛЕНИЯ</a></li>
+                <li><a href="#">НОВОСТИ</a></li>
+                <li><a href="#">АФИША</a></li>
+                <li><a href="#">ДОСУГ</a></li>
+                <li><a href="#">ПРЕДПРИЯТИЯ</a></li>
+                <li><a href="#">КОНСУЛЬТАЦИИ</a></li>
+                <li><a href="#">ОБЪЯВЛЕНИЯ</a></li>
             </ul>
 
             <a href="#" class="footer-error-button" id="send-error-message">
                 сообщить об ошибке
             </a>
-            <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicinor incididunt ut labore et dolore magn aliqua. Ut enim
-                ad minim veniam, quis nostrud exercitation
-                ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor n reprehenderit in
-                voluptate velit esse cillum dolor</p>-->
 
+            <div class="footer__links-rules">
+                <div class="footer__links-wrap">
+                    <a href="http://da-info.pro/page/politika-konfidencialnosti">Политика конфиденциальности</a>
+                    <a href="http://da-info.pro/page/pravila-polzovania-sajtom-da-infopro">Правила пользования
+                        сайтом</a>
+                </div>
+                <div class="footer__links-wrap">
+                    <a href="http://da-info.pro/page/soglasie-na-obrabotku-personalnyh-dannyh">Согласие на обработку
+                        персональных данных</a>
+                    <a href="http://da-info.pro/page/kontakty">Контакты</a>
+                </div>
+
+            </div>
         </div>
+
+
         <div class="footer__social">
-            <?= \frontend\widgets\FooterSocial::widget() ?>
+
+            <div class="footer__links">
+                <a href="#"><i class="fa fa-odnoklassniki" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
+                <a href="#"><span class="lj"></span></a>
+            </div>
+
             <a href="#" class="footer__send">написать нам</a>
 
-            <a href="mailto:da.info.pro@gmail.com" class="footer__send-mail">Наша почта: da.info.pro@gmail.com</a>
         </div>
+
     </div>
 
-    <?/*= \frontend\widgets\ShowAddToSitePanel::widget(); */?>
+    <!--<div class="fix-button">-->
+
+    <!--<span class="fix-button__trigger">-->
+    <!--<img src="img/home-content/fix-button.png" alt="">-->
+    <!--</span>-->
+
+    <!--<ul class="fix-button__list">-->
+    <!--<li><a href="#" class="fix-button__list&#45;&#45;company">Предприятие</a></li>-->
+    <!--<li><a href="#" class="fix-button__list&#45;&#45;news">Новость</a></li>-->
+    <!--<li><a href="#" class="fix-button__list&#45;&#45;poster">Афиша</a></li>-->
+    <!--<li><a href="#" class="fix-button__list&#45;&#45;stock">Акция</a></li>-->
+    <!--<li><a href="#" class="fix-button__list&#45;&#45;adds">Объявления</a></li>-->
+    <!--</ul>-->
+
+
+    <!--</div>-->
+
+    <!--<div id="send-error-message" class="fix-button-msg-error">-->
+    <!--<div class="fix-button__notice">-->
+    <!--<img src="img/home-content/mistake-bg.png" alt="">-->
+    <!--</div>-->
+    <!--</div>-->
+
 </footer>
 
 
@@ -43,20 +95,21 @@ use yii\widgets\MaskedInput;
     <div class="separator"></div>
 
     <form action="" class="modal-callback__form">
-        <input type="hidden" name="user_id" value="<?= (empty(Yii::$app->user->id) ? 0 : Yii::$app->user->id)?>" id="">
+        <input type="hidden" name="user_id" value="<?= (empty(Yii::$app->user->id) ? 0 : Yii::$app->user->id) ?>" id="">
         <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken; ?>">
-        <input type="hidden" name="url" value="<?= 'https://da-info.pro'.\yii\helpers\Url::to();  ?>">
+        <input type="hidden" name="url" value="<?= 'https://da-info.pro' . \yii\helpers\Url::to(); ?>">
 
-        <?php if (!Yii::$app->user->id):?>
+        <?php if (!Yii::$app->user->id): ?>
 
             <input class="form-control" id="error-user-name" type="text" name="name" placeholder="Ваше имя">
             <p class="error-modal-name-error"></p>
             <input class="form-control" id="error-user-email" type="email" name="email" placeholder="Ваш email">
             <p class="error-modal-email-error"></p>
 
-        <?php endif;?>
+        <?php endif; ?>
 
-        <textarea class="modal-callback__textarea" id="error-user-message" name="text-error" placeholder="Текст сообщения"></textarea>
+        <textarea class="modal-callback__textarea" id="error-user-message" name="text-error"
+                  placeholder="Текст сообщения"></textarea>
         <p class="error-modal-message-error"></p>
         <input class="show-more" id="send-error-site" type="submit" value="отправить">
 
@@ -76,7 +129,8 @@ use yii\widgets\MaskedInput;
 
         <p>Ваш отзыв</p>
 
-        <textarea class="modal-review__textarea" name="text_feedback" maxlength="1000" placeholder="Текст сообщения"></textarea>
+        <textarea class="modal-review__textarea" name="text_feedback" maxlength="1000"
+                  placeholder="Текст сообщения"></textarea>
 
         <input type="hidden" name="company_name">
         <input type="hidden" name="company_id">
@@ -98,7 +152,8 @@ use yii\widgets\MaskedInput;
 
         <p>Ваш отзыв</p>
 
-        <textarea class="modal-review__textarea" name="text_promotions_feedback" maxlength="1000" placeholder="Текст сообщения"></textarea>
+        <textarea class="modal-review__textarea" name="text_promotions_feedback" maxlength="1000"
+                  placeholder="Текст сообщения"></textarea>
 
         <input type="hidden" name="promotion_name">
         <input type="hidden" name="promotion_id">
@@ -139,24 +194,24 @@ use yii\widgets\MaskedInput;
     <form action="" class="modal-review__form">
 
         <p>Ваш комментарий</p>
-        <?php if (!Yii::$app->user->id):?>
+        <?php if (!Yii::$app->user->id): ?>
 
             <input class="form-control" id="faq-user-name" type="text" name="name" placeholder="Ваше имя">
             <p class="faq-modal-name-error"></p>
             <?php echo MaskedInput::widget([
-            'name' => 'email',
-            'class' => 'form-control',
-            'id' => 'faq-user-email',
+                'name' => 'email',
+                'class' => 'form-control',
+                'id' => 'faq-user-email',
 
-            'clientOptions' => [
-                'alias' =>  'email',
-                'pattern' => '/^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i',
-            ],
-            ]);?>
+                'clientOptions' => [
+                    'alias' => 'email',
+                    'pattern' => '/^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i',
+                ],
+            ]); ?>
 
             <p class="faq-modal-email-error"></p>
 
-        <?php endif;?>
+        <?php endif; ?>
 
         <textarea class="modal-review__textarea" id="faq-user-message" placeholder="Текст сообщения"></textarea>
         <p class="faq-modal-message-error"></p>

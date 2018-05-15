@@ -2,7 +2,6 @@
 
 namespace common\models\db;
 
-use common\classes\Tariff;
 use common\models\User;
 use Yii;
 use yii\helpers\ArrayHelper;
