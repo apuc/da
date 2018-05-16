@@ -190,6 +190,25 @@ class MainMenuAdmin extends Widget
 
                     ],
                     [
+                        'label' => 'Shop',
+                        'items' => [
+                            [
+                                'label' => 'Вам понравится',
+                                'url' => Url::to(['/company/shop']),
+                                'active' => Yii::$app->controller->module->id == 'shop' && Yii::$app->controller->action->id == 'index',
+                            ],
+                        ],
+
+                        'visible' => UserFunction::hasPermission(['Компании']),
+                        'options' => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="#">
+                                    <i class="fa fa-shopping-cart"></i> 
+                                    <span>{label}</span>
+                            </a>',
+                    ],
+                    [
                         'label' => 'Компании',
                         'items' => [
                             [
