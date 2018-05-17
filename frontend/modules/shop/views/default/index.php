@@ -158,9 +158,9 @@ $this->registerJsFile('/theme/portal-donbassa/js/products_search.js', ['depends'
 
     <ul class="shop__main--categories">
         <li data-id="0" class="active"><a href="#">Все</a></li>
-        <?php foreach ($like_categories as $cat) { ?>
+        <?php foreach ($like_categories as $cat) : ?>
             <li data-id="<?= $cat->id ?>"><a href="#"><?= $cat->name ?></a></li>
-        <?php } ?>
+        <?php endforeach; ?>
     </ul>
 
 
