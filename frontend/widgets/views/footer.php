@@ -25,7 +25,7 @@ use yii\widgets\MaskedInput;
     <div class="container">
 
         <div class="footer__logo">
-            <img src="img/logo.png" alt="Logo">
+            <img src="/img/logo.png" alt="Logo">
         </div>
 
 
