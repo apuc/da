@@ -13,6 +13,9 @@ class ShopController extends \yii\web\Controller
     {
         $request = Yii::$app->request;
         $youLike = KeyValue::getValue('you_like');
+        if(!$youLike){
+            KeyValue::setValue('you_like', null);
+        }
         if ($request->isPost) {
             $json = json_encode($request->post()['you_like']);
             KeyValue::setValue('you_like', $json);

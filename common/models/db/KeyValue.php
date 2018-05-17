@@ -52,10 +52,8 @@ class KeyValue extends \yii\db\ActiveRecord
     public static function getValue($key)
     {
         $result = self::findOne(['key' => $key]);
-        if(!$result) {
-            $result = new KeyValue();
-            $result->key = $key;
-        }
+        if(!$result)
+            return false;
         return $result->value;
     }
     public static function setValue($key, $value)
