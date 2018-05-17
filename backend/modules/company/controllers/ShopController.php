@@ -12,15 +12,15 @@ class ShopController extends \yii\web\Controller
     public function actionIndex()
     {
         $request = Yii::$app->request;
-        $youLike = KeyValue::findOne(['key' => 'you_like']);
+        $youLike = KeyValue::getValue('you_like');
         if ($request->isPost) {
             $json = json_encode($request->post()['you_like']);
-            $youLike = KeyValue::setValue('you_like', $json);
-            $youLike->save();
+            KeyValue::setValue('you_like', $json);
+            $youLike = $json;
         }
         return $this->render('index', [
             'catList' => ArrayHelper::map(CategoryShop::find()->all(), 'id', 'name'),
-            'cats' => json_decode($youLike->value),
+            'cats' => json_decode($youLike),
         ]);
     }
 }
