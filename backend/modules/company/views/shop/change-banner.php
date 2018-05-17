@@ -20,9 +20,7 @@ $this->title = 'Баннер';
 <?= Html::beginForm('', 'post') ?>
 <div class="imgUpload">
     <div class="media__upload_img">
-        <?php if (!$model->isNewRecord): ?>
-                <img src="<?= $photo ?>" alt="" width="100px">
-        <?php endif; ?>
+        <img src="<?= $photo ?>" alt="">
     </div>
     <?php
     echo InputFile::widget([
