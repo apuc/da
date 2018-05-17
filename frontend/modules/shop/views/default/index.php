@@ -1,6 +1,8 @@
 <?php
 /**
  * @var $categoryTree \frontend\modules\shop\models\CategoryShop
+ * @var $like_categories
+ * @var $products
  */
 $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/theme/portal-donbassa/js/slick.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
@@ -155,37 +157,38 @@ $this->registerJsFile('/theme/portal-donbassa/js/products_search.js', ['depends'
     <h3 class="shop__main--title">Вам понравится</h3>
 
     <ul class="shop__main--categories">
-        <li data-id = "0" class="active"><a href="#">Все</a></li>
-        <?php foreach($like_categories as $cat) {?>
-        <li data-id="<?=$cat->id?>"><a href="#"><?=$cat->name?></a></li>
-        <?php }?>
+        <li data-id="0" class="active"><a href="#">Все</a></li>
+        <?php foreach ($like_categories as $cat) { ?>
+            <li data-id="<?= $cat->id ?>"><a href="#"><?= $cat->name ?></a></li>
+        <?php } ?>
     </ul>
 
 
     <div id = "you_like_items" class="shop__top-sales-elements single-shop-carousel">
-        <?php foreach($products as $product){?>
-        <a href="#" class="shop__top-sales-elements--item">
+        <?php foreach ($products as $product): ?>
+            <a href="#" class="shop__top-sales-elements--item">
 
-            <h3 class="category-name"><?=$product->category->name?></h3>
-            <p class="category-element"><?=$product->title?></p>
+                <h3 class="category-name"><?= $product->category->name ?></h3>
+                <p class="category-element"><?= $product->title ?></p>
 
-            <div class="category-photo">
-                <img src="<?=$product->cover?>" alt="">
-            </div>
-            <div class="category-price">
-            <?php if($product->new_price != null) {?>
-                <span class="category-price__old"><?=$product->price?><i class="fa fa-rub" aria-hidden="true"></i></span>
-                <span class="category-price__new"><?=$product->new_price?><i class="fa fa-rub" aria-hidden="true"></i></span>
-            <?php
-            } else {
-            ?>
-                <span class="category-price__new"><?=$product->price?><i class="fa fa-rub" aria-hidden="true"></i></span>
-            <?php } ?>
-            </div>
-            <button class="category-buy">Купить</button>
+                <div class="category-photo">
+                    <img src="<?= $product->cover ?>" alt="">
+                </div>
+                <div class="category-price">
+                    <?php if ($product->new_price != null): ?>
+                        <span class="category-price__old"><?= $product->price ?><i class="fa fa-rub"
+                                                                                   aria-hidden="true"></i></span>
+                        <span class="category-price__new"><?= $product->new_price ?><i class="fa fa-rub"
+                                                                                       aria-hidden="true"></i></span>
+                    <?php else: ?>
+                        <span class="category-price__new"><?= $product->price ?><i class="fa fa-rub"
+                                                                                   aria-hidden="true"></i></span>
+                    <?php endif ?>
+                </div>
+                <button class="category-buy">Купить</button>
 
-        </a>
-        <?php } ?>
+            </a>
+        <?php endforeach ?>
     </div>
     <ul class="slick-navigation">
         <li class="prev"><i class="fa fa-2x fa-chevron-left" aria-hidden="true"></i></li>
