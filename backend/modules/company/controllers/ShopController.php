@@ -9,7 +9,7 @@ use yii\helpers\ArrayHelper;
 
 class ShopController extends \yii\web\Controller
 {
-    public function actionIndex()
+    public function actionCategories()
     {
         $request = Yii::$app->request;
         $youLike = KeyValue::getValue('you_like');
@@ -25,5 +25,22 @@ class ShopController extends \yii\web\Controller
             'catList' => ArrayHelper::map(CategoryShop::find()->all(), 'id', 'name'),
             'cats' => json_decode($youLike),
         ]);
+    }
+    public function actionChangeBanner()
+    {
+        $request = Yii::$app->request;
+        $path = KeyValue::getValue('banner_path');
+        if(!$path){
+            $path = '';
+            KeyValue::setValue('banner_path', $path);
+        }
+        if ($request->isPost) {
+            $path = $request->post()['photo'];
+            KeyValue::setValue('banner_path', $path);
+        }
+
+        return $this->render('change-banner', [
+            'photo' => $path,
+            ]);
     }
 }
