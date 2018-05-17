@@ -15,11 +15,7 @@ class ShopController extends \yii\web\Controller
         $youLike = KeyValue::findOne(['key' => 'you_like']);
         if ($request->isPost) {
             $json = json_encode($request->post()['you_like']);
-            if(!$youLike){
-                $youLike = new KeyValue();
-                $youLike->key = 'you_like';
-            }
-            $youLike->value = $json;
+            $youLike = KeyValue::setValue('you_like', $json);
             $youLike->save();
         }
         return $this->render('index', [
@@ -27,5 +23,4 @@ class ShopController extends \yii\web\Controller
             'cats' => json_decode($youLike->value),
         ]);
     }
-
 }

@@ -3,6 +3,8 @@
 namespace frontend\modules\shop\controllers;
 
 use common\classes\Debug;
+use common\models\db\KeyValue;
+use common\models\db\Products;
 use frontend\modules\shop\models\CategoryShop;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -28,10 +30,20 @@ class DefaultController extends Controller
         /*Debug::dd($categoryModel->outTree(0, 0));
         Debug::dd($categoryModel->getAllCategory($category, 0));
         $categoryTree = $categoryModel->getTreeCategory($categoryTreeArr, 0, []);*/
+
+
+        $jsonCatsKeys = KeyValue::findOne(['key' => 'you_like']);
+        $catsKeys = json_decode($jsonCatsKeys->value);
+        $categories = CategoryShop::findAll(['id' => $catsKeys]);
+        $products = Products::find()->where(['category_id' => $catsKeys])->limit(12)->all();
         return $this->render('index',
             [
+                'products' => $products,
                 'categoryTree' => $categoryTreeArr,
+                'like_categories' => $categories,
             ]
         );
     }
+
+
 }

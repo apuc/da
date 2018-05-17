@@ -23,7 +23,7 @@ $this->title = 'Выберите категории';
     'name' => 'you_like',
     'data' => $catList,
     'value' => $cats,
-    'options' => ['multiple' => true, 'prompt' => 'Выбрать', 'required'=>true],
+    'options' => ['multiple' => true, 'prompt' => 'Выбрать', 'required'=>false],
 ]);
 ?>
 <br>
