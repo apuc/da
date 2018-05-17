@@ -1,9 +1,12 @@
 <?php
 /**
  * @var $categoryTree \frontend\modules\shop\models\CategoryShop
+ * @var $like_categories
+ * @var $products
  */
 $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/theme/portal-donbassa/js/slick.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/theme/portal-donbassa/js/products_search.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 
 <?= \frontend\modules\shop\widgets\ShowAllShopsCategory::widget(['category' => $categoryTree]); ?>
@@ -154,232 +157,38 @@ $this->registerJsFile('/theme/portal-donbassa/js/slick.min.js', ['depends' => [\
     <h3 class="shop__main--title">Вам понравится</h3>
 
     <ul class="shop__main--categories">
-        <li class="active"><a href="#">Все</a></li>
-        <li><a href="#">Молл</a></li>
-        <li><a href="#">Для неё</a></li>
-        <li><a href="#">Для него</a></li>
-        <li><a href="#">Детям</a></li>
-        <li><a href="#">Hi-Tech</a></li>
-        <li><a href="#">Аксессуары</a></li>
-        <li><a href="#">Компьютеры</a></li>
-        <li><a href="#">Авто</a></li>
-        <li><a href="#">Сумки и обувь</a></li>
-        <li><a href="#">Дом и сад</a></li>
+        <li data-id="0" class="active"><a href="#">Все</a></li>
+        <?php foreach ($like_categories as $cat) : ?>
+            <li data-id="<?= $cat->id ?>"><a href="#"><?= $cat->name ?></a></li>
+        <?php endforeach; ?>
     </ul>
 
 
-    <div class="shop__top-sales-elements single-shop-carousel">
-
-        <a href="#" class="shop__top-sales-elements--item">
-
-            <h3 class="category-name">Смартфон</h3>
-            <p class="category-element">iPhone 6s 16Gb</p>
-
-            <div class="category-photo">
-                <img src="img/shop/category-photo-1.png" alt="">
-            </div>
-
-            <div class="category-price">
-                                <span class="category-price__old">19 990 <i class="fa fa-rub"
-                                                                            aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub"
-                                                            aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-        <a href="#" class="shop__top-sales-elements--item">
-
-            <h3 class="category-name">Смартфон</h3>
-            <p class="category-element">iPhone 6s 16Gb</p>
-
-            <div class="category-photo">
-                <img src="img/shop/category-photo-1.png" alt="">
-            </div>
-
-            <div class="category-price">
-                                <span class="category-price__old">19 990 <i class="fa fa-rub"
-                                                                            aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub"
-                                                            aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-        <a href="#" class="shop__top-sales-elements--item">
-
-            <h3 class="category-name">Смартфон</h3>
-            <p class="category-element">iPhone 6s 16Gb</p>
-
-            <div class="category-photo">
-                <img src="img/shop/category-photo-1.png" alt="">
-            </div>
-
-            <div class="category-price">
-                                <span class="category-price__old">19 990 <i class="fa fa-rub"
-                                                                            aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub"
-                                                            aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-        <a href="#" class="shop__top-sales-elements--item">
-
-            <h3 class="category-name">Смартфон</h3>
-            <p class="category-element">iPhone 6s 16Gb</p>
-
-            <div class="category-photo">
-                <img src="img/shop/category-photo-1.png" alt="">
-            </div>
-
-            <div class="category-price">
-                                <span class="category-price__old">19 990 <i class="fa fa-rub"
-                                                                            aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub"
-                                                            aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-        <a href="#" class="shop__top-sales-elements--item">
-
-                    <span class="category-sale">
-                        <span>-45%</span>
-                    </span>
-
-            <h3 class="category-name">Смартфон</h3>
-            <p class="category-element">iPhone 6s 16Gb</p>
-
-            <div class="category-photo">
-
-                <img src="img/shop/category-photo-1.png" alt="">
-            </div>
-
-            <div class="category-price">
-                                <span class="category-price__old">19 990 <i class="fa fa-rub"
-                                                                            aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub"
-                                                            aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-        <a href="#" class="shop__top-sales-elements--item">
-
-            <h3 class="category-name">Смартфон</h3>
-            <p class="category-element">iPhone 6s 16Gb</p>
-
-            <div class="category-photo">
-                <img src="img/shop/category-photo-1.png" alt="">
-            </div>
-
-            <div class="category-price">
-                                <span class="category-price__old">19 990 <i class="fa fa-rub"
-                                                                            aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub"
-                                                            aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-        <a href="#" class="shop__top-sales-elements--item">
-
-            <h3 class="category-name">Смартфон</h3>
-            <p class="category-element">iPhone 6s 16Gb</p>
-
-            <div class="category-photo">
-                <img src="img/shop/category-photo-1.png" alt="">
-            </div>
-
-            <div class="category-price">
-                                <span class="category-price__old">19 990 <i class="fa fa-rub"
-                                                                            aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub"
-                                                            aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-        <a href="#" class="shop__top-sales-elements--item">
-
-            <h3 class="category-name">Смартфон</h3>
-            <p class="category-element">iPhone 6s 16Gb</p>
-
-            <div class="category-photo">
-                <img src="img/shop/category-photo-1.png" alt="">
-            </div>
-
-            <div class="category-price">
-                                <span class="category-price__old">19 990 <i class="fa fa-rub"
-                                                                            aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub"
-                                                            aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-        <a href="#" class="shop__top-sales-elements--item">
-
-            <h3 class="category-name">Смартфон</h3>
-            <p class="category-element">iPhone 6s 16Gb</p>
-
-            <div class="category-photo">
-                <img src="img/shop/category-photo-1.png" alt="">
-            </div>
-
-            <div class="category-price">
-                                <span class="category-price__old">19 990 <i class="fa fa-rub"
-                                                                            aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub"
-                                                            aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
-        <a href="#" class="shop__top-sales-elements--item">
-
-                    <span class="category-sale">
-                        <span>-45%</span>
-                    </span>
-
-            <h3 class="category-name">Смартфон</h3>
-            <p class="category-element">iPhone 6s 16Gb</p>
-
-            <div class="category-photo">
-
-                <img src="img/shop/category-photo-1.png" alt="">
-            </div>
-
-            <div class="category-price">
-                                <span class="category-price__old">19 990 <i class="fa fa-rub"
-                                                                            aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub"
-                                                            aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-
-        </a>
-
+    <div id = "you_like_items" class="shop__top-sales-elements single-shop-carousel">
+        <?php foreach ($products as $product): ?>
+            <a href="#" class="shop__top-sales-elements--item">
+
+                <h3 class="category-name"><?= $product->category->name ?></h3>
+                <p class="category-element"><?= $product->title ?></p>
+
+                <div class="category-photo">
+                    <img src="<?= $product->cover ?>" alt="">
+                </div>
+                <div class="category-price">
+                    <?php if ($product->new_price != null): ?>
+                        <span class="category-price__old"><?= $product->price ?><i class="fa fa-rub"
+                                                                                   aria-hidden="true"></i></span>
+                        <span class="category-price__new"><?= $product->new_price ?><i class="fa fa-rub"
+                                                                                       aria-hidden="true"></i></span>
+                    <?php else: ?>
+                        <span class="category-price__new"><?= $product->price ?><i class="fa fa-rub"
+                                                                                   aria-hidden="true"></i></span>
+                    <?php endif ?>
+                </div>
+                <button class="category-buy">Купить</button>
+
+            </a>
+        <?php endforeach ?>
     </div>
     <ul class="slick-navigation">
         <li class="prev"><i class="fa fa-2x fa-chevron-left" aria-hidden="true"></i></li>

@@ -10,9 +10,11 @@ use common\models\db\CategoryNews;
 use common\models\db\Comments;
 use common\models\db\Contacting;
 use common\models\db\Faq;
+use common\models\db\KeyValue;
 use common\models\db\PossibleAnswers;
 use common\models\db\PostsConsulting;
 use common\models\db\PostsDigest;
+use common\models\db\Products;
 use common\models\db\ProductsReviews;
 use common\models\db\Question;
 use common\models\db\SiteError;
@@ -20,6 +22,7 @@ use common\models\db\News;
 use common\models\db\Subscribe;
 use frontend\models\user\Profile;
 use frontend\modules\company\models\Company;
+use frontend\modules\shop\models\CategoryShop;
 use frontend\modules\shop\widgets\ReviewsProducts;
 use frontend\widgets\Poll;
 use Yii;
@@ -355,4 +358,28 @@ class AjaxController extends Controller
         echo "Спасибо";
 
     }
+    public function actionGetProductsByCategoryId(){
+        $dataId = Yii::$app->request->post('ProdId');
+        if($dataId == 0) {
+            $jsonCatsKeys = KeyValue::findOne(['key' => 'you_like']);
+            $catsKeys = json_decode($jsonCatsKeys->value);
+            $products = Products::find()->where(['category_id' => $catsKeys])->limit(12)->all();
+        }
+        else
+            $products = Products::find()->where(['category_id' => $dataId])->limit(12)->all();
+        $response = ArrayHelper::toArray($products, [
+            'common\models\db\Products' => [
+                'id',
+                'title',
+                'price',
+                'new_price',
+                'cover',
+                'category' => function($products){
+                    return $products->category->name;
+                }
+            ],
+        ]);
+        return json_encode($response);
+    }
+
 }

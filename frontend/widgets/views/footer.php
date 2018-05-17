@@ -3,12 +3,29 @@
 use yii\widgets\MaskedInput;
 
 ?>
+<style>
+    .footer__craft-link:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: -2px;
+        height: 20px;
+        width: 20px;
+        background: url(../img/craft.png) no-repeat 50%;
+        -webkit-background-size: contain;
+        background-size: contain
+    }
+
+    .footer__craft-link:hover:before {
+        background-image: url(../img/craft-red.png)
+    }
+</style>
 <footer class="footer">
 
     <div class="container">
 
         <div class="footer__logo">
-            <img src="img/logo_watermark.png" alt="Logo">
+            <img src="/img/logo.png" alt="Logo">
         </div>
 
 
@@ -36,7 +53,11 @@ use yii\widgets\MaskedInput;
                 <div class="footer__links-wrap">
                     <a href="http://da-info.pro/page/soglasie-na-obrabotku-personalnyh-dannyh">Согласие на обработку
                         персональных данных</a>
-                    <a href="http://da-info.pro/page/kontakty">Контакты</a>
+                    <div class="footer__wrap-link">
+                        <a href="http://da-info.pro/page/kontakty">Контакты</a>
+                        <a class="footer__craft-link" style="before{background:url(../img/craft.png);};"
+                           href="https://web-artcraft.com" target="_blank">Разработано CraftGroup</a>
+                    </div>
                 </div>
 
             </div>
@@ -61,7 +82,6 @@ use yii\widgets\MaskedInput;
         </div>
 
     </div>
-
     <!--<div class="fix-button">-->
 
     <!--<span class="fix-button__trigger">-->
