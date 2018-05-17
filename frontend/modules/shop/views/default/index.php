@@ -3,6 +3,7 @@
  * @var $categoryTree \frontend\modules\shop\models\CategoryShop
  * @var $like_categories
  * @var $products
+ * @var $banner_photo
  */
 $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/theme/portal-donbassa/js/slick.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
@@ -15,7 +16,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/products_search.js', ['depends'
 
     <a href="#">
         <span>акция месяца</span>
-        <img src="/theme/portal-donbassa/img/shop/stock-banner.png" alt="">
+        <img src="<?= $banner_photo ?>" alt="">
     </a>
 
 </div>
