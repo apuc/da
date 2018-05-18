@@ -374,6 +374,7 @@ class AjaxController extends Controller
                 'price',
                 'new_price',
                 'cover',
+                'slug',
                 'category' => function($products){
                     return $products->category->name;
                 }
