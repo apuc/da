@@ -374,7 +374,9 @@ class AjaxController extends Controller
                 'price',
                 'new_price',
                 'cover',
-                'slug',
+                'link' => function($products){
+                    return \yii\helpers\Url::to(['/shop/shop/show', 'slug' => $products->slug]);
+                },
                 'category' => function($products){
                     return $products->category->name;
                 }
