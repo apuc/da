@@ -68,6 +68,9 @@ return \yii\helpers\ArrayHelper::merge([
         'turbo' => [
             'class' => 'frontend\modules\turbo\Turbo',
         ],
+        'dzen' => [
+            'class' => 'frontend\modules\dzen\Dzen',
+        ],
     ],
     'components' => [
         'cart' => [
