@@ -31,6 +31,7 @@ use Yii;
  * @property integer $region_id
  * @property integer $editor_choice
  * @property integer $company_id
+ * @property integer $dzen
  * @property string $alt
  *
  * @property CategoryNewsRelations[] $categoryNewsRelations
@@ -40,6 +41,15 @@ use Yii;
 class News extends \yii\db\ActiveRecord
 {
     /*public $categoryId;*/
+    public function beforeSave($insert)
+    {
+        if(parent::beforeSave($insert)){
+            $this->dzen = $this->dzen == 0 ? null : 1;
+            return true;
+        }
+        return false;
+    }
+
     /**
      * @inheritdoc
      */
@@ -57,7 +67,7 @@ class News extends \yii\db\ActiveRecord
             [['title', 'content'/*, 'categoryId'*/], 'required'],
             [['content'], 'string'],
             [
-                ['dt_add', 'dt_update', 'status', 'user_id', 'lang_id', 'views', 'exclude_popular', 'rss', 'hot_new', 'show_error', 'region_id', 'editor_choice', 'company_id'],
+                ['dt_add', 'dt_update', 'status', 'user_id', 'lang_id', 'views', 'exclude_popular', 'rss', 'hot_new', 'show_error', 'region_id', 'editor_choice', 'company_id', 'dzen'],
                 'integer',
             ],
             [['title', 'slug', 'tags', 'photo', 'meta_title', 'meta_descr', 'alt'], 'string', 'max' => 255],
@@ -104,6 +114,7 @@ class News extends \yii\db\ActiveRecord
             'editor_choice' => Yii::t('news', 'Editor choice'),
             'company_id' => Yii::t('news', 'Company ID'),
             'alt' => Yii::t('news', 'Alt Tag'),
+            'dzen' => Yii::t('news', 'Dzen'),
         ];
     }
 
