@@ -194,7 +194,12 @@ class MainMenuAdmin extends Widget
                         'items' => [
                             [
                                 'label' => 'Вам понравится',
-                                'url' => Url::to(['/company/shop']),
+                                'url' => Url::to(['/company/shop/categories']),
+                                'active' => Yii::$app->controller->module->id == 'shop' && Yii::$app->controller->action->id == 'index',
+                            ],
+                            [
+                                'label' => 'Баннер',
+                                'url' => Url::to(['/company/shop/change-banner']),
                                 'active' => Yii::$app->controller->module->id == 'shop' && Yii::$app->controller->action->id == 'index',
                             ],
                         ],

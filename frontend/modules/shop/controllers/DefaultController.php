@@ -36,11 +36,13 @@ class DefaultController extends Controller
         $catsKeys = json_decode($jsonCatsKeys->value);
         $categories = CategoryShop::findAll(['id' => $catsKeys]);
         $products = Products::find()->where(['category_id' => $catsKeys])->limit(12)->all();
+        $banner_photo = KeyValue::getValue('banner_path');
         return $this->render('index',
             [
                 'products' => $products,
                 'categoryTree' => $categoryTreeArr,
                 'like_categories' => $categories,
+                'banner_photo' => $banner_photo,
             ]
         );
     }
