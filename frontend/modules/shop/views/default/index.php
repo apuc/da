@@ -4,6 +4,7 @@
  * @var $like_categories
  * @var $products
  * @var $banner_photo
+ * @var $banner_url
  */
 $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/theme/portal-donbassa/js/slick.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
@@ -14,7 +15,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/products_search.js', ['depends'
 
 <div class="shop__stock-banner">
 
-    <a href="#">
+    <a href = "<?= $banner_url ?>">
         <span>акция месяца</span>
         <img src="<?= $banner_photo ?>" alt="">
     </a>

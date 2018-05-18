@@ -3,23 +3,7 @@
 use yii\widgets\MaskedInput;
 
 ?>
-<style>
-    .footer__craft-link:before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: -2px;
-        height: 20px;
-        width: 20px;
-        background: url(../img/craft.png) no-repeat 50%;
-        -webkit-background-size: contain;
-        background-size: contain
-    }
 
-    .footer__craft-link:hover:before {
-        background-image: url(../img/craft-red.png)
-    }
-</style>
 <footer class="footer">
 
     <div class="container">

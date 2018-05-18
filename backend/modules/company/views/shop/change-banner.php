@@ -5,6 +5,7 @@
  * Date: 18.04.2017
  * Time: 16:57
  * @var $photo
+ * @var $banner_url
  */
 
 use kartik\select2\Select2;
@@ -20,7 +21,7 @@ $this->title = 'Баннер';
 <?= Html::beginForm('', 'post') ?>
 <div class="imgUpload">
     <div class="media__upload_img">
-        <img src="<?= $photo ?>" alt="">
+        <img src="<?= $photo ?>" width="100px"alt="">
     </div>
     <?php
     echo InputFile::widget([
@@ -38,6 +39,8 @@ $this->title = 'Баннер';
         'buttonName' => 'Выбрать',
     ]);
     ?>
+    <br/>
+    <?= Html::input('text', 'banner_url', $banner_url); ?>
 </div>
 <br>
 <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
