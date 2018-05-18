@@ -173,7 +173,17 @@ $this->registerJsFile('/theme/portal-donbassa/js/products_search.js', ['depends'
                 <p class="category-element"><?= $product->title ?></p>
 
                 <div class="category-photo">
-                    <img src="<?= $product->cover ?>" alt="">
+                    <?php
+                    if (!empty($product['cover'])): ?>
+                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $product['cover']); ?>" alt="<?= $product['title']; ?>">
+                    <?php else: ?>
+
+                        <?php if(!empty($product['images'][0]->img_thumb)): ?>
+                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage('/'. $product['images'][0]->img_thumb); ?>">
+                        <?php else:?>
+                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $product['cover']); ?>" alt="<?= $product['title']; ?>">
+                        <?php endif; ?>
+                    <?php endif; ?>
                 </div>
                 <div class="category-price">
                     <?php if ($product->new_price != null): ?>
