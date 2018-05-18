@@ -15,7 +15,7 @@ $(document).ready(function(){
                 $("#you_like_items").empty();
                 for(var i = 0; i < data.length; i++) {
                     if(data[i].new_price != null)
-                        $("#you_like_items").append("<a href='" + data[i].cover + "' class='shop__top-sales-home-elements--item'>" +
+                        $("#you_like_items").append("<a href='" + data[i].link + "' class='shop__top-sales-home-elements--item'>" +
                             "<h3 class='category-name'>" + data[i].category + "</h3>" +
                             "<p class='category-element'>" + data[i].title + "</p>" +
                             "<div class='category-photo'>" +
@@ -30,7 +30,7 @@ $(document).ready(function(){
                             "<button class='category-buy'>Купить</button>" +
                             "</a>");
                     else
-                        $("#you_like_items").append("<a href='" + data[i].cover + "' class='shop__top-sales-home-elements--item'>" +
+                        $("#you_like_items").append("<a href='" + data[i].link + "' class='shop__top-sales-home-elements--item'>" +
                             "<h3 class='category-name'>" + data[i].category + "</h3>" +
                             "<p class='category-element'>" + data[i].title + "</p>" +
                             "<div class='category-photo'>" +

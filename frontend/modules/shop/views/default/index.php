@@ -167,7 +167,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/products_search.js', ['depends'
 
     <div id="you_like_items" class="shop__top-sales-home-elements single-shop-carousel">
         <?php foreach ($products as $product): ?>
-            <a href="shop/product/<?= $product->slug ?>" class="shop__top-sales-home-elements--item">
+            <a href="<?= \yii\helpers\Url::to(['/shop/shop/show', 'slug' => $product->slug])?>" class="shop__top-sales-home-elements--item">
 
                 <h3 class="category-name"><?= $product->category->name ?></h3>
                 <p class="category-element"><?= $product->title ?></p>
