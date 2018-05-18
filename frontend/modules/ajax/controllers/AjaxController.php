@@ -363,10 +363,10 @@ class AjaxController extends Controller
         if($dataId == 0) {
             $jsonCatsKeys = KeyValue::findOne(['key' => 'you_like']);
             $catsKeys = json_decode($jsonCatsKeys->value);
-            $products = Products::find()->where(['category_id' => $catsKeys])->limit(12)->all();
+            $products = Products::find()->where(['category_id' => $catsKeys])->limit(15)->all();
         }
         else
-            $products = Products::find()->where(['category_id' => $dataId])->limit(12)->all();
+            $products = Products::find()->where(['category_id' => $dataId])->limit(15)->all();
         $response = ArrayHelper::toArray($products, [
             'common\models\db\Products' => [
                 'id',
@@ -374,6 +374,9 @@ class AjaxController extends Controller
                 'price',
                 'new_price',
                 'cover',
+                'link' => function($products){
+                    return \yii\helpers\Url::to(['/shop/shop/show', 'slug' => $products->slug]);
+                },
                 'category' => function($products){
                     return $products->category->name;
                 }
