@@ -24,7 +24,7 @@ class DefaultController extends Controller
 
     public function actionNews()
     {
-        $model = News::find()->orderBy('id DESC')->limit(10)->all();
+        $model = News::find()->orderBy('id DESC')->where(['dzen' => null])->limit(1000)->all();
         //echo count($model);exit();
         $item = new Item('rss');
         $item->setAttribute('version', '2.0');

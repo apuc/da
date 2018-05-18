@@ -132,6 +132,7 @@ use kartik\select2\Select2;
 
     <?= $form->field($model, 'show_error')->checkbox(); ?>
     <?= $form->field($model, 'editor_choice')->checkbox(); ?>
+    <?= $form->field($model, 'dzen')->checkbox(); ?>
     <br>
 
     <div class="form-group">
