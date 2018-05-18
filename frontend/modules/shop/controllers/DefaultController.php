@@ -35,7 +35,7 @@ class DefaultController extends Controller
         $jsonCatsKeys = KeyValue::findOne(['key' => 'you_like']);
         $catsKeys = json_decode($jsonCatsKeys->value);
         $categories = CategoryShop::findAll(['id' => $catsKeys]);
-        $products = Products::find()->where(['category_id' => $catsKeys])->limit(12)->all();
+        $products = Products::find()->where(['category_id' => $catsKeys])->limit(15)->all();
         $banner_photo = KeyValue::getValue('banner_path');
         return $this->render('index',
             [
