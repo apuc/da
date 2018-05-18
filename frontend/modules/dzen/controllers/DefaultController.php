@@ -79,7 +79,8 @@ class DefaultController extends Controller
 
             //Создаём фото
             $enclosure = new Item('enclosure');
-            $enclosure->setContent('https://da-info.pro' . $new->photo);
+            $enclosure->setAttribute('url', 'https://da-info.pro' . $new->photo);
+            $enclosure->setAttribute('type', 'image/jpeg' . $new->photo);
             $adItem->addChildItem($enclosure);
 
             //Создаем контент

@@ -12,7 +12,7 @@ class m180517_150643_add_dzen_column_to_news_table extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('news', 'dzen', $this->integer());
+        $this->addColumn('news', 'dzen', $this->integer(1)->null());
     }
 
     /**
