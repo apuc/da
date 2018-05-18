@@ -165,9 +165,9 @@ $this->registerJsFile('/theme/portal-donbassa/js/products_search.js', ['depends'
     </ul>
 
 
-    <div id = "you_like_items" class="shop__top-sales-elements single-shop-carousel">
+    <div id="you_like_items" class="shop__top-sales-home-elements single-shop-carousel">
         <?php foreach ($products as $product): ?>
-            <a href="#" class="shop__top-sales-elements--item">
+            <a href="shop/product/<?= $product->slug ?>" class="shop__top-sales-home-elements--item">
 
                 <h3 class="category-name"><?= $product->category->name ?></h3>
                 <p class="category-element"><?= $product->title ?></p>
