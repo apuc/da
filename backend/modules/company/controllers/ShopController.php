@@ -29,18 +29,26 @@ class ShopController extends \yii\web\Controller
     public function actionChangeBanner()
     {
         $request = Yii::$app->request;
-        $path = KeyValue::getValue('banner_path');
-        if(!$path){
-            $path = '';
-            KeyValue::setValue('banner_path', $path);
+        $banner_path = KeyValue::getValue('banner_path');
+        $banner_url = KeyValue::getValue('banner_url');
+        if(!$banner_path){
+            $banner_path = '';
+            KeyValue::setValue('banner_path', $banner_path);
+        }
+        if(!$banner_url){
+            $banner_url = '#';
+            KeyValue::setValue('banner_url', $banner_url);
         }
         if ($request->isPost) {
-            $path = $request->post()['photo'];
-            KeyValue::setValue('banner_path', $path);
+            $banner_path = $request->post()['photo'];
+            KeyValue::setValue('banner_path', $banner_path);
+            $banner_url = $request->post()['banner_url'];
+            KeyValue::setValue('banner_url', $banner_url);
         }
 
         return $this->render('change-banner', [
-            'photo' => $path,
+            'photo' => $banner_path,
+            'banner_url' => $banner_url,
             ]);
     }
 }

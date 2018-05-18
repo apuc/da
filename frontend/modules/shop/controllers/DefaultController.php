@@ -37,12 +37,14 @@ class DefaultController extends Controller
         $categories = CategoryShop::findAll(['id' => $catsKeys]);
         $products = Products::find()->where(['category_id' => $catsKeys])->limit(15)->all();
         $banner_photo = KeyValue::getValue('banner_path');
+        $banner_url = KeyValue::getValue('banner_url');
         return $this->render('index',
             [
                 'products' => $products,
                 'categoryTree' => $categoryTreeArr,
                 'like_categories' => $categories,
                 'banner_photo' => $banner_photo,
+                'banner_url' => $banner_url,
             ]
         );
     }
