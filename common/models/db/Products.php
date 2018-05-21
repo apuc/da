@@ -228,4 +228,13 @@ class Products extends \yii\db\ActiveRecord
             return true;
         return false;
     }
+
+    //Проверяет прошло ли указанное количество дней с момента добавления товара
+    public function daysPassed($days)
+    {
+        if (time() - $this->dt_add < 86400 * $days)
+            return true;
+        return false;
+    }
+
 }

@@ -39,7 +39,7 @@ use yii\widgets\MaskedInput;
                         персональных данных</a>
                     <div class="footer__wrap-link">
                         <a href="http://da-info.pro/page/kontakty">Контакты</a>
-                        <a class="footer__craft-link" style="before{background:url(../img/craft.png);};"
+                        <a class="footer__craft-link"
                            href="https://web-artcraft.com" target="_blank">Разработано CraftGroup</a>
                     </div>
                 </div>
