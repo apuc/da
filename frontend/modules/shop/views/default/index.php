@@ -30,7 +30,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/products_search.js', ['depends'
 
     <h3 class="shop__top-sales-home--titles">ТОП ПРОДАЖ</h3>
 
-    <div class="shop__top-sales-home-nav">
+    <!--<div class="shop__top-sales-home-nav">
 
         <a href="#" class="shop__top-sales-home-nav--link">
             <span class="icon"><img src="theme/portal-donbassa/img/shop/icons/payment-method-icon.png" alt=""></span>
@@ -52,7 +52,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/products_search.js', ['depends'
             <span class="name">Круглосуточный <br> колл-центр</span>
         </a>
 
-    </div>
+    </div>-->
 
     <div class="shop__top-sales-home-elements">
 
