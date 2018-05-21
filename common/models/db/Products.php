@@ -221,4 +221,11 @@ class Products extends \yii\db\ActiveRecord
     {
         return ProductMark::hasMark($this->id, ProductMark::MARK_STOCK);
     }
+
+    public function hasMark($mark)
+    {
+        if (ProductMark::findOne(['product_id' => $this->id, 'mark' => $mark]))
+            return true;
+        return false;
+    }
 }

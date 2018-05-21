@@ -4,6 +4,7 @@ namespace frontend\modules\shop\controllers;
 
 use common\classes\Debug;
 use common\models\db\KeyValue;
+use common\models\db\ProductMark;
 use common\models\db\Products;
 use frontend\modules\shop\models\CategoryShop;
 use yii\helpers\ArrayHelper;
@@ -31,7 +32,8 @@ class DefaultController extends Controller
         Debug::dd($categoryModel->getAllCategory($category, 0));
         $categoryTree = $categoryModel->getTreeCategory($categoryTreeArr, 0, []);*/
 
-
+        $hitProducts = ProductMark::find()->with('product')->where(['mark'=> ProductMark::MARK_HIT])->limit(10)->all();
+        //Debug::dd($hitProducts);
         $jsonCatsKeys = KeyValue::findOne(['key' => 'you_like']);
         $catsKeys = json_decode($jsonCatsKeys->value);
         $categories = CategoryShop::findAll(['id' => $catsKeys]);
@@ -40,6 +42,7 @@ class DefaultController extends Controller
         $banner_url = KeyValue::getValue('banner_url');
         return $this->render('index',
             [
+                'hitProducts' => $hitProducts,
                 'products' => $products,
                 'categoryTree' => $categoryTreeArr,
                 'like_categories' => $categories,
