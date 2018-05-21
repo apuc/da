@@ -80,7 +80,18 @@ class ProductMark extends \yii\db\ActiveRecord
         return self::deleteAll(['product_id' => $productId, 'mark' => $mark]);
     }
 
-    public function getProduct(){
-        return $this->hasOne(Products::className(), ['id'=>'product_id']);
+    public function getProduct()
+    {
+        return $this->hasOne(Products::className(), ['id' => 'product_id']);
+    }
+
+    public static function getProductsByMarks($marks, $limit = 10)
+    {
+        return ProductMark::find()
+            ->with('product')
+            ->where(['mark'=> $marks])
+            ->limit($limit)
+            ->all();
+
     }
 }

@@ -29,4 +29,5 @@ return [
     'RegionID' => 'Регион',
     'Editor choice' => 'Выбор редакции',
     'Alt Tag' => 'Alt тэг',
+    'Dzen' => 'Исключить из дзен',
 ];

@@ -3,6 +3,7 @@
 namespace frontend\modules\company\controllers;
 
 use common\classes\CompanyFunction;
+use common\classes\Debug;
 use common\classes\GeobaseFunction;
 use common\classes\UserFunction;
 use common\models\db\CategoryCompany;
