@@ -17,9 +17,11 @@ class DefaultController extends Controller
 {
 
     public $layout = 'shop';
+
     /**
      * Renders the index view for the module
      * @return string
+     * @throws \yii\base\InvalidArgumentException
      */
     public function actionIndex()
     {
@@ -32,14 +34,19 @@ class DefaultController extends Controller
         Debug::dd($categoryModel->getAllCategory($category, 0));
         $categoryTree = $categoryModel->getTreeCategory($categoryTreeArr, 0, []);*/
 
-        $hitProducts = ProductMark::find()->with('product')->where(['mark'=> ProductMark::MARK_HIT])->limit(10)->all();
-        //Debug::dd($hitProducts);
+        //Получаем хит продаж
+        $hitProducts = ProductMark::getProductsByMarks([ProductMark::MARK_HIT]);
+
+        //Получаем товары для блока "Вам понравится"
         $jsonCatsKeys = KeyValue::findOne(['key' => 'you_like']);
         $catsKeys = json_decode($jsonCatsKeys->value);
         $categories = CategoryShop::findAll(['id' => $catsKeys]);
         $products = Products::find()->where(['category_id' => $catsKeys])->limit(15)->all();
+
+        //Получаем данные по баннеру
         $banner_photo = KeyValue::getValue('banner_path');
         $banner_url = KeyValue::getValue('banner_url');
+
         return $this->render('index',
             [
                 'hitProducts' => $hitProducts,
