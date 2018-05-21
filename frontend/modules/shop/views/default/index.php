@@ -56,146 +56,153 @@ $this->registerJsFile('/theme/portal-donbassa/js/products_search.js', ['depends'
 
     <div class="shop__top-sales-home-elements">
 
-        <a href="#" class="shop__top-sales-home-elements--stock-item hidden-xs">
-            <div class="label-wrap">
-                <div class="new-label tooltip-main tooltip-west">
-                    NEW
-                    <span class="tooltip-content">Lorem ipsum.</span>
-                </div>
 
-                <div class="hit-label tooltip-main tooltip-east">
-                    ХИТ
-                    <span class="tooltip-content">Lorem ipsum.</span>
-                </div>
-
-                <div class="percent-label tooltip-main tooltip-west">
-                      
-                    <span class="tooltip-content">Lorem ipsum.</span>
-                </div>
-
-                <div class="percent-discount-label tooltip-main tooltip-east">
-                    -20%
-                    <span class="tooltip-content">Lorem ipsum.</span>
-                </div>
-
-            </div>
-
-            <div class="category-banner">
-
-                <h3>цена снижена</h3>
-
-                <span>
-                            <img src="img/shop/category-banner.png" alt="">
-                        </span>
-
-            </div>
-
-            <span class="category-sale">
-                        <span>-45%</span>
-                    </span>
-
-            <h3 class="category-name">Смартфон</h3>
-            <p class="category-element">iPhone 6s 16Gb</p>
-
-            <div class="category-photo">
-                <img src="img/shop/category-photo-1.png" alt="">
-            </div>
-
-            <div class="category-price">
-                <span class="category-price__old">19 990 <i class="fa fa-rub" aria-hidden="true"></i></span>
-                <span class="category-price__new">15 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
-            </div>
-
-            <button class="category-buy">Купить</button>
-            <div class="label-wrap">
-                <div class="new-label tooltip-main tooltip-east">
-                    NEW
-                    <span class="tooltip-content">Lorem ipsum.</span>
-                </div>
-
-                <div class="hit-label tooltip-main tooltip-east">
-                    ХИТ
-                    <span class="tooltip-content">Lorem ipsum.</span>
-                </div>
-
-                <div class="percent-label tooltip-main tooltip-east">
-                      
-                    <span class="tooltip-content">Lorem ipsum.</span>
-                </div>
-
-                <div class="percent-discount-label tooltip-main tooltip-east">
-                    -20%
-                    <span class="tooltip-content">Lorem ipsum.</span>
-                </div>
-
-
-            </div>
-        </a>
-
-        <?php foreach ($hitProducts as $hitProduct): ?>
-            <a href="<?= \yii\helpers\Url::to(['/shop/shop/show', 'slug' => $hitProduct->product->slug]) ?>"
-               class="shop__top-sales-home-elements--item">
-                <div class="label-wrap">
-
-                    <?php if ($hitProduct->product->hasMark(ProductMark::MARK_NEW)): ?>
+        <?php
+        $index = 3;
+        foreach ($hitProducts as $hitProduct): ?>
+            <?php if ($index === 3): ?>
+                <a href="#" class="shop__top-sales-home-elements--stock-item hidden-xs">
+                    <div class="label-wrap">
                         <div class="new-label tooltip-main tooltip-west">
                             NEW
                             <span class="tooltip-content">Lorem ipsum.</span>
                         </div>
-                    <?php endif ?>
 
-                    <?php if ($hitProduct->product->hasMark(ProductMark::MARK_HIT)): ?>
                         <div class="hit-label tooltip-main tooltip-east">
                             ХИТ
                             <span class="tooltip-content">Lorem ipsum.</span>
                         </div>
-                    <?php endif ?>
 
-                    <?php if ($hitProduct->product->hasMark(ProductMark::MARK_STOCK)): ?>
                         <div class="percent-label tooltip-main tooltip-west">
+                              
                             <span class="tooltip-content">Lorem ipsum.</span>
                         </div>
-                    <?php endif ?>
 
-                    <?php if ($hitProduct->product->hasMark(ProductMark::MARK_DISCOUNT)): ?>
                         <div class="percent-discount-label tooltip-main tooltip-east">
                             -20%
                             <span class="tooltip-content">Lorem ipsum.</span>
                         </div>
-                    <?php endif ?>
 
-                    <?php if ($hitProduct->product->hasMark(ProductMark::MARK_LOWEST_PRICE)): ?>
-                        <div class="discount-arrow-label tooltip-main tooltip-west">
+                    </div>
+
+                    <div class="category-banner">
+
+                        <h3>цена снижена</h3>
+
+                        <span>
+                            <img src="img/shop/category-banner.png" alt="">
+                        </span>
+
+                    </div>
+
+                    <span class="category-sale">
+                        <span>-45%</span>
+                    </span>
+
+                    <h3 class="category-name">Смартфон</h3>
+                    <p class="category-element">iPhone 6s 16Gb</p>
+
+                    <div class="category-photo">
+                        <img src="img/shop/category-photo-1.png" alt="">
+                    </div>
+
+                    <div class="category-price">
+                        <span class="category-price__old">19 990 <i class="fa fa-rub" aria-hidden="true"></i></span>
+                        <span class="category-price__new">15 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
+                    </div>
+
+                    <button class="category-buy">Купить</button>
+                    <div class="label-wrap">
+                        <div class="new-label tooltip-main tooltip-east">
+                            NEW
                             <span class="tooltip-content">Lorem ipsum.</span>
                         </div>
-                    <?php endif ?>
 
-                </div>
-                <span class="category-sale">
+                        <div class="hit-label tooltip-main tooltip-east">
+                            ХИТ
+                            <span class="tooltip-content">Lorem ipsum.</span>
+                        </div>
+
+                        <div class="percent-label tooltip-main tooltip-east">
+                              
+                            <span class="tooltip-content">Lorem ipsum.</span>
+                        </div>
+
+                        <div class="percent-discount-label tooltip-main tooltip-east">
+                            -20%
+                            <span class="tooltip-content">Lorem ipsum.</span>
+                        </div>
+
+
+                    </div>
+                </a>
+                <?php $index = 0; ?>
+            <?php else: ?>
+                <a href="<?= \yii\helpers\Url::to(['/shop/shop/show', 'slug' => $hitProduct->product->slug]) ?>"
+                   class="shop__top-sales-home-elements--item">
+                    <div class="label-wrap">
+
+                        <?php if ($hitProduct->product->hasMark(ProductMark::MARK_NEW)): ?>
+                            <div class="new-label tooltip-main tooltip-west">
+                                NEW
+                                <span class="tooltip-content">Lorem ipsum.</span>
+                            </div>
+                        <?php endif ?>
+
+                        <?php if ($hitProduct->product->hasMark(ProductMark::MARK_HIT)): ?>
+                            <div class="hit-label tooltip-main tooltip-east">
+                                ХИТ
+                                <span class="tooltip-content">Lorem ipsum.</span>
+                            </div>
+                        <?php endif ?>
+
+                        <?php if ($hitProduct->product->hasMark(ProductMark::MARK_STOCK)): ?>
+                            <div class="percent-label tooltip-main tooltip-west">
+                                <span class="tooltip-content">Lorem ipsum.</span>
+                            </div>
+                        <?php endif ?>
+
+                        <?php if ($hitProduct->product->hasMark(ProductMark::MARK_DISCOUNT)): ?>
+                            <div class="percent-discount-label tooltip-main tooltip-east">
+                                -20%
+                                <span class="tooltip-content">Lorem ipsum.</span>
+                            </div>
+                        <?php endif ?>
+
+                        <?php if ($hitProduct->product->hasMark(ProductMark::MARK_LOWEST_PRICE)): ?>
+                            <div class="discount-arrow-label tooltip-main tooltip-west">
+                                <span class="tooltip-content">Lorem ipsum.</span>
+                            </div>
+                        <?php endif ?>
+
+                    </div>
+                    <span class="category-sale">
                     <span>-45%</span>
                 </span>
 
-                <h3 class="category-name"><?= $hitProduct->product->category->name ?></h3>
-                <p class="category-element"><?= $hitProduct->product->title ?></p>
+                    <h3 class="category-name"><?= $hitProduct->product->category->name ?></h3>
+                    <p class="category-element"><?= $hitProduct->product->title ?></p>
 
-                <div class="category-photo">
-                    <img src="<?= $hitProduct->product->cover ?>" alt="">
-                </div>
+                    <div class="category-photo">
+                        <img src="<?= $hitProduct->product->cover ?>" alt="">
+                    </div>
 
-                <div class="category-price">
-                    <?php if ($hitProduct->product->new_price != null): ?>
-                        <span class="category-price__old"><?= $hitProduct->product->price ?><i class="fa fa-rub"
-                                                                                               aria-hidden="true"></i></span>
-                        <span class="category-price__new"><?= $hitProduct->product->new_price ?><i class="fa fa-rub"
+                    <div class="category-price">
+                        <?php if ($hitProduct->product->new_price != null): ?>
+                            <span class="category-price__old"><?= $hitProduct->product->price ?><i class="fa fa-rub"
                                                                                                    aria-hidden="true"></i></span>
-                    <?php else: ?>
-                        <span class="category-price__new"><?= $hitProduct->product->price ?><i class="fa fa-rub"
-                                                                                               aria-hidden="true"></i></span>
-                    <?php endif ?>
-                </div>
+                            <span class="category-price__new"><?= $hitProduct->product->new_price ?><i class="fa fa-rub"
+                                                                                                       aria-hidden="true"></i></span>
+                        <?php else: ?>
+                            <span class="category-price__new"><?= $hitProduct->product->price ?><i class="fa fa-rub"
+                                                                                                   aria-hidden="true"></i></span>
+                        <?php endif ?>
+                    </div>
 
-                <button class="category-buy">Купить</button>
-            </a>
+                    <button class="category-buy">Купить</button>
+                </a>
+            <?php endif ?>
+            <?php $index++; ?>
         <?php endforeach ?>
 
     </div>
