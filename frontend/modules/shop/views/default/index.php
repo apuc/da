@@ -58,30 +58,45 @@ $this->registerJsFile('/theme/portal-donbassa/js/products_search.js', ['depends'
 
 
         <?php
-        $index = 3;
+        $index = 4;
         foreach ($hitProducts as $hitProduct): ?>
-            <?php if ($index === 3): ?>
-                <a href="#" class="shop__top-sales-home-elements--stock-item hidden-xs">
+            <?php if ($index === 4): ?>
+                <a href="<?= \yii\helpers\Url::to(['/shop/shop/show', 'slug' => $hitProduct->product->slug]) ?>"
+                   class="shop__top-sales-home-elements--stock-item hidden-xs">
                     <div class="label-wrap">
-                        <div class="new-label tooltip-main tooltip-west">
-                            NEW
-                            <span class="tooltip-content">Lorem ipsum.</span>
-                        </div>
 
-                        <div class="hit-label tooltip-main tooltip-east">
-                            ХИТ
-                            <span class="tooltip-content">Lorem ipsum.</span>
-                        </div>
+                        <?php if ($hitProduct->product->hasMark(ProductMark::MARK_NEW)): ?>
+                            <div class="new-label tooltip-main tooltip-west">
+                                NEW
+                                <span class="tooltip-content">Lorem ipsum.</span>
+                            </div>
+                        <?php endif ?>
 
-                        <div class="percent-label tooltip-main tooltip-west">
-                              
-                            <span class="tooltip-content">Lorem ipsum.</span>
-                        </div>
+                        <?php if ($hitProduct->product->hasMark(ProductMark::MARK_HIT)): ?>
+                            <div class="hit-label tooltip-main tooltip-east">
+                                ХИТ
+                                <span class="tooltip-content">Lorem ipsum.</span>
+                            </div>
+                        <?php endif ?>
 
-                        <div class="percent-discount-label tooltip-main tooltip-east">
-                            -20%
-                            <span class="tooltip-content">Lorem ipsum.</span>
-                        </div>
+                        <?php if ($hitProduct->product->hasMark(ProductMark::MARK_STOCK)): ?>
+                            <div class="percent-label tooltip-main tooltip-west">
+                                <span class="tooltip-content">Lorem ipsum.</span>
+                            </div>
+                        <?php endif ?>
+
+                        <?php if ($hitProduct->product->hasMark(ProductMark::MARK_DISCOUNT)): ?>
+                            <div class="percent-discount-label tooltip-main tooltip-east">
+                                -20%
+                                <span class="tooltip-content">Lorem ipsum.</span>
+                            </div>
+                        <?php endif ?>
+
+                        <?php if ($hitProduct->product->hasMark(ProductMark::MARK_LOWEST_PRICE)): ?>
+                            <div class="discount-arrow-label tooltip-main tooltip-west">
+                                <span class="tooltip-content">Lorem ipsum.</span>
+                            </div>
+                        <?php endif ?>
 
                     </div>
 
@@ -99,42 +114,38 @@ $this->registerJsFile('/theme/portal-donbassa/js/products_search.js', ['depends'
                         <span>-45%</span>
                     </span>
 
-                    <h3 class="category-name">Смартфон</h3>
-                    <p class="category-element">iPhone 6s 16Gb</p>
+                    <h3 class="category-name"><?= $hitProduct->product->category->name ?></h3>
+                    <p class="category-element"><?= $hitProduct->product->title ?></p>
 
                     <div class="category-photo">
-                        <img src="img/shop/category-photo-1.png" alt="">
+                        <?php
+                        if (!empty($hitProduct->product['cover'])): ?>
+                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($hitProduct->product['cover']); ?>"
+                                 alt="<?= $hitProduct->product['title']; ?>">
+                        <?php else: ?>
+
+                            <?php if (!empty($hitProduct->product['images'][0]->img_thumb)): ?>
+                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage('/' . $hitProduct->product['images'][0]->img_thumb); ?>">
+                            <?php else: ?>
+                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($hitProduct->product['cover']); ?>"
+                                     alt="<?= $hitProduct->product['title']; ?>">
+                            <?php endif; ?>
+                        <?php endif; ?>
                     </div>
 
                     <div class="category-price">
-                        <span class="category-price__old">19 990 <i class="fa fa-rub" aria-hidden="true"></i></span>
-                        <span class="category-price__new">15 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
+                        <?php if ($hitProduct->product->new_price != null): ?>
+                            <span class="category-price__old"><?= $hitProduct->product->price ?><i class="fa fa-rub"
+                                                                                                   aria-hidden="true"></i></span>
+                            <span class="category-price__new"><?= $hitProduct->product->new_price ?><i class="fa fa-rub"
+                                                                                                       aria-hidden="true"></i></span>
+                        <?php else: ?>
+                            <span class="category-price__new"><?= $hitProduct->product->price ?><i class="fa fa-rub"
+                                                                                                   aria-hidden="true"></i></span>
+                        <?php endif ?>
                     </div>
 
                     <button class="category-buy">Купить</button>
-                    <div class="label-wrap">
-                        <div class="new-label tooltip-main tooltip-east">
-                            NEW
-                            <span class="tooltip-content">Lorem ipsum.</span>
-                        </div>
-
-                        <div class="hit-label tooltip-main tooltip-east">
-                            ХИТ
-                            <span class="tooltip-content">Lorem ipsum.</span>
-                        </div>
-
-                        <div class="percent-label tooltip-main tooltip-east">
-                              
-                            <span class="tooltip-content">Lorem ipsum.</span>
-                        </div>
-
-                        <div class="percent-discount-label tooltip-main tooltip-east">
-                            -20%
-                            <span class="tooltip-content">Lorem ipsum.</span>
-                        </div>
-
-
-                    </div>
                 </a>
                 <?php $index = 0; ?>
             <?php else: ?>
@@ -184,7 +195,19 @@ $this->registerJsFile('/theme/portal-donbassa/js/products_search.js', ['depends'
                     <p class="category-element"><?= $hitProduct->product->title ?></p>
 
                     <div class="category-photo">
-                        <img src="<?= $hitProduct->product->cover ?>" alt="">
+                        <?php
+                        if (!empty($hitProduct->product['cover'])): ?>
+                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($hitProduct->product['cover']); ?>"
+                                 alt="<?= $hitProduct->product['title']; ?>">
+                        <?php else: ?>
+
+                            <?php if (!empty($hitProduct->product['images'][0]->img_thumb)): ?>
+                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage('/' . $hitProduct->product['images'][0]->img_thumb); ?>">
+                            <?php else: ?>
+                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($hitProduct->product['cover']); ?>"
+                                     alt="<?= $hitProduct->product['title']; ?>">
+                            <?php endif; ?>
+                        <?php endif; ?>
                     </div>
 
                     <div class="category-price">
@@ -232,13 +255,15 @@ $this->registerJsFile('/theme/portal-donbassa/js/products_search.js', ['depends'
                 <div class="category-photo">
                     <?php
                     if (!empty($product['cover'])): ?>
-                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $product['cover']); ?>" alt="<?= $product['title']; ?>">
+                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($product['cover']); ?>"
+                             alt="<?= $product['title']; ?>">
                     <?php else: ?>
 
-                        <?php if(!empty($product['images'][0]->img_thumb)): ?>
-                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage('/'. $product['images'][0]->img_thumb); ?>">
-                        <?php else:?>
-                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $product['cover']); ?>" alt="<?= $product['title']; ?>">
+                        <?php if (!empty($product['images'][0]->img_thumb)): ?>
+                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage('/' . $product['images'][0]->img_thumb); ?>">
+                        <?php else: ?>
+                            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($product['cover']); ?>"
+                                 alt="<?= $product['title']; ?>">
                         <?php endif; ?>
                     <?php endif; ?>
                 </div>

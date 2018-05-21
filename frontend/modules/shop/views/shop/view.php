@@ -75,12 +75,12 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
     <div class="single-shop__info">
         <div class="single-shop__info-header">
             <h2 class="single-shop__product-title"><?= $model->title ?></h2>
-            <a href="#" class="single-shop__payment-method">
+            <!--<a href="#" class="single-shop__payment-method">
                 Способы оплаты
             </a>
             <a href="#" class="single-shop__deliver">
                 Склады в ДНР
-            </a>
+            </a>-->
             <?php
             $rating = 0;
             $summArr = ArrayHelper::getColumn($model['reviews'], 'rating');
@@ -222,7 +222,7 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
 
         </div>
     </div>-->
-    <a href="#" class="call-center">Круглосуточный колл-центр</a>
+    <!--<a href="#" class="call-center">Круглосуточный колл-центр</a>-->
 </div>
 <div class="single-shop__main-content">
     <div class="single-shop__tabs">
