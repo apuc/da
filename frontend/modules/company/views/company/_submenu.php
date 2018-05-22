@@ -45,6 +45,7 @@ echo \yii\widgets\Menu::widget(
             [
                 'label' => Company::$submenuLabels['news'],
                 'url' => Url::to(['/company/company/view', 'slug' => $slug, 'place' => 'news']),
+                'template' => '<a href="{url}">{label}<span class="tabs-counters">' . CompanyFunction::getCountNews($model->id) . '</span></a>',
                 'active' => $page == 'news',
             ],
             [
