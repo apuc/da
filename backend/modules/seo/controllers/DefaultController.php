@@ -21,6 +21,8 @@ class DefaultController extends Controller
 
             KeyValue::setValue('shop_page_meta_title', $_POST['shop_page_meta_title']);
             KeyValue::setValue('shop_page_meta_descr', $_POST['shop_page_meta_descr']);
+            KeyValue::setValue('all_category_page_meta_title', $_POST['all_category_page_meta_title']);
+            KeyValue::setValue('all_category_page_meta_descr', $_POST['all_category_page_meta_descr']);
             KeyValue::updateAll(['value' => $_POST['main_page_meta_title']], ['key' => 'main_page_meta_title']);
             KeyValue::updateAll(['value' => $_POST['main_page_meta_descr']], ['key' => 'main_page_meta_descr']);
             KeyValue::updateAll(['value' => $_POST['news_page_meta_title']], ['key' => 'news_page_meta_title']);
