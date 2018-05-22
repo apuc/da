@@ -38,6 +38,6 @@ class StreamPublishController extends Controller
         }
 
 
-        Debug::prn($stream[0]->text);
+        //Debug::prn($stream[0]->text);
     }
 }
