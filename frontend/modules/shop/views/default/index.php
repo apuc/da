@@ -6,9 +6,16 @@
  * @var $hitProducts
  * @var $banner_photo
  * @var $banner_url
+ * @var $meta_title
+ * @var $meta_descr
  */
 
 use common\models\db\ProductMark;
+$this->title = $meta_title;
+$this->registerMetaTag( [
+    'name'    => 'description',
+    'content' => $meta_descr,
+] );
 
 $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/theme/portal-donbassa/js/slick.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
