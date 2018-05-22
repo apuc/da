@@ -7,56 +7,12 @@
 use common\models\db\ProductMark;
 
 ?>
-
-<h1 class="shop__all-categories-title">Вам понравится</h1>
-
-<div class="shop__top-sales-home-elements single-shop-carousel shop__all-categories-rec">
-
+<aside class="shop__sidebar" id="shop-sidebar-cart">
+    <h2 class="shop__sidebar-title">Посмотреть другие</h2>
     <?php foreach ($hitProducts as $hitProduct): ?>
         <a href="<?= \yii\helpers\Url::to(['/shop/shop/show', 'slug' => $hitProduct->product->slug]) ?>"
-           class="shop__top-sales-home-elements--item">
-            <div class="label-wrap">
+           class="shop__top-sales-elements--item">
 
-                <?php if ($hitProduct->product->daysPassed(3)): ?>
-                    <div class="new-label tooltip-main tooltip-west">
-                        NEW
-                        <span class="tooltip-content">Lorem ipsum.</span>
-                    </div>
-                <?php endif ?>
-
-                <?php if ($hitProduct->product->hasMark(ProductMark::MARK_HIT)): ?>
-                    <div class="hit-label tooltip-main tooltip-east">
-                        ХИТ
-                        <span class="tooltip-content">Lorem ipsum.</span>
-                    </div>
-                <?php endif ?>
-
-                <?php if ($hitProduct->product->hasMark(ProductMark::MARK_STOCK)): ?>
-                    <div class="percent-label tooltip-main tooltip-west">
-                        <span class="tooltip-content">Lorem ipsum.</span>
-                    </div>
-                <?php endif ?>
-
-                <?php if ($hitProduct->product->hasMark(ProductMark::MARK_DISCOUNT)): ?>
-                    <div class="percent-discount-label tooltip-main tooltip-east">
-                        -20%
-                        <span class="tooltip-content">Lorem ipsum.</span>
-                    </div>
-                <?php endif ?>
-
-                <?php if ($hitProduct->product->hasMark(ProductMark::MARK_LOWEST_PRICE)): ?>
-                    <div class="discount-arrow-label tooltip-main tooltip-west">
-                        <span class="tooltip-content">Lorem ipsum.</span>
-                    </div>
-                <?php endif ?>
-
-            </div>
-            <?php if ($hitProduct->product->new_price != null): ?>
-                <span class="category-sale">
-                        <span><?= '-' . ceil(($hitProduct->product->price - $hitProduct->product->new_price) /
-                                $hitProduct->product->price * 100) . '%' ?></span>
-                        </span>
-            <?php endif ?>
             <h3 class="category-name"><?= $hitProduct->product->category->name ?></h3>
             <p class="category-element"><?= $hitProduct->product->title ?></p>
 
@@ -92,5 +48,4 @@ use common\models\db\ProductMark;
 
         </a>
     <?php endforeach ?>
-
-</div>
+</aside>
