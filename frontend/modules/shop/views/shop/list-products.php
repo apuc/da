@@ -10,7 +10,7 @@
 
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
-
+$this->title = $categoryInfo->meta_title;
 $this->params['breadcrumbs'][] = ['label' => 'Все категории', 'url' => Url::to(['/shop/shop/index'])];
 $categoryList = array_reverse($categoryList);
 //\common\classes\Debug::dd($categoryList);
