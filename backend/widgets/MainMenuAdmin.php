@@ -650,6 +650,12 @@ class MainMenuAdmin extends Widget
                                 'active' => Yii::$app->controller->module->id === 'tw' && Yii::$app->controller->id === 'tw-posts' && Yii::$app->request->get('TwPostsSearch')['status'] === '2',
                                 'visible' => UserFunction::hasPermission(['Группы VK']),
                             ],
+                            [
+                                'label' => 'Задержанные',
+                                'url' => Url::to(['/tw/tw-posts', 'TwPostsSearch[status]' => 4]),
+                                'active' => Yii::$app->controller->module->id === 'tw' && Yii::$app->controller->id === 'tw-posts' && Yii::$app->request->get('TwPostsSearch')['status'] === '4',
+                                'visible' => UserFunction::hasPermission(['Группы VK']),
+                            ],
                             //[
                             //    'label' => 'Авторы',
                             //    'url' => Url::to(['/vk/vk_authors']),
