@@ -651,7 +651,7 @@ class MainMenuAdmin extends Widget
                                 'visible' => UserFunction::hasPermission(['Группы VK']),
                             ],
                             [
-                                'label' => 'Задержанные',
+                                'label' => 'Отложенные',
                                 'url' => Url::to(['/tw/tw-posts', 'TwPostsSearch[status]' => 4]),
                                 'active' => Yii::$app->controller->module->id === 'tw' && Yii::$app->controller->id === 'tw-posts' && Yii::$app->request->get('TwPostsSearch')['status'] === '4',
                                 'visible' => UserFunction::hasPermission(['Группы VK']),
