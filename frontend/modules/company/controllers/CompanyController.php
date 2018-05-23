@@ -232,7 +232,9 @@ class CompanyController extends Controller
         $model = new Company();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
             $post = Yii::$app->request->post();
+
             $model->status = 1;
             $model->user_id = Yii::$app->user->id;
             $model->meta_title = $model->name;
@@ -255,11 +257,27 @@ class CompanyController extends Controller
             }
             $model->save();
 
-            if (!empty(Yii::$app->request->post('Phones'))) {
-                $phone = New Phones();
-                $phone->load($post);
-                $phone->company_id = $model->id;
-                $phone->save();
+            $phones = $model->allPhones;
+
+            $post['Phones'] = array_values($post['Phones']);
+            $post['messengeresArray'] = array_values($post['messengeresArray']);
+
+            $diff = count($post['Phones']);
+            if ($diff > 0) {
+                for ($i = 0; $i < $diff; $i++) {
+                    $phone = new Phones();
+                    $phone->company_id = $model->id;
+                    $phone->phone = $post['Phones'][$i]['phone'];
+                    $phone->messengeresArray = $post['messengeresArray'][$i];
+                    $phones[] = $phone;
+
+                }
+            }
+            if (Phones::validateMultiple($phones)) {
+                for ($i = 0; $i < $diff; $i++) {
+                    /** @var Phones $phone */
+                    $phones[$i]->save();
+                }
             }
 
             $catCompanyRel = new CategoryCompanyRelations();
@@ -309,12 +327,16 @@ class CompanyController extends Controller
             $post = Yii::$app->request->post();
             $phones = $model->allPhones;
             $post['Phones'] = array_values($post['Phones']);
+            $post['messengeresArray'] = array_values($post['messengeresArray']);
             $diff = count($post['Phones']) - count($phones);
             if ($diff > 0) {
                 for ($i = 0; $i < $diff; $i++) {
                     $phone = new Phones();
                     $phone->company_id = $id;
+                    $phone->phone = $post['Phones'][$i];
+                    $phone->messengeresArray = $post['messengeresArray'][$i];
                     $phones[] = $phone;
+
                 }
             }
             if (Phones::loadMultiple($phones, $post) && Phones::validateMultiple($phones)) {

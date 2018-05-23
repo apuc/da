@@ -45,7 +45,8 @@ $(document).ready(function () {
         });
     });
     $(document).on('click', '.company__add-phone', function (event) {
-        var iterator = parseInt($('.cabinet__add-company-form--wrapper').data('iterator'));
+        var iterator = parseInt($('.cabinet__add-company-form--wrapper').attr('data-iterator'));
+        iterator = iterator + 1;
         $.ajax({
             url: '/company/company/add-phone',
             data: {
@@ -54,8 +55,8 @@ $(document).ready(function () {
             },
             type: 'POST',
             success: function (html) {
-                iterator = iterator + 1;
-                $('.cabinet__add-company-form--wrapper').data('iterator', iterator);
+
+                $('.cabinet__add-company-form--wrapper').attr('data-iterator', iterator);
                 $('.cabinet__add-company-form--wrapper').append(html);
             }
         });

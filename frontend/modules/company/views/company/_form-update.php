@@ -141,7 +141,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                         [
                             'item' =>
                                 function ($index, $label, $name, $checked, $value) use ($phone) {
-                                    return Html::checkbox("Phones[" . $phone->id . "][messengeresArray][]", $checked, [
+                                    return Html::checkbox("messengeresArray[" . $phone->id . "]", $checked, [
                                         'value' => $value,
                                         'label' => $label
                                     ]);
@@ -170,7 +170,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                 [
                     'item' =>
                         function ($index, $label, $name, $checked, $value) {
-                            return Html::checkbox("Phones[messengeresArray][]", $checked, [
+                            return Html::checkbox("messengeresArray[0][]", $checked, [
                                 'value' => $value,
                                 'label' => $label
                             ]);
