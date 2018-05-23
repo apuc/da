@@ -11,6 +11,7 @@ namespace frontend\modules\shop\controllers;
 use common\classes\Cart;
 use common\classes\Debug;
 use common\classes\Shop;
+use common\models\db\KeyValue;
 use common\models\db\LikeProducts;
 use frontend\modules\shop\models\CategoryShop;
 use frontend\modules\shop\models\Products;
@@ -34,8 +35,20 @@ class ShopController extends Controller
         $modelProduct = new Products();
         $products = $modelProduct->listProduct(12);
 
+        //Получаем meta title
+        $meta_title = KeyValue::getValue('all_category_page_meta_title');
+        if(!$meta_title)
+            $meta_title = 'Все категории';
+
+        //Получаем meta descripton
+        $meta_descr = KeyValue::getValue('all_category_page_meta_descr');
+        if(!$meta_descr)
+            $meta_descr = 'Категории';
+
         return $this->render('all-category',
             [
+                'meta_title' => $meta_title,
+                'meta_descr' => $meta_descr,
                 'category' => $category,
                 'products' => $products,
             ]

@@ -16,6 +16,7 @@ use yii\widgets\ActiveForm;
 $this->registerCssFile('/css/board.min.css');
 //$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/raw/company.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 
@@ -100,26 +101,28 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
     <div class="cabinet__add-company-form--block"></div>
 
-    <div class="cabinet__add-company-form--wrapper" style="flex-wrap: wrap; margin-bottom: 40px;">
-        <div class="input__wrap" style="width: 100%;">
+    <div class="cabinet__add-company-form--wrapper" data-iterator="0" style="flex-wrap: wrap; margin-bottom: 40px;">
+        <div class="input__wrap" style="position: relative; width: 100%;">
             <?= Html::label('Телефон', 'Phones', ['class' => 'label-name']) ?>
-            <?= Html::textInput('Phones[phone]', '', ['class' => 'input-name', 'id' => 'Phones']) ?>
+            <?= Html::textInput('Phones[0][phone]', '', ['class' => 'input-name', 'id' => 'Phones']) ?>
+            <button type="button" class="cabinet__add-field company__add-phone"
+                    style="position: absolute; top: 11px; right: 5px; border: none;" data-iterator="0"
+                    max-count="<?= (isset($services['count_phone']) ? $services['count_phone'] : ''); ?>"></button>
         </div>
 
         <div class="messengers-choice" style="display: flex; flex-wrap: wrap; width: 70%; margin-left: auto;">
-            <p style="width: 100%; margin-bottom: -1px">Выберите перечисленные мессенджеры, если у вас привязан к ним
-                телефон</p>
+            <p style="width: 100%; margin-bottom: -1px">Выберите мессенджеры, если у вас привязан к ним телефон</p>
             <?= Html::checkboxList('Phones[messengeres]', '', ArrayHelper::map(Messenger::find()->all(), "id", "name"),
                 [
                     'item' =>
                         function ($index, $label, $name, $checked, $value) {
-                            return Html::checkbox("Phones[messengeresArray][]", $checked, [
+                            return Html::checkbox("messengeresArray[0][]", $checked, [
                                 'value' => $value,
                                 'label' => $label
                             ]);
                         },
                     'class' => 'checkbox-wrap',
-                    'style' => 'width: 100%; display: flex; justify-content: space-around;'
+                    'style' => 'display: flex; justify-content: space-around; width: 100%; margin-top: 5px;'
                 ]);
             ?>
         </div>

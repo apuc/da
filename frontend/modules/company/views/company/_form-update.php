@@ -11,6 +11,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
+use common\classes\Debug;
+
 /**
  * @var $this yii\web\View
  * @var $model frontend\modules\company\models\Company
@@ -137,11 +139,12 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                 <div class="messengers-choice" style="display: flex; flex-wrap: wrap; width: 70%; margin-left: auto;">
                     <p style="width: 100%; margin-bottom: -1px">Выберите мессенджеры, если у вас привязан к ним
                         телефон</p>
-                    <?= Html::checkboxList('Phones[][messengeres]', $phone->messengeresArray, ArrayHelper::map(Messenger::find()->all(), "id", "name"),
+                    <?php //Debug::dd($phone->getMessengeresArray()); ?>
+                    <?= Html::checkboxList('Phones[][messengeres]', $phone->getMessengeresArray(), ArrayHelper::map(Messenger::find()->all(), "id", "name"),
                         [
                             'item' =>
                                 function ($index, $label, $name, $checked, $value) use ($phone) {
-                                    return Html::checkbox("Phones[" . $phone->id . "][messengeresArray][]", $checked, [
+                                    return Html::checkbox("messengeresArray[" . $phone->id . "][]", $checked, [
                                         'value' => $value,
                                         'label' => $label
                                     ]);
@@ -170,7 +173,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                 [
                     'item' =>
                         function ($index, $label, $name, $checked, $value) {
-                            return Html::checkbox("Phones[messengeresArray][]", $checked, [
+                            return Html::checkbox("messengeresArray[0][]", $checked, [
                                 'value' => $value,
                                 'label' => $label
                             ]);

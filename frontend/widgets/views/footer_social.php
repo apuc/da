@@ -16,7 +16,7 @@
     <a href="https://www.instagram.com/da.info.pro/" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a>
     <a href="https://plus.google.com/u/0/communities/115639152242515279745" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
     <a href="https://ru.pinterest.com/DA_Info_Pro/da-info-pro/" target="_blank"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
-    <a href="https://t.me/DAInfo" target="_blank"><i class="fa fa-telegram" aria-hidden="true"></i></a>
+    <a href="https://zen.yandex.ru/id/5afbe03e2f578cbf92d410ba" target="_blank"><span class="yadzen"></span></a>
     <a href="https://www.linkedin.com/in/da-info-pro/recent-activity/" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
     <a href="http://da-info-pro.livejournal.com/" target="_blank"><span class="lj"></span></a>
 </div>
