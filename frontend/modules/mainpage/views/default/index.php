@@ -20,10 +20,10 @@ $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends
         <?= \frontend\modules\mainpage\widgets\ShowHotThemeNews::widget(['useReg' => $useReg]) ?>
         <!-- ПОДПИСАТЬСЯ ГЛАВНАЯ СТРАНИЦА -->
         <?php
-        if ($this->beginCache('subscribe_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
+        //if ($this->beginCache('subscribe_widget', ['duration' => Yii::$app->params['hours-for-cache']])) {
             echo \frontend\widgets\Subscribe::widget();
-            $this->endCache();
-        }
+            //$this->endCache();
+        //}
         ?>
     </div>
         <!-- ЛЕНТА ДНЯ -->

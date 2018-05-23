@@ -327,7 +327,6 @@ class CompanyController extends Controller
             $post = Yii::$app->request->post();
             $phones = $model->allPhones;
             $post['Phones'] = array_values($post['Phones']);
-            $post['messengeresArray'] = array_values($post['messengeresArray']);
             $diff = count($post['Phones']) - count($phones);
             if ($diff > 0) {
                 for ($i = 0; $i < $diff; $i++) {
@@ -342,6 +341,7 @@ class CompanyController extends Controller
             if (Phones::loadMultiple($phones, $post) && Phones::validateMultiple($phones)) {
                 foreach ($phones as $phone) {
                     /** @var Phones $phone */
+                    $phone->messengeresArray = $post['messengeresArray'][$phone->id];
                     $phone->save();
                 }
             }
