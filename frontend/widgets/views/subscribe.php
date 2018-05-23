@@ -38,8 +38,8 @@ $this->registerJsFile('/js/validation.min.js');
             <a href="https://ru.pinterest.com/DA_Info_Pro/da-info-pro/" target="_blank" class="social-wrap__item pinterest">
                 <img src="/theme/portal-donbassa/img/soc/pinter-icon.png" alt="">
             </a>
-            <a href="https://t.me/DAInfo" target="_blank" class="social-wrap__item telegram">
-                <img src="/theme/portal-donbassa/img/soc/telegram-f.png" alt="">
+            <a href="https://zen.yandex.ru/id/5afbe03e2f578cbf92d410ba" target="_blank" class="social-wrap__item telegram">
+                <img src="/theme/portal-donbassa/img/soc/dzen.png" alt="">
             </a>
             <a  href="http://da-info-pro.livejournal.com/" target="_blank" class="social-wrap__item live-journal">
                 <img src="/theme/portal-donbassa/img/soc/livejournal-f.png" alt="">
