@@ -9,6 +9,7 @@
 namespace backend\modules\poster\models;
 
 
+use common\models\db\CategoryCompanyRelations;
 use yii\db\ActiveRecord;
 
 class Poster extends \common\models\db\Poster
@@ -47,4 +48,5 @@ class Poster extends \common\models\db\Poster
         $rules['categoryId'] = [['categoryId'], 'required'];
         return $rules;
     }
+
 }

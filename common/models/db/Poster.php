@@ -85,6 +85,7 @@ class Poster extends \yii\db\ActiveRecord
             'metka' => Yii::t('poster', 'Metka'),
             'user_id' => Yii::t('poster', 'user_id'),
             'region_id' => Yii::t('poster', 'region'),
+            'categories' => Yii::t('poster', 'Categories'),
         ];
     }
 
@@ -107,6 +108,7 @@ class Poster extends \yii\db\ActiveRecord
     {
         return $this->hasMany(\backend\modules\tags\models\TagsRelation::className(), ['post_id' => 'id']);
     }
+
 
 
 }

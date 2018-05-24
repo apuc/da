@@ -1,5 +1,6 @@
 <?php
 
+use common\classes\Debug;
 use common\models\db\CategoryPoster;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\ElFinder;
@@ -12,6 +13,9 @@ use kartik\select2\Select2;
 /* @var $this yii\web\View */
 /* @var $model backend\modules\poster\models\Poster */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $tags_selected array */
+/* @var $tags array */
+/* @var $categoriesSelected array */
 /*$model->categoryId = $categoriesSelected;
 \common\classes\Debug::prn($categoriesSelected);*/
 ?>
@@ -21,27 +25,29 @@ use kartik\select2\Select2;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'categoryId[]')->dropDownList(
+    <?php// Debug::dd($categoriesSelected); ?>
+    <?= $form->field($model, "categories")->dropDownList(
         ArrayHelper::map(CategoryPoster::find()->all(), 'id', 'title'),
         [
             'multiple' => 'multiple',
         ]
+
     )?>
 
 
-
+    <?php //Debug::dd($tags_selected); ?>
     <label class="control-label" for="company-city_id">Начните вводить теги</label>
     <?= Select2::widget([
+        'value' => $tags_selected,
         'name' => 'Tags',
         'data' => ArrayHelper::map($tags, 'id', 'tag'),
-        'value' => $tags_selected,
         //'data' => ['Донецкая область' => ['1'=>'Don','2'=>'Gorl'], 'Rostovskaya' => ['5'=>'rostov']],
         'options' => ['placeholder' => 'Начните вводить теги ...', 'multiple' => true],
         'pluginOptions' => [
             'allowClear' => true
         ],
     ]);
+
     ?>
 
     <?php echo $form->field($model, 'descr')->widget(CKEditor::className(), [
