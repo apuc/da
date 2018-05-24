@@ -9,7 +9,6 @@ use yii\helpers\Url;
 
 ?>
 <section class="news">
-    <div class="container">
         <div class="news__wrap">
             <?php if (empty($news)): ?>
                 <h3 class="section-title"><?= 'Новостей пока нет' ?></h3>
@@ -45,5 +44,4 @@ use yii\helpers\Url;
                 </a>
             <?php endforeach; ?>
         </div>
-    </div>
 </section>
