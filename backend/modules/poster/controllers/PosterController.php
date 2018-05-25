@@ -82,13 +82,10 @@ class PosterController extends Controller
     {
         $model = new Poster();
         $tags = Tags::find()->asArray()->all();
-
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-
             $model->dt_event = strtotime($model->dt_event);
             $model->dt_event_end = strtotime($model->dt_event_end);
             $model->user_id = Yii::$app->user->id;
-            $model->save();
 
             foreach ($model['categoryId'] as $cat) {
                 $catNewRel = new CategoryPosterRelations();
@@ -105,6 +102,7 @@ class PosterController extends Controller
                     $tags->saveTagsRel($tag, $model->id, 'poster');
                 }
             }
+
 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
