@@ -81,21 +81,24 @@ class PosterController extends Controller
     public function actionCreate()
     {
         $model = new Poster();
-        $tags = Tags::find()->asArray()->all();
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        $tags = Tags::find()->asArray()->all();
+        //Debug::dd($model);
+        if ($model->load(Yii::$app->request->post())) {
 
             $model->dt_event = strtotime($model->dt_event);
             $model->dt_event_end = strtotime($model->dt_event_end);
             $model->user_id = Yii::$app->user->id;
+            $model->categoryId = Yii::$app->request->post('Poster')['categories'][0];
             $model->save();
-
-            foreach ($model['categoryId'] as $cat) {
+            //Debug::dd($model->id);
+            foreach (Yii::$app->request->post('Poster')['categories'] as $cat) {
                 $catNewRel = new CategoryPosterRelations();
                 $catNewRel->cat_id = $cat;
                 $catNewRel->poster_id = $model->id;
                 $catNewRel->save();
             }
+
 
             if(!empty(Yii::$app->request->post('Tags')))
             {
@@ -136,9 +139,11 @@ class PosterController extends Controller
             ->all(), 'tag_id');
 
         if ($model->load(Yii::$app->request->post())) {
-            //Debug::dd(Yii::$app->request->post('Tags'));
+
             $model->dt_event = strtotime($model->dt_event);
             $model->dt_event_end = strtotime($model->dt_event_end);
+
+            //$model->photo = Yii::$app->request->post('Poster')['photo'];
 
             CategoryPosterRelations::deleteAll(['poster_id' => $id]);
 
@@ -148,6 +153,7 @@ class PosterController extends Controller
                 $catNewRel->poster_id = $model->id;
                 $catNewRel->save();
             }
+            $model->categoryId = Yii::$app->request->post('Poster')['categories'][0];
             $model->save();
             if(!empty(Yii::$app->request->post('Tags')))
             {
