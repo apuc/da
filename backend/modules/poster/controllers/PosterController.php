@@ -81,23 +81,24 @@ class PosterController extends Controller
     public function actionCreate()
     {
         $model = new Poster();
+
         $tags = Tags::find()->asArray()->all();
-        //
+        //Debug::dd($model);
         if ($model->load(Yii::$app->request->post())) {
 
             $model->dt_event = strtotime($model->dt_event);
             $model->dt_event_end = strtotime($model->dt_event_end);
             $model->user_id = Yii::$app->user->id;
-
-
+            $model->categoryId = Yii::$app->request->post('Poster')['categories'][0];
+            $model->save();
+            //Debug::dd($model->id);
             foreach (Yii::$app->request->post('Poster')['categories'] as $cat) {
                 $catNewRel = new CategoryPosterRelations();
                 $catNewRel->cat_id = $cat;
                 $catNewRel->poster_id = $model->id;
                 $catNewRel->save();
-                $model->categoryId[] = $cat;
             }
-            $model->save();
+
 
             if(!empty(Yii::$app->request->post('Tags')))
             {
@@ -110,7 +111,7 @@ class PosterController extends Controller
 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            //Debug::dd($model->errors);
+
             $region = GeobaseRegion::find()->all();
             return $this->render('create', [
                 'model' => $model,
