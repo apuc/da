@@ -136,19 +136,19 @@ class PosterController extends Controller
             ->all(), 'tag_id');
 
         if ($model->load(Yii::$app->request->post())) {
+            //Debug::dd(Yii::$app->request->post('Tags'));
             $model->dt_event = strtotime($model->dt_event);
             $model->dt_event_end = strtotime($model->dt_event_end);
 
             CategoryPosterRelations::deleteAll(['poster_id' => $id]);
 
-            foreach ($model['categoryId'] as $cat) {
+            foreach (Yii::$app->request->post('Poster')['categories'] as $cat) {
                 $catNewRel = new CategoryPosterRelations();
                 $catNewRel->cat_id = $cat;
                 $catNewRel->poster_id = $model->id;
                 $catNewRel->save();
             }
             $model->save();
-
             if(!empty(Yii::$app->request->post('Tags')))
             {
                 TagsRelation::deleteAll(['post_id' => $id, 'type' => 'poster']);

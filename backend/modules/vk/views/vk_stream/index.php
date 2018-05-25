@@ -78,14 +78,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     $text .= '<div>';
 
                     foreach ((array)$photo as $item) {
-                        if (!empty($item->photo_807)) {
+                        if (!empty($item->photo_1280)) {
+                            $text .= '<span>' . Html::img($item->photo_1280, ['width' => 300]) . '</span>';
+                        } elseif (!empty($item->photo_807)) {
                             $text .= '<span>' . Html::img($item->photo_807, ['width' => 300]) . '</span>';
                         } elseif (!empty($item->photo_604)) {
-                            $text .= '<span>' . Html::img($item->photo_604, ['width' => 300]) . '</span>';
+                            $text .= '<span>' . Html::img($item->photo_604, ['width' => 200]) . '</span>';
+                        } elseif (!empty($item->photo_512)) {
+                            $text .= '<span>' . Html::img($item->photo_512, ['width' => 200]) . '</span>';
                         } elseif (!empty($item->photo_130)) {
-                            $text .= '<span>' . Html::img($item->photo_130, ['width' => 200]) . '</span>';
+                            $text .= '<span>' . Html::img($item->photo_130, ['width' => 100]) . '</span>';
                         } else {
-                            $text .= '<span>' . Html::img($item->photo_75, ['width' => 200]) . '</span>';
+                            $text .= '<span>' . Html::img($item->photo_75, ['width' => 100]) . '</span>';
                         }
                     }
                     $text .= '</div><div>';

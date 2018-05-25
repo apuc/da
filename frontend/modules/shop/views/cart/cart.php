@@ -16,7 +16,7 @@ $this->registerJsFile('/js/raw/products.js', ['depends' => [\yii\web\JqueryAsset
     <img src="/theme/portal-donbassa/img/icons/cheak.svg" alt="">
 </h1>
 
-<div class="shop__content">
+<div class="shop__content shop__content-cart">
 
     <?php foreach ($cart as $item): ?>
 
