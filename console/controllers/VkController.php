@@ -59,7 +59,6 @@ class VkController extends Controller
                 $res = $this->vk->getGroupWall($group->domain, ['count' => $this->count, 'extended' => 1]);
 
             $res = json_decode($res);
-            //Debug::prn($res);
             if(isset($res->response->profiles))
             {
                 $this->saveAuthors($res->response->profiles);
@@ -73,7 +72,6 @@ class VkController extends Controller
 
     public function saveStream($items)
     {
-       // Debug::prn($items);
         if (!empty($items)) {
             foreach ((array)$items as $item) {
                 if (VkStream::find()->where(['vk_id' => $item->owner_id . '_' . $item->id])->count() == 0) {
@@ -155,7 +153,6 @@ class VkController extends Controller
 
                         $gif->gif_link = $attachment->doc->url;
                         $gif->save();
-                        //Debug::prn($gif);
                         echo 'gif - ' . $gif->vk_id . ' add' . "\n";
                     }
                 }
@@ -167,15 +164,12 @@ class VkController extends Controller
     {
         if (!empty($item->attachments)) {
             $comment = VkComments::findOne(['id' => $commentId]);
-            //Debug::prn($comment);
             foreach ((array)$item->attachments as $attachment) {
                 if (($attachment->type === 'doc') && ($attachment->doc->ext === 'png')) {
-                    //Debug::prn($attachment);
                     $comment->sticker = $attachment->doc->url;
                     $comment->save();
                     echo 'sticker - ' . $attachment->doc->id . ' add to comment' . "\n";
                 } elseif ($attachment->type === 'sticker') {
-                    //Debug::prn($attachment);
                     $comment->sticker = $attachment->sticker->photo_512;
                     $comment->save();
                     echo 'sticker - ' . $attachment->sticker->id . ' add to comment' . "\n";
@@ -212,7 +206,6 @@ class VkController extends Controller
         ]);
         $res = $vk->getPostComments(-107103361, 382083, ['extended' => 1, 'count' => 100]);
         $res = json_decode($res);
-        //Debug::prn($res->response);
     }
 
     public function saveComments($ownerId, $postId, $postSysId)
@@ -247,7 +240,7 @@ class VkController extends Controller
         $groups = VkGroups::find()->where(['in','status', [1, 2]])->all();
         foreach ($groups as $group) {
             sleep(1);
-            $res = $this->vk->request('groups.getById', ['group_id' => $group->vk_id * -1]);
+            $res = $this->vk->request('groups.getById', ['group_id' => $group->vk_id > 0 ? $group->vk_id : $group->vk_id * -1]);
             $res = json_decode($res);
             if(isset($res->response[0])){
                 $this->saveGroupInfo($res->response[0], $groups);
@@ -261,13 +254,12 @@ class VkController extends Controller
         $groups = (!$groups)? : VkGroups::find()->where(['in','status', [1, 2]])->all();
         foreach ($groups as $group)
         {
-            if($group->vk_id * -1 == $group_info->id)
+            if($group->vk_id * -1 == $group_info->id || $group->vk_id == $group_info->id)
             {
                 $group->photo_50 = $group_info->photo_50;
                 $group->photo_100 = $group_info->photo_100;
                 $group->photo_200 = $group_info->photo_200;
                 $group->save();
-                //Debug::prn($group);
             }
 
         }
