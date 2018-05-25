@@ -176,7 +176,6 @@ class CompanyController extends Controller
             ->where(['company_id' => $id])
             ->asArray()
             ->all(), 'cat_id');
-        //Debug::dd($tags_selected);
         $socials = $model->getFullAndEmptySocials();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {

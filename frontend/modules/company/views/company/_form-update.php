@@ -139,7 +139,6 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                 <div class="messengers-choice" style="display: flex; flex-wrap: wrap; width: 70%; margin-left: auto;">
                     <p style="width: 100%; margin-bottom: -1px">Выберите мессенджеры, если у вас привязан к ним
                         телефон</p>
-                    <?php //Debug::dd($phone->getMessengeresArray()); ?>
                     <?= Html::checkboxList('Phones[][messengeres]', $phone->getMessengeresArray(), ArrayHelper::map(Messenger::find()->all(), "id", "name"),
                         [
                             'item' =>
