@@ -277,6 +277,7 @@ class Products extends \common\models\db\Products
             $maxPrice = ArrayHelper::remove($params, 'maxPrice');
             $saleFilter = ArrayHelper::remove($params, 'saleFilter');
             $sort = ArrayHelper::remove($params, 'sort');
+            $page = ArrayHelper::remove($params, 'page');
         } else {
             $minPrice = $params->minPrice;
             unset($params->minPrice);

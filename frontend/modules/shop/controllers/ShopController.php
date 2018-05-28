@@ -69,7 +69,7 @@ class ShopController extends Controller
         $categoryModel = $model->getCategoryInfoBySlug($category);
 
         $modelProduct = new Products();
-        if( count(Yii::$app->request->get()) > 1){
+        if( count(Yii::$app->request->get()) > 1 && !Yii::$app->request->get('page')){
             $products = $modelProduct->listProductFilter(16, $categoryModel->id, Yii::$app->request->get());
         }
         else{
