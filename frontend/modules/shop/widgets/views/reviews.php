@@ -1,6 +1,7 @@
 <?php
 /**
- * @var $model \common\models\db\ProductsReviews
+ * @var $modelReviews frontend\modules\shop\models\form\ReviewsForm
+ * @var $modelQuestion frontend\modules\shop\models\form\QuestionForm
  * @var $reviews \common\models\db\ProductsReviews
  */
 
@@ -39,33 +40,113 @@ if(Yii::$app->user->isGuest):?>
 <?php else: ?>
 
 <h3>Напишите свой отзыв:</h3>
-    <?php $form = ActiveForm::begin(
+    <?php /*$form = ActiveForm::begin(
         [
             'id' => 'addReviewsProducts',
             'action' => '/ajax/ajax/add-reviews-products',
         ]
-    )?>
+    )*/?><!--
         <div class="addReviewsFormWr">
             <div class="reatingWr" >
                 <h3>Поставте оценку</h3>
                 <div style="width: 141px;">
-                    <!--<input id="input-1-xs"  data-min="0" data-max="5" data-step="1" class="rating rating-loading" data-show-clear="false" data-show-caption="false" data-size="xs">-->
                     <input id="input-1-xs" data-step="1">
-                    <?= $form->field($model, 'rating')->hiddenInput()
+                    <?/*= $form->field($model, 'rating')->hiddenInput()
                         ->label(false);
-                    ?>
+                    */?>
                 </div>
 
 
             </div>
-            <?= $form->field($model, 'product_id')->hiddenInput(['value' => $productId])->label(false); ?>
+            <?/*= $form->field($model, 'product_id')->hiddenInput(['value' => $productId])->label(false); */?>
 
-            <?= $form->field($model, 'content')->textarea()->label('Ваш отзыв')?>
+            <?/*= $form->field($model, 'content')->textarea()->label('Ваш отзыв')*/?>
 
             <input type="submit" value="Добавить" class="btn btn-save" id="addReviews">
         </div>
-    <?php ActiveForm::end(); ?>
+    --><?php /*ActiveForm::end(); */?>
 
+
+        <h4 class="add-owl-reviews-title">Добавьте совой отзыв или коментарий по данному товару</h4>
+        <ul class="single-shop__tab-links">
+            <li class="active" data-page="0">Отзыв о товаре</li>
+            <li data-page="1" class="">Краткий комментарий</li>
+        </ul>
+        <div class="single-shop__tab-content">
+
+            <div class="single-shop__tab-item" style="display: none;">
+
+                <?php $form = ActiveForm::begin(
+                    [
+                        'id' => 'addReviewsProducts',
+                        'action' => '/ajax/ajax/add-reviews-products',
+                    ]
+                )?>
+                <div class="single-shop__form-left">
+                    <div class="reatingWr" >
+                        <h3>Поставте оценку</h3>
+                        <div style="width: 141px;">
+                            <input id="input-1-xs" data-step="1">
+                            <?= $form->field($modelReviews, 'rating')->hiddenInput()
+                                ->label(false);
+                            ?>
+                        </div>
+
+
+                    </div>
+                    <?= $form->field($modelReviews, 'plus')->textInput()->label('Достоинтсва')?>
+
+                    <?= $form->field($modelReviews, 'minus')->textInput()->label('Недостатки')?>
+
+                    <?= $form->field($modelReviews, 'product_id')->hiddenInput(['value' => $productId])->label(false); ?>
+
+                    <?= $form->field($modelReviews, 'content')->textarea()->label('Ваш отзыв')?>
+
+
+                    <input type="submit" value="Добавить" class="btn btn-save" id="addReviews">
+                </div>
+
+                <div class="single-shop__warning-right">
+                    <h3 class="warning-right-title">Важно!</h3>
+
+                    <p class="warning-right-desk">
+                        Чтобы Ваш отзыв либо комментарий прошел модерацию и был опубликован, ознакомьтесь,
+                        пожалуйста, <a href="#">с нашими правилами!</a>
+                    </p>
+                </div>
+                <?php ActiveForm::end(); ?>
+
+            </div>
+
+            <div class="single-shop__tab-item" style="display:block;">
+                <?php $form = ActiveForm::begin(
+                    [
+                        'id' => 'addQuestionProducts',
+                        'action' => '/ajax/ajax/add-question-products',
+                    ]
+                )?>
+                <div class="single-shop__form-left">
+
+                    <?= $form->field($modelQuestion, 'product_id')->hiddenInput(['value' => $productId])->label(false); ?>
+
+                    <?= $form->field($modelQuestion, 'content')->textarea()->label('Ваш отзыв')?>
+
+
+                    <input type="submit" value="Добавить" class="btn btn-save" id="addReviews">
+                </div>
+
+                <div class="single-shop__warning-right">
+                    <h3 class="warning-right-title">Важно!</h3>
+
+                    <p class="warning-right-desk">
+                        Чтобы Ваш отзыв либо комментарий прошел модерацию и был опубликован, ознакомьтесь,
+                        пожалуйста, <a href="#">с нашими правилами!</a>
+                    </p>
+                </div>
+                <?php ActiveForm::end(); ?>
+            </div>
+
+        </div>
 
 
 <?php endif;?>

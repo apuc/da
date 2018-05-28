@@ -148,7 +148,7 @@ $(document).ready(function () {
 
     //Рейтинг
     $('#input-1-xs').on('rating:change', function(event, value, caption) {
-       $("#productsreviews-rating").val(value);
+       $("#reviewsform-rating").val(value);
 
     });
 
@@ -190,6 +190,21 @@ $(document).ready(function () {
             error: function(){
                 alert('Error!');
             }
+        });
+        return false;
+    });
+
+    $('#addQuestionProducts').on('beforeSubmit', function(){
+        var data = $(this).serialize();
+        $.ajax({
+            url: '/ajax/ajax/add-question-products',
+            type: 'POST',
+            data: data,
+            success: function(res){
+                console.log(res);
+                $('#addQuestionProducts').html(res);
+            },
+
         });
         return false;
     });
