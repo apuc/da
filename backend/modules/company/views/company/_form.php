@@ -83,7 +83,7 @@ use yii\jui\DatePicker;
     <?= Select2::widget([
         'name' => 'Tags',
         'data' => ArrayHelper::map($tags, 'id', 'tag'),
-        'value' => $tags_selected,
+        'value' => ArrayHelper::getColumn($model->tags, 'id'),
         //'data' => ['Донецкая область' => ['1'=>'Don','2'=>'Gorl'], 'Rostovskaya' => ['5'=>'rostov']],
         'options' => ['placeholder' => 'Начните вводить теги ...', 'multiple' => true],
         'pluginOptions' => [

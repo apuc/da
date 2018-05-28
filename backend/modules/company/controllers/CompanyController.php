@@ -172,13 +172,17 @@ class CompanyController extends Controller
         $companyPhotosStr = implode(',', $companyPhotos);
         $phones = Phones::find()->where(['company_id' => $model->id])->all();
         $tags = Tags::find()->asArray()->all();
-        $tags_selected = ArrayHelper::getColumn(TagsRelation::find()->select('tag_id')
-            ->where(['post_id' => $id, 'type' => 'company'])
-            ->asArray()
-            ->all(), 'tag_id');
         $socials = $model->getFullAndEmptySocials();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            foreach(Yii::$app->request->post('Tags') as $tag){
+                $relation = new TagsRelation();
+                $relation->tag_id = $tag;
+                $relation->type = 'company';
+                $relation->post_id = $id;
+                $model->tagsRelations[] = $relation;
+            }
+            //Debug::dd($model->tagsRelations);
             $post = Yii::$app->request->post();
             if (empty($model->alt)) {
                 $model->alt = $model->name;
@@ -222,13 +226,13 @@ class CompanyController extends Controller
                 }
             }
 
-            if (!empty(Yii::$app->request->post('Tags'))) {
+            /*if (!empty(Yii::$app->request->post('Tags'))) {
                 TagsRelation::deleteAll(['post_id' => $id, 'type' => 'company']);
                 foreach (Yii::$app->request->post('Tags') as $tag) {
                     $tags = New TagsRelation();
                     $tags->saveTagsRel($tag, $id, 'company');
                 }
-            }
+            }*/
 
 
             $phones = Phones::findAll(['company_id' => $id]);
@@ -258,7 +262,6 @@ class CompanyController extends Controller
                 'city' => GeobaseFunction::getArrayCityRegion(),
                 'socials' => $socials,
                 'tags' => $tags,
-                'tags_selected' => $tags_selected,
                 'phones' => $phones
             ]);
         }
