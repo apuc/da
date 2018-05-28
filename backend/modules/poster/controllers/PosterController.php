@@ -83,7 +83,6 @@ class PosterController extends Controller
         $model = new Poster();
 
         $tags = Tags::find()->asArray()->all();
-        //Debug::dd($model);
         if ($model->load(Yii::$app->request->post())) {
 
             $model->dt_event = strtotime($model->dt_event);
@@ -91,7 +90,6 @@ class PosterController extends Controller
             $model->user_id = Yii::$app->user->id;
             $model->categoryId = Yii::$app->request->post('Poster')['categories'][0];
             $model->save();
-            //Debug::dd($model->id);
             foreach (Yii::$app->request->post('Poster')['categories'] as $cat) {
                 $catNewRel = new CategoryPosterRelations();
                 $catNewRel->cat_id = $cat;

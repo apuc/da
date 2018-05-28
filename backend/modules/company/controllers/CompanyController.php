@@ -172,10 +172,10 @@ class CompanyController extends Controller
         $companyPhotosStr = implode(',', $companyPhotos);
         $phones = Phones::find()->where(['company_id' => $model->id])->all();
         $tags = Tags::find()->asArray()->all();
-        $tags_selected = ArrayHelper::getColumn(CategoryCompanyRelations::find()->select('cat_id')
-            ->where(['company_id' => $id])
+        $tags_selected = ArrayHelper::getColumn(TagsRelation::find()->select('tag_id')
+            ->where(['post_id' => $id, 'type' => 'company'])
             ->asArray()
-            ->all(), 'cat_id');
+            ->all(), 'tag_id');
         $socials = $model->getFullAndEmptySocials();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
