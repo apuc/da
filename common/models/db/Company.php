@@ -38,8 +38,6 @@ use yii\helpers\ArrayHelper;
  *
  * @property CategoryCompanyRelations[] $categoryCompanyRelations
  * @property News[] $news
- * @property TagsRelation[] $tagsRelation
- * @property Tags[] $tags
  */
 class Company extends \yii\db\ActiveRecord
 {
@@ -116,7 +114,6 @@ class Company extends \yii\db\ActiveRecord
     {
         return $this->hasMany(CategoryCompanyRelations::className(), ['company_id' => 'id']);
     }
-
 
 
     /**
@@ -213,24 +210,7 @@ class Company extends \yii\db\ActiveRecord
 
     public function getCompanyFeedback()
     {
-        return $this->hasMany(CompanyFeedback::class,  ['company_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTagsRelations()
-    {
-        return $this->hasMany(TagsRelation::className(), ['post_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTags()
-    {
-        return $this->hasMany(Tags::className(), ['id' => 'tag_id'])
-            ->via('tagsRelations');
+        return $this->hasMany(CompanyFeedback::class, ['company_id' => 'id']);
     }
 
 }

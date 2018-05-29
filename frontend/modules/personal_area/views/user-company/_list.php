@@ -9,7 +9,7 @@ $statistics = $model->getPage('statistics');
 <div class="cabinet__pkg-descr">
 
     <div class="cabinet__like-block--company-photo">
-        <img src="<?= $model['photo'] ?>" alt="">
+        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($model['photo']) ?>" alt="">
     </div>
 
     <h3 class="cabinet__like-block--company-name">

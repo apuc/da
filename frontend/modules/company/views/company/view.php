@@ -83,7 +83,7 @@ $this->params['breadcrumbs'][] = $model->name;
 
                 <div class="business__requisites">
                     <div class="business__requisites--avatar">
-                        <img src="<?= $model->photo ?>"
+                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($model->photo) ?>"
                              alt="<?= !empty($model->alt) ? $model->alt : $model->name ?>">
                     </div>
                     <div class="business__requisites--address">
