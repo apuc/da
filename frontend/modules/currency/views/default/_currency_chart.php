@@ -70,7 +70,8 @@ $hsOptions = [
     'options' => [
         'chart' => [
             'type' => 'areaspline',
-            'height' => 280
+            'height' => 280,
+            'pinchType' => 'x'
         ],
         'subtitle' => [
             'text' => 'Курсы валют',
