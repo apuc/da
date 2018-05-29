@@ -15,6 +15,8 @@ use Yii;
  * @property int $product_id
  * @property int $published
  * @property int $rating
+ * @property int $plus
+ * @property int $minus
  *
  * @property Products $product
  * @property User $user
@@ -38,8 +40,9 @@ class ProductsReviews extends \yii\db\ActiveRecord
             [['user_id', 'content', 'dt_add', 'product_id', 'rating'], 'required'],
             [['user_id', 'dt_add', 'product_id', 'published', 'rating'], 'integer'],
             [['content'], 'string'],
+            [['plus', 'minus'], 'string', 'max' => 512],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Products::class, 'targetAttribute' => ['product_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -56,6 +59,8 @@ class ProductsReviews extends \yii\db\ActiveRecord
             'product_id' => 'Product ID',
             'published' => 'Published',
             'rating' => 'Rating',
+            'plus' => 'Plus',
+            'minus' => 'minus',
         ];
     }
 
@@ -64,7 +69,7 @@ class ProductsReviews extends \yii\db\ActiveRecord
      */
     public function getProduct()
     {
-        return $this->hasOne(Products::className(), ['id' => 'product_id']);
+        return $this->hasOne(Products::class, ['id' => 'product_id']);
     }
 
     /**
@@ -72,6 +77,6 @@ class ProductsReviews extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 }
