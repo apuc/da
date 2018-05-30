@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $categoryInfo->name;
 ); ?>
 <div class="shop__top-sales">
 
-    <div class="shop__top-sales-nav">
+    <!--<div class="shop__top-sales-nav">
 
         <h3 class="shop__top-sales-nav--title">Товары из категории</h3>
 
@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $categoryInfo->name;
             <span class="name">Круглосуточный <br> колл-центр</span>
         </a>
 
-    </div>
+    </div>-->
 
     <!--<div class="shop__top-sales-elements">-->
         <?= \yii\widgets\ListView::widget([

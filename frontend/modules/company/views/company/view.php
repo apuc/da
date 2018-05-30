@@ -116,9 +116,6 @@ $this->params['breadcrumbs'][] = $model->name;
                         </div>
                     <?php endif; ?>
                     <div class="business__requisites--links">
-                        <div class="business__requisites--links-w">
-                            <span class="views"><?= $model->views; ?> просмотров</span>
-                        </div>
                         <?php if (!empty($model->allPhones)): ?>
                             <?php foreach ($model->allPhones as $phone): ?>
                                 <div class="business__requisites--links-tel">
