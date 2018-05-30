@@ -114,7 +114,6 @@ class ShopController extends Controller
             ->where(['slug' => $slug])
             ->with('productFieldsValues.field', 'company.allPhones', 'images', 'category', 'reviews')
             ->one();
-
         $currentUserId = Yii::$app->user->id;
         if (!empty($currentUserId)) {
             $thisUserLike = LikeProducts::find()
@@ -131,6 +130,37 @@ class ShopController extends Controller
 
         $categoryList = \common\classes\Shop::getListCategoryAllInfo($model->category_id, []);
         return $this->render('view',
+            [
+                'model' => $model,
+                'like' => $thisUserLike,
+                'categoryList' => $categoryList,
+            ]
+        );
+    }
+
+    public function actionProductReviews($slug)
+    {
+        $this->layout = 'single-shop';
+        $model = Products::find()
+            ->where(['slug' => $slug])
+            ->with('productFieldsValues.field', 'company.allPhones', 'images', 'category', 'reviews')
+            ->one();
+        $currentUserId = Yii::$app->user->id;
+        if (!empty($currentUserId)) {
+            $thisUserLike = LikeProducts::find()
+                ->where(['product_id' => $model->id, 'user_id' => $currentUserId])->one();
+            if (!empty($thisUserLike)) {
+                $thisUserLike = true;
+            }
+
+        } else {
+            $thisUserLike = false;
+        }
+
+        $model->updateAllCounters(['view' => 1], ['id' => $model->id]);
+
+        $categoryList = \common\classes\Shop::getListCategoryAllInfo($model->category_id, []);
+        return $this->render('reviews-products',
             [
                 'model' => $model,
                 'like' => $thisUserLike,
