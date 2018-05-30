@@ -82,45 +82,50 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                     Оставьте это поле пустым, если скидки на товар нет')
     ->label('Новая цена')
 ?>
-<h2 class="soglasie">Фотографии
-    <span>(для выбора обложки изображения нажмите на него) </span>
-</h2>
-<hr class="lineAddAds"/>
-<?= $form->field($model, 'cover')->hiddenInput()->label(false);?>
+<h2>Фотографии <span>(для выбора обложки изображения нажмите на него)</span></h2>
 
-<?php echo FileInput::widget([
-    'name' => 'file[]',
-    'id' => 'input-5',
-    'attribute' => 'attachment_1',
-    'value' => '@frontend/media/img/1.png',
-    /*'options' => [
-    'multiple' => true,
-    'showCaption' => false,
-    'showUpload' => false,
-    'uploadAsync' => false,
-    ],
-    'pluginOptions' => [
-    'uploadUrl' => Url::to(['/site/upload_file']),
-    'language' => "ru",
-    'previewClass' => 'hasEdit',
-    'uploadAsync' => false,
-    'showUpload' => false,
-    'dropZoneEnabled' => false,
-    'overwriteInitial' => false,
-    'maxFileCount' => 10,
-    'maxFileSize' => 2000,
-    ],*/
-    'options' => ['multiple' => true, 'accept' => 'image/*'],
-    'pluginOptions' => [
-        'previewFileType' => 'image',
-        'maxFileCount' => 10,
-        'maxFileSize' => 2000,
-        'language' => "ru",
-        'previewClass' => 'hasEdit',
-    ],
-]);
+<p class="cabinet__add-company-form--count">количество загружаемых файлов<span>5 из 10</span><span></span></p>
 
-?>
+<div class="cabinet__add-company-form--drop">
+    <img src="../img/icons/cloud.png" alt="">
+    <p>Перетащите сюда файлы, чтобы прикрепить их как документ</p>
+</div>
+
+<div class="cabinet__add-company-form--images" id="cabinet__add-company-form--images">
+    <div class="cabinet__add-company-form--img">
+        <div class="cabinet__add-company-form--img-wrapper">
+            <img src="img/action1.png" alt="">
+        </div>
+        <p class="cabinet__add-company-form--img-name"><span class="arrow-up"><img src="img/icons/arrow-up.png" alt=""></span><span class="img-name">content.doc (126KB)</span></p>
+        <progress value="30" max="100"></progress>
+    </div>
+    <div class="cabinet__add-company-form--img">
+        <div class="cabinet__add-company-form--img-wrapper">
+            <img src="img/company-sidebar.png" alt="">
+        </div>
+        <p class="cabinet__add-company-form--img-name"><span class="arrow-up"><img src="img/icons/arrow-up.png" alt=""></span><span class="img-name">content.doc (126KB)</span></p>
+        <progress value="30" max="100"></progress>
+    </div>
+    <div class="cabinet__add-company-form--img">
+        <div class="cabinet__add-company-form--img-wrapper">
+            <img src="img/product.jpg" alt="">
+        </div>
+        <p class="cabinet__add-company-form--img-name"><span class="arrow-up"><img src="img/icons/arrow-up.png" alt=""></span><span class="img-name">content.doc (126KB)</span></p>
+        <progress value="30" max="100"></progress>
+    </div>
+    <div class="cabinet__add-company-form--img">
+        <div class="cabinet__add-company-form--img-wrapper">
+            <img src="img/product.jpg" alt="">
+        </div>
+        <p class="cabinet__add-company-form--img-uploaded"><span class="img-name">fileuploaded.xls (12KB)</span><a class="cabinet__add-company-form--delete"><img src="img/icons/Rectangl.png" alt=""></a></p>
+    </div>
+    <div class="cabinet__add-company-form--img">
+        <div class="cabinet__add-company-form--img-wrapper">
+            <img src="img/product.jpg" alt="">
+        </div>
+        <p class="cabinet__add-company-form--img-uploaded"><span class="img-name">fileuploaded.xls (12KB)</span><a class="cabinet__add-company-form--delete"><img src="img/icons/Rectangl.png" alt=""></a></p>
+    </div>
+</div>
 
 
 <?= $form->field($model, 'description')->textarea(
