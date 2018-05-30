@@ -147,8 +147,8 @@ $(document).ready(function () {
 
 
     //Рейтинг
-    $('#input-1-xs').on('rating:change', function(event, value, caption) {
-       $("#reviewsform-rating").val(value);
+    $('.stars li').on('click', function() {
+       $('.product-rating').val($(this).attr('data-value'));
 
     });
 
@@ -161,12 +161,15 @@ $(document).ready(function () {
 
     $('#addReviewsProducts').on('beforeSubmit', function(e){
         var data = $(this).serialize();
+        var comments = $(".shop__usefull-comments");
         e.preventDefault();
         $.ajax({
             url: '/ajax/ajax/add-reviews-products',
             type: 'POST',
             data: data,
             success: function(res){
+                comments.append(res);
+                $('#addReviewsProducts')[0].reset();
             },
             error: function(){
                 alert('Error!');
@@ -184,12 +187,15 @@ $(document).ready(function () {
 
     $('#addQuestionProducts').on('beforeSubmit', function(e){
         e.preventDefault();
+        var comments = $(".shop__usefull-comments");
         var data = $(this).serialize();
         $.ajax({
             url: '/ajax/ajax/add-question-products',
             type: 'POST',
             data: data,
             success: function(res){
+                comments.append(res);
+                $('#addQuestionProducts')[0].reset();
             },
 
         });

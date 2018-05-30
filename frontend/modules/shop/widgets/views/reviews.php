@@ -8,13 +8,12 @@
 
 use common\classes\UserFunction;
 use yii\bootstrap\ActiveForm;
-use yii\widgets\Pjax;
+use frontend\modules\shop\widgets\StarsRating;
 
 ?>
 
 <h3 class="shop__reviews-title-2">Отзывы покупателей</h3>
 <div class="shop__usefull-comments">
-    <?php Pjax::begin(['id' => 'shop__usefull-comments'])?>
 
     <?php if (empty($reviews)): ?>
         <h3>Ни кто не оставлял отзыва</h3>
@@ -26,34 +25,26 @@ use yii\widgets\Pjax;
                 <div class="comments">
                     <div class="review-header">
                         <div class="name"><?= UserFunction::getUserName($item['user_id']) ?></div>
-                        <div class="rating-stars">
-                            <ul class="stars">
-                                <li class="star selected" title="Poor" data-value="1">
-                                    <i class="fa fa-star fa-fw"></i>
-                                </li>
-                                <li class="star selected" title="Fair" data-value="2">
-                                    <i class="fa fa-star fa-fw"></i>
-                                </li>
-                                <li class="star selected" title="Good" data-value="3">
-                                    <i class="fa fa-star fa-fw"></i>
-                                </li>
-                                <li class="star selected" title="Excellent" data-value="4">
-                                    <i class="fa fa-star fa-fw"></i>
-                                </li>
-                                <li class="star" title="WOW!!!" data-value="5">
-                                    <i class="fa fa-star fa-fw"></i>
-                                </li>
-                            </ul>
-                            <div class="date"><?= date('d-F-Y', $item['dt_add']) ?></div>
-                        </div>
+                        <?php if ($item['rating']): ?>
+                            <div class="rating-stars">
+                                <?= StarsRating::widget([
+                                    'rating' => $item['rating']
+                                ]) ?>
+                                <div class="date"><?= date('d-F-Y', $item['dt_add']) ?></div>
+                            </div>
+                        <?php endif ?>
                     </div>
                     <?= $item->content ?>
                     <div class="advantages">
-                        <b>Достоинства:</b> <?= $item['plus'] ?>
+                        <?php if ($item['plus']): ?>
+                            <b>Достоинства:</b> <?= $item['plus'] ?>
+                        <?php endif ?>
                     </div>
 
                     <div class="disadvantages">
-                        <b>Недостатки:</b> <?= $item['minus'] ?>
+                        <?php if ($item['minus']): ?>
+                            <b>Недостатки:</b> <?= $item['minus'] ?>
+                        <?php endif ?>
                     </div>
                     <a href="#" class="reply-btn">Ответить</a>
                     <span class="delimiter">|</span>
@@ -80,7 +71,6 @@ use yii\widgets\Pjax;
         <?php endforeach; ?>
 
     <?php endif; ?>
-    <?php \yii\widgets\Pjax::end(); ?>
 </div>
 <?php
 if (Yii::$app->user->isGuest):?>
@@ -97,45 +87,29 @@ if (Yii::$app->user->isGuest):?>
         <div class="single-shop__tab-content">
 
             <div class="single-shop__tab-item">
-
-                <div class="rating-stars rating-tabs">
-                    <ul class="stars">
-                        <li class="star selected" title="Poor" data-value="1">
-                            <i class="fa fa-star fa-fw"></i>
-                        </li>
-                        <li class="star selected" title="Fair" data-value="2">
-                            <i class="fa fa-star fa-fw"></i>
-                        </li>
-                        <li class="star selected" title="Good" data-value="3">
-                            <i class="fa fa-star fa-fw"></i>
-                        </li>
-                        <li class="star selected" title="Excellent" data-value="4">
-                            <i class="fa fa-star fa-fw"></i>
-                        </li>
-                        <li class="star" title="WOW!!!" data-value="5">
-                            <i class="fa fa-star fa-fw"></i>
-                        </li>
-                    </ul>
-                    <span class="estimate">Оцените товар</span>
-                </div>
-
                 <?php $form = ActiveForm::begin(
                     [
                         'class' => 'single-shop__review-product',
                         'id' => 'addReviewsProducts',
                     ]
                 ) ?>
+                <div class="rating-stars rating-tabs">
+                    <?= StarsRating::widget([
+                        'rating' => 4
+                    ]) ?>
+                    <span class="estimate">Оцените товар</span>
+                </div>
+
                 <div class="single-shop__form-left">
 
-
                     <?= $form->field($modelReviews, 'product_id')->hiddenInput(['value' => $productId])->label(false); ?>
+                    <?= $form->field($modelReviews, 'rating')->hiddenInput(['class' => 'product-rating', 'value' => 4])->label(false); ?>
                     <?= $form->field($modelReviews, 'plus')->textInput(['id' => 'dignity'])->label('Достоинтсва') ?>
                     <?= $form->field($modelReviews, 'minus')->textInput(['id' => 'disadvantages'])->label('Недостатки') ?>
-                    <?= $form->field($modelReviews, 'content')->textarea(['id' => 'disadvantages'])->label('Комментарий') ?>
+                    <?= $form->field($modelReviews, 'content')->textarea(['id' => 'revContent'])->label('Комментарий') ?>
 
-                    <input type="submit" value="Добавить" class="review-product-btn" id = 'addReviews'>
+                    <input type="submit" value="Добавить" class="review-product-btn" id='addReviews'>
                     <?= \yii\helpers\Html::button('Отмена', ['class' => "review-product-cancel"]); ?>
-
 
 
                 </div>
@@ -160,27 +134,24 @@ if (Yii::$app->user->isGuest):?>
                     ]
                 ) ?>
 
-                    <div class="single-shop__form-left">
+                <div class="single-shop__form-left">
 
+                    <?= $form->field($modelQuestion, 'product_id')->hiddenInput(['value' => $productId])->label(false); ?>
+                    <?= $form->field($modelQuestion, 'content')->textarea(['id' => 'disadvantages'])->label('Комментарий') ?>
 
-                        <?= $form->field($modelQuestion, 'product_id')->hiddenInput(['value' => $productId])->label(false); ?>
-                        <?= $form->field($modelQuestion, 'content')->textarea(['id' => 'disadvantages'])->label('Комментарий') ?>
+                    <input type="submit" value="Отправить отзыв" class="review-product-btn" id='addQuestion'>
+                    <?= \yii\helpers\Html::button('Отмена', ['class' => "review-product-cancel"]); ?>
 
-                        <input type="submit" value="Отправить отзыв" class="review-product-btn" id = 'addQuestion'>
-                        <?= \yii\helpers\Html::button('Отмена', ['class' => "review-product-cancel"]); ?>
+                </div>
+                <div class="single-shop__warning-right">
+                    <h3 class="warning-right-title">Важно!</h3>
 
-
-
-                    </div>
-                    <div class="single-shop__warning-right">
-                        <h3 class="warning-right-title">Важно!</h3>
-
-                        <p class="warning-right-desk">
-                            Чтобы Ваш отзыв либо комментарий прошел модерацию и был опубликован, ознакомьтесь,
-                            пожалуйста, <a href="#">с нашими правилами!</a>
-                        </p>
-                    </div>
-                    <?php ActiveForm::end(); ?>
+                    <p class="warning-right-desk">
+                        Чтобы Ваш отзыв либо комментарий прошел модерацию и был опубликован, ознакомьтесь,
+                        пожалуйста, <a href="#">с нашими правилами!</a>
+                    </p>
+                </div>
+                <?php ActiveForm::end(); ?>
 
             </div>
         </div>
