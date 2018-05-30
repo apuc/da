@@ -355,10 +355,10 @@ class AjaxController extends Controller
         if(\Yii::$app->request->isAjax && $form_model->load(\Yii::$app->request->post())){
             $form_model->user_id = Yii::$app->user->id;
             $form_model->dt_add = time();
+            $form_model->rating = 4;
             $form_model->save();
         }
-        echo "Спасибо";
-
+        return "Спасибо";
     }
 
     public function actionAddQuestionProducts()
@@ -368,12 +368,10 @@ class AjaxController extends Controller
 
             $form_model->user_id = Yii::$app->user->id;
             $form_model->dt_add = time();
+            $form_model->rating = 4;
             $form_model->save();
         }
-        else{
-            Debug::prn($form_model->load(\Yii::$app->request->post()));
-        }
-        echo "Спасибо";
+        return "Спасибо";
 
     }
     public function actionGetProductsByCategoryId(){

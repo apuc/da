@@ -114,7 +114,6 @@ class ShopController extends Controller
             ->where(['slug' => $slug])
             ->with('productFieldsValues.field', 'company.allPhones', 'images', 'category', 'reviews')
             ->one();
-
         $currentUserId = Yii::$app->user->id;
         if (!empty($currentUserId)) {
             $thisUserLike = LikeProducts::find()

@@ -154,38 +154,19 @@ $(document).ready(function () {
 
     $(document).on('submit', '#addReviewsProducts', function(){
         $.pjax.reload({
-            container: ".single-shop__tab-item",
-            url: '/ajax/ajax/add-reviews-products',
-            data: $(this).serialize(),
-            replace: false,
-            timeout: 10000
+            container: "#shop__usefull-comments"
         });
         return false;
-
-        /*var raiting = $('#reatingValue').val();
-        console.log(raiting);
-        var text = $('#commentText').val();
-        var spirit = $('#reatingValue').attr('data-spirit');
-        var id = $('#reatingValue').attr('data-id-spirit');
-        $.ajax({
-            type: 'POST',
-            url: "/ajax/ajax/add_reviews",
-            data: 'text=' + text + '&raiting=' + raiting + '&id=' + id + '&spirit=' + spirit,
-            success: function (data) {
-                $('.addReviewsFormWr').html('<h3>Ваш отзыв добавлен. После модерации он будет опубликован.</h3>')
-            }
-        });
-        return false;*/
     });
 
-    $('#addReviewsProducts').on('beforeSubmit', function(){
+    $('#addReviewsProducts').on('beforeSubmit', function(e){
         var data = $(this).serialize();
+        e.preventDefault();
         $.ajax({
             url: '/ajax/ajax/add-reviews-products',
             type: 'POST',
             data: data,
             success: function(res){
-                $('#addReviewsProducts').html(res);
             },
             error: function(){
                 alert('Error!');
@@ -194,17 +175,30 @@ $(document).ready(function () {
         return false;
     });
 
-    $('#addQuestionProducts').on('beforeSubmit', function(){
+    $(document).on('submit', '#addQuestionProducts', function(){
+        $.pjax.reload({
+            container: "#shop__usefull-comments"
+        });
+        return false;
+    });
+
+    $('#addQuestionProducts').on('beforeSubmit', function(e){
+        e.preventDefault();
         var data = $(this).serialize();
         $.ajax({
             url: '/ajax/ajax/add-question-products',
             type: 'POST',
             data: data,
             success: function(res){
-                console.log(res);
-                $('#addQuestionProducts').html(res);
             },
 
+        });
+        return false;
+    });
+
+    $(document).on('submit', 'addQuestionProducts', function(){
+        $.pjax.reload({
+            container: "#shop__usefull-comments"
         });
         return false;
     });
