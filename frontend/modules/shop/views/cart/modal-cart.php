@@ -24,7 +24,7 @@ use yii\helpers\Url;
                         <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($item['products']->cover); ?>"
                              alt="<?= $item['products']->title; ?>">
                     <?php else: ?>
-                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage('/' . $item['products']['images'][0]->img_thumb); ?>">
+                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($item['products']['images'][0]->img_thumb); ?>">
                     <?php endif; ?>
                 </div>
 

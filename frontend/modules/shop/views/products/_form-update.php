@@ -97,7 +97,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         $previewConfig = [];
         if(!empty($model['images'])){
             foreach($model['images'] as $i){
-                $preview[] = "<img src='/$i->img_thumb' class='file-preview-image'>";
+                $preview[] = "<img src='$i->img_thumb' class='file-preview-image'>";
                 $previewConfig[] = [
                     'caption' => '',
                     'url' => '/shop/product/delete-img?id=' . $i->id

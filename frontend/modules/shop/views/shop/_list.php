@@ -13,7 +13,7 @@
             <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $model['cover']); ?>" alt="<?= $model['title']; ?>">
         <?php else: ?>
             <?php if(!empty($model['images'][0]->img_thumb)): ?>
-                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage('/'. $model['images'][0]->img_thumb); ?>">
+                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $model['images'][0]->img_thumb); ?>">
             <?php else:?>
                 <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $model['cover']); ?>" alt="<?= $model['title']; ?>">
             <?php endif; ?>
