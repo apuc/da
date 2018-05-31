@@ -71,6 +71,8 @@ use frontend\modules\shop\widgets\StarsRating;
         <?php endforeach; ?>
 
     <?php endif; ?>
+    <h3 class="shop__reviews-title-2">Напишите свой отзыв</h3>
+
 </div>
 <?php
 if (Yii::$app->user->isGuest):?>
@@ -108,7 +110,7 @@ if (Yii::$app->user->isGuest):?>
                     <?= $form->field($modelReviews, 'minus')->textInput(['id' => 'disadvantages'])->label('Недостатки') ?>
                     <?= $form->field($modelReviews, 'content')->textarea(['id' => 'revContent'])->label('Комментарий') ?>
 
-                    <input type="submit" value="Добавить" class="review-product-btn" id='addReviews'>
+                    <input type="submit" value="Добавить отзыв" class="review-product-btn">
                     <?= \yii\helpers\Html::button('Отмена', ['class' => "review-product-cancel"]); ?>
 
 
@@ -139,7 +141,7 @@ if (Yii::$app->user->isGuest):?>
                     <?= $form->field($modelQuestion, 'product_id')->hiddenInput(['value' => $productId])->label(false); ?>
                     <?= $form->field($modelQuestion, 'content')->textarea(['id' => 'disadvantages'])->label('Комментарий') ?>
 
-                    <input type="submit" value="Отправить отзыв" class="review-product-btn" id='addQuestion'>
+                    <input type="submit" value="Добавить комментарий" class="review-product-btn">
                     <?= \yii\helpers\Html::button('Отмена', ['class' => "review-product-cancel"]); ?>
 
                 </div>

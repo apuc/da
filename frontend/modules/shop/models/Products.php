@@ -373,15 +373,19 @@ class Products extends \common\models\db\Products
 
     public function getRatesCount()
     {
-        return ProductsReviews::find()->where(['product_id' => $this->id, 'parent_id' => null])->count();
+        return ProductsReviews::find()
+            ->where(['product_id' => $this->id, 'parent_id' => null, 'rating' => [1,2,3,4,5]])
+            ->count();
     }
 
     public function getMiddleRating()
     {
+        if(!$this->reviews)
+            return 0;
         $sum = 0;
         $count = 0;
         foreach ($this->reviews as $review) {
-            if ($review->parent_id === null) {
+            if ($review->parent_id === null && $review->rating != 0) {
                 $sum += $review->rating;
                 $count++;
             }
