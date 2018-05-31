@@ -260,6 +260,7 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
             </div>
 
             <div class="single-shop__tab-item">
+                <a href="<?= \yii\helpers\Url::to(['/shop/shop/product-reviews', 'slug' => $model->slug]) ?>" class="read-all-btn">Читать все отзывы</a>
                 <?= \frontend\modules\shop\widgets\ReviewsProducts::widget([
                     'productId' => $model->id,
                     'reviews' => $model['reviews'],

@@ -145,24 +145,17 @@ $(document).ready(function () {
     });
 
 
-
     //Рейтинг
-    $('.stars li').on('click', function() {
+    $('#stars_select li').on('click', function() {
        $('.product-rating').val($(this).attr('data-value'));
-
     });
 
-    $(document).on('submit', '#addReviewsProducts', function(){
-        $.pjax.reload({
-            container: "#shop__usefull-comments"
-        });
-        return false;
-    });
 
-    $('#addReviewsProducts').on('beforeSubmit', function(e){
-        var data = $(this).serialize();
-        var comments = $(".shop__usefull-comments");
+    //Добавление отзыва
+    $(document).on('submit', '#addReviewsProducts', function(e){
         e.preventDefault();
+        var comments = $(".shop__usefull-comments");
+        var data = $(this).serialize();
         $.ajax({
             url: '/ajax/ajax/add-reviews-products',
             type: 'POST',
@@ -178,14 +171,9 @@ $(document).ready(function () {
         return false;
     });
 
-    $(document).on('submit', '#addQuestionProducts', function(){
-        $.pjax.reload({
-            container: "#shop__usefull-comments"
-        });
-        return false;
-    });
 
-    $('#addQuestionProducts').on('beforeSubmit', function(e){
+    //Добавление комментария
+    $(document).on('submit', '#addQuestionProducts', function(e){
         e.preventDefault();
         var comments = $(".shop__usefull-comments");
         var data = $(this).serialize();
@@ -202,12 +190,13 @@ $(document).ready(function () {
         return false;
     });
 
-    $(document).on('submit', 'addQuestionProducts', function(){
-        $.pjax.reload({
-            container: "#shop__usefull-comments"
-        });
-        return false;
+
+    // Очистка форм комментариев
+    $(".review-product-cancel").on('click', function(){
+        $('#addReviewsProducts')[0].reset();
+        $('#addQuestionProducts')[0].reset();
     });
+
 
     if($("input").is("#input-2-xs")) {
         $('#input-1-xs').rating({
