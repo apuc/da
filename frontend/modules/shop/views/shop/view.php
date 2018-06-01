@@ -57,7 +57,7 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
         <div class="single-shop__slider-nav">
             <?php foreach ($model['images'] as $item): ?>
                 <div class="single-shop__nav-item">
-                    <img src="/<?= $item->img_thumb; ?>" alt="<?= $model->title ?>">
+                    <img src="<?= $item->img_thumb; ?>" alt="<?= $model->title ?>">
                 </div>
             <?php endforeach; ?>
         </div>
@@ -65,8 +65,8 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
         <div class="single-shop__slider">
 
             <?php foreach ($model['images'] as $item): ?>
-                <a href="/<?= $item->img; ?>" class="single-shop__slider-item" data-fancybox="shop">
-                    <img src="/<?= $item->img; ?>" alt="<?= $model->title ?>">
+                <a href="<?= $item->img; ?>" class="single-shop__slider-item" data-fancybox="shop">
+                    <img src="<?= $item->img; ?>" alt="<?= $model->title ?>">
                 </a>
             <?php endforeach; ?>
         </div>
