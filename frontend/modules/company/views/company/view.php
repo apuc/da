@@ -58,8 +58,11 @@ $this->params['breadcrumbs'][] = $model->name;
 
             <div class="business__content business__single-content">
 
-                <h1 class="business__subtitle"><?= $model->name ?>
+                <h3 class="business__subtitle"><?= $model->name ?>
                     <span class="business__status">
+                        <span class="views"><?= $model->views; ?> просмотров</span>
+
+                        <!--<span class="online offline">Компания онлайн</span>-->
                     </span>
                     <?php
                     if (empty($rating)) {
@@ -76,11 +79,11 @@ $this->params['breadcrumbs'][] = $model->name;
                             <span> <?= $count; ?> </span> голоса(ов)
                         </a>
                     </div>
-                </h1>
+                </h3>
 
                 <div class="business__requisites">
                     <div class="business__requisites--avatar">
-                        <img src="<?= $model->photo ?>"
+                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($model->photo) ?>"
                              alt="<?= !empty($model->alt) ? $model->alt : $model->name ?>">
                     </div>
                     <div class="business__requisites--address">

@@ -16,7 +16,7 @@ $this->registerJsFile('/js/raw/products.js', ['depends' => [\yii\web\JqueryAsset
     <img src="/theme/portal-donbassa/img/icons/cheak.svg" alt="">
 </h1>
 
-<div class="shop__content">
+<div class="shop__content shop__content-cart">
 
     <?php foreach ($cart as $item): ?>
 
@@ -134,40 +134,4 @@ $this->registerJsFile('/js/raw/products.js', ['depends' => [\yii\web\JqueryAsset
         </div>
     </div>
 </div>
-<aside class="shop__sidebar" id="shop-sidebar-cart">
-    <h2 class="shop__sidebar-title">Посмотреть другие</h2>
-    <a href="#" class="shop__top-sales-elements--item">
-
-        <h3 class="category-name">Смартфон</h3>
-        <p class="category-element">iPhone 6s 16Gb</p>
-
-        <div class="category-photo">
-            <img src="img/shop/category-photo-1.png" alt="">
-        </div>
-
-        <div class="category-price">
-            <span class="category-price__old">19 990 <i class="fa fa-rub" aria-hidden="true"></i></span>
-            <span class="category-price__new">15 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
-        </div>
-
-        <button class="category-buy">Купить</button>
-
-    </a>
-    <a href="#" class="shop__top-sales-elements--item">
-
-        <h3 class="category-name">Смартфон</h3>
-        <p class="category-element">iPhone 6s 16Gb</p>
-
-        <div class="category-photo">
-            <img src="img/shop/category-photo-1.png" alt="">
-        </div>
-
-        <div class="category-price">
-            <span class="category-price__old">19 990 <i class="fa fa-rub" aria-hidden="true"></i></span>
-            <span class="category-price__new">15 000 <i class="fa fa-rub" aria-hidden="true"></i></span>
-        </div>
-
-        <button class="category-buy">Купить</button>
-
-    </a>
-</aside>
+<?= \frontend\modules\shop\widgets\ShowCartSideProducts::widget(); ?>

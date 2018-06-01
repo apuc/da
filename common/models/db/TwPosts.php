@@ -31,6 +31,7 @@ class TwPosts extends \yii\db\ActiveRecord
 	const STATUS_MODERATION = 0;
 	const STATUS_PUBLISHED = 1;
 	const STATUS_TO_PUBLISH = 2;
+    const STATUS_APPREHEND = 4;
 
     /**
      * @inheritdoc
@@ -90,6 +91,7 @@ class TwPosts extends \yii\db\ActiveRecord
     		self::STATUS_MODERATION => 'На модерации',
 		    self::STATUS_PUBLISHED => 'Опубликовано',
 		    self::STATUS_TO_PUBLISH => 'На публикацию',
+            self::STATUS_APPREHEND => 'Отложено',
 	    ];
     }
 }

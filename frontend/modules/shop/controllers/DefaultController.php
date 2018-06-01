@@ -46,7 +46,11 @@ class DefaultController extends Controller
         //Получаем данные по баннеру
         $banner_photo = KeyValue::getValue('banner_path');
         $banner_url = KeyValue::getValue('banner_url');
-
+        
+        //получаем meta title и meta description
+        $meta_title = KeyValue::getValue('shop_page_meta_title');
+        $meta_descr = KeyValue::getValue('shop_page_meta_descr');
+        
         return $this->render('index',
             [
                 'hitProducts' => $hitProducts,
@@ -55,6 +59,8 @@ class DefaultController extends Controller
                 'like_categories' => $categories,
                 'banner_photo' => $banner_photo,
                 'banner_url' => $banner_url,
+                'meta_title' => $meta_title,
+                'meta_descr' => $meta_descr,
             ]
         );
     }

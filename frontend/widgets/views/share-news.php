@@ -15,7 +15,7 @@ if (empty($options['image'])) {
     <script src="//yastatic.net/share2/share.js"></script>
     <div class="ya-share2"
          data-bare
-         data-services="vkontakte,facebook,odnoklassniki,gplus,pinterest,twitter,linkedin,lj,telegram"
+         data-services="vkontakte,facebook,odnoklassniki,gplus,pinterest,twitter,linkedin,lj"
          data-image="<?= $image; ?>">
     </div>
 </div>

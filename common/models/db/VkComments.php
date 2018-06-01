@@ -15,6 +15,7 @@ use Yii;
  * @property integer $dt_add
  * @property string $text
  * @property string img
+ * @property string sticker
  */
 class VkComments extends \yii\db\ActiveRecord
 {

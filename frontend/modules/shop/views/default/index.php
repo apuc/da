@@ -6,9 +6,16 @@
  * @var $hitProducts
  * @var $banner_photo
  * @var $banner_url
+ * @var $meta_title
+ * @var $meta_descr
  */
 
 use common\models\db\ProductMark;
+$this->title = $meta_title;
+$this->registerMetaTag( [
+    'name'    => 'description',
+    'content' => $meta_descr,
+] );
 
 $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/theme/portal-donbassa/js/slick.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
@@ -30,7 +37,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/products_search.js', ['depends'
 
     <h3 class="shop__top-sales-home--titles">ТОП ПРОДАЖ</h3>
 
-    <div class="shop__top-sales-home-nav">
+    <!--<div class="shop__top-sales-home-nav">
 
         <a href="#" class="shop__top-sales-home-nav--link">
             <span class="icon"><img src="theme/portal-donbassa/img/shop/icons/payment-method-icon.png" alt=""></span>
@@ -52,20 +59,20 @@ $this->registerJsFile('/theme/portal-donbassa/js/products_search.js', ['depends'
             <span class="name">Круглосуточный <br> колл-центр</span>
         </a>
 
-    </div>
+    </div>-->
 
     <div class="shop__top-sales-home-elements">
 
 
         <?php
-        $index = 4;
+        $flag = true; // для вывода 1-го товара
         foreach ($hitProducts as $hitProduct): ?>
-            <?php if ($index === 4): ?>
+            <?php if ($flag): ?>
                 <a href="<?= \yii\helpers\Url::to(['/shop/shop/show', 'slug' => $hitProduct->product->slug]) ?>"
                    class="shop__top-sales-home-elements--stock-item hidden-xs">
                     <div class="label-wrap">
 
-                        <?php if ($hitProduct->product->hasMark(ProductMark::MARK_NEW)): ?>
+                        <?php if ($hitProduct->product->daysPassed(3)): ?>
                             <div class="new-label tooltip-main tooltip-west">
                                 NEW
                                 <span class="tooltip-content">Lorem ipsum.</span>
@@ -105,14 +112,17 @@ $this->registerJsFile('/theme/portal-donbassa/js/products_search.js', ['depends'
                         <h3>цена снижена</h3>
 
                         <span>
-                            <img src="img/shop/category-banner.png" alt="">
+                            <img src="/theme/portal-donbassa/img/shop/category-banner.png" alt="">
                         </span>
 
                     </div>
 
-                    <span class="category-sale">
-                        <span>-45%</span>
+                    <?php if ($hitProduct->product->new_price != null): ?>
+                        <span class="category-sale">
+                        <span><?= '-' . ceil(($hitProduct->product->price - $hitProduct->product->new_price) /
+                                $hitProduct->product->price * 100) . '%' ?></span>
                     </span>
+                    <?php endif ?>
 
                     <h3 class="category-name"><?= $hitProduct->product->category->name ?></h3>
                     <p class="category-element"><?= $hitProduct->product->title ?></p>
@@ -147,13 +157,13 @@ $this->registerJsFile('/theme/portal-donbassa/js/products_search.js', ['depends'
 
                     <button class="category-buy">Купить</button>
                 </a>
-                <?php $index = 0; ?>
+                <?php $flag = false; ?>
             <?php else: ?>
                 <a href="<?= \yii\helpers\Url::to(['/shop/shop/show', 'slug' => $hitProduct->product->slug]) ?>"
                    class="shop__top-sales-home-elements--item">
                     <div class="label-wrap">
 
-                        <?php if ($hitProduct->product->hasMark(ProductMark::MARK_NEW)): ?>
+                        <?php if ($hitProduct->product->daysPassed(3)): ?>
                             <div class="new-label tooltip-main tooltip-west">
                                 NEW
                                 <span class="tooltip-content">Lorem ipsum.</span>
@@ -187,9 +197,12 @@ $this->registerJsFile('/theme/portal-donbassa/js/products_search.js', ['depends'
                         <?php endif ?>
 
                     </div>
-                    <span class="category-sale">
-                    <span>-45%</span>
-                </span>
+                    <?php if ($hitProduct->product->new_price != null): ?>
+                        <span class="category-sale">
+                        <span><?= '-' . ceil(($hitProduct->product->price - $hitProduct->product->new_price) /
+                                $hitProduct->product->price * 100) . '%' ?></span>
+                        </span>
+                    <?php endif ?>
 
                     <h3 class="category-name"><?= $hitProduct->product->category->name ?></h3>
                     <p class="category-element"><?= $hitProduct->product->title ?></p>
@@ -225,7 +238,6 @@ $this->registerJsFile('/theme/portal-donbassa/js/products_search.js', ['depends'
                     <button class="category-buy">Купить</button>
                 </a>
             <?php endif ?>
-            <?php $index++; ?>
         <?php endforeach ?>
 
     </div>

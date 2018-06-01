@@ -391,7 +391,6 @@ class DefaultController extends Controller
     {
         $this->layout = 'personal_area';
         $model = new \backend\modules\poster\models\Poster();
-
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             $phone = '';

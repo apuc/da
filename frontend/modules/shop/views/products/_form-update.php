@@ -10,8 +10,12 @@ use yii\helpers\Html;
 /* @var $categorySelect  */
 /* @var $adsField  */
 
+echo '<script>var photoCount = ' . count($model->images) . '</script>';
+
 $this->registerCssFile('/css/board.min.css');
 //$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/raw/Uploader.js', ['depends' => [\yii\web\JqueryAsset::class]]);
+$this->registerJsFile('/js/raw/img_upload.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 $this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
@@ -20,7 +24,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     'id' => 'add_ads',
     'options' =>
         [
-            'class' => 'content-forma',
+            'class' => 'content-forma cabinet__add-company-form-product cabinet__add-company-form',
             'enctype' => 'multipart/form-data',
         ],
     'fieldConfig' => [
@@ -83,53 +87,42 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                     Оставьте это поле пустым, если скидки на товар нет')
     ->label('Новая цена')
 ?>
-<h2 class="soglasie">Фотографии
-    <span>(для выбора обложки изображения нажмите на него) </span>
-</h2>
-<hr class="lineAddAds"/>
-<?= $form->field($model, 'cover')->hiddenInput()->label(false); ?>
 
+<h2>Фотографии <span>(для выбора обложки изображения нажмите на него)</span></h2>
 
-<?php
-//\common\classes\Debug::prn($ads);
-        //echo '<label class="control-label">Добавить фото</label>';
-        $preview = [];
-        $previewConfig = [];
-        if(!empty($model['images'])){
-            foreach($model['images'] as $i){
-                $preview[] = "<img src='/$i->img_thumb' class='file-preview-image'>";
-                $previewConfig[] = [
-                    'caption' => '',
-                    'url' => '/shop/product/delete-img?id=' . $i->id
-                ];
-            }
-        }
+<p class="cabinet__add-company-form--count">количество загружаемых файлов<span>
+        <span id="itemsCountBox">5</span> из <span id="maxCountBox">10</span></span>
+    <span></span></p>
 
-echo FileInput::widget([
-    'name' => 'file[]',
-    'id' => 'input-5',
-    'attribute' => 'attachment_1',
-    'value' => '@frontend/media/img/1.png',
-    'options' => ['multiple' => true, 'accept' => 'image/*'],
-    'pluginOptions' => [
-        'previewFileType' => 'image',
-        'maxFileCount' => 10,
-        'maxFileSize' => 2000,
-        'language' => "ru",
-        'previewClass' => 'hasEdit',
-        'initialPreview' => $preview,
-        'initialPreviewConfig' => $previewConfig
-    ],
-    'pluginEvents' => [
-        "change" => "function() { $('input[name=\"Products[cover]\"]').val(''); }",
-        "filereset" => "function() { 
-                    $('input[name=\"Products[cover]\"]').val('');
-                 }",
-    ]
-]);
+<div class="cabinet__add-company-form--drop" id="dropArea">
+    <img src="/img/icons/cloud.png" alt="">
+    <p>Перетащите сюда файлы, чтобы прикрепить их как документ</p>
+</div>
+<a href="#" id="btnSel">Добавить</a>
+<input type="file" id="fileInput" style="display: none" multiple>
+<div class="cabinet__add-company-form--images" id="cabinet__add-company-form--images">
+    <div class="cabinet__add-company-form--img">
+        <div class="cabinet__add-company-form--img-wrapper">
 
-?>
-
+        </div>
+        <p class="cabinet__add-company-form--img-name"><span class="arrow-up"><img src="/img/icons/Rectangl.png" alt=""></span><span class="img-name"></span></p>
+        <input type="hidden" name="productImg[]" class="productImg">
+        <input type="hidden" name="productImgThumb[]" class="productImgThumb">
+        <progress class="progressBar" value="0" max="100"></progress>
+    </div>
+    <?php foreach ((array)$model->images as $image): ?>
+        <div class="cabinet__add-company-form--img">
+            <div class="cabinet__add-company-form--img-wrapper">
+                <img src="<?= $image->img ?>" alt="">
+            </div>
+            <p class="cabinet__add-company-form--img-name"><span class="arrow-up"><img src="/img/icons/Rectangl.png" alt=""></span><span class="img-name">
+                    <?= basename($image->img); ?>
+                </span></p>
+            <input type="hidden" name="productImg[]" class="productImg" value="<?= $image->img ?>">
+            <input type="hidden" name="productImgThumb[]" class="productImgThumb" value="<?= $image->img_thumb ?>">
+        </div>
+    <?php endforeach; ?>
+</div>
 
 <?= $form->field($model, 'description')->textarea(
     [

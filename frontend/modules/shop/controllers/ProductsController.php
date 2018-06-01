@@ -76,8 +76,9 @@ class ProductsController extends Controller
         //Debug::prn($beforeCreate);
 
         if ($model->load(Yii::$app->request->post()) /*&& $model->save()*/) {
-            if(!empty($model->cover)){
-                $model->cover = '/media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/thumb/' . $model->cover;
+            //Debug::dd($_POST);
+            if(!empty($_POST['productImg'])){
+                $model->cover = $_POST['productImg'][1];
             }
 
             //Debug::dd($_POST['ProductField']);
@@ -86,9 +87,23 @@ class ProductsController extends Controller
                 $model->saveProductFields($_POST['ProductField'], $model->id);
             }
 
-            if (!empty($_FILES['file']['name'][0])) {
-                $model->saveProductPhoto($_FILES, $model->id);
+            if(!empty($_POST['productImg'])){
+                $i=0;
+                foreach ((array)$_POST['productImg'] as $photo){
+                    if(!empty($photo)){
+                        $prodImg = new ProductsImg();
+                        $prodImg->img = $photo;
+                        $prodImg->img_thumb = $_POST['productImgThumb'][$i];
+                        $prodImg->product_id = $model->id;
+                        $prodImg->save();
+                    }
+                    $i++;
+                }
             }
+
+            //if (!empty($_FILES['file']['name'][0])) {
+            //    $model->saveProductPhoto($_FILES, $model->id);
+            //}
             Yii::$app->session->setFlash('success','Ваш товар успешно сохранен. После прохождения модерации он будет опубликован.');
             return $this->redirect(['/personal_area/user-products']);
         }

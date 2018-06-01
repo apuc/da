@@ -35,6 +35,22 @@ use yii\helpers\Html;
     <br>
 </div>
 <div>
+    <h3>Магазин:</h3>
+    <?php echo Html::label('meta title', 'shop_page_meta_title', ['class' => 'control-label']) ?>
+    <?php echo Html::textInput('shop_page_meta_title', $key_val['shop_page_meta_title'], ['class' => 'form-control', 'id' => 'shop_page_meta_title']) ?>
+    <?php echo Html::label('meta descr', 'shop_page_meta_descr', ['class' => 'control-label']) ?>
+    <?php echo Html::textInput('shop_page_meta_descr', $key_val['shop_page_meta_descr'], ['class' => 'form-control', 'id' => 'shop_page_meta_descr']) ?>
+    <br>
+</div>
+<div>
+    <h3>Магазин категории:</h3>
+    <?php echo Html::label('meta title', 'all_category_page_meta_title', ['class' => 'control-label']) ?>
+    <?php echo Html::textInput('all_category_page_meta_title', $key_val['all_category_page_meta_title'], ['class' => 'form-control', 'id' => 'all_category_page_meta_title']) ?>
+    <?php echo Html::label('meta descr', 'all_category_page_meta_descr', ['class' => 'control-label']) ?>
+    <?php echo Html::textInput('all_category_page_meta_descr', $key_val['all_category_page_meta_descr'], ['class' => 'form-control', 'id' => 'all_category_page_meta_descr']) ?>
+    <br>
+</div>
+<div>
     <h3>Афиша:</h3>
     <?php echo Html::label('meta title', 'poster_page_meta_title', ['class' => 'control-label']) ?>
     <?php echo Html::textInput('poster_page_meta_title', $key_val['poster_page_meta_title'], ['class' => 'form-control', 'id' => 'poster_page_meta_title']) ?>

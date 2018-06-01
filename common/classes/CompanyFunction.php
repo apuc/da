@@ -15,6 +15,7 @@ use common\models\db\CompanyTariffOrder;
 use common\models\db\Products;
 use common\models\db\ServicesCompanyRelations;
 use common\models\db\Stock;
+use frontend\models\sitemap\News;
 use yii\helpers\ArrayHelper;
 
 class CompanyFunction
@@ -125,6 +126,11 @@ class CompanyFunction
     public static function getCountStock($id)
     {
         return Stock::find()->where(['company_id' => $id, 'status' => 0])->count();
+    }
+
+    public static function getCountNews($id)
+    {
+        return News::find()->where(['company_id' => $id, 'status' => 0])->count();
     }
 
     //Получить количество товаров компании

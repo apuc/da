@@ -8,8 +8,12 @@ use yii\helpers\Html;
 /* @var $model frontend\modules\news\models\News */
 /* @var $userCompany frontend\modules\company\models\Company */
 
+echo '<script>var photoCount = 0;</script>';
+
 $this->registerCssFile('/css/board.min.css');
 //$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/raw/Uploader.js', ['depends' => [\yii\web\JqueryAsset::class]]);
+$this->registerJsFile('/js/raw/img_upload.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 $this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 ?>
@@ -18,7 +22,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     'id' => 'add_ads',
     'options' =>
         [
-            'class' => 'content-forma',
+            'class' => 'content-forma cabinet__add-company-form-product cabinet__add-company-form',
             'enctype' => 'multipart/form-data',
         ],
     'fieldConfig' => [
@@ -84,46 +88,25 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 ?>
 <h2>Фотографии <span>(для выбора обложки изображения нажмите на него)</span></h2>
 
-<p class="cabinet__add-company-form--count">количество загружаемых файлов<span>5 из 10</span><span></span></p>
+<p class="cabinet__add-company-form--count">количество загружаемых файлов<span>
+        <span id="itemsCountBox">5</span> из <span id="maxCountBox">10</span></span>
+    <span></span></p>
 
-<div class="cabinet__add-company-form--drop">
-    <img src="../img/icons/cloud.png" alt="">
+<div class="cabinet__add-company-form--drop" id="dropArea">
+    <img src="/img/icons/cloud.png" alt="">
     <p>Перетащите сюда файлы, чтобы прикрепить их как документ</p>
 </div>
-
+<a href="#" id="btnSel">Добавить</a>
+<input type="file" id="fileInput" style="display: none" multiple>
 <div class="cabinet__add-company-form--images" id="cabinet__add-company-form--images">
     <div class="cabinet__add-company-form--img">
         <div class="cabinet__add-company-form--img-wrapper">
-            <img src="img/action1.png" alt="">
+
         </div>
-        <p class="cabinet__add-company-form--img-name"><span class="arrow-up"><img src="img/icons/arrow-up.png" alt=""></span><span class="img-name">content.doc (126KB)</span></p>
-        <progress value="30" max="100"></progress>
-    </div>
-    <div class="cabinet__add-company-form--img">
-        <div class="cabinet__add-company-form--img-wrapper">
-            <img src="img/company-sidebar.png" alt="">
-        </div>
-        <p class="cabinet__add-company-form--img-name"><span class="arrow-up"><img src="img/icons/arrow-up.png" alt=""></span><span class="img-name">content.doc (126KB)</span></p>
-        <progress value="30" max="100"></progress>
-    </div>
-    <div class="cabinet__add-company-form--img">
-        <div class="cabinet__add-company-form--img-wrapper">
-            <img src="img/product.jpg" alt="">
-        </div>
-        <p class="cabinet__add-company-form--img-name"><span class="arrow-up"><img src="img/icons/arrow-up.png" alt=""></span><span class="img-name">content.doc (126KB)</span></p>
-        <progress value="30" max="100"></progress>
-    </div>
-    <div class="cabinet__add-company-form--img">
-        <div class="cabinet__add-company-form--img-wrapper">
-            <img src="img/product.jpg" alt="">
-        </div>
-        <p class="cabinet__add-company-form--img-uploaded"><span class="img-name">fileuploaded.xls (12KB)</span><a class="cabinet__add-company-form--delete"><img src="img/icons/Rectangl.png" alt=""></a></p>
-    </div>
-    <div class="cabinet__add-company-form--img">
-        <div class="cabinet__add-company-form--img-wrapper">
-            <img src="img/product.jpg" alt="">
-        </div>
-        <p class="cabinet__add-company-form--img-uploaded"><span class="img-name">fileuploaded.xls (12KB)</span><a class="cabinet__add-company-form--delete"><img src="img/icons/Rectangl.png" alt=""></a></p>
+        <p class="cabinet__add-company-form--img-name"><span class="arrow-up"><img src="/img/icons/Rectangl.png" alt=""></span><span class="img-name"></span></p>
+        <input type="hidden" name="productImg[]" class="productImg">
+        <input type="hidden" name="productImgThumb[]" class="productImgThumb">
+        <progress class="progressBar" value="0" max="100"></progress>
     </div>
 </div>
 

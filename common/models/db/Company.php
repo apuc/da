@@ -115,6 +115,7 @@ class Company extends \yii\db\ActiveRecord
         return $this->hasMany(CategoryCompanyRelations::className(), ['company_id' => 'id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -209,6 +210,7 @@ class Company extends \yii\db\ActiveRecord
 
     public function getCompanyFeedback()
     {
-        return $this->hasMany(CompanyFeedback::class,  ['company_id' => 'id']);
+        return $this->hasMany(CompanyFeedback::class, ['company_id' => 'id']);
     }
+
 }

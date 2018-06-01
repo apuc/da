@@ -11,6 +11,7 @@
  * @var $phone Phones
  */
 
+use common\classes\Debug;
 use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
 use common\models\db\Lang;
@@ -50,6 +51,7 @@ use yii\jui\DatePicker;
         <span id="admin_company_sub_category_box"></span>
     </span>
     <div style="margin-top: 20px;margin-bottom: 20px">
+
         <?= Html::textInput('cats', null, [
             'class' => 'form-control',
             'id' => 'all_cats',

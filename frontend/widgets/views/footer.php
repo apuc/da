@@ -39,7 +39,7 @@ use yii\widgets\MaskedInput;
                         персональных данных</a>
                     <div class="footer__wrap-link">
                         <a href="http://da-info.pro/page/kontakty">Контакты</a>
-                        <a class="footer__craft-link" style="before{background:url(../img/craft.png);};"
+                        <a class="footer__craft-link"
                            href="https://web-artcraft.com" target="_blank">Разработано CraftGroup</a>
                     </div>
                 </div>
@@ -50,16 +50,7 @@ use yii\widgets\MaskedInput;
 
         <div class="footer__social">
 
-            <div class="footer__links">
-                <a href="#"><i class="fa fa-odnoklassniki" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>
-                <a href="#"><span class="lj"></span></a>
-            </div>
+            <?= \frontend\widgets\FooterSocial::widget(); ?>
 
             <a href="#" class="footer__send">написать нам</a>
 
