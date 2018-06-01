@@ -9,6 +9,8 @@
 namespace frontend\modules\shop\widgets;
 
 use common\models\db\ProductsReviews;
+use frontend\modules\shop\models\form\QuestionForm;
+use frontend\modules\shop\models\form\ReviewsForm;
 use yii\base\Widget;
 
 class ReviewsProducts extends Widget
@@ -17,13 +19,15 @@ class ReviewsProducts extends Widget
     public $reviews;
     public function run()
     {
-        $model = new ProductsReviews();
+        $modelReviews = new ReviewsForm();
+        $modelQuestion = new QuestionForm();
 
         //$reviews = ProductsReviews::find()->where(['product_id' => $this->productId])->all();
 
         return $this->render('reviews',
             [
-                'model' => $model,
+                'modelReviews' => $modelReviews,
+                'modelQuestion' => $modelQuestion,
                 'productId' => $this->productId,
                 'reviews' => $this->reviews,
             ]);

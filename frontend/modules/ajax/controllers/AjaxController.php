@@ -24,6 +24,8 @@ use common\models\db\Subscribe;
 use frontend\models\user\Profile;
 use frontend\modules\company\models\Company;
 use frontend\modules\shop\models\CategoryShop;
+use frontend\modules\shop\models\form\QuestionForm;
+use frontend\modules\shop\models\form\ReviewsForm;
 use frontend\modules\shop\widgets\ReviewsProducts;
 use frontend\widgets\Poll;
 use Yii;
@@ -343,13 +345,29 @@ class AjaxController extends Controller
 
     public function actionAddReviewsProducts()
     {
-        $form_model = new ProductsReviews();
-        if (\Yii::$app->request->isAjax && $form_model->load(\Yii::$app->request->post())) {
+        $form_model = new ReviewsForm();
+        if(\Yii::$app->request->isAjax && $form_model->load(\Yii::$app->request->post())){
             $form_model->user_id = Yii::$app->user->id;
             $form_model->dt_add = time();
             $form_model->save();
         }
-        echo "Спасибо";
+        return $this->renderPartial('single-review',[
+            'item' => $form_model,
+        ]);
+    }
+
+    public function actionAddQuestionProducts()
+    {
+        $form_model = new QuestionForm();
+        if(\Yii::$app->request->isAjax && $form_model->load(\Yii::$app->request->post())){
+
+            $form_model->user_id = Yii::$app->user->id;
+            $form_model->dt_add = time();
+            $form_model->save();
+        }
+        return $this->renderPartial('single-review',[
+            'item' => $form_model,
+        ]);
 
     }
 

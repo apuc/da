@@ -145,47 +145,24 @@ $(document).ready(function () {
     });
 
 
-
     //Рейтинг
-    $('#input-1-xs').on('rating:change', function(event, value, caption) {
-       $("#productsreviews-rating").val(value);
-
+    $('#stars_select li').on('click', function() {
+       $('.product-rating').val($(this).attr('data-value'));
     });
 
-    $(document).on('submit', '#addReviewsProducts', function(){
-        $.pjax.reload({
-            container: ".single-shop__tab-item",
-            url: '/ajax/ajax/add-reviews-products',
-            data: $(this).serialize(),
-            replace: false,
-            timeout: 10000
-        });
-        return false;
 
-        /*var raiting = $('#reatingValue').val();
-        console.log(raiting);
-        var text = $('#commentText').val();
-        var spirit = $('#reatingValue').attr('data-spirit');
-        var id = $('#reatingValue').attr('data-id-spirit');
-        $.ajax({
-            type: 'POST',
-            url: "/ajax/ajax/add_reviews",
-            data: 'text=' + text + '&raiting=' + raiting + '&id=' + id + '&spirit=' + spirit,
-            success: function (data) {
-                $('.addReviewsFormWr').html('<h3>Ваш отзыв добавлен. После модерации он будет опубликован.</h3>')
-            }
-        });
-        return false;*/
-    });
-
-    $('#addReviewsProducts').on('beforeSubmit', function(){
+    //Добавление отзыва
+    $(document).on('submit', '#addReviewsProducts', function(e){
+        e.preventDefault();
+        var comments = $(".shop__usefull-comments");
         var data = $(this).serialize();
         $.ajax({
             url: '/ajax/ajax/add-reviews-products',
             type: 'POST',
             data: data,
             success: function(res){
-                $('#addReviewsProducts').html(res);
+                comments.append(res);
+                $('#addReviewsProducts')[0].reset();
             },
             error: function(){
                 alert('Error!');
@@ -193,6 +170,33 @@ $(document).ready(function () {
         });
         return false;
     });
+
+
+    //Добавление комментария
+    $(document).on('submit', '#addQuestionProducts', function(e){
+        e.preventDefault();
+        var comments = $(".shop__usefull-comments");
+        var data = $(this).serialize();
+        $.ajax({
+            url: '/ajax/ajax/add-question-products',
+            type: 'POST',
+            data: data,
+            success: function(res){
+                comments.append(res);
+                $('#addQuestionProducts')[0].reset();
+            },
+
+        });
+        return false;
+    });
+
+
+    // Очистка форм комментариев
+    $(".review-product-cancel").on('click', function(){
+        $('#addReviewsProducts')[0].reset();
+        $('#addQuestionProducts')[0].reset();
+    });
+
 
     if($("input").is("#input-2-xs")) {
         $('#input-1-xs').rating({

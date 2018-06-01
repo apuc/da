@@ -330,6 +330,7 @@ return \yii\helpers\ArrayHelper::merge([
                 'shop/all-category/<page:\d+>' => 'shop/shop/index',
                 'shop/all-category' => 'shop/shop/index',
                 'shop/product/<slug>' => 'shop/shop/show',
+                'shop/reviews/<slug>' => 'shop/shop/product-reviews',
                 'shop/<category:.+>/<page:\d+>' => 'shop/shop/category',
                 'shop/<category:.+>' => 'shop/shop/category',
 

@@ -15,6 +15,7 @@ use common\models\db\ProductFieldsDefaultValue;
 use common\models\db\ProductFieldsType;
 use common\models\db\ProductFieldsValue;
 use common\models\db\ProductsImg;
+use common\models\db\ProductsReviews;
 use common\models\db\ServicesCompanyRelations;
 use frontend\modules\company\models\Company;
 use Yii;
@@ -346,7 +347,7 @@ class Products extends \common\models\db\Products
         }
 
         if (!empty($sort)) {
-            switch ($sort){
+            switch ($sort) {
                 case 'cheap':
                     $query->orderBy('price DESC');
                     break;//От дешовых к дорогим
@@ -358,15 +359,38 @@ class Products extends \common\models\db\Products
                 default:
                     $query->orderBy('dt_update DESC');
             }
-        }else{
+        } else {
             $query->orderBy('dt_update DESC');
         }
 
 //Debug::dd($query->createCommand()->rawSql);
 
         $query->groupBy('`products`.`id`');
-        
+
         //$query->with('images');
         return $dataProvider;
     }
+
+    public function getRatesCount()
+    {
+        return ProductsReviews::find()
+            ->where(['product_id' => $this->id, 'parent_id' => null, 'rating' => [1,2,3,4,5]])
+            ->count();
+    }
+
+    public function getMiddleRating()
+    {
+        if(!$this->reviews)
+            return 0;
+        $sum = 0;
+        $count = 0;
+        foreach ($this->reviews as $review) {
+            if ($review->parent_id === null && $review->rating != 0) {
+                $sum += $review->rating;
+                $count++;
+            }
+        }
+        return $sum / $count;
+    }
+
 }

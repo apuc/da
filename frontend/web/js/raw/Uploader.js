@@ -180,14 +180,13 @@ function Uploader() {
 
     this.indexItems = function () {
         var items = this.getElement(this.options.itemWrapper, true);
-        console.log(items);
         for (var i = 0; i < items.length; i++) {
             var item = items[i];
             var del = item.querySelector(this.options.delItem);
-            console.log(del);
             if (del) {
-                del.onclick = function () {
-                    item.parentNode.removeChild(item);
+                del.onclick = function (e) {
+                    var cont = e.target.closest(this.options.itemWrapper);
+                    cont.parentNode.removeChild(cont);
                     //delete this.allItems[id];
                     this.itemsCount--;
                     this.printParams();

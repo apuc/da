@@ -91,7 +91,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 <h2>Фотографии <span>(для выбора обложки изображения нажмите на него)</span></h2>
 
 <p class="cabinet__add-company-form--count">количество загружаемых файлов<span>
-        <span id="itemsCountBox">5</span> из <span id="maxCountBox">10</span></span>
+        <span id="itemsCountBox">0</span> из <span id="maxCountBox">10</span></span>
     <span></span></p>
 
 <div class="cabinet__add-company-form--drop" id="dropArea">
