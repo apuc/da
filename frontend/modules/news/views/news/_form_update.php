@@ -102,13 +102,13 @@ $fl = 0;
 <?php endif; ?>
 
 
-    <p class="cabinet__add-company-form--title">Заголовок новости</p>
+    <p class="cabinet__add-company-form--title">Заголовок чтива</p>
 <?= $form->field($model, 'title')->textInput(['maxlength' => true, 'class' => 'cabinet__add-company-form--field'])->label(false); ?>
 
     <div class="cabinet__add-company-form--block"></div>
 
 
-    <p class="cabinet__add-company-form--title">Обложка новости</p>
+    <p class="cabinet__add-company-form--title">Обложка чтива</p>
 
 <?php
 if (empty($model->photo)) {
@@ -134,7 +134,7 @@ echo $form->field($model, 'photo', [
 
     <div class="cabinet__add-company-form--block"></div>
 
-    <p class="cabinet__add-company-form--title">Текст новости</p>
+    <p class="cabinet__add-company-form--title">Текст чтива</p>
 
 <?php echo $form->field($model, 'content')->widget(CKEditor::className(), [
     /*'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [

@@ -13,8 +13,8 @@ $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends
 
             <span class="dev__news-banner">не опубликовала в этот день ни чего интересного</span>
 
-            <p class="dev__notice">Но вы можете узнать все самые свежие
-                новости первыми</p>
+            <p class="dev__notice">Но вы можете узнать всё самое свежее
+                чтиво первыми</p>
 
             <a href="#" class="show-more">сообщить о битой ссылке</a>
 

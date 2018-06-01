@@ -110,6 +110,6 @@
         <?php endforeach; ?>
 
 
-        <a href="<?= \yii\helpers\Url::to(['/news/news']) ?>" class="more_type">смотреть все новости</a>
+        <a href="<?= \yii\helpers\Url::to(['/news/news']) ?>" class="more_type">смотреть всё чтиво</a>
     </div>
 </div>

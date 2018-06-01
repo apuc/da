@@ -5,7 +5,7 @@ use yii\helpers\Url;
 ?>
 <section class="news-slider-index">
     <div class="container">
-        <h3 class="main-title">популярные новости</h3>
+        <h3 class="main-title">популярное чтиво</h3>
         <span class="separator"></span>
         <?php /*\common\classes\Debug::prn(array_combine(range(1, count($news)), $news))*/?>
         <div class="news-slider-wrap">
@@ -35,7 +35,7 @@ use yii\helpers\Url;
                         <div class=\"content-item\">
                             <div class=\"content-row\">
 
-                                <span>Новости</span>
+                                <span>Чтиво</span>
                                 <span><small class=\"view-icon\"></small> $view</span>
                                 <span>
                                     <small class=\"comments-icon\"></small>
@@ -91,7 +91,7 @@ use yii\helpers\Url;
             </div>
         </div>
         <div class="news-slider-index-panel">
-            <h3>Важные новости дня</h3>
+            <h3>Важное чтиво дня</h3>
             <div class="buttons-wrap">
                 <a href="<?= \yii\helpers\Url::to(['/site/design']); ?>">подписаться</a>
                 <a href="<?= \yii\helpers\Url::to(['/news/news']) ?>">посмотреть больше</a>
