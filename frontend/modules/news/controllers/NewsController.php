@@ -210,7 +210,7 @@ class NewsController extends Controller
                 }
             }
 
-            Yii::$app->session->setFlash('success', 'Ваша новость успешно добавлена. После прохождения модерации она будет опубликована.');
+            Yii::$app->session->setFlash('success', 'Ваше чтиво успешно добавлено. После прохождения модерации оно будет опубликовано.');
             return $this->redirect('/personal_area/default/index');
             /*$model->status = 1;
             $model->user_id = Yii::$app->user->getId();
@@ -295,7 +295,7 @@ class NewsController extends Controller
                 }
             }
 
-            Yii::$app->session->setFlash('success', 'Ваша новость успешно сохранена. После прохождения модерации она будет опубликована.');
+            Yii::$app->session->setFlash('success', 'Ваше чтиво успешно сохранено. После прохождения модерации оно будет опубликовано.');
             return $this->redirect('/personal_area/default/index');
         } else {
 
@@ -335,7 +335,7 @@ class NewsController extends Controller
 
         $this->findModel($id)->delete();
 
-        Yii::$app->session->setFlash('success', 'Ваша новость успешно удалена.');
+        Yii::$app->session->setFlash('success', 'Ваше чтиво успешно удалено.');
         return $this->redirect('/personal_area/default/index');
     }
 

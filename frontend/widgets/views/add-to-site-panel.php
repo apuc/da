@@ -9,7 +9,7 @@
             <a href="<?= \yii\helpers\Url::to(['/company/company/create']) ?>" class="fix-button__list--company">Предприятие</a>
         </li>
         <li>
-            <a href="<?= \yii\helpers\Url::to(['/news/news/create']) ?>" class="fix-button__list--news">Новость</a></li>
+            <a href="<?= \yii\helpers\Url::to(['/news/news/create']) ?>" class="fix-button__list--news">Чтиво</a></li>
         <li>
             <a href="<?= \yii\helpers\Url::to(['/poster/default/create']) ?>" class="fix-button__list--poster">Афиша</a>
         </li>

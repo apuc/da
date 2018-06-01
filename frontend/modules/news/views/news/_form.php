@@ -50,7 +50,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         $param = ['class' => 'input-name jsHint selectCateg', 'prompt' => 'Выберите категорию'];
         echo $form->field($model, 'categoryId[]')
             ->dropDownList($items, $param)
-            ->hint('<b>Выберите категорию новости из списка.</b>')
+            ->hint('<b>Выберите категорию чтива из списка.</b>')
             ->label('Категория<span>*</span>');
         ?>
         <a href="#" style="position: absolute; top: 16px; right: -30px; z-index: 1;"
@@ -65,8 +65,8 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
 <?= $form->field($model, 'title')
     ->textInput(['maxlength' => true])
-    ->hint('<b>Введите заголовок новости.</b>')
-    ->label('Заголовок новости<span>*</span>'); ?>
+    ->hint('<b>Введите заголовок чтива.</b>')
+    ->label('Заголовок чтива<span>*</span>'); ?>
 
 
 <?= $form->field($model, 'company_id')->widget(Select2::className(),
@@ -80,7 +80,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 )->label('Относится к компании'); ?>
 
 
-    <!-- <p class="cabinet__add-company-form--title">Обложка новости</p>-->
+    <!-- <p class="cabinet__add-company-form--title">Обложка чтива</p>-->
 <?php
 if (empty($model->photo)) {
     echo $form->field($model, 'photo', [
@@ -89,19 +89,19 @@ if (empty($model->photo)) {
                                     {input}
                                     <img id="blah" src="" alt="" width="160px">
                                     </label>'
-    ])->label('Обложка новости')->fileInput();
+    ])->label('Обложка чтива')->fileInput();
 } else {
     echo $form->field($model, 'photo', [
         'template' => '{label}<div class="selectAvatar">
                                     <span>Нажмите для выбора</span>
                                     <img id="blah" src="' . $model->photo . '" alt="" width="160px">
                                     {input}</div>'
-    ])->label('Обложка новости')->fileInput();
+    ])->label('Обложка чтива')->fileInput();
 }
 ?>
 
 
-    <p class="cabinet__add-company-form--title">Текст новости</p>
+    <p class="cabinet__add-company-form--title">Текст чтива</p>
 
 <?php echo $form->field($model, 'content')->widget(CKEditor::className(), [
 

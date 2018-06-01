@@ -10,14 +10,14 @@ $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends
 
         <div class="dev__wrapper">
 
-            <span class="dev__news-banner">какие новости будут завтра</span>
+            <span class="dev__news-banner">какое чтиво будет завтра</span>
 
-            <p class="dev__notice">Но вы можете узнать все самые свежие
-                новости первыми</p>
+            <p class="dev__notice">Но вы можете узнать всё самое свежее
+                чтиво первыми</p>
 
             <div class="news__wrap_buttons">
                 
-                <span href="#" class=" show-more archive-news datepicker-here datepicker-wrap" >архив новостей </span>
+                <span href="#" class=" show-more archive-news datepicker-here datepicker-wrap" >архив чтива </span>
 
             </div>
 

@@ -3,10 +3,14 @@
  * @var $news \common\models\db\News
  */
 
-$this->title = 'Новости';
+$this->title = 'Чтиво';
 $this->registerMetaTag([
     'name' => 'description',
     'content' => 'Новости',
+]);
+$this->registerMetaTag([
+    'name' => 'description',
+    'content' => 'Чтиво',
 ]);
 ?>
 

@@ -19,7 +19,7 @@ use yii\widgets\Pjax;
  */
 $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 //$this->title                   = Yii::t( 'news', 'News' );
-$this->params['breadcrumbs'][] = ['label' => 'Все новости', 'url' => Url::to(['/news/news'])];
+$this->params['breadcrumbs'][] = ['label' => 'Всё чтиво', 'url' => Url::to(['/news/news'])];
 $this->params['breadcrumbs'][] = $cat->title;
 $this->title = $meta_title;
 $this->registerMetaTag([
@@ -158,7 +158,7 @@ $md = new \common\classes\Mobile_Detect();
                     data-category="<?= $cat->slug; ?>"
                     class="show-more show-more-category-news-js">загрузить
                 БОЛЬШЕ</a>
-            <span href="#" class="archive-news datepicker-here datepicker-wrap" >архив новостей <span class="rotate-arrow"></span></span>
+            <span href="#" class="archive-news datepicker-here datepicker-wrap" >архив чтива <span class="rotate-arrow"></span></span>
         </div>
     </div>
 </section>

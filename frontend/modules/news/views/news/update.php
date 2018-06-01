@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\modules\news\models\News */
 
-$this->title = Yii::t('news', 'Вы редактируете новость:  ', [
+$this->title = Yii::t('news', 'Вы редактируете чтиво:  ', [
     'modelClass' => 'News',
 ]) . $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('news', 'News'), 'url' => ['index']];

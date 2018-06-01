@@ -24,7 +24,7 @@ use yii\widgets\Pjax;
  */
 //$this->title                   = Yii::t( 'news', 'News' );
 $this->title = $meta_title;
-$this->params['breadcrumbs'][] = 'Все новости';
+$this->params['breadcrumbs'][] = 'Всё чтиво';
 
 $this->registerMetaTag([
     'name' => 'description',
@@ -177,7 +177,7 @@ $md = new \common\classes\Mobile_Detect();
                     csrf-token="<?= Yii::$app->getRequest()->getCsrfToken(); ?>"
                     class="show-more show-more-news-js">загрузить
                 БОЛЬШЕ</a>
-            <span href="#" class="archive-news datepicker-here datepicker-wrap">архив новостей </span>
+            <span href="#" class="archive-news datepicker-here datepicker-wrap">архив чтива </span>
 
         </div>
     </div>
