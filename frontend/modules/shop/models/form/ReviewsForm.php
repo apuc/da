@@ -25,4 +25,15 @@ class ReviewsForm extends ProductsReviews
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
+
+    public function attributeLabels()
+    {
+        return [
+            'content' => 'Отзыв',
+            'rating' => 'Рейтинг',
+            'plus' => 'Достоинства',
+            'minus' => 'Недостатки'
+        ];
+    }
+
 }

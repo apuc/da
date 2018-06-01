@@ -131,7 +131,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <img src="<?= UploadPhoto::getImageOrNoImage($value['cover']); ?>"
                                              alt="<?= $value['title']; ?>">
                                     <?php else: ?>
-                                        <img src="<?= UploadPhoto::getImageOrNoImage('/' . $value['images'][0]['img_thumb']); ?>">
+                                        <img src="<?= UploadPhoto::getImageOrNoImage($value['images'][0]['img_thumb']); ?>">
                                     <?php endif; ?>
                                 </div>
                                 <div class="product-attribute">

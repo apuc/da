@@ -25,4 +25,13 @@ class QuestionForm extends ProductsReviews
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
+
+
+    public function attributeLabels()
+    {
+        return [
+            'content' => 'Комментарий'
+        ];
+    }
+
 }

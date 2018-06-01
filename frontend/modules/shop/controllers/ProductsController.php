@@ -64,36 +64,51 @@ class ProductsController extends Controller
         ];
     }
 
-
     public function actionCreate()
     {
         $model = new Products();
         $beforeCreate = $model->beforeCreate();
-       // Debug::prn();
-        if(!$beforeCreate){
+        // Debug::prn();
+        if (!$beforeCreate) {
             return $this->render('not-add');
         }
         //Debug::prn($beforeCreate);
 
         if ($model->load(Yii::$app->request->post()) /*&& $model->save()*/) {
-            if(!empty($model->cover)){
-                $model->cover = '/media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/thumb/' . $model->cover;
+            //Debug::dd($_POST);
+            if (!empty($_POST['productImg'])) {
+                $model->cover = $_POST['productImg'][1];
             }
 
             //Debug::dd($_POST['ProductField']);
             $model->save();
-            if(!empty($_POST['ProductField'])){
+            if (!empty($_POST['ProductField'])) {
                 $model->saveProductFields($_POST['ProductField'], $model->id);
             }
 
-            if (!empty($_FILES['file']['name'][0])) {
-                $model->saveProductPhoto($_FILES, $model->id);
+            if (!empty($_POST['productImg'])) {
+                $i = 0;
+                foreach ((array)$_POST['productImg'] as $photo) {
+                    if (!empty($photo)) {
+                        $prodImg = new ProductsImg();
+                        $prodImg->img = $photo;
+                        $prodImg->img_thumb = $_POST['productImgThumb'][$i];
+                        $prodImg->product_id = $model->id;
+                        $prodImg->save();
+                    }
+                    $i++;
+                }
             }
-            Yii::$app->session->setFlash('success','Ваш товар успешно сохранен. После прохождения модерации он будет опубликован.');
+
+            //if (!empty($_FILES['file']['name'][0])) {
+            //    $model->saveProductPhoto($_FILES, $model->id);
+            //}
+            Yii::$app->session->setFlash('success',
+                'Ваш товар успешно сохранен. После прохождения модерации он будет опубликован.');
             return $this->redirect(['/personal_area/user-products']);
         }
-       /* $str = 'image (1).jpg';
-        Debug::dd(str_replace( array('(',')'), '_', $str));*/
+        /* $str = 'image (1).jpg';
+         Debug::dd(str_replace( array('(',')'), '_', $str));*/
         //$userCompany =Company::find()->where(['user_id' => Yii::$app->user->id])->all();
         return $this->render('create', [
             'model' => $model,
@@ -155,7 +170,7 @@ class ProductsController extends Controller
         $id = Yii::$app->request->post('id');
         //$id = 2;
         $model = new Products();
-        $categoryList = $model->getListCategory($id,[]);
+        $categoryList = $model->getListCategory($id, []);
         //$categoryList = json_decode($categoryList);
         echo $this->renderPartial('categoryList',
             [
@@ -174,10 +189,10 @@ class ProductsController extends Controller
             ->where(['category_id' => $id])
             ->groupBy('id')
             //->with('fields.productFieldsDefaultValues');
-        //Debug::dd($groupFieldsId->createCommand()->rawSql);
+            //Debug::dd($groupFieldsId->createCommand()->rawSql);
             ->all();
 
-       // Debug::dd($groupFieldsId);
+        // Debug::dd($groupFieldsId);
 
         $html = '';
         if (!empty($groupFieldsId)) {
@@ -201,7 +216,7 @@ class ProductsController extends Controller
     {
         Products::updateAll(['status' => 3], ['id' => $id]);
 
-        Yii::$app->session->setFlash('success','Ваш товар успешно удален.');
+        Yii::$app->session->setFlash('success', 'Ваш товар успешно удален.');
         return $this->redirect(['/personal_area/user-products', 'page' => Yii::$app->request->get('page', 1)]);
     }
 
@@ -223,12 +238,22 @@ class ProductsController extends Controller
             ->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if (!empty($_FILES['file']['name'][0])) {
-                if(!empty($model->cover)){
-                    $model->cover = '/media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/thumb/' . $model->cover;
-                }
+            if (!empty($_POST['productImg'])) {
+                $model->cover = $_POST['productImg'][1];
+
                 ProductsImg::deleteAll(['product_id' => $model->id]);
-                $model->saveProductPhoto($_FILES, $model->id);
+                $i = 0;
+                foreach ((array)$_POST['productImg'] as $photo) {
+                    if (!empty($photo)) {
+                        $prodImg = new ProductsImg();
+                        $prodImg->img = $photo;
+                        $prodImg->img_thumb = $_POST['productImgThumb'][$i];
+                        $prodImg->product_id = $model->id;
+                        $prodImg->save();
+                    }
+                    $i++;
+                }
+
             }
             $model->status = 0;
             //Debug::dd($model);
@@ -236,18 +261,17 @@ class ProductsController extends Controller
             $model->save();
             ProductFieldsValue::deleteAll(['product_id' => $model->id]);
 
-            if(!empty($_POST['ProductField'])){
-               // Debug::dd($_POST['ProductField']);
+            if (!empty($_POST['ProductField'])) {
+                // Debug::dd($_POST['ProductField']);
                 $model->saveProductFields($_POST['ProductField'], $model->id);
             }
 
-
-            Yii::$app->session->setFlash('success','Ваш товар успешно сохранен. После прохождения модерации он будет опубликован.');
+            Yii::$app->session->setFlash('success',
+                'Ваш товар успешно сохранен. После прохождения модерации он будет опубликован.');
             return $this->redirect('/personal_area/user-products');
-        }
-        else{
+        } else {
             $userCompany = Company::find()->where(['user_id' => Yii::$app->user->id])->all();
-            $categoryList = $model->getListCategory($model->category_id,[]);
+            $categoryList = $model->getListCategory($model->category_id, []);
             $categorySelect = $this->renderPartial('categoryList', ['category' => array_reverse($categoryList)]);
 
             $groupFieldsId = CategoryFields::find()
@@ -266,7 +290,6 @@ class ProductsController extends Controller
                         ]);
                 }
             }
-
 
             return $this->render('update',
                 [

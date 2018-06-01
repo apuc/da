@@ -3,6 +3,7 @@
 namespace frontend\modules\ajax\controllers;
 
 use common\classes\Debug;
+use common\classes\Folder;
 use common\classes\UserFunction;
 use common\models\db\Answers;
 use common\models\db\CategoryCompany;
@@ -30,6 +31,7 @@ use frontend\widgets\Poll;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\imagine\Image;
 use yii\web\Controller;
 
 /**
@@ -211,7 +213,7 @@ class AjaxController extends Controller
             $comment->published = 1;
             $comment->save();
 
-            $html['successInfo'] =  $this->renderPartial('comments-success');
+            $html['successInfo'] = $this->renderPartial('comments-success');
             $html['comments'] = \frontend\widgets\Comments::widget([
                 'pageTitle' => 'Комментарии к новости',
                 'postType' => 'news',
@@ -220,8 +222,6 @@ class AjaxController extends Controller
 
             return json_encode($html);
         }
-
-
 
     }
 
@@ -232,14 +232,12 @@ class AjaxController extends Controller
             $name = Yii::$app->request->post('name');
             $email = Yii::$app->request->post('email');
             $newContacting = new Contacting();
-            if(!Yii::$app->user->isGuest)
-            {
+            if (!Yii::$app->user->isGuest) {
                 $user = Profile::findOne(['user_id' => Yii::$app->user->id]);
                 $newContacting->user_id = Yii::$app->user->id;
                 $newContacting->username = ($user->name) ? $user->name : Yii::$app->user->identity->username;
                 $newContacting->email = ($user->public_email) ? $user->public_email : Yii::$app->user->identity->email;
-            }elseif ($name && $email)
-            {
+            } elseif ($name && $email) {
                 $newContacting->user_id = null;
                 $newContacting->username = $name;
                 $newContacting->email = $email;
@@ -267,7 +265,7 @@ class AjaxController extends Controller
     public function actionAddCategorySelect()
     {
         $catId = Yii::$app->request->post('catId');
-      //  var_dump($catId);
+        //  var_dump($catId);
         $catId = explode(',', $catId);
         array_splice($catId, -1);
         $model = new \frontend\modules\news\models\News();
@@ -279,7 +277,7 @@ class AjaxController extends Controller
 
         $category = $query->all();
         //echo "<br> Categories ajax: <br>";
-       // var_dump($category);
+        // var_dump($category);
         if (!empty($category)) {
             $html = $this->renderPartial('add-select-category', ['category' => $category, 'model' => $model]);
         } else {
@@ -295,7 +293,7 @@ class AjaxController extends Controller
         $catId = Yii::$app->request->post('catId');
         $model = new Company();
 
-        $html = $this->renderPartial('parent-category',['catId' => $catId, 'model' => $model]);
+        $html = $this->renderPartial('parent-category', ['catId' => $catId, 'model' => $model]);
         return $html;
 
     }
@@ -310,11 +308,10 @@ class AjaxController extends Controller
         $error->user_id = $request['user_id'];
         $error->msg = $request['text'];
 
-        if(Yii::$app->user->isGuest)
-        {
+        if (Yii::$app->user->isGuest) {
             $error->username = $request['name'];
             $error->email = $request['email'];
-        }else{
+        } else {
             $error->username = UserFunction::getUserName($request['user_id']);
             $error->email = Yii::$app->user->identity->email;
         }
@@ -322,7 +319,7 @@ class AjaxController extends Controller
         $error->dt_add = time();
         $error->save();
 
-        if (isset($error->id)){
+        if (isset($error->id)) {
             return true;
         }
         return false;
@@ -331,7 +328,7 @@ class AjaxController extends Controller
     public function actionSelectRegion()
     {
         $regId = Yii::$app->request->post('regId');
-        if(empty($regId)){
+        if (empty($regId)) {
             $regId = -1;
         }
 
@@ -343,11 +340,8 @@ class AjaxController extends Controller
 
         Yii::$app->cache->set('show_header_widget', \frontend\widgets\ShowHeader::widget());
 
-
-
         return true;
     }
-
 
     public function actionAddReviewsProducts()
     {
@@ -376,15 +370,17 @@ class AjaxController extends Controller
         ]);
 
     }
-    public function actionGetProductsByCategoryId(){
+
+    public function actionGetProductsByCategoryId()
+    {
         $dataId = Yii::$app->request->post('ProdId');
-        if($dataId == 0) {
+        if ($dataId == 0) {
             $jsonCatsKeys = KeyValue::findOne(['key' => 'you_like']);
             $catsKeys = json_decode($jsonCatsKeys->value);
             $products = Products::find()->where(['category_id' => $catsKeys])->limit(15)->all();
-        }
-        else
+        } else {
             $products = Products::find()->where(['category_id' => $dataId])->limit(15)->all();
+        }
         $response = ArrayHelper::toArray($products, [
             'common\models\db\Products' => [
                 'id',
@@ -392,15 +388,34 @@ class AjaxController extends Controller
                 'price',
                 'new_price',
                 'cover',
-                'link' => function($products){
+                'link' => function ($products) {
                     return \yii\helpers\Url::to(['/shop/shop/show', 'slug' => $products->slug]);
                 },
-                'category' => function($products){
+                'category' => function ($products) {
                     return $products->category->name;
-                }
+                },
             ],
         ]);
         return json_encode($response);
+    }
+
+    public function actionUploadProductPhoto()
+    {
+        $dir = '/media/users/' . Yii::$app->user->id. '/' . date('Y-m-d') . '/';
+        $path = Yii::getAlias('@frontend/web' . $dir);
+        $folderThumb = new Folder($path . 'thumb/', 0775);
+        $folderThumb->create();
+        $folderImg = new Folder($path, 0775);
+        $folderImg->create()
+            ->file($_FILES['file']['tmp_name'])
+            ->watermark(Yii::getAlias('@frontend/web/img/logo.png'), 0, 0)
+            ->thumbnail( $_FILES['file']['name'], ['w' => 142, 'h' => 100], $path . 'thumb/')
+            ->save($_FILES['file']['name']);
+
+        return json_encode([
+            'img' => $dir . $_FILES['file']['name'],
+            'img_thumb' => $dir . 'thumb/' . $_FILES['file']['name'],
+        ]);
     }
 
 }

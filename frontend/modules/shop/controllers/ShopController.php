@@ -13,6 +13,7 @@ use common\classes\Debug;
 use common\classes\Shop;
 use common\models\db\KeyValue;
 use common\models\db\LikeProducts;
+use common\models\db\ProductsImg;
 use frontend\modules\shop\models\CategoryShop;
 use frontend\modules\shop\models\Products;
 use Yii;
@@ -145,17 +146,6 @@ class ShopController extends Controller
             ->where(['slug' => $slug])
             ->with('productFieldsValues.field', 'company.allPhones', 'images', 'category', 'reviews')
             ->one();
-        $currentUserId = Yii::$app->user->id;
-        if (!empty($currentUserId)) {
-            $thisUserLike = LikeProducts::find()
-                ->where(['product_id' => $model->id, 'user_id' => $currentUserId])->one();
-            if (!empty($thisUserLike)) {
-                $thisUserLike = true;
-            }
-
-        } else {
-            $thisUserLike = false;
-        }
 
         $model->updateAllCounters(['view' => 1], ['id' => $model->id]);
 
@@ -163,7 +153,6 @@ class ShopController extends Controller
         return $this->render('reviews-products',
             [
                 'model' => $model,
-                'like' => $thisUserLike,
                 'categoryList' => $categoryList,
             ]
         );

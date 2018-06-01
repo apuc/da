@@ -8,8 +8,12 @@ use yii\helpers\Html;
 /* @var $model frontend\modules\news\models\News */
 /* @var $userCompany frontend\modules\company\models\Company */
 
+echo '<script>var photoCount = 0;</script>';
+
 $this->registerCssFile('/css/board.min.css');
 //$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/raw/Uploader.js', ['depends' => [\yii\web\JqueryAsset::class]]);
+$this->registerJsFile('/js/raw/img_upload.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 $this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 ?>
@@ -18,7 +22,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     'id' => 'add_ads',
     'options' =>
         [
-            'class' => 'content-forma',
+            'class' => 'content-forma cabinet__add-company-form-product cabinet__add-company-form',
             'enctype' => 'multipart/form-data',
         ],
     'fieldConfig' => [
@@ -82,45 +86,29 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                     Оставьте это поле пустым, если скидки на товар нет')
     ->label('Новая цена')
 ?>
-<h2 class="soglasie">Фотографии
-    <span>(для выбора обложки изображения нажмите на него) </span>
-</h2>
-<hr class="lineAddAds"/>
-<?= $form->field($model, 'cover')->hiddenInput()->label(false);?>
+<h2>Фотографии <span>(для выбора обложки изображения нажмите на него)</span></h2>
 
-<?php echo FileInput::widget([
-    'name' => 'file[]',
-    'id' => 'input-5',
-    'attribute' => 'attachment_1',
-    'value' => '@frontend/media/img/1.png',
-    /*'options' => [
-    'multiple' => true,
-    'showCaption' => false,
-    'showUpload' => false,
-    'uploadAsync' => false,
-    ],
-    'pluginOptions' => [
-    'uploadUrl' => Url::to(['/site/upload_file']),
-    'language' => "ru",
-    'previewClass' => 'hasEdit',
-    'uploadAsync' => false,
-    'showUpload' => false,
-    'dropZoneEnabled' => false,
-    'overwriteInitial' => false,
-    'maxFileCount' => 10,
-    'maxFileSize' => 2000,
-    ],*/
-    'options' => ['multiple' => true, 'accept' => 'image/*'],
-    'pluginOptions' => [
-        'previewFileType' => 'image',
-        'maxFileCount' => 10,
-        'maxFileSize' => 2000,
-        'language' => "ru",
-        'previewClass' => 'hasEdit',
-    ],
-]);
+<p class="cabinet__add-company-form--count">количество загружаемых файлов<span>
+        <span id="itemsCountBox">5</span> из <span id="maxCountBox">10</span></span>
+    <span></span></p>
 
-?>
+<div class="cabinet__add-company-form--drop" id="dropArea">
+    <img src="/img/icons/cloud.png" alt="">
+    <p>Перетащите сюда файлы, чтобы прикрепить их как документ</p>
+</div>
+<a href="#" id="btnSel">Добавить</a>
+<input type="file" id="fileInput" style="display: none" multiple>
+<div class="cabinet__add-company-form--images" id="cabinet__add-company-form--images">
+    <div class="cabinet__add-company-form--img">
+        <div class="cabinet__add-company-form--img-wrapper">
+
+        </div>
+        <p class="cabinet__add-company-form--img-name"><span class="arrow-up"><img src="/img/icons/Rectangl.png" alt=""></span><span class="img-name"></span></p>
+        <input type="hidden" name="productImg[]" class="productImg">
+        <input type="hidden" name="productImgThumb[]" class="productImgThumb">
+        <progress class="progressBar" value="0" max="100"></progress>
+    </div>
+</div>
 
 
 <?= $form->field($model, 'description')->textarea(
