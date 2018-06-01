@@ -6,7 +6,7 @@
 
     <div class="after-comments">
         <?php if ($postType == 'news'): ?>
-            <h2>Комментарии к новости</h2>
+            <h2>Комментарии к чтиву</h2>
         <?php elseif ($postType == 'page'): ?>
             <h2>Комментарии к <?= $pageTitle ?></h2>
         <?php endif; ?>

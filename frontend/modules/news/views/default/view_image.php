@@ -92,7 +92,7 @@ $this->registerMetaTag( [
 <div class="another-news">
     <div class="rand-cat-news">
         <?php if ( $related_news ): ?>
-            <h3>Новости по теме:</h3>
+            <h3>Чтиво по теме:</h3>
         <?php endif; ?>
         <?php foreach ( $related_news as $related_new ): ?>
             <a href="<?= Url::to( [ '/news/default/view', 'slug' => $related_new->slug ] ) ?>" class="news-like-item">
@@ -104,7 +104,7 @@ $this->registerMetaTag( [
     </div>
     <div class="best-views-news">
         <?php if ( $most_popular_news ): ?>
-            <h3>Самые популярные новости:</h3>
+            <h3>Самое популярное чтиво:</h3>
         <?php endif; ?>
         <?php foreach ( $most_popular_news as $most_popular_new ): ?>
             <a href="<?= Url::to( [ '/news/default/view', 'slug' => $most_popular_new->slug ] ) ?>"

@@ -8,6 +8,6 @@
 ?>
 
 <div class='date-picker'>
-    <h4 class="date-picker-header">Архив новостей</h4>
+    <h4 class="date-picker-header">Архив чтива</h4>
     <div></div>
 </div>

@@ -38,7 +38,7 @@ $this->title = (empty($cat->meta_title)) ? $cat->title : $cat->meta_title;
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
-                <h3>Новостей не найдено</h3>
+                <h3>Чтива не найдено</h3>
             <?php endif; ?>
             <div style="float: left;width: 100%;">
                 <?php echo LinkPager::widget([
