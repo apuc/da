@@ -86,30 +86,34 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                     Оставьте это поле пустым, если скидки на товар нет')
     ->label('Новая цена')
 ?>
-<h2>Фотографии <span>(для выбора обложки изображения нажмите на него)</span></h2>
+<div class="cabinet__add-company-img-block form-line">
+    <h2>Фотографии <span>(для выбора обложки изображения нажмите на него)</span></h2>
 
-<p class="cabinet__add-company-form--count">количество загружаемых файлов<span>
+    <p class="cabinet__add-company-form--count">количество загружаемых файлов<span class="col">
         <span id="itemsCountBox">5</span> из <span id="maxCountBox">10</span></span>
-    <span></span></p>
+        <span></span></p>
+    <input type="file" id="fileInput" style="display: none" multiple>
+    <div class="cabinet__add-company-form--drop" id="dropArea">
+        <img src="/img/icons/cloud.png" alt="">
+        <p>Перетащите сюда файлы, чтобы прикрепить их как документ</p>
+    </div>
 
-<div class="cabinet__add-company-form--drop" id="dropArea">
-    <img src="/img/icons/cloud.png" alt="">
-    <p>Перетащите сюда файлы, чтобы прикрепить их как документ</p>
-</div>
-<a href="#" id="btnSel">Добавить</a>
-<input type="file" id="fileInput" style="display: none" multiple>
-<div class="cabinet__add-company-form--images" id="cabinet__add-company-form--images">
-    <div class="cabinet__add-company-form--img">
-        <div class="cabinet__add-company-form--img-wrapper">
+    <input type="button" class="cabinet__add-company-form--submit" id="btnSel" value="Добавить">
 
+    <div class="cabinet__add-company-form--images" id="cabinet__add-company-form--images">
+        <div class="cabinet__add-company-form--img">
+            <div class="cabinet__add-company-form--img-wrapper">
+
+            </div>
+            <p class="cabinet__add-company-form--img-name"><span class="arrow-up"><img src="/img/icons/Rectangl.png"
+                                                                                       alt=""></span><span
+                        class="img-name"></span></p>
+            <input type="hidden" name="productImg[]" class="productImg">
+            <input type="hidden" name="productImgThumb[]" class="productImgThumb">
+            <progress class="progressBar" value="0" max="100"></progress>
         </div>
-        <p class="cabinet__add-company-form--img-name"><span class="arrow-up"><img src="/img/icons/Rectangl.png" alt=""></span><span class="img-name"></span></p>
-        <input type="hidden" name="productImg[]" class="productImg">
-        <input type="hidden" name="productImgThumb[]" class="productImgThumb">
-        <progress class="progressBar" value="0" max="100"></progress>
     </div>
 </div>
-
 
 <?= $form->field($model, 'description')->textarea(
     [
@@ -127,7 +131,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 <h2 class="soglasie">Оплата и доствка для этого товара</h2>
 <span class="description-add-product">По умолчанию будут использованы условия оплаты и доставки из информации о компании</span>
 <label class="edit-product-cabinet">
-    <?= Html::checkbox('edit-payment', false, ['class' => 'edit-payment', 'id' => 'edit-payment'] ); ?>
+    <?= Html::checkbox('edit-payment', false, ['class' => 'edit-payment', 'id' => 'edit-payment']); ?>
     Изменить
 </label>
 <hr class="lineAddAds"/>
@@ -158,7 +162,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 <br>
 <h2 class="soglasie">Акция с товаром</h2>
 <label class="edit-product-cabinet">
-    <?= Html::checkbox('Products[stock]', false, ['class' => 'edit-payment', 'id' => 'add-stock'] ); ?>
+    <?= Html::checkbox('Products[stock]', false, ['class' => 'edit-payment', 'id' => 'add-stock']); ?>
     Акционный товар
 </label>
 <hr class="lineAddAds"/>
