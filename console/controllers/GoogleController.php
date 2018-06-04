@@ -26,7 +26,6 @@ class GoogleController extends Controller
     public function actionGetUserPosts($id){
         $result = $this->getUserWall($id);
         $result = json_decode($result);
-        Debug::prn($result);
         foreach($result->items as $item){
             if(!GooglePlusPosts::find()->where(['post_id' => $item->id])->one()) {
                 $post = new GooglePlusPosts();
@@ -89,8 +88,7 @@ class GoogleController extends Controller
         foreach($users as $user) {
             $response = json_decode(file_get_contents('https://www.googleapis.com/plus/v1/people/' .
                 $user->user_id . '?key=' . self::$key));
-            Debug::prn($response);
-            if (!$response->error) {
+            if (!isset($response->error)) {
                 $user->display_name = $response->displayName;
                 $user->url = $response->url;
                 $user->image = $response->image->url;
