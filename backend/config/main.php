@@ -152,6 +152,9 @@ return [
         'tw' => [
             'class' => 'backend\modules\tw\Tw',
         ],
+        'google' => [
+            'class' => 'backend\modules\google\Google',
+        ],
     ],
     'components' => [
         'cart' => [
