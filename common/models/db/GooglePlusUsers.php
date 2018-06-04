@@ -29,6 +29,7 @@ class GooglePlusUsers extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            ['user_id', 'required'],
             [['user_id', 'display_name'], 'string', 'max' => 100],
             [['url', 'image'], 'string', 'max' => 255],
         ];

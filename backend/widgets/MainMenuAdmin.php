@@ -671,6 +671,30 @@ class MainMenuAdmin extends Widget
                         'template' => '<a href="#"><i class="fa fa-twitter"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
                     [
+                        'label' => 'Google+',
+                        'items' => [
+                            [
+                                'label' => 'Посты',
+                                'url' => Url::to(['/google/posts']),
+                                'active' => Yii::$app->controller->module->id === 'google' && Yii::$app->controller->id === 'google-posts',
+                                'visible' => UserFunction::hasPermission(['Группы VK']),
+                            ],
+                            [
+                                'label' => 'Пользователи',
+                                'url' => Url::to(['/google/users']),
+                                'active' => Yii::$app->controller->module->id === 'google' && Yii::$app->controller->id === 'google-posts' && Yii::$app->request->get('TwPostsSearch')['status'] === '0',
+                                'visible' => UserFunction::hasPermission(['Группы VK']),
+                            ],
+
+
+                        ],
+                        'options' => [
+                            'class' => 'treeview',
+                        ],
+                        'visible' => UserFunction::hasPermission(['ВК']),
+                        'template' => '<a href="#"><i class="fa fa-google-plus"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                    ],
+                    [
                         'label' => 'Курсы валют',
                         'visible' => UserFunction::hasPermission(['Курсы валют']),
                         'items' => [
