@@ -14,6 +14,7 @@ use common\models\db\KeyValue;
 use common\models\db\Messenger;
 use common\models\db\MessengerPhone;
 use common\models\db\Phones;
+use common\models\db\ProductsImg;
 use common\models\db\SocCompany;
 use common\models\UploadPhoto;
 use Yii;
@@ -341,7 +342,9 @@ class CompanyController extends Controller
             if (Phones::loadMultiple($phones, $post) && Phones::validateMultiple($phones)) {
                 foreach ($phones as $phone) {
                     /** @var Phones $phone */
-                    $phone->messengeresArray = $post['messengeresArray'][$phone->id];
+                    if(isset($post['messengeresArray'])){
+                        $phone->messengeresArray = $post['messengeresArray'][$phone->id];
+                    }
                     $phone->save();
                 }
             }
@@ -376,31 +379,17 @@ class CompanyController extends Controller
                 $catCompanyRel->save();
             }
 
-            $i = 0;
-            if (!empty($_FILES['fileCompanyPhoto']['name'][0])) {
-                $loc = 'media/upload/userphotos/' . date('dmY') . '/';
-                if (!is_dir($loc)) {
-                    mkdir($loc);
-                }
-                if (!file_exists('media/upload/userphotos/' . date('dmY') . '/' . $model->id)) {
-                    mkdir('media/upload/userphotos/' . date('dmY') . '/' . $model->id . '/');
-                }
-                if (!file_exists('media/upload/userphotos/' . date('dmY') . '/' . $model->id . '/' . date('Y-m-d'))) {
-                    mkdir('media/upload/userphotos/' . date('dmY') . '/' . $model->id . '/' . date('Y-m-d'));
+            if (!empty($_POST['productImg'])) {
+                CompanyPhoto::deleteAll(['company_id' => $model->id]);
+                foreach ((array)$_POST['productImg'] as $photo) {
+                    if($photo){
+                        $companyPhoto = new CompanyPhoto;
+                        $companyPhoto->company_id = $model->id;
+                        $companyPhoto->photo = $photo;
+                        $companyPhoto->save();
+                    }
                 }
 
-                $dir = 'media/upload/userphotos/' . date('dmY') . '/' . $model->id . '/' . date('Y-m-d') . '/';
-
-                foreach ($_FILES['fileCompanyPhoto']['name'] as $file) {
-
-                    move_uploaded_file($_FILES['fileCompanyPhoto']['tmp_name'][$i], $dir . $file);
-
-                    $companyPhoto = new CompanyPhoto;
-                    $companyPhoto->company_id = $model->id;
-                    $companyPhoto->photo = '/' . $dir . $file;
-                    $companyPhoto->save();
-                    $i++;
-                }
             }
 
             if (SocCompany::loadMultiple($socials, Yii::$app->request->post()) &&

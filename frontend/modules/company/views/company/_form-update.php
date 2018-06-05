@@ -23,8 +23,12 @@ use common\classes\Debug;
  * @var array $socials
  * @var \common\models\db\Phones $phone
  * */
+echo '<script>var photoCount = '.count($img).';</script>';
+
 $this->registerCssFile('/css/board.min.css');
 //$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/raw/Uploader.js', ['depends' => [\yii\web\JqueryAsset::class]]);
+$this->registerJsFile('/js/raw/img_upload.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 $this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/raw/company.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
@@ -35,7 +39,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         'id' => 'update_company',
         'options' =>
             [
-                'class' => 'content-forma',
+                'class' => 'content-forma cabinet__add-company-form-product cabinet__add-company-form',
                 'enctype' => 'multipart/form-data',
             ],
         'fieldConfig' => [
@@ -93,7 +97,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         //'data' => ['Донецкая область' => ['1'=>'Don','2'=>'Gorl'], 'Rostovskaya' => ['5'=>'rostov']],
         'options' => ['placeholder' => 'Начните вводить город ...'],
         'pluginOptions' => [
-            'allowClear' => true
+            'allowClear' => true,
         ],
     ])
     ->hint('Введите город где находится компания')
@@ -110,7 +114,8 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                                         <span class="button"></span>
                                         {input}
                                         <img id="blah" src="' . $model->photo . '" alt="" width="160px">
-                                        </label>'])
+                                        </label>',
+])
     ->label('Логотип компании')
     ->fileInput();
 ?>
@@ -125,7 +130,8 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                 <div class="input__wrap" style="position: relative; width: 100%;">
                     <?= Html::label('Телефон', 'Phones', ['class' => 'label-name']) ?>
                     <?= Html::hiddenInput('Phones[' . $phone->id . '][id]', $phone->id) ?>
-                    <?= Html::textInput('Phones[' . $phone->id . '][phone]', $phone->phone, ['class' => 'input-name', 'id' => 'Phones']) ?>
+                    <?= Html::textInput('Phones[' . $phone->id . '][phone]', $phone->phone,
+                        ['class' => 'input-name', 'id' => 'Phones']) ?>
                     <?php if ($key != 0): ?>
                         <button type="button" class="cabinet__remove-pkg company__remove-phone"
                                 style="position: absolute; top: 11px; right: 5px; border: none;"></button>
@@ -139,17 +145,18 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                 <div class="messengers-choice" style="display: flex; flex-wrap: wrap; width: 70%; margin-left: auto;">
                     <p style="width: 100%; margin-bottom: -1px">Выберите мессенджеры, если у вас привязан к ним
                         телефон</p>
-                    <?= Html::checkboxList('Phones[][messengeres]', $phone->getMessengeresArray(), ArrayHelper::map(Messenger::find()->all(), "id", "name"),
+                    <?= Html::checkboxList('Phones[][messengeres]', $phone->getMessengeresArray(),
+                        ArrayHelper::map(Messenger::find()->all(), "id", "name"),
                         [
                             'item' =>
                                 function ($index, $label, $name, $checked, $value) use ($phone) {
                                     return Html::checkbox("messengeresArray[" . $phone->id . "][]", $checked, [
                                         'value' => $value,
-                                        'label' => $label
+                                        'label' => $label,
                                     ]);
                                 },
                             'class' => 'checkbox-wrap',
-                            'style' => 'display: flex; justify-content: space-around; width: 100%; margin-top: 5px;'
+                            'style' => 'display: flex; justify-content: space-around; width: 100%; margin-top: 5px;',
                         ]);
                     ?>
                 </div>
@@ -174,11 +181,11 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                         function ($index, $label, $name, $checked, $value) {
                             return Html::checkbox("messengeresArray[0][]", $checked, [
                                 'value' => $value,
-                                'label' => $label
+                                'label' => $label,
                             ]);
                         },
                     'class' => 'checkbox-wrap',
-                    'style' => 'display: flex; justify-content: space-around; width: 100%; margin-top: 5px;'
+                    'style' => 'display: flex; justify-content: space-around; width: 100%; margin-top: 5px;',
                 ]);
             ?>
         </div>
@@ -202,7 +209,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                                            <img src=' . "{$soc->getSocType()->one()->icon}" . ' alt="">
                                        </span>
                                    {label}
-                                   {input}'
+                                   {input}',
             ])
             ->textInput()
             ->label($soc->getSocType()->one()->name); ?>
@@ -266,50 +273,55 @@ if (isset($services['count_text'])) {
 ?>
 
 <?php
-if (isset($services['count_photo'])) {
-    ?>
-    <p class="cabinet__add-company-form--title">Загрузите фотографии вашей компании</p>
-    <?php
-    $preview = [];
-    $previewConfig = [];
-    if (!empty($img)) {
-        foreach ($img as $i) {
-            $preview[] = "<img src='$i->photo' class='file-preview-image'>";
-            $previewConfig[] = [
-                'caption' => '',
-                'url' => Url::to(['company/delete-img', 'id' => $i->id]),
-            ];
-        }
-    }
+if (isset($services['count_photo'])) :?>
+    <div class="cabinet__add-company-img-block form-line">
+        <h2>Фотографии <span>(для выбора обложки изображения нажмите на него)</span></h2>
 
-    echo FileInput::widget([
-        'name' => 'fileCompanyPhoto[]',
-        'id' => 'input-5',
-        'attribute' => 'attachment_1',
-        'value' => '@frontend/media/img/1.png',
-        'options' => [
-            'multiple' => true,
-            'showCaption' => false,
-            'showUpload' => false,
-            'uploadAsync' => false,
-        ],
-        'pluginOptions' => [
-            'uploadUrl' => Url::to(['/site/upload_file']),
-            'language' => "ru",
-            'previewClass' => 'hasEdit',
-            'uploadAsync' => false,
-            'showUpload' => false,
-            'dropZoneEnabled' => false,
-            'overwriteInitial' => false,
-            'maxFileCount' => $services['count_photo'],
-            'maxFileSize' => 2000,
-            'initialPreview' => $preview,
-            'initialPreviewConfig' => $previewConfig,
-        ],
-    ]);
-}
-?>
+        <p class="cabinet__add-company-form--count">количество загружаемых файлов<span class="col">
+        <span id="itemsCountBox">0</span> из <span id="maxCountBox">10</span></span>
+            <span></span></p>
 
+        <div class="cabinet__add-company-form--drop" id="dropArea">
+            <img src="/img/icons/cloud.png" alt="">
+            <p>Перетащите сюда файлы, чтобы прикрепить их как документ</p>
+        </div>
+
+        <input type="button" class="cabinet__add-company-form--submit" id="btnSel" value="Добавить">
+
+        <input type="file" id="fileInput" style="display: none" multiple>
+        <div class="cabinet__add-company-form--images" id="cabinet__add-company-form--images">
+            <div class="cabinet__add-company-form--img">
+                <div class="cabinet__add-company-form--img-wrapper">
+
+                </div>
+                <p class="cabinet__add-company-form--img-name"><span class="arrow-up"><img src="/img/icons/Rectangl.png"
+                                                                                           alt=""></span><span
+                            class="img-name"></span></p>
+                <input type="hidden" name="productImg[]" class="productImg">
+                <input type="hidden" name="productImgThumb[]" class="productImgThumb">
+                <progress class="progressBar" value="0" max="100"></progress>
+            </div>
+            <?php if (!empty($img)): ?>
+                <?php foreach ((array)$img as $image): ?>
+                    <div class="cabinet__add-company-form--img">
+                        <div class="cabinet__add-company-form--img-wrapper">
+                            <img src="<?= $image->photo ?>" alt="">
+                        </div>
+                        <p class="cabinet__add-company-form--img-name"><span class="arrow-up"><img
+                                        src="/img/icons/Rectangl.png"
+                                        alt=""></span><span
+                                    class="img-name">
+                    <?= basename($image->photo); ?>
+                </span></p>
+                        <input type="hidden" name="productImg[]" class="productImg" value="<?= $image->photo ?>">
+                        <input type="hidden" name="productImgThumb[]" class="productImgThumb"
+                               value="<?= $image->photo ?>">
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>
 
 <?= Html::submitButton('Сохранить', ['class' => 'cabinet__add-company-form--submit']) ?>
 <?php ActiveForm::end(); ?>
