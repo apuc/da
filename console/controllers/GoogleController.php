@@ -35,9 +35,9 @@ class GoogleController extends Controller
                 $post->title = $item->title;
                 $post->url = $item->url;
                 $post->user_id = self::saveUser($item->actor);
+                $post->status = 2;
                 $post->save();
-                if($item->object->attachments)
-                    self::savePhotos($item->object->attachments, $post->id);
+                self::savePhotos($item->object->attachments, $post->id);
             }
         }
     }
@@ -78,6 +78,16 @@ class GoogleController extends Controller
                     $photo->post_id = $post_id;
                     $photo->save();
                 }
+            }
+            else if($attachment->objectType == 'article'){
+                echo 'article  ';
+                $photo = new GooglePlusPhoto();
+                $photo->display_name = $attachment->displayName;
+                $photo->google_url = $attachment->url;
+                $photo->url = $attachment->image->url;
+                $photo->full_image_url = $attachment->fullImage->url;
+                $photo->post_id = $post_id;
+                $photo->save();
             }
         }
     }

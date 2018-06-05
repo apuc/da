@@ -14,6 +14,7 @@ use Yii;
  * @property string $post_id
  * @property string $url
  * @property int $user_id
+ * @property int $status
  */
 class GooglePlusPosts extends \yii\db\ActiveRecord
 {
@@ -45,12 +46,12 @@ class GooglePlusPosts extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'updated' => 'Updated',
-            'published' => 'Published',
-            'title' => 'Title',
-            'post_id' => 'Post ID',
-            'url' => 'Url',
-            'user_id' => 'User ID',
+            'updated' => 'Дата обновления',
+            'published' => 'Дата добавления',
+            'title' => 'Текст',
+            'post_id' => 'ID поста',
+            'url' => 'Ссылка',
+            'user_id' => 'ID пользователя',
         ];
     }
 }

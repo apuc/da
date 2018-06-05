@@ -674,15 +674,21 @@ class MainMenuAdmin extends Widget
                         'label' => 'Google+',
                         'items' => [
                             [
-                                'label' => 'Посты',
-                                'url' => Url::to(['/google/posts']),
-                                'active' => Yii::$app->controller->module->id === 'google' && Yii::$app->controller->id === 'google-posts',
+                                'label' => 'Пользователи',
+                                'url' => Url::to(['/google/users']),
+                                'active' => Yii::$app->controller->module->id === 'google' && Yii::$app->controller->id === 'users',
                                 'visible' => UserFunction::hasPermission(['Группы VK']),
                             ],
                             [
-                                'label' => 'Пользователи',
-                                'url' => Url::to(['/google/users']),
-                                'active' => Yii::$app->controller->module->id === 'google' && Yii::$app->controller->id === 'google-posts' && Yii::$app->request->get('TwPostsSearch')['status'] === '0',
+                                'label' => 'Посты',
+                                'url' => Url::to(['/google/posts']),
+                                'active' => Yii::$app->controller->module->id === 'google' && Yii::$app->controller->id === 'posts',
+                                'visible' => UserFunction::hasPermission(['Группы VK']),
+                            ],
+                            [
+                                'label' => 'Опубликованные',
+                                'url' => Url::to(['/google/published']),
+                                'active' => Yii::$app->controller->module->id === 'google' && Yii::$app->controller->id === 'published',
                                 'visible' => UserFunction::hasPermission(['Группы VK']),
                             ],
 

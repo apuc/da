@@ -10,9 +10,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PostsController implements the CRUD actions for GooglePlusPosts model.
+ * PublishedController implements the CRUD actions for GooglePlusPosts model.
  */
-class PostsController extends Controller
+class PublishedController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -36,7 +36,7 @@ class PostsController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => GooglePlusPosts::find()->orderBy('published DESC'),
+            'query' => GooglePlusPosts::find()->where(['status' => 1]),
         ]);
 
         return $this->render('index', [
@@ -124,18 +124,4 @@ class PostsController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-
-    public function actionSetStatus()
-    {
-        if(Yii::$app->request->post('id') !== null){
-            $id = Yii::$app->request->post('id');
-            $status = Yii::$app->request->post('status');
-            GooglePlusPosts::updateAll(
-                [
-                    'status' => $status,
-                ],
-                ['id' => $id]);
-        }
-    }
-
 }
