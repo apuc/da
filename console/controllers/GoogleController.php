@@ -31,10 +31,12 @@ class GoogleController extends Controller
                 $post = new GooglePlusPosts();
                 $post->post_id = $item->id;
                 $post->updated = $item->updated;
-                $post->published = $item->published;
+                $post->dt_publish = strtotime(substr($item->published, 0, 10));
                 $post->title = $item->title;
                 $post->url = $item->url;
                 $post->user_id = self::saveUser($item->actor);
+                $post->likes_count = $item->object->plusoners->totalItems;
+                $post->reposts_count = $item->object->replies->totalItems;
                 $post->status = 2;
                 $post->save();
                 self::savePhotos($item->object->attachments, $post->id);

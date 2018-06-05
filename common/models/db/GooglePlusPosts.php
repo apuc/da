@@ -9,12 +9,14 @@ use Yii;
  *
  * @property int $id
  * @property string $updated
- * @property string $published
+ * @property string $dt_publish
  * @property string $title
  * @property string $post_id
  * @property string $url
  * @property int $user_id
  * @property int $status
+ * @property int $likes_count
+ * @property int $reposts_count
  */
 class GooglePlusPosts extends \yii\db\ActiveRecord
 {
@@ -34,7 +36,7 @@ class GooglePlusPosts extends \yii\db\ActiveRecord
         return [
             [['user_id'], 'required'],
             [['user_id'], 'integer'],
-            [['updated', 'published', 'post_id', 'url'], 'string', 'max' => 100],
+            [['updated', 'post_id', 'url'], 'string', 'max' => 100],
             [['title'], 'string', 'max' => 255],
         ];
     }
@@ -47,11 +49,22 @@ class GooglePlusPosts extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'updated' => 'Дата обновления',
-            'published' => 'Дата добавления',
+            'dt_publish' => 'Дата добавления',
             'title' => 'Текст',
             'post_id' => 'ID поста',
             'url' => 'Ссылка',
             'user_id' => 'ID пользователя',
         ];
     }
+
+    public function getPhotos()
+    {
+        return $this->hasMany(GooglePlusPhoto::className(), ['post_id' => 'id']);
+    }
+
+    public function getAuthor()
+    {
+        return $this->hasOne(GooglePlusUsers::className(), ['id' => 'user_id']);
+    }
+
 }

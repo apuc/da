@@ -36,7 +36,7 @@ class PostsController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => GooglePlusPosts::find()->orderBy('published DESC'),
+            'query' => GooglePlusPosts::find()->orderBy('dt_publish DESC'),
         ]);
 
         return $this->render('index', [

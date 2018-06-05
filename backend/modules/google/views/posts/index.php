@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => \yii\helpers\ArrayHelper::map(\common\models\db\VkGroups::find()->all(), 'vk_id', 'name')
             ],
-            'published',
+            'dt_publish',
             [
                 'attribute' => 'Content',
                 'format' => 'raw',

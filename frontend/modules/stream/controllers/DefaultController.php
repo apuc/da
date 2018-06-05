@@ -4,6 +4,7 @@ namespace frontend\modules\stream\controllers;
 
 use backend\modules\comments\models\Comments;
 use common\classes\Debug;
+use common\models\db\GooglePlusPosts;
 use common\models\db\KeyValue;
 use common\models\db\TwPosts;
 use common\models\db\VkComments;
@@ -56,18 +57,25 @@ class DefaultController extends Controller
             ->orderBy('`dt_publish` DESC')
             ->limit(10)
             ->all();
-        $res = array_merge($model, $tw);
+        $gPlus = GooglePlusPosts::find()
+            ->where(['status' => 1])
+            ->orderBy('`dt_publish` DESC')
+            ->limit(10)
+            ->all();
+        $res = array_merge($gPlus, $model, $tw);
         ArrayHelper::multisort($res, 'dt_publish', [SORT_DESC]);
-        //Debug::prn(Stream::create($res));
+
         //foreach ($model as $item)
         //{
         //    $item->getAllComments();
         //}
-
         $result = $this->getColumns(Stream::create($res));
+
         $countTw = TwPosts::find()->where(['status' => 1])->count();
         $countVk = VkStream::getPublishedCount();
-        $count = $countTw + $countVk;
+        $countGplus = GooglePlusPosts::find()->where(['status' => 1])->count();
+        $count = $countTw + $countVk + $countGplus;
+
         //$this->setPublishedCount();
 
         return $this->render('index', [
@@ -76,6 +84,7 @@ class DefaultController extends Controller
             'count' => $count,
             'countTw' => $countTw,
             'countVk' => $countVk,
+            'countGplus' => $countGplus,
             'meta_title' => KeyValue::findOne( [ 'key' => 'stream_title_page' ] )->value,
             'meta_desc' => KeyValue::findOne( [ 'key' => 'stream_desc_page' ] )->value,
         ]);

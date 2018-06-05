@@ -52,6 +52,9 @@ class Stream
             if (isset($item->vk_id)) {
                 return self::createVk($item);
             }
+            if (isset($item->post_id)) {
+                return self::createGplus($item);
+            }
         }
         return false;
     }
@@ -77,6 +80,29 @@ class Stream
         $streamItem->comments = $streamItem->getAllComments();
         return $streamItem;
     }
+
+    public static function createGplus($item)
+    {
+        $streamItem = new self();
+        $streamItem->author = new StreamAuthor();
+        $streamItem->group = new StreamGroup();
+        $streamItem->type = 'Gplus';
+        $streamItem->title = '';
+        $streamItem->id = $item->id;
+        $streamItem->group->name = $item->author->display_name;
+        $streamItem->group->photo = $item->author->image;
+        $streamItem->photo = $item->photos[0]->url;
+        $streamItem->allPhoto[] = $item->photos[0]->url;
+        $streamItem->text = $item->title;
+        $streamItem->slug = 'slug';
+        $streamItem->views = 0;
+        $streamItem->comment_status = 0;
+        $streamItem->dt_publish = $item->dt_publish;
+        $streamItem->likes = $item->likes_count;
+        $streamItem->comments = 2;
+        return $streamItem;
+    }
+
 
     public static function createVk($item)
     {
