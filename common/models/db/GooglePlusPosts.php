@@ -9,7 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $updated
- * @property string $dt_publish
+ * @property int $dt_publish
  * @property string $content
  * @property string $post_id
  * @property string $url
@@ -18,6 +18,7 @@ use Yii;
  * @property int $views
  * @property string $slug
  * @property string $title
+ * @property string $meta_descr
  * @property Likes[] $likes
  * @property GooglePlusPhoto[] $photos
  * @property GooglePlusUsers $author

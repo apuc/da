@@ -2,6 +2,7 @@
 
 namespace backend\modules\google\controllers;
 
+use common\classes\Debug;
 use Yii;
 use common\models\db\GooglePlusPosts;
 use yii\data\ActiveDataProvider;
@@ -36,7 +37,12 @@ class PostsController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => GooglePlusPosts::find()->orderBy('id DESC'),
+            'query' => GooglePlusPosts::find(),
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                ]
+            ],
         ]);
 
         return $this->render('index', [
@@ -87,6 +93,7 @@ class PostsController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->meta_descr = Yii::$app->request->post('GooglePlusPosts')['meta_descr'];
             $model->dt_publish = time();
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
