@@ -6,7 +6,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Google Plus Posts';
+$this->title = 'Опубликованные посты Google+';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="google-plus-posts-index">
@@ -38,9 +38,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => \yii\helpers\ArrayHelper::map(\common\models\db\VkGroups::find()->all(), 'vk_id', 'name')
             ],
-            'dt_publish',
             [
-                'attribute' => 'Content',
+                'attribute' => 'dt_publish',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return date('i-m-Y', $model->dt_publish);
+                },
+            ],
+            [
+                'attribute' => 'сontent',
+                'label' => 'Контент',
                 'format' => 'raw',
                 'value' => function ($model) {
                     $images = \common\models\db\GooglePlusPhoto::find()
@@ -57,12 +64,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => \yii\helpers\ArrayHelper::map(\common\models\db\VkGroups::find()->all(), 'vk_id', 'name')
             ],
             [
-                'attribute' => 'Status',
+                'label' => 'Статус',
                 'format' => 'raw',
                 'value' => function ($model) {
+                    if($model->status == 2){
+                        return Html::a('Опубликовать', ['#'], ['data-id' => $model->id, 'data-status' => 1, 'class' => 'btn btn-xs btn-success google_stream_edit']);
+                    }
+                    if($model->status == 1){
                         return Html::a('Снять с публикации', ['#'], ['data-id' => $model->id, 'data-status' => 2, 'class' => 'btn btn-xs btn-success google_stream_edit']);
+                    }
                 },
-                'filter' => \yii\helpers\ArrayHelper::map(\common\models\db\VkGroups::find()->all(), 'vk_id', 'name')
             ],
 
             ['class' => 'yii\grid\ActionColumn'],

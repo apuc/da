@@ -36,11 +36,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
 
                 },
-                'filter' => \yii\helpers\ArrayHelper::map(\common\models\db\VkGroups::find()->all(), 'vk_id', 'name')
             ],
-            'dt_publish',
             [
-                'attribute' => 'Content',
+                'attribute' => 'dt_publish',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return date('i-m-Y', $model->dt_publish);
+                },
+            ],
+            [
+                'attribute' => 'сontent',
+                'label' => 'Контент',
                 'format' => 'raw',
                 'value' => function ($model) {
                     $images = \common\models\db\GooglePlusPhoto::find()
@@ -57,7 +63,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => \yii\helpers\ArrayHelper::map(\common\models\db\VkGroups::find()->all(), 'vk_id', 'name')
             ],
             [
-                'attribute' => 'Status',
+                'attribute' => 'status',
+                'label' => 'Статус',
                 'format' => 'raw',
                 'value' => function ($model) {
                     if($model->status == 2){
@@ -66,10 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     if($model->status == 1){
                         return Html::a('Снять с публикации', ['#'], ['data-id' => $model->id, 'data-status' => 2, 'class' => 'btn btn-xs btn-success google_stream_edit']);
                     }
-
-
                 },
-                'filter' => \yii\helpers\ArrayHelper::map(\common\models\db\VkGroups::find()->all(), 'vk_id', 'name')
             ],
 
             ['class' => 'yii\grid\ActionColumn'],
