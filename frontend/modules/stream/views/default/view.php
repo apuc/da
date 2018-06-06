@@ -119,10 +119,10 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                             <div class="parser__element--tools">
 
                                 <a href="#"
-                                   class="like likes <?= User::hasLike('stream', $model->id) ? 'active' : '' ?>"
+                                   class="like likes <?= User::hasLike($model->type === 'vk' ? 'stream' : $model->type, $model->id) ? 'active' : '' ?>"
                                    csrf-token="<?= Yii::$app->request->getCsrfToken() ?>"
                                    data-id="<?= $model->id; ?>"
-                                   data-type="stream">
+                                   data-type="<?= $model->type === 'vk' ? 'stream' : $model->type?>">
                                     <i class="like-set-icon"></i>
                                     <span class="like-counter"><?= $model->getLikesCount() ?></span>
                                 </a>
@@ -176,7 +176,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                             <?php endif; ?>
                             <?= \frontend\widgets\CommentsStream::widget([
                                 'pageTitle' => 'Комментарии к ВК',
-                                'postType' => 'vk_post',
+                                'postType' => $model->type === 'vk' ? 'vk_post' : $model->type,
                                 'postId' => $model->id,
                             ]); ?>
                         </div>
@@ -254,11 +254,11 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
 
                                         <div class="parser__element--tools">
 
-                                            <a href="#" class="like likes <?= User::hasLike('stream',
+                                            <a href="#" class="like likes <?= User::hasLike($item->type === 'vk' ? 'stream' : $item->type,
                                                 $item->id) ? 'active' : '' ?>"
                                                csrf-token="<?= Yii::$app->request->getCsrfToken() ?>"
                                                data-id="<?= $item->id; ?>"
-                                               data-type="stream">
+                                               data-type="<?= $item->type === 'vk' ? 'stream' : $item->type?>">
                                                 <i class="like-set-icon"></i>
                                                 <span class="like-counter"><?= $item->getLikesCount() ?></span>
                                             </a>

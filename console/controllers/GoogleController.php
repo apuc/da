@@ -35,8 +35,7 @@ class GoogleController extends Controller
                 $post->title = $item->title;
                 $post->url = $item->url;
                 $post->user_id = self::saveUser($item->actor);
-                $post->likes_count = $item->object->plusoners->totalItems;
-                $post->reposts_count = $item->object->replies->totalItems;
+                $post->views = 0;
                 $post->status = 2;
                 $post->save();
                 self::savePhotos($item->object->attachments, $post->id);

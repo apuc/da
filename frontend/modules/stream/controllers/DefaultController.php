@@ -149,6 +149,10 @@ class DefaultController extends Controller
         if('tw' === $type){
             $model = TwPosts::find()->where(['slug' => $slug])->one();
         }
+        if('Gplus' === $type){
+            $model = GooglePlusPosts::find()->where(['slug' => $slug])->one();
+        }
+        //Debug::dd($model->comments);
 
         $countTw = TwPosts::find()->where(['status' => 1])->count();
         $countVk = VkStream::getPublishedCount();

@@ -15,11 +15,23 @@ use Yii;
  * @property string $url
  * @property int $user_id
  * @property int $status
- * @property int $likes_count
- * @property int $reposts_count
+ * @property Likes[] $likes
+ * @property int $views
  */
 class GooglePlusPosts extends \yii\db\ActiveRecord
 {
+    public function behaviors()
+    {
+        return [
+            'slug' => [
+                'class' => 'common\behaviors\Slug',
+                'in_attribute' => 'title',
+                'out_attribute' => 'slug',
+                'translit' => true
+            ]
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -62,9 +74,19 @@ class GooglePlusPosts extends \yii\db\ActiveRecord
         return $this->hasMany(GooglePlusPhoto::className(), ['post_id' => 'id']);
     }
 
+    public function getLikesCount()
+    {
+        return Likes::find()->where(['post_type' => 'Gplus', 'post_id' => $this->id])->count();
+    }
+
     public function getAuthor()
     {
         return $this->hasOne(GooglePlusUsers::className(), ['id' => 'user_id']);
+    }
+
+    public function getComments()
+    {
+        return $this->hasMany(Comments::className(), ['post_id' => 'id'])->where(['post_type' => 'Gplus']);
     }
 
 }

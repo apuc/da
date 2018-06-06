@@ -85,6 +85,11 @@ class TwPosts extends \yii\db\ActiveRecord
         return $this->statuses[$this->status];
     }
 
+    public function getLikesCount()
+    {
+        return Likes::find()->where(['post_type' => 'tw', 'post_id' => $this->id])->count();
+    }
+
     public function getStatuses()
     {
     	return [

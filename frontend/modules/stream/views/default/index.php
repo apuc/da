@@ -4,6 +4,7 @@
  * @var $count integer
  * @var $countVk integer
  * @var $countTw integer
+ * @var $countGplus integer
  * @var $meta_title
  * @var $meta_desc
  */
@@ -112,10 +113,10 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                                     <div class="parser__element--tools">
 
                                         <a href="#"
-                                           class="like likes <?= User::hasLike('stream', $item->id) ? 'active' : '' ?>"
+                                           class="like likes <?= User::hasLike($item->type === 'vk' ? 'stream' : $item->type, $item->id) ? 'active' : '' ?>"
                                            csrf-token="<?= Yii::$app->request->getCsrfToken() ?>"
                                            data-id="<?= $item->id; ?>"
-                                           data-type="stream">
+                                           data-type="<?= $item->type === 'vk' ? 'stream' : $item->type?>">
                                             <i class="like-set-icon"></i>
                                             <span class="like-counter"><?= $item->likes ?></span>
                                         </a>
@@ -244,10 +245,10 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                                     <div class="parser__element--tools">
 
                                         <a href="#"
-                                           class="like likes <?= User::hasLike('stream', $item->id) ? 'active' : '' ?>"
+                                           class="like likes <?= User::hasLike($item->type === 'vk' ? 'stream' : $item->type, $item->id) ? 'active' : '' ?>"
                                            csrf-token="<?= Yii::$app->request->getCsrfToken() ?>"
                                            data-id="<?= $item->id; ?>"
-                                           data-type="stream">
+                                           data-type="<?= $item->type === 'vk' ? 'stream' : $item->type ?>">
                                             <i class="like-set-icon"></i>
                                             <span class="like-counter"><?= $item->getLikesCount() ?></span>
                                         </a>

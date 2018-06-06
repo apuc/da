@@ -76,7 +76,7 @@ class Stream
         $streamItem->views = $item->views;
         $streamItem->comment_status = $item->comment_status;
         $streamItem->dt_publish = $item->dt_publish;
-        $streamItem->likes = $streamItem->getLikesCount();
+        $streamItem->likes = $item->getLikesCount();
         $streamItem->comments = $streamItem->getAllComments();
         return $streamItem;
     }
@@ -89,17 +89,21 @@ class Stream
         $streamItem->type = 'Gplus';
         $streamItem->title = '';
         $streamItem->id = $item->id;
-        $streamItem->group->name = $item->author->display_name;
-        $streamItem->group->photo = $item->author->image;
+        $streamItem->author->name = $item->author->display_name;
+        $streamItem->author->photo = $item->author->image;
         $streamItem->photo = $item->photos[0]->url;
-        $streamItem->allPhoto[] = $item->photos[0]->url;
+        if(isset($item->photos)){
+            foreach($item->photos as $photo){
+                $streamItem->allPhoto[] = $photo->url;
+            }
+        }
         $streamItem->text = $item->title;
-        $streamItem->slug = 'slug';
-        $streamItem->views = 0;
-        $streamItem->comment_status = 0;
+        $streamItem->slug = $item->slug;
+        $streamItem->views = $item->views;
+        $streamItem->comment_status = 1;
         $streamItem->dt_publish = $item->dt_publish;
-        $streamItem->likes = $item->likes_count;
-        $streamItem->comments = 2;
+        $streamItem->likes = $item->getLikesCount();
+        $streamItem->comments = $streamItem->getAllComments();
         return $streamItem;
     }
 
@@ -142,7 +146,7 @@ class Stream
 
     public function getLikesCount()
     {
-        return Likes::find()->where(['post_type' => $this->type, 'post_id' => $this->id])->count();
+        return Likes::find()->where(['post_type' => $this->type === 'vk' ? 'Stream' : $this->type, 'post_id' => $this->id])->count();
     }
 
     /**
@@ -151,7 +155,7 @@ class Stream
     public function getComments()
     {
         return Comments::find()->where(['post_id' => $this->id])
-            ->andWhere(['post_type' => $this->type . '_post'])
+            ->andWhere(['post_type' => $this->type === 'vk' ? $this->type . '_post' : $this->type])
             ->andWhere(['published' => 1])
             ->all();
     }
