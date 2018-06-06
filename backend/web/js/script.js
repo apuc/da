@@ -86,6 +86,29 @@ $(document).ready(function () {
         return false;
     });
 
+    $('.google_stream_edit').on('click', function () {
+        var id = $(this).data('id');
+        var status = $(this).data('status');
+        var button = $(this);
+
+        $.ajax({
+            type: 'POST',
+            url: "/secure/google/posts/set-status",
+            data: {'id': id, 'status': status},
+            success: function () {
+                if(status == '2') {
+                    button.html('Опубликовать');
+                    button.data('status', 1);
+                }
+                else if (status == '1') {
+                    button.html('Снять с публикации');
+                    button.data('status', 2);
+                }
+            }
+        });
+        return false;
+    });
+
     $(document).on('click', '.delete_comments', function () {
         var id = $(this).data('id');
         var tr = $(this).closest('tr');

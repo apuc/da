@@ -6,7 +6,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Google Plus Users';
+$this->title = 'Пользователи Google+';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="google-plus-users-index">
@@ -20,7 +20,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
             'id',
             'display_name',

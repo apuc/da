@@ -42,10 +42,10 @@ class GooglePlusUsers extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'display_name' => 'Display Name',
-            'url' => 'Url',
-            'image' => 'Image',
+            'user_id' => 'ID пользователя',
+            'display_name' => 'Имя',
+            'url' => 'Ссылка',
+            'image' => 'Фото',
         ];
     }
 }

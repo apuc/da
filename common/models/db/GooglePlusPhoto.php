@@ -32,7 +32,7 @@ class GooglePlusPhoto extends \yii\db\ActiveRecord
         return [
             [['post_id'], 'required'],
             [['post_id'], 'integer'],
-            [['display_name', 'google_url', 'url', 'full_image_url'], 'string', 'max' => 255],
+            [['display_name', 'google_url', 'url', 'full_image_url'], 'string', 'max' => 500],
         ];
     }
 
