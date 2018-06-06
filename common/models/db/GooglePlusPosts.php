@@ -72,6 +72,7 @@ class GooglePlusPosts extends \yii\db\ActiveRecord
             'content' => 'текст',
             'post_id' => 'ID поста',
             'url' => 'Ссылка',
+            'meta_descr' => 'Мета описание',
             'user_id' => 'ID пользователя',
         ];
     }

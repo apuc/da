@@ -273,6 +273,8 @@ return \yii\helpers\ArrayHelper::merge([
                 //==============================STREAM==============================
                 'stream' => 'stream/default/index',
                 'stream/<type:(tw)>/<slug>' => 'stream/default/view',
+                'stream/<type:(vk)>/<slug>' => 'stream/default/view',
+                'stream/<type:(Gplus)>/<slug>' => 'stream/default/view',
                 'stream/<slug>' => 'stream/default/view',
 
 

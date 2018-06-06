@@ -72,7 +72,7 @@ class DefaultController extends Controller
                 ->orderBy('`dt_publish` DESC')
                 ->limit(10)
                 ->all();
-        } else if ($social === 'G+') {
+        } else if ($social === 'Gplus') {
             $res = GooglePlusPosts::find()
                 ->where(['status' => 1])
                 ->orderBy('`dt_publish` DESC')
@@ -123,7 +123,7 @@ class DefaultController extends Controller
                     ->orderBy('`dt_publish` DESC')
                     ->limit(10)
                     ->all();
-            } else if ($type === 'G+') {
+            } else if ($type === 'Gplus') {
                 $res = $gPlus = GooglePlusPosts::find()
                     ->where(['status' => 1])
                     ->andWhere(['<', 'dt_publish', $lpd])
@@ -181,7 +181,7 @@ class DefaultController extends Controller
         return false;
     }
 
-    public function actionView($slug, $type = null)
+    public function actionView($slug, $type = null, $social = 'all')
     {
         $model = null;
         if (null === $type) {
@@ -215,20 +215,49 @@ class DefaultController extends Controller
         //$model->getAllComments();
         $model->views += 1;
         $model->save();
-        $vk = VkStream::find()->with('photo', 'comments', 'author', 'group')
-            ->where(['status' => 1])
-            ->andWhere(['<', 'dt_publish', $model->dt_publish])
-            ->orderBy('dt_publish DESC')
-            ->limit(10)
-            ->all();
-        $tw = TwPosts::find()
-            ->where(['status' => 1])
-            ->andWhere(['<', 'dt_publish', $model->dt_publish])
-            ->orderBy('`dt_publish` DESC')
-            ->limit(10)
-            ->all();
+        if($social === 'vk') {
+            $res = VkStream::find()->with('photo', 'comments', 'author', 'group')
+                ->where(['status' => 1])
+                ->andWhere(['<', 'dt_publish', $model->dt_publish])
+                ->orderBy('dt_publish DESC')
+                ->limit(10)
+                ->all();
+        } else if ($social === 'tw') {
+            $res = TwPosts::find()
+                ->where(['status' => 1])
+                ->andWhere(['<', 'dt_publish', $model->dt_publish])
+                ->orderBy('`dt_publish` DESC')
+                ->limit(10)
+                ->all();
+        } else if ($social === 'Gplus'){
+            $res = GooglePlusPosts::find()
+                ->where(['status' => 1])
+                ->andWhere(['<', 'dt_publish', $model->dt_publish])
+                ->orderBy('`dt_publish` DESC')
+                ->limit(10)
+                ->all();
+        } else {
+            $vk = VkStream::find()->with('photo', 'comments', 'author', 'group')
+                ->where(['status' => 1])
+                ->andWhere(['<', 'dt_publish', $model->dt_publish])
+                ->orderBy('dt_publish DESC')
+                ->limit(10)
+                ->all();
+            $tw = TwPosts::find()
+                ->where(['status' => 1])
+                ->andWhere(['<', 'dt_publish', $model->dt_publish])
+                ->orderBy('`dt_publish` DESC')
+                ->limit(10)
+                ->all();
+            $Gplus = GooglePlusPosts::find()
+                ->where(['status' => 1])
+                ->andWhere(['<', 'dt_publish', $model->dt_publish])
+                ->orderBy('`dt_publish` DESC')
+                ->limit(10)
+                ->all();
+            $res = array_merge($vk, $tw, $Gplus);
+        }
 
-        $res = array_merge($vk, $tw);
         ArrayHelper::multisort($res, 'dt_publish', [SORT_DESC]);
         $res = Stream::create($res);
 
@@ -265,4 +294,9 @@ class DefaultController extends Controller
         }
         return false;
     }
+
+    public function getStreamItemsByType($type){
+
+    }
+
 }
