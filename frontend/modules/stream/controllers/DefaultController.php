@@ -109,8 +109,14 @@ class DefaultController extends Controller
                 ->limit(10)
                 ->with('gif', 'photo', 'author', 'group')
                 ->all();
+            $gPlus = GooglePlusPosts::find()
+                ->where(['status' => 1])
+                ->andWhere(['<', 'dt_publish', $lpd])
+                ->orderBy('`dt_publish` DESC')
+                ->limit(10)
+                ->all();
 
-            $res = array_merge($vk, $tw);
+            $res = array_merge($vk, $tw, $gPlus);
             ArrayHelper::multisort($res, 'dt_publish', [SORT_DESC]);
             $res = Stream::create($res);
             $result = [];
