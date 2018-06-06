@@ -54,10 +54,12 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                 <ul class="parser__top-nav">
                     <li><a href="<?= \yii\helpers\Url::to(['/stream']) ?>">Все материалы <span><?= $count ?></span></a>
                     </li>
-                    <li><a href="<?= \yii\helpers\Url::to(['/stream']) ?>">ВК
+                    <li><a href="<?= \yii\helpers\Url::to(['/stream', 'social' => 'vk']) ?>">ВК
                             <span><?= $countVk ?></span></a></li>
-                    <li><a href="<?= \yii\helpers\Url::to(['/stream']) ?>">Tw
+                    <li><a href="<?= \yii\helpers\Url::to(['/stream', 'social' => 'tw']) ?>">Tw
                             <span><?= $countTw ?></span></a></li>
+                    <li><a href="<?= \yii\helpers\Url::to(['/stream', 'social' => 'Gplus']) ?>">G+
+                            <span><?= $countGplus ?></span></a></li>
                 </ul>
 
                 <div class="parser__single-wrapper">
@@ -195,7 +197,8 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                                     <?php $itemUrl = [
                                             '/stream/default/view',
                                             'slug' => $item->slug,
-                                        ] + ($item->type !== 'vk' ? ['type' => $item->type] : []); ?>
+                                            'social' => Yii::$app->request->get('social'),
+                                        ]+($item->type !== 'vk' ? ['type' => $item->type]:[]); ?>
                                     <div class="parser__element <?= $item->id ?>">
 
                                         <a href="<?= \yii\helpers\Url::to($itemUrl) ?>" class="parser__element--author">
@@ -327,7 +330,8 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                                     <?php $itemUrl = [
                                             '/stream/default/view',
                                             'slug' => $item->slug,
-                                        ] + ($item->type !== 'vk' ? ['type' => $item->type] : []); ?>
+                                            'social' => Yii::$app->request->get('social'),
+                                        ]+($item->type !== 'vk' ? ['type' => $item->type]:[]); ?>
                                     <div class="parser__element <?= $item->id ?>">
 
                                         <a href="<?= \yii\helpers\Url::to($itemUrl) ?>" class="parser__element--author">
@@ -465,6 +469,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
 
                         <a href="#" class="show-more show-more-stream"
                            data-last-post-dt="<?= $interested2[4]->dt_publish ?>" data-dt="" data-step="1"
+                           data-type="<?= Yii::$app->request->get('social') ? Yii::$app->request->get('social') : 'all' ?>"
                            csrf-token="<?= Yii::$app->request->getCsrfToken() ?>">загрузить еще</a>
 
                     </div>

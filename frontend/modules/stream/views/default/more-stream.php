@@ -12,6 +12,7 @@ use common\models\User;
 $itemUrl = [
         '/stream/default/view',
         'slug' => $item->slug,
+        'social' => Yii::$app->request->get('social'),
     ]+($item->type !== 'vk' ? ['type' => $item->type]:[]);
 ?>
 <?php /*foreach ($model as $item): */ ?>

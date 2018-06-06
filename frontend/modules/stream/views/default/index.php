@@ -44,7 +44,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                             <span><?= $countVk ?></span></a></li>
                     <li><a href="<?= \yii\helpers\Url::to(['/stream', 'social' => 'tw']) ?>">Tw
                             <span><?= $countTw ?></span></a></li>
-                    <li><a href="<?= \yii\helpers\Url::to(['/stream', 'social' => 'G+']) ?>">G+
+                    <li><a href="<?= \yii\helpers\Url::to(['/stream', 'social' => 'Gplus']) ?>">G+
                             <span><?= $countGplus ?></span></a></li>
                 </ul>
 
@@ -55,6 +55,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                                 <?php $itemUrl = [
                                     '/stream/default/view',
                                     'slug' => $item->slug,
+                                    'social' => Yii::$app->request->get('social'),
                                 ]+($item->type !== 'vk' ? ['type' => $item->type]:[]); ?>
                                 <div class="parser__element <?= $item->id ?>">
 
@@ -185,6 +186,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                                 <?php $itemUrl = [
                                         '/stream/default/view',
                                         'slug' => $item->slug,
+                                        'social' => Yii::$app->request->get('social'),
                                     ]+($item->type !== 'vk' ? ['type' => $item->type]:[]); ?>
                                 <div class="parser__element <?= $item->id ?>">
 
