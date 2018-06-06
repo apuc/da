@@ -49,26 +49,38 @@ class DefaultController extends Controller
      * @return string
      * @throws \yii\base\InvalidParamException
      */
-    public function actionIndex()
+    public function actionIndex($social = 'all')
     {
-        $model = VkStream::getPosts();
-        $tw = TwPosts::find()
-            ->where(['status' => 1])
-            ->orderBy('`dt_publish` DESC')
-            ->limit(10)
-            ->all();
-        $gPlus = GooglePlusPosts::find()
-            ->where(['status' => 1])
-            ->orderBy('`dt_publish` DESC')
-            ->limit(10)
-            ->all();
-        $res = array_merge($gPlus, $model, $tw);
+        if ($social === 'all') {
+            $model = VkStream::getPosts();
+            $tw = TwPosts::find()
+                ->where(['status' => 1])
+                ->orderBy('`dt_publish` DESC')
+                ->limit(10)
+                ->all();
+            $gPlus = GooglePlusPosts::find()
+                ->where(['status' => 1])
+                ->orderBy('`dt_publish` DESC')
+                ->limit(10)
+                ->all();
+            $res = array_merge($gPlus, $model, $tw);
+        } else if ($social === 'vk') {
+            $res = VkStream::getPosts();
+        } else if ($social === 'tw') {
+            $res = TwPosts::find()
+                ->where(['status' => 1])
+                ->orderBy('`dt_publish` DESC')
+                ->limit(10)
+                ->all();
+        } else if ($social === 'G+') {
+            $res = GooglePlusPosts::find()
+                ->where(['status' => 1])
+                ->orderBy('`dt_publish` DESC')
+                ->limit(10)
+                ->all();
+        }
         ArrayHelper::multisort($res, 'dt_publish', [SORT_DESC]);
 
-        //foreach ($model as $item)
-        //{
-        //    $item->getAllComments();
-        //}
         $result = $this->getColumns(Stream::create($res));
 
         $countTw = TwPosts::find()->where(['status' => 1])->count();
@@ -76,7 +88,6 @@ class DefaultController extends Controller
         $countGplus = GooglePlusPosts::find()->where(['status' => 1])->count();
         $count = $countTw + $countVk + $countGplus;
 
-        //$this->setPublishedCount();
 
         return $this->render('index', [
             'model1' => $result[1],
@@ -85,8 +96,8 @@ class DefaultController extends Controller
             'countTw' => $countTw,
             'countVk' => $countVk,
             'countGplus' => $countGplus,
-            'meta_title' => KeyValue::findOne( [ 'key' => 'stream_title_page' ] )->value,
-            'meta_desc' => KeyValue::findOne( [ 'key' => 'stream_desc_page' ] )->value,
+            'meta_title' => KeyValue::findOne(['key' => 'stream_title_page'])->value,
+            'meta_desc' => KeyValue::findOne(['key' => 'stream_desc_page'])->value,
         ]);
     }
 
@@ -94,38 +105,64 @@ class DefaultController extends Controller
     {
         $dt_publish = \Yii::$app->request->post('dt_add');
         $lpd = \Yii::$app->request->post('last_publish_date');
-        if($lpd){
-            $tw = TwPosts::find()
-                ->where(['status' => 1])
-                ->andWhere(['<', 'dt_publish', $lpd])
-                ->orderBy('`dt_publish` DESC')
-                ->limit(10)
-                ->all();
-            $vk = VkStream::find()
-                ->where(['status' => 1])
-                ->andWhere(['<', 'dt_publish', $lpd])
-                //->andWhere(['>', 'dt_publish', 0])
-                ->orderBy('`vk_stream`.`dt_publish` DESC')
-                ->limit(10)
-                ->with('gif', 'photo', 'author', 'group')
-                ->all();
-            $gPlus = GooglePlusPosts::find()
-                ->where(['status' => 1])
-                ->andWhere(['<', 'dt_publish', $lpd])
-                ->orderBy('`dt_publish` DESC')
-                ->limit(10)
-                ->all();
+        $type = \Yii::$app->request->post('type');
+        if ($lpd) {
+            if ($type === 'vk') {
+                $res = VkStream::find()
+                    ->where(['status' => 1])
+                    ->andWhere(['<', 'dt_publish', $lpd])
+                    //->andWhere(['>', 'dt_publish', 0])
+                    ->orderBy('`vk_stream`.`dt_publish` DESC')
+                    ->limit(10)
+                    ->with('gif', 'photo', 'author', 'group')
+                    ->all();
+            } else if ($type === 'tw') {
+                $res = TwPosts::find()
+                    ->where(['status' => 1])
+                    ->andWhere(['<', 'dt_publish', $lpd])
+                    ->orderBy('`dt_publish` DESC')
+                    ->limit(10)
+                    ->all();
+            } else if ($type === 'G+') {
+                $res = $gPlus = GooglePlusPosts::find()
+                    ->where(['status' => 1])
+                    ->andWhere(['<', 'dt_publish', $lpd])
+                    ->orderBy('`dt_publish` DESC')
+                    ->limit(10)
+                    ->all();
+            } else if ($type === 'all') {
+                $tw = TwPosts::find()
+                    ->where(['status' => 1])
+                    ->andWhere(['<', 'dt_publish', $lpd])
+                    ->orderBy('`dt_publish` DESC')
+                    ->limit(10)
+                    ->all();
+                $vk = VkStream::find()
+                    ->where(['status' => 1])
+                    ->andWhere(['<', 'dt_publish', $lpd])
+                    //->andWhere(['>', 'dt_publish', 0])
+                    ->orderBy('`vk_stream`.`dt_publish` DESC')
+                    ->limit(10)
+                    ->with('gif', 'photo', 'author', 'group')
+                    ->all();
+                $gPlus = GooglePlusPosts::find()
+                    ->where(['status' => 1])
+                    ->andWhere(['<', 'dt_publish', $lpd])
+                    ->orderBy('`dt_publish` DESC')
+                    ->limit(10)
+                    ->all();
 
-            $res = array_merge($vk, $tw, $gPlus);
+                $res = array_merge($vk, $tw, $gPlus);
+            }
             ArrayHelper::multisort($res, 'dt_publish', [SORT_DESC]);
             $res = Stream::create($res);
             $result = [];
-            for ($i=0;$i<10;$i++){
+            for ($i = 0; $i < 10; $i++) {
                 $result['render'][] = $this->renderPartial('more-stream', ['item' => $res[$i]]);
             }
             $result['count'] = 1;
             $result['lpd'] = $res[9]->dt_publish;
-            return  json_encode($result);
+            return json_encode($result);
         }
 
 
@@ -147,15 +184,15 @@ class DefaultController extends Controller
     public function actionView($slug, $type = null)
     {
         $model = null;
-        if(null === $type){
+        if (null === $type) {
             $model = VkStream::find()->with('photo', 'comments', 'author', 'group')
                 ->where(['slug' => $slug])
                 ->one();
         }
-        if('tw' === $type){
+        if ('tw' === $type) {
             $model = TwPosts::find()->where(['slug' => $slug])->one();
         }
-        if('Gplus' === $type){
+        if ('Gplus' === $type) {
             $model = GooglePlusPosts::find()->where(['slug' => $slug])->one();
         }
         //Debug::dd($model->comments);
@@ -164,8 +201,7 @@ class DefaultController extends Controller
         $countVk = VkStream::getPublishedCount();
         $count = $countTw + $countVk;
 
-        if(empty($model))
-        {
+        if (empty($model)) {
             return $this->render('view', [
                 'model' => $model,
                 'count' => $count,
@@ -173,7 +209,7 @@ class DefaultController extends Controller
                 'interested1' => null,
                 'countVk' => $countVk,
                 'countTw' => $countTw,
-                ]);
+            ]);
         }
 
         //$model->getAllComments();
@@ -216,17 +252,15 @@ class DefaultController extends Controller
     public function getColumns($data)
     {
         $i = 1;
-        if(!empty($data))
-        {
-            foreach ($data as $d)
-            {
-                if($i <= 10){
-                    if($i % 2 == 0) $result[2][] = $d;
+        if (!empty($data)) {
+            foreach ($data as $d) {
+                if ($i <= 10) {
+                    if ($i % 2 == 0) $result[2][] = $d;
                     else $result[1][] = $d;
                     $i++;
                 }
             }
-            $result[2] = (isset($result[2]))? $result[2] : 0;
+            $result[2] = (isset($result[2])) ? $result[2] : 0;
             return $result;
         }
         return false;
