@@ -86,7 +86,7 @@ class Stream
         $streamItem = new self();
         $streamItem->author = new StreamAuthor();
         $streamItem->group = new StreamGroup();
-        $streamItem->type = 'Gplus';
+        $streamItem->type = 'gplus';
         $streamItem->title = $item->title;
         $streamItem->id = $item->id;
         $streamItem->author->name = $item->author->display_name;

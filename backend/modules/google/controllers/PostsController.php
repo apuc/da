@@ -2,6 +2,7 @@
 
 namespace backend\modules\google\controllers;
 
+use backend\modules\google\models\GooglePlusPostsSearch;
 use common\classes\Debug;
 use Yii;
 use common\models\db\GooglePlusPosts;
@@ -36,16 +37,12 @@ class PostsController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => GooglePlusPosts::find(),
-            'sort' => [
-                'defaultOrder' => [
-                    'id' => SORT_DESC,
-                ]
-            ],
-        ]);
+        $searchModel = new GooglePlusPostsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
