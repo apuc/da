@@ -87,7 +87,7 @@ class Stream
         $streamItem->author = new StreamAuthor();
         $streamItem->group = new StreamGroup();
         $streamItem->type = 'Gplus';
-        $streamItem->title = '';
+        $streamItem->title = $item->title;
         $streamItem->id = $item->id;
         $streamItem->author->name = $item->author->display_name;
         $streamItem->author->photo = $item->author->image;
@@ -97,7 +97,7 @@ class Stream
                 $streamItem->allPhoto[] = $photo->url;
             }
         }
-        $streamItem->text = $item->title;
+        $streamItem->text = $item->content;
         $streamItem->slug = $item->slug;
         $streamItem->views = $item->views;
         $streamItem->comment_status = 1;

@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) {
                     $images = \common\models\db\GooglePlusPhoto::find()
                         ->where(['post_id' => $model->id])->all();
-                    $result = $model->title . '<br/>';
+                    $result = $model->content . '<br/>';
                     if($images){
                         foreach($images as $image){
                             $result .= Html::img($image->url, ['width' => 300]);

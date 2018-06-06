@@ -12,11 +12,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'updated')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'published')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'content')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'post_id')->textInput(['maxlength' => true]) ?>
 

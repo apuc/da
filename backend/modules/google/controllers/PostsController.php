@@ -36,7 +36,7 @@ class PostsController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => GooglePlusPosts::find()->orderBy('dt_publish DESC'),
+            'query' => GooglePlusPosts::find()->orderBy('id DESC'),
         ]);
 
         return $this->render('index', [
@@ -86,7 +86,9 @@ class PostsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->dt_publish = time();
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

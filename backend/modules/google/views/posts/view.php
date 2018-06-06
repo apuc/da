@@ -5,8 +5,10 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\db\GooglePlusPosts */
-
-$this->title = $model->title;
+if(isset($model->title))
+    $this->title = $model->title;
+else
+    $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Google Plus Posts', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -30,8 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'updated',
-            'published',
+            'dt_publish',
             'title',
+            'content',
+            'slug',
             'post_id',
             'url:url',
             'user_id',

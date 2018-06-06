@@ -5,8 +5,10 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\db\GooglePlusUsers */
-
-$this->title = $model->id;
+if(isset ($model->display_name))
+    $this->title = $model->display_name;
+else
+    $this->title = $model->user_id;
 $this->params['breadcrumbs'][] = ['label' => 'Google Plus Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -28,11 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'user_id',
             'display_name',
-            'url:url',
             'image',
+            'url:url',
+            'user_id',
         ],
     ]) ?>
 

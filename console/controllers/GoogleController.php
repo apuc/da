@@ -32,7 +32,7 @@ class GoogleController extends Controller
                 $post->post_id = $item->id;
                 $post->updated = $item->updated;
                 $post->dt_publish = strtotime(substr($item->published, 0, 10));
-                $post->title = $item->title;
+                $post->content = $item->title;
                 $post->url = $item->url;
                 $post->user_id = self::saveUser($item->actor);
                 $post->views = 0;

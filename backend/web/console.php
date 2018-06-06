@@ -3,9 +3,12 @@ if($_GET['p']=='vk/get-group-info')
     echo '<a href="/secure/vk/vk_groups">Назад</a>';
 else if($_GET['p']=='vk/get-stream')
     echo '<a href="/secure/vk/vk_groups">Назад</a>';
+else if($_GET['p']=='google/get-user-posts') {
+    echo '<a href="/secure/google/users">На страницу пользователей</a>';
+    echo '<br>';
+    echo '<a href="/secure/google/posts">На страницу постов</a>';
+}
 else if($_GET['p']=='google/get-users-info')
-    echo '<a href="/secure/google/users">Назад</a>';
-else if($_GET['p']=='google/get-user-posts')
     echo '<a href="/secure/google/users">Назад</a>';
 echo '<br>';
 
