@@ -137,6 +137,7 @@ $(document).ready(function () {
     $(document).on('click', '.show-more-stream', function (e) {
         var csrfToken = $(this).attr('csrf-token');
         var step = $(this).attr('data-step');
+        var type = $(this).attr('data-type');
         var dt_add = $(this).attr('data-dt');
         var last_publish_date = $(this).attr('data-last-post-dt');
         //console.log($(".parser__wrapper").css('height').slice(0, -2) > 1850);
@@ -146,6 +147,7 @@ $(document).ready(function () {
             data: {
                 _csrf: csrfToken,
                 step: step,
+                type: type,
                 dt_add: dt_add,
                 last_publish_date: last_publish_date
             },

@@ -10,13 +10,19 @@ use Yii;
  * @property int $id
  * @property string $updated
  * @property string $dt_publish
- * @property string $title
+ * @property string $content
  * @property string $post_id
  * @property string $url
  * @property int $user_id
  * @property int $status
- * @property Likes[] $likes
  * @property int $views
+ * @property string $slug
+ * @property string $title
+ * @property Likes[] $likes
+ * @property GooglePlusPhoto[] $photos
+ * @property GooglePlusUsers $author
+ * @property Comments[] $comments
+ *
  */
 class GooglePlusPosts extends \yii\db\ActiveRecord
 {
@@ -62,7 +68,8 @@ class GooglePlusPosts extends \yii\db\ActiveRecord
             'id' => 'ID',
             'updated' => 'Дата обновления',
             'dt_publish' => 'Дата добавления',
-            'title' => 'Текст',
+            'title' => 'Заголовок',
+            'content' => 'текст',
             'post_id' => 'ID поста',
             'url' => 'Ссылка',
             'user_id' => 'ID пользователя',
@@ -77,6 +84,11 @@ class GooglePlusPosts extends \yii\db\ActiveRecord
     public function getLikesCount()
     {
         return Likes::find()->where(['post_type' => 'Gplus', 'post_id' => $this->id])->count();
+    }
+
+    public function getLikes()
+    {
+        return $this->hasMany(Likes::className(), ['post_id' => 'id'])->where(['post_type' => 'Gplus']);
     }
 
     public function getAuthor()

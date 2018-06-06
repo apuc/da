@@ -68,7 +68,7 @@ class UsersController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect('index');
         }
 
         return $this->render('create', [

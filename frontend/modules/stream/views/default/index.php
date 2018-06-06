@@ -40,10 +40,12 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                 <ul class="parser__top-nav">
                     <li><a href="<?= \yii\helpers\Url::to(['/stream']) ?>">Все материалы <span><?= $count ?></span></a>
                     </li>
-                    <li><a href="<?= \yii\helpers\Url::to(['/stream']) ?>">ВК
+                    <li><a href="<?= \yii\helpers\Url::to(['/stream', 'social' => 'vk']) ?>">ВК
                             <span><?= $countVk ?></span></a></li>
-                    <li><a href="<?= \yii\helpers\Url::to(['/stream']) ?>">Tw
+                    <li><a href="<?= \yii\helpers\Url::to(['/stream', 'social' => 'tw']) ?>">Tw
                             <span><?= $countTw ?></span></a></li>
+                    <li><a href="<?= \yii\helpers\Url::to(['/stream', 'social' => 'G+']) ?>">G+
+                            <span><?= $countGplus ?></span></a></li>
                 </ul>
 
                 <div class="parser__wrapper">
@@ -317,7 +319,9 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                 <div class="parser__more">
 
                     <a href="#" class="show-more show-more-stream" data-last-post-dt="<?= $model2[4]->dt_publish ?>"
-                       data-dt="" data-step="1" csrf-token="<?= Yii::$app->request->getCsrfToken() ?>">загрузить еще</a>
+                       data-dt="" data-step="1"
+                       data-type="<?= Yii::$app->request->get('social') ? Yii::$app->request->get('social') : 'all' ?>"
+                       csrf-token="<?= Yii::$app->request->getCsrfToken() ?>">загрузить еще</a>
 
                 </div>
 
