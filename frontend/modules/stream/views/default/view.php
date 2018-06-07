@@ -3,6 +3,7 @@
  * @var $model \common\models\db\VkStream
  * @var $count integer
  * @var $countVk integer
+ * @var $countGplus integer
  * @var $countTw integer
  */
 

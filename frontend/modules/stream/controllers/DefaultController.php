@@ -195,12 +195,12 @@ class DefaultController extends Controller
         if ('gplus' === $type) {
             $model = GooglePlusPosts::find()->where(['slug' => $slug])->one();
         }
-        //Debug::dd($model->comments);
+
 
         $countTw = TwPosts::find()->where(['status' => 1])->count();
         $countVk = VkStream::getPublishedCount();
-        $count = $countTw + $countVk;
-
+        $countGplus = GooglePlusPosts::find()->where(['status' => 1])->count();
+        $count = $countTw + $countVk + $countGplus;
         if (empty($model)) {
             return $this->render('view', [
                 'model' => $model,
@@ -209,6 +209,7 @@ class DefaultController extends Controller
                 'interested1' => null,
                 'countVk' => $countVk,
                 'countTw' => $countTw,
+                'countGplus' => $countGplus,
             ]);
         }
 
@@ -275,6 +276,7 @@ class DefaultController extends Controller
             'count' => $count,
             'countVk' => $countVk,
             'countTw' => $countTw,
+            'countGplus' => $countGplus,
         ]);
     }
 
