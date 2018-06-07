@@ -220,7 +220,7 @@ return \yii\helpers\ArrayHelper::merge([
                 'all-new' => 'news/news',
                 'news/create' => 'news/news/create',
                 'news' => 'news/default',
-                'all-news/<page:\d+>/<per-page:\d+>' => 'news/news/index',
+                //'all-news/<page:\d+>/<per-page:\d+>' => 'news/news/index',
                 'news/<slug>' => 'news/default/view',
                 'news/category/<slug>' => 'news/news/category',
                 'news/archive/<date>' => 'news/news/archive',
