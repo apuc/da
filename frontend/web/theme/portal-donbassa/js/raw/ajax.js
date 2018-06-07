@@ -25,7 +25,7 @@ $(document).ready(function () {
             url: '/ajax/ajax/add-category',
             type: 'POST',
             data: {
-                d: id,
+                id: id,
                 text: text
             },
             success: function (data) {
