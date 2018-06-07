@@ -21,20 +21,12 @@ use frontend\modules\company\models\Company;
 use frontend\widgets\CompanyRight;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
-if($page !== ''){
-    $this->title = $model->meta_title . " | " . Company::$submenuLabels[$page];
-    $this->registerMetaTag([
-        'name' => 'description',
-        'content' => $model->meta_descr . " | " . Company::$submenuLabels[$page],
-    ]);
-}
-else{
+
     $this->title = $model->meta_title . " | " . $model->start_page_items[$model->start_page];
     $this->registerMetaTag([
         'name' => 'description',
         'content' => $model->meta_descr . " | " . $model->start_page_items[$model->start_page],
     ]);
-}
 
 $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/company_ajax.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
@@ -162,11 +154,7 @@ $this->params['breadcrumbs'][] = $model->name;
                 <?= $this->render('_submenu', ['model' => $model, 'slug' => $slug, 'page' => $page]); ?>
 
                 <div class="business__tab-content">
-                    <?php if($page === ''): ?>
-                        <?= $this->render("_" . $model->start_page_titles[$model->start_page], $options); ?>
-                    <?php else : ?>
                         <?= $this->render("_$page", $options); ?>
-                    <?php endif?>
                 </div>
 
                 <?php if (!empty($model['tagss'])): ?>

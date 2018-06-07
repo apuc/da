@@ -190,7 +190,9 @@ class CompanyController extends Controller
         if (empty($model) || $model->status == 1) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-
+        if($place === ''){
+            $place = $model->start_page_titles[$model->start_page];
+        }
         $services = [];
         if ($model->dt_end_tariff > time() || $model->dt_end_tariff == 0) {
             $services = CompanyFunction::getServiceCompany($model->id);
@@ -209,11 +211,6 @@ class CompanyController extends Controller
                 ':company_id' => $model->id,
             ])
             ->queryAll();
-        if($place === ''){
-            $options = $model->getPage($model->start_page_titles[$model->start_page]);
-        }else{
-            $options = $model->getPage($place);
-        }
 
         return $this->render('view', [
             'model' => $model,
