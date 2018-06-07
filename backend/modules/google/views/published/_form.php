@@ -24,6 +24,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'status')->dropDownList([
+        '1' => 'Опубликован',
+        '2' => 'Не опубликован'
+    ]); ?>
+
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>

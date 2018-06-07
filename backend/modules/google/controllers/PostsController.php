@@ -90,7 +90,7 @@ class PostsController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->meta_descr = Yii::$app->request->post('GooglePlusPosts')['meta_descr'];
+            //$model->meta_descr = Yii::$app->request->post('GooglePlusPosts')['meta_descr'];
             $model->dt_publish = time();
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);

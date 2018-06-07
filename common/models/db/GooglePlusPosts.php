@@ -54,9 +54,9 @@ class GooglePlusPosts extends \yii\db\ActiveRecord
     {
         return [
             [['user_id'], 'required'],
-            [['user_id'], 'integer'],
+            [['user_id', 'status'], 'integer'],
             [['updated', 'post_id', 'url'], 'string', 'max' => 100],
-            [['title'], 'string', 'max' => 255],
+            [['title', 'meta_descr'], 'string', 'max' => 255],
         ];
     }
 
@@ -73,6 +73,8 @@ class GooglePlusPosts extends \yii\db\ActiveRecord
             'content' => 'текст',
             'post_id' => 'ID поста',
             'url' => 'Ссылка',
+            'status' => 'Статус',
+            'views' => 'Просмотров',
             'meta_descr' => 'Мета описание',
             'user_id' => 'ID пользователя',
         ];
