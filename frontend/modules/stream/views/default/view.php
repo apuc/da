@@ -465,15 +465,19 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                         <?php endif; ?>
                         <!--<span class="stream-flag"></span>-->
                     </div>
+                    <?php if(isset($interested2)): ?>
+                        <?php if(count($interested2) == 5): ?>
 
-                    <div class="parser__more">
+                        <div class="parser__more">
 
-                        <a href="#" class="show-more show-more-stream"
-                           data-last-post-dt="<?= $interested2[4]->dt_publish ?>" data-dt="" data-step="1"
-                           data-type="<?= Yii::$app->request->get('social') ? Yii::$app->request->get('social') : 'all' ?>"
-                           csrf-token="<?= Yii::$app->request->getCsrfToken() ?>">загрузить еще</a>
+                            <a href="#" class="show-more show-more-stream"
+                               data-last-post-dt="<?= $interested2[4]->dt_publish ?>" data-dt="" data-step="1"
+                               data-type="<?= Yii::$app->request->get('social') ? Yii::$app->request->get('social') : 'all' ?>"
+                               csrf-token="<?= Yii::$app->request->getCsrfToken() ?>">загрузить еще</a>
 
-                    </div>
+                        </div>
+                        <?php endif ?>
+                    <?php endif ?>
 
 
                 </div>
