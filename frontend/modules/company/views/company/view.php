@@ -21,12 +21,21 @@ use frontend\modules\company\models\Company;
 use frontend\widgets\CompanyRight;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
+if($page !== ''){
+    $this->title = $model->meta_title . " | " . Company::$submenuLabels[$page];
+    $this->registerMetaTag([
+        'name' => 'description',
+        'content' => $model->meta_descr . " | " . Company::$submenuLabels[$page],
+    ]);
+}
+else{
+    $this->title = $model->meta_title . " | " . $model->start_page_items[$model->start_page];
+    $this->registerMetaTag([
+        'name' => 'description',
+        'content' => $model->meta_descr . " | " . $model->start_page_items[$model->start_page],
+    ]);
+}
 
-$this->title = $model->meta_title . " | " . Company::$submenuLabels[$page];
-$this->registerMetaTag([
-    'name' => 'description',
-    'content' => $model->meta_descr . " | " . Company::$submenuLabels[$page],
-]);
 $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/company_ajax.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/company.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
