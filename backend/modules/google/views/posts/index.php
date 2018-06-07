@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
+/* @var $searchModel backend\modules\google\models\GooglePlusPostsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Посты Google+';
@@ -19,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -41,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'dt_publish',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return date('i-m-Y', $model->dt_publish);
+                    return date('d-m-Y', $model->dt_publish);
                 },
             ],
             [
@@ -58,13 +60,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     }
                     return $result;
-
                 },
-                'filter' => \yii\helpers\ArrayHelper::map(\common\models\db\VkGroups::find()->all(), 'vk_id', 'name')
             ],
             [
                 'attribute' => 'status',
-                'label' => 'Статус',
                 'format' => 'raw',
                 'value' => function ($model) {
                     if($model->status == 2){
@@ -74,6 +73,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('Снять с публикации', ['#'], ['data-id' => $model->id, 'data-status' => 2, 'class' => 'btn btn-xs btn-success google_stream_edit']);
                     }
                 },
+                'filter'    => Html::activeDropDownList( $searchModel, 'status', [
+                    '1' => 'Опубликованные',
+                    '2' => 'не опубликованные',
+                ], [ 'class' => 'form-control', 'prompt' => '' ] ),
+
             ],
 
             ['class' => 'yii\grid\ActionColumn'],

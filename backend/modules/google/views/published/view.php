@@ -45,7 +45,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'updated',
-            'dt_publish',
+            [
+                'attribute' => 'dt_publish',
+                'value' => function($model){
+                    return date('i-m-Y', $model->dt_publish);
+                }
+            ],
+            'meta_descr',
+            'views',
             'slug',
             'post_id',
             'url:url',
@@ -54,6 +61,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Пользователь',
                 'value' => function($model){
                     return $model->author->display_name;
+                }
+            ],
+            [
+                'attribute' => 'status',
+                'value' => function($model){
+                    if($model->status == 1)
+                        return 'Опубликован';
+                    if($model->status == 2)
+                        return 'Не опубликован';
                 }
             ],
         ],

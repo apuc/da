@@ -36,13 +36,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
 
                 },
-                'filter' => \yii\helpers\ArrayHelper::map(\common\models\db\VkGroups::find()->all(), 'vk_id', 'name')
             ],
             [
                 'attribute' => 'dt_publish',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return date('i-m-Y', $model->dt_publish);
+                    return date('d-m-Y', $model->dt_publish);
                 },
             ],
             [
@@ -61,10 +60,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $result;
 
                 },
-                'filter' => \yii\helpers\ArrayHelper::map(\common\models\db\VkGroups::find()->all(), 'vk_id', 'name')
             ],
             [
-                'label' => 'Статус',
+                'attribute' => 'status',
                 'format' => 'raw',
                 'value' => function ($model) {
                     if($model->status == 2){

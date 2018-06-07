@@ -44,7 +44,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                             <span><?= $countVk ?></span></a></li>
                     <li><a href="<?= \yii\helpers\Url::to(['/stream', 'social' => 'tw']) ?>">Tw
                             <span><?= $countTw ?></span></a></li>
-                    <li><a href="<?= \yii\helpers\Url::to(['/stream', 'social' => 'Gplus']) ?>">G+
+                    <li><a href="<?= \yii\helpers\Url::to(['/stream', 'social' => 'gplus']) ?>">G+
                             <span><?= $countGplus ?></span></a></li>
                 </ul>
 
@@ -320,7 +320,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
 
                 <div class="parser__more">
 
-                    <a href="#" class="show-more show-more-stream" data-last-post-dt="<?= $model2[4]->dt_publish ?>"
+                    <a href="#" class="show-more show-more-stream" data-last-post-dt="<?= isset($model2[4]->dt_publish)? $model2[4]->dt_publish: $model[0]->dt_publish ?>"
                        data-dt="" data-step="1"
                        data-type="<?= Yii::$app->request->get('social') ? Yii::$app->request->get('social') : 'all' ?>"
                        csrf-token="<?= Yii::$app->request->getCsrfToken() ?>">загрузить еще</a>

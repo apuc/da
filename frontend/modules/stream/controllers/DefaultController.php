@@ -72,7 +72,7 @@ class DefaultController extends Controller
                 ->orderBy('`dt_publish` DESC')
                 ->limit(10)
                 ->all();
-        } else if ($social === 'Gplus') {
+        } else if ($social === 'gplus') {
             $res = GooglePlusPosts::find()
                 ->where(['status' => 1])
                 ->orderBy('`dt_publish` DESC')
@@ -123,7 +123,7 @@ class DefaultController extends Controller
                     ->orderBy('`dt_publish` DESC')
                     ->limit(10)
                     ->all();
-            } else if ($type === 'Gplus') {
+            } else if ($type === 'gplus') {
                 $res = $gPlus = GooglePlusPosts::find()
                     ->where(['status' => 1])
                     ->andWhere(['<', 'dt_publish', $lpd])
@@ -192,7 +192,7 @@ class DefaultController extends Controller
         if ('tw' === $type) {
             $model = TwPosts::find()->where(['slug' => $slug])->one();
         }
-        if ('Gplus' === $type) {
+        if ('gplus' === $type) {
             $model = GooglePlusPosts::find()->where(['slug' => $slug])->one();
         }
         //Debug::dd($model->comments);
@@ -229,7 +229,7 @@ class DefaultController extends Controller
                 ->orderBy('`dt_publish` DESC')
                 ->limit(10)
                 ->all();
-        } else if ($social === 'Gplus'){
+        } else if ($social === 'gplus'){
             $res = GooglePlusPosts::find()
                 ->where(['status' => 1])
                 ->andWhere(['<', 'dt_publish', $model->dt_publish])
