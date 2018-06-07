@@ -21,6 +21,7 @@ use common\models\db\Question;
 use common\models\db\SiteError;
 use common\models\db\News;
 use common\models\db\Subscribe;
+use common\models\User;
 use frontend\models\user\Profile;
 use frontend\modules\company\models\Company;
 use frontend\modules\shop\models\CategoryShop;
@@ -260,6 +261,21 @@ class AjaxController extends Controller
             $subscribe->email = Yii::$app->request->get('email');
             $subscribe->save();
         }
+    }
+
+    public function actionAddCategory()
+    {
+        $contact = new Contacting();
+        $user = User::findById(Yii::$app->request->post('id'));
+        $contact->user_id = $user->id;
+        $contact->username = $user->username;
+        $contact->email = $user->email;
+        $contact->content = Yii::$app->request->post('text');
+        $contact->type = 'category_request';
+        if($contact->save())
+            return 'ok';
+        else
+            return "error";
     }
 
     public function actionAddCategorySelect()

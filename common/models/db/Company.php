@@ -15,6 +15,7 @@ use yii\helpers\ArrayHelper;
  * @property string $email
  * @property string $photo
  * @property integer $dt_add
+ * @property integer $start_page
  * @property integer $dt_update
  * @property string $descr
  * @property integer $status
@@ -41,8 +42,23 @@ use yii\helpers\ArrayHelper;
  */
 class Company extends \yii\db\ActiveRecord
 {
+    const START_PAGE_ABOUT = 1;
+    const START_PAGE_REVIEWS = 2;
+    const START_PAGE_STOCK = 3;
+    const START_PAGE_PRODUCTS = 4;
+    const START_PAGE_NEWS = 5;
+    const START_PAGE_STATISTICK = 6;
+    const START_PAGE_MAP = 7;
 
-
+    public $start_page_items = [
+        self::START_PAGE_ABOUT => 'О компании',
+        self::START_PAGE_REVIEWS => 'Отзывы',
+        self::START_PAGE_STOCK => 'Акции',
+        self::START_PAGE_PRODUCTS => 'Товары',
+        self::START_PAGE_NEWS => 'Новости',
+        self::START_PAGE_STATISTICK => 'Статистика',
+        self::START_PAGE_MAP => 'Карта',
+    ];
     /**
      * @inheritdoc
      */
@@ -58,7 +74,7 @@ class Company extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['dt_add', 'dt_update', 'status', 'lang_id', 'views', 'user_id', 'vip', 'tariff_id', 'dt_end_tariff', 'region_id', 'city_id', 'recommended', 'main', 'verifikation'], 'integer'],
+            [['dt_add', 'dt_update', 'status', 'lang_id', 'views', 'user_id', 'vip', 'tariff_id', 'dt_end_tariff', 'region_id', 'city_id', 'recommended', 'main', 'verifikation','start_page'], 'integer'],
             [['descr', 'payment', 'delivery'], 'string'],
             [
                 ['name', 'address', 'email', 'photo', 'slug', 'meta_title', 'meta_descr', 'alt'],
@@ -97,6 +113,7 @@ class Company extends \yii\db\ActiveRecord
             'alt' => Yii::t('company', 'Alt Tag'),
             'delivery' => Yii::t('company', 'Delivery'),
             'payment' => Yii::t('company', 'Payment'),
+            'start_page' => Yii::t('company', 'Start Page'),
         ];
     }
 
@@ -213,4 +230,13 @@ class Company extends \yii\db\ActiveRecord
         return $this->hasMany(CompanyFeedback::class, ['company_id' => 'id']);
     }
 
+    public $start_page_titles = [
+        self::START_PAGE_ABOUT => 'about',
+        self::START_PAGE_REVIEWS => 'reviews',
+        self::START_PAGE_STOCK => 'stocks',
+        self::START_PAGE_PRODUCTS => 'products',
+        self::START_PAGE_NEWS => 'news',
+        self::START_PAGE_STATISTICK => 'statistics',
+        self::START_PAGE_MAP => 'map',
+    ];
 }

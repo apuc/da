@@ -34,12 +34,10 @@ $this->params['breadcrumbs'][] = 'Все предприятия';
     <section class="business">
 
         <div class="container">
-
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                 'options' => ['class' => 'breadcrumbs']
             ]) ?>
-
             <div class="business__wrapper">
 
                 <div class="business__content new-business">

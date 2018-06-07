@@ -82,6 +82,34 @@ use yii\widgets\MaskedInput;
 
 </footer>
 
+<div class="modal-callback" id="category_add_message">
+
+    <h3 class="modal-callback__title">Предложите нам добавить категорию</h3>
+
+    <div class="separator"></div>
+
+    <form action="" class="modal-callback__form" id = "category_add_form">
+        <input type="hidden" name="user_id" value="<?= (empty(Yii::$app->user->id) ? 0 : Yii::$app->user->id) ?>" id="">
+        <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken; ?>">
+        <input type="hidden" name="url" value="<?= 'https://da-info.pro' . \yii\helpers\Url::to(); ?>">
+
+        <?php if (!Yii::$app->user->id): ?>
+
+            <input class="form-control" id="error-user-name" type="text" name="name" placeholder="Ваше имя">
+            <p class="error-modal-name-error"></p>
+            <input class="form-control" id="error-user-email" type="email" name="email" placeholder="Ваш email">
+            <p class="error-modal-email-error"></p>
+
+        <?php endif; ?>
+
+        <textarea class="modal-callback__textarea" id="error-user-message" name="text-cat-add"
+                  placeholder="Текст сообщения"></textarea>
+        <p class="error-modal-message-error"></p>
+        <input class="show-more" id="send-category-add" type="submit" value="отправить">
+
+    </form>
+
+</div>
 
 <div class="modal-callback" id="error-message">
 

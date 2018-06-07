@@ -1,17 +1,24 @@
 <?php
 $this->title = "Мои товары";
+$this->registerJsFile('/theme/portal-donbassa/js/raw/ajax.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+
 ?>
 
 <div class="cabinet__inner-box">
-
+    <a href="#" id="send-category-add-message" class="cabinet__inner-box--add">
+        Предложить добавить категорию
+    </a>
     <h3>Мои товары</h3>
 
     <a href="<?= \yii\helpers\Url::to(['/shop/products/create']); ?>" class="cabinet__inner-box--add">
         добавить
         <span>
             <img src="/theme/portal-donbassa/img/icons/add-pkg-icon.png" alt="">
+
         </span>
     </a>
+
+
 
     <div class="cabinet__inner-box--hover">
         <?= \yii\widgets\ListView::widget([
@@ -40,4 +47,5 @@ $this->title = "Мои товары";
             ],
         ])?>
     </div>
+
 </div>

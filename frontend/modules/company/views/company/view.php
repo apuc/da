@@ -14,6 +14,7 @@
  */
 
 use common\classes\DataTime;
+use common\classes\Debug;
 use common\classes\GeobaseFunction;
 use common\models\db\SocAvailable;
 use frontend\modules\company\models\Company;
@@ -152,7 +153,11 @@ $this->params['breadcrumbs'][] = $model->name;
                 <?= $this->render('_submenu', ['model' => $model, 'slug' => $slug, 'page' => $page]); ?>
 
                 <div class="business__tab-content">
-                    <?= $this->render("_$page", $options); ?>
+                    <?php if($page === ''): ?>
+                        <?= $this->render("_" . $model->start_page_titles[$model->start_page], $options); ?>
+                    <?php else : ?>
+                        <?= $this->render("_$page", $options); ?>
+                    <?php endif?>
                 </div>
 
                 <?php if (!empty($model['tagss'])): ?>

@@ -5,6 +5,38 @@ $(document).ready(function () {
         return false;
     });*/
 
+    $(document).on('click', '#send-category-add-message', function () {
+        $('#black-overlay').fadeIn(400,
+            function () {
+                $('#category_add_message').css('display', 'block').animate({opacity: 1}, 400);
+            });
+        $(document).on('click', '#black-overlay', function () {
+            $('#black-overlay').fadeIn(400,
+                function () {
+                    $('#category_add_message').css('display', 'none').animate({opacity: 1}, 400);
+                });
+        });
+    });
+    $(document).on('click', '#send-category-add', function (e) {
+        e.preventDefault();
+        var text = $("textarea[name='text-cat-add']").val(),
+            id = $("input[name='user_id']").val();
+        $.ajax({
+            url: '/ajax/ajax/add-category',
+            type: 'POST',
+            data: {
+                d: id,
+                text: text
+            },
+            success: function (data) {
+                if(data === 'ok')
+                    $('#category_add_message').html('Спасибо');
+                else
+                    $('#category_add_message').html('Ошибка');
+            }
+        });
+
+    });
 
     /*open modal feedback company*/
     $(document).on('click', '.wrap-item-feedback', function () {
