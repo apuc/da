@@ -68,19 +68,20 @@ class ProductsController extends Controller
     {
         $model = new Products();
         $beforeCreate = $model->beforeCreate();
-        // Debug::prn();
         if (!$beforeCreate) {
             return $this->render('not-add');
         }
-        //Debug::prn($beforeCreate);
 
-        if ($model->load(Yii::$app->request->post()) /*&& $model->save()*/) {
-            //Debug::dd($_POST);
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->company->verifikation === 1){
+                $model->status = 1;
+            } else {
+                $model->status = 0;
+            }
             if (!empty($_POST['productImg'])) {
                 $model->cover = $_POST['productImg'][1];
             }
 
-            //Debug::dd($_POST['ProductField']);
             $model->save();
             if (!empty($_POST['ProductField'])) {
                 $model->saveProductFields($_POST['ProductField'], $model->id);
