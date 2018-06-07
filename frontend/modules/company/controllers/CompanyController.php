@@ -209,6 +209,11 @@ class CompanyController extends Controller
                 ':company_id' => $model->id,
             ])
             ->queryAll();
+        if($place === ''){
+            $options = $model->getPage($model->start_page_titles[$model->start_page]);
+        }else{
+            $options = $model->getPage($place);
+        }
 
         return $this->render('view', [
             'model' => $model,
