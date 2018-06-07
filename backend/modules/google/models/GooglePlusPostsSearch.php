@@ -20,6 +20,7 @@ class GooglePlusPostsSearch extends GooglePlusPosts
     {
         return [
             [['status'], 'integer'],
+            [['content'], 'string'],
         ];
     }
 
@@ -61,6 +62,9 @@ class GooglePlusPostsSearch extends GooglePlusPosts
         $query->andFilterWhere([
             'status' => $this->status,
         ]);
+
+        $query->andFilterWhere(['like', 'content', $this->content]);
+
 
 
         $query->orderBy('id DESC');

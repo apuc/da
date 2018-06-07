@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'dt_publish',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return date('i-m-Y', $model->dt_publish);
+                    return date('d-m-Y', $model->dt_publish);
                 },
             ],
             [
@@ -60,12 +60,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     }
                     return $result;
-
                 },
             ],
             [
                 'attribute' => 'status',
-                'label' => 'Статус',
                 'format' => 'raw',
                 'value' => function ($model) {
                     if($model->status == 2){
