@@ -194,6 +194,7 @@ return \yii\helpers\ArrayHelper::merge([
                 //==============================COMPANY==============================
                 'all-company' => 'company/company',
                 'company' => 'company/default',
+                'company/company/get-products-by-category' => 'company/company/get-products-by-category',
                 'company/company/add-feedback' => 'company/company/add-feedback',
                 'company/company/get-more-company' => 'company/company/get-more-company',
                 'company/company/add-phone' => 'company/company/add-phone',
