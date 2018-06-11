@@ -92,7 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ['target' => '_blank']);
                     }
 
-                    if ($model->post_type == 'promotions') {
+                    if ($model->post_type == 'promotion') {
                         $result = Stock::find()->where(['id' => $model->post_id])->one();
 
                         $html = Html::a($result->title,
