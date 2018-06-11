@@ -98,9 +98,9 @@ use yii\widgets\MaskedInput;
         <textarea class="modal-callback__textarea" id="error-user-message" name="text-prom-comment"
                   placeholder="Текст сообщения"></textarea>
         <p class="error-modal-message-error"></p>
+        <h3 class="modal-callback__title" id = "promo_response"> </h3>
         <input class="show-more" id="promotion_send_comment" type="submit" value="отправить">
     </form>
-        <h3 class="modal-callback__title" id = "promo_response"> </h3>
 
     <?php else: ?>
         <h3 class="modal-callback__title">Пожалуйста, авторизуйтесь.</h3>

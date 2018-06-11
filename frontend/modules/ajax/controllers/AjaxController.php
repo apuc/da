@@ -24,6 +24,7 @@ use common\models\db\Subscribe;
 use common\models\User;
 use frontend\models\user\Profile;
 use frontend\modules\company\models\Company;
+use frontend\modules\promotions\models\Stock;
 use frontend\modules\shop\models\CategoryShop;
 use frontend\modules\shop\models\form\QuestionForm;
 use frontend\modules\shop\models\form\ReviewsForm;
@@ -282,6 +283,7 @@ class AjaxController extends Controller
     {
         if(Yii::$app->request->isAjax){
             $post = Yii::$app->request->post();
+            $promo = Stock::findOne($post['promoId']);
             $comment = new Comments();
             $comment->post_type = "promotion";
             $comment->post_id = $post['promoId'];
@@ -290,7 +292,7 @@ class AjaxController extends Controller
             $comment->published = 1;
             $comment->dt_add = time();
             if($comment->save())
-                return 'ok';
+                return $promo->slug;
             else
                 return 'error';
         }
