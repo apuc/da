@@ -191,9 +191,9 @@ use yii\jui\DatePicker;
                     ]);
                 ?>
                 <a href="#"
-                   class="input-group-addon <?= ($key == 0) ? 'add' : 'remove' ?>-input-phone"
+                   class="input-group-addon add-input-phone"
                    data-iterator="0">
-                            <span class="glyphicon glyphicon-<?= ($key == 0) ? 'plus' : 'minus' ?> ">
+                            <span class="glyphicon glyphicon-plus">
                             </span>
                 </a>
             </div>
