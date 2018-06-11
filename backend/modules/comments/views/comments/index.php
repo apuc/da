@@ -96,7 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         $result = Stock::find()->where(['id' => $model->post_id])->one();
 
                         $html = Html::a($result->title,
-                            Yii::$app->urlManagerFrontend->createUrl(['page/' . $result->slug]),
+                            Yii::$app->urlManagerFrontend->createUrl(['promotions/' . $result->slug]),
                             ['target' => '_blank']);
                     }
 
