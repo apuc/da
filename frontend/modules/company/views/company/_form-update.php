@@ -119,7 +119,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     ->label('Логотип компании')
     ->fileInput();
 ?>
-<?= $form->field($model, 'start_page')->dropDownList($model->start_page_items); ?>
+<?= $form->field($model, 'start_page')->label('Главная страница')->dropDownList($model->start_page_items); ?>
 
     <div class="cabinet__add-company-form--block"></div>
 

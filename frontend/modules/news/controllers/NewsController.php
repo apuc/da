@@ -416,4 +416,8 @@ class NewsController extends Controller
         );
     }
 
+    public function actionRedirect(){
+        return $this->redirect('/all-new');
+    }
+
 }

@@ -10,6 +10,7 @@ namespace frontend\modules\company\models;
 
 
 use backend\modules\tags\models\TagsRelation;
+use common\classes\Debug;
 use common\models\db\CategoryCompanyRelations;
 use common\models\db\CompanyFeedback;
 use common\models\db\CompanyPhoto;
@@ -73,7 +74,7 @@ class Company extends \common\models\db\Company
         return $this->hasMany(TagsRelation::className(), ['post_id' => 'id']);
     }
 
-    public function getPage($page)
+    public function getPage($page, $category = false)
     {
         $options = [];
         switch ($page) {
@@ -121,9 +122,12 @@ class Company extends \common\models\db\Company
                     ->orderBy('dt_update DESC')
                     ->all();*/
                 $modelProducts = new Products();
-                $products = $modelProducts->listProductCompany(12, $this->id);
+                $products = $modelProducts->listProductCompany(12, $this->id, $category);
+                $categories = $this->getProductsCategories();
                 $options = [
+                    'slug' => $this->slug,
                     'products' => $products,
+                    'categories' => $categories,
                 ];
                 break;
             case 'statistics':
@@ -243,6 +247,21 @@ class Company extends \common\models\db\Company
         $label = parent::attributeLabels();
         $label['categ'] = 'Категория';
         return $label;
+    }
+
+    public function getProductsCategories()
+    {
+        if ($products = Products::find()->where(['company_id' => $this->id, 'status' => 1])->all()) {
+            $categories = [];
+            foreach ($products as $product) {
+                if (!in_array($product->category, $categories)) {
+                    $categories[] = $product->category;
+                }
+            }
+            return $categories;
+        }
+        else
+            return false;
     }
 
     public function rules()

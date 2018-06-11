@@ -194,6 +194,7 @@ return \yii\helpers\ArrayHelper::merge([
                 //==============================COMPANY==============================
                 'all-company' => 'company/company',
                 'company' => 'company/default',
+                'company/company/get-products-by-category' => 'company/company/get-products-by-category',
                 'company/company/add-feedback' => 'company/company/add-feedback',
                 'company/company/get-more-company' => 'company/company/get-more-company',
                 'company/company/add-phone' => 'company/company/add-phone',
@@ -220,7 +221,7 @@ return \yii\helpers\ArrayHelper::merge([
                 'all-new' => 'news/news',
                 'news/create' => 'news/news/create',
                 'news' => 'news/default',
-                //'all-news/<page:\d+>/<per-page:\d+>' => 'news/news/index',
+                'all-news/<page:\d+>/<per-page:\d+>' => 'news/news/redirect',
                 'news/<slug>' => 'news/default/view',
                 'news/category/<slug>' => 'news/news/category',
                 'news/archive/<date>' => 'news/news/archive',

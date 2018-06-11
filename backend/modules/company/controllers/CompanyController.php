@@ -129,12 +129,22 @@ class CompanyController extends Controller
                     $socCompany->save();
                 }
             }
-
-            if (!empty(Yii::$app->request->post('Phones'))) {
-                $phone = New Phones();
-                $phone->load(Yii::$app->request->post());
-                $phone->company_id = $model->id;
-                $phone->save();
+            $phones = Yii::$app->request->post('Phones');
+            if(!empty($phones)){
+                foreach($phones as $phone){
+                    $newPhone = new Phones();
+                    $newPhone->phone = $phone['phone'];
+                    $newPhone->company_id = $model->id;
+                    $newPhone->save();
+                    if(!empty($phone['messengeresArray'])){
+                        foreach($phone['messengeresArray'] as $messenger){
+                            $newMessenger = new MessengerPhone();
+                            $newMessenger->messenger_id = $messenger;
+                            $newMessenger->phone_id = $newPhone->id;
+                            $newMessenger->save();
+                        }
+                    }
+                }
             }
 
             if (!empty(Yii::$app->request->post('Tags'))) {
@@ -167,6 +177,7 @@ class CompanyController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        //Debug::dd($model->categories);
         $companyPhotos = CompanyPhoto::findAll(['company_id' => $id]);
         $companyPhotos = ArrayHelper::getColumn($companyPhotos, 'photo');
         $companyPhotosStr = implode(',', $companyPhotos);
@@ -180,6 +191,8 @@ class CompanyController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $post = Yii::$app->request->post();
+            $post['Phones'] = array_values($post['Phones']);
+
             if (empty($model->alt)) {
                 $model->alt = $model->name;
             }

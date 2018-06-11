@@ -39,14 +39,30 @@ use yii\jui\DatePicker;
     <?= $form->field($model, 'lang_id')->dropDownList(ArrayHelper::map(Lang::find()->all(), 'id', 'name')) ?>
 
     <span id="admin_company_category_box">
-        <?php
-        echo Html::dropDownList(
-            'categ',
-            null,
-            ArrayHelper::map(CategoryCompany::find()->where(['lang_id' => 1, 'parent_id' => 0])->all(), 'id', 'title'),
-            ['class' => 'form-control', 'id' => 'categ_company', 'prompt' => 'Выберите категорию']
-        );
-        ?>
+       <?php
+       if (Yii::$app->controller->action->id === 'update') {
+           echo Html::dropDownList(
+               'categ',
+               $model->categories[0]->parent_id,
+               ArrayHelper::map(CategoryCompany::find()->where(['lang_id' => 1, 'parent_id' => 0])->all(), 'id', 'title'),
+               ['class' => 'form-control', 'id' => 'categ_company', 'prompt' => 'Выберите категорию']
+           );
+           echo Html::dropDownList(
+               'sub_categ',
+               $model->categories[0]->id,
+               ArrayHelper::map(CategoryCompany::find()->where(['parent_id' => $model->categories[0]->parent_id])->all(), 'id', 'title'),
+               ['class' => 'form-control', 'id' => 'sub_categ_company']
+           );
+       }
+       else if(Yii::$app->controller->action->id === 'create'){
+           echo Html::dropDownList(
+               'categ',
+               null,
+               ArrayHelper::map(CategoryCompany::find()->where(['lang_id' => 1, 'parent_id' => 0])->all(), 'id', 'title'),
+               ['class' => 'form-control', 'id' => 'categ_company', 'prompt' => 'Выберите категорию']
+           );
+       }
+       ?>
 
         <span id="admin_company_sub_category_box"></span>
     </span>
@@ -159,12 +175,12 @@ use yii\jui\DatePicker;
         <?= Html::label('Телефон', 'Phones', ['class' => 'control-label']) ?>
         <?php if (Yii::$app->controller->action->id == 'create'): ?>
             <div class="input-group multiply-field" data-id="0">
-                <?= Html::textInput('Phones[phone]', '', ['class' => 'form-control']) ?>
-                <?= Html::checkboxList('Phones[messengeres]', '', ArrayHelper::map(Messenger::find()->all(), "id", "name"),
+                <?= Html::textInput('Phones[0][phone]', '', ['class' => 'form-control']) ?>
+                <?= Html::checkboxList('Phones[0][messengeres]', '', ArrayHelper::map(Messenger::find()->all(), "id", "name"),
                     [
                         'item' =>
                             function ($index, $label, $name, $checked, $value) {
-                                return Html::checkbox("Phones[messengeresArray][]", $checked, [
+                                return Html::checkbox("Phones[0][messengeresArray][]", $checked, [
                                     'value' => $value,
                                     'label' => $label,
                                     'labelOptions' => [
@@ -174,6 +190,12 @@ use yii\jui\DatePicker;
                             },
                     ]);
                 ?>
+                <a href="#"
+                   class="input-group-addon <?= ($key == 0) ? 'add' : 'remove' ?>-input-phone"
+                   data-iterator="0">
+                            <span class="glyphicon glyphicon-<?= ($key == 0) ? 'plus' : 'minus' ?> ">
+                            </span>
+                </a>
             </div>
         <?php elseif (Yii::$app->controller->action->id == 'update'): ?>
 

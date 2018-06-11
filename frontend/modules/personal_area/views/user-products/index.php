@@ -6,7 +6,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/raw/ajax.js', ['depends' => [\y
 
 <div class="cabinet__inner-box">
     <a href="#" id="send-category-add-message" class="cabinet__inner-box--add">
-        Предложить добавить категорию
+        Запрос на добавление категории
     </a>
     <h3>Мои товары</h3>
 

@@ -244,7 +244,7 @@ class Products extends \common\models\db\Products
      * @param $companyId integer
      * @return ActiveDataProvider
      */
-    public function listProductCompany($limit = 16, $companyId)
+    public function listProductCompany($limit = 16, $companyId, $category)
     {
         $query = Products::find();
 
@@ -261,7 +261,8 @@ class Products extends \common\models\db\Products
 
         // grid filtering conditions
         $query->where(['status' => 1, 'company_id' => $companyId]);
-
+        if($category)
+            $query->andWhere(['category_id' => $category]);
 //Debug::dd($query->createCommand()->rawSql);
         $query->orderBy('dt_update DESC');
 

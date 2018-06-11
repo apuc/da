@@ -9,7 +9,6 @@
             setTimeout(worker, 20000);
         }
     });*/
-
     $('#load-more-company').on('click', function () {
         var step = $(this).attr('data-step');
         $.ajax({

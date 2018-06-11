@@ -256,9 +256,11 @@ class ProductsController extends Controller
                 }
 
             }
-            $model->status = 0;
-            //Debug::dd($model);
-
+            if ($model->company->verifikation === 1){
+                $model->status = 1;
+            } else {
+                $model->status = 0;
+            }
             $model->save();
             ProductFieldsValue::deleteAll(['product_id' => $model->id]);
 

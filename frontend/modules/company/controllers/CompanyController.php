@@ -17,8 +17,10 @@ use common\models\db\Phones;
 use common\models\db\ProductsImg;
 use common\models\db\SocCompany;
 use common\models\UploadPhoto;
+use frontend\modules\shop\models\Products;
 use Yii;
 use frontend\modules\company\models\Company;
+use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
@@ -211,14 +213,14 @@ class CompanyController extends Controller
                 ':company_id' => $model->id,
             ])
             ->queryAll();
-
+        $category = Yii::$app->request->get('category');
         return $this->render('view', [
             'model' => $model,
             'services' => $services,
             'categoryCompany' => $categoryCompany,
             'slug' => $slug,
             'page' => $place,
-            'options' => $model->getPage($place),
+            'options' => $model->getPage($place, $category),
             'rating' => $rating,
         ]);
     }
@@ -658,5 +660,6 @@ class CompanyController extends Controller
         }
         return "Спасибо, Ваш отзыв будет проверен и опубликован модератором";
     }
+
 
 }
