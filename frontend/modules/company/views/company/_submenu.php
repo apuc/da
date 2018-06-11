@@ -21,7 +21,7 @@ echo \yii\widgets\Menu::widget(
         'items' => [
             [
                 'label' => Company::$submenuLabels['about'],
-                'url' => Url::to(['/company/company/view', 'slug' => $slug]),
+                'url' => Url::to(['/company/company/view', 'slug' => $slug, 'place' => 'about']),
                 'active' => $page == 'about',
             ],
             [
