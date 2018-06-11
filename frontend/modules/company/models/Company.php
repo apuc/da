@@ -74,7 +74,7 @@ class Company extends \common\models\db\Company
         return $this->hasMany(TagsRelation::className(), ['post_id' => 'id']);
     }
 
-    public function getPage($page, $category)
+    public function getPage($page, $category = false)
     {
         $options = [];
         switch ($page) {
