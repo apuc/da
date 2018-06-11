@@ -38,6 +38,45 @@ $(document).ready(function () {
 
     });
 
+    $(document).on('click', '#promotion_send_comment', function (e) {
+        e.preventDefault();
+        var text = $("textarea[name='text-prom-comment']").val(),
+            userId = $("input[name='user_id']").val(),
+            promoId = $("input[name='promo-id']").val();
+        $.ajax({
+            url: '/ajax/ajax/add-promotion-comment',
+            type: 'POST',
+            data: {
+                userId: userId,
+                text: text,
+                promoId: promoId
+            },
+            success: function (data) {
+                if(data === 'ok') {
+                    $("textarea[name='text-prom-comment']").val(''),
+                    $("#promo_response").html('Ваш комментарий добавлен');
+                }
+                else
+                    $('#modal_promotion_add_comment').html('Ошибка');
+            }
+        });
+
+    });
+    $(document).on('click', '#promotion_add_comment', function (e) {
+        e.preventDefault();
+        $('#promo-id').val($(this).attr('data-id'));
+        $('#black-overlay').fadeIn(400,
+            function () {
+                $('#modal_promotion_add_comment').css('display', 'block').animate({opacity: 1}, 400);
+            });
+        $(document).on('click', '#black-overlay', function () {
+            $('#black-overlay').fadeIn(400,
+                function () {
+                    $('#modal_promotion_add_comment').css('display', 'none').animate({opacity: 1}, 400);
+                });
+        });
+    });
+
     /*open modal feedback company*/
     $(document).on('click', '.wrap-item-feedback', function () {
         $('#modal-company-rew').find('.thumb').children('img').attr('src', '');
