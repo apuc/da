@@ -155,6 +155,9 @@ return [
         'google' => [
             'class' => 'backend\modules\google\Google',
         ],
+        'journal' => [
+            'class' => 'backend\modules\journal\Journal',
+        ],
     ],
     'components' => [
         'cart' => [
