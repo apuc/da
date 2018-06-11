@@ -136,7 +136,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="all-actions__bottom">
                                 <a href="<?= Url::to(['/promotions/promotions/view', 'slug' => $stock->slug]) ?>"
                                    class="all-actions__bottom--more">Подробнее</a>
-                                <a href="#" class="all-actions__bottom--comments">Добавить коментарий</a>
+                                <a href="#" id = "promotion_add_comment" data-id = "<?=$stock->id?>" class="all-actions__bottom--comments">Добавить коментарий</a>
                                 <span class="all-actions__bottom--sale"><?= $stock->dt_event_description; ?></span>
                             </div>
                             <?php if ($stock->recommended == 1): ?>

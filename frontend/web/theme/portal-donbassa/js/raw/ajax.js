@@ -43,23 +43,26 @@ $(document).ready(function () {
         var text = $("textarea[name='text-prom-comment']").val(),
             userId = $("input[name='user_id']").val(),
             promoId = $("input[name='promo-id']").val();
-        $.ajax({
-            url: '/ajax/ajax/add-promotion-comment',
-            type: 'POST',
-            data: {
-                userId: userId,
-                text: text,
-                promoId: promoId
-            },
-            success: function (data) {
-                if(data === 'ok') {
-                    $("textarea[name='text-prom-comment']").val(''),
-                    $("#promo_response").html('Ваш комментарий добавлен');
+        if(text === '')
+            $('#promo_response').html('Введите текст');
+        else {
+            $.ajax({
+                url: '/ajax/ajax/add-promotion-comment',
+                type: 'POST',
+                data: {
+                    userId: userId,
+                    text: text,
+                    promoId: promoId
+                },
+                success: function (data) {
+                    if (data != 'error') {
+                        window.location.replace("https://da-info.pro/promotions/" + data);
+                    }
+                    else
+                        $('#promo_response').html('Ошибка');
                 }
-                else
-                    $('#modal_promotion_add_comment').html('Ошибка');
-            }
-        });
+            });
+        }
 
     });
     $(document).on('click', '#promotion_add_comment', function (e) {
