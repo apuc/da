@@ -7,6 +7,7 @@ use backend\modules\vk\models\VkStream;
 use common\behaviors\AccessSecure;
 use common\classes\Debug;
 use common\models\db\News;
+use common\models\db\Stock;
 use dektrium\user\models\User;
 use Yii;
 use backend\modules\comments\models\Comments;
@@ -171,6 +172,9 @@ class CommentsController extends Controller
                     break;
                 case 'vk_post':
                     $posts = VkStream::find()->one();
+                    break;
+                case 'promotion':
+                    $posts = Stock::find()->one();
                     break;
             }
             //Debug::prn($model);

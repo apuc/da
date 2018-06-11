@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'post_type')->dropDownList(['news' => 'Новости', 'page' => 'Страницы', 'vk_post' => 'ВК']) ?>
+    <?= $form->field($model, 'post_type')->dropDownList(['news' => 'Новости', 'page' => 'Страницы', 'vk_post' => 'ВК', 'promotion' => 'Акции']) ?>
 
     <?= $form->field($model, 'post_id')->hiddenInput()->label(false); ?>
 
