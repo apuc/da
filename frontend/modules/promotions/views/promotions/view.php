@@ -9,6 +9,8 @@ use frontend\modules\promotions\models\Stock;
 use frontend\widgets\CompanyRight;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
+use common\models\User;
+use common\classes\DateFunctions;
 
 $this->title = $model->title;
 
@@ -38,7 +40,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="single-actions__single-item">
                 <div class="all-actions__img">
                     <img src="<?= $model->photo ?>" alt="">
-                    <!--<span class="single-actions__prom-cod">--><?php //if (!empty($model->short_descr)) echo $model->short_descr; ?><!--</span>-->
+                    <!--<span class="single-actions__prom-cod">-->
+                    <?php //if (!empty($model->short_descr)) echo $model->short_descr; ?><!--</span>-->
                 </div>
                 <a href="#">
                     <div class="all-actions__company">
@@ -81,11 +84,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php endif; ?>
                 </div>
                 <div class="all-actions__bottom">
-                    <a href="#" class="all-actions__bottom--comments"
-                       id="add-review-promotions"
-                       data-id="<?= $model->id ?>">Добавить коментарий</a>
                     <span class="all-actions__bottom--sale"><?= $model->dt_event; ?></span>
                 </div>
+                <div class="content-single-wrapper"></div>
+                <?= \frontend\widgets\Comments::widget([
+                    'pageTitle' => 'Комментарии',
+                    'postType' => 'promotion',
+                    'postId' => $model->id,
+                ]); ?>
+
                 <div class="all-actions__favorites"></div>
             </div>
             <h2 class="all-actions__title">ВОЗМОЖНО ВАС ЗАИНТЕРЕСУЕТ</h2>

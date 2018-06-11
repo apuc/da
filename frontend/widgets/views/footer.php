@@ -82,6 +82,32 @@ use yii\widgets\MaskedInput;
 
 </footer>
 
+<div class="modal-callback" id="modal_promotion_add_comment">
+    <?php if (Yii::$app->user->id): ?>
+    <h3 class="modal-callback__title">Введите ваш комментарий</h3>
+
+    <div class="separator"></div>
+
+    <form action="" class="modal-callback__form" id = "category_add_form">
+        <input type="hidden" name="user_id" value="<?= (empty(Yii::$app->user->id) ? 0 : Yii::$app->user->id) ?>" id="">
+        <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken; ?>">
+        <input type="hidden" name="url" value="<?= 'https://da-info.pro' . \yii\helpers\Url::to(); ?>">
+        <input type="hidden" id = "promo-id" name="promo-id" value="">
+
+
+        <textarea class="modal-callback__textarea" id="error-user-message" name="text-prom-comment"
+                  placeholder="Текст сообщения"></textarea>
+        <p class="error-modal-message-error"></p>
+        <input class="show-more" id="promotion_send_comment" type="submit" value="отправить">
+    </form>
+        <h3 class="modal-callback__title" id = "promo_response"> </h3>
+
+    <?php else: ?>
+        <h3 class="modal-callback__title">Пожалуйста, авторизуйтесь.</h3>
+    <?php endif?>
+
+</div>
+
 <div class="modal-callback" id="category_add_message">
 
     <h3 class="modal-callback__title">Предложите нам добавить категорию</h3>

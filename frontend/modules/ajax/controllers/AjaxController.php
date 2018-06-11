@@ -216,8 +216,8 @@ class AjaxController extends Controller
 
             $html['successInfo'] = $this->renderPartial('comments-success');
             $html['comments'] = \frontend\widgets\Comments::widget([
-                'pageTitle' => 'Комментарии к новости',
-                'postType' => 'news',
+                'pageTitle' => 'Комментарии',
+                'postType' => $comment->post_type,
                 'postId' => Yii::$app->request->post('post_id'),
             ]);
 
@@ -276,6 +276,25 @@ class AjaxController extends Controller
             return 'ok';
         else
             return "error";
+    }
+
+    public function actionAddPromotionComment()
+    {
+        if(Yii::$app->request->isAjax){
+            $post = Yii::$app->request->post();
+            $comment = new Comments();
+            $comment->post_type = "promotion";
+            $comment->post_id = $post['promoId'];
+            $comment->user_id = $post['userId'];
+            $comment->content = $post['text'];
+            $comment->published = 1;
+            $comment->dt_add = time();
+            if($comment->save())
+                return 'ok';
+            else
+                return 'error';
+        }
+        else return 'error';
     }
 
     public function actionAddCategorySelect()

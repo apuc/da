@@ -83,4 +83,9 @@ class Stock extends \yii\db\ActiveRecord
         return $this->hasOne(Company::className(), ['id' => 'company_id']);
     }
 
+    public function getComments()
+    {
+        return $this->hasMany(Comments::className(), ['post_id' => 'id'])->where( ['post_type' => 'promotion']);
+    }
+
 }
