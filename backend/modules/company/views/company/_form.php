@@ -40,7 +40,7 @@ use yii\jui\DatePicker;
 
     <span id="admin_company_category_box">
        <?php
-       if (Yii::$app->controller->action->id === 'update') {
+       if (Yii::$app->controller->action->id === 'update' && isset($model->categories[0])) {
            echo Html::dropDownList(
                'categ',
                $model->categories[0]->parent_id,
@@ -54,7 +54,7 @@ use yii\jui\DatePicker;
                ['class' => 'form-control', 'id' => 'sub_categ_company']
            );
        }
-       else if(Yii::$app->controller->action->id === 'create'){
+       else if(Yii::$app->controller->action->id === 'create' || !isset($model->categories[0])){
            echo Html::dropDownList(
                'categ',
                null,
