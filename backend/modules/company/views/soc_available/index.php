@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'icon',
                 'value'=>function ($data){
-                    return '<img src="'.$data->icon.'">';
+                    return '<img width = "100px" src="'.$data->icon.'">';
                 },
                 'format'=>'html'
             ],

@@ -8,6 +8,7 @@ use yii\widgets\Breadcrumbs;
 use yii\helpers\Url;
 use common\classes\WordFunctions;
 $this->title = 'Журналы';
+$this->params['breadcrumbs'][] = 'Журналы';
 ?>
 <section class="news">
     <div class="container">
