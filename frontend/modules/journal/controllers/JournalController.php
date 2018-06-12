@@ -8,11 +8,10 @@ use yii\web\Controller;
 
 class JournalController extends Controller
 {
-
-
     public function actionIndex()
     {
         $journals = Journal::find()
+            ->where(['status' => 1])
             ->orderBy('dt_add DESC')
             ->all();
         return $this->render('index',
@@ -24,7 +23,7 @@ class JournalController extends Controller
     public function actionView($slug)
     {
         $model = Journal::find()
-            ->where(['slug' => $slug])
+            ->where(['slug' => $slug, 'status' => 1])
             ->one();
         $model->views += 1;
         $model->save();
