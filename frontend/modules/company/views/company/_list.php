@@ -1,12 +1,16 @@
+<?php
+
+use common\classes\Debug;
+?>
+
 <a href="<?= \yii\helpers\Url::to(['/shop/shop/show', 'slug' => $model['slug']])?>" class="business__company-item">
     <div class="business__company-img">
         <?php
         if (!empty($model['cover'])): ?>
-            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $model['cover']); ?>" alt="<?= $model['title']; ?>">
+            <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $model['cover'] . "?width=400px"); ?>" alt="<?= $model['title']; ?>">
         <?php else: ?>
-
-            <?php if(!empty($model['images'][0]->img_thumb)): ?>
-                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $model['images'][0]->img_thumb); ?>">
+            <?php if(!empty($model['images'][0]->img_)): ?>
+                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $model['images'][0]->img); ?>">
             <?php else:?>
                 <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $model['cover']); ?>" alt="<?= $model['title']; ?>">
             <?php endif; ?>
