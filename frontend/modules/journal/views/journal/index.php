@@ -18,12 +18,6 @@ $this->title = 'Журналы';
         ]) ?>
 
 
-        <div class="news-slider-index-panel">
-            <h3>Горячие темы</h3>
-            <div class="buttons-wrap">
-                <a href="#subscribe" class="subscribe-scroll">подписаться</a>
-            </div>
-        </div>
         <div class="news__wrap">
 
             <?php foreach ($journals as $journal): ?>
@@ -42,8 +36,6 @@ $this->title = 'Журналы';
 
                         <div class="content-row">
                             <span><small class="view-icon"></small><?=$journal->views?></span>
-                            <span><small
-                                        class="comments-icon"></small>0</span>
                         </div>
                     </div>
                     <div class="hover-wrap">

@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\db\Journal */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Journals', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Журналы', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="journal-view">

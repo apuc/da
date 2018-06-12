@@ -4,7 +4,6 @@ namespace frontend\modules\journal\controllers;
 
 use common\classes\Debug;
 use common\models\db\Journal;
-use yii\filters\VerbFilter;
 use yii\web\Controller;
 
 class JournalController extends Controller
@@ -13,8 +12,9 @@ class JournalController extends Controller
 
     public function actionIndex()
     {
-        $journals = Journal::find()->all();
-        //Debug::dd($journals);
+        $journals = Journal::find()
+            ->orderBy('dt_add DESC')
+            ->all();
         return $this->render('index',
         [
             'journals' => $journals
@@ -23,7 +23,11 @@ class JournalController extends Controller
 
     public function actionView($slug)
     {
-        $model = Journal::find()->where(['slug' => $slug])->one();
+        $model = Journal::find()
+            ->where(['slug' => $slug])
+            ->one();
+        $model->views += 1;
+        $model->save();
         return $this->render('view',
             [
                 'model' => $model

@@ -446,7 +446,7 @@ class AjaxController extends Controller
         $folderImg->create()
             ->file($_FILES['file']['tmp_name'])
             ->watermark(Yii::getAlias('@frontend/web/img/logo.png'), 0, 0)
-            ->thumbnail( $_FILES['file']['name'], ['w' => 142, 'h' => 100], $path . 'thumb/')
+            ->thumbnail( $_FILES['file']['name'], ['w' => 426, 'h' => 300], $path . 'thumb/')
             ->save($_FILES['file']['name']);
 
         return json_encode([
