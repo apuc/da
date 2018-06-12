@@ -32,7 +32,7 @@ class Company extends \common\models\db\Company
         'about' => 'О компании',
         'reviews' => 'Отзывы',
         'stocks' => 'Акции',
-        'news' => 'Новости',
+        'news' => 'Чтиво',
         'products' => 'Товары',
         'statistics' => 'Статистика',
         'map' => 'Карта',

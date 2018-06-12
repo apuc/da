@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\db\Journal */
 
-$this->title = 'Create Journal';
-$this->params['breadcrumbs'][] = ['label' => 'Journals', 'url' => ['index']];
+$this->title = 'Создание журнал';
+$this->params['breadcrumbs'][] = ['label' => 'Журналы', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="journal-create">

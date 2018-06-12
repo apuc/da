@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $model->name;
 
             <div class="business__content business__single-content">
 
-                <h3 class="business__subtitle"><?= $model->name ?>
+                <h3 class="business__subtitle">
                     <span class="business__status">
                         <span class="views"><?= $model->views; ?> просмотров</span>
 

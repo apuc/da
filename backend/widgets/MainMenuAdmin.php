@@ -308,7 +308,7 @@ class MainMenuAdmin extends Widget
                         'label' => 'Журналы',
                         'url' => Url::to(['/journal/journal']),
                         'active' => Yii::$app->controller->module->id == 'journal' && Yii::$app->controller->id == 'journal',
-                        'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"></a>',
+                        'template' => '<a href="{url}"><i class="fa fa-book"></i> <span>{label}</span><span class="pull-right-container"></a>',
                     ],
                     [
                         'label' => 'Товары',
