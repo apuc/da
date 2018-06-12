@@ -71,6 +71,9 @@ return \yii\helpers\ArrayHelper::merge([
         'dzen' => [
             'class' => 'frontend\modules\dzen\Dzen',
         ],
+        'journal' => [
+            'class' => 'frontend\modules\journal\Journal',
+        ],
     ],
     'components' => [
         'cart' => [
@@ -304,6 +307,10 @@ return \yii\helpers\ArrayHelper::merge([
                 'currency/view-coin' => '/currency/default/view-coin',
                 'finance' => 'currency/default/all',
 
+
+                //==============================JOURNALS==============================
+                'journals' => 'journal/journal',
+                'journals/<slug>' => 'journal/journal/view',
 
                 //==============================SHOP==============================
                 ['class' => \frontend\components\ShopRule::class],
