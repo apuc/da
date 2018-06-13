@@ -35,4 +35,5 @@ return [
     'Alt Tag' => 'Alt тэг',
     'Payment' => 'Оплата',
     'Delivery' => 'Доставка',
+    'Category' => 'Категория',
 ];
