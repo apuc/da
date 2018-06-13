@@ -134,8 +134,8 @@ class CompanyFunction
     }
 
     //Получить количество товаров компании
-    public static function getCountProduct($id)
+    public static function getCountProduct($id, $type = Products::TYPE_PRODUCT)
     {
-        return Products::find()->where(['company_id' => $id, 'status' => 1])->count();
+        return Products::find()->where(['company_id' => $id, 'status' => 1, 'type' => $type])->count();
     }
 }

@@ -64,7 +64,7 @@ class Products extends \common\models\db\Products
 
     public function getListCategory($id, $arr)
     {
-        $category = CategoryShop::find()->where(['id' => $id])->one();
+        $category = CategoryShop::find()->where(['id' => $id, 'type' => \common\models\db\CategoryShop::TYPE_PRODUCT])->one();
         $arr[] = $category->name;
 
         if ($category->parent_id != 0) {
@@ -204,7 +204,7 @@ class Products extends \common\models\db\Products
      */
     public function listProduct($limit = 16, $idCategory = null, $text = '')
     {
-        $query = Products::find();
+        $query = Products::find()->where(['type' => Products::TYPE_PRODUCT]);
 
         // add conditions that should always apply here
 
@@ -244,7 +244,7 @@ class Products extends \common\models\db\Products
      * @param $companyId integer
      * @return ActiveDataProvider
      */
-    public function listProductCompany($limit = 16, $companyId, $category)
+    public function listProductCompany($limit = 16, $companyId, $category, $type = Products::TYPE_PRODUCT)
     {
         $query = Products::find();
 
@@ -260,7 +260,7 @@ class Products extends \common\models\db\Products
 
 
         // grid filtering conditions
-        $query->where(['status' => 1, 'company_id' => $companyId]);
+        $query->where(['status' => 1, 'company_id' => $companyId, 'type' => $type]);
         if($category)
             $query->andWhere(['category_id' => $category]);
 //Debug::dd($query->createCommand()->rawSql);
@@ -292,7 +292,7 @@ class Products extends \common\models\db\Products
         }
 
         //Debug::dd( $params );
-        $query = Products::find();
+        $query = Products::find()->where(['type' => Products::TYPE_PRODUCT]);
 
         // add conditions that should always apply here
 

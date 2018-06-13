@@ -26,7 +26,7 @@ class DefaultController extends Controller
     public function actionIndex()
     {
         $categoryModel = new CategoryShop();
-        $category = CategoryShop::find()->all();
+        $category = CategoryShop::find()->where(['type' => CategoryShop::TYPE_PRODUCT])->all();
 
 
         $categoryTreeArr = $categoryModel->getArrayTreeCategory($category);
@@ -40,8 +40,8 @@ class DefaultController extends Controller
         //Получаем товары для блока "Вам понравится"
         $jsonCatsKeys = KeyValue::findOne(['key' => 'you_like']);
         $catsKeys = json_decode($jsonCatsKeys->value);
-        $categories = CategoryShop::findAll(['id' => $catsKeys]);
-        $products = Products::find()->where(['category_id' => $catsKeys])->limit(15)->all();
+        $categories = CategoryShop::findAll(['id' => $catsKeys, 'type' => CategoryShop::TYPE_PRODUCT]);
+        $products = Products::find()->where(['category_id' => $catsKeys, 'type' => Products::TYPE_PRODUCT])->limit(15)->all();
 
         //Получаем данные по баннеру
         $banner_photo = KeyValue::getValue('banner_path');

@@ -34,6 +34,7 @@ class Company extends \common\models\db\Company
         'stocks' => 'Акции',
         'news' => 'Чтиво',
         'products' => 'Товары',
+        'service' => 'Услуги',
         'statistics' => 'Статистика',
         'map' => 'Карта',
     ];
@@ -116,14 +117,19 @@ class Company extends \common\models\db\Company
                 ];
                 break;
             case 'products':
-                /*$products = Products::find()
-                    ->where(['company_id' => $this->id, 'status' => 1])
-                    ->with('images')
-                    ->orderBy('dt_update DESC')
-                    ->all();*/
                 $modelProducts = new Products();
                 $products = $modelProducts->listProductCompany(12, $this->id, $category);
                 $categories = $this->getProductsCategories();
+                $options = [
+                    'slug' => $this->slug,
+                    'products' => $products,
+                    'categories' => $categories,
+                ];
+                break;
+            case 'service':
+                $modelProducts = new Products();
+                $products = $modelProducts->listProductCompany(12, $this->id, $category, Products::TYPE_SERVICE);
+                $categories = $this->getProductsCategories(Products::TYPE_SERVICE);
                 $options = [
                     'slug' => $this->slug,
                     'products' => $products,
@@ -249,9 +255,9 @@ class Company extends \common\models\db\Company
         return $label;
     }
 
-    public function getProductsCategories()
+    public function getProductsCategories($type = Products::TYPE_PRODUCT)
     {
-        if ($products = Products::find()->where(['company_id' => $this->id, 'status' => 1])->all()) {
+        if ($products = Products::find()->where(['company_id' => $this->id, 'status' => 1, 'type' => $type])->all()) {
             $categories = [];
             foreach ($products as $product) {
                 if (!in_array($product->category, $categories)) {

@@ -119,7 +119,7 @@ class ProductsController extends Controller
 
     public function actionGeneralModal()
     {
-        $category = CategoryShop::find()->where(['parent_id' => 0])->all();
+        $category = CategoryShop::find()->where(['parent_id' => 0, 'type' => CategoryShop::TYPE_PRODUCT])->all();
         echo $this->renderPartial('modal', ['category' => $category]);
     }
 
@@ -127,11 +127,11 @@ class ProductsController extends Controller
     {
         $id = $_POST['id'];
         //$id = 1;
-        $parent_category = CategoryShop::find()->where(['parent_id' => $id])->all();
+        $parent_category = CategoryShop::find()->where(['parent_id' => $id, 'type' => CategoryShop::TYPE_PRODUCT])->all();
 
         if (!empty($parent_category)) {
-            $category = CategoryShop::find()->where(['parent_id' => 0])->all();
-            $catName = CategoryShop::find()->where(['id' => $id])->one();
+            $category = CategoryShop::find()->where(['parent_id' => 0, 'type' => CategoryShop::TYPE_PRODUCT])->all();
+            $catName = CategoryShop::find()->where(['id' => $id, 'type' => CategoryShop::TYPE_PRODUCT])->one();
             //$catName = json_decode($catName);
             echo $this->renderPartial('sel_cat',
                 [
@@ -150,9 +150,9 @@ class ProductsController extends Controller
     public function actionShowParentModalCategory()
     {
         $id = $_POST['id'];
-        $category = $category = CategoryShop::find()->where(['parent_id' => $id])->all();
+        $category = $category = CategoryShop::find()->where(['parent_id' => $id, 'type' => CategoryShop::TYPE_PRODUCT])->all();
         //$category = json_decode($category);
-        $catName = CategoryShop::find()->where(['id' => $id])->one();
+        $catName = CategoryShop::find()->where(['id' => $id, 'type' => CategoryShop::TYPE_PRODUCT])->one();
         //$catName = json_decode($catName);
         //Debug::prn($category);
         if (!empty($category)) {
@@ -234,7 +234,7 @@ class ProductsController extends Controller
 
         $this->layout = 'personal_area';
         $model = Products::find()
-            ->where(['id' => $id])
+            ->where(['id' => $id, 'type' => Products::TYPE_PRODUCT])
             ->with('productFieldsValues')
             ->one();
 

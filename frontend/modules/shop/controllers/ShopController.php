@@ -82,7 +82,7 @@ class ShopController extends Controller
 
 
         if ($model->getEndCategory($category)) {
-            $category = CategoryShop::find()->all();
+            $category = CategoryShop::find()->where(['type' => CategoryShop::TYPE_PRODUCT])->all();
             $categoryTreeArr = $categoryModel->getArrayTreeCategory($category);
             return $this->render('category',
                 [
@@ -112,7 +112,7 @@ class ShopController extends Controller
     {
         $this->layout = 'single-shop';
         $model = Products::find()
-            ->where(['slug' => $slug])
+            ->where(['slug' => $slug, 'type' => Products::TYPE_PRODUCT])
             ->with('productFieldsValues.field', 'company.allPhones', 'images', 'category', 'reviews')
             ->one();
         $currentUserId = Yii::$app->user->id;
@@ -143,7 +143,7 @@ class ShopController extends Controller
     {
         $this->layout = 'single-shop';
         $model = Products::find()
-            ->where(['slug' => $slug])
+            ->where(['slug' => $slug, 'type' => Products::TYPE_PRODUCT])
             ->with('productFieldsValues.field', 'company.allPhones', 'images', 'category', 'reviews')
             ->one();
 
