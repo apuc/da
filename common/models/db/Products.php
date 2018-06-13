@@ -26,6 +26,7 @@ use Yii;
  * @property string $stock_descr
  * @property integer $hit
  * @property integer $stock
+ * @property integer $type
  *
  * @property LikeProducts[] $likeProducts
  * @property ProductFieldsValue[] $productFieldsValues
@@ -38,6 +39,14 @@ class Products extends \yii\db\ActiveRecord
 {
     public $hit;
     public $stock;
+
+    const TYPE_PRODUCT = 0;
+    const TYPE_SERVICE = 1;
+
+    public static $productTypes = [
+        self::TYPE_PRODUCT => 'Товар',
+        self::TYPE_SERVICE => 'Услуга'
+    ];
 
     /**
      * @inheritdoc
@@ -67,6 +76,7 @@ class Products extends \yii\db\ActiveRecord
                     'view',
                     'hit',
                     'stock',
+                    'type'
                 ],
                 'integer',
             ],
@@ -112,6 +122,7 @@ class Products extends \yii\db\ActiveRecord
             'payment' => 'Payment',
             'delivery' => 'Delivery',
             'hit' => 'Хит продаж',
+            'type' => 'Type',
         ];
     }
 

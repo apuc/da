@@ -158,6 +158,9 @@ return [
         'journal' => [
             'class' => 'backend\modules\journal\Journal',
         ],
+        'service' => [
+            'class' => 'backend\modules\service\Service',
+        ],
     ],
     'components' => [
         'cart' => [
