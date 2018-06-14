@@ -49,6 +49,7 @@ class Company extends \yii\db\ActiveRecord
     const START_PAGE_NEWS = 5;
     const START_PAGE_STATISTICK = 6;
     const START_PAGE_MAP = 7;
+    const START_PAGE_SERVICE = 8;
 
     public $start_page_items = [
         self::START_PAGE_ABOUT => 'О компании',
@@ -58,6 +59,7 @@ class Company extends \yii\db\ActiveRecord
         self::START_PAGE_NEWS => 'Новости',
         self::START_PAGE_STATISTICK => 'Статистика',
         self::START_PAGE_MAP => 'Карта',
+        self::START_PAGE_SERVICE => 'Услуги',
     ];
     /**
      * @inheritdoc
@@ -238,5 +240,6 @@ class Company extends \yii\db\ActiveRecord
         self::START_PAGE_NEWS => 'news',
         self::START_PAGE_STATISTICK => 'statistics',
         self::START_PAGE_MAP => 'map',
+        self::START_PAGE_SERVICE => 'service',
     ];
 }

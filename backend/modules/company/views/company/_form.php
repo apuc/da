@@ -2,7 +2,7 @@
 
 /**
  * @var $this yii\web\View
- * @var $model backend\modules\company\models\Company
+ * @var $model backend\modules\company\models\CompanyForm
  * @var $form yii\widgets\ActiveForm
  * @var $companyPhotos array
  * @var $companyPhotosStr string
@@ -51,7 +51,7 @@ use yii\jui\DatePicker;
                'sub_categ',
                $model->categories[0]->id,
                ArrayHelper::map(CategoryCompany::find()->where(['parent_id' => $model->categories[0]->parent_id])->all(), 'id', 'title'),
-               ['class' => 'form-control', 'id' => 'sub_categ_company']
+               ['class' => 'form-control', 'id' => 'sub_categ_company', 'prompt' => 'Выберите категорию']
            );
        }
        else if(Yii::$app->controller->action->id === 'create' || !isset($model->categories[0])){
@@ -68,10 +68,12 @@ use yii\jui\DatePicker;
     </span>
     <div style="margin-top: 20px;margin-bottom: 20px">
 
-        <?= Html::textInput('cats', null, [
-            'class' => 'form-control',
-            'id' => 'all_cats',
-        ]) ?>
+<!--        --><?//= Html::textInput('cats', null, [
+//            'class' => 'form-control',
+//            'id' => 'all_cats'
+//        ]) ?>
+
+        <?= $form->field($model, 'cats')->textInput(['id' => 'all_cats', 'class' => 'form-control'])?>
     </div>
 
     <?php if (Yii::$app->controller->action->id === 'update'): ?>

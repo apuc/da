@@ -14,9 +14,18 @@ use Yii;
  * @property string $icon
  * @property string $meta_title
  * @property string $meta_description
+ * @property integer $type
  */
 class CategoryShop extends \yii\db\ActiveRecord
 {
+
+    const TYPE_PRODUCT = 0;
+    const TYPE_SERVICE = 1;
+
+    public static $productTypes = [
+        self::TYPE_PRODUCT => 'Товар',
+        self::TYPE_SERVICE => 'Услуга'
+    ];
     /**
      * @inheritdoc
      */
@@ -32,7 +41,7 @@ class CategoryShop extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'slug', 'meta_title', 'meta_description'], 'required'],
-            [['parent_id'], 'integer'],
+            [['parent_id', 'type'], 'integer'],
             [['name', 'slug', 'icon', 'meta_title', 'meta_description'], 'string', 'max' => 255],
         ];
     }

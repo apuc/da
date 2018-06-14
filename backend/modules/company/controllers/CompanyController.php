@@ -2,6 +2,7 @@
 
 namespace backend\modules\company\controllers;
 
+use backend\modules\company\models\CompanyForm;
 use backend\modules\company\models\SocAvailable;
 use backend\modules\tags\models\Tags;
 use backend\modules\tags\models\TagsRelation;
@@ -23,6 +24,7 @@ use backend\modules\company\models\SocCompany;
 use Yii;
 use backend\modules\company\models\Company;
 use backend\modules\company\models\CompanySearch;
+use yii\base\DynamicModel;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\Controller;
@@ -97,7 +99,7 @@ class CompanyController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Company();
+        $model = new CompanyForm();
         $typeSeti = SocAvailable::find()->all();
 
         $socCompany = SocCompany::find()->where(['company_id' => $model->id])->all();
@@ -111,7 +113,7 @@ class CompanyController extends Controller
             if (UserFunction::hasRoles(['Редактор компаний'])) $model->user_id = Yii::$app->user->id;
             if (!$model->setTariff()) $model->save();
 
-            $cats_ids = explode(',', $_POST['cats']);
+            $cats_ids = explode(',', $_POST['CompanyForm']['cats']);
             foreach ($cats_ids as $cats_id) {
                 $catCompanyRel = new CategoryCompanyRelations();
                 $catCompanyRel->cat_id = $cats_id;
@@ -176,7 +178,9 @@ class CompanyController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (($model = CompanyForm::findOne($id)) === null) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
         //Debug::dd($model->categories);
         $companyPhotos = CompanyPhoto::findAll(['company_id' => $id]);
         $companyPhotos = ArrayHelper::getColumn($companyPhotos, 'photo');
@@ -219,7 +223,7 @@ class CompanyController extends Controller
             }
 
             CategoryCompanyRelations::deleteAll(['company_id' => $model->id]);
-            $cats_ids = explode(',', $_POST['cats']);
+            $cats_ids = explode(',', $_POST['CompanyForm']['cats']);
             foreach ($cats_ids as $cats_id) {
                 $catCompanyRel = new CategoryCompanyRelations();
                 $catCompanyRel->cat_id = $cats_id;

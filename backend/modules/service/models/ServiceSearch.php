@@ -1,17 +1,17 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: king
- * Date: 26.02.18
- * Time: 10:45
- */
 
-namespace backend\modules\products\models;
+namespace backend\modules\service\models;
 
+use common\models\db\Products;
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use backend\modules\services\models\Services;
 
-class ProductsSearch extends Products
+/**
+ * ServicesSearch represents the model behind the search form about `backend\modules\services\models\Services`.
+ */
+class ServiceSearch extends Products
 {
     /**
      * @inheritdoc
@@ -19,8 +19,8 @@ class ProductsSearch extends Products
     public function rules()
     {
         return [
-            [['id','status'], 'integer'],
-            [['title', 'slug', 'company_id', 'category_id', 'description', 'price'], 'safe'],
+            [['id', 'status'], 'integer'],
+            [['title'], 'string'],
         ];
     }
 
@@ -42,7 +42,7 @@ class ProductsSearch extends Products
      */
     public function search($params)
     {
-        $query = Products::find()->where(['type' => Products::TYPE_PRODUCT])->orderBy('id DESC');
+        $query = $this::find()->where(['type' => self::TYPE_SERVICE]);
 
         // add conditions that should always apply here
 
@@ -64,11 +64,7 @@ class ProductsSearch extends Products
             'status' => $this->status,
         ]);
 
-        /*$query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'slug', $this->slug])
-            ->andFilterWhere(['like', 'icon', $this->icon])
-            ->andFilterWhere(['like', 'meta_title', $this->meta_title])
-            ->andFilterWhere(['like', 'meta_description', $this->meta_description]);*/
+        $query->andFilterWhere(['like', 'title', $this->title]);
 
         return $dataProvider;
     }

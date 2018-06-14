@@ -7,6 +7,7 @@
  */
 
 use common\classes\CompanyFunction;
+use common\models\db\Products;
 use frontend\modules\company\models\Company;
 use yii\helpers\Url;
 
@@ -41,6 +42,13 @@ echo \yii\widgets\Menu::widget(
                 'url' => Url::to(['/company/company/view', 'slug' => $slug, 'place' => 'products']),
                 'template' => '<a href="{url}">{label}<span class="tabs-counters">' . CompanyFunction::getCountProduct($model->id) . '</span></a>',
                 'active' => $page == 'products',
+                //'visible' => $role == 'admin',
+            ],
+            [
+                'label' => Company::$submenuLabels['service'],
+                'url' => Url::to(['/company/company/view', 'slug' => $slug, 'place' => 'service']),
+                'template' => '<a href="{url}">{label}<span class="tabs-counters">' . CompanyFunction::getCountProduct($model->id, Products::TYPE_SERVICE) . '</span></a>',
+                'active' => $page == 'service',
                 //'visible' => $role == 'admin',
             ],
             [

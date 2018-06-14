@@ -414,9 +414,9 @@ class AjaxController extends Controller
         if ($dataId == 0) {
             $jsonCatsKeys = KeyValue::findOne(['key' => 'you_like']);
             $catsKeys = json_decode($jsonCatsKeys->value);
-            $products = Products::find()->where(['category_id' => $catsKeys])->limit(15)->all();
+            $products = Products::find()->where(['category_id' => $catsKeys, 'type' => Products::TYPE_PRODUCT])->limit(15)->all();
         } else {
-            $products = Products::find()->where(['category_id' => $dataId])->limit(15)->all();
+            $products = Products::find()->where(['category_id' => $dataId, 'type' => Products::TYPE_PRODUCT])->limit(15)->all();
         }
         $response = ArrayHelper::toArray($products, [
             'common\models\db\Products' => [
