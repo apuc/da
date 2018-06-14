@@ -40,59 +40,58 @@ use yii\jui\DatePicker;
 
     <span id="admin_company_category_box">
        <?php
-       if (Yii::$app->controller->action->id === 'update' && isset($model->categories[0])) {
-           echo Html::dropDownList(
+       if (Yii::$app->controller->action->id === 'update' && isset($model->categories[0])): ?>
+           <?= Html::dropDownList(
                'categ',
                $model->categories[0]->parent_id,
                ArrayHelper::map(CategoryCompany::find()->where(['lang_id' => 1, 'parent_id' => 0])->all(), 'id', 'title'),
                ['class' => 'form-control', 'id' => 'categ_company', 'prompt' => 'Выберите категорию']
-           );
-           echo Html::dropDownList(
-               'sub_categ',
-               $model->categories[0]->id,
-               ArrayHelper::map(CategoryCompany::find()->where(['parent_id' => $model->categories[0]->parent_id])->all(), 'id', 'title'),
-               ['class' => 'form-control', 'id' => 'sub_categ_company', 'prompt' => 'Выберите категорию']
-           );
-       }
-       else if(Yii::$app->controller->action->id === 'create' || !isset($model->categories[0])){
-           echo Html::dropDownList(
-               'categ',
-               null,
-               ArrayHelper::map(CategoryCompany::find()->where(['lang_id' => 1, 'parent_id' => 0])->all(), 'id', 'title'),
-               ['class' => 'form-control', 'id' => 'categ_company', 'prompt' => 'Выберите категорию']
-           );
-       }
-       ?>
+           );?>
+            <span id="admin_company_sub_category_box">
+                <?= Html::dropDownList(
+                    'sub_categ',
+                    $model->categories[0]->id,
+                    ArrayHelper::map(CategoryCompany::find()->where(['parent_id' => $model->categories[0]->parent_id])->all(), 'id', 'title'),
+                    ['class' => 'form-control', 'id' => 'sub_categ_company', 'prompt' => 'Выберите категорию']
+                ); ?>
+            </span>
 
-        <span id="admin_company_sub_category_box"></span>
+        <?php elseif(Yii::$app->controller->action->id === 'create' || !isset($model->categories[0])): ?>
+            <span id="admin_company_sub_category_box">
+               <?= Html::dropDownList(
+                   'categ',
+                   null,
+                   ArrayHelper::map(CategoryCompany::find()->where(['lang_id' => 1, 'parent_id' => 0])->all(), 'id', 'title'),
+                   ['class' => 'form-control', 'id' => 'categ_company', 'prompt' => 'Выберите категорию']
+               ); ?>
+            </span>
+        <?php endif?>
+
+
     </span>
     <div style="margin-top: 20px;margin-bottom: 20px">
 
-<!--        --><?//= Html::textInput('cats', null, [
-//            'class' => 'form-control',
-//            'id' => 'all_cats'
-//        ]) ?>
 
-        <?= $form->field($model, 'cats')->textInput(['id' => 'all_cats', 'class' => 'form-control'])?>
+        <?= $form->field($model, 'cats')->textInput(['id' => 'all_cats', 'class' => 'form-control']) ?>
     </div>
 
     <?php if (Yii::$app->controller->action->id === 'update'): ?>
-        <?php
-        $cat = CategoryCompanyRelations::find()
-            ->leftJoin('category_company', '`category_company_relations`.`cat_id` = `category_company`.`id`')
-            ->where(['company_id' => $model->id])
-            ->with('category_company')
-            ->all();
-        $arr = [];
-        $i = 0;
+    <?php
+    $cat = CategoryCompanyRelations::find()
+        ->leftJoin('category_company', '`category_company_relations`.`cat_id` = `category_company`.`id`')
+        ->where(['company_id' => $model->id])
+        ->with('category_company')
+        ->all();
+    $arr = [];
+    $i = 0;
 
-        foreach ($cat as $c) {
-            $arr[$i]['id'] = (!empty($c['category_company'])) ? $c['category_company']->id : "";
-            $arr[$i]['title'] = (!empty($c['category_company'])) ? $c['category_company']->title : "";
-            $i++;
-        }
-        echo Html::hiddenInput('_cats', json_encode($arr, JSON_UNESCAPED_UNICODE), ['id' => '_cats']);
-        ?>
+    foreach ($cat as $c) {
+        $arr[$i]['id'] = (!empty($c['category_company'])) ? $c['category_company']->id : "";
+        $arr[$i]['title'] = (!empty($c['category_company'])) ? $c['category_company']->title : "";
+        $i++;
+    }
+    echo Html::hiddenInput('_cats', json_encode($arr, JSON_UNESCAPED_UNICODE), ['id' => '_cats']);
+    ?>
     <?php endif ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
@@ -149,26 +148,26 @@ use yii\jui\DatePicker;
     </div>
     <label>Дата окончания тарифа</label>
     <?php if (Yii::$app->controller->action->id === 'create'): ?>
-        <?= DatePicker::widget([
-            //'model' => $model,
-            'name' => 'dt_end_tariff',
-            'id' => 'dt_end_tariff',
-            'attribute' => 'from_date',
-            'language' => 'ru',
-            'dateFormat' => 'dd-MM-yyyy',
-        ]);
-        ?>
+    <?= DatePicker::widget([
+        //'model' => $model,
+        'name' => 'dt_end_tariff',
+        'id' => 'dt_end_tariff',
+        'attribute' => 'from_date',
+        'language' => 'ru',
+        'dateFormat' => 'dd-MM-yyyy',
+    ]);
+    ?>
     <?php else: ?>
-        <?= DatePicker::widget([
-            //'model' => $model,
-            'name' => 'dt_end_tariff',
-            'id' => 'dt_end_tariff',
-            'attribute' => 'from_date',
-            'language' => 'ru',
-            'value' => $model->dt_end_tariff,
-            'dateFormat' => 'dd-MM-yyyy',
-        ]);
-        ?>
+    <?= DatePicker::widget([
+        //'model' => $model,
+        'name' => 'dt_end_tariff',
+        'id' => 'dt_end_tariff',
+        'attribute' => 'from_date',
+        'language' => 'ru',
+        'value' => $model->dt_end_tariff,
+        'dateFormat' => 'dd-MM-yyyy',
+    ]);
+    ?>
     <?php endif; ?>
 
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
@@ -330,23 +329,23 @@ use yii\jui\DatePicker;
         ]
     ); ?>
     <?php if ($model->tariff_id >= Tariff::ID_MAXIMUM): ?>
-        <p class="cabinet__add-company-form--title"><b>Соц. сети компании</b></p>
-        <div class="cabinet__add-company-form--social">
-            <?php foreach ($socials as $key => $soc): ?>
-                <div class="cabinet__add-company-form--social-element">
-                    <?= $form->field($soc, "[$key]link",
-                        [
-                            'template' => '<span class="social-wrap__item">
+    <p class="cabinet__add-company-form--title"><b>Соц. сети компании</b></p>
+    <div class="cabinet__add-company-form--social">
+        <?php foreach ($socials as $key => $soc): ?>
+            <div class="cabinet__add-company-form--social-element">
+                <?= $form->field($soc, "[$key]link",
+                    [
+                        'template' => '<span class="social-wrap__item">
                                            <img src=' . "{$soc->getSocType()->one()->icon}" . ' alt="">
                                        </span>
                                    {label}
                                    {input}'
-                        ])
-                        ->textInput()
-                        ->label($soc->getSocType()->one()->name); ?>
-                </div>
-            <?php endforeach; ?>
-        </div>
+                    ])
+                    ->textInput()
+                    ->label($soc->getSocType()->one()->name); ?>
+            </div>
+        <?php endforeach; ?>
+    </div>
     <?php endif; ?>
 
     <?= $form->field($model, 'recommended')->dropDownList([
