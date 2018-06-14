@@ -57,14 +57,14 @@ use yii\jui\DatePicker;
             </span>
 
         <?php elseif(Yii::$app->controller->action->id === 'create' || !isset($model->categories[0])): ?>
-            <span id="admin_company_sub_category_box">
+
                <?= Html::dropDownList(
                    'categ',
                    null,
                    ArrayHelper::map(CategoryCompany::find()->where(['lang_id' => 1, 'parent_id' => 0])->all(), 'id', 'title'),
                    ['class' => 'form-control', 'id' => 'categ_company', 'prompt' => 'Выберите категорию']
                ); ?>
-            </span>
+           <span id="admin_company_sub_category_box"></span>
         <?php endif?>
 
 

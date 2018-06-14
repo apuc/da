@@ -13,6 +13,7 @@ use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
 use common\models\db\CompanyOld;
 use common\models\db\CompanyPhoto;
+use common\models\db\GeobaseCity;
 use common\models\db\KeyValue;
 use common\models\db\Messenger;
 use common\models\db\MessengerPhone;
@@ -110,6 +111,8 @@ class CompanyController extends Controller
             if (empty($model->alt)) {
                 $model->alt = $model->name;
             }
+            $city = GeobaseCity::findOne($model->city_id);
+            $model->region_id = $city->region_id;
             if (UserFunction::hasRoles(['Редактор компаний'])) $model->user_id = Yii::$app->user->id;
             if (!$model->setTariff()) $model->save();
 
@@ -196,7 +199,8 @@ class CompanyController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $post = Yii::$app->request->post();
             $post['Phones'] = array_values($post['Phones']);
-
+            $city = GeobaseCity::findOne($model->city_id);
+            $model->region_id = $city->region_id;
             if (empty($model->alt)) {
                 $model->alt = $model->name;
             }
