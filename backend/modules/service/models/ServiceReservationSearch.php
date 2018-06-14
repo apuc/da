@@ -2,30 +2,29 @@
 
 namespace backend\modules\service\models;
 
-use common\models\db\Products;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\modules\services\models\Services;
+use common\models\db\ServiceReservation;
 
 /**
- * ServicesSearch represents the model behind the search form about `backend\modules\services\models\Services`.
+ * ServiceReservationSearch represents the model behind the search form of `common\models\db\ServiceReservation`.
  */
-class ServiceSearch extends Products
+class ServiceReservationSearch extends ServiceReservation
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'status'], 'integer'],
-            [['title'], 'string'],
+            [['id'], 'integer'],
+            [['start', 'end', 'date'], 'safe'],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -42,7 +41,7 @@ class ServiceSearch extends Products
      */
     public function search($params)
     {
-        $query = $this::find()->where(['type' => self::TYPE_SERVICE]);
+        $query = ServiceReservation::find();
 
         // add conditions that should always apply here
 
@@ -61,30 +60,11 @@ class ServiceSearch extends Products
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'status' => $this->status,
+            'start' => $this->start,
+            'end' => $this->end,
+            'date' => $this->date,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title]);
-
         return $dataProvider;
-    }
-    const PRODUCT_PUBLISHED = 1;
-    const PRODUCT_MODER = 0;
-    const PRODUCT_DELETE = 3;
-
-
-    public static function getTypes()
-    {
-        return [
-            self::PRODUCT_PUBLISHED => 'Опубликован',
-            self::PRODUCT_MODER => 'На модерации',
-            self::PRODUCT_DELETE => 'Удален',
-        ];
-    }
-
-    public static function getTypeLabel($type, $default = null)
-    {
-        $types = static::getTypes();
-        return isset($types[$type]) ? $types[$type] : $default;
     }
 }

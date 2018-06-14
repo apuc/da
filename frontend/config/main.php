@@ -334,7 +334,8 @@ return \yii\helpers\ArrayHelper::merge([
                 'shop/products/show-parent-modal-category' => 'shop/products/show-parent-modal-category',
                 'shop/products/show-category-end' => 'shop/products/show-category-end',
                 'shop/products/show-additional-fields' => 'shop/products/show-additional-fields',
-
+                'shop/service/create' => 'shop/service/create',
+                'shop/service/general-modal' => 'shop/service/general-modal',
                 'shop/search' => 'shop/shop/search',
 
                 'shop/all-category/<page:\d+>' => 'shop/shop/index',
