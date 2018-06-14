@@ -111,7 +111,8 @@ class CompanyController extends Controller
             if (empty($model->alt)) {
                 $model->alt = $model->name;
             }
-            $city = GeobaseCity::findOne(Yii::$app->request->post('Company')['city_id']);
+            $model->city_id = Yii::$app->request->post('Company')['city_id'];
+            $city = GeobaseCity::findOne($model->city_id);
             $model->region_id = $city->region_id;
             if (UserFunction::hasRoles(['Редактор компаний'])) $model->user_id = Yii::$app->user->id;
             if (!$model->setTariff()) $model->save();
@@ -199,7 +200,8 @@ class CompanyController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $post = Yii::$app->request->post();
             $post['Phones'] = array_values($post['Phones']);
-            $city = GeobaseCity::findOne(Yii::$app->request->post('Company')['city_id']);
+            $model->city_id = Yii::$app->request->post('Company')['city_id'];
+            $city = GeobaseCity::findOne($model->city_id);
             $model->region_id = $city->region_id;
             if (empty($model->alt)) {
                 $model->alt = $model->name;
