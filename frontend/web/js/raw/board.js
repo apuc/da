@@ -305,6 +305,9 @@ $(document).ready(function () {
         if(type === 'product' ){
             url = '/shop/products/general-modal';
         }
+        else if(type === 'service' ){
+            url = '/shop/service/general-modal';
+        }
         else{
             url = '/board/default/general-modal';
         }
