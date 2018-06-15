@@ -313,7 +313,7 @@ class ServiceController extends Controller
 
             Yii::$app->session->setFlash('success',
                 'Ваш товар успешно сохранен. После прохождения модерации он будет опубликован.');
-            return $this->redirect('/personal_area/user-products');
+            return $this->redirect('/personal_area/user-service');
         } else {
             $userCompany = Company::find()->where(['user_id' => Yii::$app->user->id])->all();
             $categoryList = $model->getListCategory($model->category_id, [], CategoryShop::TYPE_SERVICE);
