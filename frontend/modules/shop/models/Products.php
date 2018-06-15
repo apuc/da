@@ -68,7 +68,7 @@ class Products extends \common\models\db\Products
         $arr[] = $category->name;
 
         if ($category->parent_id != 0) {
-            $arr = self::getListCategory($category->parent_id, $arr);
+            $arr = self::getListCategory($category->parent_id, $arr, $type);
         } else {
             $arr[] = $category->icon;
         }

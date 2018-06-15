@@ -29,6 +29,7 @@ use Yii;
  * @property integer $type
  * @property integer $durability
  *
+ * @property ServicePeriods[] $service
  * @property LikeProducts[] $likeProducts
  * @property ProductFieldsValue[] $productFieldsValues
  * @property CategoryShop $category
@@ -254,6 +255,11 @@ class Products extends \yii\db\ActiveRecord
     public function getService()
     {
         return $this->hasMany(ServicePeriods::className(), ['product_id' => 'id']);
+    }
+    
+    public function setServiceWeekDays($index, $value)
+    {
+        $this->service[$index]->week_days = $value;
     }
 
 }
