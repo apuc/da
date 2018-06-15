@@ -363,6 +363,10 @@ $(document).ready(function () {
             url = '/shop/products/show-category';
             $('#products-category_id').val(catId);
         }
+        if (type === 'service') {
+            url = '/shop/service/show-category';
+            $('#products-category_id').val(catId);
+        }
         else {
             url = '/board/default/show-category';
             $('#ads-category_id').val(catId);

@@ -4,7 +4,7 @@
  */
 ?>
 
-<a  href="" class="cabinet__like-block--section">Товар</a>
+<a  href="" class="cabinet__like-block--section">Услуга</a>
 
 <a href="" class="cabinet__like-block--photo">
     <?php if (!empty($model['cover'])): ?>
