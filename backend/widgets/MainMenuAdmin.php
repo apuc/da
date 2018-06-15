@@ -70,7 +70,8 @@ class MainMenuAdmin extends Widget
         $countContacting = Contacting::find()->where(['status' => 0])->count();
 
 
-        $countProducts = Products::find()->where(['status' => 0])->count();
+        $countProducts = Products::find()->where(['status' => 0, 'type' => Products::TYPE_PRODUCT])->count();
+        $countService = Products::find()->where(['status' => 0, 'type' => Products::TYPE_SERVICE])->count();
 
         echo \yii\widgets\Menu::widget(
             [
@@ -350,6 +351,50 @@ class MainMenuAdmin extends Widget
                         'template' => '<a href="#">
                                     <i class="fa fa-product-hunt"></i> 
                                     <span class="label bg-red pull-right">'. $countProducts .'</span>
+                                    <span>{label}</span> 
+                                      
+                            </a>',
+                    ],
+                    [
+                        'label' => 'Услуги',
+                        'items' => [
+                            [
+                                'label' => 'Услуги',
+                                'url' => Url::to(['/service/service']),
+                                'active' => Yii::$app->controller->module->id == 'service' && Yii::$app->controller->id == 'service',
+                                'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countService . '</small></span></a>',
+                                //'visible' => UserFunction::hasPermission(['Заявки компаний'])
+                            ],
+                            [
+                                'label' => 'Категории услуг',
+                                'url' => Url::to(['/service/category']),
+                                'active' => Yii::$app->controller->module->id == 'service' && Yii::$app->controller->id == 'category',
+                                'template' => '<a href="{url}"><span>{label}</span></a>',
+                                //'visible' => UserFunction::hasPermission(['Заявки компаний'])
+                            ],
+                            [
+                                'label' => 'Время работы',
+                                'url' => Url::to(['/service/service-periods']),
+                                'active' => Yii::$app->controller->module->id == 'service' && Yii::$app->controller->id == 'service-periods',
+                                'template' => '<a href="{url}"><span>{label}</span></a>',
+                                //'visible' => UserFunction::hasPermission(['Заявки компаний'])
+                            ],
+                            [
+                                'label' => 'Бронирования',
+                                'url' => Url::to(['/service/service-reservation']),
+                                'active' => Yii::$app->controller->module->id == 'service' && Yii::$app->controller->id == 'service-reservation',
+                                'template' => '<a href="{url}"><span>{label}</span></a>',
+                                //'visible' => UserFunction::hasPermission(['Заявки компаний'])
+                            ],
+                        ],
+
+                        //'visible' => UserFunction::hasPermission(['Компании']),
+                        'options' => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="#">
+                                    <i class="fa fa-user"></i> 
+                                    <span class="label bg-red pull-right">'. $countService .'</span>
                                     <span>{label}</span> 
                                       
                             </a>',

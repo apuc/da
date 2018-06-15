@@ -6,7 +6,6 @@ use \yii\widgets\MaskedInput;
 
 $two  =  '0|1|2';
 $five =  '0|1|2|3|4|5';
-$nine =  '0|1|2|3|4|5|6|7|8|9';
 
 
 
@@ -20,7 +19,7 @@ $nine =  '0|1|2|3|4|5|6|7|8|9';
     <?= Html::label('Начало дня<span>*</span>', 'Products[service][' .$count . '][start]', ['class' => 'label-name'])?>
     <?= MaskedInput::widget([
         'name' => 'Products[service][' .$count . '][start]',
-        'mask' => $two . $nine . ':' . $five . $nine . ':' . $five . $nine,
+        'mask' => $two . '9' . ':' . $five . '9' . ':' . $five . '9',
         'options' => [
                 'class' => 'input-name jsHint'
         ]
@@ -30,7 +29,7 @@ $nine =  '0|1|2|3|4|5|6|7|8|9';
     <?= Html::label('Конец дня<span>*</span>', 'Products[service][' .$count . '][start]', ['class' => 'label-name'])?>
     <?= MaskedInput::widget([
         'name' => 'Products[service][' .$count . '][end]',
-        'mask' => $two . $nine . ':' . $five . $nine . ':' . $five . $nine,
+        'mask' => $two . '9' . ':' . $five . '9' . ':' . $five . '9',
         'options' => [
             'class' => 'input-name jsHint'
         ]

@@ -22,7 +22,6 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
 $two  =  '0|1|2';
 $five =  '0|1|2|3|4|5';
-$nine =  '0|1|2|3|4|5|6|7|8|9';
 
 ?>
 <div class="cabinet__container cabinet__container_white cabinet__inner-box">
@@ -57,7 +56,7 @@ $nine =  '0|1|2|3|4|5|6|7|8|9';
                         'data-id' => $i
                     ])?>
                     <?= $form->field($model, 'service[' . $i . '][start]')->widget(MaskedInput::className(), [
-                        'mask' => $two . $nine . ':' . $five . $nine . ':' . $five . $nine,
+                        'mask' => $two . '9' . ':' . $five . '9' . ':' . $five . '9',
                         'options' => [
                             'class' => 'input-name jsHint'
                         ],
@@ -67,7 +66,7 @@ $nine =  '0|1|2|3|4|5|6|7|8|9';
 
 
                     <?= $form->field($model, 'service[' . $i . '][end]')->widget(MaskedInput::className(), [
-                        'mask' => $two . $nine . ':' . $five . $nine . ':' . $five . $nine,
+                        'mask' => $two . '9' . ':' . $five . '9' . ':' . $five . '9',
                         'options' => [
                             'class' => 'input-name jsHint'
                         ],
@@ -90,10 +89,10 @@ $nine =  '0|1|2|3|4|5|6|7|8|9';
             <div class="service_add" data-id="0">
                 <?= Html::button('-', [
                     'class' => 'cabinet__add-company-form--submit place-ad_publish publish place-ad__publish button_service_delete',
-                    'data-id' => $i
+                    'data-id' => 0
                 ])?>
                 <?= $form->field($model, 'service[0][start]')->widget(MaskedInput::className(), [
-                    'mask' => $two . $nine . ':' . $five . $nine . ':' . $five . $nine,
+                    'mask' => $two . '9' . ':' . $five . '9' . ':' . $five . '9',
                     'options' => [
                         'class' => 'input-name jsHint'
                     ],
@@ -103,7 +102,7 @@ $nine =  '0|1|2|3|4|5|6|7|8|9';
 
 
                 <?= $form->field($model, 'service[0][end]')->widget(MaskedInput::className(), [
-                    'mask' => $two . $nine . ':' . $five . $nine . ':' . $five . $nine,
+                    'mask' => $two . '9' . ':' . $five . '9' . ':' . $five . '9',
                     'options' => [
                         'class' => 'input-name jsHint'
                     ],
