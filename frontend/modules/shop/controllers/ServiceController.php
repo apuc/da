@@ -220,7 +220,7 @@ class ServiceController extends Controller
         if (isset($model->service)) {
             $i = 0;
             foreach ($model->service as $service) {
-                $model->service[$i]->week_days = json_decode($service->week_days);
+                $model->setServiceWeekDays($i, json_decode($service->week_days));
                 $i++;
             }
         }
