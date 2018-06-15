@@ -9,10 +9,11 @@
 namespace frontend\modules\personal_area\controllers;
 
 use frontend\modules\personal_area\models\UserProductsSearch;
+use frontend\modules\personal_area\models\UserServiceSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
-class UserProductsController extends Controller
+class UserServiceController extends Controller
 {
     public function behaviors()
     {
@@ -33,7 +34,7 @@ class UserProductsController extends Controller
 
     public function actionIndex()
     {
-        $searchModel = new UserProductsSearch();
+        $searchModel = new UserServiceSearch();
         $dataProvider = $searchModel->search(['user_id' => \Yii::$app->user->id]);
 
         return $this->render('index', [

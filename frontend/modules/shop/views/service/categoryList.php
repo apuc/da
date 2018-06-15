@@ -23,4 +23,4 @@
     </div>
 </div>
 
-<div class="btnCategoryEdit"><span class="select-category-add" datatype="product" datatype="product">Изменить</span></div>
+<div class="btnCategoryEdit"><span class="select-category-add" datatype="service">Изменить</span></div>

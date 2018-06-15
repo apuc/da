@@ -1,5 +1,5 @@
 <?php
-$this->title = "Мои товары";
+$this->title = "Мои услуги";
 $this->registerJsFile('/theme/portal-donbassa/js/raw/ajax.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 ?>
@@ -10,7 +10,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/raw/ajax.js', ['depends' => [\y
     </a>
     <h3>Мои товары</h3>
 
-    <a href="<?= \yii\helpers\Url::to(['/shop/products/create']); ?>" class="cabinet__inner-box--add">
+    <a href="<?= \yii\helpers\Url::to(['/shop/service/create']); ?>" class="cabinet__inner-box--add">
         добавить
         <span>
             <img src="/theme/portal-donbassa/img/icons/add-pkg-icon.png" alt="">

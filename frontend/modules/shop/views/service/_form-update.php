@@ -77,6 +77,10 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     ->label('Компания<span>*</span>')
 ?>
 
+<?= $form->field($model, 'durability')->textInput()
+    ->hint('Укажите длительность единоразового оказания услуги в минутах')
+    ->label('Длительность<span>*</span>') ?>
+
 <?= $form->field($model, 'price')->textInput()
     ->hint('Введите цену товара')
     ->label('Цена<span>*</span>')

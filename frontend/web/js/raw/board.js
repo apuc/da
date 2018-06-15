@@ -1,7 +1,7 @@
 $(document).ready(function () {
-    if('input[name="Ads[cover]"]'.length > 0){
+    if ('input[name="Ads[cover]"]'.length > 0) {
         var cover = $('input[name="Ads[cover]"]').val();
-        if(typeof cover != "undefined"){
+        if (typeof cover != "undefined") {
             /*var img = $('.file-preview-image');
             console.log(img);*/
             setTimeout(function () {
@@ -9,16 +9,16 @@ $(document).ready(function () {
                     var img = $(this).attr('src');
                     /*console.log(img);
                     console.log(cover);*/
-                    if(img == cover){
+                    if (img == cover) {
                         $(this).closest('.file-preview-frame').css('box-shadow', '1px 1px 5px 0 #f34942');
                     }
                 });
             }, 1000);
         }
     }
-    if('input[name="Products[cover]"]'.length > 0){
+    if ('input[name="Products[cover]"]'.length > 0) {
         var cover = $('input[name="Products[cover]"]').val();
-        if(typeof cover != "undefined"){
+        if (typeof cover != "undefined") {
             /*var img = $('.file-preview-image');
             console.log(img);*/
             setTimeout(function () {
@@ -26,7 +26,7 @@ $(document).ready(function () {
                     var img = $(this).attr('src');
                     /*console.log(img);
                     console.log(cover);*/
-                    if(img == cover){
+                    if (img == cover) {
                         $(this).closest('.file-preview-frame').css('box-shadow', '1px 1px 5px 0 #f34942');
                     }
                 });
@@ -34,7 +34,7 @@ $(document).ready(function () {
         }
     }
 //Выбор обложки объявления
-    $(document).on('click', '.file-preview-frame', function(){
+    $(document).on('click', '.file-preview-frame', function () {
         //alert(123);
         var img = $(this).find('.file-preview-image');
         var imgName = img.attr('title');
@@ -44,15 +44,15 @@ $(document).ready(function () {
         $('.file-preview-frame').not($(this)).css('box-shadow', '1px 1px 5px 0 #a2958a');
 
         $('input[name="Ads[cover]"]').val(img.attr('src'));
-        if(typeof imgName == "undefined" ){
+        if (typeof imgName == "undefined") {
             $('input[name="Ads[cover]"]').val(img.attr('src'));
-        }else{
+        } else {
             $('input[name="Ads[cover]"]').val(imgName);
         }
     });
 
     //Выбор обложки товара
-    $(document).on('click', '.file-preview-frame', function(){
+    $(document).on('click', '.file-preview-frame', function () {
         //alert(123);
         var img = $(this).find('.file-preview-image');
         var imgName = img.attr('title');
@@ -61,9 +61,9 @@ $(document).ready(function () {
         $(this).css('box-shadow', '1px 1px 5px 0 #f34942');
         $('.file-preview-frame').not($(this)).css('box-shadow', '1px 1px 5px 0 #a2958a');
         $('input[name="Products[cover]"]').val(img.attr('src'));
-        if(typeof imgName == "undefined" ){
+        if (typeof imgName == "undefined") {
             $('input[name="Products[cover]"]').val(img.attr('src'));
-        }else{
+        } else {
             $('input[name="Products[cover]"]').val(imgName);
         }
     });
@@ -78,7 +78,7 @@ $(document).ready(function () {
             data: {
                 catId: $(this).attr('data-id')
             },
-            success: function(data) {
+            success: function (data) {
                 $('.commercial__sidebar-filter--children-category').html(data);
             }
         });
@@ -94,7 +94,7 @@ $(document).ready(function () {
             data: {
                 catId: $(this).val()
             },
-            success: function(data) {
+            success: function (data) {
                 $('.commercial__sidebar-filter--children-category').append(data);
             }
         });
@@ -120,15 +120,15 @@ $(document).ready(function () {
     $('.city').click(function (event) {
         var CityList = $(this).next('.city-list');
         $('.region-list').hide('slow');
-        if(CityList.is(':visible')){
+        if (CityList.is(':visible')) {
             CityList.hide("slow");
         } else {
             CityList.slideToggle();
         }
     });
 
-    jQuery(function($){
-        $(document).mouseup(function (e){ // событие клика по веб-документу
+    jQuery(function ($) {
+        $(document).mouseup(function (e) { // событие клика по веб-документу
             var city = $('.city'); // тут указываем ID элемента
             //var region = $(".region"); // тут указываем ID элемента
             if (!city.is(e.target) // если клик был не по нашему блоку
@@ -181,16 +181,16 @@ $(document).ready(function () {
         // $('.city-list').slideToggle();
         $('.region-list').css({display: "none"});
         $.ajax({
-             type: 'POST',
-             url: "/board/default/show-city-list",
-             data: 'id=' + regionId,
-             success: function (data) {
-                 $('.city-list').html(data);
-                 $('.city').css({display: "inline-block"});
-                 $('.city-list').slideToggle();
-                 $('.region-list').css({display: "none"});
-             }
-         });
+            type: 'POST',
+            url: "/board/default/show-city-list",
+            data: 'id=' + regionId,
+            success: function (data) {
+                $('.city-list').html(data);
+                $('.city').css({display: "inline-block"});
+                $('.city-list').slideToggle();
+                $('.region-list').css({display: "none"});
+            }
+        });
         return false;
     });
 
@@ -217,7 +217,7 @@ $(document).ready(function () {
         var number = 3500;
 
         /*console.log(new Intl.NumberFormat().format(selMin));*/
-        if(document.getElementById('slider_price')) {
+        if (document.getElementById('slider_price')) {
             $("#slider_price").slider({
                 range: true,
                 min: min,
@@ -302,13 +302,13 @@ $(document).ready(function () {
         var type = $(this).attr('datatype');
         var url;
         //alert(type);
-        if(type === 'product' ){
+        if (type === 'product') {
             url = '/shop/products/general-modal';
         }
-        else if(type === 'service' ){
+        else if (type === 'service') {
             url = '/shop/service/general-modal';
         }
-        else{
+        else {
             url = '/board/default/general-modal';
         }
         $.ajax({
@@ -318,7 +318,7 @@ $(document).ready(function () {
             success: function (data) {
                 //console.log(data);
                 $('.modal-body,.modal-flex').html(data);
-                 $('#modalType').modal('show');
+                $('#modalType').modal('show');
                 /* $('#black-overlay').fadeIn(400);*/
                 /*$('#black-overlay').fadeIn(400,
                     function () {
@@ -326,6 +326,26 @@ $(document).ready(function () {
                     });*/
             }
         });
+    });
+
+    $(document).on('click', '#more_service', function () {
+        var count = parseInt($(this).attr('data-count'));
+        var button = $(this);
+
+        $.ajax({
+            type: 'POST',
+            url: '/shop/service/get-period-form',
+            data: {count: count},
+            success: function (data) {
+                $('#more_service').before(data);
+                button.attr('data-count', count + 1);
+            }
+        });
+    });
+
+    $(document).on('click', '.button_service_delete', function () {
+        var block = $('.service_add[data-id='+$(this).attr('data-id')+']');
+        block.remove();
     });
 
     //Скрыть модалку
@@ -339,11 +359,11 @@ $(document).ready(function () {
         var type = $(this).attr('datatype');
         var url;
 
-        if(type === 'product' ){
+        if (type === 'product') {
             url = '/shop/products/show-category';
             $('#products-category_id').val(catId);
         }
-        else{
+        else {
             url = '/board/default/show-category';
             $('#ads-category_id').val(catId);
         }
@@ -358,13 +378,13 @@ $(document).ready(function () {
                 /*$('.modal-body,.modal-flex').html(data);*/
 
                 if (data) {
-                   // console.log(data);
+                    // console.log(data);
                     $('#categoryModal').html(data);
                 } else {
-                    if(type === 'product' ){
+                    if (type === 'product') {
                         url = '/shop/products/show-category-end';
                     }
-                    else{
+                    else {
                         url = '/board/default/show-category-end';
                     }
                     $.ajax({
@@ -391,10 +411,10 @@ $(document).ready(function () {
 
 
         var column = $(this).parent().parent().data('parent');
-        if(column == 0){
+        if (column == 0) {
             $('.heading-change').removeClass('active');
         }
-        if(column == 1){
+        if (column == 1) {
             $('div[data-parent="1"] .heading-change').removeClass('active');
         }
 
@@ -406,11 +426,11 @@ $(document).ready(function () {
         var url;
         //alert(type);
 
-        if(type === 'product' ){
+        if (type === 'product') {
             url = '/shop/products/show-parent-modal-category';
             $('#products-category_id').val(category);
         }
-        else{
+        else {
             url = '/board/default/show-parent-modal-category';
             $('#ads-category_id').val(category);
         }
@@ -432,10 +452,10 @@ $(document).ready(function () {
                     }
                 }
                 else {
-                    if(type === 'product' ){
+                    if (type === 'product') {
                         url = '/shop/products/show-category-end';
                     }
-                    else{
+                    else {
                         url = '/board/default/show-category-end';
                     }
                     $.ajax({
@@ -449,10 +469,10 @@ $(document).ready(function () {
                     });
                     $('#modalType').modal('hide');
 
-                    if(type === 'product' ){
+                    if (type === 'product') {
                         url = '/shop/products/show-additional-fields';
                     }
-                    else{
+                    else {
                         url = '/board/default/show-additional-fields';
                     }
                     $.ajax({

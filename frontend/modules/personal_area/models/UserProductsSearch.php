@@ -15,7 +15,7 @@ class UserProductsSearch extends Products
 {
     public function search($params)
     {
-        $query = Products::find();
+        $query = Products::find()->where(['type' => Products::TYPE_PRODUCT]);
 
         // add conditions that should always apply here
 
