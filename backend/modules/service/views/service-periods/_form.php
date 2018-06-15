@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use \yii\widgets\MaskedInput;
+use \common\models\db\ServicePeriods;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\db\ServicePeriods */
@@ -25,7 +26,7 @@ use \yii\widgets\MaskedInput;
         'mask' => '99:99:99',
     ])?>
 
-    <?= $form->field($model, 'week_days')->checkboxList($model->getWeekDaysArray()); ?>
+    <?= $form->field($model, 'week_days')->checkboxList(ServicePeriods::getWeekDaysArray()); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

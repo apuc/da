@@ -55,7 +55,7 @@ class ServicePeriods extends \yii\db\ActiveRecord
         return $this->hasOne(Products::className(), ['id' => 'product_id']);
     }
 
-    public function getWeekDaysArray()
+    public static function getWeekDaysArray()
     {
         return [
             'Пн' => 'Пн',
@@ -66,6 +66,31 @@ class ServicePeriods extends \yii\db\ActiveRecord
             'Сб' => 'Сб',
             'Вс' => 'Вс'
         ];
+    }
+
+    public static function checkPeriods($periods){
+        $array = [false, false, false, false, false, false, false];
+        foreach($periods as $period){
+            foreach ($period['week_days'] as $week_day) {
+                if($week_day === 'Пн' && $array[0] === false)
+                    $array[0] = true;
+                else if($week_day === 'Вт' && $array[1] === false)
+                    $array[1] = true;
+                else if($week_day === 'Ср' && $array[2] === false)
+                    $array[2] = true;
+                else if($week_day === 'Чт' && $array[3] === false)
+                    $array[3] = true;
+                else if($week_day === 'Пт' && $array[4] === false)
+                    $array[4] = true;
+                else if($week_day === 'Сб' && $array[5] === false)
+                    $array[5] = true;
+                else if($week_day === 'Вс' && $array[6] === false)
+                    $array[6] = true;
+                else
+                    return false;
+            }
+        }
+        return true;
     }
 
 }

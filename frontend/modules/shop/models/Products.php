@@ -62,9 +62,9 @@ class Products extends \common\models\db\Products
      * @return array
      */
 
-    public function getListCategory($id, $arr)
+    public function getListCategory($id, $arr, $type = CategoryShop::TYPE_PRODUCT)
     {
-        $category = CategoryShop::find()->where(['id' => $id, 'type' => \common\models\db\CategoryShop::TYPE_PRODUCT])->one();
+        $category = CategoryShop::find()->where(['id' => $id, 'type' => $type])->one();
         $arr[] = $category->name;
 
         if ($category->parent_id != 0) {

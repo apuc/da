@@ -4,7 +4,7 @@
  */
 ?>
 
-<a href="" class="cabinet__like-block--section">Товар</a>
+<a  href="" class="cabinet__like-block--section">Товар</a>
 
 <a href="" class="cabinet__like-block--photo">
     <?php if (!empty($model['cover'])): ?>
@@ -25,16 +25,17 @@
 <div class="cabinet__pkg-block">
 
     <?php if($model['status'] == '1'): ?>
-        <h3>Товар <span>опубликован</span></h3>
+        <h3>Услуга <span>опубликована</span></h3>
     <?php endif; ?>
 
     <?php if($model['status'] == '0'): ?>
-        <h3>Товар <span>на модерации</span></h3>
+        <h3>Услуга <span>на модерации</span></h3>
     <?php endif; ?>
 
 
+    <a href="<?= \yii\helpers\Url::to(['/shop/service/update-time', 'id' => $model['id']]); ?>" class="cabinet__like-block--company-edit">Изменить время</a>
 
-    <a href="<?= \yii\helpers\Url::to(['/shop/products/update', 'id' => $model['id']]); ?>" class="cabinet__like-block--company-edit">редактировать</a>
+    <a href="<?= \yii\helpers\Url::to(['/shop/service/update', 'id' => $model['id']]); ?>" class="cabinet__like-block--company-edit">редактировать</a>
     <a data-method="post" href="<?= \yii\helpers\Url::to(['/shop/products/delete', 'id' => $model['id'], 'page' => Yii::$app->request->get('page')]); ?>" data-confirm="Вы уверены, что хотите удалить этот элемент?" class="cabinet__like-block--company-remove">удалить</a>
 
 </div>

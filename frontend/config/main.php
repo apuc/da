@@ -192,6 +192,7 @@ return \yii\helpers\ArrayHelper::merge([
                 'personal-area/user-comments' => 'personal_area/user-comments',
                 'personal-area/user-ads' => 'personal_area/user-ads',
                 'personal-area/user-products' => 'personal_area/user-products',
+                'personal-area/user-service' => 'personal_area/user-service',
 
 
                 //==============================COMPANY==============================
@@ -335,6 +336,9 @@ return \yii\helpers\ArrayHelper::merge([
                 'shop/products/show-category-end' => 'shop/products/show-category-end',
                 'shop/products/show-additional-fields' => 'shop/products/show-additional-fields',
                 'shop/service/create' => 'shop/service/create',
+                'shop/service/update' => 'shop/service/update',
+                'shop/service/update-time' => 'shop/service/update-time',
+                'shop/service/get-period-form' => 'shop/service/get-period-form',
                 'shop/service/general-modal' => 'shop/service/general-modal',
                 'shop/search' => 'shop/shop/search',
 

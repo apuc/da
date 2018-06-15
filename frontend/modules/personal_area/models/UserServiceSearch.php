@@ -11,11 +11,11 @@ namespace frontend\modules\personal_area\models;
 use frontend\modules\shop\models\Products;
 use yii\data\ActiveDataProvider;
 
-class UserProductsSearch extends Products
+class UserServiceSearch extends Products
 {
     public function search($params)
     {
-        $query = Products::find();
+        $query = Products::find()->where(['type' => Products::TYPE_SERVICE]);
 
         // add conditions that should always apply here
 

@@ -7,6 +7,7 @@ use common\models\db\CategoryFields;
 use common\models\db\ProductFields;
 use common\models\db\ProductFieldsValue;
 use common\models\db\ProductsImg;
+use common\models\db\ServicePeriods;
 use frontend\modules\company\models\Company;
 use frontend\modules\shop\models\CategoryShop;
 use frontend\modules\shop\models\Products;
@@ -73,7 +74,7 @@ class ServiceController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post())) {
-            if ($model->company->verifikation === 1){
+            if ($model->company->verifikation === 1) {
                 $model->status = 1;
             } else {
                 $model->status = 0;
@@ -207,6 +208,45 @@ class ServiceController extends Controller
     }
 
     /**
+     *
+     *
+     * @param integer $id
+     *
+     * @return mixed
+     */
+    public function actionUpdateTime($id)
+    {
+        $model = Products::findOne($id);
+        if (isset($model->service)) {
+            $i = 0;
+            foreach ($model->service as $service) {
+                $model->service[$i]->week_days = json_decode($service->week_days);
+                $i++;
+            }
+        }
+        if ($model->load(Yii::$app->request->post())) {
+            ServicePeriods::deleteAll(['product_id' => $model->id]);
+            if(ServicePeriods::checkPeriods(Yii::$app->request->post()['Products']['service'])) {
+                foreach (Yii::$app->request->post()['Products']['service'] as $service) {
+                    if (!empty($service['start']) && !empty($service['end']) && !empty($service['week_days'])) {
+                        $newService = new ServicePeriods();
+                        $newService->product_id = $model->id;
+                        $newService->start = $service['start'];
+                        $newService->end = $service['end'];
+                        $newService->week_days = json_encode($service['week_days']);
+                        $newService->save();
+                    }
+                }
+                return $this->redirect(['/personal_area/user-service']);
+            }
+        }
+        return $this->render('update-time', [
+            'model' => $model
+        ]);
+    }
+
+
+    /**
      * Deletes an existing News model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      *
@@ -235,7 +275,7 @@ class ServiceController extends Controller
 
         $this->layout = 'personal_area';
         $model = Products::find()
-            ->where(['id' => $id, 'type' => Products::TYPE_PRODUCT])
+            ->where(['id' => $id, 'type' => Products::TYPE_SERVICE])
             ->with('productFieldsValues')
             ->one();
 
@@ -257,7 +297,8 @@ class ServiceController extends Controller
                 }
 
             }
-            if ($model->company->verifikation === 1){
+            $model->type = Products::TYPE_SERVICE;
+            if ($model->company->verifikation === 1) {
                 $model->status = 1;
             } else {
                 $model->status = 0;
@@ -275,7 +316,7 @@ class ServiceController extends Controller
             return $this->redirect('/personal_area/user-products');
         } else {
             $userCompany = Company::find()->where(['user_id' => Yii::$app->user->id])->all();
-            $categoryList = $model->getListCategory($model->category_id, []);
+            $categoryList = $model->getListCategory($model->category_id, [], CategoryShop::TYPE_SERVICE);
             $categorySelect = $this->renderPartial('categoryList', ['category' => array_reverse($categoryList)]);
 
             $groupFieldsId = CategoryFields::find()
@@ -304,6 +345,14 @@ class ServiceController extends Controller
                 ]
             );
         }
+    }
+
+    public function actionGetPeriodForm()
+    {
+        $count = Yii::$app->request->post('count');
+        return $this->renderPartial('one_period_form', [
+           'count' => $count
+        ]);
     }
 
     public function actionDeleteImg()

@@ -27,6 +27,7 @@ use Yii;
  * @property integer $hit
  * @property integer $stock
  * @property integer $type
+ * @property integer $durability
  *
  * @property LikeProducts[] $likeProducts
  * @property ProductFieldsValue[] $productFieldsValues
@@ -76,7 +77,8 @@ class Products extends \yii\db\ActiveRecord
                     'view',
                     'hit',
                     'stock',
-                    'type'
+                    'type',
+                    'durability'
                 ],
                 'integer',
             ],
@@ -123,6 +125,7 @@ class Products extends \yii\db\ActiveRecord
             'delivery' => 'Delivery',
             'hit' => 'Хит продаж',
             'type' => 'Type',
+            'durability' => 'Durability',
         ];
     }
 
@@ -246,6 +249,11 @@ class Products extends \yii\db\ActiveRecord
         if (time() - $this->dt_add < 86400 * $days)
             return true;
         return false;
+    }
+
+    public function getService()
+    {
+        return $this->hasMany(ServicePeriods::className(), ['product_id' => 'id']);
     }
 
 }

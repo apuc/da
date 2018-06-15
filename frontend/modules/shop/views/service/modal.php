@@ -5,7 +5,7 @@
 ?>
 
 <?php foreach($category as $item): ?>
-    <div class="modal-body__container modal-item" data-category="<?= $item->id; ?>" datatype="product">
+    <div class="modal-body__container modal-item" data-category="<?= $item->id; ?>" datatype="service">
         <div class="modal-body__container__img thumb">
             <img src="<?= $item->icon; ?>" alt="">
         </div>
