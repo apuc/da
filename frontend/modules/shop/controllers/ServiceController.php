@@ -108,7 +108,7 @@ class ServiceController extends Controller
             //}
             Yii::$app->session->setFlash('success',
                 'Ваш товар успешно сохранен. После прохождения модерации он будет опубликован.');
-            return $this->redirect(['/personal_area/user-products']);
+            return $this->redirect(['/personal_area/user-service']);
         }
         /* $str = 'image (1).jpg';
          Debug::dd(str_replace( array('(',')'), '_', $str));*/
@@ -129,11 +129,11 @@ class ServiceController extends Controller
     {
         $id = $_POST['id'];
         //$id = 1;
-        $parent_category = CategoryShop::find()->where(['parent_id' => $id, 'type' => CategoryShop::TYPE_PRODUCT])->all();
+        $parent_category = CategoryShop::find()->where(['parent_id' => $id, 'type' => CategoryShop::TYPE_SERVICE])->all();
 
         if (!empty($parent_category)) {
-            $category = CategoryShop::find()->where(['parent_id' => 0, 'type' => CategoryShop::TYPE_PRODUCT])->all();
-            $catName = CategoryShop::find()->where(['id' => $id, 'type' => CategoryShop::TYPE_PRODUCT])->one();
+            $category = CategoryShop::find()->where(['parent_id' => 0, 'type' => CategoryShop::TYPE_SERVICE])->all();
+            $catName = CategoryShop::find()->where(['id' => $id, 'type' => CategoryShop::TYPE_SERVICE])->one();
             //$catName = json_decode($catName);
             echo $this->renderPartial('sel_cat',
                 [

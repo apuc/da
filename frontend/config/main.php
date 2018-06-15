@@ -340,6 +340,7 @@ return \yii\helpers\ArrayHelper::merge([
                 'shop/service/update-time' => 'shop/service/update-time',
                 'shop/service/get-period-form' => 'shop/service/get-period-form',
                 'shop/service/general-modal' => 'shop/service/general-modal',
+                'shop/service/show-category' => 'shop/service/show-category',
                 'shop/search' => 'shop/shop/search',
 
                 'shop/all-category/<page:\d+>' => 'shop/shop/index',

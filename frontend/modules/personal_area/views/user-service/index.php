@@ -8,7 +8,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/raw/ajax.js', ['depends' => [\y
     <a href="#" id="send-category-add-message" class="cabinet__inner-box--add">
         Запрос на добавление категории
     </a>
-    <h3>Мои товары</h3>
+    <h3>Мои услуги</h3>
 
     <a href="<?= \yii\helpers\Url::to(['/shop/service/create']); ?>" class="cabinet__inner-box--add">
         добавить
@@ -29,7 +29,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/raw/ajax.js', ['depends' => [\y
                 'tag' => 'div',
                 'class' => 'cabinet__like-block',
             ],
-            'emptyText' => '<div class="cabinet__add-element"><p>Раздел пока пуст</p><a href="'. \yii\helpers\Url::to(['/shop/products/create']) .'" class="show-more">добавить</a></div>',
+            'emptyText' => '<div class="cabinet__add-element"><p>Раздел пока пуст</p><a href="'. \yii\helpers\Url::to(['/shop/service/create']) .'" class="show-more">добавить</a></div>',
             'emptyTextOptions' => [
                 'tag' => 'div',
             ],
