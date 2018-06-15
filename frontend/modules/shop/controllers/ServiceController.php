@@ -216,7 +216,7 @@ class ServiceController extends Controller
      */
     public function actionUpdateTime($id)
     {
-        $model = Products::findOne($id);
+        $model = Products::find()->where(['id' => $id])->with('service')->one();
         if (isset($model->service)) {
             $i = 0;
             foreach ($model->service as $service) {
