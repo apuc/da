@@ -252,6 +252,9 @@ class Products extends \yii\db\ActiveRecord
         return false;
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getService()
     {
         return $this->hasMany(ServicePeriods::className(), ['product_id' => 'id']);
