@@ -20,10 +20,10 @@ use common\models\db\ServicePeriods;
             <?php for ($i = 0; $i < $count; $i++): ?>
                 <?php if ($period->checkReservation($i, $Duration, strtotime($date), $model->id)): ?>
                     <button data-id="<?= $i ?>"
-                            class="btn btn-danger service-reserve"><?= $period->getButtonLabel($i, $Duration) ?></button>
+                            class="btn btn-warning service-reserve"><?= $period->getButtonLabel($i, $Duration) ?></button>
                 <?php else: ?>
                     <button data-id="<?= $i ?>"
-                            class="btn btn-primary service-reserve"><?= $period->getButtonLabel($i, $Duration) ?></button>
+                            class="btn btn-info service-reserve"><?= $period->getButtonLabel($i, $Duration) ?></button>
                 <?php endif ?>
             <?php endfor ?>
         <?php endfor ?>
