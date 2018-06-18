@@ -14,6 +14,7 @@ use common\classes\Shop;
 use common\models\db\KeyValue;
 use common\models\db\LikeProducts;
 use common\models\db\ProductsImg;
+use common\models\db\ServiceReservation;
 use frontend\modules\shop\models\CategoryShop;
 use frontend\modules\shop\models\Products;
 use Yii;
@@ -138,6 +139,38 @@ class ShopController extends Controller
             ]
         );
     }
+    public function actionShowService($slug)
+    {
+        $this->layout = 'single-shop';
+        $model = Products::find()
+            ->where(['slug' => $slug, 'type' => Products::TYPE_SERVICE])
+            ->with('productFieldsValues.field', 'company.allPhones', 'images', 'category', 'reviews', 'service')
+            ->one();
+        $reservations = ServiceReservation::find()->where(['product_id' => $model->id])->all();
+        $currentUserId = Yii::$app->user->id;
+        if (!empty($currentUserId)) {
+            $thisUserLike = LikeProducts::find()
+                ->where(['product_id' => $model->id, 'user_id' => $currentUserId])->one();
+            if (!empty($thisUserLike)) {
+                $thisUserLike = true;
+            }
+
+        } else {
+            $thisUserLike = false;
+        }
+
+        $model->updateAllCounters(['view' => 1], ['id' => $model->id]);
+
+        $categoryList = \common\classes\Shop::getListCategoryAllInfo($model->category_id, []);
+        return $this->render('view-service',
+            [
+                'model' => $model,
+                'like' => $thisUserLike,
+                'categoryList' => $categoryList,
+                'reservations' => $reservations
+            ]
+        );
+    }
 
     public function actionProductReviews($slug)
     {
@@ -223,5 +256,28 @@ class ShopController extends Controller
             [
                 'products' => $products,
             ]);
+    }
+
+    public function actionGetPeriod(){
+        $model = Products::find()->where(['id' => Yii::$app->request->post('id')])->one();
+        $date = Yii::$app->request->post('date');
+        return $this->renderPartial('service-buttons',[
+            'model' => $model,
+            'date' => $date
+        ]);
+    }
+    public function actionAddReservation(){
+        $id = Yii::$app->request->post('id');
+        $date = Yii::$app->request->post('date');
+        $time = Yii::$app->request->post('time');
+        $time = explode('-', $time);
+        $reservation = new ServiceReservation();
+        $reservation->start = $time[0];
+        $reservation->end = $time[1];
+        $reservation->product_id = $id;
+        $reservation->date = $date;
+        if($reservation->save())
+            return true;
+        else return false;
     }
 }

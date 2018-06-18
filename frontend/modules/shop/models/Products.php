@@ -16,6 +16,7 @@ use common\models\db\ProductFieldsType;
 use common\models\db\ProductFieldsValue;
 use common\models\db\ProductsImg;
 use common\models\db\ProductsReviews;
+use common\models\db\ServicePeriods;
 use common\models\db\ServicesCompanyRelations;
 use frontend\modules\company\models\Company;
 use Yii;
@@ -392,6 +393,17 @@ class Products extends \common\models\db\Products
             }
         }
         return $sum / $count;
+    }
+
+    public function getServicePeriodByWeekDay($week_day){
+        $services = ServicePeriods::find()->where(['product_id' => $this->id])->all();
+        if($services){
+            foreach($services as $service){
+                $tmp = json_decode($service->week_days);
+                if(in_array($week_day, $tmp))
+                    return $service;
+            }
+        }
     }
 
 }

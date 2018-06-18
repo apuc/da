@@ -68,6 +68,30 @@ class ServicePeriods extends \yii\db\ActiveRecord
         ];
     }
 
+    public static function getWeekDayLabel()
+    {
+        return [
+            1 => 'Пн',
+            2 => 'Вт',
+            3 => 'Ср',
+            4 => 'Чт',
+            5 => 'Пт',
+            6 => 'Сб',
+            0 => 'Вс'
+        ];
+    }
+
+    public function getDayDuration(){
+        $result = 0;
+        $start = explode(':', $this->start);
+        $end = explode(':', $this->end);
+        $result += (intval($end[0]) - intval($start[0])) * 60;
+        $result += intval($end[1]) - intval($start[2]);
+        return $result;
+
+
+    }
+
     public static function checkPeriods($periods){
         $array = [false, false, false, false, false, false, false];
         foreach($periods as $period){
@@ -93,4 +117,44 @@ class ServicePeriods extends \yii\db\ActiveRecord
         return true;
     }
 
+    public static function addTime($time, $minutes){
+        $time = explode(':', $time);
+        $time[0] = intval(intval($time[0]) + $minutes / 60);
+        $time[1] = intval($time[1]) + $minutes % 60;
+        if($time[1] >= 60){
+            $time[0] += 1;
+            $time[1] -= 60;
+        }
+        if(strlen($time[0]) === 1){
+            $time[0] = '0' . $time[0];
+        }
+        if(strlen($time[1]) === 1){
+            $time[1] = '0' . $time[1];
+        }
+        return $time[0] . ':' . $time[1] . ':' . $time[2];
+    }
+
+    public function getButtonLabel($index, $duration){
+        $start = self::addTime($this->start, $duration * $index);
+        $end = self::addTime($this->start, $duration * ($index + 1));
+        return $start . '-' . $end;
+    }
+
+    public function checkReservation($index, $duration, $date, $product_id)
+    {
+        $date = date('y-m-d',$date);
+        $start = self::addTime($this->start, $duration * $index);
+        $end = self::addTime($this->start, $duration * ($index + 1));
+        $reservation = ServiceReservation::find()
+            ->where([
+                'start' => $start,
+                'end' => $end,
+                'product_id' => $product_id,
+                'date' => $date
+            ])->one();
+        if($reservation)
+            return true;
+        else
+            return false;
+    }
 }
