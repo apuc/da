@@ -250,7 +250,7 @@ use yii\jui\DatePicker;
             // вставляем название контроллера, по умолчанию равен elfinder
             'filter' => 'image',
             // фильтр файлов, можно задать массив фильтров https://github.com/Studio-42/elFinder/wiki/Client-con..
-            'name' => 'Company[photo]',
+            'name' => 'CompanyForm[photo]',
             'id' => 'company-photo',
             'template' => '<div class="input-group">{input}<span class="span-btn">{button}</span></div>',
             'options' => ['class' => 'form-control itemImg', 'maxlength' => '255'],
