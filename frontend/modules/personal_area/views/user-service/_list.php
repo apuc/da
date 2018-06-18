@@ -19,7 +19,7 @@
     <?php endif; ?>
 </a>
 
-<a href="<?= \yii\helpers\Url::to(['/shop/shop/show', 'slug' => $model['slug']])?>" class="cabinet__like-block--comment-descr"><?= $model['title']; ?></a>
+<a href="<?= \yii\helpers\Url::to(['/shop/shop/show-service', 'slug' => $model['slug']])?>" class="cabinet__like-block--comment-descr"><?= $model['title']; ?></a>
 
 
 <div class="cabinet__pkg-block">

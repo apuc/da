@@ -342,10 +342,14 @@ return \yii\helpers\ArrayHelper::merge([
                 'shop/service/general-modal' => 'shop/service/general-modal',
                 'shop/service/show-category' => 'shop/service/show-category',
                 'shop/search' => 'shop/shop/search',
+                'shop/shop/get-period' => 'shop/shop/get-period',
+                'shop/shop/add-reservation' => 'shop/shop/add-reservation',
+
 
                 'shop/all-category/<page:\d+>' => 'shop/shop/index',
                 'shop/all-category' => 'shop/shop/index',
                 'shop/product/<slug>' => 'shop/shop/show',
+                'shop/service/<slug>' => 'shop/shop/show-service',
                 'shop/reviews/<slug>' => 'shop/shop/product-reviews',
                 'shop/<category:.+>/<page:\d+>' => 'shop/shop/category',
                 'shop/<category:.+>' => 'shop/shop/category',
