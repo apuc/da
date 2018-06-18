@@ -217,11 +217,10 @@ class ServiceController extends Controller
     public function actionUpdateTime($id)
     {
         $model = Products::find()->where(['id' => $id])->with('service')->one();
+        $week_days_array = [];
         if (isset($model->service)) {
-            $i = 0;
             foreach ($model->service as $service) {
-                $model->setServiceWeekDays($i, json_decode($service->week_days));
-                $i++;
+                $week_days_array[] = json_decode($service->week_days);
             }
         }
         if ($model->load(Yii::$app->request->post())) {
@@ -241,6 +240,7 @@ class ServiceController extends Controller
             }
         }
         return $this->render('update-time', [
+            'week_days_array' => $week_days_array,
             'model' => $model
         ]);
     }

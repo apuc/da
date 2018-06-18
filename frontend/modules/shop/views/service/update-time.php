@@ -8,6 +8,7 @@ use common\models\db\ServicePeriods;
 use \yii\widgets\MaskedInput;
 
 /* @var $this yii\web\View */
+/* @var $week_days_array array */
 /* @var $model frontend\modules\news\models\News */
 /* @var $userCompany frontend\modules\company\models\Company */
 
@@ -20,8 +21,8 @@ $this->registerJsFile('/js/raw/img_upload.js', ['depends' => [\yii\web\JqueryAss
 $this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 
-$two  =  '0|1|2';
-$five =  '0|1|2|3|4|5';
+$two = '0|1|2';
+$five = '0|1|2|3|4|5';
 
 ?>
 <div class="cabinet__container cabinet__container_white cabinet__inner-box">
@@ -54,7 +55,7 @@ $five =  '0|1|2|3|4|5';
                     <?= Html::button('-', [
                         'class' => 'cabinet__add-company-form--submit place-ad_publish publish place-ad__publish button_service_delete',
                         'data-id' => $i
-                    ])?>
+                    ]) ?>
                     <?= $form->field($model, 'service[' . $i . '][start]')->widget(MaskedInput::className(), [
                         'mask' => $two . '9' . ':' . $five . '9' . ':' . $five . '9',
                         'options' => [
@@ -63,7 +64,6 @@ $five =  '0|1|2|3|4|5';
                     ])->hint('<b>Введите время начала оказания услуг </b><br>')
                         ->label('Начало дня<span>*</span>');
                     ?>
-
 
                     <?= $form->field($model, 'service[' . $i . '][end]')->widget(MaskedInput::className(), [
                         'mask' => $two . '9' . ':' . $five . '9' . ':' . $five . '9',
@@ -74,23 +74,31 @@ $five =  '0|1|2|3|4|5';
                         ->label('Конец дня<span>*</span>');
                     ?>
 
+                    <div class='form-line'>
+                        <?= Html::label('', 'Products[service][' .$i . '][week_days]', ['class' => 'label-name'])?>
 
-                    <?= $form->field($model, 'service[' . $i . '][week_days]')->checkboxList(ServicePeriods::getWeekDaysArray())
-                        ->label(''); ?>
+                        <?= Html::checkboxList('Products[service][' . $i . '][week_days]',
+                            $week_days_array[$i],
+                            ServicePeriods::getWeekDaysArray()
+                        ) ?>
+                    </div>
+
                 </div>
                 <?php $i++;
             endforeach ?>
-            <?= Html::button('Ещё', [
-                'class' => 'cabinet__add-company-form--submit place-ad_publish publish place-ad__publish',
-                'id' => 'more_service',
-                'data-count' => $i
-            ])?>
+            <div class='form-line'>
+                <?= Html::button('Ещё', [
+                    'class' => 'cabinet__add-company-form--submit place-ad_publish publish place-ad__publish',
+                    'id' => 'more_service',
+                    'data-count' => $i
+                ]) ?>
+            </div>
         <?php else: ?>
             <div class="service_add" data-id="0">
                 <?= Html::button('-', [
                     'class' => 'cabinet__add-company-form--submit place-ad_publish publish place-ad__publish button_service_delete',
                     'data-id' => 0
-                ])?>
+                ]) ?>
                 <?= $form->field($model, 'service[0][start]')->widget(MaskedInput::className(), [
                     'mask' => $two . '9' . ':' . $five . '9' . ':' . $five . '9',
                     'options' => [
@@ -110,15 +118,23 @@ $five =  '0|1|2|3|4|5';
                     ->label('Конец дня<span>*</span>');
                 ?>
 
+                <div class='form-line'>
+                    <?= Html::label('', 'Products[service][0][week_days]', ['class' => 'label-name'])?>
 
-                <?= $form->field($model, 'service[0][week_days]')->checkboxList(ServicePeriods::getWeekDaysArray())
-                    ->label(''); ?>
+
+                    <?= Html::checkboxList('Products[service][0][week_days]',
+                        null,
+                        ServicePeriods::getWeekDaysArray()
+                    ) ?>
+                </div>
             </div>
-            <?= Html::button('Ещё', [
-                'class' => 'cabinet__add-company-form--submit place-ad_publish publish place-ad__publish',
-                'id' => 'more_service',
-                'data-count' => 1
-            ])?>
+            <div class='form-line'>
+                <?= Html::button('Ещё', [
+                    'class' => 'cabinet__add-company-form--submit place-ad_publish publish place-ad__publish',
+                    'id' => 'more_service',
+                    'data-count' => 1
+                ]) ?>
+            </div>
         <?php endif ?>
 
         <?= Html::submitButton('Oпубликовать',
