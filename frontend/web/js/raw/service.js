@@ -64,28 +64,33 @@ $(document).ready(function () {
         var id = $('.reservation_date').attr('data-id');
         var user_id = $('.reservation_date').attr('data-user-id');
 
-        $('.service-reserve').each(function () {
-            var button = $(this);
-            if (button.hasClass('btn-success')) {
-                flag = true;
-                $.ajax({
-                    url: "/shop/shop/add-reservation",
-                    type: "POST",
-                    data: {
-                        date: date,
-                        id: id,
-                        time: $(this).html(),
-                        user_id: user_id
-                    },
-                    success: function () {
-                        button.removeClass('btn-success');
-                        button.addClass('btn-warning');
-                    },
-                    error: function () {
-                        $('#error_message').html("Ошибка");
-                    }
-                });
-            }
-        });
+        if (user_id == 0) {
+            window.location.pathname = '/user/login';
+        }
+        else {
+            $('.service-reserve').each(function () {
+                var button = $(this);
+                if (button.hasClass('btn-success')) {
+                    flag = true;
+                    $.ajax({
+                        url: "/shop/shop/add-reservation",
+                        type: "POST",
+                        data: {
+                            date: date,
+                            id: id,
+                            time: $(this).html(),
+                            user_id: user_id
+                        },
+                        success: function () {
+                            button.removeClass('btn-success');
+                            button.addClass('btn-warning');
+                        },
+                        error: function () {
+                            $('#error_message').html("Ошибка");
+                        }
+                    });
+                }
+            });
+        }
     });
 });

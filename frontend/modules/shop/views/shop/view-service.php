@@ -117,7 +117,7 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
                                 'class' => 'reservation_date',
                                 'data-id' => $model->id,
                                 'data-count' => 0,
-                                'data-user-id' => Yii::$app->user->id
+                                'data-user-id' => isset(Yii::$app->user->id) ? Yii::$app->user->id : 0
                             ]]) ?>
                     </div>
                 </div>
