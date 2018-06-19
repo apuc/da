@@ -112,8 +112,7 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
                     <div class="single-shop__info-content--counter">
                         <?= \yii\jui\DatePicker::widget(['attribute' => 'from_date',
                             'language' => 'ru',
-                            'dateFormat' => 'yyyy-MM-dd',
-                            'value' => time(),
+                            'dateFormat' => 'php:d-m-YY',
                             'options' => [
                                 'class' => 'reservation_date',
                                 'data-id' => $model->id,

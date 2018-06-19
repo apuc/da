@@ -404,6 +404,7 @@ class Products extends \common\models\db\Products
                     return $service;
             }
         }
+        else return false;
     }
 
 }

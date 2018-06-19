@@ -1,19 +1,32 @@
 $(document).ready(function () {
 
-    $(document).on('focusout', '.reservation_date', function () {
-        var date = $(this).val();
-        var id = $(this).attr('data-id');
-        $.ajax({
-            url: "/shop/shop/get-period",
-            type: "POST",
-            data: {
-                date: date,
-                id: id
-            },
-            success: function (data) {
-                $('.service-blocks').html(data);
-            }
-        });
+
+    var date = new Date();
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    if (day < 10)
+        day = '0' + day;
+    if (month < 10)
+        month = '0' + month;
+    $('.reservation_date').val(day + '-' + month + '-' + date.getFullYear());
+
+
+    $(document).on('click', '.datepicker--cell-day', function () {
+        setTimeout(function () {
+            var date = $('.reservation_date').val();
+            var id = $('.reservation_date').attr('data-id');
+            $.ajax({
+                url: "/shop/shop/get-period",
+                type: "POST",
+                data: {
+                    date: date,
+                    id: id
+                },
+                success: function (data) {
+                    $('.service-blocks').html(data);
+                }
+            });
+        }, 100);
     });
 
     $(document).on('click', '.service-reserve', function () {
@@ -50,11 +63,10 @@ $(document).ready(function () {
         var date = $('.reservation_date').val();
         var id = $('.reservation_date').attr('data-id');
         var user_id = $('.reservation_date').attr('data-user-id');
-        var success = true;
-        var flag = false;
 
         $('.service-reserve').each(function () {
-            if ($(this).hasClass('btn-success')) {
+            var button = $(this);
+            if (button.hasClass('btn-success')) {
                 flag = true;
                 $.ajax({
                     url: "/shop/shop/add-reservation",
@@ -65,22 +77,15 @@ $(document).ready(function () {
                         time: $(this).html(),
                         user_id: user_id
                     },
-                    success: function (data) {
-                        if(!data)
-                            success = false;
+                    success: function () {
+                        button.removeClass('btn-success');
+                        button.addClass('btn-warning');
                     },
-                    error: function(){
+                    error: function () {
                         $('#error_message').html("Ошибка");
                     }
                 });
             }
         });
-        if(!flag)
-            $('#error_message').html("Вы не выбрали время");
-        else{
-            if (success)
-                location.reload();
-        }
     });
-
 });
