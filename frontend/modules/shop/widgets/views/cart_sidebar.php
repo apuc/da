@@ -23,11 +23,12 @@ use common\models\db\ProductMark;
                          alt="<?= $hitProduct->product['title']; ?>">
                 <?php else: ?>
 
-                    <?php if (!empty($hitProduct->product['images'][0]->img_thumb)): ?>
-                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage('/' . $hitProduct->product['images'][0]->img_thumb); ?>">
+                    <?php if (!empty($hitProduct->product['images'][0]->img)): ?>
+                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($hitProduct->product['images'][0]->img); ?>">
+                    <?php elseif(!empty($hitProduct->product['images'][0]->img_thumb)):?>
+                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($hitProduct->product['images'][0]->img_thumb); ?>">
                     <?php else: ?>
                         <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($hitProduct->product['cover']); ?>"
-                             alt="<?= $hitProduct->product['title']; ?>">
                     <?php endif; ?>
                 <?php endif; ?>
             </div>
