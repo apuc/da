@@ -9,6 +9,7 @@
 namespace frontend\modules\shop\controllers;
 
 use common\classes\Cart;
+use common\classes\DaMail;
 use common\classes\Debug;
 use common\classes\Shop;
 use common\models\db\KeyValue;
@@ -18,6 +19,7 @@ use common\models\db\ServiceReservation;
 use frontend\modules\shop\models\CategoryShop;
 use frontend\modules\shop\models\Products;
 use Yii;
+use dektrium\user\models\User;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -39,12 +41,12 @@ class ShopController extends Controller
 
         //Получаем meta title
         $meta_title = KeyValue::getValue('all_category_page_meta_title');
-        if(!$meta_title)
+        if (!$meta_title)
             $meta_title = 'Все категории';
 
         //Получаем meta descripton
         $meta_descr = KeyValue::getValue('all_category_page_meta_descr');
-        if(!$meta_descr)
+        if (!$meta_descr)
             $meta_descr = 'Категории';
 
         return $this->render('all-category',
@@ -71,15 +73,13 @@ class ShopController extends Controller
         $categoryModel = $model->getCategoryInfoBySlug($category);
 
         $modelProduct = new Products();
-        if( count(Yii::$app->request->get()) > 1 && !Yii::$app->request->get('page')){
+        if (count(Yii::$app->request->get()) > 1 && !Yii::$app->request->get('page')) {
             $products = $modelProduct->listProductFilter(16, $categoryModel->id, Yii::$app->request->get());
-        }
-        else{
+        } else {
             $products = $modelProduct->listProduct(16, $categoryModel->id);
         }
 
         $categoryList = \common\classes\Shop::getListCategoryAllInfo($categoryModel->id, []);
-
 
 
         if ($model->getEndCategory($category)) {
@@ -139,6 +139,7 @@ class ShopController extends Controller
             ]
         );
     }
+
     public function actionShowService($slug)
     {
         $this->layout = 'single-shop';
@@ -250,7 +251,7 @@ class ShopController extends Controller
 
         $modelProduct = new Products();
 
-        $products = $modelProduct->listProductFilter(16, $request['category'], json_decode($request['filter']) );
+        $products = $modelProduct->listProductFilter(16, $request['category'], json_decode($request['filter']));
 
         return $this->renderPartial('filter-products',
             [
@@ -258,26 +259,48 @@ class ShopController extends Controller
             ]);
     }
 
-    public function actionGetPeriod(){
+    public function actionGetPeriod()
+    {
         $model = Products::find()->where(['id' => Yii::$app->request->post('id')])->one();
         $date = Yii::$app->request->post('date');
-        return $this->renderPartial('service-buttons',[
+        return $this->renderPartial('service-buttons', [
             'model' => $model,
             'date' => $date
         ]);
     }
-    public function actionAddReservation(){
+
+    public function actionAddReservation()
+    {
         $id = Yii::$app->request->post('id');
+        $user_id = Yii::$app->request->post('user_id');
         $date = Yii::$app->request->post('date');
         $time = Yii::$app->request->post('time');
         $time = explode('-', $time);
+
         $reservation = new ServiceReservation();
         $reservation->start = $time[0];
         $reservation->end = $time[1];
         $reservation->product_id = $id;
         $reservation->date = $date;
-        if($reservation->save())
-            return true;
-        else return false;
+        $reservation->user_id = $user_id;
+        if ($reservation->save()) {
+            $product = Products::find()->where(['id' => $id])->with('company')->one();
+            $user = User::find()->where(['id' => $user_id])->one();
+            DaMail::createMsg()->setSubject('Новый заказ')
+                ->setTo($user->email)
+                ->setFrom(['noreply@da-info.pro' => 'DA-Info'])
+                ->setTpl('layouts/html')
+                ->setContent('<div>Пользователь ' . $user->username .  ' заказал у вас услугу: ' . $product->title . ' с ' . $time[0] . ' до ' . $time[1] . '.</div>')
+                ->send();
+
+            DaMail::createMsg()->setSubject('Заказ ожидает обработки')
+                ->setTo($product->company->email)
+                ->setFrom(['noreply@da-info.pro' => 'DA-Info'])
+                ->setTpl('layouts/html')
+                ->setContent('<div>Вы заказали услугу:' . $product->title . ' с ' . $time[0] . ' до ' . $time[1] . ' у ' . $product->company->name . '.</div>')
+                ->send();
+            return 'ok';
+        } else
+            return 'not';
     }
 }

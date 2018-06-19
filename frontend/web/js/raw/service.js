@@ -21,12 +21,12 @@ $(document).ready(function () {
         var id = info.attr('data-id');
         var count = parseInt(info.attr('data-count'));
         if ($(this).hasClass('btn-info')) {
-            $(this).removeClass('btn-info');//class('btn btn-danger service-reserve');
+            $(this).removeClass('btn-info');
             $(this).addClass('btn-success');
             count++;
         }
         else if ($(this).hasClass('btn-success')) {
-            $(this).removeClass('btn-success');//class('btn btn-danger service-reserve');
+            $(this).removeClass('btn-success');
             $(this).addClass('btn-info');
             count--;
         }
@@ -49,6 +49,7 @@ $(document).ready(function () {
         e.preventDefault();
         var date = $('.reservation_date').val();
         var id = $('.reservation_date').attr('data-id');
+        var user_id = $('.reservation_date').attr('data-user-id');
         var success = true;
         var flag = false;
 
@@ -61,11 +62,15 @@ $(document).ready(function () {
                     data: {
                         date: date,
                         id: id,
-                        time: $(this).html()
+                        time: $(this).html(),
+                        user_id: user_id
                     },
                     success: function (data) {
                         if(!data)
                             success = false;
+                    },
+                    error: function(){
+                        $('#error_message').html("Ошибка");
                     }
                 });
             }
@@ -75,11 +80,7 @@ $(document).ready(function () {
         else{
             if (success)
                 location.reload();
-            else
-                $('#error_message').html('ошибка');
         }
-
-
     });
 
 });

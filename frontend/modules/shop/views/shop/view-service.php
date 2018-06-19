@@ -117,7 +117,8 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
                             'options' => [
                                 'class' => 'reservation_date',
                                 'data-id' => $model->id,
-                                'data-count' => 0
+                                'data-count' => 0,
+                                'data-user-id' => Yii::$app->user->id
                             ]]) ?>
                     </div>
                 </div>
