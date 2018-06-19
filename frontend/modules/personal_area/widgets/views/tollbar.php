@@ -35,6 +35,7 @@
         <li><a href="<?= \yii\helpers\Url::to(['/personal_area/user-comments'])?>" class="comments">КОМЕНТАРИИ <!--<span class="add"></span>--></a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/personal_area/user-ads'])?>" class="advert">ОБЪЯВЛЕНИЯ <!--<span class="add"></span>--></a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/personal_area/user-products'])?>" class="goods">Товары</a></li>
+        <li><a href="<?= \yii\helpers\Url::to(['/personal_area/user-service'])?>" class="goods">УСЛУГИ</a></li>
         <!--<li><a href="#" class="notice">Уведомления <span>89</span></a></li>-->
     </ul>
 
