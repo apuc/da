@@ -62,7 +62,7 @@ use common\models\db\ProductMark;
 
             <div class="category-photo">
                 <?php if (!empty($hitProduct->product['cover'])): ?>
-                    <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($hitProduct->product['cover']); ?>"
+                    <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($hitProduct->product['cover']); ?>">
                 <?php else: ?>
 
                     <?php if (!empty($hitProduct->product['images'][0]->img)): ?>
@@ -70,7 +70,7 @@ use common\models\db\ProductMark;
                     <?php elseif(!empty($hitProduct->product['images'][0]->img_thumb)):?>
                         <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($hitProduct->product['images'][0]->img_thumb); ?>">
                     <?php else: ?>
-                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($hitProduct->product['cover']); ?>"
+                        <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($hitProduct->product['cover']); ?>">
                     <?php endif; ?>
 
                 <?php endif; ?>

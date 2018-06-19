@@ -224,17 +224,17 @@ class ServiceController extends Controller
             }
         }
         if ($model->load(Yii::$app->request->post())) {
-            ServicePeriods::deleteAll(['product_id' => $model->id]);
-            if(ServicePeriods::checkPeriods(Yii::$app->request->post()['Products']['service'])) {
+            if (ServicePeriods::checkPeriods(Yii::$app->request->post()['Products']['service'])) {
+                ServicePeriods::deleteAll(['product_id' => $model->id]);
                 foreach (Yii::$app->request->post()['Products']['service'] as $service) {
-                    if (!empty($service['start']) && !empty($service['end']) && !empty($service['week_days'])) {
-                        $newService = new ServicePeriods();
-                        $newService->product_id = $model->id;
-                        $newService->start = $service['start'];
-                        $newService->end = $service['end'];
-                        $newService->week_days = json_encode($service['week_days']);
-                        $newService->save();
-                    }
+
+                    $newService = new ServicePeriods();
+                    $newService->product_id = $model->id;
+                    $newService->start = $service['start'];
+                    $newService->end = $service['end'];
+                    $newService->week_days = json_encode($service['week_days']);
+                    $newService->save();
+
                 }
                 return $this->redirect(['/personal_area/user-service']);
             }
@@ -350,8 +350,8 @@ class ServiceController extends Controller
     public function actionGetPeriodForm()
     {
         $count = Yii::$app->request->post('count');
-        return $this->renderPartial('one_period_form', [
-           'count' => $count
+        return $this->renderAjax('one_period_form', [
+            'count' => $count
         ]);
     }
 

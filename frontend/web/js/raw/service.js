@@ -93,4 +93,7 @@ $(document).ready(function () {
             });
         }
     });
+
+    $(document).on('submit', '#addTimes', function () {
+
 });
