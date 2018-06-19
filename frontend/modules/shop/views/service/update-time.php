@@ -30,7 +30,7 @@ $five = '0|1|2|3|4|5';
     <h1><?= Html::encode($this->title) ?></h1>
     <div class="right">
         <?php $form = ActiveForm::begin([
-            'id' => 'add_ads',
+            'id' => 'add_times',
             'options' =>
                 [
                     'class' => 'content-forma cabinet__add-company-form-product cabinet__add-company-form',

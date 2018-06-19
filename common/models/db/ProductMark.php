@@ -89,7 +89,7 @@ class ProductMark extends \yii\db\ActiveRecord
     {
         return ProductMark::find()
             ->with('product')
-            ->where(['mark'=> $marks])
+            ->where(['mark'=> $marks[0]])
             ->limit($limit)
             ->all();
 

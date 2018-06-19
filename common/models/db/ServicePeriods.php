@@ -2,6 +2,7 @@
 
 namespace common\models\db;
 
+use common\classes\Debug;
 use Yii;
 
 /**
@@ -95,6 +96,8 @@ class ServicePeriods extends \yii\db\ActiveRecord
     public static function checkPeriods($periods){
         $array = [false, false, false, false, false, false, false];
         foreach($periods as $period){
+            if(strripos($period['start'], '_') || strripos($period['end'], '_'))
+                return false;
             foreach ($period['week_days'] as $week_day) {
                 if($week_day === 'Пн' && $array[0] === false)
                     $array[0] = true;
