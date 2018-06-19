@@ -2,6 +2,7 @@
 
 namespace common\models\db;
 
+use common\models\User;
 use Yii;
 
 /**
@@ -12,6 +13,8 @@ use Yii;
  * @property string $end
  * @property string $date
  * @property int $product_id
+ * @property int $user_id
+ *
  * @property Products $product
  */
 class ServiceReservation extends \yii\db\ActiveRecord
@@ -30,9 +33,9 @@ class ServiceReservation extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['start', 'end', 'date', 'product_id'], 'required'],
+            [['start', 'end', 'date', 'product_id', 'user_id'], 'required'],
             [['start', 'end', 'date'], 'safe'],
-            ['product_id', 'integer']
+            [['product_id', 'user_id'], 'integer']
         ];
     }
 
@@ -46,7 +49,8 @@ class ServiceReservation extends \yii\db\ActiveRecord
             'start' => 'Время начала',
             'end' => 'Время окончания',
             'date' => 'Дата',
-            'product_id' => 'Услуга'
+            'product_id' => 'Услуга',
+            'user_id' => 'Покупатель',
         ];
     }
 
