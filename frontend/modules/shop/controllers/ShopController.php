@@ -273,7 +273,7 @@ class ShopController extends Controller
     {
         $id = Yii::$app->request->post('id');
         $user_id = Yii::$app->request->post('user_id');
-        $date = Yii::$app->request->post('date');
+        $date = date('Y-m-d', strtotime(Yii::$app->request->post('date')));
         $time = Yii::$app->request->post('time');
         $time = explode('-', $time);
 
@@ -292,7 +292,6 @@ class ShopController extends Controller
                 ->setTpl('layouts/html')
                 ->setContent('<div>Пользователь ' . $user->username .  ' заказал у вас услугу: ' . $product->title . ' с ' . $time[0] . ' до ' . $time[1] . '.</div>')
                 ->send();
-
             DaMail::createMsg()->setSubject('Заказ ожидает обработки')
                 ->setTo($product->company->email)
                 ->setFrom(['noreply@da-info.pro' => 'DA-Info'])
