@@ -527,5 +527,14 @@ $(document).ready(function () {
         }
     });
 
+    $(document).on('click', '#add-durability', function () {
+        if ($(this).prop('checked')) {
+            $('.edit-durability-form-field').css('display', 'block');
+        } else {
+            $('#products-durability').val('');
+            $('.edit-durability-form-field').css('display', 'none');
+        }
+    });
+
 
 });

@@ -76,10 +76,6 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     ->label('Компания<span>*</span>')
 ?>
 
-<?= $form->field($model, 'durability')->textInput()
-    ->hint('Укажите длительность единоразового оказания услуги в минутах(оставьте поле пустым если ваша услуга не имеет расписания)')
-    ->label('Длительность') ?>
-
 <?= $form->field($model, 'price')->textInput()
     ->hint('Введите цену товара')
     ->label('Цена<span>*</span>')
@@ -179,6 +175,22 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         ]
     )->hint('Добавьте описание акции.<br>')
         ->label('Описание акции');
+    ?>
+</div>
+
+<label class="edit-product-cabinet">
+    <?= Html::checkbox('is_durable', false, ['class' => 'edit-payment', 'id' => 'add-durability']); ?>
+    Услуга имеет распиание
+</label>
+<hr class="lineAddAds"/>
+
+<div class="edit-durability-form-field" style="display: none">
+    <?= $form->field($model, 'durability')->textInput(
+        [
+            'class' => 'area-durability jsHint',
+        ]
+    )->hint('Добавьте длительность оказания услуги.<br>')
+        ->label('Длительность')
     ?>
 </div>
 
