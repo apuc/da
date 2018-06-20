@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use \yii\widgets\MaskedInput;
-
+use \common\models\User;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\db\ServiceReservation */
@@ -31,6 +31,8 @@ use \yii\widgets\MaskedInput;
     <?= $form->field($model, 'date')->widget(MaskedInput::className(), [
         'mask' => '9999-99-99',
     ])?>
+
+    <?= $form->field($model, 'user_id')->dropDownList(\yii\helpers\ArrayHelper::map(User::find()->all(), 'id', 'username'))?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

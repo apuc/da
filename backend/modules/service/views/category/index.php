@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use \common\models\db\CategoryShop;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\service\models\CategoryShopSearch */
@@ -28,8 +29,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'slug',
-            'parent_id',
-            'icon',
+            [
+                'attribute' => 'parent_id',
+                'value' => function($model){
+                    $parent = CategoryShop::findOne($model->parent_id);
+                    return $parent ? $parent->name : 'Нет';
+                }
+            ],
+            [
+                'attribute' => 'icon',
+                'format' => 'html',
+                'value' => function($model){
+                    return '<img src = "' . $model->icon . '" width = "100px">';
+                }
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
