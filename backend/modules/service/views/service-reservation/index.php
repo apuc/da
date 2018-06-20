@@ -29,7 +29,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'start',
             'end',
             'date',
-            'product.title',
+            [
+                'attribute' => 'product.title',
+                'label' => 'Услуга'
+            ],
+            [
+                'attribute' => 'user_id',
+                'label' => 'Пользователь',
+                'value' => function($model){
+                    return \common\models\User::findOne($model->user_id)->username;
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

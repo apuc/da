@@ -98,7 +98,7 @@ class CategoryController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        $category = CategoryProduct::find()->where(['type' => CategoryProduct::TYPE_SERVICE])->all();
+        $category = CategoryProduct::find()->where(['type' => CategoryProduct::TYPE_SERVICE, 'parent_id' => 0])->all();
         return $this->render('update', [
             'model' => $model,
             'category' => $category,
