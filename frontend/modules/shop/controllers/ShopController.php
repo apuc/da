@@ -284,20 +284,20 @@ class ShopController extends Controller
         $reservation->date = $date;
         $reservation->user_id = $user_id;
         if ($reservation->save()) {
-            $product = Products::find()->where(['id' => $id])->with('company')->one();
-            $user = User::find()->where(['id' => $user_id])->one();
-            DaMail::createMsg()->setSubject('Новый заказ')
-                ->setTo($user->email)
-                ->setFrom(['noreply@da-info.pro' => 'DA-Info'])
-                ->setTpl('layouts/html')
-                ->setContent('<div>Пользователь ' . $user->username .  ' заказал у вас услугу: ' . $product->title . ' с ' . $time[0] . ' до ' . $time[1] . '.</div>')
-                ->send();
-            DaMail::createMsg()->setSubject('Заказ ожидает обработки')
-                ->setTo($product->company->email)
-                ->setFrom(['noreply@da-info.pro' => 'DA-Info'])
-                ->setTpl('layouts/html')
-                ->setContent('<div>Вы заказали услугу:' . $product->title . ' с ' . $time[0] . ' до ' . $time[1] . ' у ' . $product->company->name . '.</div>')
-                ->send();
+//            $product = Products::find()->where(['id' => $id])->with('company')->one();
+//            $user = User::find()->where(['id' => $user_id])->one();
+//            DaMail::createMsg()->setSubject('Новый заказ')
+//                ->setTo($user->email)
+//                ->setFrom(['noreply@da-info.pro' => 'DA-Info'])
+//                ->setTpl('layouts/html')
+//                ->setContent('<div>Пользователь ' . $user->username .  ' заказал у вас услугу: ' . $product->title . ' с ' . $time[0] . ' до ' . $time[1] . '.</div>')
+//                ->send();
+//            DaMail::createMsg()->setSubject('Заказ ожидает обработки')
+//                ->setTo($product->company->email)
+//                ->setFrom(['noreply@da-info.pro' => 'DA-Info'])
+//                ->setTpl('layouts/html')
+//                ->setContent('<div>Вы заказали услугу:' . $product->title . ' с ' . $time[0] . ' до ' . $time[1] . ' у ' . $product->company->name . '.</div>')
+//                ->send();
             return 'ok';
         } else
             return 'not';

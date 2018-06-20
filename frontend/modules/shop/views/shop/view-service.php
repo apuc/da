@@ -21,9 +21,7 @@ $this->registerCssFile('/css/star-rating.min.css');
 
 $this->params['breadcrumbs'][] = ['label' => 'Все категории', 'url' => Url::to(['/shop/shop/index'])];
 $categoryList = array_reverse($categoryList);
-//\common\classes\Debug::dd($categoryList);
 $categoryList = ArrayHelper::toArray($categoryList);
-//\common\classes\Debug::dd($categoryList);
 foreach ($categoryList as $key => $item) {
     $url = '';
     if ($key == 1) {
@@ -45,7 +43,6 @@ $this->params['breadcrumbs'][] = $model->title;
 $region = GeobaseFunction::getRegionName($model['company']->region_id);
 
 $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
-//\common\classes\Debug::dd($model);
 ?>
 
 <div class="breadcrumbs-wrap">
@@ -78,12 +75,7 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
     <div class="single-shop__info">
         <div class="single-shop__info-header">
             <h2 class="single-shop__product-title"><?= $model->title ?></h2>
-            <!--<a href="#" class="single-shop__payment-method">
-                Способы оплаты
-            </a>
-            <a href="#" class="single-shop__deliver">
-                Склады в ДНР
-            </a>-->
+
             <?php
             $rating = 0;
             $summArr = ArrayHelper::getColumn($model['reviews'], 'rating');
@@ -95,90 +87,88 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
             <div class='rating-stars'>
                 <input id="input-2-xs" data-step="0.1" value="<?= $rating; ?>">
 
-
                 <a href="#">
                     <span> <?= round($rating, 2); ?> </span> голоса(ов)
                 </a>
-                <!--<a href="#">
-                    199 заказа(ов)
-                </a>-->
+
             </div>
         </div>
         <div class="single-shop__info-content">
             <?= $this->render('_price', ['model' => $model]); ?>
-            <div class="single-shop__info-item">
-                <div>Бронирование</div>
-                <div>
-                    <div class="single-shop__info-content--counter">
-                        <?= \yii\jui\DatePicker::widget(['attribute' => 'from_date',
-                            'language' => 'ru',
-                            'dateFormat' => 'php:d-m-YY',
-                            'options' => [
-                                'class' => 'reservation_date',
-                                'data-id' => $model->id,
-                                'data-count' => 0,
-                                'data-user-id' => isset(Yii::$app->user->id) ? Yii::$app->user->id : 0
-                            ]]) ?>
+            <?php if ($model->durability != 0): ?>
+                <div class="single-shop__info-item">
+                    <div>Бронирование</div>
+                    <div>
+                        <div class="single-shop__info-content--counter">
+                            <?= \yii\jui\DatePicker::widget(['attribute' => 'from_date',
+                                'language' => 'ru',
+                                'dateFormat' => 'php:d-m-YY',
+                                'options' => [
+                                    'class' => 'reservation_date',
+                                    'data-id' => $model->id,
+                                    'data-count' => 0,
+                                    'data-user-id' => isset(Yii::$app->user->id) ? Yii::$app->user->id : 0
+                                ]
+                            ]) ?>
+                        </div>
                     </div>
-                </div>
 
-            </div>
+                </div>
+            <?php endif ?>
             <div class="single-shop__info-item service-blocks">
                 <div class="container-lg-3">
-                    <?php
-                    $period = $model->getServicePeriodByWeekDay(ServicePeriods::getWeekDayLabel()[date("w", time())]);
-                    $dayDuration = $period->getDayDuration();
-                    $Duration = $model->durability;
-                    $count = $dayDuration / $Duration; ?>
-                    <div class='container-lg-3'>
-                        <?php for ($i = 0; $i < $count; $i++): ?>
-                            <?php if ($period->checkReservation($i, $Duration, time(), $model->id)): ?>
-                                <button data-id="<?= $i ?>"
-                                        class="btn btn-warning service-reserve"><?= $period->getButtonLabel($i, $Duration) ?></button>
-                            <?php else: ?>
-                                <button data-id="<?= $i ?>"
-                                        class="btn btn-info service-reserve"><?= $period->getButtonLabel($i, $Duration) ?></button>
-                            <?php endif ?>
-                        <?php endfor ?>
-                    </div>
+                    <?php if ($model->durability === 0): ?>
+                        <div class='container-lg-3'></div>
+
+                    <?php elseif ($period = $model->getServicePeriodByWeekDay(ServicePeriods::getWeekDayLabel()[date("w", time())])): ?>
+                        <?php
+                        $dayDuration = $period->getDayDuration();
+                        $Duration = $model->durability;
+                        $count = $dayDuration / $Duration; ?>
+                        <div class='container-lg-3'>
+                            <?php for ($i = 0; $i < $count; $i++): ?>
+                                <?php if ($period->checkReservation($i, $Duration, time(), $model->id)): ?>
+                                    <button data-id="<?= $i ?>"
+                                            class="btn btn-warning service-reserve"><?= $period->getButtonLabel($i, $Duration) ?></button>
+                                <?php else: ?>
+                                    <button data-id="<?= $i ?>"
+                                            class="btn btn-info service-reserve"><?= $period->getButtonLabel($i, $Duration) ?></button>
+                                <?php endif ?>
+                            <?php endfor ?>
+                        </div>
+                    <?php else: ?>
+                        <div class='container-lg-3'>В этот день услуга не предоставляется, но вы можете выбрать другой
+                            день.
+                        </div>
+                    <?php endif ?>
                 </div>
             </div>
+            <?php if ($model->durability != 0): ?>
             <div class="single-shop__info-item">
                 <div>Общая стоимость</div>
                 <div>
                     <span class="total-cost">
                        0руб. / 0 шт.
                 </div>
-                <div class="single-shop__info-item" id = "error_message"></div>
+                <div class="single-shop__info-item" id="error_message"></div>
             </div>
             <div class="single-shop__info-item">
-                <!--<a href="#" class="button-buy">Купить сейчас</a>-->
+
                 <button class="button-basket reserve-service" data-id="<?= $model->id; ?>">
                     Зарезервировать
                 </button>
-                <!--<a href="#" class="promotion-seller">
-                    <span>Акция продавца</span>
-                    Получить купон продавца
-                </a>-->
+
             </div>
+            <?php endif ?>
         </div>
         <div class="single-shop__info-footer">
-            <!-- <div class="all-actions__company">
-                <div class="all-actions__company--img">
-                    <img src="<? /*= $model['company']->photo */ ?>" alt="">
-                </div>
-                <h3 class="all-actions__company--title"><? /*= $model['company']->name */ ?></h3>-->
             <?php
-            //\common\classes\Debug::dd($model['company']->region_id);
             if ($model['company']->region_id != 0) {
                 $address = $region . ', ' . GeobaseFunction::getCityName($model['company']->city_id) . ', ' . $model['company']->address;
             } else {
                 $address = $model['company']->address;
             }
             ?>
-            <!-- <div class="all-actions__company--addres"><? /*= $address */ ?></div>
-            </div>-->
-
             <a href="#" class="single-shop__desires add-product-like <?= !$like ?: 'active' ?>"
                data-id="<?= $model->id; ?>">Добавить в мои желания</a>
         </div>
@@ -196,56 +186,9 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
                 <div class="all-actions__company--addres"><?= $address ?></div>
             </a>
         </div>
-        <!--<div class="company-rating">
-            <p> Рейтинг компании <span>5.0</span></p>
-            <a href="#">
-                Посмотреть статистику компании
-            </a>
-        </div>-->
         <a href="<?= \yii\helpers\Url::to(['/company/company/view', 'slug' => $model['company']->slug]) ?>"
            class="company-page-btn">Перейти на страницу компании</a>
     </div>
-    <!--<div class="single-shop__buy-history">
-        <h4 class="single-shop__store-info--title">История покупок</h4>
-
-
-        <div class="single-shop__buy-history-wrap">
-            <div>
-                <span class="title">Покупатель</span>
-            </div>
-            <div>
-                <span class="title">Дата покупки</span>
-            </div>
-            <div>
-                <span class="price">p****</span>
-                <span class="value">RU</span>
-            </div>
-            <div>
-                <span class="amount">количество 2 шт.</span>
-                <span class="date">23 января 2018</span>
-            </div>
-
-            <div>
-                <span class="price">p****</span>
-                <span class="value">RU</span>
-            </div>
-            <div>
-                <span class="amount">количество 2 шт.</span>
-                <span class="date">23 января 2018</span>
-            </div>
-
-            <div>
-                <span class="price">p****</span>
-                <span class="value">RU</span>
-            </div>
-            <div>
-                <span class="amount">количество 2 шт.</span>
-                <span class="date">23 января 2018</span>
-            </div>
-
-        </div>
-    </div>-->
-    <!--<a href="#" class="call-center">Круглосуточный колл-центр</a>-->
 </div>
 <div class="single-shop__main-content">
     <div class="single-shop__tabs">
@@ -271,10 +214,7 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
                     <div class="single-shop__description-img">
                         <?php if (!empty($model['images'][0]->img)): ?>
                             <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($model['images'][0]->img); ?>">
-                            <?php /*else:*/ ?><!--
-                            <img src="<? /*= \common\models\UploadPhoto::getImageOrNoImage( $model->cover); */ ?>" alt="<? /*= $model->title; */ ?>">-->
                         <?php endif; ?>
-                        <!--<img src="/<? /*= $model['images'][0]->img */ ?>" alt="Описание">-->
                     </div>
                     <div class="single-shop__description">
                         <?= $model->description; ?>
@@ -338,39 +278,27 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
     <div class="social-wrapper-shop">
 
         <a href="#" target="_blank" class="social-wrap__item vk">
-
             <img src="/theme/portal-donbassa/img/soc/vk.png" alt="vk">
-            <!-- <span>03</span>-->
         </a>
 
         <a href="#" target="_blank" class="social-wrap__item fb">
-
             <img src="/theme/portal-donbassa/img/soc/fb.png" alt="fb">
-            <!-- <span>12</span>-->
         </a>
 
         <a href="#" target="_blank" class="social-wrap__item ok">
-
             <img src="/theme/portal-donbassa/img/soc/ok-icon.png" alt="ok">
-            <!-- <span>05</span>-->
         </a>
 
         <a href="#" target="_blank" class="social-wrap__item insta">
-
             <img src="/theme/portal-donbassa/img/soc/insta-icon.png" alt="instagramm">
-            <!-- <span>63</span>-->
         </a>
 
         <a href="#" target="_blank" class="social-wrap__item google">
-
             <img src="/theme/portal-donbassa/img/soc/google-icon.png" alt="google">
-            <!--<span>36</span>-->
         </a>
 
         <a href="#" target="_blank" class="social-wrap__item twitter">
-
             <img src="/theme/portal-donbassa/img/soc/twi-icon.png" alt="twitter">
-            <!--<span>11</span>-->
         </a>
 
     </div>

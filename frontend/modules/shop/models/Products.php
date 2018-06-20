@@ -403,6 +403,7 @@ class Products extends \common\models\db\Products
                 if(in_array($week_day, $tmp))
                     return $service;
             }
+            return false;
         }
         else return false;
     }

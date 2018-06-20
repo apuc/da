@@ -24,6 +24,8 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     $('.service-blocks').html(data);
+                    $('.datepicker').css('left', '-100000px');
+                    $('.reservation_date').blur();
                 }
             });
         }, 100);
@@ -93,7 +95,4 @@ $(document).ready(function () {
             });
         }
     });
-
-    $(document).on('submit', '#addTimes', function () {
-
 });

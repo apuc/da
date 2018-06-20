@@ -77,8 +77,8 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 ?>
 
 <?= $form->field($model, 'durability')->textInput()
-    ->hint('Укажите длительность единоразового оказания услуги в минутах')
-    ->label('Длительность<span>*</span>') ?>
+    ->hint('Укажите длительность единоразового оказания услуги в минутах(оставьте поле пустым если ваша услуга не имеет расписания)')
+    ->label('Длительность') ?>
 
 <?= $form->field($model, 'price')->textInput()
     ->hint('Введите цену товара')

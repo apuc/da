@@ -30,7 +30,8 @@ use common\models\db\ServicePeriods;
                 <?php endfor ?>
             <?php endfor ?>
         </div>
-
+    <?php else: ?>
+        <div class='container-lg-3'>В этот день услуга не предоставляется, но вы можете выбрать другой день.</div>
     <?php endif ?>
 
 </div>

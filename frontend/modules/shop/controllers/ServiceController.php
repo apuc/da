@@ -74,6 +74,10 @@ class ServiceController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post())) {
+            $dur = Yii::$app->request->post('Products')['durability'];
+            if (empty($dur) || $dur < 5) {
+                $model->durability = 0;
+            }
             if ($model->company->verifikation === 1) {
                 $model->status = 1;
             } else {
@@ -280,6 +284,10 @@ class ServiceController extends Controller
             ->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $dur = Yii::$app->request->post('Products')['durability'];
+            if (empty($dur) || $dur < 5) {
+                $model->durability = 0;
+            }
             if (!empty($_POST['productImg'])) {
                 $model->cover = $_POST['productImg'][1];
 

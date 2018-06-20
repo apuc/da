@@ -32,9 +32,9 @@
         <h3>Услуга <span>на модерации</span></h3>
     <?php endif; ?>
 
-
+    <?php if($model['durability'] != 0): ?>
     <a href="<?= \yii\helpers\Url::to(['/shop/service/update-time', 'id' => $model['id']]); ?>" class="cabinet__like-block--company-edit">Изменить время</a>
-
+    <?php endif ?>
     <a href="<?= \yii\helpers\Url::to(['/shop/service/update', 'id' => $model['id']]); ?>" class="cabinet__like-block--company-edit">редактировать</a>
     <a data-method="post" href="<?= \yii\helpers\Url::to(['/shop/products/delete', 'id' => $model['id'], 'page' => Yii::$app->request->get('page')]); ?>" data-confirm="Вы уверены, что хотите удалить этот элемент?" class="cabinet__like-block--company-remove">удалить</a>
 
