@@ -20,6 +20,8 @@ $this->registerMetaTag([
     'name' => 'description',
     'content' => $meta_descr,
 ]);
+
+$this->registerJsFile('/js/raw/currency.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->params['breadcrumbs'][] = ['label' => 'Биржа', 'url' => Url::to(['/finance'])];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
