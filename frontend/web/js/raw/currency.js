@@ -24,13 +24,19 @@ $(document).ready(function () {
             }
         }
         else if (!response.event && response[1] !== 'hb') {
+            var style = 'green';
+            var td;
+            if(parseInt(response[5]) < 0)
+                style = 'red';
             switch (response[0]) {
-                case BTCUSD: $('td:contains("Bitcoin (BTC)")').next().html(response[3]); break;
-                case BTCEUR: $('td:contains("Bitcoin (BTC)")').next().next().html(response[3]); break;
-                case LTCUSD: $('td:contains("Litecoin (LTC)")').next().html(response[3]); break;
-                case ETHUSD: $('td:contains("Ethereum (ETH)")').next().html(response[3]); break;
-                case ETHEUR: $('td:contains("Ethereum (ETH)")').next().next().html(response[3]); break;
+                case BTCUSD: td = $('td:contains("Bitcoin (BTC)")').next(); break;
+                case BTCEUR: td = $('td:contains("Bitcoin (BTC)")').next().next(); break;
+                case LTCUSD: td = $('td:contains("Litecoin (LTC)")').next(); break;
+                case ETHUSD: td = $('td:contains("Ethereum (ETH)")').next(); break;
+                case ETHEUR: td = $('td:contains("Ethereum (ETH)")').next().next(); break;
             }
+            td.css('color', style);
+            td.html(response[3]);
         }
     };
 });

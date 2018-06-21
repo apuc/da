@@ -74,6 +74,9 @@ return \yii\helpers\ArrayHelper::merge([
         'journal' => [
             'class' => 'frontend\modules\journal\Journal',
         ],
+        'amp' => [
+            'class' => 'frontend\modules\amp\Amp',
+        ],
     ],
     'components' => [
         'cart' => [
