@@ -225,6 +225,7 @@ return \yii\helpers\ArrayHelper::merge([
                 'all-new' => 'news/news',
                 'news/create' => 'news/news/create',
                 'news' => 'news/default',
+                'all-news' => 'news/news/redirect',
                 'all-news/<page:\d+>/<per-page:\d+>' => 'news/news/redirect',
                 'news/<slug>' => 'news/default/view',
                 'news/category/<slug>' => 'news/news/category',
