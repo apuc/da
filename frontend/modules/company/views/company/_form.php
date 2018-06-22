@@ -140,7 +140,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     ->label('О компании');
 ?>
 
-
+<br/>
 <?= $form->field($model, 'delivery')
     ->textarea([
         'class' => 'cabinet__add-company-form--text jsHint',
@@ -149,8 +149,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         оставьте поле пустым.')
     ->label('Доставка');
 ?>
-
-
+    <br/>
 <?= $form->field($model, 'payment')
     ->textarea([
         'class' => 'cabinet__add-company-form--text jsHint',
