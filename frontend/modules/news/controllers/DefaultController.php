@@ -146,6 +146,100 @@ class DefaultController extends Controller
         ]);
     }
 
+
+    public function actionViewAmp()
+    {
+        $useReg = UserFunction::getRegionUser();
+        $request = Yii::$app->request->get();
+
+        $new = \frontend\modules\news\models\News::find()
+            ->where(['`news`.`slug`' => $request['slug']])
+            ->one();
+
+        if (empty($new)) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+        if(UserFunction::getPermissionUser() == false){
+            if($new['status'] != '0'){
+                throw new NotFoundHttpException('The requested page does not exist.');
+            }
+        }
+
+
+        $countComments = Comments::find()
+            ->where([
+                'post_id' => $new->id,
+                'post_type' => 'news',
+                'published' => 1
+            ])
+            ->count();
+
+        $likes = Likes::find()
+            ->where(['post_id' => $new->id, 'post_type' => 'news'])
+            ->count();
+
+        $currentUserId = Yii::$app->user->id;
+
+        if (!empty($currentUserId)) {
+            $thisUserLike = Likes::find()
+                ->where(['post_id' => $new->id, 'post_type' => 'news', 'user_id' => $currentUserId])
+                ->count();
+        } else {
+            $thisUserLike = false;
+        }
+        $new->updateAllCounters(['views' => 1], ['id' => $new->id]);
+
+        if (!empty(Yii::$app->request->post()['category'])) {
+            $category = CategoryNews::findOne(Yii::$app->request->post()['category']);
+        } else {
+            $category = CategoryNewsRelations::find()
+                ->where(['new_id' => $new->id])
+                ->orderBy('RAND()')
+                ->limit(1)
+                ->with('cat')
+                ->one();
+            if (!empty($category->cat)) {
+                $category = $category->cat;
+            }
+        }
+
+        //for share
+
+        $new_title = strip_tags($new->title);
+        $new_title = preg_replace("/\s{2,}/", " ", $new_title);
+        $new_title = str_replace('"', "&quot;", $new_title);
+
+        $count_symbols = 400 - 48 - 100 - strlen($new_title);
+        $new_content = strip_tags($new->content);
+        $new_content = preg_replace("/\s{2,}/", " ", $new_content);
+
+        $new_content = mb_substr($new_content, 0, $count_symbols) . '...';
+
+        $readTheSameQuery = News::find()
+            ->joinWith('categoryNewsRelations')
+            ->where([
+                '`category_news_relations`.`cat_id`' => $category->id,
+                'status' => 0,
+                'exclude_popular' => 0
+            ]);
+        if($useReg != -1){
+            $readTheSameQuery->andWhere("(`region_id` IS NULL OR `region_id`=$useReg)");
+
+        }
+
+        return $this->renderPartial('view-amp', [
+            'model' => $new,
+            'likes' => $likes,
+            'category' => $category,
+            'countComments' => $countComments,
+            'newTitle' => $new_title,
+            'newContent' => $new_content,
+            'useReg' => $useReg,
+        ]);
+    }
+
+
+
     public function actionSet_dt_public()
     {
         $news = News::find()->where(['dt_public' => null])->all();
