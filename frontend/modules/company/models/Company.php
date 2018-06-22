@@ -124,6 +124,7 @@ class Company extends \common\models\db\Company
                     'slug' => $this->slug,
                     'products' => $products,
                     'categories' => $categories,
+                    'slider_photo' => $this->sliderPhoto
                 ];
                 break;
             case 'service':

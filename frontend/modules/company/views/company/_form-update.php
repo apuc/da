@@ -23,7 +23,7 @@ use common\classes\Debug;
  * @var array $socials
  * @var \common\models\db\Phones $phone
  * */
-echo '<script>var photoCount = 0;</script>';
+echo '<script>var photoCount = ' . count($model->sliderPhoto) . ';</script>';
 
 $this->registerCssFile('/css/board.min.css');
 //$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
@@ -269,39 +269,58 @@ if (isset($services['count_text'])) {
     ->hint('Введите информацию о возможных способах оплаты в вашей компании')
     ->label('Оплаты');
 ?>
-<br/>
+    <br/>
 
 <?= $form->field($model, 'slider')->checkbox(['class' => 'checkbox-wrap', 'id' => 'slider_checkbox']); ?>
 
 
-<div class="cabinet__add-company-img-block form-line" id = "slider_images" style = "display: <?= $model->slider == 0 ? 'none' : 'block'?>;">
-    <h2>Фотографии для слайдера</h2>
+    <div class="cabinet__add-company-img-block form-line" id="slider_images"
+         style="display: <?= $model->slider == 0 ? 'none' : 'block' ?>;">
+        <h2>Фотографии для слайдера</h2>
 
-    <p class="cabinet__add-company-form--count">количество загружаемых файлов<span class="col">
+        <p class="cabinet__add-company-form--count">количество загружаемых файлов<span class="col">
     <span id="itemsCountBox">5</span> из <span id="maxCountBox">10</span></span>
-        <span></span></p>
-    <input type="file" id="fileInput" style="display: none" multiple>
-    <div class="cabinet__add-company-form--drop" id="dropArea">
-        <img src="/img/icons/cloud.png" alt="">
-        <p>Перетащите сюда файлы, чтобы прикрепить их как документ</p>
-    </div>
+            <span></span></p>
+        <input type="file" id="fileInput" style="display: none" multiple>
+        <div class="cabinet__add-company-form--drop" id="dropArea">
+            <img src="/img/icons/cloud.png" alt="">
+            <p>Перетащите сюда файлы, чтобы прикрепить их как документ</p>
+        </div>
 
-    <input type="button" class="cabinet__add-company-form--submit" id="btnSel" value="Добавить">
+        <input type="button" class="cabinet__add-company-form--submit" id="btnSel" value="Добавить">
 
-    <div class="cabinet__add-company-form--images" id="cabinet__add-company-form--images">
-        <div class="cabinet__add-company-form--img">
-            <div class="cabinet__add-company-form--img-wrapper">
+        <div class="cabinet__add-company-form--images" id="cabinet__add-company-form--images">
+            <div class="cabinet__add-company-form--img">
+                <div class="cabinet__add-company-form--img-wrapper">
 
+                </div>
+                <p class="cabinet__add-company-form--img-name"><span class="arrow-up"><img src="/img/icons/Rectangl.png"
+                                                                                           alt=""></span><span
+                            class="img-name"></span></p>
+                <input type="hidden" name="sliderImg[]" class="productImg">
+                <input type="hidden" name="sliderImgThumb[]" class="productImgThumb">
+                <progress class="progressBar" value="0" max="100"></progress>
             </div>
-            <p class="cabinet__add-company-form--img-name"><span class="arrow-up"><img src="/img/icons/Rectangl.png"
-                                                                                       alt=""></span><span
-                        class="img-name"></span></p>
-            <input type="hidden" name="productImg[]" class="productImg">
-            <input type="hidden" name="productImgThumb[]" class="productImgThumb">
-            <progress class="progressBar" value="0" max="100"></progress>
+
+            <?php foreach ($model->sliderPhoto as $image): ?>
+                <div class="cabinet__add-company-form--img">
+                    <div class="cabinet__add-company-form--img-wrapper">
+                        <img src="<?= $image->photo ?>" alt="">
+                    </div>
+                    <p class="cabinet__add-company-form--img-name"><span class="arrow-up"><img
+                                    src="/img/icons/Rectangl.png"
+                                    alt=""></span><span
+                                class="img-name">
+                        <?= basename($image->photo); ?>
+                    </span></p>
+
+                    <input type="hidden" name="sliderImg[]" class="productImg" value="<?= $image->photo ?>">
+                    <input type="hidden" name="sliderImgThumb[]" class="productImgThumb">
+                </div>
+            <?php endforeach ?>
+
         </div>
     </div>
-</div>
 
 
 <?php

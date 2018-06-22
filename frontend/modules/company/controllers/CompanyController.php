@@ -238,6 +238,9 @@ class CompanyController extends Controller
         $model = new Company();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+
+
             $post = Yii::$app->request->post();
 
             $model->status = 1;
@@ -261,6 +264,14 @@ class CompanyController extends Controller
                 $model->photo = '/' . $loc . $_FILES['Company']['name']['photo'];
             }
             $model->save();
+            if($model->slider == 1){
+                foreach(Yii::$app->request->post('sliderImg') as $image){
+                    $newImage = new CompanySliderPhoto();
+                    $newImage->company_id = $model->id;
+                    $newImage->photo = $image;
+                    $newImage->save();
+                }
+            }
 
             $phones = $model->allPhones;
 
@@ -330,13 +341,13 @@ class CompanyController extends Controller
         $socials = $model->getFullAndEmptySocials();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
-            Debug::dd(Yii::$app->request->post());
-
-            foreach($sliderImgs as $image){
-                $newImage = new CompanySliderPhoto();
-                $newImage->company_id = $model->id;
-                $newImage->photo = $image;
-                $newImage->save();
+            if($model->slider == 1){
+                foreach(Yii::$app->request->post('sliderImg') as $image){
+                    $newImage = new CompanySliderPhoto();
+                    $newImage->company_id = $model->id;
+                    $newImage->photo = $image;
+                    $newImage->save();
+                }
             }
 
             $post = Yii::$app->request->post();

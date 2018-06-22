@@ -15,6 +15,13 @@ $this->registerJsFile('/js/raw/company_ajax.js', ['depends' => [\yii\web\JqueryA
 <div id="shop-company" class="business__tab-content--wrapper">
 
     <div class="business__company">
+        <div class="home-content__wrap_slider">
+            <?php foreach ($slider_photo as $photo): ?>
+
+                    <img src="<?= $photo->photo . '?width=600' ?>">
+
+            <?php endforeach; ?>
+        </div>
         <?php
         /**
          * TODO удалить коментированный код 08.06.2018
