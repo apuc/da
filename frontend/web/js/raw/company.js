@@ -67,6 +67,10 @@ $(document).ready(function () {
         $(this).closest('.phones__wrap').remove();
     });
 
+    $(document).on('click', '#slider_checkbox', function () {
+        $('#slider_images').toggle();
+    });
+
     $('#input-1-xs').on('rating:change', function (event, value, caption) {
         $("#companyfeedback-rating").val(value);
     });

@@ -330,6 +330,15 @@ class CompanyController extends Controller
         $socials = $model->getFullAndEmptySocials();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
+            Debug::dd(Yii::$app->request->post());
+
+            foreach($sliderImgs as $image){
+                $newImage = new CompanySliderPhoto();
+                $newImage->company_id = $model->id;
+                $newImage->photo = $image;
+                $newImage->save();
+            }
+
             $post = Yii::$app->request->post();
             $phones = $model->allPhones;
             $post['Phones'] = array_values($post['Phones']);
@@ -339,7 +348,7 @@ class CompanyController extends Controller
                     $phone = new Phones();
                     $phone->company_id = $id;
                     $phone->phone = $post['Phones'][$i];
-                    $phone->messengeresArray = $post['messengeresArray'][$i];
+                    $phone->messengeresArray = isset($post['messengeresArray'][$i]) ? $post['messengeresArray'][$i] : [];
                     $phones[] = $phone;
 
                 }

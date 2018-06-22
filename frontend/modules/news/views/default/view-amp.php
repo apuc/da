@@ -53,6 +53,6 @@ use yii\helpers\Url;
     $alt = !empty($model->alt) ? $model->alt : $model->title;
     ?>
         <amp-img height="200px" width="500px" src="<?= $img; ?>" alt="<?= $alt; ?>" layout="responsive"></amp-img>
-    <p><?= strip_tags($model->content) ?></p>
+    <p><?= nl2br(strip_tags($model->content)) ?></p>
 </body>
 </html>
