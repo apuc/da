@@ -41,7 +41,7 @@ background-color: gray;
 <?php foreach ($news as $new): ?>
     <h1><?= $new->title ?></h1>
 <a href="<?= Url::to(['/news/default/view', 'slug' => $new->slug]); ?>">
-    <amp-img src="<?= $new->photo ?>" alt="$new->title" height="500" width="800"></amp-img>
+    <amp-img src="<?= $new->photo ?>" alt="<?=$new->title?>" height="500" width="800"></amp-img>
 </a>
     <p><?= strip_tags($new->content) ?></p>
 
