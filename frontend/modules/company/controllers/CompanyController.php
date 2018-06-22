@@ -10,6 +10,7 @@ use common\models\db\CategoryCompany;
 use common\models\db\CategoryCompanyRelations;
 use common\models\db\CompanyFeedback;
 use common\models\db\CompanyPhoto;
+use common\models\db\CompanySliderPhoto;
 use common\models\db\KeyValue;
 use common\models\db\Messenger;
 use common\models\db\MessengerPhone;
@@ -237,7 +238,6 @@ class CompanyController extends Controller
         $model = new Company();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-
             $post = Yii::$app->request->post();
 
             $model->status = 1;
@@ -265,7 +265,8 @@ class CompanyController extends Controller
             $phones = $model->allPhones;
 
             $post['Phones'] = array_values($post['Phones']);
-            $post['messengeresArray'] = array_values($post['messengeresArray']);
+            if(isset($post['messengeresArray']))
+                $post['messengeresArray'] = array_values($post['messengeresArray']);
 
             $diff = count($post['Phones']);
             if ($diff > 0) {
@@ -273,9 +274,8 @@ class CompanyController extends Controller
                     $phone = new Phones();
                     $phone->company_id = $model->id;
                     $phone->phone = $post['Phones'][$i]['phone'];
-                    $phone->messengeresArray = $post['messengeresArray'][$i];
+                    $phone->messengeresArray = isset($post['messengeresArray'][$i]) ? $post['messengeresArray'][$i] : [];
                     $phones[] = $phone;
-
                 }
             }
             if (Phones::validateMultiple($phones)) {
@@ -329,6 +329,7 @@ class CompanyController extends Controller
 
         $socials = $model->getFullAndEmptySocials();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
             $post = Yii::$app->request->post();
             $phones = $model->allPhones;
             $post['Phones'] = array_values($post['Phones']);
