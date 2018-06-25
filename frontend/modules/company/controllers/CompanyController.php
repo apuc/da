@@ -264,6 +264,7 @@ class CompanyController extends Controller
                 $model->photo = '/' . $loc . $_FILES['Company']['name']['photo'];
             }
             $model->save();
+            CompanySliderPhoto::deleteAll(['company_id' => $model->id]);
             if($model->slider == 1){
                 foreach(Yii::$app->request->post('sliderImg') as $image){
                     $newImage = new CompanySliderPhoto();
@@ -341,6 +342,7 @@ class CompanyController extends Controller
         $socials = $model->getFullAndEmptySocials();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
+            CompanySliderPhoto::deleteAll(['company_id' => $model->id]);
             if($model->slider == 1){
                 foreach(Yii::$app->request->post('sliderImg') as $image){
                     $newImage = new CompanySliderPhoto();
