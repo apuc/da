@@ -132,3 +132,108 @@ span.feedback_error {
     text-align: center;
     line-height: 25px;
 }
+
+.journal_item{
+    width: 23%;
+    float: left;
+    position: relative;
+    height: 225px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 2px solid transparent;
+    margin:0.5%;
+}
+
+.journal_item .thumb {
+    height: 218px;
+    overflow: hidden;
+}
+
+.journal_item .thumb img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.journal_item .content-row {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+.journal_item .content-row .comments-icon, .news__wrap_item-sm-hot .content-row .view-icon {
+    width: 19px;
+    height: 13px;
+    display: block;
+    background-repeat: no-repeat;
+    -webkit-background-size: contain;
+    background-size: contain;
+    float: left;
+    margin-right: 5px;
+    margin-top: 2px;
+}
+
+.journal_item .hover-wrap h2 {
+    margin: 0;
+    color: #fbfafa;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: left;
+    position: absolute;
+    left: 20px;
+    width: 90%;
+    display: -webkit-box;
+    bottom: 30px;
+    line-height: 1.4;
+    height: 89.6px;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    -webkit-transition: all .4s linear;
+    -o-transition: all .4s linear;
+    transition: all .4s linear;
+}
+
+.journal_item .hover-wrap {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    height: 218px;
+    width: 100%;
+    top: 0;
+    padding: 20px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 4px solid #fff;
+}
+
+.journal_item .content-row span:last-of-type {
+    float: right;
+    text-align: right;
+}
+
+.journal_item:hover .hover-wrap h2 {
+    -webkit-transition: all .4s linear;
+    -o-transition: all .4s linear;
+    transition: all .4s linear;
+    color: #ee2e24;
+}
+
+.journal_item:hover {
+    border: 2px solid #b2b2b2;
+}
+
+@media (max-width: 1024px) {
+    .journal_item {
+        width: 31%;
+        margin: 1.16667%;
+    }
+}
