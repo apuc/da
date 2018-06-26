@@ -63,7 +63,6 @@ class TwPostsController extends Controller
         }
         if(isset(Yii::$app->request->queryParams[1]['page']))
             $dataProvider->setPagination(new Pagination(['page' => Yii::$app->request->queryParams[1]['page'] - 1]));
-        Debug::dd($dataProvider->getModels());
         foreach($dataProvider->getModels() as $model){
             TwPosts::deleteAll(['id' => $model->id]);
         }
