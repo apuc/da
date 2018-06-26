@@ -108,7 +108,7 @@ class CategoryController extends Controller
         $fieldsRel = CategoryFields::find()->where(['category_id' => $id])->all();
 
         $fields = [];
-
+        if($fieldsRel)
         foreach($fieldsRel as $fieldRel){
             $fields[] = ProductFields::find()->where(['id' => $fieldRel['fields_id']])->one();
         }

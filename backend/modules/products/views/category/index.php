@@ -12,7 +12,6 @@ $this->title = 'Категории';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="category-product-index">
-    4234214
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,8 +25,22 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'name',
+            [
+                'attribute' => 'id',
+                'label' => 'Название',
+                'value' => function($model){
+                    return $model->name;
+                },
+                'filter'    => kartik\select2\Select2::widget([
+                    'value' => isset(Yii::$app->request->queryParams['CategoryProductSearch']['id'])? Yii::$app->request->queryParams['CategoryProductSearch']['id']: null,
+                    'name' => 'CategoryProductSearch[id]',
+                    'data' => \yii\helpers\ArrayHelper::map($allCategories,'id', 'name'),
+                    'options' => ['placeholder' => 'Начните вводить...','class' => 'form-control'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ]),
+            ],
             'slug',
             [
                 'attribute' => 'parent_id',
