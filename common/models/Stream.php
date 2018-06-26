@@ -91,7 +91,7 @@ class Stream
         $streamItem->id = $item->id;
         $streamItem->author->name = $item->author->display_name;
         $streamItem->author->photo = $item->author->image;
-        if(isset($item->photos)){
+        if(isset($item->photos[0])){
             $streamItem->photo = $item->photos[0]->url;
             foreach($item->photos as $photo){
                 $streamItem->allPhoto[] = $photo->url;
