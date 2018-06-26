@@ -13,8 +13,12 @@ use yii\widgets\ActiveForm;
  * @var array $categoryCompanyAll
  * @var array $city
  */
+
+echo '<script>var photoCount = 0;</script>';
 $this->registerCssFile('/css/board.min.css');
 //$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/raw/Uploader.js', ['depends' => [\yii\web\JqueryAsset::class]]);
+$this->registerJsFile('/js/raw/img_upload.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 $this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/raw/company.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
@@ -25,7 +29,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         'id' => 'create_company',
         'options' =>
             [
-                'class' => 'content-forma',
+                'class' => 'content-forma cabinet__add-company-form-product cabinet__add-company-form',
                 'enctype' => 'multipart/form-data',
             ],
         'fieldConfig' => [
@@ -140,7 +144,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     ->label('О компании');
 ?>
 
-
+<br/>
 <?= $form->field($model, 'delivery')
     ->textarea([
         'class' => 'cabinet__add-company-form--text jsHint',
@@ -149,8 +153,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         оставьте поле пустым.')
     ->label('Доставка');
 ?>
-
-
+    <br/>
 <?= $form->field($model, 'payment')
     ->textarea([
         'class' => 'cabinet__add-company-form--text jsHint',
@@ -158,7 +161,37 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     ->hint('Введите информацию о возможных способах оплаты в вашей компании')
     ->label('Оплаты');
 ?>
+<?= $form->field($model, 'slider')->checkbox(['class' => 'checkbox-wrap', 'id' => 'slider_checkbox']); ?>
 
+
+    <div class="cabinet__add-company-img-block form-line" id = "slider_images" style = "display: none;">
+        <h2>Фотографии для слайдера</h2>
+
+        <p class="cabinet__add-company-form--count">количество загружаемых файлов<span class="col">
+    <span id="itemsCountBox">5</span> из <span id="maxCountBox">10</span></span>
+            <span></span></p>
+        <input type="file" id="fileInput" style="display: none" multiple>
+        <div class="cabinet__add-company-form--drop" id="dropArea">
+            <img src="/img/icons/cloud.png" alt="">
+            <p>Перетащите сюда файлы, чтобы прикрепить их как документ</p>
+        </div>
+
+        <input type="button" class="cabinet__add-company-form--submit" id="btnSel" value="Добавить">
+
+        <div class="cabinet__add-company-form--images" id="cabinet__add-company-form--images">
+            <div class="cabinet__add-company-form--img">
+                <div class="cabinet__add-company-form--img-wrapper">
+
+                </div>
+                <p class="cabinet__add-company-form--img-name"><span class="arrow-up"><img src="/img/icons/Rectangl.png"
+                                                                                           alt=""></span><span
+                            class="img-name"></span></p>
+                <input type="hidden" name="sliderImg[]" class="productImg">
+                <input type="hidden" name="sliderImgThumb[]" class="productImgThumb">
+                <progress class="progressBar" value="0" max="100"></progress>
+            </div>
+        </div>
+    </div>
 
 <?= Html::submitButton('Сохранить', ['class' => 'cabinet__add-company-form--submit']) ?>
 <?php ActiveForm::end(); ?>

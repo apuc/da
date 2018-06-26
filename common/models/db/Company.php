@@ -32,6 +32,7 @@ use yii\helpers\ArrayHelper;
  * @property integer $city_id
  * @property integer $recommended
  * @property integer $main
+ * @property integer $slider
  * @property integer $verifikation
  * @property string $alt
  * @property string $delivery
@@ -39,6 +40,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property CategoryCompanyRelations[] $categoryCompanyRelations
  * @property News[] $news
+ * @property CompanySliderPhoto[] $sliderPhoto
  */
 class Company extends \yii\db\ActiveRecord
 {
@@ -76,7 +78,7 @@ class Company extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['dt_add', 'dt_update', 'status', 'lang_id', 'views', 'user_id', 'vip', 'tariff_id', 'dt_end_tariff', 'region_id', 'city_id', 'recommended', 'main', 'verifikation','start_page'], 'integer'],
+            [['dt_add', 'dt_update', 'status', 'lang_id', 'views', 'user_id', 'vip', 'tariff_id', 'dt_end_tariff', 'region_id', 'city_id', 'recommended', 'main', 'verifikation','start_page', 'slider'], 'integer'],
             [['descr', 'payment', 'delivery'], 'string'],
             [
                 ['name', 'address', 'email', 'photo', 'slug', 'meta_title', 'meta_descr', 'alt'],
@@ -116,6 +118,7 @@ class Company extends \yii\db\ActiveRecord
             'delivery' => Yii::t('company', 'Delivery'),
             'payment' => Yii::t('company', 'Payment'),
             'start_page' => Yii::t('company', 'Start Page'),
+            'slider' => Yii::t('company', 'Slider'),
         ];
     }
 
@@ -230,6 +233,11 @@ class Company extends \yii\db\ActiveRecord
     public function getCompanyFeedback()
     {
         return $this->hasMany(CompanyFeedback::class, ['company_id' => 'id']);
+    }
+
+    public function getSliderPhoto()
+    {
+        return $this->hasMany(CompanySliderPhoto::className(), ['company_id' => 'id']);
     }
 
     public $start_page_titles = [

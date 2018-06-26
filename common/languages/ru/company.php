@@ -36,4 +36,5 @@ return [
     'Payment' => 'Оплата',
     'Delivery' => 'Доставка',
     'Category' => 'Категория',
+    'Slider' => 'Слайдер',
 ];

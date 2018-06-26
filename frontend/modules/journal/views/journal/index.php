@@ -9,6 +9,7 @@ use yii\helpers\Url;
 use common\classes\WordFunctions;
 $this->title = 'Журналы';
 $this->params['breadcrumbs'][] = 'Журналы';
+$this->registerCssFile('css/raw/site.css');
 ?>
 <section class="news">
     <div class="container">
@@ -25,7 +26,7 @@ $this->params['breadcrumbs'][] = 'Журналы';
                 <a href="<?= Url::to([
                     '/journal/journal/view',
                     'slug' => $journal->slug,
-                ]); ?>" class=" news__wrap_item-sm-hot">
+                ]); ?>" class="journal_item">
                     <div class="thumb">
 
                         <?php if (stristr($journal->photo, 'http')): ?>
