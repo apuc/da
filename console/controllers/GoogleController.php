@@ -26,6 +26,7 @@ class GoogleController extends Controller
     public function actionGetUserPosts($id){
         $result = $this->getUserWall($id);
         $result = json_decode($result);
+        Debug::dd($result);
         foreach($result->items as $item){
             if(!GooglePlusPosts::find()->where(['post_id' => $item->id])->one()) {
                 $post = new GooglePlusPosts();
@@ -66,7 +67,6 @@ class GoogleController extends Controller
             if($attachment->objectType == 'photo'){
                 echo 'photo  ';
                 $photo = new GooglePlusPhoto();
-                $photo->display_name = $attachment->displayName;
                 $photo->google_url = $attachment->url;
                 $photo->url = $attachment->image->url;
                 $photo->full_image_url = $attachment->fullImage->url;

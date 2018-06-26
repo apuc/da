@@ -65,6 +65,8 @@ class DefaultFieldsValueSearch extends DefaultFieldsValue
 
         $query->andFilterWhere(['like', 'value', $this->value]);
 
+        $query->orderBy('id DESC');
+
         return $dataProvider;
     }
 }
