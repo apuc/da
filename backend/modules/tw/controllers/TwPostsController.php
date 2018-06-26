@@ -6,6 +6,7 @@ use common\classes\Debug;
 use Yii;
 use backend\modules\tw\models\TwPosts;
 use backend\modules\tw\models\TwPostsSearch;
+use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -51,7 +52,15 @@ class TwPostsController extends Controller
     public function actionDeletePage()
     {
         $searchModel = new TwPostsSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams[1]);
+
+        if(isset(Yii::$app->request->queryParams[1])){
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams[1]);
+        }
+        else{
+            $dataProvider = new ActiveDataProvider([
+                'query' => TwPosts::find()->orderBy('tw_id DESC')
+            ]);
+        }
         if(isset(Yii::$app->request->queryParams[1]['page']))
             $dataProvider->setPagination(new Pagination(['page' => Yii::$app->request->queryParams[1]['page'] - 1]));
         Debug::dd($dataProvider->getModels());
