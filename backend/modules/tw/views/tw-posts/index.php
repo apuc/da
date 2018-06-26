@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Удалить страницу', ['delete-page', Yii::$app->request->queryParams], ['class' => 'btn btn-danger']) ?>
     </p>
 
     <?= GridView::widget([
@@ -38,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'page_icon',
                 'format' => 'raw',
-                'value' => function($model){
+                'value' => function ($model) {
                     return Html::img($model->page_icon);
                 }
             ],
@@ -46,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'dt_public',
             [
                 'attribute' => 'status',
-                'value' => function($model) {
+                'value' => function ($model) {
                     return $model->statusText;
                 },
                 'filter' => Html::dropDownList(
@@ -61,10 +62,10 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Действия',
                 'format' => 'raw',
-                'value' => function($model) {
-	                return $model->status === \common\models\db\TwPosts::STATUS_MODERATION
-	                    ? Html::a('На публикацию', Url::to(['to-public', 'id' => $model->id]), ['class' => 'btn btn-success'])
-	                    : 'Не доступно';
+                'value' => function ($model) {
+                    return $model->status === \common\models\db\TwPosts::STATUS_MODERATION
+                        ? Html::a('На публикацию', Url::to(['to-public', 'id' => $model->id]), ['class' => 'btn btn-success'])
+                        : 'Не доступно';
                 }
             ],
 

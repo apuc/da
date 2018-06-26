@@ -2,9 +2,11 @@
 
 namespace backend\modules\tw\controllers;
 
+use common\classes\Debug;
 use Yii;
 use backend\modules\tw\models\TwPosts;
 use backend\modules\tw\models\TwPostsSearch;
+use yii\data\Pagination;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -39,10 +41,25 @@ class TwPostsController extends Controller
         $searchModel = new TwPostsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        //Debug::dd(Yii::$app->request->queryParams);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionDeletePage()
+    {
+        $searchModel = new TwPostsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams[1]);
+        if(isset(Yii::$app->request->queryParams[1]['page']))
+            $dataProvider->setPagination(new Pagination(['page' => Yii::$app->request->queryParams[1]['page'] - 1]));
+        Debug::dd($dataProvider->getModels());
+        foreach($dataProvider->getModels() as $model){
+            TwPosts::deleteAll(['id' => $model->id]);
+        }
+
+        return $this->redirect(['index']);
     }
 
     /**
@@ -132,6 +149,8 @@ class TwPostsController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
 
     public function actionToPublic($id)
     {
