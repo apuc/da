@@ -3,7 +3,10 @@
 namespace backend\modules\products\controllers;
 
 use backend\modules\category\Category;
+use backend\modules\products\models\ProductFields;
 use common\classes\Debug;
+use common\models\db\CategoryFields;
+use common\models\db\CategoryShop;
 use Yii;
 use backend\modules\products\models\CategoryProduct;
 use backend\modules\products\models\CategoryProductSearch;
@@ -38,11 +41,13 @@ class CategoryController extends Controller
     public function actionIndex()
     {
         $searchModel = new CategoryProductSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $allCategories = CategoryShop::find()->all();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'allCategories' => $allCategories
         ]);
     }
 
@@ -73,6 +78,9 @@ class CategoryController extends Controller
         }
 
         $category = CategoryProduct::find()->all();
+
+
+
         return $this->render('create', [
             'model' => $model,
             'category' => $category,
@@ -96,9 +104,21 @@ class CategoryController extends Controller
             return $this->redirect(['index']);
         }
         $category = CategoryProduct::find()->where(['!=', 'id', $id])->all();
+
+        $fieldsRel = CategoryFields::find()->where(['category_id' => $id])->all();
+
+        $fields = [];
+
+        foreach($fieldsRel as $fieldRel){
+            $fields[] = ProductFields::find()->where(['id' => $fieldRel['fields_id']])->one();
+        }
+
+
+
         return $this->render('update', [
             'model' => $model,
             'category' => $category,
+            'fields' => $fields
         ]);
     }
 

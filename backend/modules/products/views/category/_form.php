@@ -19,8 +19,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'parent_id')->widget(Select2::className(),
         [
-            'data' => \yii\helpers\ArrayHelper::map($category,'id', 'name'),
-            'options' => ['placeholder' => 'Начните вводить...','class' => 'form-control'],
+            'data' => \yii\helpers\ArrayHelper::map($category, 'id', 'name'),
+            'options' => ['placeholder' => 'Начните вводить...', 'class' => 'form-control'],
             'pluginOptions' => [
                 'allowClear' => true
             ],
@@ -51,6 +51,13 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'meta_description')->textInput(['maxlength' => true]) ?>
+
+    <?php if (isset($fields)): ?>
+        <h4><strong>Дополнительные поля:</strong></h4>
+        <?php foreach ($fields as $field): ?>
+            <p><a href="/secure/products/fields/update?id=<?= $field->id ?>"><?= $field->label ?></a></p>
+        <?php endforeach ?>
+    <?php endif ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
