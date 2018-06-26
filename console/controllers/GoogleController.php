@@ -38,7 +38,11 @@ class GoogleController extends Controller
                 $post->views = 0;
                 $post->status = 2;
                 $post->save();
-                self::savePhotos($item->object->attachments, $post->id);
+                echo "    SAVE PHOTOS    ";
+                if(isset($item->object->attachments[0])) {
+                    echo "     NO ATTACHMENTS    \n";
+                    self::savePhotos($item->object->attachments, $post->id);
+                }
             }
         }
     }
