@@ -39,7 +39,7 @@
 
 .modalImgEditBox {
     width: 600px;
-    max-height: 375px;
+    height: 375px;
     margin: 0 auto;
     position: relative;
     overflow-y: auto;
@@ -47,7 +47,7 @@
 }
 
 .modalImgEditBox img {
-    width: 100%;
+    width: calc(100% - 4px);
 }
 
 .dnd {
