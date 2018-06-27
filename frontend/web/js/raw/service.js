@@ -34,7 +34,9 @@ $(document).ready(function () {
     $(document).on('click', '.service-reserve', function () {
         var info = $('.reservation_date');
         var id = info.attr('data-id');
+        var date = info.val();
         var count = parseInt(info.attr('data-count'));
+        var text = $(this).html();
         if ($(this).hasClass('btn-info')) {
             $(this).removeClass('btn-info');
             $(this).addClass('btn-success');
@@ -46,6 +48,20 @@ $(document).ready(function () {
             count--;
         }
         info.attr('data-count', count);
+        if ($(this).hasClass('btn-success'))
+        $.ajax({
+            type: 'POST',
+            url: "/shop/shop/get-person-count",
+            data: {
+                text: text,
+                date: date,
+                product_id: id
+            },
+            success: function (data) {
+
+                $('.person_count_block').html(data);
+            }
+        });
         $.ajax({
             type: 'POST',
             url: "/shop/cart/price-count",
@@ -83,9 +99,16 @@ $(document).ready(function () {
                             time: $(this).html(),
                             user_id: user_id
                         },
-                        success: function () {
-                            button.removeClass('btn-success');
-                            button.addClass('btn-warning');
+                        success: function (data) {
+                            if(data === 'full') {
+                                button.removeClass('btn-success');
+                                button.addClass('btn-warning');
+                            } else {
+                                button.removeClass('btn-success');
+                                button.addClass('btn-info');
+                            }
+                            $('#error_message').html("Периоды забронированы");
+                            $('.person_count_block').html('');
                         },
                         error: function () {
                             $('#error_message').html("Ошибка");

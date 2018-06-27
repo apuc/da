@@ -345,6 +345,7 @@ return \yii\helpers\ArrayHelper::merge([
                 'shop/service/show-category' => 'shop/service/show-category',
                 'shop/search' => 'shop/shop/search',
                 'shop/shop/get-period' => 'shop/shop/get-period',
+                'shop/shop/get-person-count' => 'shop/shop/get-person-count',
                 'shop/shop/add-reservation' => 'shop/shop/add-reservation',
 
 

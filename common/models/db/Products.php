@@ -28,6 +28,7 @@ use Yii;
  * @property integer $stock
  * @property integer $type
  * @property integer $durability
+ * @property integer $person_count
  *
  * @property ServicePeriods[] $service
  * @property LikeProducts[] $likeProducts
@@ -79,7 +80,8 @@ class Products extends \yii\db\ActiveRecord
                     'hit',
                     'stock',
                     'type',
-                    'durability'
+                    'durability',
+                    'person_count'
                 ],
                 'integer',
             ],

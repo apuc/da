@@ -206,18 +206,19 @@ if (!empty($model->payment || $model->delivery)) {
 </div>
 
 <label class="edit-product-cabinet">
-    <?= Html::checkbox('is_durable', $model->durability > 4 , ['class' => 'edit-payment', 'id' => 'add-durability']); ?>
+    <?= Html::checkbox('is_durable', $model->durability > 0 , ['class' => 'edit-payment', 'id' => 'add-durability']); ?>
     Услуга имеет распиание
 </label>
 <hr class="lineAddAds"/>
 
-<div class="edit-durability-form-field" style="<?=$model->durability > 4 ? 'display:block' : 'display: none'?>">
-    <?= $form->field($model, 'durability')->textInput(
-        [
-            'class' => 'area-durability jsHint',
-        ]
-    )->hint('Добавьте длительность оказания услуги.<br>')
+<div class="edit-durability-form-field" style="<?=$model->durability > 0 ? 'display:block' : 'display: none'?>">
+    <?= $form->field($model, 'durability')->textInput()
+        ->hint('Добавьте длительность оказания услуги.<br>')
         ->label('Длительность')
+    ?>
+    <?= $form->field($model, 'person_count')->textInput()
+        ->hint('Введите количество людей, которых вы можете принять за это время.<br>')
+        ->label('Количество людей')
     ?>
 </div>
 
