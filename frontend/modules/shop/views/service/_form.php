@@ -186,12 +186,12 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
 <div class="edit-durability-form-field" style="display: none">
     <?= $form->field($model, 'durability')->textInput()
-        ->hint('Добавьте длительность оказания услуги.<br>')
+        ->hint('Введите длительность оказания услуги.<br>')
         ->label('Длительность')
     ?>
     <?= $form->field($model, 'person_count')->textInput()
-        ->hint('Введите количество людей, которых вы можете принять за это время.<br>')
-        ->label('Количество людей')
+        ->hint('Введите количество мест на 1 период оказания услуги.<br>')
+        ->label('Количество мест')
     ?>
 </div>
 
