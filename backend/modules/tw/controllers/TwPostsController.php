@@ -2,6 +2,7 @@
 
 namespace backend\modules\tw\controllers;
 
+use backend\modules\tw\Tw;
 use common\classes\Debug;
 use Yii;
 use backend\modules\tw\models\TwPosts;
@@ -168,4 +169,18 @@ class TwPostsController extends Controller
         Yii::$app->session->setFlash('success', 'Пост добавлен в раздел "На публикацию"');
         return $this->redirect('index');
     }
+
+    public function actionDeleteAll(){
+        TwPosts::deleteAll();
+        return $this->redirect('index');
+    }
+
+    public function actionDeleteIndexes()
+    {
+        foreach(Yii::$app->request->post('numbers') as $id)
+            if($model = TwPosts::findOne($id))
+                $model->delete();
+        return 'ok';
+    }
+
 }

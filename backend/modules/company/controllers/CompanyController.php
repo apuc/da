@@ -349,7 +349,7 @@ class CompanyController extends Controller
             'sub_categ',
             null,
             ArrayHelper::map(CategoryCompany::find()->where(['parent_id' => $id])->all(), 'id', 'title'),
-            ['class' => 'form-control', 'id' => 'sub_categ_company']
+            ['class' => 'form-control', 'id' => 'sub_categ_company', 'prompt' => 'Выберите подкатегорию']
         );
     }
 

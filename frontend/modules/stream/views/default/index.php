@@ -94,7 +94,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
 
                                     <?php if (!empty($item->text)): ?>
 
-                                        <p class="parser__element--descr"><?= strip_tags($item->text) ?></p>
+                                        <p class="parser__element--descr" style = "display: block; height: 100%;"><?= $item->text ?></p>
                                         <?php if (mb_strlen($item->text) > 131): ?>
                                             <a href="<?= \yii\helpers\Url::to($itemUrl) ?>" class="parser__element--more">читать далее</a>
                                         <?php endif; ?>

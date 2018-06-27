@@ -26,7 +26,6 @@ class GoogleController extends Controller
     public function actionGetUserPosts($id){
         $result = $this->getUserWall($id);
         $result = json_decode($result);
-        Debug::dd($result);
         foreach($result->items as $item){
             if(!GooglePlusPosts::find()->where(['post_id' => $item->id])->one()) {
                 $post = new GooglePlusPosts();

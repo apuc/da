@@ -92,13 +92,13 @@ class Stream
         $streamItem->author->name = $item->author->display_name;
         $streamItem->author->photo = $item->author->image;
 
-        $streamItem->text = $item->content;
+        $streamItem->text = preg_replace( "#\r?\n#", "<br />",  $item->content );
 
         if(isset($item->photos[0])){
             $streamItem->photo = $item->photos[0]->url;
             foreach($item->photos as $photo){
                 $streamItem->allPhoto[] = $photo->url;
-                $streamItem->text .= ' ' . $photo->display_name;
+                $streamItem->text .= '<br />' . $photo->display_name;
             }
         }
 

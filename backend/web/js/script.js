@@ -96,7 +96,7 @@ $(document).ready(function () {
             url: "/secure/google/posts/set-status",
             data: {'id': id, 'status': status},
             success: function () {
-                if(status == '2') {
+                if (status == '2') {
                     button.html('Опубликовать');
                     button.data('status', 1);
                 }
@@ -119,7 +119,7 @@ $(document).ready(function () {
             url: "/secure/journal/journal/set-status",
             data: {'id': id, 'status': status},
             success: function (data) {
-                if(status == '0') {
+                if (status == '0') {
                     button.html('Опубликовать');
                     button.data('status', 1);
                 }
@@ -253,7 +253,11 @@ $(document).ready(function () {
     });
 
     $(document).on('change', '#sub_categ_company', function () {
-        $('#all_cats').tagsinput('add', {value: $(this).val(), text: $('#sub_categ_company option:selected').text()});
+        if ($(this).val())
+            $('#all_cats').tagsinput('add', {
+                value: $(this).val(),
+                text: $('#sub_categ_company option:selected').text()
+            });
         console.log($('#all_cats').val());
     });
 
@@ -521,6 +525,42 @@ $(document).ready(function () {
         var status = $(this).val();
 
         window.location = "/secure/board/default/index?status-ads=" + status;
+    });
+
+    $(document).on('click', '.delete_all_twiiter', function (e) {
+        if (confirm('Вы уверены что хотите удалить все записи?')) {
+            // Save it!
+        } else {
+            e.preventDefault();
+        }
+    });
+
+    $(document).on('click', '.twitter_posts_table>table>tbody>tr', function () {
+        if($(this).css('background-color') !== 'rgb(255, 160, 122)')
+            $(this).css('background-color', 'rgb(255, 160, 122)');
+        else
+            $(this).css('background-color', '');
+    });
+
+    $(document).on('click', '.delete_chosen_twiiter', function () {
+        var numbers = [];
+        $('.twitter_posts_table>table>tbody>tr').each(function(){
+            if($(this).css('background-color') === 'rgb(255, 160, 122)')
+            numbers.push($(this).attr('data-key'));
+        });
+
+        $.ajax({
+            url: '/secure/tw/tw-posts/delete-indexes',
+            data: {numbers: numbers},
+            type: 'POST',
+            success: function () {
+                $('.twitter_posts_table>table>tbody>tr').each(function(){
+                    if($(this).css('background-color') === 'rgb(255, 160, 122)')
+                        $(this).remove();
+                });
+            }
+        });
+
     });
 
 });
