@@ -2,6 +2,7 @@
 
 namespace backend\modules\tw\controllers;
 
+use backend\modules\tw\Tw;
 use common\classes\Debug;
 use Yii;
 use backend\modules\tw\models\TwPosts;
@@ -63,7 +64,6 @@ class TwPostsController extends Controller
         }
         if(isset(Yii::$app->request->queryParams[1]['page']))
             $dataProvider->setPagination(new Pagination(['page' => Yii::$app->request->queryParams[1]['page'] - 1]));
-        Debug::dd($dataProvider->getModels());
         foreach($dataProvider->getModels() as $model){
             TwPosts::deleteAll(['id' => $model->id]);
         }
@@ -169,4 +169,18 @@ class TwPostsController extends Controller
         Yii::$app->session->setFlash('success', 'Пост добавлен в раздел "На публикацию"');
         return $this->redirect('index');
     }
+
+    public function actionDeleteAll(){
+        TwPosts::deleteAll();
+        return $this->redirect('index');
+    }
+
+    public function actionDeleteIndexes()
+    {
+        foreach(Yii::$app->request->post('numbers') as $id)
+            if($model = TwPosts::findOne($id))
+                $model->delete();
+        return 'ok';
+    }
+
 }
