@@ -26,6 +26,7 @@ class GoogleController extends Controller
     public function actionGetUserPosts($id){
         $result = $this->getUserWall($id);
         $result = json_decode($result);
+        Debug::dd($result);
         foreach($result->items as $item){
             if(!GooglePlusPosts::find()->where(['post_id' => $item->id])->one()) {
                 $post = new GooglePlusPosts();
@@ -38,7 +39,11 @@ class GoogleController extends Controller
                 $post->views = 0;
                 $post->status = 2;
                 $post->save();
-                self::savePhotos($item->object->attachments, $post->id);
+                echo "    SAVE PHOTOS    ";
+                if(isset($item->object->attachments[0])) {
+                    echo "     NO ATTACHMENTS    \n";
+                    self::savePhotos($item->object->attachments, $post->id);
+                }
             }
         }
     }
@@ -62,7 +67,6 @@ class GoogleController extends Controller
             if($attachment->objectType == 'photo'){
                 echo 'photo  ';
                 $photo = new GooglePlusPhoto();
-                $photo->display_name = $attachment->displayName;
                 $photo->google_url = $attachment->url;
                 $photo->url = $attachment->image->url;
                 $photo->full_image_url = $attachment->fullImage->url;

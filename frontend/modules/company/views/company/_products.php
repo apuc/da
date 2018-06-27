@@ -3,10 +3,13 @@
  * @var $products \frontend\modules\shop\models\Products
  * @var $product \frontend\modules\shop\models\Products
  * @var $categories \common\models\db\CategoryCompany
+ * @var $slider_photo[] \common\models\db\CompanySliderPhoto
+ * @var $slider int
  */
 
 use common\classes\Debug;
 use yii\widgets\Pjax;
+
 $this->registerJsFile('/js/raw/company_ajax.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 ?>
@@ -15,6 +18,15 @@ $this->registerJsFile('/js/raw/company_ajax.js', ['depends' => [\yii\web\JqueryA
 <div id="shop-company" class="business__tab-content--wrapper">
 
     <div class="business__company">
+        <?php if ($slider): ?>
+            <div class="home-content__wrap_slider">
+                <?php foreach ($slider_photo as $photo): ?>
+
+                    <img src="<?= $photo->photo . '?width=600' ?>">
+
+                <?php endforeach; ?>
+            </div>
+        <?php endif ?>
         <?php
         /**
          * TODO удалить коментированный код 08.06.2018
@@ -48,9 +60,12 @@ $this->registerJsFile('/js/raw/company_ajax.js', ['depends' => [\yii\web\JqueryA
         <?php if ($categories): ?>
 
             <ul class="shop__main--categories">
-                <li class="<?= !Yii::$app->request->get('category')? 'active' : '' ?>"><a href="<?=\yii\helpers\Url::to(['/company/company/view', 'slug' => $slug, 'place' => 'products'])?>">Все</a></li>
+                <li class="<?= !Yii::$app->request->get('category') ? 'active' : '' ?>"><a
+                            href="<?= \yii\helpers\Url::to(['/company/company/view', 'slug' => $slug, 'place' => 'products']) ?>">Все</a>
+                </li>
                 <?php foreach ($categories as $category) : ?>
-                    <li class="<?= Yii::$app->request->get('category') == $category->id ? 'active' : '' ?>"><a href="?category=<?=$category->id?>"><?= $category->name?></a></li>
+                    <li class="<?= Yii::$app->request->get('category') == $category->id ? 'active' : '' ?>"><a
+                                href="?category=<?= $category->id ?>"><?= $category->name ?></a></li>
                 <?php endforeach; ?>
             </ul>
 

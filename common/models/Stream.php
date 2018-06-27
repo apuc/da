@@ -91,13 +91,17 @@ class Stream
         $streamItem->id = $item->id;
         $streamItem->author->name = $item->author->display_name;
         $streamItem->author->photo = $item->author->image;
-        $streamItem->photo = $item->photos[0]->url;
-        if(isset($item->photos)){
+
+        $streamItem->text = $item->content;
+
+        if(isset($item->photos[0])){
+            $streamItem->photo = $item->photos[0]->url;
             foreach($item->photos as $photo){
                 $streamItem->allPhoto[] = $photo->url;
+                $streamItem->text .= ' ' . $photo->display_name;
             }
         }
-        $streamItem->text = $item->content;
+
         $streamItem->slug = $item->slug;
         $streamItem->views = $item->views;
         $streamItem->comment_status = 1;

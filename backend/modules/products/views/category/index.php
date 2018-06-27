@@ -1,5 +1,6 @@
 <?php
 
+use common\classes\Debug;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -18,17 +19,45 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'name',
+            [
+                'attribute' => 'id',
+                'label' => 'Название',
+                'value' => function($model){
+                    return $model->name;
+                },
+                'filter'    => kartik\select2\Select2::widget([
+                    'value' => isset(Yii::$app->request->queryParams['CategoryProductSearch']['id'])? Yii::$app->request->queryParams['CategoryProductSearch']['id']: null,
+                    'name' => 'CategoryProductSearch[id]',
+                    'data' => \yii\helpers\ArrayHelper::map($allCategories,'id', 'name'),
+                    'options' => ['placeholder' => 'Начните вводить...','class' => 'form-control'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ]),
+            ],
             'slug',
-            'parent_id',
+            [
+                'attribute' => 'parent_id',
+                'value' => function($model){
+                    if($parent = \common\models\db\CategoryShop::findOne($model->parent_id))
+                        return $parent->name;
+                },
+                'filter'    => kartik\select2\Select2::widget([
+                        'value' => isset(Yii::$app->request->queryParams['CategoryProductSearch']['parent_id'])? Yii::$app->request->queryParams['CategoryProductSearch']['parent_id']: null,
+                    'name' => 'CategoryProductSearch[parent_id]',
+                    'data' => \yii\helpers\ArrayHelper::map($allCategories,'id', 'name'),
+                    'options' => ['placeholder' => 'Начните вводить...','class' => 'form-control'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ]),
+            ],
             'icon',
             //'meta_title',
             //'meta_description',

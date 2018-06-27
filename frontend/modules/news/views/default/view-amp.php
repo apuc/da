@@ -50,7 +50,7 @@ use yii\helpers\Url;
     else:
         $img = \common\models\UploadPhoto::getImageOrNoImage($model->photo);
     endif;
-    $alt = !empty($model->alt) ? $model->alt : $model->title;
+    $alt = str_replace('"', '',!empty($model->alt) ? $model->alt : $model->title);
     ?>
         <amp-img height="200px" width="500px" src="<?= $img; ?>" alt="<?= $alt; ?>" layout="responsive"></amp-img>
     <p><?= nl2br(strip_tags($model->content)) ?></p>
