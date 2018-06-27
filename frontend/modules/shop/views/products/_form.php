@@ -11,8 +11,12 @@ use yii\helpers\Html;
 echo '<script>var photoCount = 0;</script>';
 
 $this->registerCssFile('/css/board.min.css');
+$this->registerCssFile('/modal/modal.css');
+$this->registerCssFile('/css/raw/jquery.Jcrop.css');
 //$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/jquery.Jcrop.min.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 $this->registerJsFile('/js/raw/Uploader.js', ['depends' => [\yii\web\JqueryAsset::class]]);
+$this->registerJsFile('/modal/modal.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 $this->registerJsFile('/js/raw/img_upload.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 $this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::class]]);
@@ -105,9 +109,15 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             <div class="cabinet__add-company-form--img-wrapper">
 
             </div>
-            <p class="cabinet__add-company-form--img-name"><span class="arrow-up"><img src="/img/icons/Rectangl.png"
-                                                                                       alt=""></span><span
-                        class="img-name"></span></p>
+            <p class="cabinet__add-company-form--img-name">
+                <span class="arrow-up">
+                    <img src="/img/icons/Rectangl.png" alt="">
+                </span>
+                <span class="arrow-up editImg">
+                    <img src="/img/icons/edit.png" alt="">
+                </span>
+                <span class="img-name"></span>
+            </p>
             <input type="hidden" name="productImg[]" class="productImg">
             <input type="hidden" name="productImgThumb[]" class="productImgThumb">
             <progress class="progressBar" value="0" max="100"></progress>
@@ -197,4 +207,10 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
         </div>
     </div>
+</div>
+
+<div class="myModal" id="editImgModal">
+    <div class="modal-title">Заголовок 1</div>
+    <div class="modal-body"></div>
+    <div class="modal-footer"><input type="button" class="cabinet__add-company-form--submit" id="saveCropImg" value="Сохранить"></div>
 </div>
