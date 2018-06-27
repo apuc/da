@@ -50,13 +50,12 @@ class Folder
 
     public function save($name)
     {
-        if($this->type !== 'img'){
+        if ($this->type !== 'img') {
             if (!copy($this->_file, $this->path . $name)) {
                 $this->error[] = 'Не удалось скопировать ' . $this->_file;
                 return false;
             }
-        }
-        else {
+        } else {
             $this->_fileImg->writeImage($this->path . $name);
         }
         return true;
@@ -64,7 +63,9 @@ class Folder
 
     public function thumbnail($name, $data, $path = null)
     {
-        if($this->type !== 'img') {return $this;}
+        if ($this->type !== 'img') {
+            return $this;
+        }
         $path = $path === null ? $this->path : $path;
         $thumb = new \Imagick($this->_file);
         $thumb->cropThumbnailImage($data['w'], $data['h']);
@@ -76,11 +77,19 @@ class Folder
 
     public function watermark($watermark, $x, $y)
     {
-        if($this->type !== 'img') {return $this;}
+        if ($this->type !== 'img') {
+            return $this;
+        }
         if (is_string($watermark)) {
             $watermark = new \Imagick($watermark);
         }
         $this->_fileImg->compositeImage($watermark, \Imagick::COMPOSITE_ATOP, $x, $y);
+        return $this;
+    }
+
+    public function crop($w, $h, $x, $y)
+    {
+        $this->_fileImg->cropImage($w, $h, $x, $y);
         return $this;
     }
 

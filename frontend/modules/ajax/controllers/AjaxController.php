@@ -273,7 +273,7 @@ class AjaxController extends Controller
         $contact->email = $user->email;
         $contact->content = Yii::$app->request->post('text');
         $contact->type = 'category_request';
-        if($contact->save())
+        if ($contact->save())
             return 'ok';
         else
             return "error";
@@ -281,7 +281,7 @@ class AjaxController extends Controller
 
     public function actionAddPromotionComment()
     {
-        if(Yii::$app->request->isAjax){
+        if (Yii::$app->request->isAjax) {
             $post = Yii::$app->request->post();
             $promo = Stock::findOne($post['promoId']);
             $comment = new Comments();
@@ -291,12 +291,11 @@ class AjaxController extends Controller
             $comment->content = $post['text'];
             $comment->published = 1;
             $comment->dt_add = time();
-            if($comment->save())
+            if ($comment->save())
                 return $promo->slug;
             else
                 return 'error';
-        }
-        else return 'error';
+        } else return 'error';
     }
 
     public function actionAddCategorySelect()
@@ -383,12 +382,12 @@ class AjaxController extends Controller
     public function actionAddReviewsProducts()
     {
         $form_model = new ReviewsForm();
-        if(\Yii::$app->request->isAjax && $form_model->load(\Yii::$app->request->post())){
+        if (\Yii::$app->request->isAjax && $form_model->load(\Yii::$app->request->post())) {
             $form_model->user_id = Yii::$app->user->id;
             $form_model->dt_add = time();
             $form_model->save();
         }
-        return $this->renderPartial('single-review',[
+        return $this->renderPartial('single-review', [
             'item' => $form_model,
         ]);
     }
@@ -396,13 +395,13 @@ class AjaxController extends Controller
     public function actionAddQuestionProducts()
     {
         $form_model = new QuestionForm();
-        if(\Yii::$app->request->isAjax && $form_model->load(\Yii::$app->request->post())){
+        if (\Yii::$app->request->isAjax && $form_model->load(\Yii::$app->request->post())) {
 
             $form_model->user_id = Yii::$app->user->id;
             $form_model->dt_add = time();
             $form_model->save();
         }
-        return $this->renderPartial('single-review',[
+        return $this->renderPartial('single-review', [
             'item' => $form_model,
         ]);
 
@@ -438,7 +437,7 @@ class AjaxController extends Controller
 
     public function actionUploadProductPhoto()
     {
-        $dir = '/media/users/' . Yii::$app->user->id. '/' . date('Y-m-d') . '/';
+        $dir = '/media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/';
         $path = Yii::getAlias('@frontend/web' . $dir);
         $folderThumb = new Folder($path . 'thumb/', 0775);
         $folderThumb->create();
@@ -446,13 +445,31 @@ class AjaxController extends Controller
         $folderImg->create()
             ->file($_FILES['file']['tmp_name'])
             ->watermark(Yii::getAlias('@frontend/web/img/logo.png'), 0, 0)
-            ->thumbnail( $_FILES['file']['name'], ['w' => 426, 'h' => 300], $path . 'thumb/')
+            ->thumbnail($_FILES['file']['name'], ['w' => 426, 'h' => 300], $path . 'thumb/')
             ->save($_FILES['file']['name']);
 
         return json_encode([
             'img' => $dir . $_FILES['file']['name'],
             'img_thumb' => $dir . 'thumb/' . $_FILES['file']['name'],
         ]);
+    }
+
+    public function actionCropImg()
+    {
+        $post = Yii::$app->request->post();
+        $img = Yii::getAlias('@frontend/web' . $post['img']);
+        $time = time();
+
+        list($width, $height, $type, $attr) = getimagesize($img); //определяем размер изображения
+
+        $k = $width / 600; // коэфициент размера
+
+        $dir = '/media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/';
+        $path = Yii::getAlias('@frontend/web' . $dir);
+        $folderImg = new Folder($path, 0775);
+        $folderImg->create()->file($img)->crop($post['w']*$k,$post['h']*$k, $post['x']*$k, $post['y']*$k)->save('crop_' . $time . '_' .$post['imgName']);
+        $post['img'] = $dir . 'crop_' . $time . '_' .$post['imgName'];
+        return json_encode($post);
     }
 
 }

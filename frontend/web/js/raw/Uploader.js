@@ -23,6 +23,7 @@ function Uploader() {
             uploadUrl: null,
             delItem: null,
             uploadItem: null,
+            addClassToImg: null,
             dragNDrop: false,
             dropArea: null,
             directlyUpload: false,
@@ -148,6 +149,9 @@ function Uploader() {
         }
         if (img) {
             var imgEl = document.createElement('img');
+            if(this.options.addClassToImg){
+                imgEl.classList.add(this.options.addClassToImg);
+            }
             imgEl.setAttribute('src', data.file);
             img.appendChild(imgEl);
         }
@@ -172,6 +176,7 @@ function Uploader() {
         this.itemContainer.appendChild(item);
         item.setAttribute('data-id', id);
         data.item = item;
+        data.id = id;
         if(this.options.directlyUpload){
             this.uploadFile(data);
         }
@@ -181,7 +186,21 @@ function Uploader() {
     this.indexItems = function () {
         var items = this.getElement(this.options.itemWrapper, true);
         for (var i = 0; i < items.length; i++) {
+            var id = makeid(8);
+            var data = {};
             var item = items[i];
+            data.item = item;
+            data.item.setAttribute('data-id', id);
+            data.id = id;
+            if(item.querySelector(this.options.itemTitle)){
+                data.title = item.querySelector(this.options.itemTitle).innerHTML;
+            }
+            if(item.querySelector(this.options.itemSize)){
+                data.size =  item.querySelector(this.options.itemSize).innerHTML;
+            }
+            if(data.title){
+                this.allItems.push(data);
+            }
             var del = item.querySelector(this.options.delItem);
             if (del) {
                 del.onclick = function (e) {
