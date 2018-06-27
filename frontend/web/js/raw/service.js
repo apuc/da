@@ -36,7 +36,6 @@ $(document).ready(function () {
         var id = info.attr('data-id');
         var date = info.val();
         var count = parseInt(info.attr('data-count'));
-        var text = $(this).html();
         if ($(this).hasClass('btn-info')) {
             $(this).removeClass('btn-info');
             $(this).addClass('btn-success');
@@ -48,7 +47,12 @@ $(document).ready(function () {
             count--;
         }
         info.attr('data-count', count);
-        if ($(this).hasClass('btn-success'))
+        var text = [];
+        $('.service-reserve').each(function () {
+            if ($(this).hasClass('btn-success')) {
+                text.push($(this).html());
+            }
+        });
         $.ajax({
             type: 'POST',
             url: "/shop/shop/get-person-count",
@@ -58,10 +62,10 @@ $(document).ready(function () {
                 product_id: id
             },
             success: function (data) {
-
                 $('.person_count_block').html(data);
             }
         });
+
         $.ajax({
             type: 'POST',
             url: "/shop/cart/price-count",
@@ -100,7 +104,7 @@ $(document).ready(function () {
                             user_id: user_id
                         },
                         success: function (data) {
-                            if(data === 'full') {
+                            if (data === 'full') {
                                 button.removeClass('btn-success');
                                 button.addClass('btn-warning');
                             } else {
