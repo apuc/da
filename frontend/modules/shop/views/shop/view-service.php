@@ -144,6 +144,8 @@ $this->title = $model->title . ', ' . $model['company']->name . ', ' . $region;
                 </div>
             </div>
             <?php if ($model->durability != 0): ?>
+            <div class="single-shop__info-item person_count_block">
+            </div>
             <div class="single-shop__info-item">
                 <div>Общая стоимость</div>
                 <div>

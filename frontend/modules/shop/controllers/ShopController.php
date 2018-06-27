@@ -269,6 +269,22 @@ class ShopController extends Controller
         ]);
     }
 
+    public function actionGetPersonCount()
+    {
+        $post = Yii::$app->request->post();
+        $times = explode('-', $post['text']);
+        $date = strtotime($post['date']);
+        $date = date('y-m-d',$date);
+        $count = ServiceReservation::find()
+            ->where([
+                'start' => $times[0],
+                'end' => $times[1],
+                'product_id' => $post['product_id'],
+                'date' => $date
+            ])->count();
+        return '<p>На период ' . $post['text'] . ' зарегистрировано: ' . $count . 'человек</p>';
+    }
+
     public function actionAddReservation()
     {
         $id = Yii::$app->request->post('id');
@@ -298,8 +314,17 @@ class ShopController extends Controller
                 ->setTpl('layouts/html')
                 ->setContent('<div>Вы заказали услугу:' . $product->title . ' с ' . $time[0] . ' до ' . $time[1] . ' у ' . $product->company->name . '.</div>')
                 ->send();
-            return 'ok';
-        } else
-            return 'not';
+
+        }
+        $count = ServiceReservation::find()
+            ->where([
+                'start' => $time[0],
+                'end' => $time[1],
+                'product_id' => $id,
+                'date' => $date
+            ])->count();
+        if($count < \common\models\db\Products::findOne($id)->person_count)
+            return 'not full';
+        else return 'full';
     }
 }

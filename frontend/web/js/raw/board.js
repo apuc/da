@@ -531,7 +531,6 @@ $(document).ready(function () {
         if ($(this).prop('checked')) {
             $('.edit-durability-form-field').css('display', 'block');
         } else {
-            $('#products-durability').val('');
             $('.edit-durability-form-field').css('display', 'none');
         }
     });

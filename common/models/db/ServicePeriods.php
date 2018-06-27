@@ -154,10 +154,10 @@ class ServicePeriods extends \yii\db\ActiveRecord
                 'end' => $end,
                 'product_id' => $product_id,
                 'date' => $date
-            ])->one();
-        if($reservation)
-            return true;
-        else
+            ])->count();
+        if($reservation < Products::findOne($product_id)->person_count)
             return false;
+        else
+            return true;
     }
 }
