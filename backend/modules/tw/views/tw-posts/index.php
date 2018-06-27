@@ -18,10 +18,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Удалить страницу', ['delete-page', Yii::$app->request->queryParams], ['class' => 'btn btn-danger']) ?>
+        <?= Html::a('Удалить все посты на этой странице', ['delete-page', Yii::$app->request->queryParams], ['class' => 'btn btn-danger']) ?>
+        <?= Html::a('Удалить всё', ['delete-all'], ['class' => 'delete_all_twiiter btn btn-danger']) ?>
+        <?= Html::a('Удалить выбранные', '#', ['class' => 'delete_chosen_twiiter btn btn-danger']) ?>
     </p>
 
     <?= GridView::widget([
+        'options' =>['class' => 'twitter_posts_table'],
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -32,6 +35,15 @@ $this->params['breadcrumbs'][] = $this->title;
             //'meta_descr:ntext',
             //'tw_id',
             'content:ntext',
+            [
+                'attribute' => 'media_url',
+                'label' => 'Медиа',
+                'value' => function($model){
+                    return '<img width = "200px" src = "' . $model->media_url . '">';
+                },
+                'format' => 'html'
+            ],
+
             //'media_url:url',
             'link',
             //'page_id',
