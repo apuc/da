@@ -275,6 +275,7 @@ class ShopController extends Controller
         $times = explode('-', $post['text']);
         $date = strtotime($post['date']);
         $date = date('y-m-d',$date);
+        $all_count = Products::findOne($post['product_id'])->person_count;
         $count = ServiceReservation::find()
             ->where([
                 'start' => $times[0],
@@ -282,7 +283,7 @@ class ShopController extends Controller
                 'product_id' => $post['product_id'],
                 'date' => $date
             ])->count();
-        return '<p>На период ' . $post['text'] . ' зарегистрировано: ' . $count . 'человек</p>';
+        return '<p>На период ' . $post['text'] . ' свободно ' . ($all_count - $count) . ' из ' . $all_count . ' мест</p>';
     }
 
     public function actionAddReservation()
