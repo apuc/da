@@ -405,7 +405,7 @@ class Products extends \common\models\db\Products
             }
             return false;
         }
-        else return false;
+        return false;
     }
 
 }

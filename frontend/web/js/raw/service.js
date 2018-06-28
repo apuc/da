@@ -9,26 +9,53 @@ $(document).ready(function () {
     if (month < 10)
         month = '0' + month;
     $('.reservation_date').val(day + '-' + month + '-' + date.getFullYear());
+    $('.reservation_date_change').val(day + '-' + month + '-' + date.getFullYear());
 
-
-    $(document).on('click', '.datepicker--cell-day', function () {
+    function getReservations(){
         setTimeout(function () {
-            var date = $('.reservation_date').val();
-            var id = $('.reservation_date').attr('data-id');
+            var date = $('.reservation_date_change').val();
+            var id = $('.reservation_date_change').attr('data-id');
             $.ajax({
-                url: "/shop/shop/get-period",
+                url: "/shop/service/get-reservations",
                 type: "POST",
                 data: {
                     date: date,
                     id: id
                 },
                 success: function (data) {
-                    $('.service-blocks').html(data);
+                    $('.test').html(data);
                     $('.datepicker').css('left', '-100000px');
-                    $('.reservation_date').blur();
+                    $('.reservation_date_change').blur();
                 }
             });
         }, 100);
+    }
+
+    $(document).on('click', '.datepicker--cell-day', function () {
+
+        if($('.reservation_date').length) {
+            setTimeout(function () {
+                var date = $('.reservation_date').val();
+                var id = $('.reservation_date').attr('data-id');
+                $.ajax({
+                    url: "/shop/shop/get-period",
+                    type: "POST",
+                    data: {
+                        date: date,
+                        id: id
+                    },
+                    success: function (data) {
+                        $('.service-blocks').html(data);
+                        $('.datepicker').css('left', '-100000px');
+                        $('.reservation_date').blur();
+                    }
+                });
+            }, 100);
+        }
+
+        else if ($('.reservation_date_change').length){
+            getReservations();
+        }
     });
 
     $(document).on('click', '.service-reserve', function () {
@@ -122,4 +149,45 @@ $(document).ready(function () {
             });
         }
     });
+
+    $(document).on('click', '.delete-reservation', function (e) {
+        e.preventDefault();
+        if (confirm('Вы уверены что хотите удалить это бронирование?')) {
+            var res = $(this);
+            var id = res.attr('data-id');
+            $.ajax({
+                type: 'POST',
+                url: "/shop/service/delete-reservation",
+                data: {
+                    id:id
+                },
+                success: function (data) {
+                    if(data === 'ok')
+                        res.parent().remove();
+                    else
+                        alert('Ошибка');
+                }
+            });
+        }
+    });
+
+    $(document).on('click', '.create-reservation', function (e) {
+        e.preventDefault();
+        var value = $("[name=chosen_period]").val();
+        var id = $('.reservation_date_change').attr('data-id');
+        var date = $('.reservation_date_change').val();
+        $.ajax({
+            type: 'POST',
+            url: "/shop/service/create-reservation",
+            data: {
+                id:id,
+                value: value,
+                date:date
+            },
+            success: function () {
+                getReservations();
+            }
+        });
+    });
+
 });
