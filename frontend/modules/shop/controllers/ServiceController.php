@@ -8,6 +8,7 @@ use common\models\db\ProductFields;
 use common\models\db\ProductFieldsValue;
 use common\models\db\ProductsImg;
 use common\models\db\ServicePeriods;
+use common\models\db\ServiceReservation;
 use frontend\modules\company\models\Company;
 use frontend\modules\shop\models\CategoryShop;
 use frontend\modules\shop\models\Products;
@@ -212,8 +213,6 @@ class ServiceController extends Controller
     }
 
     /**
-     *
-     *
      * @param integer $id
      *
      * @return mixed
@@ -247,6 +246,66 @@ class ServiceController extends Controller
             'week_days_array' => $week_days_array,
             'model' => $model
         ]);
+    }
+
+    /**
+     * @param integer $id
+     *
+     * @return mixed
+     */
+    public function actionReservation($id)
+    {
+        $model = Products::find()->where(['id' => $id])->with('service')->one();
+        $date = date('y-m-d');
+        $reservations = ServiceReservation::find()->where([
+            'product_id' => $id,
+            'date' => $date
+        ])->all();
+        return $this->render('reservation_control', [
+            'model' => $model,
+            'reservations' => $reservations
+        ]);
+    }
+
+    public function actionCreateReservation()
+    {
+        $reservation = new ServiceReservation();
+        $time = explode('-', Yii::$app->request->post('value'));
+        $date = strtotime(Yii::$app->request->post('date'));
+
+        $reservation->start = $time[0];
+        $reservation->end = $time[1];
+        $reservation->date = date('y-m-d', $date);
+        $reservation->product_id = Yii::$app->request->post('id');
+        $reservation->user_id = 0;
+
+        if($reservation->save())
+            return 'ok';
+
+    }
+
+    public function actionGetReservations()
+    {
+        $model = Products::findOne(Yii::$app->request->post('id'));
+        $date = strtotime(Yii::$app->request->post('date'));
+        $date = date('y-m-d', $date);
+        $reservations = ServiceReservation::find()->where([
+            'product_id' => $model->id,
+            'date' => $date
+        ])->all();
+        return $this->renderAjax('reservations_list', [
+            'reservations' => $reservations,
+            'model' => $model
+        ]);
+    }
+
+    public function actionDeleteReservation()
+    {
+        if($reservation = ServiceReservation::findOne(Yii::$app->request->post('id')))
+            if($reservation->delete())
+                return 'ok';
+        return 'error';
+
     }
 
 

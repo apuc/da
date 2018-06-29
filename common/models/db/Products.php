@@ -31,6 +31,7 @@ use Yii;
  * @property integer $person_count
  *
  * @property ServicePeriods[] $service
+ * @property ServiceReservation[] $reservations
  * @property LikeProducts[] $likeProducts
  * @property ProductFieldsValue[] $productFieldsValues
  * @property CategoryShop $category
@@ -260,6 +261,14 @@ class Products extends \yii\db\ActiveRecord
     public function getService()
     {
         return $this->hasMany(ServicePeriods::className(), ['product_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getReservations()
+    {
+        return $this->hasMany(ServiceReservation::className(), ['product_id' => 'id']);
     }
     
     public function setServiceWeekDays($index, $value)

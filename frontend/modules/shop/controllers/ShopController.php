@@ -271,19 +271,28 @@ class ShopController extends Controller
 
     public function actionGetPersonCount()
     {
+
         $post = Yii::$app->request->post();
-        $times = explode('-', $post['text']);
-        $date = strtotime($post['date']);
-        $date = date('y-m-d',$date);
-        $all_count = Products::findOne($post['product_id'])->person_count;
-        $count = ServiceReservation::find()
-            ->where([
-                'start' => $times[0],
-                'end' => $times[1],
-                'product_id' => $post['product_id'],
-                'date' => $date
-            ])->count();
-        return '<p>На период ' . $post['text'] . ' свободно ' . ($all_count - $count) . ' из ' . $all_count . ' мест</p>';
+        if(empty($post['text']))
+            return '';
+        $result = '';
+        foreach($post['text'] as $text)
+        {
+            $times = explode('-', $text);
+            $date = strtotime($post['date']);
+            $date = date('y-m-d',$date);
+            $all_count = Products::findOne($post['product_id'])->person_count;
+            $count = ServiceReservation::find()
+                ->where([
+                    'start' => $times[0],
+                    'end' => $times[1],
+                    'product_id' => $post['product_id'],
+                    'date' => $date
+                ])->count();
+            $result .= '<p style = "width: 100%;">На период ' . $text . ' <strong>свободно ' . ($all_count - $count) . '</strong> из ' . $all_count . ' мест</p>';
+        }
+        return $result;
+
     }
 
     public function actionAddReservation()
