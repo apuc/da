@@ -70,6 +70,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         return 'Опубликован';
                     if($model->status == 2)
                         return 'Не опубликован';
+                    if($model->status == 4)
+                        return 'Отложен';
                 }
             ],
         ],

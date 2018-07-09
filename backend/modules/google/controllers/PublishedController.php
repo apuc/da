@@ -48,6 +48,21 @@ class PublishedController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    public function actionDeffered()
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => GooglePlusPosts::find()->where(['status' => 4]),
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                ]
+            ],
+        ]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     /**
      * Displays a single GooglePlusPosts model.

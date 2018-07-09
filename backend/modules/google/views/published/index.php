@@ -6,7 +6,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Опубликованные посты Google+';
+$this->title = 'Посты Google+';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="google-plus-posts-index">
@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     if($model->status == 2){
                         return Html::a('Опубликовать', ['#'], ['data-id' => $model->id, 'data-status' => 1, 'class' => 'btn btn-xs btn-success google_stream_edit']);
                     }
-                    if($model->status == 1){
+                    if($model->status == 1 || $model->status == 4){
                         return Html::a('Снять с публикации', ['#'], ['data-id' => $model->id, 'data-status' => 2, 'class' => 'btn btn-xs btn-success google_stream_edit']);
                     }
                 },

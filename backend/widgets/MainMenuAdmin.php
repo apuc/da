@@ -10,6 +10,7 @@ use backend\modules\vk\models\VkStream;
 use common\classes\CompanyFunction;
 use common\classes\Debug;
 use common\classes\UserFunction;
+use common\models\db\GooglePlusPosts;
 use common\models\db\News;
 use common\models\db\Poster;
 use dektrium\user\models\User;
@@ -53,6 +54,8 @@ class MainMenuAdmin extends Widget
         $countBasketStreamQuery = VkStream::find()
             ->where(['status' => 3]);
         $countDefferedStreamQuery = VkStream::find()->where(['status' => 4]);
+        $countDefferedStreamGoogleQuery = GooglePlusPosts::find()->where(['status' => 4]);
+
 
         if(isset($role['Редактор парсинга']))
         {
@@ -66,7 +69,7 @@ class MainMenuAdmin extends Widget
         $countPublishedStream = $countPublishedStreamQuery->count();
         $countBasketStream = $countBasketStreamQuery->count();
         $countDefferedStream = $countDefferedStreamQuery->count();
-
+        $countDefferedStreamGoogle = $countDefferedStreamGoogleQuery->count();
         $countContacting = Contacting::find()->where(['status' => 0])->count();
 
 
@@ -741,6 +744,13 @@ class MainMenuAdmin extends Widget
                                 'url' => Url::to(['/google/published']),
                                 'active' => Yii::$app->controller->module->id === 'google' && Yii::$app->controller->id === 'published',
                                 'visible' => UserFunction::hasPermission(['Группы VK']),
+                            ],
+                            [
+                                'label' => 'Отложенные',
+                                'url' => Url::to(['/google/published/deffered']),
+                                'active' => Yii::$app->controller->action->id === 'deffered',
+                                'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countDefferedStreamGoogle . '</small></span></a>',
+                                'visible' => UserFunction::hasPermission(['Отложенные VK']),
                             ],
 
 
