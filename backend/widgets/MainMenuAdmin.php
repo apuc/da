@@ -659,7 +659,7 @@ class MainMenuAdmin extends Widget
                             [
                                 'label' => 'Отложенные',
                                 'url' => Url::to(['/vk/vk_published/deffered']),
-                                'active' => Yii::$app->controller->action->id === 'deffered',
+                                'active' => Yii::$app->controller->action->id === 'deffered' && Yii::$app->controller->id === 'vk_published',
                                 'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countDefferedStream . '</small></span></a>',
                                 'visible' => UserFunction::hasPermission(['Отложенные VK']),
                             ],
@@ -742,13 +742,13 @@ class MainMenuAdmin extends Widget
                             [
                                 'label' => 'Опубликованные',
                                 'url' => Url::to(['/google/published']),
-                                'active' => Yii::$app->controller->module->id === 'google' && Yii::$app->controller->id === 'published',
+                                'active' => Yii::$app->controller->module->id === 'google' && Yii::$app->controller->id === 'published' && Yii::$app->controller->action->id !== 'deffered',
                                 'visible' => UserFunction::hasPermission(['Группы VK']),
                             ],
                             [
                                 'label' => 'Отложенные',
                                 'url' => Url::to(['/google/published/deffered']),
-                                'active' => Yii::$app->controller->action->id === 'deffered',
+                                'active' => Yii::$app->controller->action->id === 'deffered' && Yii::$app->controller->id === 'published',
                                 'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countDefferedStreamGoogle . '</small></span></a>',
                                 'visible' => UserFunction::hasPermission(['Отложенные VK']),
                             ],
