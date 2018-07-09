@@ -69,6 +69,8 @@ class ProductFieldsSearch extends ProductFields
             ->andFilterWhere(['like', 'template', $this->template])
             ->andFilterWhere(['like', 'name', $this->name]);
 
+        $query->orderBy('id DESC');
+
         return $dataProvider;
     }
 }
