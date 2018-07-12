@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * @var $tariff \common\models\db\Tariff
+ */
+
 $this->title = "Выбор тарифа для компании";
 ?>
 
