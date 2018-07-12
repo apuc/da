@@ -88,8 +88,7 @@ class NewsController extends Controller
         $tags = Tags::find()->asArray()->all();
 
         if ($model->load(Yii::$app->request->post())) {
-            //Debug::prn($_POST['News']['dt_public']);
-            //   $model->status    = ( ! empty( $_POST['dt_public_time'] ) ) ? 3 : 0;
+
             if (empty($model->alt)) {
                 $model->alt = $model->title;
             }
@@ -134,7 +133,7 @@ class NewsController extends Controller
             return $this->render('create', [
                 'model' => $model,
                 'lang' => $lang,
-                'cats_arr' => [],
+                'cats_arr' => [CategoryNews::find()->one()->id],
                 'tags' => $tags,
                 'tags_selected' => [],
                 'region' => $region,
@@ -167,21 +166,10 @@ class NewsController extends Controller
             $cats_arr[] = $cat_item->cat_id;
         }
         if ($model->load(Yii::$app->request->post())) {
-            //$model->status = (!empty($_POST['dt_public_time'])) ? 3 : 0;
-
-            // $model->dt_public = ( ! empty( $_POST['dt_public_time'] ) ) ? strtotime( $_POST['News']['dt_public'] . ' ' . $_POST['dt_public_time'] ) : time();
 
             if (!empty($_POST['dt_public_time'])) {
                 $model->dt_public = strtotime($_POST['News']['dt_public'] . ' ' . $_POST['dt_public_time']);
             }
-
-//            if ( ! empty( $model->dt_public ) ) {
-//                if ( $model->dt_public <= time() ) {
-//                    $model->status = 0;
-//                }else{
-//                    //$model->status = 3;
-//                }
-//            }
 
             if (empty($model->alt)) {
                 $model->alt = $model->title;

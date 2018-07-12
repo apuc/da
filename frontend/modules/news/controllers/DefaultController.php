@@ -118,7 +118,7 @@ class DefaultController extends Controller
         $readTheSameQuery = News::find()
             ->joinWith('categoryNewsRelations')
             ->where([
-                '`category_news_relations`.`cat_id`' => $category->id,
+                '`category_news_relations`.`cat_id`' => isset($category->id) ? $category->id : 0,
                 'status' => 0,
                 'exclude_popular' => 0
             ]);
