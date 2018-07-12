@@ -11,31 +11,33 @@ use common\classes\DateFunctions;
 use common\models\User;
 use common\classes\Debug;
 
-$this->title = (empty($model)) ? '' : $model->title . ' | Портал DA Info Pro';
-$this->registerMetaTag([
-    'name' => 'description',
-    'content' => (empty($model->descr)) ? 'На Портале DA Info Pro «' . $model->title . '». Популярное из социальной сети ВКонтакте в рубрике «В соцсетях»: юмор, мемы, мотивация, бизнес, лайфхаки, стиль.' : $model->meta_descr,
-]);
+$this->title = (empty($model)) ? 'Портал DA Info Pro' : $model->title . ' | Портал DA Info Pro';
+if(!empty($model)) {
+    $this->registerMetaTag([
+        'name' => 'description',
+        'content' => (empty($model->descr)) ? 'На Портале DA Info Pro «' . $model->title . '». Популярное из социальной сети ВКонтакте в рубрике «В соцсетях»: юмор, мемы, мотивация, бизнес, лайфхаки, стиль.' : $model->meta_descr,
+    ]);
 
-$this->registerMetaTag([
-    'property' => 'og:title',
-    'content' => $model->title,
-]);
+    $this->registerMetaTag([
+        'property' => 'og:title',
+        'content' => $model->title,
+    ]);
 
-$this->registerMetaTag([
-    'property' => 'og:url',
-    'content' => 'https://da-info.pro/stream/' . $model->slug,
-]);
+    $this->registerMetaTag([
+        'property' => 'og:url',
+        'content' => 'https://da-info.pro/stream/' . $model->slug,
+    ]);
 
-$this->registerMetaTag([
-    'property' => 'og:site_name',
-    'content' => 'Портал России и ДНР DA Info Pro: новости, компании, афиши, консультации.',
-]);
+    $this->registerMetaTag([
+        'property' => 'og:site_name',
+        'content' => 'Портал России и ДНР DA Info Pro: новости, компании, афиши, консультации.',
+    ]);
 
-$this->registerMetaTag([
-    'property' => 'og:image',
-    'content' => (!empty($model->photo)) ? $model->photo : '',
-]);
+    $this->registerMetaTag([
+        'property' => 'og:image',
+        'content' => (!empty($model->photo)) ? $model->photo : '',
+    ]);
+}
 
 $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
@@ -187,8 +189,10 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                         <h3>Такого поста не существует</h3>
                     <?php endif; ?>
 
+                    <?php if (!empty($interested1) || !empty($interested1)): ?>
                     <h3 class="parser__title">Продолжение ленты: </h3>
-
+                    <?php endif; ?>
+                    
                     <div class="parser__wrapper">
 
                         <?php if (!empty($interested1)): ?>
