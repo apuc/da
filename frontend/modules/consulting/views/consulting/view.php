@@ -1,5 +1,9 @@
 <?php use yii\helpers\Url;
 
+/**
+ * @var $consulting \common\models\db\Consulting
+ */
+
 $this->title = (empty($consulting->meta_title)) ? $consulting->title : $consulting->meta_title;
 $this->registerMetaTag([
     'name' => 'description',
@@ -44,7 +48,7 @@ $this->registerMetaTag([
                     <?= $consulting->descr; ?>
                     <div id="map" class="ymaps"></div>
                     <p class="concreate-adress"><?= $consulting->company->address; ?></p>
-                    <div class="title-law"><?= $consulting->company->phone; ?></div>
+                    <div class="title-law"><?= $consulting->company->allPhones[0]->phone; ?></div>
                 </div>
             </div>
         </article>

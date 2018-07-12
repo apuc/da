@@ -26,7 +26,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'status')->dropDownList([
         '1' => 'Опубликован',
-        '2' => 'Не опубликован'
+        '2' => 'Не опубликован',
+        '4' => 'Отложен'
     ]); ?>
 
     <div class="form-group">

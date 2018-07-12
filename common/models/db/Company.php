@@ -40,6 +40,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property CategoryCompanyRelations[] $categoryCompanyRelations
  * @property News[] $news
+ * @property Phones[] $allPhones
  * @property CompanySliderPhoto[] $sliderPhoto
  */
 class Company extends \yii\db\ActiveRecord
