@@ -26,6 +26,8 @@ use Yii;
  * @property integer $main_slider
  * @property string $photo
  * @property integer $sidebar
+ *
+ * @property Company $company
  */
 class Consulting extends \yii\db\ActiveRecord
 {
