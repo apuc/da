@@ -183,7 +183,7 @@ class Products extends \common\models\db\Products
         $company = ServicesCompanyRelations::find()
             ->joinWith(['company', 'services'])
             ->where(['`company`.`user_id`' => Yii::$app->user->id])
-            ->andWhere(['`company`.`tariff_id`' => [3, 4]])
+            //->andWhere(['`company`.`tariff_id`' => [3, 4]])
             //->andWhere(['services_id' => 25])
             ->all();
 

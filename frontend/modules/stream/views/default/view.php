@@ -192,7 +192,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                     <?php if (!empty($interested1) || !empty($interested1)): ?>
                     <h3 class="parser__title">Продолжение ленты: </h3>
                     <?php endif; ?>
-                    
+
                     <div class="parser__wrapper">
 
                         <?php if (!empty($interested1)): ?>
