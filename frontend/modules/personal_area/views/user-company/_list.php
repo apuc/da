@@ -49,8 +49,9 @@ $statistics = $model->getPage('statistics');
 <!--            <a href="--><?//= \yii\helpers\Url::to(['/company/default/set-tariff-company', 'id' => $model['id']]) ?><!--"-->
 <!--               class="show-more">Подключить тариф</a>-->
 <!--        --><?php //else: ?>
+            <?php if(isset($item['tariff']->name)): ?>
             <p class="cabinet__pkg-block--type">Тариф <?= $model['tariff']->name ?></p>
-
+            <?php endif ?>
             <p class="cabinet__pkg-block--period"><?= \common\classes\DateFunctions::getTimeCompany($model['dt_end_tariff']); ?></p>
 
             <a href="<?= \yii\helpers\Url::to(['/company/default/set-tariff-company', 'id' => $model['id']]) ?>"
