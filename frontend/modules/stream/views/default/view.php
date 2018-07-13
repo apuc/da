@@ -61,7 +61,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                             <span><?= $countVk ?></span></a></li>
                     <li><a href="<?= \yii\helpers\Url::to(['/stream', 'social' => 'tw']) ?>">Tw
                             <span><?= $countTw ?></span></a></li>
-                    <li><a href="<?= \yii\helpers\Url::to(['/stream', 'social' => 'Gplus']) ?>">G+
+                    <li><a href="<?= \yii\helpers\Url::to(['/stream', 'social' => 'gplus']) ?>">G+
                             <span><?= $countGplus ?></span></a></li>
                 </ul>
 

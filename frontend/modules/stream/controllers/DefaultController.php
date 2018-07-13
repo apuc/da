@@ -51,20 +51,7 @@ class DefaultController extends Controller
      */
     public function actionIndex($social = 'all')
     {
-        if ($social === 'all') {
-            $model = VkStream::getPosts();
-            $tw = TwPosts::find()
-                ->where(['status' => 1])
-                ->orderBy('`dt_publish` DESC')
-                ->limit(10)
-                ->all();
-            $gPlus = GooglePlusPosts::find()
-                ->where(['status' => 1])
-                ->orderBy('`dt_publish` DESC')
-                ->limit(10)
-                ->all();
-            $res = array_merge($gPlus, $model, $tw);
-        } else if ($social === 'vk') {
+        if ($social === 'vk') {
             $res = VkStream::getPosts();
         } else if ($social === 'tw') {
             $res = TwPosts::find()
@@ -78,6 +65,19 @@ class DefaultController extends Controller
                 ->orderBy('`dt_publish` DESC')
                 ->limit(10)
                 ->all();
+        } else {
+        $model = VkStream::getPosts();
+        $tw = TwPosts::find()
+            ->where(['status' => 1])
+            ->orderBy('`dt_publish` DESC')
+            ->limit(10)
+            ->all();
+        $gPlus = GooglePlusPosts::find()
+            ->where(['status' => 1])
+            ->orderBy('`dt_publish` DESC')
+            ->limit(10)
+            ->all();
+        $res = array_merge($gPlus, $model, $tw);
         }
         ArrayHelper::multisort($res, 'dt_publish', [SORT_DESC]);
 

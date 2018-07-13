@@ -112,8 +112,9 @@ use yii\helpers\Html;
 <!--                        --><?php //if($item->tariff_id == 0): ?>
 <!--                            <a href="--><?//= \yii\helpers\Url::to(['/company/default/set-tariff-company', 'id' => $item->id])?><!--" class="show-more">Подключить тариф</a>-->
 <!--                        --><?php //else: ?>
-                        <p class="cabinet__pkg-block--type">Тариф <?= $item['tariff']->name?></p>
-
+                        <?php if(isset($item['tariff']->name)): ?>
+                            <p class="cabinet__pkg-block--type">Тариф <?=$item['tariff']->name?></p>
+                        <?php endif ?>
                         <p class="cabinet__pkg-block--period"><?= \common\classes\DateFunctions::getTimeCompany($item->dt_end_tariff); ?></p>
 
                         <!--<a href="#" class="cabinet__like-block--company-edit">сменить тариф</a>-->
