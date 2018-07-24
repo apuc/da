@@ -260,6 +260,7 @@ class DefaultController extends Controller
         return $this->render('category', [
             'category' => CategoryPoster::find()->orderBy('id DESC')->all(),
             'dataProvider' => $dataProvider,
+            'catName' => $cat->title
         ]);
     }
 
