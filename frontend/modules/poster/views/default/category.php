@@ -8,7 +8,7 @@
  * @var $dataProvider \yii\data\SqlDataProvider
  */
 use yii\helpers\Url;
-$this->title = $category->title . 'На da-info.pro';
+$this->title = $catName . ' на da-info.pro';
 $this->registerMetaTag( [
     'name'    => 'description',
     'content' => $meta_descr,
