@@ -24,6 +24,9 @@ class DefaultController extends Controller
     public function actionView($slug)
     {
         $model = Pages::findOne(['slug'=>$slug]);
+        if (empty($model)) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
         $useReg = UserFunction::getRegionUser();
         return $this->render('view', ['model'=>$model , 'useReg' => $useReg]);
     }
