@@ -162,7 +162,7 @@ class TwPagesController extends Controller
             'GPbrt8v6nz2MJFAA0nCyuZVEdOTEAfOyFacev8r6fHuH3');
         $data = $connection->get("statuses/user_timeline",
             array('count' => 200, 'exclude_replies' => true, 'screen_name' => $model->screen_name));
-
+        Debug::dd($data);
         if($data){
             foreach ((array)$data as $tw_post){
                 if(!TwPosts::find()->where(['tw_id' => $tw_post->id_str])->one()){
