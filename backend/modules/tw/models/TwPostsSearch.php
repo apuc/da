@@ -13,6 +13,10 @@ use backend\modules\tw\models\TwPosts;
  */
 class TwPostsSearch extends TwPosts
 {
+    public function behaviors() {
+        return [];
+    }
+
     /**
      * @inheritdoc
      */
@@ -78,8 +82,6 @@ class TwPostsSearch extends TwPosts
             ->andFilterWhere(['like', 'slug', $this->slug]);
 
         $query->orderBy('tw_id DESC');
-
-        Debug::prn($query->createCommand()->rawSql);
 
         return $dataProvider;
     }
