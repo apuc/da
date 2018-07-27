@@ -81,7 +81,7 @@ class TwPostsSearch extends TwPosts
             ->andFilterWhere(['like', 'page_icon', $this->page_icon])
             ->andFilterWhere(['like', 'slug', $this->slug]);
 
-        $query->orderBy('tw_id DESC');
+        $query->orderBy('id DESC');
 
         return $dataProvider;
     }
