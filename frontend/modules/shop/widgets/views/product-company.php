@@ -24,7 +24,7 @@ if(!empty($model)):
                             <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $item->cover); ?>" alt="<?= $item->title; ?>">
                         <?php else: ?>
                             <?php if(!empty($item->images[0]->img_thumb)): ?>
-                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage('/'. $item->images[0]->img_thumb); ?>">
+                                <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($item->images[0]->img_thumb); ?>">
                             <?php else:?>
                                 <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $item->cover); ?>" alt="<?= $item->title; ?>">
                             <?php endif; ?>
