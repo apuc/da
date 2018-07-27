@@ -2,6 +2,7 @@
 
 namespace backend\modules\tw\models;
 
+use common\classes\Debug;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -77,6 +78,8 @@ class TwPostsSearch extends TwPosts
             ->andFilterWhere(['like', 'slug', $this->slug]);
 
         $query->orderBy('tw_id DESC');
+
+        Debug::prn($query->createCommand()->rawSql);
 
         return $dataProvider;
     }
