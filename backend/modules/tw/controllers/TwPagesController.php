@@ -165,7 +165,6 @@ class TwPagesController extends Controller
         if($data){
             foreach ((array)$data as $tw_post){
                 if(!TwPosts::find()->where(['tw_id' => $tw_post->id_str])->one()){
-                    Debug::dd($tw_post);
                     $post = new TwPosts();
                     $post->tw_id = $tw_post->id_str;
                     $post->content = $tw_post->text;
@@ -179,7 +178,8 @@ class TwPagesController extends Controller
                     $post->page_title = $tw_post->user->name;
                     $post->page_icon = $tw_post->user->profile_image_url_https;
                     $post->dt_add = time();
-                    $post->save();
+                    Debug::dd($post->save());
+                    //$post->save();
                 }
             }
         }
