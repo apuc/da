@@ -61,10 +61,12 @@ $this->registerLinkTag([
 ]);
 
 $this->params['breadcrumbs'][] = ['label' => 'Всё чтиво', 'url' => Url::to(['/news/news'])];
-$this->params['breadcrumbs'][] = [
-    'label' => $category->title,
-    'url' => Url::to(['/news/news/category/', 'slug' => $category->slug]),
-];
+if(isset($category->title)){
+    $this->params['breadcrumbs'][] = [
+        'label' => $category->title,
+        'url' => Url::to(['/news/news/category/', 'slug' => $category->slug]),
+    ];
+}
 $this->params['breadcrumbs'][] = $model->title;
 
 ?>
