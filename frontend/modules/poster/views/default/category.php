@@ -9,10 +9,12 @@
  */
 use yii\helpers\Url;
 $this->title = $catName . ' на da-info.pro';
-$this->registerMetaTag( [
-    'name'    => 'description',
-    'content' => $meta_descr,
-] );
+if(isset($meta_descr)){
+    $this->registerMetaTag( [
+        'name'    => 'description',
+        'content' => $meta_descr,
+    ] );
+}
 ?>
 <div class="posters">
     <div class="shape">
