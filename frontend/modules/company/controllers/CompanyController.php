@@ -183,6 +183,7 @@ class CompanyController extends Controller
      */
     public function actionView($slug, $place = '')
     {
+
         $model = Company::find()
             ->with('allPhones')
             ->joinWith('tagss.tagname')
@@ -193,7 +194,8 @@ class CompanyController extends Controller
         if (empty($model) || $model->status == 1) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-        if($place === ''){
+
+        if($place === '' || !in_array($place, \common\models\db\Company::$start_page_items_en)){
             $place = $model->start_page_titles[$model->start_page];
         }
         $services = [];

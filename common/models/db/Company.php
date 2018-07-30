@@ -64,6 +64,18 @@ class Company extends \yii\db\ActiveRecord
         self::START_PAGE_MAP => 'Карта',
         self::START_PAGE_SERVICE => 'Услуги',
     ];
+
+    public static $start_page_items_en = [
+        self::START_PAGE_ABOUT => 'about',
+        self::START_PAGE_REVIEWS => 'reviews',
+        self::START_PAGE_STOCK => 'stocks',
+        self::START_PAGE_PRODUCTS => 'products',
+        self::START_PAGE_NEWS => 'news',
+        self::START_PAGE_STATISTICK => 'statistics',
+        self::START_PAGE_MAP => 'map',
+        self::START_PAGE_SERVICE => 'service',
+    ];
+
     /**
      * @inheritdoc
      */
