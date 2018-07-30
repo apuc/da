@@ -6,6 +6,7 @@ use common\classes\Debug;
 use common\classes\UserFunction;
 use common\models\db\Pages;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 /**
  * Default controller for the `pages` module
