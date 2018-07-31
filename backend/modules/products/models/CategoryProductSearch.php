@@ -41,7 +41,7 @@ class CategoryProductSearch extends CategoryProduct
      */
     public function search($params)
     {
-        $query = CategoryProduct::find()->where(['type' => CategoryProduct::TYPE_PRODUCT])->orderBy('id DESC');
+        $query = CategoryProduct::find()->where(['type' => CategoryProduct::TYPE_PRODUCT, 'status' => CategoryProduct::STATUS_PUBLIC])->orderBy('id DESC');
 
         // add conditions that should always apply here
 

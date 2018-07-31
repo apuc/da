@@ -16,12 +16,12 @@ class Shop
 {
     public static function getChildrenCategory($id)
     {
-        $category = CategoryShop::find()->where(['parent_id' => $id])->all();
+        $category = CategoryShop::find()->where(['parent_id' => $id, 'status' => CategoryShop::STATUS_PUBLIC])->all();
         if (!empty($category)) {
             //$arrayResult = [];
             $arrayResult = ArrayHelper::getColumn($category, 'id');
             foreach ($category as $item) {
-                $cat = CategoryShop::find()->where(['parent_id' => $item->id])->all();
+                $cat = CategoryShop::find()->where(['parent_id' => $item->id, 'status' => CategoryShop::STATUS_PUBLIC])->all();
                 $arrayResult = array_merge($arrayResult, ArrayHelper::getColumn($cat, 'id'));
             }
         } else {
@@ -52,7 +52,7 @@ class Shop
 
     public static function getAllCategory()
     {
-        $category = CategoryShop::find()->all();
+        $category = CategoryShop::find()->where(['status' => CategoryShop::STATUS_PUBLIC])->all();
         $catArr = [];
 
         foreach ($category as $item) {

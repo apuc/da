@@ -15,6 +15,7 @@ use Yii;
  * @property string $meta_title
  * @property string $meta_description
  * @property integer $type
+ * @property integer $status
  */
 class CategoryShop extends \yii\db\ActiveRecord
 {
@@ -22,10 +23,14 @@ class CategoryShop extends \yii\db\ActiveRecord
     const TYPE_PRODUCT = 0;
     const TYPE_SERVICE = 1;
 
+    const STATUS_PUBLIC = 1;
+    const STATUS_DELETE = 0;
+
     public static $productTypes = [
         self::TYPE_PRODUCT => 'Товар',
         self::TYPE_SERVICE => 'Услуга'
     ];
+
     /**
      * @inheritdoc
      */
@@ -41,7 +46,7 @@ class CategoryShop extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'slug', 'meta_title', 'meta_description'], 'required'],
-            [['parent_id', 'type'], 'integer'],
+            [['parent_id', 'type', 'status'], 'integer'],
             [['name', 'slug', 'icon', 'meta_title', 'meta_description'], 'string', 'max' => 255],
         ];
     }
@@ -60,5 +65,12 @@ class CategoryShop extends \yii\db\ActiveRecord
             'meta_title' => 'Meta Title',
             'meta_description' => 'Meta Description',
         ];
+    }
+
+    public static function delCat($id)
+    {
+        $model = self::findOne($id);
+        $model->status = self::STATUS_DELETE;
+        return $model->save();
     }
 }
