@@ -31,6 +31,8 @@ use Yii;
  * @property integer $region_id
  * @property integer $editor_choice
  * @property integer $company_id
+ * @property integer $in_company
+ * @property integer $show_prev_in_single
  * @property integer $dzen
  * @property string $alt
  *
@@ -67,7 +69,7 @@ class News extends \yii\db\ActiveRecord
             [['title', 'content'/*, 'categoryId'*/], 'required'],
             [['content'], 'string'],
             [
-                ['dt_add', 'dt_update', 'status', 'user_id', 'lang_id', 'views', 'exclude_popular', 'rss', 'hot_new', 'show_error', 'region_id', 'editor_choice', 'company_id', 'dzen'],
+                ['dt_add', 'dt_update', 'status', 'user_id', 'lang_id', 'views', 'exclude_popular', 'rss', 'hot_new', 'show_error', 'region_id', 'editor_choice', 'company_id', 'dzen', 'show_prev_in_single', 'in_company'],
                 'integer',
             ],
             [['title', 'slug', 'tags', 'photo', 'meta_title', 'meta_descr', 'alt'], 'string', 'max' => 255],
@@ -115,6 +117,8 @@ class News extends \yii\db\ActiveRecord
             'company_id' => Yii::t('news', 'Company ID'),
             'alt' => Yii::t('news', 'Alt Tag'),
             'dzen' => Yii::t('news', 'Dzen'),
+            'show_prev_in_single' => Yii::t('news', 'SPIN'),
+            'in_company' => Yii::t('news', 'In company'),
         ];
     }
 

@@ -35,6 +35,7 @@ class DayFeed extends Widget
             $query->andWhere("(`region_id` IS NULL OR `region_id`=$this->useReg)");
 
         }
+        $query->andWhere(['in_company' => 0]);
         $query->andWhere(['<=', 'dt_public', time() ]);
         $news = $query->orderBy('dt_public DESC')
             ->limit($limit->value)

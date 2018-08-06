@@ -92,6 +92,7 @@ class NewsSearch extends News
             $newsQuery->andWhere("(`region_id` IS NULL OR `region_id`=$useReg)");
 
         }
+        $newsQuery->andWhere(['in_company' => 0]);
         $news = $newsQuery
             ->limit(34)
             ->orderBy('dt_public DESC')
@@ -129,6 +130,7 @@ class NewsSearch extends News
         if($useReg != -1){
             $query->andWhere("(`region_id` IS NULL OR `region_id`=$useReg)");
         }
+        $query->andWhere(['in_company' => 0]);
         $news = $query
             ->orderBy('`news`.`dt_public` DESC')
             ->with('cat')

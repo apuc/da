@@ -56,6 +56,7 @@ class DefaultController extends Controller
             ->where(['`news`.`slug`' => $request['slug']])
             ->one();
 
+
         if (empty($new)) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }

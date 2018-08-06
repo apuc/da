@@ -133,6 +133,8 @@ use kartik\select2\Select2;
     <?= $form->field($model, 'show_error')->checkbox(); ?>
     <?= $form->field($model, 'editor_choice')->checkbox(); ?>
     <?= $form->field($model, 'dzen')->checkbox(); ?>
+    <?= $form->field($model, 'show_prev_in_single')->checkbox(); ?>
+    <?= $form->field($model, 'in_company')->checkbox(); ?>
     <br>
 
     <div class="form-group">

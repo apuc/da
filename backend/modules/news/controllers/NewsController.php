@@ -84,6 +84,7 @@ class NewsController extends Controller
     public function actionCreate()
     {
         $model = new News();
+        $model->show_prev_in_single = 1;
         $lang = Lang::find()->all();
         $tags = Tags::find()->asArray()->all();
 

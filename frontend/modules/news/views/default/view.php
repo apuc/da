@@ -61,7 +61,7 @@ $this->registerLinkTag([
 ]);
 
 $this->params['breadcrumbs'][] = ['label' => 'Всё чтиво', 'url' => Url::to(['/news/news'])];
-if(isset($category->title)){
+if (isset($category->title)) {
     $this->params['breadcrumbs'][] = [
         'label' => $category->title,
         'url' => Url::to(['/news/news/category/', 'slug' => $category->slug]),
@@ -101,10 +101,11 @@ $this->params['breadcrumbs'][] = $model->title;
             endif;
             $alt = !empty($model->alt) ? $model->alt : $model->title;
             ?>
-
-            <a href="<?= $img; ?>" class="thumbnail-wrapper" data-fancybox="news">
-                <img class="thumbnail" src="<?= $img; ?>" alt="<?= $alt; ?>">
-            </a>
+            <?php if ($model->show_prev_in_single): ?>
+                <a href="<?= $img; ?>" class="thumbnail-wrapper" data-fancybox="news">
+                    <img class="thumbnail" src="<?= $img; ?>" alt="<?= $alt; ?>">
+                </a>
+            <?php endif; ?>
 
             <div class="content-single-wrapper">
                 <div class="content-single">
