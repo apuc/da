@@ -42,6 +42,10 @@ use Yii;
  */
 class News extends \yii\db\ActiveRecord
 {
+    const STATUS_PUBLIC = 0;
+    const STATUS_MODER = 1;
+    const STATUS_POSTPONED = 3;
+
     /*public $categoryId;*/
     public function beforeSave($insert)
     {

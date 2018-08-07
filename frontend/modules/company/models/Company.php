@@ -111,7 +111,10 @@ class Company extends \common\models\db\Company
                 ];
                 break;
             case 'news':
-                $news = News::find()->where(['company_id' => $this->id])->orderBy('id DESC')->all();
+                $news = News::find()->where([
+                    'company_id' => $this->id,
+                    'status' => News::STATUS_PUBLIC,
+                ])->orderBy('id DESC')->all();
                 $options = [
                     'news' => $news,
                 ];
