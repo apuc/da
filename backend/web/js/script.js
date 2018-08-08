@@ -1,4 +1,25 @@
 $(document).ready(function () {
+    if(typeof CKEDITOR !== 'undefined'){
+        CKEDITOR.on('instanceReady', function(ev) {
+            var editor = ev.editor;
+            editor.dataProcessor.htmlFilter.addRules({
+                elements : {
+                    a : function( element ) {
+                        if ( !element.attributes.rel ){
+                            //gets content's a href values
+                            var url = element.attributes.href;
+                            //extract host names from URLs
+                            var hostname = (new URL(url)).hostname;
+                            if ( hostname !== window.location.host && hostname !=="da-info.pro") {
+                                element.attributes.rel = 'nofollow';
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    }
+
     $('#reservation').datepicker({
         format: 'yyyy-mm-dd',
         language: 'ru'
