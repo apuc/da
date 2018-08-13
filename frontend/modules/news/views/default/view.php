@@ -111,16 +111,17 @@ $this->params['breadcrumbs'][] = $model->title;
                 <div class="content-single">
                     <?= $model->content; ?>
                 </div>
-
                 <?php if (!empty($model['tagss'])): ?>
                     <div class="content__separator"></div>
                     <section class="hashtag">
                         <div class="hashtag__wrapper">
                             <?php
                             foreach ($model['tagss'] as $tags) { ?>
-                                <a href="<?= Url::to(['/search/tag', 'id' => $tags['tagname']->id]) ?>">
-                                    <div class="hashtag__wrapper--item"><?= $tags['tagname']->tag; ?></div>
-                                </a>
+                                <?php if (isset($tags['tagname']->id)): ?>
+                                    <a href="<?= Url::to(['/search/tag', 'id' => $tags['tagname']->id]) ?>">
+                                        <div class="hashtag__wrapper--item"><?= $tags['tagname']->tag; ?></div>
+                                    </a>
+                                <?php endif; ?>
                             <?php } ?>
                         </div>
                     </section>
