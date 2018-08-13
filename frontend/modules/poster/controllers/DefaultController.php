@@ -115,7 +115,7 @@ class DefaultController extends Controller
 
         return $this->render('view', [
             'model' => $poster,
-            'category' => $category->category_poster,
+            'category' => $category ? $category->category_poster : false,
             'likes' => $likes,
             'thisUserLike' => $thisUserLike,
         ]);

@@ -42,7 +42,9 @@ $this->registerMetaTag([
 $this->registerJsFile('/js/poster.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->params['breadcrumbs'][] = ['label' => 'Афиша', 'url' => \yii\helpers\Url::to(['/all-poster'])];
-$this->params['breadcrumbs'][] = ['label' => $model['category']->title, 'url' => \yii\helpers\Url::to(['/poster/default/single_category', 'slug' => $model['category']->slug])];
+if(isset($model['category'])){
+    $this->params['breadcrumbs'][] = ['label' => $model['category']->title, 'url' => \yii\helpers\Url::to(['/poster/default/single_category', 'slug' => $model['category']->slug])];
+}
 $this->params['breadcrumbs'][] = $model->title;
 
 /*\common\classes\Debug::prn());*/
