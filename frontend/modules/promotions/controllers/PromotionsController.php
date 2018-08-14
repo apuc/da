@@ -8,6 +8,7 @@
 
 namespace frontend\modules\promotions\controllers;
 
+use common\classes\Debug;
 use common\models\db\Comments;
 use frontend\modules\promotions\models\Stock;
 use yii\filters\AccessControl;
@@ -241,6 +242,9 @@ class PromotionsController extends Controller
     public function actionView($slug)
     {
         $model = Stock::find()->with(['company', 'comments'])->where(['slug' => $slug])->one();
+        if(!$model){
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
         $model->updateAllCounters(['view' => 1], ['id' => $model->id]);
         $phones = $model->company->allPhones;
         $stocks = Stock::find()
