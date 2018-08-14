@@ -23,6 +23,7 @@ use dektrium\user\models\User;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 class ShopController extends Controller
 {
@@ -66,11 +67,16 @@ class ShopController extends Controller
      *
      * @param $category
      * @return string
+     * @throws NotFoundHttpException
      */
     public function actionCategory($category)
     {
         $model = new CategoryShop();
         $categoryModel = $model->getCategoryInfoBySlug($category);
+
+        if(!$categoryModel){
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
 
         $modelProduct = new Products();
         if (count(Yii::$app->request->get()) > 1 && !Yii::$app->request->get('page')) {
