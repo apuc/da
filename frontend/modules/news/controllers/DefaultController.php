@@ -52,6 +52,10 @@ class DefaultController extends Controller
         $useReg = UserFunction::getRegionUser();
         $request = Yii::$app->request->get();
 
+        if (empty($request['slug'])) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
         $new = \frontend\modules\news\models\News::find()
             ->where(['`news`.`slug`' => $request['slug']])
             ->one();
