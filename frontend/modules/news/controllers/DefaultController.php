@@ -219,10 +219,12 @@ class DefaultController extends Controller
         $readTheSameQuery = News::find()
             ->joinWith('categoryNewsRelations')
             ->where([
-                '`category_news_relations`.`cat_id`' => $category->id,
                 'status' => 0,
                 'exclude_popular' => 0
             ]);
+        if($category){
+            $readTheSameQuery->andWhere(['`category_news_relations`.`cat_id`' => $category->id]);
+        }
         if($useReg != -1){
             $readTheSameQuery->andWhere("(`region_id` IS NULL OR `region_id`=$useReg)");
 
