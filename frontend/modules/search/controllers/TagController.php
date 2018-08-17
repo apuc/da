@@ -29,6 +29,10 @@ class TagController extends Controller
 
         $randTags = $searchModel->randTags();
 
+        if (empty(Tags::findOne(['id' => $request['id']]))) {
+            return $this->render('empty-tag', ['allTags' => $allTags]);
+        }
+
         return $this->render('tag-index', [
             //'searchModel' => $searchModel,
             'tag' => Tags::findOne(['id' => $request['id']])->tag,
