@@ -245,9 +245,13 @@ class DefaultController extends Controller
         $cat = CategoryPoster::find()->where(['slug' => $slug])->one();
         $query = CategoryPosterRelations::find()
             ->leftJoin('poster', '`category_poster_relations`.`poster_id` = `poster`.`id`')
-            ->orderBy('dt_event DESC')
-            ->where(['cat_id' => $cat->id])
-            ->with('poster');
+            ->orderBy('dt_event DESC');
+
+        if($cat){
+            $query->where(['cat_id' => $cat->id]);
+        }
+
+        $query->with('poster');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -260,7 +264,7 @@ class DefaultController extends Controller
         return $this->render('category', [
             'category' => CategoryPoster::find()->orderBy('id DESC')->all(),
             'dataProvider' => $dataProvider,
-            'catName' => $cat->title
+            'catName' => $cat ? $cat->title : 'Без категории'
         ]);
     }
 
