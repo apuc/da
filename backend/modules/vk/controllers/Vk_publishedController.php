@@ -83,7 +83,7 @@ class Vk_publishedController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = VkStream::findOne($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $request = Yii::$app->request->post();
