@@ -119,7 +119,10 @@ class ProductsController extends Controller
 
     public function actionGeneralModal()
     {
-        $category = CategoryShop::find()->where(['parent_id' => 0, 'type' => CategoryShop::TYPE_PRODUCT])->all();
+        $category = CategoryShop::find()->where([
+            'parent_id' => 0,
+            'type' => CategoryShop::TYPE_PRODUCT,
+            'status' => \common\models\db\CategoryShop::STATUS_PUBLIC])->all();
         echo $this->renderPartial('modal', ['category' => $category]);
     }
 
