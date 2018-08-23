@@ -127,10 +127,16 @@ class ProductsController extends Controller
     {
         $id = $_POST['id'];
         //$id = 1;
-        $parent_category = CategoryShop::find()->where(['parent_id' => $id, 'type' => CategoryShop::TYPE_PRODUCT])->all();
+        $parent_category = CategoryShop::find()->where([
+            'parent_id' => $id,
+            'type' => CategoryShop::TYPE_PRODUCT,
+            'status' => \common\models\db\CategoryShop::STATUS_PUBLIC])->all();
 
         if (!empty($parent_category)) {
-            $category = CategoryShop::find()->where(['parent_id' => 0, 'type' => CategoryShop::TYPE_PRODUCT])->all();
+            $category = CategoryShop::find()->where([
+                'parent_id' => 0,
+                'type' => CategoryShop::TYPE_PRODUCT,
+                'status' => \common\models\db\CategoryShop::STATUS_PUBLIC])->all();
             $catName = CategoryShop::find()->where(['id' => $id, 'type' => CategoryShop::TYPE_PRODUCT])->one();
             //$catName = json_decode($catName);
             echo $this->renderPartial('sel_cat',
@@ -150,7 +156,10 @@ class ProductsController extends Controller
     public function actionShowParentModalCategory()
     {
         $id = $_POST['id'];
-        $category = $category = CategoryShop::find()->where(['parent_id' => $id, 'type' => CategoryShop::TYPE_PRODUCT])->all();
+        $category = $category = CategoryShop::find()->where([
+            'parent_id' => $id,
+            'type' => CategoryShop::TYPE_PRODUCT,
+            'status' => \common\models\db\CategoryShop::STATUS_PUBLIC])->all();
         //$category = json_decode($category);
         $catName = CategoryShop::find()->where(['id' => $id, 'type' => CategoryShop::TYPE_PRODUCT])->one();
         //$catName = json_decode($catName);
