@@ -23,9 +23,9 @@ class Slug extends Behavior
 
     public function getSlug($event)
     {
-        //if($this->owner->isNewRecord){
+        if(!$this->owner->{$this->out_attribute}){
             $this->owner->{$this->out_attribute} = $this->generateSlug($this->owner->{$this->in_attribute});
-        //}
+        }
     }
 
     private function generateSlug($slug)
