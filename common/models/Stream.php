@@ -89,7 +89,7 @@ class Stream
         $streamItem->type = 'gplus';
         $streamItem->title = $item->title;
         $streamItem->id = $item->id;
-        $streamItem->author->name = $item->author->display_name;
+        $streamItem->author->name = isset($item->author->display_name) ? $item->author->display_name : '';
         $streamItem->author->photo = $item->author->image;
 
         $streamItem->text = preg_replace( "#\r?\n#", "<br />",  $item->content );
