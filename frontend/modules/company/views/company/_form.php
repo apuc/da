@@ -52,8 +52,8 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         'data' => $categoryCompanyAll,
         'options' => [
             'multiple' => true,
-            'placeholder' => 'Select a state ...',
-            'class' => 'form-control',
+            'placeholder' => 'Выбери категорию',
+            'class' => 'form-control jsHint',
             'size' => '1'
         ],
         'pluginOptions' => [
@@ -63,14 +63,14 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             'maximumSelectionLength' => 1
 
         ],
-    ]);
+    ])->hint('Категория, которая указывает на сферу деятельности компании.');
 ?>
 
 
 <?= $form->field($model, 'name')
     ->textInput(['maxlength' => true])
     ->hint('Введите название компании')
-    ->label('Название компании')
+    ->label('Полное название компании, которое после регистрации отобразится в визитке предприятия.')
 ?>
 
 <?= $form->field($model, 'city_id')->widget(Select2::className(),
@@ -83,15 +83,14 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             'allowClear' => true
         ],
     ])
-    ->hint('Введите город где находится компания')
-    ->label('Город компании')
+    ->hint('Город, в котором находится центральный офис компании.')
+    ->label('Город')
 ?>
 
 
 <?= $form->field($model, 'address')->textInput(['maxlength' => true])
-    ->hint('Введите адрес компании без указания города')
-    ->label('Адрес компании') ?>
-
+    ->hint('Адрес центрального офиса компании без упоминания города.')
+    ->label('Адрес') ?>
 
 <?= $form->field($model, 'photo', [
     'template' => '<label class="cabinet__add-company-form--add-foto">
@@ -101,8 +100,14 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                                         </label>'
 ])->label('Логотип компании')->fileInput();
 ?>
+    <p>Разрешение изображения – не менее 800х600 пикселей. Размер – не более двух мегабайт. Формат – jpg
+        или png. Стандартное соотношение сторон 3х4. Иллюстрации с нешаблонными пропорциями
+        автоматически обрезаются.</p>
 
-    <?= $form->field($model, 'start_page')->label('Главная страница')->dropDownList($model->start_page_items); ?>
+    <?= $form->field($model, 'start_page')->label('Главная страница')
+    ->dropDownList($model->start_page_items)->hint('Раздел профиля компании, который будет стартовым после перехода пользователем на визитку
+предприятия.');
+    ?>
     <div class="cabinet__add-company-form--block"></div>
 
     <div class="cabinet__add-company-form--wrapper" data-iterator="0" style="flex-wrap: wrap; margin-bottom: 40px;">
@@ -115,7 +120,6 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         </div>
 
         <div class="messengers-choice" style="display: flex; flex-wrap: wrap; width: 70%; margin-left: auto;">
-            <p style="width: 100%; margin-bottom: -1px">Выберите мессенджеры, если у вас привязан к ним телефон</p>
             <?= Html::checkboxList('Phones[messengeres]', '', ArrayHelper::map(Messenger::find()->all(), "id", "name"),
                 [
                     'item' =>
@@ -140,7 +144,8 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         'class' => 'cabinet__add-company-form--text',
         'maxlength' => 100
     ])
-    ->hint('Введите информацию о компании')
+    ->hint('Информация о специализации предприятия. Объем текста для неверифицированных пользователей – не
+более 100 символов.')
     ->label('О компании');
 ?>
 
@@ -149,8 +154,8 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     ->textarea([
         'class' => 'cabinet__add-company-form--text jsHint',
     ])
-    ->hint('Введите информацию о доставки Вашей компании. Если компания не осуществляет доставку,
-        оставьте поле пустым.')
+    ->hint('Варианты доставки, которые предлагает компания. Если транспортировка товаров не осуществляется,
+тогда необходимо оставить поле пустым.')
     ->label('Доставка');
 ?>
     <br/>
@@ -158,8 +163,8 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     ->textarea([
         'class' => 'cabinet__add-company-form--text jsHint',
     ])
-    ->hint('Введите информацию о возможных способах оплаты в вашей компании')
-    ->label('Оплаты');
+    ->hint('Способы оплаты, которые доступны клиентам компании.')
+    ->label('Способы оплаты');
 ?>
 <?= $form->field($model, 'slider')->checkbox(['class' => 'checkbox-wrap', 'id' => 'slider_checkbox']); ?>
 
@@ -193,5 +198,5 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         </div>
     </div>
 
-<?= Html::submitButton('Сохранить', ['class' => 'cabinet__add-company-form--submit']) ?>
+<?= Html::submitButton('Сохранить информацию о компании', ['class' => 'cabinet__add-company-form--submit']) ?>
 <?php ActiveForm::end(); ?>

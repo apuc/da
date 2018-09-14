@@ -69,8 +69,8 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         'data' => $categoryCompanyAll,
         'options' => [
             'multiple' => true,
-            'placeholder' => 'Select a state ...',
-            'class' => 'form-control',
+            'placeholder' => 'Выбери категорию',
+            'class' => 'form-control jsHint',
             'size' => '1',
         ],
         'pluginOptions' => [
@@ -80,14 +80,14 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             'maximumSelectionLength' => (isset($services['count_category'])) ? $services['count_category'] : 1,
 
         ],
-    ]);
+    ])->hint('Категория, которая указывает на сферу деятельности компании.');
 ?>
 
 
 <?= $form->field($model, 'name')
     ->textInput(['maxlength' => true])
     ->hint('Введите название компании')
-    ->label('Название компании')
+    ->label('Полное название компании, которое после регистрации отобразится в визитке предприятия.')
 ?>
 
 <?= $form->field($model, 'city_id')->widget(Select2::className(),
@@ -100,13 +100,13 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             'allowClear' => true,
         ],
     ])
-    ->hint('Введите город где находится компания')
-    ->label('Город компании')
+    ->hint('Город, в котором находится центральный офис компании.')
+    ->label('Город')
 ?>
 
 <?= $form->field($model, 'address')->textInput(['maxlength' => true])
-    ->hint('Введите адрес компании без указания города')
-    ->label('Адрес компании')
+    ->hint('Адрес центрального офиса компании без упоминания города.')
+    ->label('Адрес')
 ?>
 
 <?= $form->field($model, 'photo', [
@@ -119,7 +119,11 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     ->label('Логотип компании')
     ->fileInput();
 ?>
-<?= $form->field($model, 'start_page')->label('Главная страница')->dropDownList($model->start_page_items); ?>
+<p>Разрешение изображения – не менее 800х600 пикселей. Размер – не более двух мегабайт. Формат – jpg
+    или png. Стандартное соотношение сторон 3х4. Иллюстрации с нешаблонными пропорциями
+    автоматически обрезаются.</p>
+<?= $form->field($model, 'start_page')->label('Главная страница')->dropDownList($model->start_page_items)->hint('Раздел профиля компании, который будет стартовым после перехода пользователем на визитку
+предприятия.'); ?>
 
     <div class="cabinet__add-company-form--block"></div>
 
@@ -132,6 +136,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                     <?= Html::hiddenInput('Phones[' . $phone->id . '][id]', $phone->id) ?>
                     <?= Html::textInput('Phones[' . $phone->id . '][phone]', $phone->phone,
                         ['class' => 'input-name', 'id' => 'Phones']) ?>
+
                     <?php if ($key != 0): ?>
                         <button type="button" class="cabinet__remove-pkg company__remove-phone"
                                 style="position: absolute; top: 11px; right: 5px; border: none;"></button>
@@ -143,8 +148,6 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                 </div>
 
                 <div class="messengers-choice" style="display: flex; flex-wrap: wrap; width: 70%; margin-left: auto;">
-                    <p style="width: 100%; margin-bottom: -1px">Выберите мессенджеры, если у вас привязан к ним
-                        телефон</p>
                     <?= Html::checkboxList('Phones[][messengeres]', $phone->getMessengeresArray(),
                         ArrayHelper::map(Messenger::find()->all(), "id", "name"),
                         [
@@ -266,7 +269,7 @@ if (isset($services['count_text'])) {
     ->textarea([
         'class' => 'cabinet__add-company-form--text',
     ])
-    ->hint('Введите информацию о возможных способах оплаты в вашей компании')
+    ->hint('Способы оплаты, которые доступны клиентам компании.')
     ->label('Оплаты');
 ?>
     <br/>
@@ -374,5 +377,5 @@ if (isset($services['count_photo'])) :?>
     </div>
 <?php endif; ?>
 
-<?= Html::submitButton('Сохранить', ['class' => 'cabinet__add-company-form--submit']) ?>
+<?= Html::submitButton('Сохранить информацию о компании', ['class' => 'cabinet__add-company-form--submit']) ?>
 <?php ActiveForm::end(); ?>
