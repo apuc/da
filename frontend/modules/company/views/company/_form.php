@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
 echo '<script>var photoCount = 0;</script>';
 $this->registerCssFile('/css/board.min.css');
-//$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/raw/Uploader.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 $this->registerJsFile('/js/raw/img_upload.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 $this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
@@ -42,6 +42,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             'hintOptions' => ['class' => ''],
 
         ],
+
         'errorCssClass' => 'my-error',
     ]);
 ?>
@@ -53,7 +54,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         'options' => [
             'multiple' => true,
             'placeholder' => 'Выбери категорию',
-            'class' => 'form-control jsHint',
+            'class' => ['form-control','jsHint'],
             'size' => '1'
         ],
         'pluginOptions' => [
@@ -63,14 +64,24 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             'maximumSelectionLength' => 1
 
         ],
+        'pluginEvents' => [
+            "select2:open" => "function() { $('.memo:first').show(); }",
+            "select2:close" => "function() { $('.memo:first').hide(); }",
+        ],
+
     ])->hint('Категория, которая указывает на сферу деятельности компании.');
 ?>
 
+<!--    <div class="memo" style="display: none;"><span class="triangle-left"></span>-->
+<!--        <div class=""><span class="info-icon">-->
+<!--                -->
+<!--            </span>Полное название компании, которое после -->
+<!--            регистрации отобразится в визитке предприятия.</div></div>-->
 
 <?= $form->field($model, 'name')
     ->textInput(['maxlength' => true])
-    ->hint('Введите название компании')
-    ->label('Полное название компании, которое после регистрации отобразится в визитке предприятия.')
+    ->hint('Полное название компании, которое после регистрации отобразится в визитке предприятия.')
+    ->label('Название компании')
 ?>
 
 <?= $form->field($model, 'city_id')->widget(Select2::className(),
@@ -78,9 +89,13 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         'data' => $city,
         'value' => $model->city_id,
         //'data' => ['Донецкая область' => ['1'=>'Don','2'=>'Gorl'], 'Rostovskaya' => ['5'=>'rostov']],
-        'options' => ['placeholder' => 'Начните вводить город ...'],
+        'options' => ['placeholder' => 'Начните вводить город ...','class'=>'jsHint'],
         'pluginOptions' => [
             'allowClear' => true
+        ],
+        'pluginEvents' => [
+            "select2:open" => "function() { $('.memo:eq(2)').show(); }",
+            "select2:close" => "function() { $('.memo:eq(2)').hide(); }",
         ],
     ])
     ->hint('Город, в котором находится центральный офис компании.')
@@ -92,31 +107,49 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     ->hint('Адрес центрального офиса компании без упоминания города.')
     ->label('Адрес') ?>
 
+
+
 <?= $form->field($model, 'photo', [
     'template' => '<label class="cabinet__add-company-form--add-foto">
                                         <span class="button"></span>
                                         {input}
                                         <img id="blah" src="" alt="" width="160px">
                                         </label>'
-])->label('Логотип компании')->fileInput();
+])->hint('Разрешение изображения – не менее 800х600 пикселей. Размер – не более двух мегабайт. Формат – jpg
+        или png. Стандартное соотношение сторон 3х4. Иллюстрации с нешаблонными пропорциями
+        автоматически обрезаются.')->label('Логотип компании')->fileInput();
 ?>
+
+
     <p>Разрешение изображения – не менее 800х600 пикселей. Размер – не более двух мегабайт. Формат – jpg
         или png. Стандартное соотношение сторон 3х4. Иллюстрации с нешаблонными пропорциями
         автоматически обрезаются.</p>
+
+
+
+
 
     <?= $form->field($model, 'start_page')->label('Главная страница')
     ->dropDownList($model->start_page_items)->hint('Раздел профиля компании, который будет стартовым после перехода пользователем на визитку
 предприятия.');
     ?>
+
+
     <div class="cabinet__add-company-form--block"></div>
 
     <div class="cabinet__add-company-form--wrapper" data-iterator="0" style="flex-wrap: wrap; margin-bottom: 40px;">
         <div class="input__wrap" style="position: relative; width: 100%;">
             <?= Html::label('Телефон', 'Phones', ['class' => 'label-name']) ?>
-            <?= Html::textInput('Phones[0][phone]', '', ['class' => 'input-name', 'id' => 'Phones']) ?>
+
+            <?= Html::textInput('Phones[0][phone]', '', ['class' => 'input-name jsHint', 'id' => 'Phones']) ?>
             <button type="button" class="cabinet__add-field company__add-phone"
                     style="position: absolute; top: 11px; right: 5px; border: none;" data-iterator="0"
                     max-count="<?= (isset($services['count_phone']) ? $services['count_phone'] : ''); ?>"></button>
+            <div class="memo" style="display: none">
+                <span class="info-icon" style="background-image: url(/theme/portal-donbassa/img/icons/info.png)"></span>
+                <span class="triangle-left"></span>
+                <div class="">Номер телефона лица, которое отвечает за работу с клиентами.</div>
+            </div>
         </div>
 
         <div class="messengers-choice" style="display: flex; flex-wrap: wrap; width: 70%; margin-left: auto;">
@@ -134,6 +167,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                 ]);
             ?>
         </div>
+
     </div>
 
     <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>
@@ -141,7 +175,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
 <?= $form->field($model, 'descr')
     ->textarea([
-        'class' => 'cabinet__add-company-form--text',
+        'class' => 'cabinet__add-company-form--text jsHint',
         'maxlength' => 100
     ])
     ->hint('Информация о специализации предприятия. Объем текста для неверифицированных пользователей – не
@@ -197,6 +231,8 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             </div>
         </div>
     </div>
+
+
 
 <?= Html::submitButton('Сохранить информацию о компании', ['class' => 'cabinet__add-company-form--submit']) ?>
 <?php ActiveForm::end(); ?>

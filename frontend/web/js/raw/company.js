@@ -7,6 +7,12 @@ $(document).ready(function () {
         /*}*/
     });
 
+
+    $(".input__wrap input").on("click",function () {
+        $(this).parent().find(".memo").show();
+    });
+
+
     /*business sidebar script*/
     $('.business__sidebar--items ul li a').on('click', function (event) {
         event.preventDefault();

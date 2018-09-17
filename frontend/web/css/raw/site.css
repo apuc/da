@@ -17,6 +17,20 @@
     color: #fff!important;
 }
 
+/*.input__wrap .info-icon{*/
+    /*width: 20px;*/
+    /*display: block;*/
+    /*height: 20px;*/
+
+    /*background-repeat: no-repeat;*/
+    /*z-index: 12;*/
+    /*-webkit-background-size: contain;*/
+    /*background-size: contain;*/
+    /*position: absolute;*/
+    /*left: 10px;*/
+    /*top: 10px;*/
+/*}*/
+
 .field-company-descr{
     width: calc(100% - 165px);
 }
