@@ -8,9 +8,28 @@ $(document).ready(function () {
     });
 
 
+
+
     $(".input__wrap input").on("click",function () {
         $(this).parent().find(".memo").show();
     });
+
+    $(".field-company-photo").on("click",function () {
+         $(this).find(".memo").show();
+    });
+
+    $("body").on("click",function (event) {
+
+         var name = event.target.className;
+
+         if(name.indexOf("file") == -1 && name.indexOf("hidden-xs") == -1 && name.indexOf("jsHint") == -1)
+         {
+             $(".field-company-photo").find(".memo").hide();
+         }
+
+    });
+
+
 
 
     /*business sidebar script*/
@@ -50,6 +69,7 @@ $(document).ready(function () {
             });
         });
     });
+
     $(document).on('click', '.company__add-phone', function (event) {
         var iterator = parseInt($('.cabinet__add-company-form--wrapper').attr('data-iterator'));
         iterator = iterator + 1;

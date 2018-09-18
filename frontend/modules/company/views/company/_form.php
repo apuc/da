@@ -5,6 +5,8 @@ use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\file\FileInput;
+use yii\widgets\MaskedInput;
 
 /**
  * @var $this yii\web\View
@@ -72,16 +74,12 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     ])->hint('Категория, которая указывает на сферу деятельности компании.');
 ?>
 
-<!--    <div class="memo" style="display: none;"><span class="triangle-left"></span>-->
-<!--        <div class=""><span class="info-icon">-->
-<!--                -->
-<!--            </span>Полное название компании, которое после -->
-<!--            регистрации отобразится в визитке предприятия.</div></div>-->
+
 
 <?= $form->field($model, 'name')
     ->textInput(['maxlength' => true])
     ->hint('Полное название компании, которое после регистрации отобразится в визитке предприятия.')
-    ->label('Название компании')
+    ->label('Название')
 ?>
 
 <?= $form->field($model, 'city_id')->widget(Select2::className(),
@@ -109,21 +107,48 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
 
 
-<?= $form->field($model, 'photo', [
-    'template' => '<label class="cabinet__add-company-form--add-foto">
-                                        <span class="button"></span>
-                                        {input}
-                                        <img id="blah" src="" alt="" width="160px">
-                                        </label>'
-])->hint('Разрешение изображения – не менее 800х600 пикселей. Размер – не более двух мегабайт. Формат – jpg
-        или png. Стандартное соотношение сторон 3х4. Иллюстрации с нешаблонными пропорциями
-        автоматически обрезаются.')->label('Логотип компании')->fileInput();
+<?= ""//$form->field($model, 'photo', [
+//    'template' => '<label class="cabinet__add-company-form--add-foto">
+//                                        <span class="button"></span>
+//                                        {input}
+//                                        <img id="blah" src="" alt="" width="160px">
+//                                        </label>'
+//])->hint('Разрешение изображения – не менее 800х600 пикселей. Размер – не более двух мегабайт. Формат – jpg
+//        или png. Стандартное соотношение сторон 3х4. Иллюстрации с нешаблонными пропорциями
+//        автоматически обрезаются.')->label('Логотип компании')->fileInput();
 ?>
 
 
-    <p>Разрешение изображения – не менее 800х600 пикселей. Размер – не более двух мегабайт. Формат – jpg
+
+<?php
+
+echo $form->field($model, 'photo')->widget(FileInput::classname(), [
+    'options' => ['accept' => 'image/*','class'=>'jsHint'],
+])->hint('Разрешение изображения – не менее 800х600 пикселей. Размер – не более двух мегабайт. Формат – jpg
         или png. Стандартное соотношение сторон 3х4. Иллюстрации с нешаблонными пропорциями
-        автоматически обрезаются.</p>
+        автоматически обрезаются.')->label("Добавить изображение");
+
+//$form->field($model, 'photo')->hiddenInput(['value' => $model->photo])->label(false);
+
+?>
+
+<?php //echo '<label class="control-label">Добавить фото</label>';
+//echo FileInput::widget([
+//    'name' => 'Poster',
+//    'options' => ['multiple' => false,'placeholder'=>'Выбрать файл'],
+//    'pluginOptions' => [
+//        'previewFileType' => 'image',
+//        'maxFileCount' => 10,
+//        'maxFileSize' => 2000,
+//        'language' => "ru",
+//    ],
+//]); ?>
+
+    <p class="file-hint">
+        Как правильно подобрать изображение для сайта или статьии?
+        <a href="#">Перейти к четению.</a>
+
+    </p>
 
 
 
@@ -138,18 +163,40 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     <div class="cabinet__add-company-form--block"></div>
 
     <div class="cabinet__add-company-form--wrapper" data-iterator="0" style="flex-wrap: wrap; margin-bottom: 40px;">
-        <div class="input__wrap" style="position: relative; width: 100%;">
-            <?= Html::label('Телефон', 'Phones', ['class' => 'label-name']) ?>
 
-            <?= Html::textInput('Phones[0][phone]', '', ['class' => 'input-name jsHint', 'id' => 'Phones']) ?>
+        <div class="input__wrap" style="position: relative; width: 100%;">
+
+            <?= Html::label('Телефон', 'phone', ['class' => 'label-name']) ?>
+
+            <?=  MaskedInput::widget([
+                'name' => 'Phones[0][phone]',
+                'mask' => '999-999-9999',
+                'options'=>[
+                    'class' => 'input-name jsHint',
+                    'id' => 'phone',
+                ],
+                'clientOptions' => [
+                    'clearIncomplete' => true
+                ]
+            ]);
+
+
+
+            //Html::textInput('Phones[0][phone]', '', ['class' => 'input-name jsHint', 'id' => 'Phones'])
+
+            ?>
+
             <button type="button" class="cabinet__add-field company__add-phone"
                     style="position: absolute; top: 11px; right: 5px; border: none;" data-iterator="0"
-                    max-count="<?= (isset($services['count_phone']) ? $services['count_phone'] : ''); ?>"></button>
+                    max-count="<?= (isset($services['count_phone']) ? $services['count_phone'] : ''); ?>">
+            </button>
+
             <div class="memo" style="display: none">
                 <span class="info-icon" style="background-image: url(/theme/portal-donbassa/img/icons/info.png)"></span>
                 <span class="triangle-left"></span>
                 <div class="">Номер телефона лица, которое отвечает за работу с клиентами.</div>
             </div>
+
         </div>
 
         <div class="messengers-choice" style="display: flex; flex-wrap: wrap; width: 70%; margin-left: auto;">
@@ -200,22 +247,27 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     ->hint('Способы оплаты, которые доступны клиентам компании.')
     ->label('Способы оплаты');
 ?>
-<?= $form->field($model, 'slider')->checkbox(['class' => 'checkbox-wrap', 'id' => 'slider_checkbox']); ?>
+<?= $form->field($model, 'slider')->checkbox(['class' => 'checkbox-wrap', 'id' => 'slider_checkbox'])
+     ?>
 
 
     <div class="cabinet__add-company-img-block form-line" id = "slider_images" style = "display: none;">
-        <h2>Фотографии для слайдера</h2>
 
-        <p class="cabinet__add-company-form--count">количество загружаемых файлов<span class="col">
-    <span id="itemsCountBox">5</span> из <span id="maxCountBox">10</span></span>
-            <span></span></p>
+
+
         <input type="file" id="fileInput" style="display: none" multiple>
         <div class="cabinet__add-company-form--drop" id="dropArea">
             <img src="/img/icons/cloud.png" alt="">
             <p>Перетащите сюда файлы, чтобы прикрепить их как документ</p>
         </div>
+        <p class="cabinet__add-company-form--count"><span>Количество  файлов<span class="col">
+    <span id="itemsCountBox">5</span> из <span id="maxCountBox">10</span></span></span>
 
-        <input type="button" class="cabinet__add-company-form--submit" id="btnSel" value="Добавить">
+
+            <input type="button" class="cabinet__add-company-form--submit" id="btnSel" value="Добавить">
+        </p>
+
+
 
         <div class="cabinet__add-company-form--images" id="cabinet__add-company-form--images">
             <div class="cabinet__add-company-form--img">

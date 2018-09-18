@@ -1,3 +1,44 @@
+
+.field-company-photo .file-preview,.field-company-photo .fileinput-upload-button{
+    display: none !important;
+}
+
+.field-company-photo .file-input{
+    float: right !important;
+    width: 70% !important;
+}
+
+.field-company-photo .file-caption-main{
+    width: initial !important;
+    margin-bottom: 5px !important;
+}
+
+.field-company-photo .label-name{
+    top:10px !important;
+    font-size: 12px !important;
+}
+
+.file-hint{
+    display: block;
+    float: right;
+    width: 70%;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.phones__wrap{
+    width: 100%;
+}
+
+.cabinet__add-company-form--count{
+    justify-content: space-between;
+}
+
+.header-ipanel .list li:hover{
+    background-color: #0c242e;
+}
+
+
 .search-consulting-widget {
     margin-top: 20px
 }
