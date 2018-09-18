@@ -19,7 +19,7 @@ echo '<script>var photoCount = 0;</script>';
 $this->registerCssFile('/css/board.min.css');
 $this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/raw/Uploader.js', ['depends' => [\yii\web\JqueryAsset::class]]);
-//$this->registerJsFile('/js/raw/img_upload.js', ['depends' => [\yii\web\JqueryAsset::class]]);
+$this->registerJsFile('/js/raw/img_upload.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 $this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/raw/company.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
@@ -122,8 +122,10 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 <?php
 
 echo $form->field($model, 'photo')->widget(FileInput::classname(), [
-    'options' => ['accept' => 'image/*'],
-])->label("Добавить изображение");
+    'options' => ['accept' => 'image/*','class'=>'jsHint'],
+])->hint('Разрешение изображения – не менее 800х600 пикселей. Размер – не более двух мегабайт. Формат – jpg
+        или png. Стандартное соотношение сторон 3х4. Иллюстрации с нешаблонными пропорциями
+        автоматически обрезаются.')->label("Добавить изображение");
 
 //$form->field($model, 'photo')->hiddenInput(['value' => $model->photo])->label(false);
 
@@ -140,10 +142,12 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
 //        'language' => "ru",
 //    ],
 //]); ?>
-<!---->
-<!--    <p>Разрешение изображения – не менее 800х600 пикселей. Размер – не более двух мегабайт. Формат – jpg-->
-<!--        или png. Стандартное соотношение сторон 3х4. Иллюстрации с нешаблонными пропорциями-->
-<!--        автоматически обрезаются.</p>-->
+
+    <p class="file-hint">
+        Как правильно подобрать изображение для сайта или статьии?
+        <a href="#">Перейти к четению.</a>
+
+    </p>
 
 
 

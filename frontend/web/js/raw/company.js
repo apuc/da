@@ -12,6 +12,23 @@ $(document).ready(function () {
         $(this).parent().find(".memo").show();
     });
 
+    $(".field-company-photo").on("click",function () {
+         $(this).find(".memo").show();
+    });
+
+    $("body").on("click",function (event) {
+
+         var name = event.target.className;
+
+         if(name.indexOf("file") == -1 && name.indexOf("hidden-xs") == -1 && name.indexOf("jsHint") == -1)
+         {
+             $(".field-company-photo").find(".memo").hide();
+         }
+
+    });
+
+
+
 
     /*business sidebar script*/
     $('.business__sidebar--items ul li a').on('click', function (event) {

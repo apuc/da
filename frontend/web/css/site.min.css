@@ -10,6 +10,7 @@
 
 .field-company-photo .file-caption-main{
     width: initial !important;
+    margin-bottom: 5px !important;
 }
 
 .field-company-photo .label-name{
@@ -17,6 +18,13 @@
     font-size: 12px !important;
 }
 
+.file-hint{
+    display: block;
+    float: right;
+    width: 70%;
+    text-align: left;
+    margin-bottom: 20px;
+}
 
 
 
