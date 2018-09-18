@@ -44,7 +44,7 @@ if ($this->beginCache('show_header_widget_end', ['duration' => Yii::$app->params
             <li>
                 <a href="<?= \yii\helpers\Url::to(['/company/company/create']); ?>">
                     <img src="/theme/portal-donbassa/img/icons/tag-hover-icon.png" alt="">
-                    Предприятие
+                    Компанию
                 </a>
             </li>
             <li>
@@ -56,31 +56,31 @@ if ($this->beginCache('show_header_widget_end', ['duration' => Yii::$app->params
             <li>
                 <a href="<?= \yii\helpers\Url::to(['/poster/default/create']) ?>">
                     <img src="/theme/portal-donbassa/img/icons/calendar-cabinet--hover-icon.png" alt="">
-                    Афиши
+                    Афишу
                 </a>
             </li>
             <li>
                 <a href="<?= \yii\helpers\Url::to(['/promotions/promotions/create']) ?>">
                     <img src="/theme/portal-donbassa/img/icons/bar-graph-hover-icon.png" alt="">
-                    Акция
+                    Акцию
                 </a>
             </li>
             <li>
                 <a href="<?= \yii\helpers\Url::to(['/board/default/create']) ?>">
                     <img src="/theme/portal-donbassa/img/icons/add-icon.png" alt="">
-                    Объявления
+                    Объявление
                 </a>
             </li>
             <li>
                 <a href="<?= \yii\helpers\Url::to(['/shop/products/create']) ?>">
                     <img src="/theme/portal-donbassa/img/icons/shopping-cart-hover.png" alt="">
-                    Товары
+                    Товар
                 </a>
             </li>
             <li>
                 <a href="<?= \yii\helpers\Url::to(['/shop/service/create']) ?>">
                     <img src="/theme/portal-donbassa/img/icons/shopping-cart-hover.png" alt="">
-                    Услуги
+                    Услугу
                 </a>
             </li>
         </ul>
