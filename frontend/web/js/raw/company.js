@@ -8,6 +8,8 @@ $(document).ready(function () {
     });
 
 
+
+
     $(".input__wrap input").on("click",function () {
         $(this).parent().find(".memo").show();
     });
@@ -67,6 +69,7 @@ $(document).ready(function () {
             });
         });
     });
+
     $(document).on('click', '.company__add-phone', function (event) {
         var iterator = parseInt($('.cabinet__add-company-form--wrapper').attr('data-iterator'));
         iterator = iterator + 1;

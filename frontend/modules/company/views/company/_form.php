@@ -6,6 +6,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\file\FileInput;
+use yii\widgets\MaskedInput;
 
 /**
  * @var $this yii\web\View
@@ -162,18 +163,40 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
     <div class="cabinet__add-company-form--block"></div>
 
     <div class="cabinet__add-company-form--wrapper" data-iterator="0" style="flex-wrap: wrap; margin-bottom: 40px;">
-        <div class="input__wrap" style="position: relative; width: 100%;">
-            <?= Html::label('Телефон', 'Phones', ['class' => 'label-name']) ?>
 
-            <?= Html::textInput('Phones[0][phone]', '', ['class' => 'input-name jsHint', 'id' => 'Phones']) ?>
+        <div class="input__wrap" style="position: relative; width: 100%;">
+
+            <?= Html::label('Телефон', 'phone', ['class' => 'label-name']) ?>
+
+            <?=  MaskedInput::widget([
+                'name' => 'Phones[0][phone]',
+                'mask' => '999-999-9999',
+                'options'=>[
+                    'class' => 'input-name jsHint',
+                    'id' => 'phone',
+                ],
+                'clientOptions' => [
+                    'clearIncomplete' => true
+                ]
+            ]);
+
+
+
+            //Html::textInput('Phones[0][phone]', '', ['class' => 'input-name jsHint', 'id' => 'Phones'])
+
+            ?>
+
             <button type="button" class="cabinet__add-field company__add-phone"
                     style="position: absolute; top: 11px; right: 5px; border: none;" data-iterator="0"
-                    max-count="<?= (isset($services['count_phone']) ? $services['count_phone'] : ''); ?>"></button>
+                    max-count="<?= (isset($services['count_phone']) ? $services['count_phone'] : ''); ?>">
+            </button>
+
             <div class="memo" style="display: none">
                 <span class="info-icon" style="background-image: url(/theme/portal-donbassa/img/icons/info.png)"></span>
                 <span class="triangle-left"></span>
                 <div class="">Номер телефона лица, которое отвечает за работу с клиентами.</div>
             </div>
+
         </div>
 
         <div class="messengers-choice" style="display: flex; flex-wrap: wrap; width: 70%; margin-left: auto;">
@@ -224,22 +247,27 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
     ->hint('Способы оплаты, которые доступны клиентам компании.')
     ->label('Способы оплаты');
 ?>
-<?= $form->field($model, 'slider')->checkbox(['class' => 'checkbox-wrap', 'id' => 'slider_checkbox']); ?>
+<?= $form->field($model, 'slider')->checkbox(['class' => 'checkbox-wrap', 'id' => 'slider_checkbox'])
+     ?>
 
 
     <div class="cabinet__add-company-img-block form-line" id = "slider_images" style = "display: none;">
-        <h2>Фотографии для слайдера</h2>
 
-        <p class="cabinet__add-company-form--count">количество загружаемых файлов<span class="col">
-    <span id="itemsCountBox">5</span> из <span id="maxCountBox">10</span></span>
-            <span></span></p>
+
+
         <input type="file" id="fileInput" style="display: none" multiple>
         <div class="cabinet__add-company-form--drop" id="dropArea">
             <img src="/img/icons/cloud.png" alt="">
             <p>Перетащите сюда файлы, чтобы прикрепить их как документ</p>
         </div>
+        <p class="cabinet__add-company-form--count"><span>Количество  файлов<span class="col">
+    <span id="itemsCountBox">5</span> из <span id="maxCountBox">10</span></span></span>
 
-        <input type="button" class="cabinet__add-company-form--submit" id="btnSel" value="Добавить">
+
+            <input type="button" class="cabinet__add-company-form--submit" id="btnSel" value="Добавить">
+        </p>
+
+
 
         <div class="cabinet__add-company-form--images" id="cabinet__add-company-form--images">
             <div class="cabinet__add-company-form--img">

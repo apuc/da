@@ -26,6 +26,15 @@
     margin-bottom: 20px;
 }
 
+.phones__wrap{
+    width: 100%;
+}
+
+.cabinet__add-company-form--count{
+    justify-content: space-between;
+}
+
+
 
 
 .search-consulting-widget {

@@ -266,6 +266,7 @@ class CompanyController extends Controller
                 $model->photo = '/' . $loc . $_FILES['Company']['name']['photo'];
             }
             $model->save();
+
             CompanySliderPhoto::deleteAll(['company_id' => $model->id]);
             if($model->slider == 1){
                 foreach(Yii::$app->request->post('sliderImg') as $image){
@@ -663,7 +664,7 @@ class CompanyController extends Controller
 
     public function actionAddPhone()
     {
-        return $this->renderPartial('one_phone', [
+        return $this->renderAjax('one_phone', [
             'iterator' => Yii::$app->request->post('iterator'),
             'messengers' => ArrayHelper::map(Messenger::find()->all(), 'id', 'name'),
         ]);
