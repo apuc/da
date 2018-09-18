@@ -5,6 +5,7 @@ use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\file\FileInput;
 
 /**
  * @var $this yii\web\View
@@ -18,7 +19,7 @@ echo '<script>var photoCount = 0;</script>';
 $this->registerCssFile('/css/board.min.css');
 $this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/raw/Uploader.js', ['depends' => [\yii\web\JqueryAsset::class]]);
-$this->registerJsFile('/js/raw/img_upload.js', ['depends' => [\yii\web\JqueryAsset::class]]);
+//$this->registerJsFile('/js/raw/img_upload.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 $this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/raw/company.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
@@ -72,16 +73,12 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     ])->hint('Категория, которая указывает на сферу деятельности компании.');
 ?>
 
-<!--    <div class="memo" style="display: none;"><span class="triangle-left"></span>-->
-<!--        <div class=""><span class="info-icon">-->
-<!--                -->
-<!--            </span>Полное название компании, которое после -->
-<!--            регистрации отобразится в визитке предприятия.</div></div>-->
+
 
 <?= $form->field($model, 'name')
     ->textInput(['maxlength' => true])
     ->hint('Полное название компании, которое после регистрации отобразится в визитке предприятия.')
-    ->label('Название компании')
+    ->label('Название')
 ?>
 
 <?= $form->field($model, 'city_id')->widget(Select2::className(),
@@ -109,21 +106,44 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
 
 
-<?= $form->field($model, 'photo', [
-    'template' => '<label class="cabinet__add-company-form--add-foto">
-                                        <span class="button"></span>
-                                        {input}
-                                        <img id="blah" src="" alt="" width="160px">
-                                        </label>'
-])->hint('Разрешение изображения – не менее 800х600 пикселей. Размер – не более двух мегабайт. Формат – jpg
-        или png. Стандартное соотношение сторон 3х4. Иллюстрации с нешаблонными пропорциями
-        автоматически обрезаются.')->label('Логотип компании')->fileInput();
+<?= ""//$form->field($model, 'photo', [
+//    'template' => '<label class="cabinet__add-company-form--add-foto">
+//                                        <span class="button"></span>
+//                                        {input}
+//                                        <img id="blah" src="" alt="" width="160px">
+//                                        </label>'
+//])->hint('Разрешение изображения – не менее 800х600 пикселей. Размер – не более двух мегабайт. Формат – jpg
+//        или png. Стандартное соотношение сторон 3х4. Иллюстрации с нешаблонными пропорциями
+//        автоматически обрезаются.')->label('Логотип компании')->fileInput();
 ?>
 
 
-    <p>Разрешение изображения – не менее 800х600 пикселей. Размер – не более двух мегабайт. Формат – jpg
-        или png. Стандартное соотношение сторон 3х4. Иллюстрации с нешаблонными пропорциями
-        автоматически обрезаются.</p>
+
+<?php
+
+echo $form->field($model, 'photo')->widget(FileInput::classname(), [
+    'options' => ['accept' => 'image/*'],
+])->label("Добавить изображение");
+
+//$form->field($model, 'photo')->hiddenInput(['value' => $model->photo])->label(false);
+
+?>
+
+<?php //echo '<label class="control-label">Добавить фото</label>';
+//echo FileInput::widget([
+//    'name' => 'Poster',
+//    'options' => ['multiple' => false,'placeholder'=>'Выбрать файл'],
+//    'pluginOptions' => [
+//        'previewFileType' => 'image',
+//        'maxFileCount' => 10,
+//        'maxFileSize' => 2000,
+//        'language' => "ru",
+//    ],
+//]); ?>
+<!---->
+<!--    <p>Разрешение изображения – не менее 800х600 пикселей. Размер – не более двух мегабайт. Формат – jpg-->
+<!--        или png. Стандартное соотношение сторон 3х4. Иллюстрации с нешаблонными пропорциями-->
+<!--        автоматически обрезаются.</p>-->
 
 
 

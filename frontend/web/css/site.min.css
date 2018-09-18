@@ -1,3 +1,25 @@
+
+.field-company-photo .file-preview,.field-company-photo .fileinput-upload-button{
+    display: none !important;
+}
+
+.field-company-photo .file-input{
+    float: right !important;
+    width: 70% !important;
+}
+
+.field-company-photo .file-caption-main{
+    width: initial !important;
+}
+
+.field-company-photo .label-name{
+    top:10px !important;
+    font-size: 12px !important;
+}
+
+
+
+
 .search-consulting-widget {
     margin-top: 20px
 }
