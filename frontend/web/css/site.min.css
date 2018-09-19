@@ -39,6 +39,99 @@
 }
 
 
+
+
+.journal {
+    padding-bottom: 30px
+}
+
+.journal__item {
+    width: 23%;
+    float: left;
+    position: relative;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 2px solid transparent;
+    margin: .5%
+}
+
+@media (max-width: 1024px) {
+    .journal__item {
+        width: 31%;
+        margin: 1.16667%
+    }
+}
+
+@media (max-width: 700px) {
+    .journal__item {
+        width: 46%;
+        margin: 2%
+    }
+}
+
+@media (max-width: 600px) {
+    .journal__item {
+        width: 96%;
+        margin: 2%
+    }
+}
+
+.journal__item .hover-wrap {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    padding: 20px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 4px solid #fff
+}
+
+.journal__thumb {
+    position: relative;
+    display: block;
+    border: 2px solid #fff
+}
+
+.journal__thumb:hover {
+    border: 2px solid #b2b2b2
+}
+
+.journal__thumb img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover
+}
+
+.journal__content {
+    padding: 10px 15px 20px;
+    background-color: #fff
+}
+
+.journal__content .views {
+    color: #000;
+    float: unset;
+    margin-left: -7px;
+    margin-top: 5px
+}
+
+.journal__content .views:before {
+    background-image: url(../img/icons/eye-new-icon.png)
+}
+
+.journal__title {
+    font-weight: 700;
+    color: #000
+}
+
+.journal__title:hover {
+    color: #ee2e24
+}
+
+
 .search-consulting-widget {
     margin-top: 20px
 }

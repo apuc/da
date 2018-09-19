@@ -23,27 +23,24 @@ $this->registerCssFile('css/raw/site.css');
         <div class="news__wrap">
 
             <?php foreach ($journals as $journal): ?>
-                <a href="<?= Url::to([
-                    '/journal/journal/view',
-                    'slug' => $journal->slug,
-                ]); ?>" class="journal_item">
-                    <div class="thumb">
+                <div class="journal__item">
+                    <a href="<?= Url::to([
+                                     '/journal/journal/view',
+                                      'slug' => $journal->slug,
+                                   ]); ?>"
+                       class="journal__thumb">
 
-                        <?php if (stristr($journal->photo, 'http')): ?>
-                            <img class="thumbnail" src="<?= $journal->photo ?>" alt="">
-                        <?php else: ?>
-                            <img class="thumbnail"
-                                 src="<?= $journal->photo; ?>" alt="">
-                        <?php endif; ?>
+                        <img src="<?= $journal->photo // "img/DA_01-1.jpg"?>" alt="">
 
-                        <div class="content-row">
-                            <span><small class="view-icon"></small><?=$journal->views?></span>
-                        </div>
+                        <div class="hover-wrap"></div>
+                    </a>
+                    <div class="journal__content">
+                        <a class="journal__title" href="#"><?= $journal->title; ?></a>
+                        <span class="views"><?=$journal->views?></span>
                     </div>
-                    <div class="hover-wrap">
-                        <h2><?= $journal->title; ?></h2>
-                    </div>
-                </a>
+                </div>
+
+
 
             <?php endforeach; ?>
         </div>
