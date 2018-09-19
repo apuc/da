@@ -30,6 +30,18 @@ $(document).ready(function () {
     });
 
 
+    $("#cabinet__add-company-form-about_field").on("keyup",function () {
+
+           var symLeft = 800 - $(this).val().length;
+
+           if(symLeft > -1)
+           {
+               $(".sym-count").html("Осталось "+symLeft+" символов");
+           }
+
+    })
+
+
 
 
     /*business sidebar script*/
