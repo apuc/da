@@ -41,10 +41,10 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ];
 
-    echo ExportMenu::widget([
-        'dataProvider' => $dataProvider,
-        'columns' => $gridColumns
-    ]);
+//    echo ExportMenu::widget([
+//        'dataProvider' => $dataProvider,
+//        'columns' => $gridColumns
+//    ]);
     ?>
 
     <?= GridView::widget([
