@@ -145,8 +145,8 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
 //]); ?>
 
     <p class="file-hint">
-        Как правильно подобрать изображение для сайта или статьии?
-        <a href="#">Перейти к четению.</a>
+        Как правильно подобрать изображение?
+        <a href="http://da-info.pro/page/kak-pravilno-podobrat-izobrazenie-dla-stati-na-sajte-da-info-pro">Перейти к четению.</a>
 
     </p>
 

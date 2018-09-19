@@ -1,0 +1,70 @@
+.journal {
+  padding-bottom: 30px;
+  &__item {
+    width: 23%;
+    float: left;
+    position: relative;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 2px solid transparent;
+    margin: 0.5%;
+    @include breakpoint(max-width 1024px) {
+      width: 31%;
+      margin: calc(7% / 6);
+    }
+    @include breakpoint(max-width 700px) {
+      width: 46%;
+      margin: 2%;
+    }
+    @include breakpoint(max-width 600px) {
+      width: 96%;
+      margin: 2%;
+    }
+    .hover-wrap {
+      display: inline-block;
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      padding: 20px;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      border: 4px solid #fff;
+    }
+  }
+  &__thumb {
+    position: relative;
+    display: block;
+    border: 2px solid #fff;
+    &:hover {
+      border: 2px solid #b2b2b2;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
+    }
+  }
+  &__content {
+    padding: 10px 15px 20px;
+    background-color: #fff;
+    .views {
+      color: #000;
+      float: unset;
+      margin-left: -7px;
+      margin-top: 5px;
+      &:before {
+        background-image: url(../img/icons/eye-new-icon.png);
+      }
+    }
+  }
+  &__title {
+    font-weight: bold;
+    color: #000;
+    &:hover {
+      color: #ee2e24;
+    }
+  }
+}
