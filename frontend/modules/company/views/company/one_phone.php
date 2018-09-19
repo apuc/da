@@ -34,7 +34,7 @@ use yii\widgets\MaskedInput;
     <div class="messengers-choice" style="display: flex; flex-wrap: wrap; width: 70%; margin-left: auto;">
 
         <?php if (!empty($messengers)): ?>
-            <div style="display: flex; justify-content: space-around; width: 100%; margin-top: 5px;">
+            <div style="display: flex; justify-content: space-around; width: 100%;">
                 <?php foreach ($messengers as $id => $name): ?>
                     <label>
                         <input type="checkbox" name="messengeresArray[<?= $iterator ?>][]"
