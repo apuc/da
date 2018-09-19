@@ -98,6 +98,8 @@ class Company extends \yii\db\ActiveRecord
                 'string',
                 'max' => 255,
             ],
+            [['descr'],'string',
+                'max' => 800]
         ];
     }
 

@@ -38,6 +38,14 @@
     background-color: #0c242e;
 }
 
+.sym-count{
+    display: block;
+    float: right;
+    width: 70%;
+    margin:0px;
+    text-align: left;
+}
+
 
 
 

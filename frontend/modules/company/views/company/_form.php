@@ -219,14 +219,15 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
 
     <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>
 
-
+ <p class="sym-count"></p>
 <?= $form->field($model, 'descr')
     ->textarea([
         'class' => 'cabinet__add-company-form--text jsHint',
-        'maxlength' => 100
+        'maxlength' => 800,
+        'id'=>'cabinet__add-company-form-about_field'
     ])
     ->hint('Информация о специализации предприятия. Объем текста для неверифицированных пользователей – не
-более 100 символов.')
+более 800 символов.')
     ->label('О компании');
 ?>
 
