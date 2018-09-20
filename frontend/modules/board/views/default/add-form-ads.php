@@ -142,6 +142,10 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     ]);
 
     ?>
+        <p class="file-hint">
+            Как правильно подобрать иллюстрацию?
+            <a target="_blank" href="http://da-info.pro/page/kak-pravilno-podobrat-izobrazenie-dla-stati-na-sajte-da-info-pro">Перейти к четению.</a>
+        </p>
 
 
     <h2 class="soglasie">Ваши контактные данные</h2>

@@ -111,7 +111,7 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
 
     <p class="file-hint">
          Как правильно подобрать иллюстрацию?
-        <a href="http://da-info.pro/page/kak-pravilno-podobrat-izobrazenie-dla-stati-na-sajte-da-info-pro">Перейти к четению.</a>
+        <a target="_blank" href="http://da-info.pro/page/kak-pravilno-podobrat-izobrazenie-dla-stati-na-sajte-da-info-pro">Перейти к четению.</a>
     </p>
 
     <?= $form->field($model, 'start_page')->label('Главная страница')
