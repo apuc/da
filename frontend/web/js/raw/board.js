@@ -536,4 +536,18 @@ $(document).ready(function () {
     });
 
 
+    $(".field-stock-dt_event input").on("click",function (e) {
+           $(".field-stock-dt_event").find(".memo").fadeIn();
+    });
+
+    $(".field-stock-dt_event_end input").on("click",function (e) {
+        $(".field-stock-dt_event_end").find(".memo").fadeIn();
+    });
+
+    $("body").on("click",function () {
+        $(".field-stock-dt_event .memo").fadeOut();
+        $(".field-stock-dt_event_end .memo").fadeOut();
+    });
+
+
 });

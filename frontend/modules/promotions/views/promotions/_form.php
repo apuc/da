@@ -54,37 +54,41 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                 'pluginOptions' => [
                     'allowClear' => true,
                 ],
-            ]); ?>
+                'pluginEvents' => [
+                    "select2:open" => "function() { $('.memo:first').show(); }",
+                    "select2:close" => "function() { $('.memo:first').hide(); }",
+                ],
+            ])->hint('Компания, которая планирует проводить акцию.');
+            ?>
 
             <?= $form->field($model, 'title')->textInput(['maxlength' => 70])
-                ->hint('<b>Введите заголовок,</b><br>который будет отображаться в списке акций')
+                ->hint('Название предложения, которое будет отображено в списке акций компании. В заголовке запрещено размещать контактную информацию, а также использовать заглавные буквы (кроме аббревиатур).')
                 ->label('Заголовок акции'); ?>
 
             <?= $form->field($model, 'link')->textInput()
-                ->hint('<b>Вставьте ссылку.</b><br>Сссылка может вести на сайт вашей компании или же на страницу в соцсетях')
+                ->hint('Ссылка на внешние ресурсы компании, включая страницы в социальных сетях.')
                 ->label('Ссылка'); ?>
 
             <?= $form->field($model, 'dt_event')->widget(DateTimePicker::class, [
-                'options' => ['placeholder' => 'Выберите дату начала акции ...'],
+                'options' => ['placeholder' => 'Выберите дату начала акции ...','class'=>'jsHint'],
 
                 'pluginOptions' => [
                     'autoclose' => true,
                     'format' => 'yyyy-mm-dd'
                 ]
-            ]); ?>
+            ])->hint("Дата и время старта акции."); ?>
 
             <?= $form->field($model, 'dt_event_end')->widget(DateTimePicker::class, [
-                'options' => ['placeholder' => 'Выберите дату конца акции ...'],
+                'options' => ['placeholder' => 'Выберите дату конца акции ...','class'=>'jsHint'],
 
                 'pluginOptions' => [
                     'autoclose' => true,
                     'format' => 'yyyy-mm-dd'
                 ]
-            ]); ?>
+            ])->hint("Дата и время окончания акции."); ?>
 
             <?= $form->field($model, 'dt_event_description')->textInput()
-                ->hint('<b>Примеры:</b><br>
-                        Март-Апрель, До полной распродажи, К празднику...')
+                ->hint('Условия преждевременного окончания акции.')
                 ->label('Описание длительности акции'); ?>
 
             <?= $form->field($model, 'photo')->hiddenInput(['value' => $model->photo])->label(false); ?>
@@ -103,7 +107,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             <div class="cabinet__add-company-form--block"></div>
             <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>
             <?= $form->field($model, 'short_descr')->textInput()
-                ->hint('<b>Введите краткое описание акции.</b>')
+                ->hint('Краткое описание, которое передает суть акции.')
                 ->label('Акционное предложение'); ?>
         </div>
 
@@ -116,7 +120,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                         'inline' => false,
                         'path' => 'frontend/web/media/upload',
                     ]),
-                ])
+                ])->hint("Подробное описание деталей и достоинств акции с указанием дополнительных программ лояльности (если такие имеются). ")
                 ->label(false); ?>
         </div>
         <div class="content-forma">
