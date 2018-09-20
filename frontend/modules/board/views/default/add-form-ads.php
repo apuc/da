@@ -137,7 +137,8 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             'maxFileSize' => 2000,
             'language' => "ru",
             'previewClass' => 'hasEdit',
-        ]
+        ],
+
     ]);
 
     ?>
@@ -158,10 +159,11 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             'allowClear' => true,
         ],
         'pluginEvents' => [
-            "select2:open" => "function() { $('.memo:eq(3)').show(); }",
-            "select2:close" => "function() { $('.memo:eq(3)').hide(); }",
+            "select2:open" => "function() { $('.memo:eq(4)').show(); }",
+            "select2:close" => "function() { $('.memo:eq(4)').hide(); }",
         ],
-    ])->hint("");
+    ])->hint("Город, в котором продается товар, объект или оказывается услуга.
+Имя:");
 
     ?>
     <!--<div class="form-line field-ads-name required">
