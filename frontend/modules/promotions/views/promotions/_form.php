@@ -103,6 +103,10 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                     'language' => "ru",
                 ],
             ]); ?>
+            <p class="file-hint">
+                Как правильно подобрать иллюстрацию?
+                <a target="_blank" href="http://da-info.pro/page/kak-pravilno-podobrat-izobrazenie-dla-stati-na-sajte-da-info-pro">Перейти к четению.</a>
+            </p>
 
             <div class="cabinet__add-company-form--block"></div>
             <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>

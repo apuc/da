@@ -70,6 +70,10 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     ->textInput(['maxlength' => true])
     ->hint('<b>Приемлемая длина заголовка – не более 70 символов. Запрещено размещать ссылки на какие-либо ресурсы (сайты, аккаунты и группы в социальных сетях).</b>')
     ->label('Заголовок чтива<span>*</span>'); ?>
+<p class="file-hint">
+    Как создать грамотный заголовок?
+    <a target="_blank" href="https://da-info.pro/page/kak-sostavit-gramotnyj-zagolovok-dla-stati-na-sajte-da-info-pro">Перейти к четению</a>
+</p>
 
 
 <?= $form->field($model, 'company_id')->widget(Select2::className(),
@@ -97,36 +101,31 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
 ])->hint('Разрешение изображения – не менее 800х600 пикселей. Размер – не более двух мегабайт. Формат – jpg
         или png. Стандартное соотношение сторон 3х4. Иллюстрации с нешаблонными пропорциями
         автоматически обрезаются.')->label("Обложка чтива");
-
-
-//if (empty($model->photo)) {
-//    echo $form->field($model, 'photo', [
-//        'template' => '<label class="cabinet__add-company-form--add-foto">
-//                                    <span class="button"></span>
-//                                    {input}
-//                                    <img id="blah" src="" alt="" width="160px">
-//                                    </label>'
-//    ])->label('Обложка чтива')->fileInput();
-//} else {
-//    echo $form->field($model, 'photo', [
-//        'template' => '{label}<div class="selectAvatar">
-//                                    <span>Нажмите для выбора</span>
-//                                    <img id="blah" src="' . $model->photo . '" alt="" width="160px">
-//                                    {input}</div>'
-//    ])->label('Обложка чтива')->fileInput();
-//}
-
 ?>
 
+    <p class="file-hint">
+        Как правильно подобрать иллюстрацию?
+        <a target="_blank" href="http://da-info.pro/page/kak-pravilno-podobrat-izobrazenie-dla-stati-na-sajte-da-info-pro">Перейти к четению.</a>
+    </p>
+
+    <br>
 
 
+    <p class="cabinet__add-company-form--title" style="width: 100%;">Текст чтива</p>
 
-
-    <p class="cabinet__add-company-form--title">Текст чтива</p>
 
 <?php echo $form->field($model, 'content')->widget(CKEditor::className(), [
 
 "options"=>["class"=>"jsHint"]])->hint('Размер текста неограничен. Допускается наличие в статье не более трех иллюстраций форматом jpg или png. Материал должен содержать полезную для читателя информацию. Запрещено размещение рекламы и необоснованных ссылок (адреса интернет-ресурсов необходимо прикреплять к тексту публикации при помощи функции редактора, то есть привязывать к отдельным словам или словосочетаниям).')->label(false); ?>
 
+    <p style="float: right; width: 100%; text-align: left">
+        Как правильно создавать текстовый контент?
+        <a target="_blank" href="http://da-info.pro/page/kak-pravilno-sozdavat-tekstovyj-kontent-na-sajte-da-info-pro">Перейти к четению</a>
+        <br>Тексты, которые продают: как создать эффективный коммерческий контент?
+        <a target="_blank" href="http://da-info.pro/page/teksty-kotorye-prodaut-kak-sozdat-effektivnyj-kommerceskij-kontent">Перейти к четению</a>
+
+    </p>
+
 <?= Html::submitButton($model->isNewRecord ? Yii::t('news', 'Create') : Yii::t('news', 'Update'), ['class' => 'cabinet__add-company-form--submit']) ?>
+
 <?php ActiveForm::end(); ?>
