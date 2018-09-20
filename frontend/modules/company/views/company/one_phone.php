@@ -11,7 +11,7 @@ use yii\widgets\MaskedInput;
         <?= Html::label('Телефон', 'Phones', ['class' => 'label-name']) ?>
         <?=MaskedInput::widget([
             'name' => 'Phones['.$iterator.'][phone]',
-            'mask' => '999-999-9999',
+            'mask' => '+99-999-999-9999',
             'id' => 'phone'.$iterator,
             'options'=>[
                 'class' => 'input-name jsHint',
@@ -39,7 +39,7 @@ use yii\widgets\MaskedInput;
                     <label>
                         <input type="checkbox" name="messengeresArray[<?= $iterator ?>][]"
                                value="<?= $id ?>">
-                        <?= $name ?>
+                        <?= ($name == "Viber") ? Html::img("/img/icons/viber.png")." Viber" : Html::img("/img/icons/whatsapp.png_s")." Whatsapp"; ?>
                     </label>
                 <?php endforeach; ?>
             </div>
