@@ -45,9 +45,8 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     <hr class="lineAddAds"/>
 
     <?= $form->field($model,'title')->textInput(['maxlength' => 70])
-        ->hint('<b>Введите наименование товара, объекта или услуги.</b><br>
-                        В заголовке <b>не допускается: номер телефона, электронный адрес, ссылки</b><br>
-                        Не допускаются заглавные буквы (кроме аббревиатур).'
+        ->hint('Наименование предлагаемого товара, объекта или услуги. В заголовке запрещено размещать контактную
+информацию, а также использовать заглавные буквы (кроме аббревиатур).'
         )
         ->label('Заголовок<span>*</span>');
     ?>
@@ -85,10 +84,9 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             'maxlength' => 4096,
         ]
     )
-        ->hint('<b>Добавьте описание вашего товара/услуги,</b> укажите преимущества и важные детали.<br>
-                      В описании <b>не допускается указание контактных данных.</b><br>
-                      Описание должно соответствовать заголовку и предлагаемому товару/услуге.<br>
-                      Не допускаются заглавные буквы (кроме аббревиатур).<br>
+        ->hint('Описание предлагаемого товара, объекта или услуги с указанием его достоинств и важных деталей. Тематика
+текста должна соответствовать заголовку объявления. В описании запрещено размещать контактную
+информацию, а также использовать заглавные буквы (кроме аббревиатур).
             ')
         ->label('Описание<span>*</span>'); ?>
     <p class="calc">
@@ -97,7 +95,8 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         </small>
     </p>
 
-    <?= $form->field($model, 'price')->textInput()->hint('Пожалуйста, укажите цену. <b>Обратите внимание, что указание нереальной или условной цены (1 руб., 111 руб.) запрещено</b><b>Внимание, цена указывается в российских рублях</b> ')->label('Цена<span>*</span>'); ?>
+    <?= $form->field($model, 'price')->textInput()->hint('Цена предлагаемого товара, объекта или услуги в российских рублях. Запрещено указывать нереальную или
+условную стоимость.')->label('Цена<span>*</span>'); ?>
 
 
     <h2 class="soglasie">Фотографии
@@ -131,7 +130,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             'maxFileCount' => 10,
             'maxFileSize' => 2000,
         ],*/
-        'options' => ['multiple' => true, 'accept' => 'image/*'],
+        'options' => ['multiple' => true, 'accept' => 'image/*','id'=>'board-fileinput'],
         'pluginOptions' => [
             'previewFileType' => 'image',
             'maxFileCount' => 10,
@@ -153,11 +152,16 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         'data' => $arraregCity,
         //'value' => $geoInfo['city_id'],
         //'data' => ['Донецкая область' => ['1'=>'Don','2'=>'Gorl'], 'Rostovskaya' => ['5'=>'rostov']],
-        'options' => ['placeholder' => 'Начните вводить Ваш город ...'],
+        'options' => ['placeholder' => 'Начните вводить Ваш город ...',
+            'class'=>"jsHint"],
         'pluginOptions' => [
             'allowClear' => true,
         ],
-    ]);
+        'pluginEvents' => [
+            "select2:open" => "function() { $('.memo:eq(3)').show(); }",
+            "select2:close" => "function() { $('.memo:eq(3)').hide(); }",
+        ],
+    ])->hint("");
 
     ?>
     <!--<div class="form-line field-ads-name required">
@@ -178,7 +182,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         </div>
     </div>-->
 
-    <?= $form->field($model, 'name')->textInput()->label('Имя<span>*</span>')->hint('как к вам обращаться') ?>
+    <?= $form->field($model, 'name')->textInput()->label('Имя<span>*</span>')->hint('Имя контактного лица, которое будет общаться с заинтересованными пользователями портала.') ?>
 
 
 
@@ -186,7 +190,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     <?= $form->field($model, 'phone')->widget(\yii\widgets\MaskedInput::className(), [
         'options' => ['class' => 'input-name jsHint',],
         'mask' => ['+9 (999) 999-9999', '+99(999) 999-99-99'],
-    ])->label('Телефон<span>*</span>')->hint('как с Вами связаться?') ?>
+    ])->label('Телефон<span>*</span>')->hint('Номер телефона контактного лица, которое будет общаться с заинтересованными пользователями портала.') ?>
 
 
     <?= $form->field($model, 'mail')
@@ -196,7 +200,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                 'value' => \dektrium\user\models\User::find()->where(['id' => Yii::$app->user->id])->one()->email,
             ]
         )
-        ->label('Mail<span>*</span>')->hint('Email который вы указали при регистрации')?>
+        ->label('Mail<span>*</span>')->hint('Адрес электронной почты, который был указан во время регистрации профиля.')?>
 
     <h2 class="soglasie">Согласие на обработку данных</h2>
     <hr class="lineAddAds"/>

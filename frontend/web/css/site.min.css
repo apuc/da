@@ -31,6 +31,8 @@
     margin-bottom: 20px;
 }
 
+#add_ads .file-input .clearfix{display: none;}
+
 .phones__wrap{
     width: 100%;
 }
