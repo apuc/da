@@ -1,5 +1,6 @@
 
-.field-company-photo .file-preview,.field-company-photo .fileinput-upload-button{
+.field-company-photo .file-preview,.field-company-photo .fileinput-upload-button,
+ .field-news-photo .file-preview,.field-news-photo .fileinput-upload-button{
     display: none !important;
 }
 
@@ -18,6 +19,10 @@
     font-size: 12px !important;
 }
 
+.field-news-photo .label-name{
+    top:27px !important;
+}
+
 .file-hint{
     display: block;
     float: right;
@@ -25,6 +30,8 @@
     text-align: left;
     margin-bottom: 20px;
 }
+
+#add_ads .file-input .clearfix{display: none;}
 
 .phones__wrap{
     width: 100%;

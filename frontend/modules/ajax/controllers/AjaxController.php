@@ -301,7 +301,7 @@ class AjaxController extends Controller
     public function actionAddCategorySelect()
     {
         $catId = Yii::$app->request->post('catId');
-        //  var_dump($catId);
+         // var_dump($catId);
         $catId = explode(',', $catId);
         array_splice($catId, -1);
         $model = new \frontend\modules\news\models\News();
@@ -315,13 +315,13 @@ class AjaxController extends Controller
         //echo "<br> Categories ajax: <br>";
         // var_dump($category);
         if (!empty($category)) {
-            $html = $this->renderPartial('add-select-category', ['category' => $category, 'model' => $model]);
+            $html = $this->renderAjax('add-select-category', ['category' => $category, 'model' => $model]);
         } else {
             $html = '';
         }
 
         return $html;
-        //Debug::prn($category);
+        Debug::prn($html);
     }
 
     public function actionAddParentCategory()
