@@ -84,7 +84,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         'data' => $city,
         'value' => $model->city_id,
         //'data' => ['Донецкая область' => ['1'=>'Don','2'=>'Gorl'], 'Rostovskaya' => ['5'=>'rostov']],
-        'options' => ['placeholder' => 'Начните вводить город ...','class'=>'jsHint'],
+        'options' => ['placeholder' => 'Введи город ...','class'=>'jsHint'],
         'pluginOptions' => [
             'allowClear' => true
         ],
@@ -106,16 +106,16 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
     'options' => ['accept' => 'image/*','class'=>'jsHint'],
 ])->hint('Разрешение изображения – не менее 800х600 пикселей. Размер – не более двух мегабайт. Формат – jpg
         или png. Стандартное соотношение сторон 3х4. Иллюстрации с нешаблонными пропорциями
-        автоматически обрезаются.')->label("Добавить изображение");
+        автоматически обрезаются.')->label("Иллюстрация");
 ?>
 
     <p class="file-hint">
-         Как правильно подобрать изображение?
+         Как правильно подобрать иллюстрацию?
         <a href="http://da-info.pro/page/kak-pravilno-podobrat-izobrazenie-dla-stati-na-sajte-da-info-pro">Перейти к четению.</a>
     </p>
 
     <?= $form->field($model, 'start_page')->label('Главная страница')
-    ->dropDownList($model->start_page_items)->hint('Раздел профиля компании, который будет стартовым после перехода пользователем на визитку
+    ->dropDownList($model->start_page_items)->hint('Раздел профиля компании, который будет стартовым после перехода на визитку
 предприятия.');
     ?>
 
@@ -130,7 +130,7 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
 
             <?=  MaskedInput::widget([
                 'name' => 'Phones[0][phone]',
-                'mask' => '999-999-9999',
+                'mask' => '+99-999-999-9999',
                 'options'=>[
                     'class' => 'input-name jsHint',
                     'id' => 'phone',
@@ -160,9 +160,12 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
                 [
                     'item' =>
                         function ($index, $label, $name, $checked, $value) {
+
+                           $img = ($label == "Viber") ? Html::img("/img/icons/viber.png")." Viber" : Html::img("/img/icons/whatsapp.png_s")." Whatsapp";
+
                             return Html::checkbox("messengeresArray[0][]", $checked, [
                                 'value' => $value,
-                                'label' => $label
+                                'label' => $img
                             ]);
                         },
                     'class' => 'checkbox-wrap',
@@ -214,12 +217,12 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
 
         <div class="cabinet__add-company-form--drop" id="dropArea">
             <img src="/img/icons/cloud.png" alt="">
-            <p>Перетащите сюда файлы, чтобы прикрепить их как документ</p>
+            <p>Добавь файлы, чтобы прикрепить их как документ</p>
         </div>
 
         <p class="cabinet__add-company-form--count"><span>Количество  файлов<span class="col">
             <span id="itemsCountBox">5</span> из <span id="maxCountBox">10</span></span></span>
-            <input type="button" class="cabinet__add-company-form--submit" id="btnSel" value="Добавить">
+            <input type="button" class="cabinet__add-company-form--submit" id="btnSel" value="Выбрать">
         </p>
 
         <div class="cabinet__add-company-form--images" id="cabinet__add-company-form--images">
