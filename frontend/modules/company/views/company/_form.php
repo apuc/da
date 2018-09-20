@@ -42,9 +42,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
             'options' => ['class' => 'form-line'],
             'hintOptions' => ['class' => ''],
-
         ],
-
         'errorCssClass' => 'my-error',
     ]);
 ?>
@@ -70,7 +68,6 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             "select2:open" => "function() { $('.memo:first').show(); }",
             "select2:close" => "function() { $('.memo:first').hide(); }",
         ],
-
     ])->hint('Категория, которая указывает на сферу деятельности компании.');
 ?>
 
@@ -100,26 +97,9 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     ->label('Город')
 ?>
 
-
 <?= $form->field($model, 'address')->textInput(['maxlength' => true])
     ->hint('Адрес центрального офиса компании без упоминания города.')
     ->label('Адрес') ?>
-
-
-
-<?= ""//$form->field($model, 'photo', [
-//    'template' => '<label class="cabinet__add-company-form--add-foto">
-//                                        <span class="button"></span>
-//                                        {input}
-//                                        <img id="blah" src="" alt="" width="160px">
-//                                        </label>'
-//])->hint('Разрешение изображения – не менее 800х600 пикселей. Размер – не более двух мегабайт. Формат – jpg
-//        или png. Стандартное соотношение сторон 3х4. Иллюстрации с нешаблонными пропорциями
-//        автоматически обрезаются.')->label('Логотип компании')->fileInput();
-?>
-
-
-
 <?php
 
 echo $form->field($model, 'photo')->widget(FileInput::classname(), [
@@ -127,32 +107,12 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
 ])->hint('Разрешение изображения – не менее 800х600 пикселей. Размер – не более двух мегабайт. Формат – jpg
         или png. Стандартное соотношение сторон 3х4. Иллюстрации с нешаблонными пропорциями
         автоматически обрезаются.')->label("Добавить изображение");
-
-//$form->field($model, 'photo')->hiddenInput(['value' => $model->photo])->label(false);
-
 ?>
 
-<?php //echo '<label class="control-label">Добавить фото</label>';
-//echo FileInput::widget([
-//    'name' => 'Poster',
-//    'options' => ['multiple' => false,'placeholder'=>'Выбрать файл'],
-//    'pluginOptions' => [
-//        'previewFileType' => 'image',
-//        'maxFileCount' => 10,
-//        'maxFileSize' => 2000,
-//        'language' => "ru",
-//    ],
-//]); ?>
-
     <p class="file-hint">
-        Как правильно подобрать изображение?
+         Как правильно подобрать изображение?
         <a href="http://da-info.pro/page/kak-pravilno-podobrat-izobrazenie-dla-stati-na-sajte-da-info-pro">Перейти к четению.</a>
-
     </p>
-
-
-
-
 
     <?= $form->field($model, 'start_page')->label('Главная страница')
     ->dropDownList($model->start_page_items)->hint('Раздел профиля компании, который будет стартовым после перехода пользователем на визитку
@@ -179,10 +139,6 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
                     'clearIncomplete' => true
                 ]
             ]);
-
-
-
-            //Html::textInput('Phones[0][phone]', '', ['class' => 'input-name jsHint', 'id' => 'Phones'])
 
             ?>
 
@@ -214,24 +170,24 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
                 ]);
             ?>
         </div>
-
     </div>
 
     <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>
 
  <p class="sym-count"></p>
-<?= $form->field($model, 'descr')
+ <?= $form->field($model, 'descr')
     ->textarea([
         'class' => 'cabinet__add-company-form--text jsHint',
         'maxlength' => 800,
         'id'=>'cabinet__add-company-form-about_field'
     ])
     ->hint('Информация о специализации предприятия. Объем текста для неверифицированных пользователей – не
-более 800 символов.')
+  более 800 символов.')
     ->label('О компании');
-?>
+  ?>
 
 <br/>
+
 <?= $form->field($model, 'delivery')
     ->textarea([
         'class' => 'cabinet__add-company-form--text jsHint',
@@ -241,6 +197,7 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
     ->label('Доставка');
 ?>
     <br/>
+
 <?= $form->field($model, 'payment')
     ->textarea([
         'class' => 'cabinet__add-company-form--text jsHint',
@@ -248,44 +205,40 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
     ->hint('Способы оплаты, которые доступны клиентам компании.')
     ->label('Способы оплаты');
 ?>
-<?= $form->field($model, 'slider')->checkbox(['class' => 'checkbox-wrap', 'id' => 'slider_checkbox'])
-     ?>
 
+<?= $form->field($model, 'slider')->checkbox(['class' => 'checkbox-wrap', 'id' => 'slider_checkbox']) ?>
 
     <div class="cabinet__add-company-img-block form-line" id = "slider_images" style = "display: none;">
 
-
-
         <input type="file" id="fileInput" style="display: none" multiple>
+
         <div class="cabinet__add-company-form--drop" id="dropArea">
             <img src="/img/icons/cloud.png" alt="">
             <p>Перетащите сюда файлы, чтобы прикрепить их как документ</p>
         </div>
+
         <p class="cabinet__add-company-form--count"><span>Количество  файлов<span class="col">
-    <span id="itemsCountBox">5</span> из <span id="maxCountBox">10</span></span></span>
-
-
+            <span id="itemsCountBox">5</span> из <span id="maxCountBox">10</span></span></span>
             <input type="button" class="cabinet__add-company-form--submit" id="btnSel" value="Добавить">
         </p>
-
-
 
         <div class="cabinet__add-company-form--images" id="cabinet__add-company-form--images">
             <div class="cabinet__add-company-form--img">
                 <div class="cabinet__add-company-form--img-wrapper">
 
                 </div>
-                <p class="cabinet__add-company-form--img-name"><span class="arrow-up"><img src="/img/icons/Rectangl.png"
-                                                                                           alt=""></span><span
-                            class="img-name"></span></p>
+                <p class="cabinet__add-company-form--img-name">
+                    <span class="arrow-up">
+                        <img src="/img/icons/Rectangl.png" alt="">
+                    </span>
+                    <span class="img-name"></span>
+                </p>
                 <input type="hidden" name="sliderImg[]" class="productImg">
                 <input type="hidden" name="sliderImgThumb[]" class="productImgThumb">
                 <progress class="progressBar" value="0" max="100"></progress>
             </div>
         </div>
     </div>
-
-
 
 <?= Html::submitButton('Сохранить информацию о компании', ['class' => 'cabinet__add-company-form--submit']) ?>
 <?php ActiveForm::end(); ?>

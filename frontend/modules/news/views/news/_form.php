@@ -50,7 +50,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         $param = ['class' => 'input-name jsHint selectCateg', 'prompt' => 'Выберите категорию'];
         echo $form->field($model, 'categoryId[]')
             ->dropDownList($items, $param)
-            ->hint('<b>Выберите категорию чтива из списка.</b>')
+            ->hint('<b>Доступен одновременный выбор не более трех категорий, в которых отобразится опубликованная статья.</b>')
             ->label('Категория<span>*</span>');
         ?>
         <a href="#" style="position: absolute; top: 16px; right: -30px; z-index: 1;"
@@ -65,7 +65,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
 <?= $form->field($model, 'title')
     ->textInput(['maxlength' => true])
-    ->hint('<b>Введите заголовок чтива.</b>')
+    ->hint('<b>Приемлемая длина заголовка – не более 70 символов. Запрещено размещать ссылки на какие-либо ресурсы (сайты, аккаунты и группы в социальных сетях).</b>')
     ->label('Заголовок чтива<span>*</span>'); ?>
 
 
@@ -77,7 +77,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             'allowClear' => true
         ],
     ]
-)->label('Относится к компании'); ?>
+)->hint('Предприятие, на странице которого появится опубликованная статья. Если текст имеет нейтральную тематику, тогда нужно оставить поле пустым. ')->label('Относится к компании'); ?>
 
 
     <!-- <p class="cabinet__add-company-form--title">Обложка чтива</p>-->
