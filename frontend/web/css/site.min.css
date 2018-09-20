@@ -1,5 +1,6 @@
 
-.field-company-photo .file-preview,.field-company-photo .fileinput-upload-button{
+.field-company-photo .file-preview,.field-company-photo .fileinput-upload-button,
+ .field-news-photo .file-preview,.field-news-photo .fileinput-upload-button{
     display: none !important;
 }
 
@@ -16,6 +17,10 @@
 .field-company-photo .label-name{
     top:10px !important;
     font-size: 12px !important;
+}
+
+.field-news-photo .label-name{
+    top:27px !important;
 }
 
 .file-hint{
