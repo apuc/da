@@ -11,6 +11,7 @@ $this->registerMetaTag([
     $count = 0;
     $catArr = [];
     $countAllCat = 0;
+
     foreach($category as $item):?>
         <div class="shop__categories-item home-content-item" data-id="<?= $item['id'];?>">
             <div class="shop__categories-img">
