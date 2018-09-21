@@ -71,8 +71,10 @@ class ShopController extends Controller
      */
     public function actionCategory($category)
     {
+
         $model = new CategoryShop();
         $categoryModel = $model->getCategoryInfoBySlug($category);
+
 
         if(!$categoryModel){
             throw new NotFoundHttpException('The requested page does not exist.');
@@ -89,10 +91,15 @@ class ShopController extends Controller
 
 
         if ($model->getEndCategory($category)) {
+
             $category = CategoryShop::find()->where([
                 'type' => CategoryShop::TYPE_PRODUCT,
                 'status' => \common\models\db\CategoryShop::STATUS_PUBLIC])->all();
+
+
+
             $categoryTreeArr = $categoryModel->getArrayTreeCategory($category);
+
             return $this->render('category',
                 [
                     'categoryInfo' => $categoryModel,
