@@ -16,6 +16,7 @@ use yii\helpers\Url;
 
     <?php
 
+
     foreach ($categoryTreeArr[$categoryId] as $item): ?>
         <div class="shop__sidebars--wrap">
 
@@ -30,6 +31,7 @@ use yii\helpers\Url;
             }
 //\common\classes\Debug::dd(Url::to(['/shop/shop/category', 'category' => [$urlCategory, $item->slug]]));
             ?>
+         
             <a href="<?= Url::to(['/shop/shop/category', 'category' => [$urlCategory, $item->slug]]) ?>">
                 <h4 class="shop__sidebars-title"><?= $item->name; ?></h4>
             </a>
@@ -38,7 +40,8 @@ use yii\helpers\Url;
                 <ul class="shop__nav">
                 <?php foreach($categoryTreeArr[$item->id] as $value): ?>
 
-                        <li><a href="#"><?= $value->name; ?></a></li>
+                        <li><a href="
+              <?= Url::to(['/shop/shop/category', 'category' => [$urlCategory, $item->slug."/".$value->slug]]) ?>"><?= $value->name; ?></a></li>
 
 
 
