@@ -31,7 +31,7 @@ use yii\helpers\Url;
             }
 //\common\classes\Debug::dd(Url::to(['/shop/shop/category', 'category' => [$urlCategory, $item->slug]]));
             ?>
-         
+
             <a href="<?= Url::to(['/shop/shop/category', 'category' => [$urlCategory, $item->slug]]) ?>">
                 <h4 class="shop__sidebars-title"><?= $item->name; ?></h4>
             </a>
