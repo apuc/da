@@ -31,10 +31,7 @@ class PhotoController extends Controller
         ];
     }
 
-    /**
-     * Lists all InstPhoto models.
-     * @return mixed
-     */
+
     public function actionIndex()
     {
         $searchModel = new InstPhotosSearch();
@@ -94,12 +91,7 @@ class PhotoController extends Controller
             'searchModel' => $searchModel,
         ]);
     }
-    /**
-     * Displays a single InstPhoto model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     public function actionView($id)
     {
         return $this->render('view', [
@@ -107,11 +99,6 @@ class PhotoController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new InstPhoto model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate()
     {
         $model = new InstPhoto();
@@ -125,13 +112,6 @@ class PhotoController extends Controller
         ]);
     }
 
-    /**
-     * Updates an existing InstPhoto model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -145,13 +125,7 @@ class PhotoController extends Controller
         ]);
     }
 
-    /**
-     * Deletes an existing InstPhoto model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+    
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -159,13 +133,7 @@ class PhotoController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the InstPhoto model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return InstPhoto the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     protected function findModel($id)
     {
         if (($model = InstPhoto::findOne($id)) !== null) {

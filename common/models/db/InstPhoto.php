@@ -30,6 +30,18 @@ class InstPhoto extends \yii\db\ActiveRecord
         return 'inst_photos';
     }
 
+    public function behaviors()
+    {
+        return [
+            'slug' => [
+                'class' => 'common\behaviors\Slug',
+                'in_attribute' => 'meta_title',
+                'out_attribute' => 'slug',
+                'translit' => true
+            ]
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
