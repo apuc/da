@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'author_img') ?>
 
-    <?= $form->field($model, 'pub_date') ?>
+
 
     <?php // echo $form->field($model, 'caption') ?>
 
