@@ -75,4 +75,9 @@ class InstPhoto extends \yii\db\ActiveRecord
             'meta_description' => 'Meta Description',
         ];
     }
+
+    public function getLikesCount()
+    {
+        return Likes::find()->where(['post_type' => 'inst', 'post_id' => $this->id])->count();
+    }
 }

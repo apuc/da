@@ -82,7 +82,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                                             <?php endif; ?>
                                         </div>
 
-                                        <span class="date"><?= ""//DateFunctions::getGetNiceDate($item->dt_publish) ?></span>
+                                        <span class="date"><?=DateFunctions::getGetNiceDate($item->dt_publish) ?></span>
 
                                     </a>
 
