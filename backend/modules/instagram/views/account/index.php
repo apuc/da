@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'format' => 'raw',
                 'value' => function($model){
-                    return Html::a('Парсить',"account/parse?id=".$model->account_id, ['class' => 'btn btn-success']);
+                    return Html::a('Парсить',"/secure/instagram/account/parse?id=".$model->account_id, ['class' => 'btn btn-success']);
                 }
             ],
 

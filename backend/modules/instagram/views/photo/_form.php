@@ -8,6 +8,9 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+
+<?= Html::img($model->photo_url) ?>
+
 <div class="inst-photo-form">
 
     <?php $form = ActiveForm::begin(); ?>

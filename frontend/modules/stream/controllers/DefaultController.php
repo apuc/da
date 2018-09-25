@@ -89,7 +89,7 @@ class DefaultController extends Controller
            // ->limit(10)->all();
         $res = array_merge($gPlus, $model, $tw);
         }
-        ArrayHelper::multisort($res, 'id', [SORT_DESC]);
+        ArrayHelper::multisort($res, 'dt_publish', [SORT_DESC]);
 
 
         $result = $this->getColumns(Stream::create($res));

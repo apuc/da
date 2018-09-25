@@ -12,7 +12,8 @@ use Yii;
  * @property string $photo_url
  * @property string $author_name
  * @property string $author_img
- * @property string $pub_date
+ * @property string $dt_add
+ * @property string $dt_publish
  * @property string $caption
  * @property int $status
  * @property int $views
@@ -30,6 +31,18 @@ class InstPhoto extends \yii\db\ActiveRecord
         return 'inst_photos';
     }
 
+    public function behaviors()
+    {
+        return [
+            'slug' => [
+                'class' => 'common\behaviors\Slug',
+                'in_attribute' => 'meta_title',
+                'out_attribute' => 'slug',
+                'translit' => true
+            ]
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -37,7 +50,7 @@ class InstPhoto extends \yii\db\ActiveRecord
     {
         return [
             [['status', 'views'], 'integer'],
-            [['inst_id', 'photo_url', 'author_name', 'author_img', 'pub_date', 'caption', 'slug', 'meta_title', 'meta_description'], 'string', 'max' => 255],
+            [['inst_id', 'photo_url', 'author_name', 'author_img', 'dt_add','dt_publish', 'caption', 'slug', 'meta_title', 'meta_description'], 'string', 'max' => 255],
         ];
     }
 
@@ -52,7 +65,8 @@ class InstPhoto extends \yii\db\ActiveRecord
             'photo_url' => 'Фотография',
             'author_name' => 'Имя автора',
             'author_img' => 'Иконка автора',
-            'pub_date' => 'Дата публикации',
+            'dt_publish' => 'Дата публикации',
+            'dt_add' => 'Дата добавления',
             'caption' => 'Описание',
             'status' => 'Status',
             'views' => 'Views',

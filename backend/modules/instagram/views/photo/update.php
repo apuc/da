@@ -6,9 +6,9 @@ use yii\helpers\Html;
 /* @var $model backend\modules\instagram\models\InstPhoto */
 
 $this->title = 'Обновить фотографию instagram: ';
-$this->params['breadcrumbs'][] = ['label' => 'Inst Photos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Фото instagram', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Изменить';
 ?>
 <div class="inst-photo-update">
 

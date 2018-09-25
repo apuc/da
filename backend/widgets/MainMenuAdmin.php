@@ -786,7 +786,7 @@ class MainMenuAdmin extends Widget
                                 'label' => 'Опубликованные',
                                 'url' => Url::to(['/instagram/photo/published']),
                                 'active' => Yii::$app->controller->action->id === 'published' && Yii::$app->controller->id === 'photo',
-                                'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countDefferedStreamGoogle . '</small></span></a>',
+                                'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . "" . '</small></span></a>',
                                 'visible' => UserFunction::hasPermission(['Отложенные VK']),
                             ],
 
