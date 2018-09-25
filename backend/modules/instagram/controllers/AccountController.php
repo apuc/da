@@ -68,16 +68,17 @@ class AccountController extends Controller
                 $photo->photo_url = $inst_photo->images->standard_resolution->url;
                 $photo->author_name = $inst_photo->user->username;
                 $photo->author_img = $inst_photo->user->profile_picture;
-                $photo->pub_date = $this->dateParse($inst_photo->created_time);
+                $photo->dt_add = time();
+                $photo->dt_publish = time();
                 $photo->status = 0;
                 $photo->caption = ($inst_photo->caption!=null) ? $inst_photo->caption->text : null;
-                $photo->save();
+                $photo->save(false);
 
             }
         }
 
         Yii::$app->session->setFlash('success', 'Данные получены');
-        return $this->redirect("index");
+        return $this->redirect("/secure/instagram/account/");
 
     }
 

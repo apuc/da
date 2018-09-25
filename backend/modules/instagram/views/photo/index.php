@@ -42,7 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::img($data->photo_url, ['width' => '210px']);
                 },
             ],
-            'pub_date',
             'caption',
             [
 

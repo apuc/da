@@ -19,7 +19,7 @@ class InstPhotosSearch extends InstPhoto
     {
         return [
             [['id'], 'integer'],
-            [['photo_url', 'author_name', 'author_img', 'pub_date', 'caption', 'meta_title', 'meta_description'], 'safe'],
+            [['photo_url', 'author_name', 'author_img', 'dt_add','dt_publish', 'caption', 'meta_title', 'meta_description'], 'safe'],
         ];
     }
 
@@ -65,7 +65,8 @@ class InstPhotosSearch extends InstPhoto
         $query->andFilterWhere(['like', 'photo_url', $this->photo_url])
             ->andFilterWhere(['like', 'author_name', $this->author_name])
             ->andFilterWhere(['like', 'author_img', $this->author_img])
-            ->andFilterWhere(['like', 'pub_date', $this->pub_date])
+            ->andFilterWhere(['like', 'dt_add', $this->dt_add])
+            ->andFilterWhere(['like', 'dt_publish', $this->dt_publish])
             ->andFilterWhere(['like', 'caption', $this->caption])
             ->andFilterWhere(['like', 'meta_title', $this->meta_title])
             ->andFilterWhere(['like', 'meta_description', $this->meta_description]);
