@@ -12,14 +12,13 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="inst-photo-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы уверены что хотите удалить это фото?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -29,9 +28,22 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'photo_url:url',
+
+            [
+                'format' => 'raw',
+                    "attribute"=>"photo_url",
+                     "value"=>function($data){
+                         return Html::img($data->photo_url);
+                     }
+            ],
             'author_name',
-            'author_img',
+            [
+                'format' => 'raw',
+                "attribute"=>"photo_url",
+                "value"=>function($data){
+                    return Html::img($data->author_img);
+                }
+            ],
             'pub_date',
             'caption',
             'meta_title',

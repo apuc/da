@@ -118,14 +118,27 @@ class AccountController extends Controller
 
                      $url = "https://api.instagram.com/v1/users/".$id."/?access_token=$this->token";
                      $user_info = json_decode($this->InstApi($url));
+                      //var_dump($user_info); die();
 
+                     if(!isset($user_info->meta))
+                     {
+                         $model->account_id = $id;
+                         $model->username = $user_info->data->username;
+                         $model->profile_img = $user_info->data->profile_picture;
+                         $model->iprofile_link = "https://www.instagram.com/".$model->username;
+                         $model->save();
+                     }
+                     else
+                     {
+                         Yii::$app->session->setFlash('error', $user_info->meta->error_message);
+                         return $this->redirect("/secure/instagram/account");
+                     }
 
-                     $model->account_id = $id;
-                     $model->username = $user_info->data->username;
-                     $model->profile_img = $user_info->data->profile_picture;
-                     $model->iprofile_link = "https://www.instagram.com/".$model->username;
-                     $model->save();
-
+                 }
+                 else
+                 {
+                     Yii::$app->session->setFlash('error', 'Пользователь с таким именем не существует!');
+                     return $this->redirect("/secure/instagram/account");
                  }
 
              }
