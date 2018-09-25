@@ -220,7 +220,7 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
             <p>Добавь файлы, чтобы прикрепить их как документ</p>
         </div>
 
-        <p class="cabinet__add-company-form--count"><span>Количество  файлов: <span class="col">
+        <p class="cabinet__add-company-form--count"><span>Количество: <span class="col">
             <span id="itemsCountBox">5</span> из <span id="maxCountBox">10</span></span></span>
             <input type="button" class="cabinet__add-company-form--submit" id="btnSel" value="Выбрать">
         </p>
