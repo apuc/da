@@ -762,6 +762,43 @@ class MainMenuAdmin extends Widget
                         'template' => '<a href="#"><i class="fa fa-google-plus"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
                     ],
                     [
+                        'label' => 'Instagram',
+                        'items' => [
+                            [
+                                'label' => 'Пользователи',
+                                'url' => Url::to(['/instagram/account']),
+                                'active' => Yii::$app->controller->module->id === 'instagram' && Yii::$app->controller->id === 'account',
+                                'visible' => UserFunction::hasPermission(['Группы VK']),
+                            ],
+                            [
+                                'label' => 'Фото',
+                                'url' => Url::to(['/instagram/photo']),
+                                'active' => Yii::$app->controller->module->id === 'instagram' && Yii::$app->controller->id === 'photo' && Yii::$app->controller->action->id !== 'onpublish',
+                                'visible' => UserFunction::hasPermission(['Группы VK']),
+                            ],
+                            [
+                                'label' => 'На публикацию',
+                                'url' => Url::to(['/instagram/photo/publish']),
+                                'active' => Yii::$app->controller->action->id === 'publish' && Yii::$app->controller->id === 'photo',
+                                'visible' => UserFunction::hasPermission(['Группы VK']),
+                            ],
+                            [
+                                'label' => 'Опубликованные',
+                                'url' => Url::to(['/instagram/photo/published']),
+                                'active' => Yii::$app->controller->action->id === 'published' && Yii::$app->controller->id === 'photo',
+                                'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countDefferedStreamGoogle . '</small></span></a>',
+                                'visible' => UserFunction::hasPermission(['Отложенные VK']),
+                            ],
+
+
+                        ],
+                        'options' => [
+                            'class' => 'treeview',
+                        ],
+                        'visible' => UserFunction::hasPermission(['ВК']),
+                        'template' => '<a href="#"><i class="fa fa-instagram"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                    ],
+                    [
                         'label' => 'Курсы валют',
                         'visible' => UserFunction::hasPermission(['Курсы валют']),
                         'items' => [
