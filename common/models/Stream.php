@@ -71,16 +71,17 @@ class Stream
         $streamItem->type = 'inst';
         $streamItem->title = "";
         $streamItem->id = $item->id;
-        $streamItem->group->name = $item->author_name;
-        $streamItem->group->photo = $item->author_img;
+        $streamItem->author->name = $item->author_name;
+        $streamItem->author->photo = $item->author_img;
         $streamItem->photo = $item->photo_url;
+        $streamItem->allPhoto[] = $item->photo_url;
         $streamItem->text = "";
         $streamItem->slug = $item->slug;
         $streamItem->views = $item->views;
-        $streamItem->comment_status = 0;//$item->comment_status;
-        $streamItem->dt_publish = $item->pub_date;
-        $streamItem->likes = 2;//$item->getLikesCount();
-        $streamItem->comments = [];//$streamItem->getAllComments();
+        $streamItem->comment_status = 1;
+        $streamItem->dt_publish = $item->dt_publish;
+        $streamItem->likes = $item->getLikesCount();
+        $streamItem->comments = $streamItem->getAllComments();
         return $streamItem;
     }
 

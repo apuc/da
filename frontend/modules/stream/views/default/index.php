@@ -46,8 +46,8 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                             <span><?= $countTw ?></span></a></li>
                     <li><a href="<?= \yii\helpers\Url::to(['/stream', 'social' => 'gplus']) ?>">G+
                             <span><?= $countGplus ?></span></a></li>
-<!--                    <li><a href="--><?="" //\yii\helpers\Url::to(['/stream', 'social' => 'inst']) ?><!--">Instagram-->
-<!--                            <span>--><?=""// $countInst ?><!--</span></a></li>-->
+                    <li><a href="<?= \yii\helpers\Url::to(['/stream', 'social' => 'inst']) ?>">Instagram
+                            <span><?=  $countInst ?></span></a></li>
                 </ul>
 
                 <div class="parser__wrapper">
@@ -82,7 +82,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                                             <?php endif; ?>
                                         </div>
 
-                                        <span class="date"><?= ""//DateFunctions::getGetNiceDate($item->dt_publish) ?></span>
+                                        <span class="date"><?=DateFunctions::getGetNiceDate($item->dt_publish) ?></span>
 
                                     </a>
 

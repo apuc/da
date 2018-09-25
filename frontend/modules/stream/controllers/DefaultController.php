@@ -18,6 +18,7 @@ use yii\web\Controller;
 use yii\web\Cookie;
 use Yii;
 
+
 /**
  * Default controller for the `stream` module
  */
@@ -70,7 +71,7 @@ class DefaultController extends Controller
                 ->all();
         }else if($social==="inst"){
 
-            $res = InstPhoto::find()->where("status=2")->orderBy('id DESC')
+            $res = InstPhoto::find()->where("status=2")->orderBy('dt_publish DESC')
                 ->limit(10)->all();
         } else {
 
@@ -85,9 +86,9 @@ class DefaultController extends Controller
             ->orderBy('`dt_publish` DESC')
             ->limit(10)
             ->all();
-        //$inst = InstPhoto::find()->where("status=2")->orderBy('id DESC')
-           // ->limit(10)->all();
-        $res = array_merge($gPlus, $model, $tw);
+        $inst = InstPhoto::find()->where("status=2")->orderBy('dt_publish DESC')
+            ->limit(10)->all();
+        $res = array_merge($gPlus, $model, $tw,$inst);
         }
         ArrayHelper::multisort($res, 'dt_publish', [SORT_DESC]);
 
@@ -97,8 +98,8 @@ class DefaultController extends Controller
         $countTw = TwPosts::find()->where(['status' => 1])->count();
         $countVk = VkStream::getPublishedCount();
         $countGplus = GooglePlusPosts::find()->where(['status' => 1])->count();
-       // $countInst = 1;
-        $count = $countTw + $countVk + $countGplus;
+        $countInst = InstPhoto::find()->where(['status'=>2])->count();
+        $count = $countTw + $countVk + $countGplus+$countInst;
 
 
         return $this->render('index', [
@@ -107,7 +108,7 @@ class DefaultController extends Controller
             'count' => $count,
             'countTw' => $countTw,
             'countVk' => $countVk,
-            //'countInst' => $countInst,
+            'countInst' => $countInst,
             'countGplus' => $countGplus,
             'meta_title' => KeyValue::findOne(['key' => 'stream_title_page'])->value,
             'meta_desc' => KeyValue::findOne(['key' => 'stream_desc_page'])->value,
@@ -208,12 +209,16 @@ class DefaultController extends Controller
         if ('gplus' === $type) {
             $model = GooglePlusPosts::find()->where(['slug' => $slug])->one();
         }
+        if ('inst' === $type) {
+            $model = InstPhoto::find()->where(['slug' => $slug])->one();
+        }
 
 
         $countTw = TwPosts::find()->where(['status' => 1])->count();
         $countVk = VkStream::getPublishedCount();
         $countGplus = GooglePlusPosts::find()->where(['status' => 1])->count();
-        $count = $countTw + $countVk + $countGplus;
+        $countInst = InstPhoto::find()->where(['status'=>2])->count();
+        $count = $countTw + $countVk + $countGplus+ $countInst;
         if (empty($model)) {
             return $this->render('view', [
                 'model' => $model,
@@ -250,7 +255,21 @@ class DefaultController extends Controller
                 ->orderBy('`dt_publish` DESC')
                 ->limit(10)
                 ->all();
-        } else {
+        } else if ($social === 'gplus'){
+            $res = GooglePlusPosts::find()
+                ->where(['status' => 1])
+                ->andWhere(['<', 'dt_publish', $model->dt_publish])
+                ->orderBy('`dt_publish` DESC')
+                ->limit(10)
+                ->all();
+        }else if ($social === 'inst'){
+            $res = InstPhoto::find()
+                ->where(['status' => 2])
+                ->andWhere(['<', 'dt_publish', $model->dt_publish])
+                ->orderBy('`dt_publish` DESC')
+                ->limit(10)
+                ->all();
+        }else {
             $vk = VkStream::find()->with('photo', 'comments', 'author', 'group')
                 ->where(['status' => 1])
                 ->andWhere(['<', 'dt_publish', $model->dt_publish])
@@ -269,7 +288,13 @@ class DefaultController extends Controller
                 ->orderBy('`dt_publish` DESC')
                 ->limit(10)
                 ->all();
-            $res = array_merge($vk, $tw, $Gplus);
+            $inst = InstPhoto::find()
+                ->where(['status' => 2])
+                ->andWhere(['<', 'dt_publish', $model->dt_publish])
+                ->orderBy('`dt_publish` DESC')
+                ->limit(10)
+                ->all();
+            $res = array_merge($vk, $tw, $Gplus,$inst);
         }
 
         ArrayHelper::multisort($res, 'dt_publish', [SORT_DESC]);
@@ -290,6 +315,7 @@ class DefaultController extends Controller
             'countVk' => $countVk,
             'countTw' => $countTw,
             'countGplus' => $countGplus,
+            'countInst' => $countInst,
         ]);
     }
 

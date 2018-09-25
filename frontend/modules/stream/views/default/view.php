@@ -39,6 +39,8 @@ if(!empty($model)) {
     ]);
 }
 
+
+
 $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => \yii\web\JqueryAsset::className()]);
 ?>
 
@@ -63,6 +65,8 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                             <span><?= $countTw ?></span></a></li>
                     <li><a href="<?= \yii\helpers\Url::to(['/stream', 'social' => 'gplus']) ?>">G+
                             <span><?= $countGplus ?></span></a></li>
+                    <li><a href="<?= \yii\helpers\Url::to(['/stream', 'social' => 'inst']) ?>">G+
+                            <span><?= $countInst ?></span></a></li>
                 </ul>
 
                 <div class="parser__single-wrapper">
