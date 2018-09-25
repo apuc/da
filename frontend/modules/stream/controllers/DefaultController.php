@@ -19,9 +19,6 @@ use yii\web\Cookie;
 use Yii;
 
 
-/**
- * Default controller for the `stream` module
- */
 class DefaultController extends Controller
 {
     public function init()
@@ -39,21 +36,8 @@ class DefaultController extends Controller
         });
     }
 
-    /*public function beforeAction($action)
-    {
-       if($action == 'get-new-post')
-           $this->enableCsrfValidation = false ;
-       return true;
-    }*/
-
-    /**
-     * Renders the index view for the module
-     * @return string
-     * @throws \yii\base\InvalidParamException
-     */
     public function actionIndex($social = 'all')
     {
-
 
         if ($social === 'vk') {
             $res = VkStream::getPosts();
