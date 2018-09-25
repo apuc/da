@@ -71,7 +71,7 @@ class DefaultController extends Controller
                 ->all();
         }else if($social==="inst"){
 
-            $res = InstPhoto::find()->where("status=2")->orderBy('id DESC')
+            $res = InstPhoto::find()->where("status=2")->orderBy('dt_publish DESC')
                 ->limit(10)->all();
         } else {
 
@@ -86,7 +86,7 @@ class DefaultController extends Controller
             ->orderBy('`dt_publish` DESC')
             ->limit(10)
             ->all();
-        $inst = InstPhoto::find()->where("status=2")->orderBy('id DESC')
+        $inst = InstPhoto::find()->where("status=2")->orderBy('dt_publish DESC')
             ->limit(10)->all();
         $res = array_merge($gPlus, $model, $tw,$inst);
         }
