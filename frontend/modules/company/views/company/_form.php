@@ -243,5 +243,5 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
         </div>
     </div>
 
-<?= Html::submitButton('Сохранить информацию о компании', ['class' => 'cabinet__add-company-form--submit']) ?>
+<?= Html::submitButton('Сохранить информацию', ['class' => 'cabinet__add-company-form--submit']) ?>
 <?php ActiveForm::end(); ?>
