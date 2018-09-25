@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: apuc0
- * Date: 25.02.2018
- * Time: 13:15
- */
 
 namespace common\models;
 
@@ -179,9 +173,7 @@ class Stream
         return Likes::find()->where(['post_type' => $this->type === 'vk' ? 'Stream' : $this->type, 'post_id' => $this->id])->count();
     }
 
-    /**
-     * @return array|\yii\db\ActiveRecord[]
-     */
+
     public function getComments()
     {
         return Comments::find()->where(['post_id' => $this->id])

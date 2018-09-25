@@ -68,6 +68,18 @@ class PhotoController extends Controller
         ]);
     }
 
+
+    public  function  actionUnpublish($id)
+    {
+        $model = InstPhoto::find()->where("id=".$id)->one();
+        $model->status = 0;
+        $model->save();
+
+
+        Yii::$app->session->setFlash('success', 'Фото снято с публикации');
+        return $this->redirect("/secure/instagram/photo/published");
+    }
+
     public function actionPublish($id = null)
     {
 
@@ -125,7 +137,7 @@ class PhotoController extends Controller
         ]);
     }
 
-    
+
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();

@@ -48,7 +48,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 'format' => 'raw',
                 'value' => function($model){
-                    return Html::a('На публикацию',"photo/publish?id=".$model->id, ['class' => 'btn btn-success']);
+
+                    if($model->status == 2)
+                    {
+                        return Html::a('Снять с публикации',"/secure/instagram/photo/unpublish?id=".$model->id, ['class' => 'btn btn-success']);
+
+                    }
+
+                    return Html::a('На публикацию',"/secure/instagram/photo/publish?id=".$model->id, ['class' => 'btn btn-success']);
                 }
             ],
 
