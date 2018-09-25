@@ -14,6 +14,9 @@ return [
     'bootstrap' => ['log'],
     'modules' => [
         'gridview' => ['class' => 'kartik\grid\Module'],
+        'instagram' => [
+            'class' => 'backend\modules\instagram\InstParser',
+        ],
         'news' => [
             'class' => 'backend\modules\news\News',
         ],

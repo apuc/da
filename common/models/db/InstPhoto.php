@@ -1,0 +1,64 @@
+<?php
+
+namespace common\models\db;
+
+use Yii;
+
+/**
+ * This is the model class for table "inst_photos".
+ *
+ * @property int $id
+ * @property string $inst_id
+ * @property string $photo_url
+ * @property string $author_name
+ * @property string $author_img
+ * @property string $pub_date
+ * @property string $caption
+ * @property int $status
+ * @property int $views
+ * @property string $slug
+ * @property string $meta_title
+ * @property string $meta_description
+ */
+class InstPhoto extends \yii\db\ActiveRecord
+{
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'inst_photos';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['status', 'views'], 'integer'],
+            [['inst_id', 'photo_url', 'author_name', 'author_img', 'pub_date', 'caption', 'slug', 'meta_title', 'meta_description'], 'string', 'max' => 255],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'inst_id' => 'Inst ID',
+            'photo_url' => 'Фотография',
+            'author_name' => 'Имя автора',
+            'author_img' => 'Иконка автора',
+            'pub_date' => 'Дата публикации',
+            'caption' => 'Описание',
+            'status' => 'Status',
+            'views' => 'Views',
+            'slug' => 'Slug',
+            'meta_title' => 'Meta Title',
+            'meta_description' => 'Meta Description',
+        ];
+    }
+}

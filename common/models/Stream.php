@@ -55,8 +55,33 @@ class Stream
             if (isset($item->post_id)) {
                 return self::createGplus($item);
             }
+            if (isset($item->inst_id)) {
+                return self::createInst($item);
+            }
         }
         return false;
+    }
+
+
+    public static function createInst($item)
+    {
+        $streamItem = new self();
+        $streamItem->author = new StreamAuthor();
+        $streamItem->group = new StreamGroup();
+        $streamItem->type = 'inst';
+        $streamItem->title = "";
+        $streamItem->id = $item->id;
+        $streamItem->group->name = $item->author_name;
+        $streamItem->group->photo = $item->author_img;
+        $streamItem->photo = $item->photo_url;
+        $streamItem->text = "";
+        $streamItem->slug = $item->slug;
+        $streamItem->views = $item->views;
+        $streamItem->comment_status = 0;//$item->comment_status;
+        $streamItem->dt_publish = $item->pub_date;
+        $streamItem->likes = 2;//$item->getLikesCount();
+        $streamItem->comments = [];//$streamItem->getAllComments();
+        return $streamItem;
     }
 
     public static function createTw($item)

@@ -15,8 +15,6 @@ use yii\helpers\Url;
     </a>
 
     <?php
-
-
     foreach ($categoryTreeArr[$categoryId] as $item): ?>
         <div class="shop__sidebars--wrap">
 

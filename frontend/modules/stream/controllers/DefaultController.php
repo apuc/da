@@ -9,6 +9,7 @@ use common\models\db\KeyValue;
 use common\models\db\TwPosts;
 use common\models\db\VkComments;
 use common\models\db\VkStream;
+use common\models\db\InstPhoto;
 use common\models\Stream;
 use common\models\User;
 use frontend\models\user\Profile;
@@ -51,6 +52,8 @@ class DefaultController extends Controller
      */
     public function actionIndex($social = 'all')
     {
+
+
         if ($social === 'vk') {
             $res = VkStream::getPosts();
         } else if ($social === 'tw') {
@@ -65,7 +68,12 @@ class DefaultController extends Controller
                 ->orderBy('`dt_publish` DESC')
                 ->limit(10)
                 ->all();
+        }else if($social==="inst"){
+
+            $res = InstPhoto::find()->where("status=2")->orderBy('id DESC')
+                ->limit(10)->all();
         } else {
+
         $model = VkStream::getPosts();
         $tw = TwPosts::find()
             ->where(['status' => 1])
@@ -77,15 +85,19 @@ class DefaultController extends Controller
             ->orderBy('`dt_publish` DESC')
             ->limit(10)
             ->all();
+        //$inst = InstPhoto::find()->where("status=2")->orderBy('id DESC')
+           // ->limit(10)->all();
         $res = array_merge($gPlus, $model, $tw);
         }
-        ArrayHelper::multisort($res, 'dt_publish', [SORT_DESC]);
+        ArrayHelper::multisort($res, 'id', [SORT_DESC]);
+
 
         $result = $this->getColumns(Stream::create($res));
 
         $countTw = TwPosts::find()->where(['status' => 1])->count();
         $countVk = VkStream::getPublishedCount();
         $countGplus = GooglePlusPosts::find()->where(['status' => 1])->count();
+       // $countInst = 1;
         $count = $countTw + $countVk + $countGplus;
 
 
@@ -95,6 +107,7 @@ class DefaultController extends Controller
             'count' => $count,
             'countTw' => $countTw,
             'countVk' => $countVk,
+            //'countInst' => $countInst,
             'countGplus' => $countGplus,
             'meta_title' => KeyValue::findOne(['key' => 'stream_title_page'])->value,
             'meta_desc' => KeyValue::findOne(['key' => 'stream_desc_page'])->value,
