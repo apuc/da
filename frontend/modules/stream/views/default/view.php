@@ -15,7 +15,7 @@ $this->title = (empty($model)) ? 'Портал DA Info Pro' : $model->title . ' 
 if(!empty($model)) {
     $this->registerMetaTag([
         'name' => 'description',
-        'content' => (empty($model->descr)) ? 'На Портале DA Info Pro «' . $model->title . '». Популярное из социальной сети ВКонтакте в рубрике «В соцсетях»: юмор, мемы, мотивация, бизнес, лайфхаки, стиль.' : $model->meta_descr,
+        'content' => (empty($model->descr)) ? 'На Портале DA Info Pro «' . $model->title . '». Популярное из социальной сети ВКонтакте в рубрике «В соцсетях»: юмор, мемы, мотивация, бизнес, лайфхаки, стиль.' : $model->descr,
     ]);
 
     $this->registerMetaTag([

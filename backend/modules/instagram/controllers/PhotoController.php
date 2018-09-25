@@ -31,7 +31,6 @@ class PhotoController extends Controller
         ];
     }
 
-
     public function actionIndex()
     {
         $searchModel = new InstPhotosSearch();
@@ -42,7 +41,6 @@ class PhotoController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
 
     public function actionPublished($id = null)
     {
@@ -75,7 +73,6 @@ class PhotoController extends Controller
         $model->status = 0;
         $model->save();
 
-
         Yii::$app->session->setFlash('success', 'Фото снято с публикации');
         return $this->redirect("/secure/instagram/photo/published");
     }
@@ -89,7 +86,7 @@ class PhotoController extends Controller
           $model->status = 1;
           $model->save();
 
-            Yii::$app->session->setFlash('success', 'Фото добавленно в раздел "На публикацию"');
+          Yii::$app->session->setFlash('success', 'Фото добавленно в раздел "На публикацию"');
           return $this->redirect(['index']);
         }
 
@@ -137,14 +134,12 @@ class PhotoController extends Controller
         ]);
     }
 
-
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
-
 
     protected function findModel($id)
     {
