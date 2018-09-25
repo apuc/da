@@ -43,6 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             'caption',
+            'slug',
             [
 
                 'format' => 'raw',

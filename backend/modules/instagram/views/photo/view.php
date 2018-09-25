@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::img($data->author_img);
                 }
             ],
-            'pub_date',
+            'slug',
             'caption',
             'meta_title',
             'meta_description',
