@@ -1,8 +1,12 @@
 
 .field-company-photo .file-preview,.field-company-photo .fileinput-upload-button,
- .field-news-photo .file-preview,.field-news-photo .fileinput-upload-button{
+ .field-news-photo .file-preview,.field-news-photo .fileinput-upload-button,.field-poster-photo .file-preview,
+.field-poster-photo .fileinput-upload-button
+{
     display: none !important;
 }
+
+
 
 .field-company-photo .file-input{
     float: right !important;
@@ -15,6 +19,11 @@
 }
 
 .field-company-photo .label-name{
+    top:7px !important;
+
+}
+
+.field-poster-photo .label-name{
     top:7px !important;
 
 }
@@ -32,6 +41,7 @@
 }
 
 #add_ads .file-input .clearfix{display: none;}
+#create_poster .file-input .clearfix{display: none;}
 
 .phones__wrap{
     width: 100%;
