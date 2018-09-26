@@ -12,6 +12,7 @@ use common\classes\Debug;
 use common\models\db\GooglePlusPosts;
 use common\models\db\TwPosts;
 use common\models\db\VkStream;
+use common\models\db\InstPhoto;
 use yii\console\Controller;
 
 class StreamPublishController extends Controller
@@ -45,4 +46,15 @@ class StreamPublishController extends Controller
             $stream->save();
         }
     }
+
+    public function actionInstagram()
+    {
+        $stream = InstPhoto::find()->where(['status' => 3])->orderBy('dt_publish DESC')->one();
+        if(!empty($stream)){
+            $stream->dt_publish = time();
+            $stream->status = 2;
+            $stream->save();
+        }
+    }
+
 }

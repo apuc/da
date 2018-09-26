@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
+use yii\helpers\Url;
 
 /**
  * PhotoController implements the CRUD actions for InstPhoto model.
@@ -42,6 +43,21 @@ class PhotoController extends Controller
         ]);
     }
 
+
+    public function actionDefered()
+    {
+
+        $searchModel = new InstPhotosSearch();
+        $dataProvider = new ActiveDataProvider([
+            'query' => InstPhoto::find()->where("status=3"),
+        ]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
+    }
+
     public function actionPublished($id = null)
     {
 
@@ -66,14 +82,17 @@ class PhotoController extends Controller
         ]);
     }
 
-
-    public  function  actionUnpublish($id)
+    public  function  actionUnpublish($id,$status)
     {
         $model = InstPhoto::find()->where("id=".$id)->one();
         $model->status = 0;
         $model->save();
 
         Yii::$app->session->setFlash('success', 'Фото снято с публикации');
+
+        if($status==3)
+            return $this->redirect("/secure/instagram/photo/defered");
+
         return $this->redirect("/secure/instagram/photo/published");
     }
 
@@ -124,6 +143,13 @@ class PhotoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+
+
+        if(Yii::$app->request->post())
+        {
+            if(Yii::$app->request->post('deffered') == 1)
+               $model->status = 3;
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

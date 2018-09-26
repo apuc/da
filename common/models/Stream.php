@@ -40,6 +40,7 @@ class Stream
     public static function createItem($item)
     {
         if(!empty($item)){
+
             if (isset($item->tw_id)) {
                 return self::createTw($item);
             }
@@ -53,6 +54,7 @@ class Stream
                 return self::createInst($item);
             }
         }
+
         return false;
     }
 
@@ -145,12 +147,14 @@ class Stream
         $streamItem->views = $item->views;
         $streamItem->comment_status = $item->comment_status;
         $streamItem->text = $item->text;
+
         if (!empty($item->photo)) {
             $streamItem->photo = $item->photo[0]->getLargePhoto();
             foreach ((array)$item->photo as $p){
                 $streamItem->allPhoto[] = $p->getLargePhoto();
             }
         }
+
         if (!empty($item->gif)) {
             $streamItem->gifPreview = $item->gif[0]->getLargePreview();
             $streamItem->gif = $item->gif[0]->gif_link;
@@ -158,14 +162,17 @@ class Stream
                 $streamItem->allGif[] = $g->gif_link;
             }
         }
+
         if (!empty($item->group)) {
             $streamItem->group->photo = $item->group->getPhoto();
             $streamItem->group->name = $item->group->name;
         }
+
         $streamItem->meta_descr = $item->meta_descr;
         $streamItem->dt_publish = $item->dt_publish;
         $streamItem->likes = $streamItem->getLikesCount();
         $streamItem->comments = $streamItem->getAllComments();
+
         return $streamItem;
     }
 
@@ -173,7 +180,6 @@ class Stream
     {
         return Likes::find()->where(['post_type' => $this->type === 'vk' ? 'Stream' : $this->type, 'post_id' => $this->id])->count();
     }
-
 
     public function getComments()
     {

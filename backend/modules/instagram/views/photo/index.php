@@ -49,15 +49,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function($model){
 
-                    if($model->status == 2)
+                    if($model->status == 2 || $model->status == 3)
                     {
-                        return Html::a('Снять с публикации',"/secure/instagram/photo/unpublish?id=".$model->id, ['class' => 'btn btn-success']);
+                        return Html::a('Снять с публикации',"/secure/instagram/photo/unpublish?status=".$model->status."&id=".$model->id, ['class' => 'btn btn-success']);
 
                     }
 
                     return Html::a('На публикацию',"/secure/instagram/photo/publish?id=".$model->id, ['class' => 'btn btn-success']);
                 }
             ],
+
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
