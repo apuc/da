@@ -314,20 +314,26 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                         </div>
 
 
-                    <?php else: ?>
+                       <?php
+
+                        if(empty($model2) || count($model1) > 1 ) { ?>
                         <h3>Записей пока нет</h3>
+                       <?php }?>
+
                     <?php endif; ?>
                     <!--  <span class="stream-flag"></span>-->
                 </div>
 
                 <div class="parser__more">
 
+                    <?php if(!empty($model[2])): ?>
                     <a href="#" class="show-more show-more-stream" data-last-post-dt="<?= isset($model2[4]->dt_publish)? $model2[4]->dt_publish: $model2[0]->dt_publish ?>"
                        data-dt="" data-step="1"
                        data-type="<?= Yii::$app->request->get('social') ? Yii::$app->request->get('social') : 'all' ?>"
                        csrf-token="<?= Yii::$app->request->getCsrfToken() ?>">загрузить еще</a>
-
+                     <?php endif ?>
                 </div>
+
 
             </div>
 

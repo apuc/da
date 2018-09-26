@@ -63,7 +63,7 @@ class Stream
         $streamItem->author = new StreamAuthor();
         $streamItem->group = new StreamGroup();
         $streamItem->type = 'inst';
-        $streamItem->title = "";
+        $streamItem->title = $item->meta_title;
         $streamItem->id = $item->id;
         $streamItem->author->name = $item->author_name;
         $streamItem->author->photo = $item->author_img;
@@ -76,6 +76,7 @@ class Stream
         $streamItem->dt_publish = $item->dt_publish;
         $streamItem->likes = $item->getLikesCount();
         $streamItem->comments = $streamItem->getAllComments();
+        $streamItem->descr = $item->meta_description;
         return $streamItem;
     }
 
