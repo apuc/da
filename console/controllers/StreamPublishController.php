@@ -55,6 +55,7 @@ class StreamPublishController extends Controller
             $stream->status = 2;
             $stream->save();
         }
+
     }
 
 }
