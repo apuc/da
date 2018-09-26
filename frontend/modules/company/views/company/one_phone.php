@@ -8,7 +8,7 @@ use yii\widgets\MaskedInput;
 ?>
 <div class="phones__wrap">
     <div class="input__wrap" style="position: relative; width: 100%;">
-        <?= Html::label('Телефон', 'Phones', ['class' => 'label-name']) ?>
+        <?= Html::label('Телефон:', 'Phones', ['class' => 'label-name']) ?>
         <?=MaskedInput::widget([
             'name' => 'Phones['.$iterator.'][phone]',
             'mask' => '+99-999-999-9999',

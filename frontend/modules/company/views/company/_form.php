@@ -68,7 +68,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             "select2:open" => "function() { $('.memo:first').show(); }",
             "select2:close" => "function() { $('.memo:first').hide(); }",
         ],
-    ])->hint('Категория, которая указывает на сферу деятельности компании.');
+    ])->hint('Категория, которая указывает на сферу деятельности компании.')->label("Категория:");
 ?>
 
 
@@ -76,7 +76,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 <?= $form->field($model, 'name')
     ->textInput(['maxlength' => true])
     ->hint('Полное название компании, которое после регистрации отобразится в визитке предприятия.')
-    ->label('Название')
+    ->label('Название:')
 ?>
 
 <?= $form->field($model, 'city_id')->widget(Select2::className(),
@@ -94,27 +94,27 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         ],
     ])
     ->hint('Город, в котором находится центральный офис компании.')
-    ->label('Город')
+    ->label('Город:')
 ?>
 
 <?= $form->field($model, 'address')->textInput(['maxlength' => true])
     ->hint('Адрес центрального офиса компании без упоминания города.')
-    ->label('Адрес') ?>
+    ->label('Адрес:') ?>
 <?php
 
 echo $form->field($model, 'photo')->widget(FileInput::classname(), [
     'options' => ['accept' => 'image/*','class'=>'jsHint'],
 ])->hint('Разрешение изображения – не менее 800х600 пикселей. Размер – не более двух мегабайт. Формат – jpg
         или png. Стандартное соотношение сторон 3х4. Иллюстрации с нешаблонными пропорциями
-        автоматически обрезаются.')->label("Иллюстрация");
+        автоматически обрезаются.')->label("Иллюстрация:");
 ?>
 
     <p class="file-hint">
          Как правильно подобрать иллюстрацию?
-        <a target="_blank" href="http://da-info.pro/page/kak-pravilno-podobrat-izobrazenie-dla-stati-na-sajte-da-info-pro">Перейти к четению.</a>
+        <a target="_blank" href="http://da-info.pro/page/kak-pravilno-podobrat-izobrazenie-dla-stati-na-sajte-da-info-pro">Читать.</a>
     </p>
 
-    <?= $form->field($model, 'start_page')->label('Главная страница')
+    <?= $form->field($model, 'start_page')->label('Главная страница:')
     ->dropDownList($model->start_page_items)->hint('Раздел профиля компании, который будет стартовым после перехода на визитку
 предприятия.');
     ?>
@@ -126,7 +126,7 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
 
         <div class="input__wrap" style="position: relative; width: 100%;">
 
-            <?= Html::label('Телефон', 'phone', ['class' => 'label-name']) ?>
+            <?= Html::label('Телефон:', 'phone', ['class' => 'label-name']) ?>
 
             <?=  MaskedInput::widget([
                 'name' => 'Phones[0][phone]',
@@ -186,7 +186,7 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
     ])
     ->hint('Информация о специализации предприятия. Объем текста для неверифицированных пользователей – не
   более 800 символов.')
-    ->label('О компании');
+    ->label('О компании:');
   ?>
 
 <br/>
@@ -197,7 +197,7 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
     ])
     ->hint('Варианты доставки, которые предлагает компания. Если транспортировка товаров не осуществляется,
 тогда необходимо оставить поле пустым.')
-    ->label('Доставка');
+    ->label('Доставка:');
 ?>
     <br/>
 
@@ -206,7 +206,7 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
         'class' => 'cabinet__add-company-form--text jsHint',
     ])
     ->hint('Способы оплаты, которые доступны клиентам компании.')
-    ->label('Способы оплаты');
+    ->label('Способы оплаты:');
 ?>
 
 <?= $form->field($model, 'slider')->checkbox(['class' => 'checkbox-wrap', 'id' => 'slider_checkbox']) ?>
@@ -222,7 +222,7 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
 
         <p class="cabinet__add-company-form--count"><span>Количество: <span class="col">
             <span id="itemsCountBox">5</span> из <span id="maxCountBox">10</span></span></span>
-            <input type="button" class="cabinet__add-company-form--submit" id="btnSel" value="Выбрать">
+            <input type="button" class="cabinet__add-company-form--submit" id="btnSel" value="Выбрать...">
         </p>
 
         <div class="cabinet__add-company-form--images" id="cabinet__add-company-form--images">
@@ -243,5 +243,5 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
         </div>
     </div>
 
-<?= Html::submitButton('Сохранить информацию', ['class' => 'cabinet__add-company-form--submit']) ?>
+<?= Html::submitButton('Сохранить компанию', ['class' => 'cabinet__add-company-form--submit']) ?>
 <?php ActiveForm::end(); ?>

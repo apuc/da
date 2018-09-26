@@ -789,6 +789,13 @@ class MainMenuAdmin extends Widget
                                 'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . "" . '</small></span></a>',
                                 'visible' => UserFunction::hasPermission(['Отложенные VK']),
                             ],
+                            [
+                                'label' => 'Отложенные',
+                                'url' => Url::to(['/instagram/photo/defered']),
+                                'active' => Yii::$app->controller->action->id === 'defered' && Yii::$app->controller->id === 'photo',
+                                'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . "" . '</small></span></a>',
+                                'visible' => UserFunction::hasPermission(['Отложенные VK']),
+                            ],
 
 
                         ],

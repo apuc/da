@@ -9,10 +9,14 @@ $this->registerCssFile('/css/board.min.css');
 $this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
+
 use common\models\db\Poster;
 use kartik\file\FileInput;
 use yii\bootstrap\ActiveForm;
-use yii\helpers\Html; ?>
+use yii\helpers\Html;
+use yii\widgets\MaskedInput;
+
+?>
 
 <div class="cabinet__container cabinet__container_white cabinet__inner-box">
 
@@ -23,7 +27,7 @@ use yii\helpers\Html; ?>
                 'id' => 'create_poster',
                 'options' =>
                     [
-                        'class' => 'content-forma',
+                        'class' => 'content-forma cabinet__add-company-form-product',
                         'enctype' => 'multipart/form-data',
                     ],
                 'fieldConfig' => [
@@ -50,62 +54,82 @@ use yii\helpers\Html; ?>
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
+                'pluginEvents' => [
+                    "select2:open" => "function() { $('.memo:first').show(); }",
+                    "select2:close" => "function() { $('.memo:first').hide(); }",
+                ],
             ])
-            ->hint('<b>Выберите категорию афиши из списка.</b>')
-            ->label('Категория<span>*</span>');
+            ->hint('Категория, к которой относится мероприятие.')
+            ->label('Категория:');
         ?>
 
 
         <?= $form->field($model, 'title')
             ->textInput(['maxlength' => true])
-            ->hint('Введите название мероприятия')
-            ->label('Название мероприятия<span>*</span>');
+            ->hint('Полное название мероприятия. Не допускается использование заглавных букв (кроме аббревиатур).')
+            ->label('Название:');
         ?>
 
 
-        <?= $form->field($model, 'photo')->hiddenInput(['value' => $model->photo])->label(false); ?>
-        <?php echo '<label class="control-label">Добавить фото</label>';
-        echo FileInput::widget([
+        <?php
+
+        echo $form->field($model, 'photo')->widget(FileInput::classname(), [
             'name' => 'Poster',
-            'options' => ['multiple' => false],
+            'options' => ['accept' => 'image/*','class'=>'jsHint','multiple' => false,'onchange'=>
+                '$(".field-poster-photo").find(".memo").show(); 
+                setTimeout(function(){$(".field-poster-photo").find(".memo").hide();}, 5000);'],
             'pluginOptions' => [
                 'previewFileType' => 'image',
                 'maxFileCount' => 10,
                 'maxFileSize' => 2000,
                 'language' => "ru",
             ],
-        ]); ?>
+
+
+        ])->hint('Изображение, которое соответствует программе мероприятия. Разрешение изображения – не менее 800х600
+пикселей. Размер – не более двух мегабайт. Формат – jpg или png. Стандартное соотношение сторон 3х4.
+Иллюстрации с нешаблонными пропорциями автоматически обрезаются.')->label("Обложка:");
+        ?>
+        <p class="file-hint">
+            Как правильно подобрать иллюстрацию?
+            <a target="_blank" href="http://da-info.pro/page/kak-pravilno-podobrat-izobrazenie-dla-stati-na-sajte-da-info-pro">Читать.</a>
+        </p>
+
 
 
         <?= $form->field($model, 'price')
             ->textInput(['maxlength' => true])
-            ->hint('Укажите цену посещения')
-            ->label('Цена посещения'); ?>
+            ->hint('Цена билетов или входа на мероприятие. Стоимость указывается в российских рублях.')
+            ->label('Цена посещения:'); ?>
 
         <?= $form->field($model, 'start')
             ->textInput(['maxlength' => true])
             ->hint('Укажите время проведения мероприятия<br>Например: с 8:00 до 18:00 или круглосуточно')
-            ->label('Время проведения');
+            ->label('Время проведения:');
         ?>
 
 
         <?= $form->field($model, 'dt_event')->widget(\kartik\datetime\DateTimePicker::className(),
             [
-                'options' => ['placeholder' => 'Выберете дату события'],
+                'options' => ['placeholder' => 'Выберете дату события','class'=>'jsHint'],
                 'convertFormat' => false,
                 'value' => date('d-m-Y H:i', (!empty($model->dt_event) ? $model->dt_event : time())),
                 'pluginOptions' => [
                     'format' => 'dd-mm-yyyy H:i ',
                     'todayHighlight' => true,
+                ],
+                'pluginEvents' => [
+                    "show" => "function(e) { $(this).parent().find('.memo').show();  }",
+                    "hide" => "function(e) { $(this).parent().find('.memo').hide();  }",
                 ]
             ]
         )
-            ->hint('Дата начала события')
-            ->label('Дата начала события');
+            ->hint('Дата и время начала мероприятия.')
+            ->label('Дата начала:');
         ?>
 
         <?= $form->field($model, 'dt_event_end')->widget(\kartik\datetime\DateTimePicker::className(), [
-            'options' => ['placeholder' => 'Выберете дату окончания события'],
+            'options' => ['placeholder' => 'Выберете дату окончания события','class'=>'jsHint'],
             'convertFormat' => false,
             'value' => date('d-m-Y H:i', (!empty($model->dt_event_end) ? $model->dt_event_end : time())),
             'pluginOptions' => [
@@ -113,25 +137,47 @@ use yii\helpers\Html; ?>
                 'startDate' => '01-Mar-2016 12:00 AM',
                 'todayHighlight' => true,
             ],
+            'pluginEvents' => [
+                "show" => "function(e) { $(this).parent().find('.memo').show();  }",
+                "hide" => "function(e) { $(this).parent().find('.memo').hide();  }",
+            ]
         ])
-            ->hint('Дата окончания события')
-            ->label('Дата окончания события');
+            ->hint('Дата и время окончания мероприятия.')
+            ->label('Дата окончания:');
         ?>
 
         <?= $form->field($model, 'address')
             ->textInput(['maxlength' => true])
-            ->hint('Адрес проведения')
-            ->label('Адрес проведения');
+            ->hint('Страна, населенный пункт, улица и место проведения мероприятия.')
+            ->label('Адрес:');
         ?>
 
 
         <div class="cabinet__add-company-form--wrapper">
 
-            <label class="label-name">Телефон</label>
+            <label class="label-name">Телефон:</label>
 
-            <input class="cabinet__add-company-form--field" name="mytext[]" type="text">
 
-            <a href="#" class="cabinet__add-field" max-count="3"></a>
+
+            <?=  MaskedInput::widget([
+                'name' => 'Phones[0][phone]',
+                'mask' => '+99-999-999-9999',
+                'options'=>[
+                    'class' => 'input-name jsHint',
+                    'id' => 'phone',
+                ],
+                'clientOptions' => [
+                    'clearIncomplete' => true
+                ]
+            ]);
+
+            ?>
+
+            <button type="button" class="cabinet__add-field company__add-phone"
+                    style="position: absolute; top: 11px; right: 5px; border: none;" data-iterator="0"
+                    max-count="<?= (isset($services['count_phone']) ? $services['count_phone'] : ''); ?>">
+            </button>
+<!--            <a href="#" class="cabinet__add-field" max-count="3"></a>-->
 
         </div>
 
@@ -144,12 +190,13 @@ use yii\helpers\Html; ?>
                     'height' => '200px'
                 ]
             ])
-            ->hint('Введите описание мероприятия')
-            ->label('Описание')
+            ->hint('Анонс программы мероприятия, а также уточнение деталей или особенностей его проведения (если
+необходимо).')
+            ->label('Описание:')
         ?>
 
 
-        <?= Html::submitButton('Сохранить', ['class' => 'cabinet__add-company-form--submit']) ?>
+        <?= Html::submitButton('ДОБАВИТЬ АФИШУ', ['class' => 'cabinet__add-company-form--submit']) ?>
         <?php ActiveForm::end(); ?>
 
     </div>

@@ -30,6 +30,10 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'meta_description')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
+    <?= Html::checkbox("deffered",false,['label'=>"Отложить"]) ?>
+    </div>
+
+    <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
