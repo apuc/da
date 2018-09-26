@@ -52,8 +52,8 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         $param = ['class' => 'input-name jsHint selectCateg', 'prompt' => 'Выберите категорию'];
         echo $form->field($model, 'categoryId[]')
             ->dropDownList($items, $param)
-            ->hint('<b>Доступен одновременный выбор не более трех категорий, в которых отобразится опубликованная статья.</b>')
-            ->label('Категория<span>*</span>');
+            ->hint('Доступен одновременный выбор не более трех категорий, в которых отобразится опубликованная статья.')
+            ->label('Категория:');
         ?>
         <a href="#" style="position: absolute; top: 16px; right: -30px; z-index: 1;"
            class="cabinet__add-pkg addCategAddNewsUser"></a>
@@ -69,10 +69,10 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 <?= $form->field($model, 'title')
     ->textInput(['maxlength' => true])
     ->hint('<b>Приемлемая длина заголовка – не более 70 символов. Запрещено размещать ссылки на какие-либо ресурсы (сайты, аккаунты и группы в социальных сетях).</b>')
-    ->label('Заголовок чтива<span>*</span>'); ?>
+    ->label('Заголовок:'); ?>
 <p class="file-hint">
     Как создать грамотный заголовок?
-    <a target="_blank" href="https://da-info.pro/page/kak-sostavit-gramotnyj-zagolovok-dla-stati-na-sajte-da-info-pro">Перейти к четению</a>
+    <a target="_blank" href="https://da-info.pro/page/kak-sostavit-gramotnyj-zagolovok-dla-stati-na-sajte-da-info-pro">Читать.</a>
 </p>
 
 
@@ -88,9 +88,13 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             "select2:close" => "function() { $('.memo:eq(2)').hide(); }",
         ],
     ]
-)->hint('Предприятие, на странице которого появится опубликованная статья. Если текст имеет нейтральную тематику, тогда нужно оставить поле пустым. ')->label('Относится к компании'); ?>
+)->hint('Предприятие, на странице которого появится опубликованная статья. Если текст имеет нейтральную тематику, тогда нужно оставить поле пустым. ')->label('Компания:'); ?>
 
+    <p class="file-hint">
+       Как создать эффективный коммерческий контент?
+        <a target="_blank" href="http://da-info.pro/page/teksty-kotorye-prodaut-kak-sozdat-effektivnyj-kommerceskij-kontent">Читать.</a>
 
+    </p>
 
 
     <!-- <p class="cabinet__add-company-form--title">Обложка чтива</p>-->
@@ -100,29 +104,28 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
     'options' => ['accept' => 'image/*','class'=>'jsHint'],
 ])->hint('Разрешение изображения – не менее 800х600 пикселей. Размер – не более двух мегабайт. Формат – jpg
         или png. Стандартное соотношение сторон 3х4. Иллюстрации с нешаблонными пропорциями
-        автоматически обрезаются.')->label("Обложка чтива");
+        автоматически обрезаются.')->label("Обложка:");
 ?>
 
     <p class="file-hint">
         Как правильно подобрать иллюстрацию?
-        <a target="_blank" href="http://da-info.pro/page/kak-pravilno-podobrat-izobrazenie-dla-stati-na-sajte-da-info-pro">Перейти к четению.</a>
+        <a target="_blank" href="http://da-info.pro/page/kak-pravilno-podobrat-izobrazenie-dla-stati-na-sajte-da-info-pro">Читать.</a>
     </p>
 
     <br>
 
 
-    <p class="cabinet__add-company-form--title" style="width: 100%;">Текст чтива</p>
+
 
 
 <?php echo $form->field($model, 'content')->widget(CKEditor::className(), [
 
 "options"=>["class"=>"jsHint"]])->hint('Размер текста неограничен. Допускается наличие в статье не более трех иллюстраций форматом jpg или png. Материал должен содержать полезную для читателя информацию. Запрещено размещение рекламы и необоснованных ссылок (адреса интернет-ресурсов необходимо прикреплять к тексту публикации при помощи функции редактора, то есть привязывать к отдельным словам или словосочетаниям).')->label(false); ?>
 
-    <p style="float: right; width: 100%; text-align: left">
+    <p style="float: right; width: 100%; text-align: left; margin-bottom: 32px" >
         Как правильно создавать текстовый контент?
-        <a target="_blank" href="http://da-info.pro/page/kak-pravilno-sozdavat-tekstovyj-kontent-na-sajte-da-info-pro">Перейти к четению</a>
-        <br>Тексты, которые продают: как создать эффективный коммерческий контент?
-        <a target="_blank" href="http://da-info.pro/page/teksty-kotorye-prodaut-kak-sozdat-effektivnyj-kommerceskij-kontent">Перейти к четению</a>
+        <a target="_blank" href="http://da-info.pro/page/kak-pravilno-sozdavat-tekstovyj-kontent-na-sajte-da-info-pro">Читать.</a>
+
 
     </p>
 
