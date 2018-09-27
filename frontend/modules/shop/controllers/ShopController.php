@@ -92,6 +92,7 @@ class ShopController extends Controller
 
         if ($model->getEndCategory($category)) {
 
+
             $category = CategoryShop::find()->where([
                 'type' => CategoryShop::TYPE_PRODUCT,
                 'status' => \common\models\db\CategoryShop::STATUS_PUBLIC])->all();

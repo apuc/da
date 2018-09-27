@@ -2,7 +2,7 @@
 /**
  * @var $adsFields
  */
-
+use common\classes\Debug;
 //\common\classes\Debug::prn(\yii\helpers\ArrayHelper::getValue($adsFields['fields'], 'name'));
 ?>
 
@@ -36,8 +36,9 @@
         $arr = [];
         foreach ($adsFields['fields']->productFieldsDefaultValues as $item) {
             $arr[$item->id] = $item->value;
-        }
 
+        }
+       // Debug::dd($arr);
         /*if(isset($getFilter[$adsFields['fields']->name]) ){
             \common\classes\Debug::prn($getFilter[$adsFields['fields']->name]);
         }*/
@@ -68,6 +69,47 @@
         </div>
         <?php
     }
+
+
+    if ($adsFields['fields']->type->type == 'radio') {
+        $arr = [];
+        foreach ($adsFields['fields']->productFieldsDefaultValues as $item) {
+            $arr[$item->id] = $item->value;
+
+        }
+        // Debug::dd($arr);
+        /*if(isset($getFilter[$adsFields['fields']->name]) ){
+            \common\classes\Debug::prn($getFilter[$adsFields['fields']->name]);
+        }*/
+
+        ?>
+
+        <div class="shop__filter-title <?= (isset($getFilter[$adsFields['fields']->name])) ? 'active' : ''?>"><?= $adsFields['fields']->label ?>
+            <div class="shop__filter-list">
+                <?= \yii\helpers\Html::radioList(
+                    $adsFields['fields']->name,
+                    (isset($getFilter[$adsFields['fields']->name])) ? $getFilter[$adsFields['fields']->name] : null,
+                    $arr,
+                    [
+                        'item' => function ($index, $label, $name, $checked, $value) {
+                            $ch = '';
+                            $class = '';
+                            if ($checked == 1) {
+                                $ch = "checked";
+                                $class = 'active';
+                            }
+                           $name.="[]";
+                            return "<label class=\"$class\"><input type=\"radio\" class=\"filter-search\" name=\"$name\" value=\"$value\" $ch> $label</label>";
+                        },
+
+                    ]
+                )
+                ?>
+            </div>
+        </div>
+        <?php
+    }
+
 
     if ($adsFields['fields']->type->type == 'checkbox') {
     //\common\classes\Debug::prn($adsFields);

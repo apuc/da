@@ -31,7 +31,8 @@ class ShowFilterLeftProducts extends Widget
             ->groupBy('id')
             ->all();
 
-        //Debug::dd($fields);
+       // Debug::dd($fields[11]->fields->productFieldsDefaultValues[0]->attributes['value']);
+       // Debug::dd($fields[11]->fields->productFieldsDefaultValues->id);
         //Debug::dd(ArrayHelper::getValue($fields['fields'], 'name'));
 
         $html = '';
@@ -42,6 +43,7 @@ class ShowFilterLeftProducts extends Widget
 
                 $fieldsName[$item['fields']->name.'[]'] = (isset($getFilter[$item['fields']->name])) ? $getFilter[$item['fields']->name] : [];
                 $html .= $this->render('fields_filter', ['adsFields' => $item, 'getFilter' => $getFilter]);
+               // Debug::prn($html);
             }
         }
 

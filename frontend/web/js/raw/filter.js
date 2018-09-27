@@ -2,13 +2,16 @@ $(document).ready(function () {
 
     $(document).on('click', '.filter-search', function () {
 
+
         if($($(this)).prop('checked')) {
             attributesFieldsProductsFilter[$(this).attr('name')].push($(this).val());
+
         }
         else{
             attributesFieldsProductsFilter[$(this).attr('name')].splice(attributesFieldsProductsFilter[$(this).attr('name')].indexOf($(this).val()), 1);
-        }
 
+        }
+       // console.log(attributesFieldsProductsFilter);
         setFilter();
     });
 
@@ -51,7 +54,7 @@ function setFilter() {
     /*var maxPrice = $("input[name='maxPrice']").val()*/
 
     for(var key in filter) {
-        console.log(filter[key]);
+        //console.log(filter[key]);
         if(filter[key].length > 0 ){
             if(Array.isArray(filter[key])){
                 for (var j = 0; j < filter[key].length; j++ ){
@@ -83,7 +86,7 @@ function setFilter() {
                 maxPrice: maxPrice,*/
             },
         success: function (data) {
-            console.log(data);
+            //console.log(data);
             $('.shop__top-sales-elements').html(data);
         }
     });
