@@ -411,16 +411,19 @@ class DefaultController extends Controller
             $model->meta_title = $model->title . ' - Афиша на DA-info';
             $model->meta_descr = \yii\helpers\StringHelper::truncate($model->descr, 250) . ' - Афиша на DA-info';
 
+            //var_dump($_FILES['Poster']['name']); die();
+
             if ($_FILES['Poster']['name']) {
                 $upphoto = New \common\models\UploadPhoto();
-                $upphoto->imageFile = UploadedFile::getInstanceByName('Poster');
+                $upphoto->imageFile = UploadedFile::getInstance($model,'photo');
+
                 $loc = 'media/upload/userphotos/' . date('dmY') . '/';
                 if (!is_dir($loc)) {
                     mkdir($loc);
                 }
                 $upphoto->location = $loc;
                 $upphoto->upload();
-                $model->photo = '/' . $loc . $_FILES['Poster']['name'];
+                $model->photo = '/' . $loc . $_FILES['Poster']['name']['photo'];
             }
 
             $model->save();
@@ -442,6 +445,13 @@ class DefaultController extends Controller
                 'categoryPoster' => $categoryPoster
             ]);
         }
+    }
+
+    public function actionAddPhone()
+    {
+        return $this->renderAjax('one_phone', [
+            'iterator' => Yii::$app->request->post('iterator'),
+        ]);
     }
 
     //Редактирование афиши

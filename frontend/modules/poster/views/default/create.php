@@ -8,7 +8,7 @@ $this->title = 'Добавление афиши мероприятия';
 $this->registerCssFile('/css/board.min.css');
 $this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-
+$this->registerJsFile('/js/raw/news.js',['depends' => [\yii\web\JqueryAsset::className()]]);
 
 use common\models\db\Poster;
 use kartik\file\FileInput;
@@ -74,7 +74,6 @@ use yii\widgets\MaskedInput;
         <?php
 
         echo $form->field($model, 'photo')->widget(FileInput::classname(), [
-            'name' => 'Poster',
             'options' => ['accept' => 'image/*','class'=>'jsHint','multiple' => false,'onchange'=>
                 '$(".field-poster-photo").find(".memo").show(); 
                 setTimeout(function(){$(".field-poster-photo").find(".memo").hide();}, 5000);'],
@@ -153,14 +152,14 @@ use yii\widgets\MaskedInput;
         ?>
 
 
-        <div class="cabinet__add-company-form--wrapper">
+        <div class="cabinet__add-company-form--wrapper" data-iterator="0">
 
             <label class="label-name">Телефон:</label>
 
 
 
             <?=  MaskedInput::widget([
-                'name' => 'Phones[0][phone]',
+                'name' => 'mytext[]',
                 'mask' => '+99-999-999-9999',
                 'options'=>[
                     'class' => 'input-name jsHint',
@@ -175,9 +174,14 @@ use yii\widgets\MaskedInput;
 
             <button type="button" class="cabinet__add-field company__add-phone"
                     style="position: absolute; top: 11px; right: 5px; border: none;" data-iterator="0"
-                    max-count="<?= (isset($services['count_phone']) ? $services['count_phone'] : ''); ?>">
+                    max-count="3">
             </button>
-<!--            <a href="#" class="cabinet__add-field" max-count="3"></a>-->
+            
+            <div class="memo" style="display: none">
+                <span class="info-icon" style="background-image: url(/theme/portal-donbassa/img/icons/info.png)"></span>
+                <span class="triangle-left"></span>
+                <div class="">Номер телефона лица, которое отвечает за общение с заинтересованными пользователями портала.</div>
+            </div>
 
         </div>
 
