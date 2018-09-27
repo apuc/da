@@ -176,7 +176,7 @@ use yii\widgets\MaskedInput;
                     style="position: absolute; top: 11px; right: 5px; border: none;" data-iterator="0"
                     max-count="3">
             </button>
-            
+
             <div class="memo" style="display: none">
                 <span class="info-icon" style="background-image: url(/theme/portal-donbassa/img/icons/info.png)"></span>
                 <span class="triangle-left"></span>

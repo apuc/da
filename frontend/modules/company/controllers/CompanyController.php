@@ -241,8 +241,6 @@ class CompanyController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
-
-
             $post = Yii::$app->request->post();
 
             $model->status = 1;
@@ -328,15 +326,7 @@ class CompanyController extends Controller
         }
     }
 
-    /**
-     * Updates an existing Company model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     *
-     * @param integer $id
-     *
-     * @return mixed
-     * @throws \yii\base\InvalidParamException
-     */
+
     public function actionUpdate($id)
     {
         $this->layout = "personal_area";
@@ -464,14 +454,7 @@ class CompanyController extends Controller
         }
     }
 
-    /**
-     * Deletes an existing Company model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     *
-     * @param integer $id
-     *
-     * @return mixed
-     */
+
     public function actionDelete($id)
     {
         Company::updateAll(['status' => 3], ['id' => $id]);
@@ -486,15 +469,7 @@ class CompanyController extends Controller
         return $this->redirect(['/personal_area/default/index']);
     }
 
-    /**
-     * Finds the Company model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     *
-     * @param integer $id
-     *
-     * @return Company the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     protected function findModel($id)
     {
         if (($model = Company::findOne($id)) !== null) {
