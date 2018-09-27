@@ -48,7 +48,7 @@ use yii\widgets\MaskedInput;
             [
                 'data' => \yii\helpers\ArrayHelper::map($categoryPoster, 'id', 'title'),
                 'options' => [
-                    'placeholder' => 'выберите категорию',
+                    'placeholder' => 'Выбери категорию...',
                     'multiple' => true
                 ],
                 'pluginOptions' => [
@@ -76,7 +76,8 @@ use yii\widgets\MaskedInput;
         echo $form->field($model, 'photo')->widget(FileInput::classname(), [
             'options' => ['accept' => 'image/*','class'=>'jsHint','multiple' => false,'onchange'=>
                 '$(".field-poster-photo").find(".memo").show(); 
-                setTimeout(function(){$(".field-poster-photo").find(".memo").hide();}, 5000);'],
+                setTimeout(function(){$(".field-poster-photo").find(".memo").hide();}, 5000);',
+                'placeholder'=>'Выбери файл...'],
             'pluginOptions' => [
                 'previewFileType' => 'image',
                 'maxFileCount' => 10,
@@ -110,7 +111,7 @@ use yii\widgets\MaskedInput;
 
         <?= $form->field($model, 'dt_event')->widget(\kartik\datetime\DateTimePicker::className(),
             [
-                'options' => ['placeholder' => 'Выберете дату события','class'=>'jsHint'],
+                'options' => ['placeholder' => 'Выбери дату события','class'=>'jsHint'],
                 'convertFormat' => false,
                 'value' => date('d-m-Y H:i', (!empty($model->dt_event) ? $model->dt_event : time())),
                 'pluginOptions' => [
@@ -128,7 +129,7 @@ use yii\widgets\MaskedInput;
         ?>
 
         <?= $form->field($model, 'dt_event_end')->widget(\kartik\datetime\DateTimePicker::className(), [
-            'options' => ['placeholder' => 'Выберете дату окончания события','class'=>'jsHint'],
+            'options' => ['placeholder' => 'Выбери дату окончания события','class'=>'jsHint'],
             'convertFormat' => false,
             'value' => date('d-m-Y H:i', (!empty($model->dt_event_end) ? $model->dt_event_end : time())),
             'pluginOptions' => [
@@ -153,7 +154,7 @@ use yii\widgets\MaskedInput;
 
 
         <div class="cabinet__add-company-form--wrapper" data-iterator="0">
-
+<div class="form-line">
             <label class="label-name">Телефон:</label>
 
 
@@ -182,7 +183,7 @@ use yii\widgets\MaskedInput;
                 <span class="triangle-left"></span>
                 <div class="">Номер телефона лица, которое отвечает за общение с заинтересованными пользователями портала.</div>
             </div>
-
+            </div>
         </div>
 
         <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>

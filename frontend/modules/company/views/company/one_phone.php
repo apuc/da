@@ -7,7 +7,7 @@ use yii\helpers\Html;
 use yii\widgets\MaskedInput;
 ?>
 <div class="phones__wrap">
-    <div class="input__wrap" style="position: relative; width: 100%;">
+    <div class="input__wrap form-line" style="position: relative; width: 100%;">
         <?= Html::label('Телефон:', 'Phones', ['class' => 'label-name']) ?>
         <?=MaskedInput::widget([
             'name' => 'Phones['.$iterator.'][phone]',

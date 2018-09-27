@@ -122,9 +122,9 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
 
     <div class="cabinet__add-company-form--block"></div>
 
-    <div class="cabinet__add-company-form--wrapper" data-iterator="0" style="flex-wrap: wrap; margin-bottom: 40px;">
+    <div class="cabinet__add-company-form--wrapper " data-iterator="0" style="flex-wrap: wrap; margin-bottom: 16px;">
 
-        <div class="input__wrap" style="position: relative; width: 100%;">
+        <div class="input__wrap form-line" style="position: relative; width: 100%;">
 
             <?= Html::label('Телефон:', 'phone', ['class' => 'label-name']) ?>
 

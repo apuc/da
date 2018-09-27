@@ -49,7 +49,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
         <?php
         $items = ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title');
-        $param = ['class' => 'input-name jsHint selectCateg', 'prompt' => 'Выберите категорию'];
+        $param = ['class' => 'input-name jsHint selectCateg', 'prompt' => 'Выбери категорию...'];
         echo $form->field($model, 'categoryId[]')
             ->dropDownList($items, $param)
             ->hint('Доступен одновременный выбор не более трех категорий, в которых отобразится опубликованная статья.')
@@ -91,7 +91,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 )->hint('Предприятие, на странице которого появится опубликованная статья. Если текст имеет нейтральную тематику, тогда нужно оставить поле пустым. ')->label('Компания:'); ?>
 
     <p class="file-hint">
-       Как создать эффективный коммерческий контент?
+       Как создать коммерческий контент?
         <a target="_blank" href="http://da-info.pro/page/teksty-kotorye-prodaut-kak-sozdat-effektivnyj-kommerceskij-kontent">Читать.</a>
 
     </p>
@@ -122,7 +122,8 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
 
 "options"=>["class"=>"jsHint"]])->hint('Размер текста неограничен. Допускается наличие в статье не более трех иллюстраций форматом jpg или png. Материал должен содержать полезную для читателя информацию. Запрещено размещение рекламы и необоснованных ссылок (адреса интернет-ресурсов необходимо прикреплять к тексту публикации при помощи функции редактора, то есть привязывать к отдельным словам или словосочетаниям).')->label(false); ?>
 
-    <p style="float: right; width: 100%; text-align: left; margin-bottom: 32px" >
+    <p style="float: right; width: 100%; text-align: left; margin-bottom: 32px;
+    margin-top: 5px; padding-left: 10px;" >
         Как правильно создавать текстовый контент?
         <a target="_blank" href="http://da-info.pro/page/kak-pravilno-sozdavat-tekstovyj-kontent-na-sajte-da-info-pro">Читать.</a>
 

@@ -359,6 +359,44 @@ class MainMenuAdmin extends Widget
                             </a>',
                     ],
                     [
+                        'label' => 'Заказы',
+                        'items' => [
+                            [
+                                'label' => 'Ожидают обработки',
+                                'url' => Url::to(['/orders/default/waiting']),
+                                'active' => Yii::$app->controller->module->id == 'orders' && Yii::$app->controller->id == 'default' && Yii::$app->controller->action->id === 'waiting',
+                                'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . "" . '</small></span></a>',
+                                //'visible' => UserFunction::hasPermission(['Заявки компаний'])
+                            ],
+                            [
+                                'label' => 'Приняты',
+                                'url' => Url::to(['/orders/default/accepted']),
+                                'active' => Yii::$app->controller->action->id === 'accepted' && Yii::$app->controller->id == 'default',
+                                'template' => '<a href="{url}"><span>{label}</span></a>',
+                                //'visible' => UserFunction::hasPermission(['Заявки компаний'])
+                            ],
+                            [
+                                'label' => 'Готовы',
+                                'url' => Url::to(['/orders/default/redy']),
+                                'active' => Yii::$app->controller->action->id === 'redy' && Yii::$app->controller->id == 'default',
+                                'template' => '<a href="{url}"><span>{label}</span></a>',
+                                //'visible' => UserFunction::hasPermission(['Заявки компаний'])
+                            ],
+
+                        ],
+
+                        //'visible' => UserFunction::hasPermission(['Компании']),
+                        'options' => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="#">
+                                    <i class="fa fa-shopping-cart"></i> 
+                                    <span class="label bg-red pull-right">'. '' .'</span>
+                                    <span>{label}</span> 
+                                      
+                            </a>',
+                    ],
+                    [
                         'label' => 'Услуги',
                         'items' => [
                             [
