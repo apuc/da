@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel backend\modules\orders\models\OrderSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Orders';
+$this->title = 'Заказы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="order-index">
@@ -16,14 +16,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Order', ['create'], ['class' => 'btn btn-success']) ?>
+        <?="" //Html::a('Create Order', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+           // ['class' => 'yii\grid\SerialColumn'],
 
 
             'first_name',
@@ -31,7 +31,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'email:email',
             'phone',
             //'address',
-             'status',
+             [
+                     'attribute'=>"status",
+                     'format'=>'raw',
+                     'value'=>function($data){
+                         switch ($data->status)
+                         {
+                             case 0: return Html::tag('font','Ожидает обработки',['color'=>'red']);
+                              break;
+                             case 1: return Html::tag('font','Принят',['color'=>'orange']);
+                             break;
+                             case 2: return Html::tag('font','Готов',['color'=>'green']);
+                         }
+                     }
+             ],
             //'dt_add',
             //'shop_id',
 

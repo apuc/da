@@ -39,9 +39,9 @@ class OrderSearch extends Order
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$status)
     {
-        $query = Order::find();
+        $query = Order::find()->where("status=".$status);
 
         // add conditions that should always apply here
 

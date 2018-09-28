@@ -11,7 +11,16 @@ $(document).ready(function () {
             attributesFieldsProductsFilter[$(this).attr('name')].splice(attributesFieldsProductsFilter[$(this).attr('name')].indexOf($(this).val()), 1);
 
         }
-       // console.log(attributesFieldsProductsFilter);
+
+        if($($(this)).attr("type") == "radio")
+        {
+            $(this).parent().parent().find("label").removeClass("active");
+            //$(this).parent().addClass('active');
+            attributesFieldsProductsFilter[$(this).attr('name')] = [];
+            attributesFieldsProductsFilter[$(this).attr('name')].push($(this).val());
+        }
+
+        console.log(attributesFieldsProductsFilter);
         setFilter();
     });
 
