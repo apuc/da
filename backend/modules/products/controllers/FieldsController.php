@@ -69,7 +69,7 @@ class FieldsController extends Controller
         $model = new ProductFields();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect("/secure/products/fields/");
         }
 
         return $this->render('create', [

@@ -18,15 +18,6 @@
     margin-bottom: 5px !important;
 }
 
-.field-company-photo .label-name{
-    top:7px !important;
-
-}
-
-.field-poster-photo .label-name{
-    top:7px !important;
-
-}
 
 .field-news-photo .label-name{
     top:27px !important;
@@ -37,11 +28,15 @@
     float: right;
     width: 70%;
     text-align: left;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
+    padding-left: 10px;
 }
 
 #add_ads .file-input .clearfix{display: none;}
 #create_poster .file-input .clearfix{display: none;}
+#add_news_form .file-input .clearfix{display: none;}
+
+
 
 .phones__wrap{
     width: 100%;

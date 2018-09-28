@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'product_field_id')->widget(\kartik\select2\Select2::class,
         [
-            'data' => \yii\helpers\ArrayHelper::map(ProductFields::find()->where(['type_id' => [4, 7]])->all(), 'id', 'label'),
+            'data' => \yii\helpers\ArrayHelper::map(ProductFields::find()->where(['type_id' => [4, 7,2]])->all(), 'id', 'label'),
             'options' => ['placeholder' => 'Начните вводить ...', 'multiple' => false],
             'pluginOptions' => [
                 'allowClear' => true

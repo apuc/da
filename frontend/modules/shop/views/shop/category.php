@@ -28,6 +28,9 @@ if(isset($categoryList[1])){
         'url' => Url::to(['/shop/shop/category', 'category' => [$categoryList[0]->slug]]) ];
 }
 $this->params['breadcrumbs'][] = $categoryInfo->name;
+
+
+
 ?>
 
 <div class="breadcrumbs-wrap">

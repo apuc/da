@@ -17,6 +17,9 @@ return [
         'instagram' => [
             'class' => 'backend\modules\instagram\InstParser',
         ],
+        'orders' => [
+            'class' => 'backend\modules\orders\Order',
+        ],
         'news' => [
             'class' => 'backend\modules\news\News',
         ],

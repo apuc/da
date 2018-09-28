@@ -8,7 +8,7 @@
  */
 use common\models\db\Order;
 use yii\helpers\Url;
-
+use common\classes\Debug;
 ?>
 <div class="cabinet__inner-box">
     <h3>Мои заказы</h3>
@@ -27,7 +27,7 @@ use yii\helpers\Url;
             </thead>
             <tbody>
             <?php foreach ($model as $item): ?>
-                <tr>
+            <?php //Debug::prn($item); ?>
                     <td>
                         <div class="product-attribute">
                             <a href="<?= Url::to(['/personal_area/order', 'id' => $item->id]) ?>" class="product-link">
