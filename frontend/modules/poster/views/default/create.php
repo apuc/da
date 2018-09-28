@@ -3,7 +3,7 @@
  * @var Poster $model
  */
 
-$this->title = 'Добавление афиши мероприятия';
+$this->title = 'Добавить афишу';
 
 $this->registerCssFile('/css/board.min.css');
 $this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
