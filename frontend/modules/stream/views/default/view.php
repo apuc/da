@@ -65,8 +65,8 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                             <span><?= $countTw ?></span></a></li>
                     <li><a href="<?= \yii\helpers\Url::to(['/stream', 'social' => 'gplus']) ?>">G+
                             <span><?= $countGplus ?></span></a></li>
-                    <li><a href="<?= \yii\helpers\Url::to(['/stream', 'social' => 'inst']) ?>">Instagram
-                            <span><?= $countInst ?></span></a></li>
+<!--                    <li><a href="--><?php //echo \yii\helpers\Url::to(['/stream', 'social' => 'inst']) ?><!--">Instagram-->
+<!--                            <span>--><?php //echo $countInst ?><!--</span></a></li>-->
                 </ul>
 
                 <div class="parser__single-wrapper">
