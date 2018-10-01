@@ -72,7 +72,7 @@ class DefaultController extends Controller
             ->all();
         $inst = InstPhoto::find()->where("status=2")->orderBy('dt_publish DESC')
             ->limit(10)->all();
-        $res = array_merge($gPlus, $model, $tw,$inst);
+        $res = array_merge($gPlus, $model, $tw);
         }
         ArrayHelper::multisort($res, 'dt_publish', [SORT_DESC]);
 

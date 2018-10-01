@@ -46,8 +46,8 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
                             <span><?= $countTw ?></span></a></li>
                     <li><a href="<?= \yii\helpers\Url::to(['/stream', 'social' => 'gplus']) ?>">G+
                             <span><?= $countGplus ?></span></a></li>
-                    <li><a href="<?= \yii\helpers\Url::to(['/stream', 'social' => 'inst']) ?>">Instagram
-                            <span><?=  $countInst ?></span></a></li>
+<!--                    <li><a href="--><?php //echo \yii\helpers\Url::to(['/stream', 'social' => 'inst']) ?><!--">Instagram-->
+<!--                            <span>--><?php //echo  $countInst ?><!--</span></a></li>-->
                 </ul>
 
                 <div class="parser__wrapper">
@@ -316,7 +316,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
 
                        <?php
 
-                        if(empty($model2) || count($model1) > 1 ) { ?>
+                        if(empty($model2)) { ?>
                         <h3>Записей пока нет</h3>
                        <?php }?>
 
@@ -326,12 +326,11 @@ $this->registerJsFile('/theme/portal-donbassa/js/mansory.min.js', ['depends' => 
 
                 <div class="parser__more">
 
-                    <?php if(!empty($model[2])): ?>
+
                     <a href="#" class="show-more show-more-stream" data-last-post-dt="<?= isset($model2[4]->dt_publish)? $model2[4]->dt_publish: $model2[0]->dt_publish ?>"
                        data-dt="" data-step="1"
                        data-type="<?= Yii::$app->request->get('social') ? Yii::$app->request->get('social') : 'all' ?>"
                        csrf-token="<?= Yii::$app->request->getCsrfToken() ?>">загрузить еще</a>
-                     <?php endif ?>
                 </div>
 
 
