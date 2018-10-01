@@ -13,7 +13,7 @@ use common\models\db\InstPhoto;
 
 class AccountController extends Controller
 {
-    private $token = "3896860838.8875f5c.34f347c271124eb6a007992fcd397303";
+    private $token = "1641006685.78b185f.bdb953c8798e45d899dab1e5766e8937";
     /**
      * {@inheritdoc}
      */
@@ -71,7 +71,7 @@ class AccountController extends Controller
                 $photo->dt_add = time();
                 $photo->dt_publish = time();
                 $photo->status = 0;
-                $photo->caption = ($inst_photo->caption!=null) ? $inst_photo->caption->text : null;
+                $photo->caption = null;//($inst_photo->caption!=null) ? $inst_photo->caption->text : null;
                 $photo->save(false);
 
             }
@@ -106,9 +106,8 @@ class AccountController extends Controller
 
                      $url = "https://api.instagram.com/v1/users/".$id."/?access_token=$this->token";
                      $user_info = json_decode($this->InstApi($url));
-                      //var_dump($user_info); die();
 
-                     if(!isset($user_info->meta))
+                     if(!isset($user_info->meta->error_message))
                      {
                          $model->account_id = $id;
                          $model->username = $user_info->data->username;
