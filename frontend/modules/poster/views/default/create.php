@@ -15,6 +15,8 @@ use kartik\file\FileInput;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\widgets\MaskedInput;
+use yii\helpers\ArrayHelper;
+use common\models\db\Messenger;
 
 ?>
 
@@ -111,7 +113,7 @@ use yii\widgets\MaskedInput;
 
         <?= $form->field($model, 'dt_event')->widget(\kartik\datetime\DateTimePicker::className(),
             [
-                'options' => ['placeholder' => 'Выбери дату события','class'=>'jsHint'],
+                'options' => ['placeholder' => 'Выбери дату начала события','class'=>'jsHint'],
                 'convertFormat' => false,
                 'value' => date('d-m-Y H:i', (!empty($model->dt_event) ? $model->dt_event : time())),
                 'pluginOptions' => [
@@ -174,7 +176,7 @@ use yii\widgets\MaskedInput;
             ?>
 
             <button type="button" class="cabinet__add-field company__add-phone"
-                    style="position: absolute; top: 11px; right: 5px; border: none;" data-iterator="0"
+                    style="position: absolute; top: 16px; right: 5px; border: none;" data-iterator="0"
                     max-count="3">
             </button>
 
@@ -183,6 +185,26 @@ use yii\widgets\MaskedInput;
                 <span class="triangle-left"></span>
                 <div class="">Номер телефона лица, которое отвечает за общение с заинтересованными пользователями портала.</div>
             </div>
+
+    <div class="messengers-choice" style="display: flex; flex-wrap: wrap; width: 70%; margin-left: auto;">
+        <?= Html::checkboxList('Phones[messengeres]', '', ArrayHelper::map(Messenger::find()->all(), "id", "name"),
+            [
+                'item' =>
+                    function ($index, $label, $name, $checked, $value) {
+
+                        $img = ($label == "Viber") ? Html::img("/img/icons/viber.png")." Viber" : Html::img("/img/icons/whatsapp.png_s")." Whatsapp";
+
+                        return Html::checkbox("messengeresArray[0][]", $checked, [
+                            'value' => $value,
+                            'label' => $img
+                        ]);
+                    },
+                'class' => 'checkbox-wrap',
+                'style' => 'display: flex; justify-content: space-around; width: 100%;'
+            ]);
+        ?>
+    </div>
+
             </div>
         </div>
 

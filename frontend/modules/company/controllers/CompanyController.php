@@ -55,9 +55,6 @@ class CompanyController extends Controller
         });
     }
 
-    /**
-     * @inheritdoc
-     */
     public function behaviors()
     {
         return [
@@ -83,12 +80,6 @@ class CompanyController extends Controller
             ],
         ];
     }
-
-    /**
-     * Lists all Company models.
-     * @return mixed
-     * @throws \yii\base\InvalidParamException
-     */
 
     public function actionIndex()
     {
@@ -171,16 +162,6 @@ class CompanyController extends Controller
         ]);
     }
 
-    /**
-     * Displays a single Company model.
-     *
-     * @param string $slug
-     * @param string $page
-     * @return mixed
-     * @throws \yii\web\NotFoundHttpException
-     * @throws \yii\base\InvalidParamException
-     * @throws \yii\db\Exception
-     */
     public function actionView($slug, $place = '')
     {
 
