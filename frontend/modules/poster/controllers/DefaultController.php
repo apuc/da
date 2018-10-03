@@ -16,6 +16,9 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\UploadedFile;
+use common\models\db\Messenger;
+use common\models\db\MessengerPhone;
+use yii\helpers\ArrayHelper;
 
 /**
  * Default controller for the `poster` module
@@ -451,6 +454,7 @@ class DefaultController extends Controller
     {
         return $this->renderAjax('one_phone', [
             'iterator' => Yii::$app->request->post('iterator'),
+            'messengers' => ArrayHelper::map(Messenger::find()->all(), 'id', 'name'),
         ]);
     }
 

@@ -31,7 +31,7 @@ $form = ActiveForm::begin(
     echo $form->field($model, 'categoryId[]')
         ->dropDownList($items, $param)
         ->label('Категория'); ?>
-    <a href="#" class="cabinet__remove-pkg delselectCateg" style="z-index: 1;position: absolute;top: 12px;right: -30px;"></a>
+    <a href="" class="cabinet__remove-pkg delselectCateg" style="z-index: 1;position: absolute;top: 16px;right: -30px;"></a>
     <!--<p class="cabinet__add-company-form--notice"></p>-->
 </div>
 <br />

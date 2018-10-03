@@ -143,7 +143,7 @@ echo $form->field($model, 'photo')->widget(FileInput::classname(), [
             ?>
 
             <button type="button" class="cabinet__add-field company__add-phone"
-                    style="position: absolute; top: 11px; right: 5px; border: none;" data-iterator="0"
+                    style="position: absolute; top: 16px; right: 5px; border: none;" data-iterator="0"
                     max-count="<?= (isset($services['count_phone']) ? $services['count_phone'] : ''); ?>">
             </button>
 

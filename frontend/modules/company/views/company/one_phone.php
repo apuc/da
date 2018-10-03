@@ -22,7 +22,7 @@ use yii\widgets\MaskedInput;
         ]);
         ?>
         <button type="button" class="cabinet__remove-pkg company__remove-phone"
-                style="position: absolute; top: 11px; right: 5px; border: none;"></button>
+                style="position: absolute; top: 16px; right: 5px; border: none;"></button>
 
         <div class="memo" style="display: none">
             <span class="info-icon" style="background-image: url(/theme/portal-donbassa/img/icons/info.png)"></span>
