@@ -55,7 +55,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             ->hint('Доступен одновременный выбор не более трех категорий, в которых отобразится опубликованная статья.')
             ->label('Категория:');
         ?>
-        <a href="#" style="position: absolute; top: 16px; right: -30px; z-index: 1;"
+        <a href="" style="position: absolute; top: 20px; right: -30px; z-index: 1;"
            class="cabinet__add-pkg addCategAddNewsUser"></a>
 
         <div class="memo-error errorJS"><p></p>
