@@ -85,6 +85,7 @@ use common\models\db\Messenger;
                 'maxFileCount' => 10,
                 'maxFileSize' => 2000,
                 'language' => "ru",
+                'msgPlaceholder'=>"Выбери файл...",
             ],
 
 
