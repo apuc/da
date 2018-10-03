@@ -104,6 +104,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
 echo $form->field($model, 'photo')->widget(FileInput::classname(), [
     'options' => ['accept' => 'image/*','class'=>'jsHint'],
+    'pluginOptions'=>["msgPlaceholder"=>"Выбери файл..."]
 ])->hint('Разрешение изображения – не менее 800х600 пикселей. Размер – не более двух мегабайт. Формат – jpg
         или png. Стандартное соотношение сторон 3х4. Иллюстрации с нешаблонными пропорциями
         автоматически обрезаются.')->label("Иллюстрация:");
