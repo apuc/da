@@ -22,7 +22,7 @@ class CurrencyRates extends Widget
 
     public function run()
     {
-        //выборка последней даты по типу Валюты(ценности)
+        //////выборка последней даты по типу Валюты(ценности)
         $date = CurrencyRate::find()
             ->joinWith(['currencyFrom cf'])
             ->where([
@@ -36,6 +36,7 @@ class CurrencyRates extends Widget
             ->one();
         if (empty($date)) $date = new Expression('CURDATE()');
         $rates_body = $rates_title = [];
+
         $rates = CurrencyRate::find()
             ->joinWith(['currencyFrom cf', 'currencyTo ct'])
             ->where([
@@ -43,8 +44,9 @@ class CurrencyRates extends Widget
                 'cf.status' => Currency::STATUS_ACTIVE_FOR_WIDGET,
                 'ct.status' => Currency::STATUS_ACTIVE_FOR_WIDGET,
             ])
-            ->andWhere(['!=', 'ct.id', Currency::UAH_ID])
-            ->andWhere(['date' => $date]);
+            ->andWhere(['!=', 'ct.id', Currency::UAH_ID]);
+            //->andWhere(['date' => $date]);
+
         //Исключаем рубль из криптовалют
         if ($this->currencyType === Currency::TYPE_COIN)
             $rates = $rates->andWhere(['!=', 'ct.id', Currency::RUB_ID])->all();
