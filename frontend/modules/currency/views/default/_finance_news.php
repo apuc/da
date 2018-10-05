@@ -15,7 +15,7 @@ use common\models\db\News;
     </h3>
     <div class="currency-news__wrapper">
         <?php foreach ($economicNews as $economicNew) : ?>
-            <a class="currency-news__item"
+            <a class="currency-news__item" style="margin-bottom: 20px;"
                href="<?= Url::to(['/news/default/view', 'slug' => $economicNew->slug]) ?>">
                 <div class="currency-news__img">
                     <img src="<?= $economicNew->photo ?>"
