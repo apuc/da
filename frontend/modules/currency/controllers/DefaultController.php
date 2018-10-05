@@ -318,8 +318,7 @@ class DefaultController extends Controller
      */
     public function actionAll()
     {
-
-        $economicNews = News::getLastEconomicNews();
+      $economicNews = News::getLastEconomicNews();
         $keyVal = KeyValue::find()->all();
         $meta = ArrayHelper::index($keyVal, 'key');
         return $this->render('all', [
