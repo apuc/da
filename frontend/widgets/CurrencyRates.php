@@ -44,8 +44,8 @@ class CurrencyRates extends Widget
                 'cf.status' => Currency::STATUS_ACTIVE_FOR_WIDGET,
                 'ct.status' => Currency::STATUS_ACTIVE_FOR_WIDGET,
             ])
-            ->andWhere(['!=', 'ct.id', Currency::UAH_ID]);
-            //->andWhere(['date' => $date]);
+            ->andWhere(['!=', 'ct.id', Currency::UAH_ID])
+            ->andWhere(['date' => $date]);
 
         //Исключаем рубль из криптовалют
         if ($this->currencyType === Currency::TYPE_COIN)
