@@ -26,6 +26,7 @@ $this->registerMetaTag([
 
 $this->registerJsFile('/js/jquery-ui-1.12.1/jquery-ui.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+
 //$this->registerJsFile('/theme/portal-donbassa/js/ads-filter.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 

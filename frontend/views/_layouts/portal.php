@@ -31,6 +31,7 @@ AppAsset::register($this);
             .mnu-link a{
                 color: whitesmoke!important;
             }
+
         </style>
     </head>
     <body>
