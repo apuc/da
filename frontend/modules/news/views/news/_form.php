@@ -49,7 +49,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
         <?php
         $items = ArrayHelper::map(CategoryNews::find()->where(['lang_id' => 1])->all(), 'id', 'title');
-        $param = ['class' => 'input-name jsHint selectCateg', 'prompt' => 'Выбери категорию...','style'=>"margin-botoom:16px !important"];
+        $param = ['class' => 'input-name jsHint selectCateg', 'prompt' => 'Выбери категорию...','style'=>"margin-bottom:16px !important"];
         echo $form->field($model, 'categoryId[]')
             ->dropDownList($items, $param)
             ->hint('Доступен одновременный выбор не более трех категорий, в которых отобразится опубликованная статья.')
