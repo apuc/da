@@ -17,6 +17,7 @@ class AppAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
+
     public $css = [
         'css/site.min.css',
         'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
@@ -40,8 +41,8 @@ class AppAsset extends AssetBundle
          '/theme/portal-donbassa/js/jquery.fancybox.min.js',
          '/theme/portal-donbassa/js/jquery-dr-ui.min.js',
          '/theme/portal-donbassa/js/headhesive.min.js',
-        '/theme/portal-donbassa/js/script.min.js',
         '/theme/portal-donbassa/js/jquery.hc-sticky.min.js',
+        '/theme/portal-donbassa/js/script.min.js',
         '/theme/portal-donbassa/js/ajax.min.js',
 
         '/js/poll_ajax.min.js',
