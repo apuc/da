@@ -16,6 +16,7 @@ use yii\db\Expression;
 use yii\web\JsExpression;
 
 $count_day--;
+
 $date = CurrencyRate::find()
     ->joinWith(['currencyFrom cf'])
     ->where([
@@ -29,6 +30,8 @@ $date = CurrencyRate::find()
     ->one();
 /**     @var CurrencyRate $date */
 is_null($date) ? $date = date('Y-m-d') : $date = $date->date;
+
+
 $rates = CurrencyRate::find()
     ->joinWith(['currencyFrom cf', 'currencyTo ct'])
     ->where([
@@ -41,12 +44,16 @@ $rates = CurrencyRate::find()
 //    ->andWhere(['date' => $date])
 //    ->createCommand()->getRawSql();
     ->all();
+
+
 $currencyData = [];
 /**     @var CurrencyRate $rate */
 foreach ($rates as $rate) {
     $currencyData[$rate->currencyFrom->char_code]['name'] = $rate->currencyFrom->name;
     $currencyData[$rate->currencyFrom->char_code]['data'][] = [strtotime($rate->date) * 1000, $rate->rate];
 }
+
+
 
 $hsOptions = [
     'setupOptions' => [

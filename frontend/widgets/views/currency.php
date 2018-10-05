@@ -11,6 +11,7 @@ use common\classes\Debug;
 /** @var array $rates_title */
 /** @var array $rates_body */
 /** @var array $title */
+
 ?>
 <div class="currency-widget">
     <div class="currency-widget__label">
