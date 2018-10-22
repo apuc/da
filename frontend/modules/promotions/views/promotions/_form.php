@@ -50,7 +50,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             <?= $form->field($model, 'company_id')->widget(Select2::className(), [
                 'attribute' => 'state_2',
                 'data' => ArrayHelper::map(Company::find()->where(['in', 'id', $company_id])->all(), 'id', 'name'),
-                'options' => ['placeholder' => 'Начните вводить Вашу компанию ...'],
+                'options' => ['placeholder' => 'Выбери компанию...'],
                 'pluginOptions' => [
                     'allowClear' => true,
                 ],
@@ -63,14 +63,14 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
             <?= $form->field($model, 'title')->textInput(['maxlength' => 70])
                 ->hint('Название предложения, которое будет отображено в списке акций компании. В заголовке запрещено размещать контактную информацию, а также использовать заглавные буквы (кроме аббревиатур).')
-                ->label('Заголовок акции'); ?>
+                ->label('Заголовок:'); ?>
 
             <?= $form->field($model, 'link')->textInput()
                 ->hint('Ссылка на внешние ресурсы компании, включая страницы в социальных сетях.')
-                ->label('Ссылка'); ?>
+                ->label('Ссылка:'); ?>
 
             <?= $form->field($model, 'dt_event')->widget(DateTimePicker::class, [
-                'options' => ['placeholder' => 'Выберите дату начала акции ...','class'=>'jsHint'],
+                'options' => ['placeholder' => 'Выбери дату начала акции...','class'=>'jsHint'],
 
                 'pluginOptions' => [
                     'autoclose' => true,
@@ -79,7 +79,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
             ])->hint("Дата и время старта акции."); ?>
 
             <?= $form->field($model, 'dt_event_end')->widget(DateTimePicker::class, [
-                'options' => ['placeholder' => 'Выберите дату конца акции ...','class'=>'jsHint'],
+                'options' => ['placeholder' => 'Выбери дату окончания акции...','class'=>'jsHint'],
 
                 'pluginOptions' => [
                     'autoclose' => true,
@@ -89,46 +89,37 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 
             <?= $form->field($model, 'dt_event_description')->textInput()
                 ->hint('Условия преждевременного окончания акции.')
-                ->label('Описание длительности акции'); ?>
+                ->label('Особые условия:'); ?>
 
-            <?= $form->field($model, 'photo')->hiddenInput(['value' => $model->photo])->label(false); ?>
-            <?php echo '<label class="control-label">Добавить фото</label>';
-            echo FileInput::widget([
-                'name' => 'Stock',
-                'options' => ['multiple' => false],
-                'pluginOptions' => [
-                    'previewFileType' => 'image',
-                    'maxFileCount' => 10,
-                    'maxFileSize' => 2000,
-                    'language' => "ru",
-                ],
-            ]); ?>
+            <?php
+
+            echo $form->field($model, 'photo')->widget(FileInput::classname(), [
+                "name"=>'Stock','options' => ['accept' => 'image/*','class'=>'jsHint'],
+            ])->hint('Разрешение изображения – не менее 800х600 пикселей. Размер – не более двух мегабайт. Формат – jpg
+        или png. Стандартное соотношение сторон 3х4. Иллюстрации с нешаблонными пропорциями
+        автоматически обрезаются.')->label("Иллюстрация:");
+            ?>
+
             <p class="file-hint">
                 Как правильно подобрать иллюстрацию?
-                <a target="_blank" href="http://da-info.pro/page/kak-pravilno-podobrat-izobrazenie-dla-stati-na-sajte-da-info-pro">Перейти к четению.</a>
+                <a target="_blank" href="http://da-info.pro/page/kak-pravilno-podobrat-izobrazenie-dla-stati-na-sajte-da-info-pro">Читать.</a>
             </p>
 
-            <div class="cabinet__add-company-form--block"></div>
-            <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>
-            <?= $form->field($model, 'short_descr')->textInput()
-                ->hint('Краткое описание, которое передает суть акции.')
-                ->label('Акционное предложение'); ?>
+<!--            <div class="cabinet__add-company-form--block"></div>-->
+<!--            <div class="cabinet__add-company-form--hover-wrapper" data-count="1"></div>-->
+
+            <div style="float: none; clear: both; width: 525px" class="field-stock-descr">
+                <p class="text-editor-label">Подробное описание</p>
+                <?php echo $form->field($model, 'descr')->widget(CKEditor::className(), [
+
+                    "options"=>["class"=>"jsHint"]])->hint("Подробное описание деталей и достоинств акции с указанием дополнительных программ лояльности, если такие
+предусмотрены.")->label(false) ?>
+            </div>
         </div>
 
-        <div style="float: none; clear: both;">
-            <?= $form->field($model, 'descr',
-                ['template' => '<label class="label-name" style="width: 19%" for="stock-descr">Подробное описание</label><div class="description-action" style="width: 81%!important; float: left!important; ">{input}</div>'])
-                ->widget(CKEditor::className(), [
-                    'editorOptions' => ElFinder::ckeditorOptions('elfinder', [
-                        'preset' => 'basic',
-                        'inline' => false,
-                        'path' => 'frontend/web/media/upload',
-                    ]),
-                ])->hint("Подробное описание деталей и достоинств акции с указанием дополнительных программ лояльности (если такие имеются). ")
-                ->label(false); ?>
-        </div>
+
         <div class="content-forma">
-            <?= Html::submitButton('Сохранить',
+            <?= Html::submitButton('Добавить акцию',
                 ['class' => 'cabinet__add-company-form--submit place-ad_publish publish place-ad__publish', 'id' => 'saveInfo']) ?>
         </div>
         <?php ActiveForm::end(); ?>
