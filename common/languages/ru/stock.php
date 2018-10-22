@@ -17,8 +17,8 @@ return [
     'Dt Event Description' => 'Дата события',
     'Link' => 'Ссылка',
     'Main' => 'На главной',
-    'Company Id' => 'Компания',
+    'Company Id' => 'Компания:',
     'Recommended' => 'Рекомендуем',
-    'Dt Event' => 'Дата начала',
-    'Dt Event End' => 'Дата окончания',
+    'Dt Event' => 'Дата начала:',
+    'Dt Event End' => 'Дата окончания:',
 ];
