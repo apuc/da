@@ -6,11 +6,29 @@
     display: none !important;
 }
 
+.field-stock-photo .file-preview,.field-stock-photo .fileinput-upload-button{
+    display: none !important;
+}
 
 
 .field-company-photo .file-input{
     float: right !important;
     width: 70% !important;
+}
+
+.field-stock-photo .file-caption-main{
+
+    margin-bottom: 5px !important;
+}
+
+.text-editor-label{
+    color: rgba(108,114,117,.75);
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.field-stock-descr .memo{
+    display: none;
 }
 
 .field-company-photo .file-caption-main{
