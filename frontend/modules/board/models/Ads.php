@@ -72,7 +72,7 @@ class Ads extends Model
             'category_id' => 'Категория',
             'content' => 'Описание',
             'price' => 'Цена',
-            'city_id' => 'Местонахождение'
+            'city_id' => 'Город:'
         ];
     }
 }
