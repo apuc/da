@@ -9,6 +9,8 @@ use kartik\select2\Select2;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
+use common\models\db\Messenger;
 
 $this->registerCssFile('/css/board.min.css');
 //$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
@@ -99,56 +101,23 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
 условную стоимость.')->label('Цена<span>*</span>'); ?>
 
 
-    <h2 class="soglasie">Фотографии
-        <span>(для выбора обложки изображения нажмите на него) </span>
-    </h2>
-    <hr class="lineAddAds"/>
-    <?= $form->field($model, 'cover')->hiddenInput()->label(false);?>
     <?php
 
-    //echo '<label class="control-label">Добавить фото</label>';
-
-    echo FileInput::widget([
-        'name' => 'file[]',
-        'id' => 'input-5',
-        'attribute' => 'attachment_1',
-        'value' => '@frontend/media/img/1.png',
-        /*'options' => [
-            'multiple' => true,
-            'showCaption' => false,
-            'showUpload' => false,
-            'uploadAsync' => false,
-        ],
-        'pluginOptions' => [
-            'uploadUrl' => Url::to(['/site/upload_file']),
-            'language' => "ru",
-            'previewClass' => 'hasEdit',
-            'uploadAsync' => false,
-            'showUpload' => false,
-            'dropZoneEnabled' => false,
-            'overwriteInitial' => false,
-            'maxFileCount' => 10,
-            'maxFileSize' => 2000,
-        ],*/
-        'options' => ['multiple' => true, 'accept' => 'image/*','id'=>'board-fileinput'],
-        'pluginOptions' => [
-            'previewFileType' => 'image',
-            'maxFileCount' => 10,
-            'maxFileSize' => 2000,
-            'language' => "ru",
-            'previewClass' => 'hasEdit',
-        ],
-
-    ]);
-
+    echo $form->field($model, 'cover')->widget(FileInput::classname(), [
+        'options' => ['accept' => 'image/*','class'=>'jsHint',"name"=>"file[]"],
+        'pluginOptions'=>["msgPlaceholder"=>"Выбери файл..."]
+    ])->hint('Разрешение изображения – не менее 800х600 пикселей. Размер – не более двух мегабайт. Формат – jpg
+        или png. Стандартное соотношение сторон 3х4. Иллюстрации с нешаблонными пропорциями
+        автоматически обрезаются.')->label("Иллюстрация")
     ?>
-        <p class="file-hint">
-            Как правильно подобрать иллюстрацию?
-            <a target="_blank" href="http://da-info.pro/page/kak-pravilno-podobrat-izobrazenie-dla-stati-na-sajte-da-info-pro">Перейти к четению.</a>
-        </p>
 
 
-    <h2 class="soglasie">Ваши контактные данные</h2>
+
+
+
+        <div style="float: none;clear: both;width: max-content;margin-left: 225px;" class="field-stock-descr">
+            <p class="text-editor-label">Контактная информация</p>
+        </div>
     <hr class="lineAddAds"/>
 
 
@@ -157,7 +126,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         'data' => $arraregCity,
         //'value' => $geoInfo['city_id'],
         //'data' => ['Донецкая область' => ['1'=>'Don','2'=>'Gorl'], 'Rostovskaya' => ['5'=>'rostov']],
-        'options' => ['placeholder' => 'Начните вводить Ваш город ...',
+        'options' => ['placeholder' => 'Введи город...',
             'class'=>"jsHint"],
         'pluginOptions' => [
             'allowClear' => true,
@@ -188,7 +157,7 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
         </div>
     </div>-->
 
-    <?= $form->field($model, 'name')->textInput()->label('Имя<span>*</span>')->hint('Имя контактного лица, которое будет общаться с заинтересованными пользователями портала.') ?>
+    <?= $form->field($model, 'name')->textInput()->label('Имя:')->hint('Имя контактного лица, которое будет общаться с заинтересованными пользователями портала.') ?>
 
 
 
@@ -196,8 +165,26 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
     <?= $form->field($model, 'phone')->widget(\yii\widgets\MaskedInput::className(), [
         'options' => ['class' => 'input-name jsHint',],
         'mask' => ['+9 (999) 999-9999', '+99(999) 999-99-99'],
-    ])->label('Телефон<span>*</span>')->hint('Номер телефона контактного лица, которое будет общаться с заинтересованными пользователями портала.') ?>
+    ])->label('Телефон:')->hint('Номер телефона контактного лица, которое будет общаться с заинтересованными пользователями портала.') ?>
 
+        <div class="messengers-choice" style="display: flex; flex-wrap: wrap; width: 70%; margin-left: auto;">
+            <?= Html::checkboxList('Phones[messengeres]', '', ArrayHelper::map(Messenger::find()->all(), "id", "name"),
+                [
+                    'item' =>
+                        function ($index, $label, $name, $checked, $value) {
+
+                            $img = ($label == "Viber") ? Html::img("/img/icons/viber.png")." Viber" : Html::img("/img/icons/whatsapp.png_s")." Whatsapp";
+
+                            return Html::checkbox("messengeresArray[0][]", $checked, [
+                                'value' => $value,
+                                'label' => $img
+                            ]);
+                        },
+                    'class' => 'checkbox-wrap',
+                    'style' => 'display: flex; justify-content: space-around; width: 100%;'
+                ]);
+            ?>
+        </div>
 
     <?= $form->field($model, 'mail')
         ->textInput(
@@ -206,21 +193,19 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                 'value' => \dektrium\user\models\User::find()->where(['id' => Yii::$app->user->id])->one()->email,
             ]
         )
-        ->label('Mail<span>*</span>')->hint('Адрес электронной почты, который был указан во время регистрации профиля.')?>
+        ->label('Почта:')->hint('Адрес электронной почты, который был указан во время регистрации профиля.')?>
 
-    <h2 class="soglasie">Согласие на обработку данных</h2>
-    <hr class="lineAddAds"/>
+
     <div class="content-dannie">
-
         <span>
             <input id="dannie-1" type="checkbox" name="option2" value="a2">
-            <label for="dannie-1"></label><p>* Я соглашаюсь с
+            <label for="dannie-1"></label><p>Я согласен с
             <a target="_blank" href="<?= Url::to(['/help/default/view', 'slug' => 'obsie-polozenia']) ?>">
-                правилами использования сервиса</a>, а также с передачей и обработкой моих данных на DA-INFO. Я подтверждаю своё совершеннолетие и ответственность за размещение объявления</p>
+                правилами</a> сервиса DA info pro, разрешаю <a target="_blank" href="<?= Url::to(['/help/default/view', 'slug' => 'obsie-polozenia']) ?>">обработку </a>персональной информации и подтверждаю совершеннолетие.</p>
         </span>
     </div>
 
-    <?= Html::submitButton('Oпубликовать',
+    <?= Html::submitButton('Сохранить объявление',
         ['class' => 'cabinet__add-company-form--submit place-ad_publish publish place-ad__publish', 'disabled' => 'disabled', 'id' => 'saveInfo']) ?>
 
 
