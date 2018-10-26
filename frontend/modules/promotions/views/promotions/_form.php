@@ -75,6 +75,10 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                 'pluginOptions' => [
                     'autoclose' => true,
                     'format' => 'yyyy-mm-dd'
+                ],
+                'pluginEvents' => [
+                    "show" => "function(e) { $(this).parent().find('.memo').show();  }",
+                    "hide" => "function(e) { $(this).parent().find('.memo').hide();  }",
                 ]
             ])->hint("Дата и время старта акции."); ?>
 
@@ -84,6 +88,10 @@ $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => 
                 'pluginOptions' => [
                     'autoclose' => true,
                     'format' => 'yyyy-mm-dd'
+                ],
+                'pluginEvents' => [
+                    "show" => "function(e) { $(this).parent().find('.memo').show();  }",
+                    "hide" => "function(e) { $(this).parent().find('.memo').hide();  }",
                 ]
             ])->hint("Дата и время окончания акции."); ?>
 
