@@ -16,12 +16,12 @@ use yii\widgets\MaskedInput;
         <div class="footer__main">
 
             <ul class="footer__nav">
-                <li><a href="#">ЧТИВО</a></li>
-                <li><a href="#">АФИША</a></li>
-                <li><a href="#">ДОСУГ</a></li>
-                <li><a href="#">ПРЕДПРИЯТИЯ</a></li>
-                <li><a href="#">КОНСУЛЬТАЦИИ</a></li>
-                <li><a href="#">ОБЪЯВЛЕНИЯ</a></li>
+                <li><a href="/all-new">ЧТИВО</a></li>
+                <li><a href="/all-poster">АФИША</a></li>
+                <li><a href="/stream">ДОСУГ</a></li>
+                <li><a href="/all-company">ПРЕДПРИЯТИЯ</a></li>
+                <li><a href="/consulting/consulting/index">КОНСУЛЬТАЦИИ</a></li>
+                <li><a href="/obyavleniya">ОБЪЯВЛЕНИЯ</a></li>
             </ul>
 
             <a href="#" class="footer-error-button" id="send-error-message">

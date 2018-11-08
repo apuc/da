@@ -28,6 +28,7 @@ class RegUserController extends RegistrationController
      */
     public function actionRegister()
     {
+
         if (!$this->module->enableRegistration) {
             throw new NotFoundHttpException();
         }
