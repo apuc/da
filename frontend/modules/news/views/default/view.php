@@ -126,19 +126,8 @@ $this->params['breadcrumbs'][] = $model->title;
                         </div>
                     </section>
                 <?php endif; ?>
-                <?= $this->render('news-info',
-                    [
-                        'model' => $model,
-                        'countComments' => $countComments,
-                        'likes' => $likes,
-                    ]);
-                ?>
-                <?= \frontend\modules\news\widgets\ReadTheSame::widget(
-                    [
-                        'news' => array_slice($readTheSame, 0, 3),
-                        'template' => 'bottom',
-                    ]
-                ); ?>
+
+
 
                 <?= \frontend\widgets\Share::widget([
                     'url' => yii\helpers\Url::current([], true),
@@ -147,13 +136,13 @@ $this->params['breadcrumbs'][] = $model->title;
                     'view' => 'share-news',
                     'image' => $model->photo,
                 ]); ?>
-
+                <?= \frontend\widgets\Comments::widget([
+                    'pageTitle' => 'Комментарии к чтиву',
+                    'postType' => 'news',
+                    'postId' => $model->id,
+                ]); ?>
             </div>
-            <?= \frontend\widgets\Comments::widget([
-                'pageTitle' => 'Комментарии к чтиву',
-                'postType' => 'news',
-                'postId' => $model->id,
-            ]); ?>
+
         </article>
         <aside id="aside">
             <div class="scroll">

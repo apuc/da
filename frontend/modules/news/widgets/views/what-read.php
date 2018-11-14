@@ -3,9 +3,9 @@ use common\classes\WordFunctions;
 use yii\helpers\Url;
 ?>
 
-<div class="content__read-more">
+<div class="content__read-more" style="margin-top:32px">
 
-    <h2>Что еще почитать</h2>
+
 
     <div class="news__wrap">
 
