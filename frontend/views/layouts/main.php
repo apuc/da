@@ -18,7 +18,7 @@ MainPageAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <meta name="yandex-verification" content="6102a93fabadb2cf"/>
+    <meta name="yandex-verification" content="e08f0c20c50137da" />
     <?= \frontend\widgets\Metrika::widget() ?>
 </head>
 <body>
