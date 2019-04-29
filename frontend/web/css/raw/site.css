@@ -233,6 +233,10 @@ span.feedback_error {
     border: 2px solid #b2b2b2;
 }
 
+.social-networks {
+    flex-wrap: wrap;
+}
+
 @media (max-width: 1024px) {
     .journal_item {
         width: 31%;
