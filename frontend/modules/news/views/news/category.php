@@ -19,7 +19,7 @@ use yii\widgets\Pjax;
  */
 $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 //$this->title                   = Yii::t( 'news', 'News' );
-$this->params['breadcrumbs'][] = ['label' => 'Всё чтиво', 'url' => Url::to(['/news/news'])];
+$this->params['breadcrumbs'][] = ['label' => 'Все новости', 'url' => Url::to(['/news/news'])];
 $this->params['breadcrumbs'][] = $cat->title;
 $this->title = $meta_title;
 $this->registerMetaTag([
