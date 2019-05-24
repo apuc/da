@@ -12,14 +12,14 @@
 
     <ul class="header-menu">
         <li><a href="/">Info Pro</a></li>
-        <li><a href="<?= \yii\helpers\Url::to(['/all-new'])?>">Чтиво</a></li>
+        <li><a href="<?= \yii\helpers\Url::to(['/all-new'])?>">Новости</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/all-company'])?>">Компании</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/board/default'])?>">Объявления</a></li>
         <!--<li><a href="<?= \yii\helpers\Url::to(['/all-poster'])?>">Афиша</a></li>-->
         <li><a href="<?= \yii\helpers\Url::to(['/promotions'])?>">Акции</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/stream'])?>">В соцсетях</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/finance'])?>">Биржа</a></li>
-        <li><a href="<?= \yii\helpers\Url::to(['/dnr'])?>">Донецк</a></li>
+<!--        <li><a href="--><?//= \yii\helpers\Url::to(['/dnr'])?><!--">Донецк</a></li>-->
     </ul>
 
     <!--<div class="header-menu__sub">
