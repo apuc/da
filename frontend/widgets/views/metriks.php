@@ -40,4 +40,27 @@ google_ad_client: "ca-pub-5402379949049940",
 enable_page_level_ads: true 
 }); 
 </script>
+
+<script type='text/javascript'> 
+(function () { 
+window['yandexChatWidgetCallback'] = function() { 
+try { 
+window.yandexChatWidget = new Ya.ChatWidget({ 
+guid: '4d63921d-9970-4c04-81d2-1989cb0236cc', 
+buttonText: 'Ответим на ваши вопросы!', 
+title: 'Помощник DaInfoPro', 
+theme: 'dark', 
+collapsedDesktop: 'never', 
+collapsedTouch: 'always' 
+}); 
+} catch(e) { } 
+}; 
+var n = document.getElementsByTagName('script')[0], 
+s = document.createElement('script'); 
+s.async = true; 
+s.src = 'https://chat.s3.yandex.net/widget.js'; 
+n.parentNode.insertBefore(s, n); 
+})(); 
+</script> 
+
 <?php endif; ?>
