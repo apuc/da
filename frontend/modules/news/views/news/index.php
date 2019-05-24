@@ -24,7 +24,7 @@ use yii\widgets\Pjax;
  */
 //$this->title                   = Yii::t( 'news', 'News' );
 $this->title = $meta_title;
-$this->params['breadcrumbs'][] = 'Всё чтиво';
+$this->params['breadcrumbs'][] = 'Все новости';
 
 $this->registerMetaTag([
     'name' => 'description',

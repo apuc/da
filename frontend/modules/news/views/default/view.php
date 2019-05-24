@@ -60,7 +60,7 @@ $this->registerLinkTag([
     'href' => Url::to(['/news/default/view-amp', 'slug' => $model->slug])
 ]);
 
-$this->params['breadcrumbs'][] = ['label' => 'Всё чтиво', 'url' => Url::to(['/news/news'])];
+$this->params['breadcrumbs'][] = ['label' => 'Все новости', 'url' => Url::to(['/news/news'])];
 if (isset($category->title)) {
     $this->params['breadcrumbs'][] = [
         'label' => $category->title,

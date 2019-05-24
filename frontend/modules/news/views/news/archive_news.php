@@ -27,8 +27,8 @@ $this->registerMetaTag([
     'content' => 'Архив чтива за ' . date('d-m-Y', strtotime($date)),
 ]);
 //$md = new \common\classes\Mobile_Detect();
-$this->params['breadcrumbs'][] = ['label' => 'Всё чтиво', 'url' => Url::to(['/news/news'])];
-$this->params['breadcrumbs'][] = 'Архив чтива за ' . date('d-m-Y', strtotime($date));
+$this->params['breadcrumbs'][] = ['label' => 'Все новости', 'url' => Url::to(['/news/news'])];
+$this->params['breadcrumbs'][] = 'Архив новостей за ' . date('d-m-Y', strtotime($date));
 
 ?>
 
