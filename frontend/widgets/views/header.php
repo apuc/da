@@ -50,7 +50,7 @@ if ($this->beginCache('show_header_widget_end', ['duration' => Yii::$app->params
             <li>
                 <a href="<?= \yii\helpers\Url::to(['/news/news/create']) ?>">
                     <img src="/theme/portal-donbassa/img/icons/stack-hover-icon.png" alt="">
-                    Чтиво
+                    Новость
                 </a>
             </li>
             <li>
@@ -106,7 +106,7 @@ if ($this->beginCache('show_header_widget_end', ['duration' => Yii::$app->params
 
     <div class="currency-panel__submenu">
         <a href="<?= Url::to('/personal-area') ?>">ПРОФИЛЬ</a>
-        <a href="<?= Url::to(['/personal-area/user-news']) ?>">ЧТИВО</a>
+        <a href="<?= Url::to(['/personal-area/user-news']) ?>">НОВОСТИ</a>
         <a href="<?= Url::to(['/personal-area/user-poster']) ?>">АФИШИ</a>
         <a href="<?= Url::to(['/personal-area/user-promotions']) ?>">АКЦИИ</a>
         <a href="<?= Url::to(['/personal-area/user-company']) ?>">ПРЕДПРИЯТИЯ</a>
