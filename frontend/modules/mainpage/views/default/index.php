@@ -29,8 +29,9 @@ $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends
         <!-- ЛЕНТА ДНЯ -->
     <?= \frontend\widgets\DayFeed::widget(['useReg' => $useReg]); ?>
     <div class="home-content__sidebar">
+        <?= \frontend\widgets\Consultation::widget(); ?>
         <?= \frontend\modules\mainpage\widgets\EditorChoice::widget(); ?>
-        <?= \frontend\modules\mainpage\widgets\ShowRightSidebar::widget(); ?>
+<!--        --><?//= \frontend\modules\mainpage\widgets\ShowRightSidebar::widget(); ?>
     </div>
     <!-- close home-content__wrap -->
 
