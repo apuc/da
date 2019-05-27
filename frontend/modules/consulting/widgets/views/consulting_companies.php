@@ -2,7 +2,7 @@
 ?>
 <aside id="aside">
     <div class="consult-company">
-        <h3>Консультирующие компании</h3>
+        <h3>Ответы по разделам</h3>
         <ul>
             <?php foreach ($consulting as $item): ?>
                 <li>
