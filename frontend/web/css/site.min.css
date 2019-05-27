@@ -326,3 +326,7 @@ span.feedback_error {
     text-align: center;
     line-height: 25px
 }
+
+.home-content__sidebar_consultation {
+    width: auto!important;
+}
