@@ -22,8 +22,6 @@ class LastFaq extends Widget
             ->with('consulting')
             ->all();
 
-        Debug::dd($lastFaq);
-
         return $this->render('last_faq', [
             'lastFaq' => $lastFaq,
         ]);
