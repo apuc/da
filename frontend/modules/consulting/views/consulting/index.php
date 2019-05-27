@@ -1,4 +1,8 @@
 <?php
+/**
+ * @var $consultingsSlider array
+ */
+
 $this->title = $meta_title;
 $this->registerMetaTag([
     'name' => 'description',
@@ -12,7 +16,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends
     <div class="container">
         <article id="article">
             <p>Наши ключевые</p>
-            <h1>Консультации</h1>
+            <h1>Вопросы</h1>
             <!--<p>voluptatem accusantium doloremque laudantium, totam rem aperiam,-->
             <!--    eaque ipsa quae ab illo</p>-->
 
