@@ -330,3 +330,7 @@ span.feedback_error {
 .home-content__sidebar_consultation {
     width: auto!important;
 }
+
+.ya-chat-widget {
+    display: none!important;
+}
