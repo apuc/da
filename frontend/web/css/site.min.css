@@ -331,6 +331,7 @@ span.feedback_error {
     width: auto!important;
 }
 
-.ya-chat-widget {
+body .ya-chat-widget_theme_dark.ya-chat-widget_desktop,
+body .ya-chat-widget_theme_light.ya-chat-widget_desktop {
     display: none!important;
 }
