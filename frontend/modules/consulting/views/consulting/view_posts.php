@@ -13,8 +13,8 @@ $this->registerMetaTag([
 <section class="breadcrumbs-wrap">
     <div class="container">
         <ul class="breadcrumbs">
-            <li><a href="/consulting">Консультации</a></li>
-            <li><a href="" class="current"> <?= $consulting->title; ?></a></li>
+            <li><a href="/consulting">Консультации</a>
+            <a href="" class="current"> <?= $consulting->title; ?></a></li>
         </ul>
     </div>
 </section>

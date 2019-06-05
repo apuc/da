@@ -56,7 +56,7 @@ $this->registerMetaTag([
 ]);
 
 $this->registerLinkTag([
-    'rel' => 'amphtml',
+//    'rel' => 'amphtml',
     'href' => Url::to(['/news/default/view-amp', 'slug' => $model->slug])
 ]);
 
