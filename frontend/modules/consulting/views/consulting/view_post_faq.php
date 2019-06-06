@@ -2,7 +2,7 @@
 use yii\widgets\Breadcrumbs;
 
 $this->params['breadcrumbs'][] = ['label' => 'Консультации', 'url' => ['/consulting']];
-$this->params['breadcrumbs'][] = $post->question;
+$this->params['breadcrumbs'][] = $post->consulting->title;
 $this->title = (empty($post->meta_title)) ? $post->consulting->title : $post->meta_title . ' ' . $post->consulting->meta_title;
 $this->registerMetaTag([
     'name' => 'description',
