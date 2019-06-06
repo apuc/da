@@ -93,7 +93,6 @@ class NewsController extends Controller
         $news = $model->getNews($this->useReg);
         $hotNews = $model->getHotNews($this->useReg);
 
-
         $hotNewsIndexes = [1, 7, 13, 20, 22];
         $bigNewsIndexes = [14, 28, 38];
         //Debug::prn($hotNews);

@@ -881,7 +881,7 @@ class MainMenuAdmin extends Widget
                         'visible' => UserFunction::hasPermission(['Подписчики']),
                     ],
                     [
-                        'label' => 'СЕО',
+                        'label' => 'SЕО',
                         'visible' => UserFunction::hasPermission(['СЕО']),
                         'items' => [
                             [
