@@ -45,9 +45,9 @@ use yii\helpers\Html;
 <div>
     <h3>Магазин категории:</h3>
     <?php echo Html::label('meta title', 'all_category_page_meta_title', ['class' => 'control-label']) ?>
-<!--    --><?php //echo Html::textInput('all_category_page_meta_title', $key_val['all_category_page_meta_title'], ['class' => 'form-control', 'id' => 'all_category_page_meta_title']) ?>
+    <?php echo Html::textInput('all_category_page_meta_title', $key_val['all_category_page_meta_title'], ['class' => 'form-control', 'id' => 'all_category_page_meta_title']) ?>
     <?php echo Html::label('meta descr', 'all_category_page_meta_descr', ['class' => 'control-label']) ?>
-<!--    --><?php //echo Html::textInput('all_category_page_meta_descr', $key_val['all_category_page_meta_descr'], ['class' => 'form-control', 'id' => 'all_category_page_meta_descr']) ?>
+    <?php echo Html::textInput('all_category_page_meta_descr', $key_val['all_category_page_meta_descr'], ['class' => 'form-control', 'id' => 'all_category_page_meta_descr']) ?>
     <br>
 </div>
 <div>
