@@ -55,10 +55,10 @@ $this->registerMetaTag([
     'content' => $model->meta_descr,
 ]);
 
-$this->registerLinkTag([
-    'rel' => 'amphtml',
-    'href' => Url::to(['/news/default/view-amp', 'slug' => $model->slug])
-]);
+//$this->registerLinkTag([
+//    'rel' => 'amphtml',
+//    'href' => Url::to(['/news/default/view-amp', 'slug' => $model->slug])
+//]);
 
 $this->params['breadcrumbs'][] = ['label' => 'Все новости', 'url' => Url::to(['/news/news'])];
 if (isset($category->title)) {

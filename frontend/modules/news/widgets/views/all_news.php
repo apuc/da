@@ -15,7 +15,6 @@ use yii\widgets\Pjax;
 
 <div class="all-news-to-day">
     <h4>Все новости</h4>
-
     <ul class="news column-list-js">
         <?php /*foreach ($news as $new): */ ?><!--
             <li>
