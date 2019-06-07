@@ -36,6 +36,7 @@ class BurstViewsAsksController extends Controller
             $faq->views += $this->count;
             $faq->save();
         }
+        $this->stdout("Complete");
     }
 
     public function options($actionID)
