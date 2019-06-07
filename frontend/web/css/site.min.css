@@ -337,5 +337,6 @@ body .ya-chat-widget_theme_light.ya-chat-widget_desktop {
 }
 
 .img-new {
-    width: 100%;
+    max-width: 100% !important;
 }
+
