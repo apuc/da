@@ -24,19 +24,12 @@ class BurstViewsAsksController extends Controller
             $this->count = random_int ( $this->count - 5 , $this->count + 5 );
         }
 
+        $lastFaq =  Faq::find();
         if(isset($id))
         {
-            $lastFaq = Faq::find()
-                ->orderBy('id DESC')
-                ->where(['id' => $id])
-                ->with('consulting')
-                ->all();
-        } else {
-            $lastFaq = Faq::find()
-                ->orderBy('id DESC')
-                ->with('consulting')
-                ->all();
+            $lastFaq->andFilterWhere(['id' => $id]);
         }
+        $lastFaq = $lastFaq->each();
 
         foreach ($lastFaq as $faq)
         {
