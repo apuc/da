@@ -20,9 +20,26 @@ return [
                 ],
             ],
         ],
+        'user' => array(
+            'class' => 'frontend\models\user\UserDec',
+            'identityClass' => 'dektrium\user\models\User',
+            //'enableAutoLogin' => true,
+        ),
+        'session' => [
+            'class' => 'yii\web\Session'
+        ],
     ],
     'modules' => [
         'rbac' => 'dektrium\rbac\RbacConsoleModule',
+        'user' => [
+            'class' => 'dektrium\user\Module',
+            'admins' => ['admin'],
+            'urlRules' => [],
+            'enableUnconfirmedLogin' => true,
+            'enableRegistration' => false,
+            'confirmWithin' => 21600,
+            'cost' => 12,
+        ],
     ],
     'params' => $params,
 ];

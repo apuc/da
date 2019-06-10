@@ -126,13 +126,6 @@ $this->params['breadcrumbs'][] = $model->title;
                         </div>
                     </section>
                 <?php endif; ?>
-                <?= $this->render('news-info',
-                    [
-                        'model' => $model,
-                        'countComments' => $countComments,
-                        'likes' => $likes,
-                    ]);
-                ?>
                 <?= \frontend\modules\news\widgets\ReadTheSame::widget(
                     [
                         'news' => array_slice($readTheSame, 0, 3),

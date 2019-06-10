@@ -30,7 +30,8 @@
         "miloschuman/yii2-highcharts-widget": "*",
         "cagartner/phpquery": "*",
         "abraham/twitteroauth": "^0.7.4",
-        "kartik-v/bootstrap-star-rating": "@dev"
+        "kartik-v/bootstrap-star-rating": "@dev",
+        "vision/yii2-private-messages": "*"
 
     },
     "require-dev": {
@@ -40,7 +41,6 @@
         "yiisoft/yii2-faker": "*",
         "mihaildev/yii2-ckeditor": "*",
         "mihaildev/yii2-elfinder": "*",
-        "vision/yii2-private-messages": "dev-master",
         "zelenin/yii2-rss": "~0.1"
     },
     "config": {
