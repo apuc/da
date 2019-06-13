@@ -21,6 +21,9 @@ return [
             ],
         ],
         'user' => array(
+//            'class' => 'yii\web\UserDec',
+//            'identityClass' => 'app\models\user\UserDec',
+//            'enableSession' => false,
             'class' => 'frontend\models\user\UserDec',
             'identityClass' => 'dektrium\user\models\User',
             //'enableAutoLogin' => true,
