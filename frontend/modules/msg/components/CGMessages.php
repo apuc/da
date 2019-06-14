@@ -35,4 +35,6 @@ class CGMessages extends MyMessages
 
         return $query->all();
     }
+
+
 }

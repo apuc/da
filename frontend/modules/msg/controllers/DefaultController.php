@@ -2,6 +2,7 @@
 
 namespace frontend\modules\msg\controllers;
 
+use frontend\modules\msg\actions\CGApiAction;
 use vision\messages\actions\MessageApiAction;
 use Yii;
 use yii\web\Controller;
