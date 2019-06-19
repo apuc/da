@@ -21,7 +21,7 @@ use common\classes\Debug;
 
 //$this->title                   = Yii::t( 'news', 'News' );
 $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-$this->title = 'Архив чтива за ' . date('d-m-Y', strtotime($date));
+$this->title = 'Архив новостей за ' . date('d-m-Y', strtotime($date));
 $this->registerMetaTag([
     'name' => 'description',
     'content' => 'Архив чтива за ' . date('d-m-Y', strtotime($date)),
@@ -98,7 +98,7 @@ $this->params['breadcrumbs'][] = 'Архив новостей за ' . date('d-m
                 csrf-token="<?/*= Yii::$app->getRequest()->getCsrfToken(); */?>"
                 class="show-more show-more-news-js">загрузить
                 БОЛЬШЕ</a>-->
-            <span href="#" class="archive-news datepicker-here datepicker-wrap" >архив чтива <span class="rotate-arrow"></span></span>
+            <span href="#" class="archive-news datepicker-here datepicker-wrap" >архив новостей <span class="rotate-arrow"></span></span>
 
         </div>
 
