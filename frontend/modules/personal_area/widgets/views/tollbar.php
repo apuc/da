@@ -31,7 +31,7 @@
         <li><a href="<?= \yii\helpers\Url::to(['/personal_area/user-poster'])?>" class="poster">АФИШИ</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/personal_area/user-promotions'])?>" class="stock">АКЦИИ</a></li>
         <!--<li><a href="#" class="configuration">Настройки</a></li>-->
-        <li><a href="<?= \yii\helpers\Url::to(['/personal_area/user-company'])?>" class="company">ПРЕДПРИЯТИЯ <!--<span class="add"></span>--></a></li>
+        <li><a href="<?= \yii\helpers\Url::to(['/personal_area/user-company'])?>" class="company">КОМПАНИИ <!--<span class="add"></span>--></a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/personal_area/user-comments'])?>" class="comments">КОМЕНТАРИИ <!--<span class="add"></span>--></a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/personal_area/user-ads'])?>" class="advert">ОБЪЯВЛЕНИЯ <!--<span class="add"></span>--></a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/personal_area/user-products'])?>" class="goods">Товары</a></li>
