@@ -131,3 +131,7 @@ a.desc:after {
     background: url("../img/error.png") no-repeat;
     background-size: contain;
 }
+
+.pull-right-container {
+    background: transparent !important;
+}
