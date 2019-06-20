@@ -12,6 +12,7 @@ use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use common\models\db\Messenger;
 
+$this->title = Yii::t('announcement', 'Create announcement');
 $this->registerCssFile('/css/board.min.css');
 //$this->registerJsFile('/js/board.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);

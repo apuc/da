@@ -179,7 +179,7 @@ $md = new \common\classes\Mobile_Detect();
                     csrf-token="<?= Yii::$app->getRequest()->getCsrfToken(); ?>"
                     class="show-more show-more-news-js">загрузить
                 БОЛЬШЕ</a>
-            <span href="#" class="archive-news datepicker-here datepicker-wrap">архив чтива </span>
+            <span href="#" class="archive-news datepicker-here datepicker-wrap">архив новостей </span>
 
         </div>
     </div>

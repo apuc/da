@@ -16,7 +16,7 @@ use yii\widgets\MaskedInput;
         <div class="footer__main">
 
             <ul class="footer__nav">
-                <li><a href="#">ЧТИВО</a></li>
+                <li><a href="#">НОВОСТИ</a></li>
                 <li><a href="#">АФИША</a></li>
                 <li><a href="#">ДОСУГ</a></li>
                 <li><a href="#">ПРЕДПРИЯТИЯ</a></li>
