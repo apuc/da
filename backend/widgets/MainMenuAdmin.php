@@ -75,7 +75,7 @@ class MainMenuAdmin extends Widget
 
         $countProducts = Products::find()->where(['status' => 0, 'type' => Products::TYPE_PRODUCT])->count();
         $countService = Products::find()->where(['status' => 0, 'type' => Products::TYPE_SERVICE])->count();
-        
+
         echo \yii\widgets\Menu::widget(
             [
                 'items' => [
