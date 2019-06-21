@@ -11,7 +11,6 @@ use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
 
-//$this->registerJsFile('/secure/js/hide_sidebar.js',  [\yii\web\View::POS_HEAD]);
 AppAsset::register( $this );
 ?>
 <?php $this->beginPage() ?>
