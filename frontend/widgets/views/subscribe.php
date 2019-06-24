@@ -10,7 +10,7 @@ $this->registerJsFile('/js/validation.min.js');
 
 <div class="home-content__wrap_subscribe" id="subscribe">
     <div class="subscribe__wrap">
-        <h3>ПОДПИСАТЬСЯ НА ЧТИВО</h3>
+        <h3>ПОДПИСАТЬСЯ НА НОВОСТИ</h3>
         <form id="subscribeForm" action="">
             <input class="vItem" type="text" id="subscribe-email" name="email" placeholder="Выслать на email">
             <button id="subm">подписаться</button>

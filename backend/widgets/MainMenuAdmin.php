@@ -130,9 +130,9 @@ class MainMenuAdmin extends Widget
                     [
                         'label' => 'Акции',
                         'url' => Url::to(['/stock/stock']),
+                        'template' => '<a href="{url}"><i class="fa fa-credit-card"></i> <span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countPromotions . '</small></span></a>',
                         'active' => Yii::$app->controller->module->id === 'stock',
                         'visible' => UserFunction::hasPermission(['Акции']),
-                        'template' => '<a href="{url}"><i class="fa fa-credit-card"></i> <span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countPromotions . '</small></span></a>',
                     ],
                     [
                         'label' => 'Коментарии',
@@ -881,7 +881,7 @@ class MainMenuAdmin extends Widget
                         'visible' => UserFunction::hasPermission(['Подписчики']),
                     ],
                     [
-                        'label' => 'СЕО',
+                        'label' => 'SЕО',
                         'visible' => UserFunction::hasPermission(['СЕО']),
                         'items' => [
                             [

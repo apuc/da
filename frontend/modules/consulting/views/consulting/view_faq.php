@@ -49,7 +49,6 @@ $this->registerMetaTag([
                         <div class="title"><?= $post->consulting->title; ?>
                             / <?= $post->category->title; ?></div>
                         <div class="data-time"><?= \common\classes\WordFunctions::FullEventDate($post->dt_add); ?></div>
-                        <!--<div class="title-law">--><? //= $post->question; ?><!--</div>-->
                         <div class="text"><?= WordFunctions::crop_str_word(strip_tags($post->question), 50); ?>
                         </div>
                         <div class="info"><a href="<?= Url::to(['/consulting/consulting/faq-post','slug'=>$post->slug]);?>">Читать ответ</a><span

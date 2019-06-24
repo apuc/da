@@ -35,7 +35,7 @@ class AppAsset extends AssetBundle
         'css/style.css',
     ];
     public $js = [
-        /*'js/plugins/jQuery/jQuery-2.1.4.min.js',*/
+//        'js/plugins/jQuery/jQuery-2.1.4.min.js',
         'https://code.jquery.com/ui/1.11.4/jquery-ui.min.js',
         /*'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',*/
         /*'js/bootstrap/js/bootstrap.min.js',*/
@@ -60,6 +60,7 @@ class AppAsset extends AssetBundle
         'js/bootstrap-tagsinput.js',
         'js/script.js',
         'js/custom.js',
+        'js/hide_sidebar.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

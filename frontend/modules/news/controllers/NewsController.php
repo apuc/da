@@ -93,7 +93,6 @@ class NewsController extends Controller
         $news = $model->getNews($this->useReg);
         $hotNews = $model->getHotNews($this->useReg);
 
-
         $hotNewsIndexes = [1, 7, 13, 20, 22];
         $bigNewsIndexes = [14, 28, 38];
         //Debug::prn($hotNews);
@@ -210,7 +209,7 @@ class NewsController extends Controller
                 }
             }
 
-            Yii::$app->session->setFlash('success', 'Ваше чтиво успешно добавлено. После прохождения модерации оно будет опубликовано.');
+            Yii::$app->session->setFlash('success', 'Ваша новость успешно добавлено. После прохождения модерации она будет опубликована.');
             return $this->redirect('/personal_area/default/index');
             /*$model->status = 1;
             $model->user_id = Yii::$app->user->getId();

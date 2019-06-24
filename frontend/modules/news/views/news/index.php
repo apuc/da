@@ -30,10 +30,10 @@ $this->registerMetaTag([
     'name' => 'description',
     'content' => $meta_descr,
 ]);
-$this->registerLinkTag([
-        'rel' => 'amphtml',
-        'href' => 'https://da-info.pro/amp'
-]);
+//$this->registerLinkTag([
+//        'rel' => 'amphtml',
+//        'href' => 'https://da-info.pro/amp'
+//]);
 
 $this->registerLinkTag([
     'href' => Url::home(true) . 'all-news',
@@ -60,14 +60,12 @@ $md = new \common\classes\Mobile_Detect();
             </div>
         </div>
         <div class="news__wrap">
-
             <?php
             $simpleNewId = 0;
             $hotNewId = 0;
             for ($i = 0; $i <= 38; $i++):
                 if (!in_array($i, $hotNewsIndexes)):
                     $currNew = $news[$simpleNewId];
-
                     if (in_array($i, $bigNewsIndexes)):
                         ?>
                         <a href="<?= Url::to([
@@ -181,7 +179,7 @@ $md = new \common\classes\Mobile_Detect();
                     csrf-token="<?= Yii::$app->getRequest()->getCsrfToken(); ?>"
                     class="show-more show-more-news-js">загрузить
                 БОЛЬШЕ</a>
-            <span href="#" class="archive-news datepicker-here datepicker-wrap">архив чтива </span>
+            <span href="#" class="archive-news datepicker-here datepicker-wrap">архив новостей </span>
 
         </div>
     </div>
