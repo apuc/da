@@ -3,6 +3,7 @@
 namespace common\models\db;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "category_company".
@@ -77,6 +78,11 @@ class CategoryCompany extends \yii\db\ActiveRecord
     public function getcateg()
     {
         return $this->hasOne(CategoryCompany::className(), ['id' => 'parent_id']);
+    }
+
+    public static function getListByParentId($parent_id)
+    {
+        return ArrayHelper::map(self::find()->where(['parent_id' => $parent_id])->all(), 'id', 'title');
     }
 
 

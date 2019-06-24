@@ -472,4 +472,13 @@ class AjaxController extends Controller
         return json_encode($post);
     }
 
+    public function actionGetCategory()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $get = Yii::$app->request->get('parent_id');
+        $get = $get ? $get : 0;
+        $cat = CategoryCompany::getListByParentId($get);
+        return $cat;
+    }
+
 }
