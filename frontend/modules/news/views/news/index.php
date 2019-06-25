@@ -30,10 +30,10 @@ $this->registerMetaTag([
     'name' => 'description',
     'content' => $meta_descr,
 ]);
-//$this->registerLinkTag([
-//        'rel' => 'amphtml',
-//        'href' => 'https://da-info.pro/amp'
-//]);
+$this->registerLinkTag([
+        'rel' => 'amphtml',
+        'href' => 'https://da-info.pro/amp'
+]);
 
 $this->registerLinkTag([
     'href' => Url::home(true) . 'all-news',
