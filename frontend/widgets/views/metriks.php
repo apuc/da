@@ -78,21 +78,6 @@
         })();
     </script>
 
-<!--    <script>-->
-<!--        (function () {-->
-<!--            var amphtml = document.querySelector('head link[rel="amphtml"]');-->
-<!--            console.log(amphtml);-->
-<!--            if (amphtml)-->
-<!--            {-->
-<!--                var script = document.createElement('script');-->
-<!--                script.setAttribute('custom-element','amp-auto-ads');-->
-<!--                script.setAttribute('src','https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js');-->
-<!--                script.setAttribute('async');-->
-<!--                document.head.appendChild(script);-->
-<!--            }-->
-<!--        });-->
-<!--    </script>-->
-
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({
@@ -101,13 +86,13 @@
         });
     </script>
 
-<?php endif; ?>
-
-<?php if (Yii::$app->controller->id == 'default' && Yii::$app->controller->action->id == 'view'
-    || Yii::$app->controller->id == 'news' && Yii::$app->controller->action->id == 'index'): ?>
+    <?php if (Yii::$app->controller->id == 'default' && Yii::$app->controller->action->id == 'view'
+        || Yii::$app->controller->id == 'news' && Yii::$app->controller->action->id == 'index'): ?>
         <script async custom-element="amp-auto-ads"
                 src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
         </script>
+    <?php endif; ?>
 <?php endif; ?>
+
 
 
