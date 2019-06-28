@@ -13,6 +13,7 @@
  */
 
 use yii\helpers\Url;
+use yii\web\View;
 use yii\widgets\Breadcrumbs;
 
 $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js',
@@ -75,7 +76,7 @@ $this->params['breadcrumbs'][] = $model->title;
 <!-- end header.html-->
 
 <main id="main-single-news">
-
+    <amp-auto-ads type="adsense" data-ad-client="ca-pub-7346523585639786"></amp-auto-ads>
     <div class="container">
 
         <article id="article">
