@@ -86,4 +86,13 @@
         });
     </script>
 
+    <?php if (Yii::$app->controller->id == 'default' && Yii::$app->controller->action->id == 'view'
+        || Yii::$app->controller->id == 'news' && Yii::$app->controller->action->id == 'index'): ?>
+        <script async custom-element="amp-auto-ads"
+                src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+        </script>
+    <?php endif; ?>
 <?php endif; ?>
+
+
+
