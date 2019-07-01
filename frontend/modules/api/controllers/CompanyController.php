@@ -12,7 +12,7 @@ class CompanyController extends \yii\web\Controller
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
     }
 
-    public function actionGetCompanyCategory()
+    public function actionGetCompanyCategories()
     {
         $model = CategoryCompany::find()->select(['id','title']);
         if(\Yii::$app->request->get('parent'))
@@ -28,7 +28,7 @@ class CompanyController extends \yii\web\Controller
        return ['Нет данных.'];
     }
 
-    public function actionGetCategory()
+    public function actionGetCompanyCategory()
     {
         if(\Yii::$app->request->get('id'))
         {
