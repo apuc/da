@@ -153,8 +153,8 @@ return \yii\helpers\ArrayHelper::merge([
                 ],
                 'google' => [
                     'class' => 'dektrium\user\clients\Google',
-                    'clientId' => '136978158391-mp2isb5rqisr158bmmfdnr6j0eqgn629.apps.googleusercontent.com',
-                    'clientSecret' => 'LLTc-C8JQQuHYzjbLAm2AV_I',
+                    'clientId' => '942099914352-bl2m015qokjtdc4k0sfos60eu6s5nv5t.apps.googleusercontent.com',
+                    'clientSecret' => '78Ep_2eK8c9cH1lDj3Jw1cMF',
                     'title' => '',
                 ],
             ],
