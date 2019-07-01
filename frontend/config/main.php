@@ -19,6 +19,9 @@ return \yii\helpers\ArrayHelper::merge([
         'news' => [
             'class' => 'frontend\modules\news\News',
         ],
+        'api' => [
+            'class' => 'frontend\modules\api\Api',
+        ],
         'company' => [
             'class' => 'frontend\modules\company\Company',
         ],
