@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
+use yii\web\View;
 use yii\widgets\Breadcrumbs;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
@@ -43,8 +44,8 @@ $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends
 $md = new \common\classes\Mobile_Detect();
 ?>
 
-
 <section class="news">
+    <amp-auto-ads type="adsense" data-ad-client="ca-pub-7346523585639786"></amp-auto-ads>
     <div class="container">
 
         <?= Breadcrumbs::widget([
