@@ -24,6 +24,7 @@ $this->registerJsFile('/js/raw/img_upload.js', ['depends' => [\yii\web\JqueryAss
 $this->registerJsFile('/js/raw/board.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/js/raw/company.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('/secure/js/bootstrap/js/bootstrap.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('/js/raw/company_category_dropdown.js');
 ?>
 
 <?php $form = ActiveForm::begin(

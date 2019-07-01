@@ -22,6 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="cabinet__container cabinet__container_white cabinet__inner-box">
 
     <h3><?= Html::encode($this->title) ?></h3>
+
     <div class="right">
         <?= $this->render('_form', [
             'model' => $model,
