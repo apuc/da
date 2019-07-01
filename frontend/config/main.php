@@ -200,8 +200,6 @@ return \yii\helpers\ArrayHelper::merge([
 
                 //==============================COMPANY==============================
                 'all-company' => 'company/company',
-                'api-company' => 'api/company/get-company-category',
-                'get-company' => 'api/company/get-company',
                 'company' => 'company/default',
                 'company/company/get-products-by-category' => 'company/company/get-products-by-category',
                 'company/company/add-feedback' => 'company/company/add-feedback',

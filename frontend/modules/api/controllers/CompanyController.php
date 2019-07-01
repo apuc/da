@@ -28,7 +28,7 @@ class CompanyController extends \yii\web\Controller
        return ['Нет данных.'];
     }
 
-    public function actionGetCompany()
+    public function actionGetCategory()
     {
         if(\Yii::$app->request->get('id'))
         {
