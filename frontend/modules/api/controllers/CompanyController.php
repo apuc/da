@@ -26,6 +26,20 @@ class CompanyController extends \yii\web\Controller
         }
 
        return ['Нет данных.'];
+    }
 
+    public function actionGetCompany()
+    {
+        if(\Yii::$app->request->get('id'))
+        {
+            $model = CategoryCompany::find()->where(['=', 'id' , \Yii::$app->request->get('id')])->all();
+
+        }
+        if(!empty($model))
+        {
+            return $model;
+        }
+
+        return ['Нет данных.'];
     }
 }
