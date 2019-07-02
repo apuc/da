@@ -13,12 +13,9 @@ class CityController extends \yii\web\Controller
 
     public function actionGetCities($region_id = null)
     {
-        $model = City::find()->select(['id','name','region_id']);
-        if(!empty($region_id))
-        {
-            $model->where(['=', 'region_id', $region_id]);
-        }
-        $model = $model->all();
+        $model = City::find()->select(['id','name','region_id'])
+            ->andFilterWhere(['=', 'region_id', $region_id])
+            ->all();
         if(!empty($model))
         {
             return $model;

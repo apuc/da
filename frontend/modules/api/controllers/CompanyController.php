@@ -11,14 +11,11 @@ class CompanyController extends \yii\web\Controller
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
     }
 
-    public function actionGetCompanyCategories()
+    public function actionGetCompanyCategories($parent = null)
     {
-        $model = CategoryCompany::find()->select(['id','title']);
-        if(\Yii::$app->request->get('parent'))
-        {
-                $model->where(['=', 'parent_id', \Yii::$app->request->get('parent')]);
-        }
-        $model = $model->all();
+        $model = CategoryCompany::find()->select(['id','title'])
+        ->andFilterWhere(['=', 'parent_id', $parent])
+        ->all();
         if(!empty($model))
         {
             return $model;
@@ -27,12 +24,9 @@ class CompanyController extends \yii\web\Controller
        return ['Нет данных.'];
     }
 
-    public function actionGetCompanyCategory()
+    public function actionGetCompanyCategory($id)
     {
-        if(\Yii::$app->request->get('id'))
-        {
-            $model = CategoryCompany::find()->where(['=', 'id' , \Yii::$app->request->get('id')])->all();
-        }
+        $model = CategoryCompany::find()->where(['=', 'id' , \Yii::$app->request->get('id')])->all();
         if(!empty($model))
         {
             return $model;
