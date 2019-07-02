@@ -10,6 +10,7 @@ namespace frontend\modules\personal_area\models;
 
 use common\classes\Debug;
 use frontend\modules\company\models\Company;
+use Yii;
 use yii\data\ActiveDataProvider;
 
 class UserCompanySearch extends Company
@@ -17,6 +18,12 @@ class UserCompanySearch extends Company
     public function search($params)
     {
         $query = Company::find();
+
+        if(Yii::$app->controller->id == 'user-company' && Yii::$app->controller->action->id == 'index')
+        {
+            $query->select(['id', 'address', 'photo', 'email', 'name',
+                'status','slug', 'dt_end_tariff']);
+        }
 
         // add conditions that should always apply here
 

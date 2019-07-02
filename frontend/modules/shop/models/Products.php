@@ -187,8 +187,6 @@ class Products extends \common\models\db\Products
             //->andWhere(['services_id' => 25])
             ->all();
 
-        //Debug::dd($services);
-
         if (empty($company)) {
             return false;
         }

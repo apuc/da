@@ -55,45 +55,38 @@ $statistics = $model->getPage('statistics');
 
 </div>
 
-<div class="cabinet-company-statistic">
-    <div class="cabinet-company-statistic__header">
-        <h3>Статистика компании</h3>
-        <a href="#" class="company-static-close"><i class="fa fa-angle-down" aria-hidden="true"></i>
-            свернуть блок статистики</a>
-    </div>
-    <div class="cabinet-company-statistic__body">
-        <div class="cabinet-company-statistic__body--left">
-            <h4>Охват аудитории</h4>
-            <p>Количество посетителей <b><?= $statistics['allViews'] ?></b></p>
-            <p>Количество <span>уникальных</span> посетителей
-                <b><?= $statistics['uniqueViews'] ?></b></p>
-            <?php if (!empty($statistics['allViews'])) : ?>
-                <h5>География </h5>
-                <table style="width: 95%">
-                    <thead>
-                    <tr>
-                        <td>Город</td>
-                        <td>Общие</td>
-                        <td>Уникальные</td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach ($statistics['countViewsRegion'] as $item): ?>
-                        <tr>
-                            <td><?= $item[0] ?></td>
-                            <td><?= Yii::$app->formatter->asPercent($item[1] / $statistics['allViews'], 1) ?></td>
-                            <td><?= Yii::$app->formatter->asPercent($item[2] / $statistics['uniqueViews'], 1) ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                    </tbody>
-                </table>
-            <?php endif; ?>
-        </div>
-        <div class="cabinet-company-statistic__body--right" id="piechart">
-            <?php if (!empty($statistics['allViews'])) {
-                echo Highcharts::widget($statistics['optionsCV']);
-                echo Highcharts::widget($statistics['optionsCVR']);
-            } ?>
-        </div>
-    </div>
-</div>
+<!--<div class="cabinet-company-statistic">-->
+<!--    <div class="cabinet-company-statistic__header">-->
+<!--        <h3>Статистика компании</h3>-->
+<!--        <a href="#" class="company-static-close"><i class="fa fa-angle-down" aria-hidden="true"></i>-->
+<!--            свернуть блок статистики</a>-->
+<!--    </div>-->
+<!--    <div class="cabinet-company-statistic__body">-->
+<!--        <div class="cabinet-company-statistic__body--left">-->
+<!--            <h4>Охват аудитории</h4>-->
+<!--            <p>Количество посетителей <b>--><?//= $statistics['allViews'] ?><!--</b></p>-->
+<!--            <p>Количество <span>уникальных</span> посетителей-->
+<!--                <b>--><?//= $statistics['uniqueViews'] ?><!--</b></p>-->
+<!--            --><?php //if (!empty($statistics['allViews'])) : ?>
+<!--                <h5>География </h5>-->
+<!--                <table style="width: 95%">-->
+<!--                    <thead>-->
+<!--                    <tr>-->
+<!--                        <td>Город</td>-->
+<!--                        <td>Общие</td>-->
+<!--                        <td>Уникальные</td>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            --><?php //endif; ?>
+<!--        </div>-->
+<!--        <div class="cabinet-company-statistic__body--right" id="piechart">-->
+<!--            --><?php //if (!empty($statistics['allViews'])) {
+//                echo Highcharts::widget($statistics['optionsCV']);
+//                echo Highcharts::widget($statistics['optionsCVR']);
+//            } ?>
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
