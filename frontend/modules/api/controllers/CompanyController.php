@@ -2,7 +2,6 @@
 
 namespace frontend\modules\api\controllers;
 
-use common\classes\Debug;
 use frontend\models\sitemap\CategoryCompany;
 
 class CompanyController extends \yii\web\Controller
@@ -33,7 +32,6 @@ class CompanyController extends \yii\web\Controller
         if(\Yii::$app->request->get('id'))
         {
             $model = CategoryCompany::find()->where(['=', 'id' , \Yii::$app->request->get('id')])->all();
-
         }
         if(!empty($model))
         {
