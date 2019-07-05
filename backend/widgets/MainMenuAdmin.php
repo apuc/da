@@ -218,6 +218,29 @@ class MainMenuAdmin extends Widget
                             </a>',
                     ],
                     [
+                        'label' => 'Sima-land',
+                        'items' => [
+                            [
+                                'label' => 'Настройки',
+                                'url' => Url::to(['/sima_land/api/settings']),
+                                'active' => Yii::$app->controller->module->id == 'sima_land' && Yii::$app->controller->action->id == 'index',
+                            ],
+                            [
+                                'label' => 'Товары',
+                                'url' => Url::to(['/sima_land/api/products']),
+                                'active' => Yii::$app->controller->module->id == 'sima_land' && Yii::$app->controller->action->id == 'index',
+                            ],
+                        ],
+                        'visible' => UserFunction::hasPermission(['Компании']),
+                        'options' => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="#">
+                                    <i class="fa fa-shopping-cart"></i> 
+                                    <span>{label}</span>
+                            </a>',
+                    ],
+                    [
                         'label' => 'Компании',
                         'items' => [
                             [

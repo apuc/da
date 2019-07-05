@@ -32,6 +32,9 @@ return [
         'company' => [
             'class' => 'backend\modules\company\Company',
         ],
+        'sima_land' => [
+            'class' => 'backend\modules\sima_land\Sima_land',
+        ],
         'category_company' => [
             'class' => 'backend\modules\category_company\Category_company',
         ],
