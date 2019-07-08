@@ -2,6 +2,9 @@
 
 namespace common\models\db;
 
+use common\classes\Debug;
+use yii\db\Query;
+
 class SimaCategory extends \yii\db\ActiveRecord
 {
     /**
@@ -31,5 +34,26 @@ class SimaCategory extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
 
+    }
+
+    public static function getCategoryName($id)
+    {
+        return SimaCategory::find()
+            ->select(['name'])
+            ->where(['sima_id' => $id ])
+            ->asArray()
+            ->all();
+    }
+
+    public static function getAllCategory()
+    {
+        $arr = array();
+        $query = (new Query())
+            ->from('sima_categories DISTINCT');
+        foreach ($query->each() as $user) {
+            array_push($arr, $user);
+        }
+        Debug::dd($arr);
+        return $arr;
     }
 }

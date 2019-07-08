@@ -11,7 +11,7 @@ class UpdateSimaController extends Controller
     public function actionIndex()
     {
         SimaCategory::deleteAll();
-        $response = SimaLand::load();
+        $response = SimaLand::load('category');
         $count = $response['_meta']['pageCount'];
         for($i = 0; $i<$count;++$i)
         {

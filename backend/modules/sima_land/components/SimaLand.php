@@ -8,14 +8,18 @@ use yii\base\Component;
 
 class SimaLand extends \SimaLand\API\Rest\Client
 {
-    public static function load($page = 1)
+    public static function load($type, $category = null, $page = 1)
     {
         $client = new \backend\modules\sima_land\components\SimaLand([
             'login' => 'nasty_sklyarova@bk.ru',
             'password' => '123edsaqw',
         ]);
+        $response = $client->get($type,['page' => $page, 'per_page' => 10]);
+        if(!empty($category))
+        {
+            $response = $client->get($type,['page' => $page, 'per_page' => 10,'category_id' => $category]);
+        }
 
-        $response = $client->get('category',['page' => $page]);
         return json_decode($response->getBody(), true);
     }
 

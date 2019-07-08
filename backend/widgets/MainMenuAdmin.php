@@ -226,6 +226,11 @@ class MainMenuAdmin extends Widget
                                 'active' => Yii::$app->controller->module->id == 'sima_land' && Yii::$app->controller->action->id == 'index',
                             ],
                             [
+                                'label' => 'Категории',
+                                'url' => Url::to(['/sima_land/api/categories']),
+                                'active' => Yii::$app->controller->module->id == 'sima_land' && Yii::$app->controller->action->id == 'index',
+                            ],
+                            [
                                 'label' => 'Товары',
                                 'url' => Url::to(['/sima_land/api/products']),
                                 'active' => Yii::$app->controller->module->id == 'sima_land' && Yii::$app->controller->action->id == 'index',
