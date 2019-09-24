@@ -6,9 +6,11 @@ namespace backend\modules\sima_land\controllers;
 
 use Exception;
 use Yii;
+use yii\data\ArrayDataProvider;
 use yii\web\Controller;
 use Classes\Wrapper\IUrls;
 use Classes\Wrapper\Wrapper;
+use yii\web\NotFoundHttpException;
 
 class GoodsController extends Controller
 {
@@ -19,65 +21,45 @@ class GoodsController extends Controller
      */
     public function actionIndex()
     {
-        $resultData = array();
+        $resultData = Wrapper::objectToArray(Wrapper::runFor(IUrls::Goods)
+            ->getPage(1)
+            ->getItemFromJson());
 
-        foreach (Wrapper::runFor(IUrls::Goods)
-                     ->getPage(1)
-                     ->getItemFromJson() as $item) {
-            array_push($resultData,
-                array(
-                    "id" => $item->id,
-                    "sid" => $item->sid,
-                    "name" => $item->name,
-                    "uid" => $item->uid,
-                    "price" => $item->price,
-                    "price_max" => $item->price_max,
-                    "price_per_square_meter" => $item->price_per_square_meter,
-                    "price_per_linear_meter" => $item->price_per_linear_meter,
-                    "currency" => $item->currency,
-                    "minimum_order_quantity" => $item->minimum_order_quantity,
-                    "in_box" => $item->in_box,
-                    "max_qty" => $item->max_qty,
-                    "min_qty" => $item->min_qty,
-                    "updated_at" => $item->updated_at,
-                    "trademark_id" => $item->trademark_id,
-                    "country_id" => $item->country_id,
-                    "created_at" => $item->created_at,
-                    "slug" => $item->slug));
+        $searchModel = [ 'id' => null , 'name' => null ];
+
+        $dataProvider = new ArrayDataProvider([
+            'key' => 'id' ,
+            'allModels' => $resultData ,
+            'sort' => array(
+                'attributes' => array_keys($resultData[0])
+            ) ,
+        ]);
+        return $this->render('index' , [
+            'title' => "1" ,
+            'searchModel' => $searchModel ,
+            'dataProvider' => $dataProvider ,
+        ]);
+    }
+
+    /**
+     * Displays a single categories model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException
+     */
+    public function actionView($id)
+    {
+        return $this->render('view' , [
+            'model' => $this->findGoods($id) ,
+        ]);
+    }
+
+    private function findGoods($id)
+    {
+        try {
+            return Wrapper::runFor(IUrls::Goods)->getById($id)->getItemFromJson();
+        } catch (Exception $e) {
+            throw new NotFoundHttpException($e->getMessage());
         }
-
-        $searchModel = ['id' => null, 'name' => null];
-
-        $dataProvider = new \yii\data\ArrayDataProvider([
-            'key' => 'id',
-            'allModels' => $resultData,
-            'sort' => [
-                'attributes' => [
-                    'id',
-                    'sid',
-                    'name',
-                    'slug',
-                    'uid',
-                    'price',
-                    'price_per_square_meter',
-                    'price_per_linear_meter',
-                    'price_max',
-                    'currency',
-                    'minimum_order_quantity',
-                    'in_box',
-                    'max_qty',
-                    'min_qty',
-                    'trademark_id',
-                    'country_id',
-                    'created_at',
-                    'updated_at'],
-            ],
-        ]);
-
-        return $this->render('index', [
-            'title' => "1",
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
     }
 }

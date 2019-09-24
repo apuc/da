@@ -46,8 +46,8 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Full Info By id',
                 'format' => 'raw',
-                'content' => function($model) {
-                    return Html::a('View', ['index', 'id' =>'id'],
+                'content' => function ($model) {
+                    return Html::a('View', ['index', 'id' => 'id'],
                         ['class' => 'btn btn-info']);
                 }
             ],

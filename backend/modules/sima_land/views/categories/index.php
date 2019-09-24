@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->context->count;
 ?>
 <div class="categories-index">
 
-    <h1><?= Html::encode($this->title) ;?></h1>
+    <h1><?= Html::encode($this->title); ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <p>
         <?= Html::a('Предыдущая страница', [''], ['class' => 'btn btn-primary']) ?>
@@ -30,17 +30,11 @@ $this->params['breadcrumbs'][] = $this->context->count;
             'name',
             'path',
             'level',
-            'photo',
-            'icon',
-            'priority',
-            'has_design',
-            'is_for_mobile_app',
-            'is_adult',
             'full_slug',
             [
-                'label' => 'Full Info By id',
-                'content' => function($model) {
-                    return Html::a('View', ['index', 'id' =>'id'],
+                'label' => 'Full Info',
+                'content' => function ($model) {
+                    return Html::a('View', ['index', 'id' => 'id'],
                         ['class' => 'btn btn-info']);
                 }
             ],

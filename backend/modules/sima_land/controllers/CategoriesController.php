@@ -5,10 +5,12 @@ namespace backend\modules\sima_land\controllers;
 
 use Exception;
 use Yii;
+use yii\data\ArrayDataProvider;
 use yii\web\Controller;
 use backend\modules\sima_land\models\SearchCategories;
 use Classes\Wrapper\Wrapper;
 use Classes\Wrapper\IUrls;
+use yii\web\NotFoundHttpException;
 
 class CategoriesController extends Controller
 {
@@ -21,52 +23,45 @@ class CategoriesController extends Controller
      */
     public function actionIndex()
     {
-        $resultData = array();
+        $resultData = Wrapper::objectToArray(Wrapper::runFor(IUrls::Category)
+            ->getPage(1)
+            ->getItemFromJson());
 
-        foreach (Wrapper::runFor(IUrls::Category)
-                     ->getPage(1)
-                     ->getItemFromJson() as $item) {
-            array_push($resultData,
-                array(
-                    "id" => $item->id,
-                    "sid" => $item->sid,
-                    "name" => $item->name,
-                    "path" => $item->path,
-                    "level" => $item->level,
-                    "photo" => $item->photo,
-                    "icon" => $item->icon,
-                    "priority" => $item->priority,
-                    "is_adult" => $item->is_adult,
-                    "has_design" => $item->has_design,
-                    "is_for_mobile_app" => $item->is_for_mobile_app,
-                    "full_slug" => $item->full_slug));
+        $searchModel = [ 'id' => null , 'name' => null ];
+
+        $dataProvider = new ArrayDataProvider([
+            'key' => 'id' ,
+            'allModels' => $resultData ,
+            'sort' => array(
+                'attributes' => array_keys($resultData[0])
+            ) ,
+        ]);
+
+        return $this->render('index' , [
+            'searchModel' => $searchModel ,
+            'dataProvider' => $dataProvider ,
+        ]);
+    }
+
+    /**
+     * Displays a single categories model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException
+     */
+    public function actionView($id)
+    {
+        return $this->render('view' , [
+            'model' => $this->findCategory($id) ,
+        ]);
+    }
+
+    private function findCategory($id)
+    {
+        try {
+            return Wrapper::runFor(IUrls::Category)->getById($id)->getItemFromJson();
+        } catch (Exception $e) {
+            throw new NotFoundHttpException($e->getMessage());
         }
-
-        $searchModel = ['id' => null, 'name' => null];
-
-        $dataProvider = new \yii\data\ArrayDataProvider([
-            'key' => 'id',
-            'allModels' => $resultData,
-            'sort' => [
-                'attributes' => [
-                    'id',
-                    'sid',
-                    'name',
-                    'full_slug',
-                    'level',
-                    'photo',
-                    'icon',
-                    'priority',
-                    'has_design',
-                    'is_for_mobile_app',
-                    'is_adult',
-                    'path'],
-            ],
-        ]);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
     }
 }
