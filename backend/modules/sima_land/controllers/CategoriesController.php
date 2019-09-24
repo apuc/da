@@ -18,6 +18,7 @@ class CategoriesController extends Controller
     public $prevPage;
     public $nextPage;
     public $totalPages;
+    public $pageSize;
 
     /**
      * Lists all categories models.
@@ -33,6 +34,7 @@ class CategoriesController extends Controller
             ->getPage($this->currentPage);
 
         $this->totalPages = $query->getMetaFromJson()->pageCount;
+        $this->pageSize = $query->getMetaFromJson()->perPage;
 
         $resultData = Wrapper::objectToArray($query->getItemFromJson());
 
@@ -50,17 +52,16 @@ class CategoriesController extends Controller
         $dataProvider = new ArrayDataProvider([
             'key' => 'id' ,
             'allModels' => $resultData ,
-            'pagination' => array( 'pageSize' => 50 ) ,
-            'sort' => array(
+            'pagination' => [ 'pageSize' => $this->pageSize , 'totalCount' => $this->totalPages ] ,
+            'sort' => [
                 'attributes' => array_keys($resultData[0])
-            ) ,
+            ] ,
         ]);
 
         return $this->render('index' , [
             'searchModel' => $searchModel ,
             'dataProvider' => $dataProvider ,
         ]);
-
     }
 
     /**

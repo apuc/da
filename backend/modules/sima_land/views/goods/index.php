@@ -15,10 +15,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <p>
-        <?= Html::a('Предыдущая страница' , [ 'index'  ] ,
-            [ 'class' => 'btn btn-primary' , 'disabled' => $this->context->isPrev ]) ?>
-        <?= Html::a('Следующая страница' , [ 'index' ] ,
-            [ 'class' => 'btn btn-primary' , 'disabled' => $this->context->isNext ]) ?>
+        <?= Html::a('Предыдущая страница' , [ 'index' , 'page' => $this->context->prevPage ],
+            [ 'class' => 'btn btn-primary']) ?>
+        <?= Html::a('Следующая страница' , [ 'index',  'page' => $this->context->nextPage] ,
+            [ 'class' => 'btn btn-primary']) ?>
         <?= Html::a('Перейти на страницу' , [ 'goToPage' ] , [ 'class' => 'btn btn-success' ]) ?>
         <?= Html::a('Кастомный запрос' , [ 'customQuery' ] , [ 'class' => 'btn btn-warning' ]) ?>
     </p>
