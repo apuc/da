@@ -14,24 +14,43 @@ use yii\web\NotFoundHttpException;
 
 class CategoriesController extends Controller
 {
-    public $count = 1;
+    public $currentPage;
+    public $prevPage;
+    public $nextPage;
+    public $totalPages;
 
     /**
      * Lists all categories models.
+     * @param $page
      * @return mixed
      * @throws Exception
      */
-    public function actionIndex()
+    public function actionIndex($page = 1)
     {
-        $resultData = Wrapper::objectToArray(Wrapper::runFor(IUrls::Category)
-            ->getPage(1)
-            ->getItemFromJson());
+        $this->currentPage = $page;
+
+        $query = Wrapper::runFor(IUrls::Category)
+            ->getPage($this->currentPage);
+
+        $this->totalPages = $query->getMetaFromJson()->pageCount;
+
+        $resultData = Wrapper::objectToArray($query->getItemFromJson());
+
+        if ($page == 1) {
+            $this->prevPage = 1;
+            $this->nextPage = 2;
+        } else if ($this->currentPage != $this->totalPages) {
+            $this->prevPage = $this->currentPage - 1;
+            $this->currentPage = $this->currentPage++;
+            $this->nextPage = $this->currentPage + 1;
+        }
 
         $searchModel = [ 'id' => null , 'name' => null ];
 
         $dataProvider = new ArrayDataProvider([
             'key' => 'id' ,
             'allModels' => $resultData ,
+            'pagination' => array( 'pageSize' => 50 ) ,
             'sort' => array(
                 'attributes' => array_keys($resultData[0])
             ) ,
@@ -41,6 +60,7 @@ class CategoriesController extends Controller
             'searchModel' => $searchModel ,
             'dataProvider' => $dataProvider ,
         ]);
+
     }
 
     /**
