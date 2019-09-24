@@ -26,8 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'id',
-            'sid',
-            'uid',
             'name',
             'price',
             'price_max',
@@ -38,16 +36,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'in_box',
             'max_qty',
             'min_qty',
-            'trademark_id',
-            'country_id',
             'created_at',
             'updated_at',
             'slug',
             [
-                'label' => 'Full Info By id',
+                'label' => 'Full Info',
                 'format' => 'raw',
                 'content' => function ($model) {
-                    return Html::a('View', ['index', 'id' => 'id'],
+                    return Html::a('View', ['view', 'id' =>  $model['id']],
                         ['class' => 'btn btn-info']);
                 }
             ],

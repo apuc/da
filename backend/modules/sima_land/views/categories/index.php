@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->context->count;
             [
                 'label' => 'Full Info',
                 'content' => function ($model) {
-                    return Html::a('View', ['index', 'id' => 'id'],
+                    return Html::a('View', ['view', 'id' => $model['id']],
                         ['class' => 'btn btn-info']);
                 }
             ],
