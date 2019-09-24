@@ -1022,7 +1022,25 @@ class MainMenuAdmin extends Widget
                         'active' => Yii::$app->controller->module->id == 'tags' || Yii::$app->controller->module->id == 'tags',
                         'visible' => UserFunction::hasPermission(['Теги']),
                     ],
-
+                    [
+                        'label' => 'Sima Land API',
+                        'items' => [
+                            [
+                                'label' => 'Категории',
+                                'url' => Url::to(['/sima_land/categories/index']),
+                                'active' => Yii::$app->controller->module->id == 'categories',
+                            ],
+                            [
+                                'label' => 'Товары',
+                                'url' => Url::to(['/sima_land/goods/index']),
+                                'active' => Yii::$app->controller->module->id == 'goods',
+                            ]
+                        ],
+                        'options' => [
+                            'class' => 'treeview',
+                        ],
+                        'template' => '<a href="#"><i class="fa fa-bar-chart"></i> <span>{label}</span> <i class="fa fa-angle-left pull-right"></i></a>',
+                    ],
                 ],
                 'activateItems' => true,
                 'activateParents' => true,
