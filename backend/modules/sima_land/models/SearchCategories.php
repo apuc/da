@@ -2,13 +2,16 @@
 
 namespace backend\modules\sima_land\models;
 
-use yii\data\ActiveDataProvider;
+use Classes\Wrapper\IUrls;
+use Classes\Wrapper\Wrapper;
+use yii\data\ArrayDataProvider;
 use yii\db\ActiveRecord;
+use yii\helpers\VarDumper;
 
 class SearchCategories extends ActiveRecord
 {
-    public $path;
-    public $level;
+    public $value;
+    public $full_slug;
 
     /**
      * @inheritdoc
@@ -16,13 +19,25 @@ class SearchCategories extends ActiveRecord
     public function rules()
     {
         return [
-            [ [ 'path' ] , 'safe' ] ,
-            [ [ 'level' ] , 'safe' ] ,
+            [ [ 'full_slug' ] , 'safe' ] ,
+            [ [ 'value' ] , 'safe' ] ,
         ];
     }
 
     public function search($queryParams)
     {
-        return $queryParams;
+        $resultData = Wrapper::objectToArray( Wrapper::runFor(IUrls::Category)
+        ->query($queryParams)->getItemFromJson());
+
+        $dataProvider = new ArrayDataProvider([
+            'key' => 'id' ,
+            'allModels' => $resultData ,
+            'pagination' => [ 'pageSize' => $this->pageSize , 'totalCount' => $this->totalPages ] ,
+            'sort' => [
+                'attributes' => array_keys($resultData[0])
+            ] ,
+        ]);
+
+        return $dataProvider;
     }
 }

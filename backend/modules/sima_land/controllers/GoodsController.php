@@ -3,13 +3,8 @@
 
 namespace backend\modules\sima_land\controllers;
 
-
 use Exception;
-use Yii;
-use yii\data\ArrayDataProvider;
-use yii\web\Controller;
 use Classes\Wrapper\IUrls;
-use Classes\Wrapper\Wrapper;
 use yii\web\NotFoundHttpException;
 
 class GoodsController extends DefaultController
@@ -42,7 +37,7 @@ class GoodsController extends DefaultController
     public function actionView($id)
     {
         return $this->render('view' , [
-            'model' => $this->find($id, IUrls::Category) ,
+            'model' => $this->findById($id , IUrls::Goods) ,
         ]);
     }
 }

@@ -8,19 +8,18 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Товары';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $this->context->currentPage;
 ?>
 <div class="goods-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <h4><?= Html::encode('Страница ' . $this->context->currentPage . ' из ' . $this->context->totalPages); ?></h4>
+
     <p>
         <?= Html::a('Предыдущая страница' , [ 'index' , 'page' => $this->context->prevPage ],
             [ 'class' => 'btn btn-primary']) ?>
         <?= Html::a('Следующая страница' , [ 'index',  'page' => $this->context->nextPage] ,
             [ 'class' => 'btn btn-primary']) ?>
-        <?= Html::a('Перейти на страницу' , [ 'goToPage' ] , [ 'class' => 'btn btn-success' ]) ?>
-        <?= Html::a('Кастомный запрос' , [ 'customQuery' ] , [ 'class' => 'btn btn-warning' ]) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -29,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             'id',
             'name',
+            'category_id',
             'price',
             'price_max',
             'price_per_square_meter',

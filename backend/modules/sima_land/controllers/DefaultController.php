@@ -2,6 +2,8 @@
 
 namespace backend\modules\sima_land\controllers;
 
+use backend\modules\sima_land\models\SearchCategories;
+use backend\modules\sima_land\models\SearchGoods;
 use Classes\Wrapper\IUrls;
 use Classes\Wrapper\Wrapper;
 use Exception;
@@ -19,6 +21,8 @@ class DefaultController extends Controller
     public $nextPage;
     public $totalPages;
     public $pageSize;
+
+    public $value;
 
     /**
      * Renders the index view for the module
@@ -40,6 +44,44 @@ class DefaultController extends Controller
         $query = Wrapper::runFor($url)
             ->getPage($this->currentPage);
 
+        $resultData = $this->setCounts($page , $query);
+
+        if ($url === IUrls::Category) {
+            $searchModel = new SearchCategories();
+        } else if ($url === IUrls::Goods) {
+            $searchModel = new SearchGoods();
+        }
+
+        $dataProvider = new ArrayDataProvider([
+            'key' => 'id' ,
+            'allModels' => $resultData ,
+            'pagination' => [
+                'pageSize' => $this->pageSize ,
+                'totalCount' => $this->totalPages ] ,
+            'sort' => [
+                'attributes' => array_keys($resultData[0])
+            ] ,
+        ]);
+        return array( $searchModel , $dataProvider );
+    }
+
+    public function findById($id , $url)
+    {
+        try {
+            return Wrapper::runFor($url)->getById($id)->getItemFromJson();
+        } catch (Exception $e) {
+            throw new NotFoundHttpException($e->getMessage());
+        }
+    }
+
+    /**
+     * @param $page
+     * @param Wrapper $query
+     * @return array
+     * @throws Exception
+     */
+    public function setCounts($page , Wrapper $query)
+    {
         $this->totalPages = $query->getMetaFromJson()->pageCount;
         $this->pageSize = $query->getMetaFromJson()->perPage;
 
@@ -53,26 +95,6 @@ class DefaultController extends Controller
             $this->currentPage = $this->currentPage++;
             $this->nextPage = $this->currentPage + 1;
         }
-
-        $searchModel = [ 'id' => null , 'name' => null ];
-
-        $dataProvider = new ArrayDataProvider([
-            'key' => 'id' ,
-            'allModels' => $resultData ,
-            'pagination' => [ 'pageSize' => $this->pageSize , 'totalCount' => $this->totalPages ] ,
-            'sort' => [
-                'attributes' => array_keys($resultData[0])
-            ] ,
-        ]);
-        return array( $searchModel , $dataProvider );
-    }
-
-    public function find($id, $url)
-    {
-        try {
-            return Wrapper::runFor($url)->getById($id)->getItemFromJson();
-        } catch (Exception $e) {
-            throw new NotFoundHttpException($e->getMessage());
-        }
+        return $resultData;
     }
 }
