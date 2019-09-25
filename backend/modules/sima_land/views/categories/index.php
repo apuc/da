@@ -12,6 +12,7 @@ use yii\widgets\ActiveForm;
 
 $this->title = 'Категории';
 $this->params['breadcrumbs'][] = $this->context->currentPage;
+
 ?>
 <div class="categories-index">
 

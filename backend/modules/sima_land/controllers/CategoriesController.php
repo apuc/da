@@ -3,8 +3,11 @@
 
 namespace backend\modules\sima_land\controllers;
 
+use backend\modules\sima_land\models\SearchCategories;
+use Classes\Wrapper\Wrapper;
 use Exception;
 use Classes\Wrapper\IUrls;
+use yii\data\ArrayDataProvider;
 use yii\data\Pagination;
 use yii\web\NotFoundHttpException;
 
@@ -38,5 +41,40 @@ class CategoriesController extends DefaultController
         return $this->render('view' , [
             'model' => $this->findById($id , IUrls::Category) ,
         ]);
+    }
+
+    public function actionQuery($page = 1, $path = null, $level = null)
+    {
+        if($path == null && $level) {
+            return $this->actionIndex($page);
+        }
+        else{
+
+            $data = array(
+                'path'=> $path,
+                'level'=> $level);
+
+            $query = Wrapper::runFor(IUrls::Category)
+                ->query($data);
+
+            $resultData = $this->setCounts($page , $query);
+
+            $searchModel = new SearchCategories();
+
+            $dataProvider = new ArrayDataProvider([
+                'key' => 'id' ,
+                'allModels' => $resultData ,
+                'pagination' => [
+                    'pageSize' => $this->pageSize ,
+                    'totalCount' => $this->totalPages ] ,
+                'sort' => [
+                    'attributes' => array_keys($resultData[0])
+                ] ,
+            ]);
+            return $this->render('index' , [
+                'searchModel' => $searchModel ,
+                'dataProvider' => $dataProvider
+            ]);
+        }
     }
 }

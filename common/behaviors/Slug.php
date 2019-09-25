@@ -61,7 +61,7 @@ class Slug extends Behavior
             $params[':pk'] = $this->owner->{$pk};
         }
 
-        return !$this->owner->find()
+        return !$this->owner->findById()
             ->where($condition, $params)
             ->one();
     }

@@ -25,12 +25,12 @@ class SearchGoods extends ActiveRecord
 
     public function search($queryParams)
     {
-        $resultData = Wrapper::objectToArray( Wrapper::runFor(IUrls::Goods)
+        $resultData = Wrapper::objectToArray(Wrapper::runFor(IUrls::Goods)
             ->query($queryParams)->getItemFromJson());
         $dataProvider = new ArrayDataProvider([
             'key' => 'id' ,
             'allModels' => $resultData ,
-            'pagination' => [ 'pageSize' => 50] ,
+            'pagination' => [ 'pageSize' => 50 ] ,
             'sort' => [
                 'attributes' => array_keys($resultData[0])
             ] ,
