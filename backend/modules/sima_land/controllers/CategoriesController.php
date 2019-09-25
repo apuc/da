@@ -12,14 +12,8 @@ use Classes\Wrapper\Wrapper;
 use Classes\Wrapper\IUrls;
 use yii\web\NotFoundHttpException;
 
-class CategoriesController extends Controller
+class CategoriesController extends DefaultController
 {
-    public $currentPage;
-    public $prevPage;
-    public $nextPage;
-    public $totalPages;
-    public $pageSize;
-
     /**
      * Lists all categories models.
      * @param $page
@@ -30,33 +24,7 @@ class CategoriesController extends Controller
     {
         $this->currentPage = $page;
 
-        $query = Wrapper::runFor(IUrls::Category)
-            ->getPage($this->currentPage);
-
-        $this->totalPages = $query->getMetaFromJson()->pageCount;
-        $this->pageSize = $query->getMetaFromJson()->perPage;
-
-        $resultData = Wrapper::objectToArray($query->getItemFromJson());
-
-        if ($page == 1) {
-            $this->prevPage = 1;
-            $this->nextPage = 2;
-        } else if ($this->currentPage != $this->totalPages) {
-            $this->prevPage = $this->currentPage - 1;
-            $this->currentPage = $this->currentPage++;
-            $this->nextPage = $this->currentPage + 1;
-        }
-
-        $searchModel = [ 'id' => null , 'name' => null ];
-
-        $dataProvider = new ArrayDataProvider([
-            'key' => 'id' ,
-            'allModels' => $resultData ,
-            'pagination' => [ 'pageSize' => $this->pageSize , 'totalCount' => $this->totalPages ] ,
-            'sort' => [
-                'attributes' => array_keys($resultData[0])
-            ] ,
-        ]);
+        list($searchModel , $dataProvider) = $this->preparePage($page , IUrls::Category);
 
         return $this->render('index' , [
             'searchModel' => $searchModel ,
@@ -73,16 +41,16 @@ class CategoriesController extends Controller
     public function actionView($id)
     {
         return $this->render('view' , [
-            'model' => $this->findCategory($id) ,
+            'model' => $this->find($id, IUrls::Category) ,
         ]);
     }
 
-    private function findCategory($id)
+    public function actionQuery()
     {
-        try {
-            return Wrapper::runFor(IUrls::Category)->getById($id)->getItemFromJson();
-        } catch (Exception $e) {
-            throw new NotFoundHttpException($e->getMessage());
-        }
+        $model = new SearchCategories();
+
+        return $this->render('query', [
+            'model' => $model,
+        ]);
     }
 }

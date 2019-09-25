@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->context->currentPage;
         <?= Html::a('Следующая страница' , [ 'index',  'page' => $this->context->nextPage] ,
             [ 'class' => 'btn btn-primary']) ?>
         <?= Html::a('Перейти на страницу' , [ 'goToPage' ] , [ 'class' => 'btn btn-success' ]) ?>
-        <?= Html::a('Кастомный запрос' , [ 'customQuery' ] , [ 'class' => 'btn btn-warning' ]) ?>
+        <?= Html::a('Кастомный запрос' , [ 'query' ] , [ 'class' => 'btn btn-warning' ]) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider ,

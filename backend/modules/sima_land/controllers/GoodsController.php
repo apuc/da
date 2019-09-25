@@ -12,13 +12,8 @@ use Classes\Wrapper\IUrls;
 use Classes\Wrapper\Wrapper;
 use yii\web\NotFoundHttpException;
 
-class GoodsController extends Controller
+class GoodsController extends DefaultController
 {
-    public $currentPage;
-    public $prevPage;
-    public $nextPage;
-    public $totalPages;
-    public $pageSize;
 
     /**
      * Lists all goods models.
@@ -30,33 +25,7 @@ class GoodsController extends Controller
     {
         $this->currentPage = $page;
 
-        $query = Wrapper::runFor(IUrls::Goods)
-            ->getPage($this->currentPage);
-
-        $this->totalPages = $query->getMetaFromJson()->pageCount;
-        $this->pageSize = $query->getMetaFromJson()->perPage;
-
-        $resultData = Wrapper::objectToArray($query->getItemFromJson());
-
-        if ($page == 1) {
-            $this->prevPage = 1;
-            $this->nextPage = 2;
-        } else if ($this->currentPage != $this->totalPages) {
-            $this->prevPage = $this->currentPage - 1;
-            $this->currentPage = $this->currentPage++;
-            $this->nextPage = $this->currentPage + 1;
-        }
-
-        $searchModel = [ 'id' => null , 'name' => null ];
-
-        $dataProvider = new ArrayDataProvider([
-            'key' => 'id' ,
-            'allModels' => $resultData ,
-            'pagination' => [ 'pageSize' => $this->pageSize , 'totalCount' => $this->totalPages ] ,
-            'sort' => [
-                'attributes' => array_keys($resultData[0])
-            ] ,
-        ]);
+        list($searchModel , $dataProvider) = $this->preparePage($page , IUrls::Goods);
 
         return $this->render('index' , [
             'searchModel' => $searchModel ,
@@ -73,16 +42,7 @@ class GoodsController extends Controller
     public function actionView($id)
     {
         return $this->render('view' , [
-            'model' => $this->findGoods($id) ,
+            'model' => $this->find($id, IUrls::Category) ,
         ]);
-    }
-
-    private function findGoods($id)
-    {
-        try {
-            return Wrapper::runFor(IUrls::Goods)->getById($id)->getItemFromJson();
-        } catch (Exception $e) {
-            throw new NotFoundHttpException($e->getMessage());
-        }
     }
 }
