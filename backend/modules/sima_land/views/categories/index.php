@@ -20,20 +20,29 @@ $this->params['breadcrumbs'][] = $this->context->currentPage;
     <h4><?= Html::encode('Страница ' . $this->context->currentPage . ' из ' . $this->context->totalPages); ?></h4>
 
     <p>
+        <?= Html::a('Первая страница' ,
+            [ Yii::$app->controller->action->id ,
+                'page' => 1 ,
+                empty($this->context->path) ? '' : 'path' => $this->context->path ,
+                empty($this->context->level) ? '' : 'level' => $this->context->level
+            ] , [ 'class' => 'btn btn-success btn-sm' ]) ?>
         <?= Html::a('Предыдущая страница' ,
             [ Yii::$app->controller->action->id ,
                 'page' => $this->context->prevPage ,
                 empty($this->context->path) ? '' : 'path' => $this->context->path ,
                 empty($this->context->level) ? '' : 'level' => $this->context->level
-            ] ,
-            [ 'class' => 'btn btn-primary' ]) ?>
+            ] , [ 'class' => 'btn btn-primary btn-sm' ]) ?>
         <?= Html::a('Следующая страница' ,
             [ Yii::$app->controller->action->id ,
                 'page' => $this->context->nextPage ,
                 empty($this->context->path) ? '' : 'path' => $this->context->path ,
                 empty($this->context->level) ? '' : 'level' => $this->context->level
-            ] ,
-            [ 'class' => 'btn btn-primary' ]) ?>
+            ] , [ 'class' => 'btn btn-primary btn-sm' ]) ?>
+        <?= Html::a('Последняя страница' , [ Yii::$app->controller->action->id ,
+            'page' => $this->context->totalPages ,
+            empty($this->context->path) ? '' : 'path' => $this->context->path ,
+            empty($this->context->level) ? '' : 'level' => $this->context->level
+        ] , [ 'class' => 'btn btn-warning btn-sm' ]) ?>
 
     </p>
 
