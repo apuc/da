@@ -19,19 +19,23 @@ $this->params['breadcrumbs'][] = $this->context->currentPage;
         <?= Html::a('Первая страница' ,
             [ Yii::$app->controller->action->id ,
                 'page' => 1 ,
-                empty($this->context->category_id) ? '' : 'category_id' => $this->context->category_id
+                empty($this->context->category_id) ? '' : 'category_id' => $this->context->category_id,
+                empty($this->context->offer_id) ? '' : 'offer_id' => $this->context->offer_id
             ] , [ 'class' => 'btn btn-success btn-sm' ]) ?>
         <?= Html::a('Предыдущая страница' , [ Yii::$app->controller->action->id ,
             'page' => $this->context->prevPage ,
-            empty($this->context->category_id) ? '' : 'category_id' => $this->context->category_id
+            empty($this->context->category_id) ? '' : 'category_id' => $this->context->category_id,
+            empty($this->context->offer_id) ? '' : 'offer_id' => $this->context->offer_id
         ] , [ 'class' => 'btn btn-primary btn-sm' ]) ?>
         <?= Html::a('Следующая страница' , [ Yii::$app->controller->action->id ,
             'page' => $this->context->nextPage ,
-            empty($this->context->category_id) ? '' : 'category_id' => $this->context->category_id
+            empty($this->context->category_id) ? '' : 'category_id' => $this->context->category_id,
+            empty($this->context->offer_id) ? '' : 'offer_id' => $this->context->offer_id
         ] , [ 'class' => 'btn btn-primary btn-sm' ]) ?>
         <?= Html::a('Последняя страница' , [ Yii::$app->controller->action->id ,
             'page' => $this->context->totalPages ,
-            empty($this->context->category_id) ? '' : 'category_id' => $this->context->category_id
+            empty($this->context->category_id) ? '' : 'category_id' => $this->context->category_id,
+            empty($this->context->offer_id) ? '' : 'offer_id' => $this->context->offer_id
         ] , [ 'class' => 'btn btn-warning btn-sm' ]) ?>
     </p>
     <?= GridView::widget([

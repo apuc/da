@@ -83,7 +83,6 @@ class CategoriesController extends DefaultController
             'searchModel' => $searchModel ,
             'dataProvider' => $dataProvider
         ]);
-
     }
 
 }
