@@ -16,7 +16,7 @@ use yii\web\NotFoundHttpException;
  */
 class DefaultController extends Controller
 {
-    public $currentPage;
+    public $currentPage = 1;
     public $prevPage;
     public $nextPage;
     public $totalPages;

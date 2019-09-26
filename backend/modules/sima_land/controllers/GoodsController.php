@@ -3,8 +3,11 @@
 
 namespace backend\modules\sima_land\controllers;
 
+use backend\modules\sima_land\models\SearchGoods;
+use Classes\Wrapper\Wrapper;
 use Exception;
 use Classes\Wrapper\IUrls;
+use yii\data\ArrayDataProvider;
 use yii\web\NotFoundHttpException;
 
 class GoodsController extends DefaultController
@@ -39,5 +42,47 @@ class GoodsController extends DefaultController
         return $this->render('view' , [
             'model' => $this->findById($id , IUrls::Goods) ,
         ]);
+    }
+
+    public function actionQuery($page = 1 , $category_id = null)
+    {
+        if ($category_id == null) {
+            return $this->actionIndex($page);
+        } else {
+            $data = array(
+                'category_id' => $category_id );
+
+            $query = Wrapper::runFor(IUrls::Goods)
+                ->query($data);
+
+            try {
+                $resultData = $this->setCounts($page , $query);
+            } catch (Exception $e) {
+                throw new NotFoundHttpException($e->getMessage());
+            }
+
+            if (empty($resultData)) {
+                throw new NotFoundHttpException("Not Found!");
+            }
+
+            $searchModel = new SearchGoods();
+
+            $dataProvider = new ArrayDataProvider([
+                'key' => 'id' ,
+                'allModels' => $resultData ,
+                'pagination' => [
+                    'pageSize' => $this->pageSize ,
+                    'totalCount' => $this->totalPages ] ,
+                'sort' => [
+                    'attributes' => array_keys($resultData[0])
+                ] ,
+            ]);
+            return $this->render('index' , [
+                'searchModel' => $searchModel ,
+                'dataProvider' => $dataProvider
+            ]);
+        }
+
+
     }
 }

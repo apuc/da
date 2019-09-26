@@ -43,21 +43,28 @@ class CategoriesController extends DefaultController
         ]);
     }
 
-    public function actionQuery($page = 1, $path = null, $level = null)
+    public function actionQuery($page = 1 , $path = null , $level = null)
     {
-        if($path == null && $level) {
+        if ($path == null && $level == null) {
             return $this->actionIndex($page);
-        }
-        else{
+        } else {
 
             $data = array(
-                'path'=> $path,
-                'level'=> $level);
+                'path' => $path ,
+                'level' => $level );
 
             $query = Wrapper::runFor(IUrls::Category)
                 ->query($data);
 
-            $resultData = $this->setCounts($page , $query);
+            try {
+                $resultData = $this->setCounts($page , $query);
+            } catch (Exception $e) {
+                throw new NotFoundHttpException($e->getMessage());
+            }
+
+            if (empty($resultData)) {
+                throw new NotFoundHttpException("Not Found!");
+            }
 
             $searchModel = new SearchCategories();
 
