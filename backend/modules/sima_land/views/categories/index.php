@@ -52,7 +52,6 @@ $this->params['breadcrumbs'][] = $this->context->currentPage;
         'columns' => [
             [ 'class' => 'yii\grid\SerialColumn' ] ,
             'id' ,
-            'sid' ,
             'name' ,
             'path' ,
             'level' ,
