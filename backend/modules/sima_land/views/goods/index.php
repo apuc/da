@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->context->currentPage;
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider ,
-        'filterModel' => $searchModel ,
+        //'filterModel' => $searchModel ,
         'columns' => [
             [ 'class' => 'yii\grid\SerialColumn' ] ,
             'id' ,

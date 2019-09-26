@@ -82,6 +82,8 @@ class DefaultController extends Controller
      */
     public function setCounts($page , Wrapper $query)
     {
+        $this->checkQuery($query);
+
         $this->totalPages = $query->getMetaFromJson()->pageCount;
         $this->pageSize = $query->getMetaFromJson()->perPage;
 
@@ -111,5 +113,19 @@ class DefaultController extends Controller
         $query = Wrapper::runFor($queryPath)
             ->query($data);
         return $query;
+    }
+
+    /**
+     * @param Wrapper $query
+     * @throws Exception
+     */
+    public function checkQuery(Wrapper $query)
+    {
+        $json = json_decode($query->getJson() , true);
+
+        if (isset($json['status'])) {
+            $message = $json['code'] . ' ' . $json['status'] . ' ' . $json['message'];
+            throw new Exception($message);
+        }
     }
 }

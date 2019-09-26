@@ -4,7 +4,6 @@
 namespace backend\modules\sima_land\controllers;
 
 use backend\modules\sima_land\models\SearchGoods;
-use Classes\Wrapper\Wrapper;
 use Exception;
 use Classes\Wrapper\IUrls;
 use yii\data\ArrayDataProvider;
@@ -24,7 +23,12 @@ class GoodsController extends DefaultController
     {
         $this->currentPage = $page;
 
-        list($searchModel , $dataProvider) = $this->preparePage($page , IUrls::Goods);
+        try{
+            list($searchModel , $dataProvider) = $this->preparePage($page , IUrls::Goods);}
+        catch (Exception $e)
+        {
+            throw new NotFoundHttpException($e->getMessage());
+        }
 
         return $this->render('index' , [
             'searchModel' => $searchModel ,
