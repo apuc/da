@@ -20,9 +20,19 @@ $this->params['breadcrumbs'][] = $this->context->currentPage;
     <h4><?= Html::encode('Страница ' . $this->context->currentPage . ' из ' . $this->context->totalPages); ?></h4>
 
     <p>
-        <?= Html::a('Предыдущая страница' , [ 'index' , 'page' => $this->context->prevPage ] ,
+        <?= Html::a('Предыдущая страница' ,
+            [ Yii::$app->controller->action->id ,
+                'page' => $this->context->prevPage ,
+                empty($this->context->path) ? '' : 'path' => $this->context->path ,
+                empty($this->context->level) ? '' : 'level' => $this->context->level
+            ] ,
             [ 'class' => 'btn btn-primary' ]) ?>
-        <?= Html::a('Следующая страница' , [ 'index' , 'page' => $this->context->nextPage ] ,
+        <?= Html::a('Следующая страница' ,
+            [ Yii::$app->controller->action->id ,
+                'page' => $this->context->nextPage ,
+                empty($this->context->path) ? '' : 'path' => $this->context->path ,
+                empty($this->context->level) ? '' : 'level' => $this->context->level
+            ] ,
             [ 'class' => 'btn btn-primary' ]) ?>
 
     </p>

@@ -13,6 +13,7 @@ use yii\web\NotFoundHttpException;
 class GoodsController extends DefaultController
 {
 
+    public $category_id;
     /**
      * Lists all goods models.
      * @param int $page
@@ -46,43 +47,40 @@ class GoodsController extends DefaultController
 
     public function actionQuery($page = 1 , $category_id = null)
     {
-        if ($category_id == null) {
-            return $this->actionIndex($page);
-        } else {
-            $data = array(
-                'category_id' => $category_id );
+        $this->currentPage = $page;
+        $this->category_id = $category_id;
 
-            $query = Wrapper::runFor(IUrls::Goods)
-                ->query($data);
+        $data = array(
+            'category_id' => $category_id ,
+            'page' => $page );
 
-            try {
-                $resultData = $this->setCounts($page , $query);
-            } catch (Exception $e) {
-                throw new NotFoundHttpException($e->getMessage());
-            }
+        $query = $this->runQuery(IUrls::Goods , $data);
 
-            if (empty($resultData)) {
-                throw new NotFoundHttpException("Not Found!");
-            }
-
-            $searchModel = new SearchGoods();
-
-            $dataProvider = new ArrayDataProvider([
-                'key' => 'id' ,
-                'allModels' => $resultData ,
-                'pagination' => [
-                    'pageSize' => $this->pageSize ,
-                    'totalCount' => $this->totalPages ] ,
-                'sort' => [
-                    'attributes' => array_keys($resultData[0])
-                ] ,
-            ]);
-            return $this->render('index' , [
-                'searchModel' => $searchModel ,
-                'dataProvider' => $dataProvider
-            ]);
+        try {
+            $resultData = $this->setCounts($page , $query);
+        } catch (Exception $e) {
+            throw new NotFoundHttpException($e->getMessage());
         }
 
+        if (empty($resultData)) {
+            throw new NotFoundHttpException("Not Found!");
+        }
 
+        $searchModel = new SearchGoods();
+
+        $dataProvider = new ArrayDataProvider([
+            'key' => 'id' ,
+            'allModels' => $resultData ,
+            'pagination' => [
+                'pageSize' => $this->pageSize ,
+                'totalCount' => $this->totalPages ] ,
+            'sort' => [
+                'attributes' => array_keys($resultData[0])
+            ] ,
+        ]);
+        return $this->render('index' , [
+            'searchModel' => $searchModel ,
+            'dataProvider' => $dataProvider
+        ]);
     }
 }

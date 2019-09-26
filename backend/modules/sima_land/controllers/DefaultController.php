@@ -16,7 +16,7 @@ use yii\web\NotFoundHttpException;
  */
 class DefaultController extends Controller
 {
-    public $currentPage = 1;
+    public $currentPage;
     public $prevPage;
     public $nextPage;
     public $totalPages;
@@ -96,5 +96,18 @@ class DefaultController extends Controller
             $this->nextPage = $this->currentPage + 1;
         }
         return $resultData;
+    }
+
+
+    /**
+     * @param $queryPath
+     * @param array $data
+     * @return Wrapper
+     */
+    public function runQuery($queryPath , array $data)
+    {
+        $query = Wrapper::runFor($queryPath)
+            ->query($data);
+        return $query;
     }
 }
