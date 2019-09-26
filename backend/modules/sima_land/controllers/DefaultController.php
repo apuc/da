@@ -88,12 +88,15 @@ class DefaultController extends Controller
         $resultData = Wrapper::objectToArray($query->getItemFromJson());
 
         if ($page == 1) {
-            $this->prevPage =  $this->totalPages;
+            $this->prevPage = $this->totalPages;
             $this->nextPage = $this->totalPages != $page ? 2 : 1;
         } else if ($this->currentPage != $this->totalPages) {
             $this->prevPage = $this->currentPage - 1;
             $this->currentPage = $this->currentPage++;
             $this->nextPage = $this->currentPage + 1;
+        } else if (($this->currentPage == $this->totalPages)) {
+            $this->prevPage = $this->currentPage - 1;
+            $this->nextPage = 1;
         }
         return $resultData;
     }
