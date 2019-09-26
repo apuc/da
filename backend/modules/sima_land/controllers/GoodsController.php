@@ -13,6 +13,7 @@ class GoodsController extends DefaultController
 {
 
     public $category_id;
+
     /**
      * Lists all goods models.
      * @param int $page
@@ -23,10 +24,9 @@ class GoodsController extends DefaultController
     {
         $this->currentPage = $page;
 
-        try{
-            list($searchModel , $dataProvider) = $this->preparePage($page , IUrls::Goods);}
-        catch (Exception $e)
-        {
+        try {
+            list($searchModel , $dataProvider) = $this->preparePage($page , IUrls::Goods);
+        } catch (Exception $e) {
             throw new NotFoundHttpException($e->getMessage());
         }
 

@@ -64,6 +64,13 @@ $this->params['breadcrumbs'][] = $this->context->currentPage;
                         [ 'class' => 'btn btn-info' ]);
                 }
             ] ,
+            [
+                'label' => 'All Goods' ,
+                'content' => function ($model) {
+                    return Html::a('Get' , [ 'goods/query' , 'category_id' => $model['id'] ] ,
+                        [ 'class' => 'btn btn-info' ]);
+                }
+            ] ,
         ]
     ]); ?>
 </div>
