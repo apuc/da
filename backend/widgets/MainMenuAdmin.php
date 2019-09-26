@@ -1034,7 +1034,12 @@ class MainMenuAdmin extends Widget
                                 'label' => 'Товары',
                                 'url' => Url::to(['/sima_land/goods/index']),
                                 'active' => Yii::$app->controller->module->id == 'goods',
-                            ]
+                            ],
+                            [
+                            'label' => 'Распродажа',
+                            'url' => Url::to(['/sima_land/offers/index']),
+                            'active' => Yii::$app->controller->module->id == 'offers',
+                        ]
                         ],
                         'options' => [
                             'class' => 'treeview',
