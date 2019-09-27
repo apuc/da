@@ -2,10 +2,12 @@
 
 namespace backend\modules\sima_land;
 
+use yii\base\Module;
+
 /**
  * sima_land module definition class
  */
-class SimaLand extends \yii\base\Module
+class SimaLand extends Module
 {
     /**
      * {@inheritdoc}

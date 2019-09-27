@@ -3,7 +3,6 @@
 
 namespace backend\modules\sima_land\models;
 
-use backend\modules\sima_land\controllers\DefaultController;
 use Classes\Wrapper\IUrls;
 use Classes\Wrapper\Wrapper;
 use yii\data\ArrayDataProvider;
