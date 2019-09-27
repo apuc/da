@@ -65,15 +65,6 @@ class DefaultController extends Controller
         return array( $searchModel , $dataProvider );
     }
 
-    public function findById($id , $url)
-    {
-        try {
-            return Wrapper::runFor($url)->getById($id)->getItemFromJson();
-        } catch (Exception $e) {
-            throw new NotFoundHttpException($e->getMessage());
-        }
-    }
-
     /**
      * @param $page
      * @param Wrapper $query
@@ -104,18 +95,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @param $queryPath
-     * @param array $data
-     * @return Wrapper
-     */
-    public function runQuery($queryPath , array $data)
-    {
-        $query = Wrapper::runFor($queryPath)
-            ->query($data);
-        return $query;
-    }
-
-    /**
      * @param Wrapper $query
      * @throws Exception
      */
@@ -127,5 +106,71 @@ class DefaultController extends Controller
             $message = $json['code'] . ' ' . $json['status'] . ' ' . $json['message'];
             throw new Exception($message);
         }
+    }
+
+    public function findById($id , $url)
+    {
+        try {
+            return Wrapper::runFor($url)->getById($id)->getItemFromJson();
+        } catch (Exception $e) {
+            throw new NotFoundHttpException($e->getMessage());
+        }
+    }
+
+    /**
+     * @param $page
+     * @param Wrapper $query
+     * @return array
+     * @throws NotFoundHttpException
+     */
+    public function createData($page , Wrapper $query)
+    {
+        $resultData = $this->setPageCounts($page , $query);
+
+        $searchModel = new SearchCategories();
+
+        $dataProvider = new ArrayDataProvider([
+            'key' => 'id' ,
+            'allModels' => $resultData ,
+            'pagination' => [
+                'pageSize' => $this->pageSize ,
+                'totalCount' => $this->totalPages ] ,
+            'sort' => [
+                'attributes' => array_keys($resultData[0])
+            ] ,
+        ]);
+        return array( $searchModel , $dataProvider );
+    }
+
+    /**
+     * @param $page
+     * @param Wrapper $query
+     * @return array
+     * @throws NotFoundHttpException
+     */
+    public function setPageCounts($page , Wrapper $query)
+    {
+        try {
+            $resultData = $this->setCounts($page , $query);
+        } catch (Exception $e) {
+            throw new NotFoundHttpException($e->getMessage());
+        }
+
+        if (empty($resultData)) {
+            throw new NotFoundHttpException("Not Found!");
+        }
+        return $resultData;
+    }
+
+    /**
+     * @param $queryPath
+     * @param array $data
+     * @return Wrapper
+     */
+    public function runQuery($queryPath , array $data)
+    {
+        $query = Wrapper::runFor($queryPath)
+            ->query($data);
+        return $query;
     }
 }

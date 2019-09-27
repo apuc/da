@@ -3,10 +3,8 @@
 
 namespace backend\modules\sima_land\controllers;
 
-use backend\modules\sima_land\models\SearchCategories;
 use Classes\Wrapper\IUrls;
 use Exception;
-use yii\data\ArrayDataProvider;
 use yii\web\NotFoundHttpException;
 
 class CategoriesController extends DefaultController
@@ -44,39 +42,25 @@ class CategoriesController extends DefaultController
         ]);
     }
 
+    /**
+     * @param int $page
+     * @param null $path
+     * @param null $level
+     * @return string
+     * @throws NotFoundHttpException
+     */
     public function actionQuery($page = 1 , $path = null , $level = null)
     {
         $this->currentPage = $page;
         $this->level = $level;
         $this->path = $path;
 
-        $query = $this->runQuery(IUrls::Category , array(
-            'path' => $path ,
-            'level' => $level ,
-            'page' => $page ));
+        list($searchModel , $dataProvider) = $this->createData($page ,
+            $this->runQuery(IUrls::Category , array(
+                'path' => $path ,
+                'level' => $level ,
+                'page' => $page )));
 
-        try {
-            $resultData = $this->setCounts($page , $query);
-        } catch (Exception $e) {
-            throw new NotFoundHttpException($e->getMessage());
-        }
-
-        if (empty($resultData)) {
-            throw new NotFoundHttpException("Not Found!");
-        }
-
-        $searchModel = new SearchCategories();
-
-        $dataProvider = new ArrayDataProvider([
-            'key' => 'id' ,
-            'allModels' => $resultData ,
-            'pagination' => [
-                'pageSize' => $this->pageSize ,
-                'totalCount' => $this->totalPages ] ,
-            'sort' => [
-                'attributes' => array_keys($resultData[0])
-            ] ,
-        ]);
         return $this->render('index' , [
             'searchModel' => $searchModel ,
             'dataProvider' => $dataProvider

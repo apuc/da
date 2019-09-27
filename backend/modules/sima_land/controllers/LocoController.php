@@ -4,11 +4,8 @@
 namespace backend\modules\sima_land\controllers;
 
 
-use backend\modules\sima_land\models\SearchCategories;
 use Classes\Wrapper\IUrls;
 use Exception;
-use yii\data\ArrayDataProvider;
-use yii\web\NotFoundHttpException;
 
 class LocoController extends DefaultController
 {
@@ -22,33 +19,13 @@ class LocoController extends DefaultController
     {
         $this->currentPage = $page;
 
-        $query = $this->runQuery(IUrls::Goods , array( 'is_loco' => 1 , 'page' => $page ));
+        list($searchModel , $dataProvider) = $this->createData($page ,
+            $this->runQuery(IUrls::Goods , array( 'is_loco' => 1 , 'page' => $page )));
 
-        try {
-            $resultData = $this->setCounts($page , $query);
-        } catch (Exception $e) {
-            throw new NotFoundHttpException($e->getMessage());
-        }
-
-        if (empty($resultData)) {
-            throw new NotFoundHttpException("Not Found!");
-        }
-
-        $searchModel = new SearchCategories();
-
-        $dataProvider = new ArrayDataProvider([
-            'key' => 'id' ,
-            'allModels' => $resultData ,
-            'pagination' => [
-                'pageSize' => $this->pageSize ,
-                'totalCount' => $this->totalPages ] ,
-            'sort' => [
-                'attributes' => array_keys($resultData[0])
-            ] ,
-        ]);
         return $this->render('index' , [
             'searchModel' => $searchModel ,
             'dataProvider' => $dataProvider
         ]);
     }
+
 }
