@@ -29,8 +29,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'priority' ,
             'priority_home' ,
             'priority_menu' ,
-            'photo' ,
-            'icon' ,
+            [
+                'attribute'=>'photo',
+                'value'=>$model->photo,
+                'format' => ['image'],
+            ],
+            [
+                'attribute'=>'icon',
+                'value'=>$model->icon,
+                'format' => ['image'],
+            ],
             'has_loco_slider' ,
             'has_design' ,
             'has_as_main_design' ,

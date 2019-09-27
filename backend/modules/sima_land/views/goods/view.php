@@ -25,7 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'name' ,
             'stuff' ,
             'size' ,
-            'img' ,
+            [
+                'attribute'=>'img',
+                'value'=>$model->img,
+                'format' => ['image'],
+            ],
             'image_title' ,
             'image_alt' ,
             'slug' ,
