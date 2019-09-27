@@ -13,6 +13,7 @@ class GoodsController extends DefaultController
 {
     public $category_id;
     public $offer_id;
+    public $gift_id;
 
     /**
      * Lists all goods models.
@@ -49,15 +50,17 @@ class GoodsController extends DefaultController
         ]);
     }
 
-    public function actionQuery($page = 1 , $category_id = null, $offer_id = null)
+    public function actionQuery($page = 1 , $category_id = null, $offer_id = null, $gift_id = null)
     {
         $this->currentPage = $page;
         $this->category_id = $category_id;
         $this->offer_id = $offer_id;
+        $this->gift_id = $gift_id;
 
         $data = array(
             'category_id' => $category_id ,
             'offer_id' => $offer_id ,
+            'gift_id' => $gift_id ,
             'page' => $page );
 
         $query = $this->runQuery(IUrls::Goods , $data);
