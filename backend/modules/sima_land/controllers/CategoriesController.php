@@ -21,7 +21,9 @@ class CategoriesController extends DefaultController
     public function actionIndex($page = 1)
     {
         $this->currentPage = $page;
-        list($searchModel , $dataProvider) = $this->preparePage($page , IUrls::Category);
+
+        list($searchModel , $dataProvider) = $this->createData($page ,
+            $this->runQuery(IUrls::Category , array( 'is_not_empty' => 1 , 'page' => $page )));
 
         return $this->render('index' , [
             'searchModel' => $searchModel ,
