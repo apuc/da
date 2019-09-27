@@ -7,7 +7,15 @@ use yii\grid\GridView;
 /* @var $searchModel backend\modules\sima_land\models\SearchGoods */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Товары';
+if (!empty($this->context->category_id))
+    $this->title = 'Товары' . ' по категории #' . $this->context->category_id;
+else if (!empty($this->context->offer_id))
+    $this->title = 'Товары' . ' по распродаже #' . $this->context->offer_id;
+else if (!empty($this->context->gift_id))
+    $this->title = 'Товары' . ' по подарку #' . $this->context->gift_id;
+else
+    $this->title = 'Товары';
+
 $this->params['breadcrumbs'][] = $this->context->currentPage;
 ?>
 <div class="goods-index">

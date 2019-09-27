@@ -6,24 +6,24 @@ namespace backend\modules\sima_land\controllers;
 
 use backend\modules\sima_land\models\SearchCategories;
 use Classes\Wrapper\IUrls;
-use Exception;
 use yii\data\ArrayDataProvider;
 use yii\web\NotFoundHttpException;
 
-class OffersController extends DefaultController
+class HitsController extends DefaultController
 {
-
     /**
      * Renders the index view for the module
      * @param $page
      * @return string
-     * @throws Exception
+     * @throws NotFoundHttpException
      */
     public function actionIndex($page = 1)
     {
         $this->currentPage = $page;
 
-        $query = $this->runQuery(IUrls::Offer , array( 'is_active' => 1 ,'page' => $page ));
+        $data = array( 'is_hit' => 1, 'has_discount' => 1, 'page' => $page  );
+
+        $query = $this->runQuery(IUrls::Goods , $data);
 
         try {
             $resultData = $this->setCounts($page , $query);

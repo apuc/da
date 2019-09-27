@@ -1051,6 +1051,16 @@ class MainMenuAdmin extends Widget
                                 'active' => Yii::$app->controller->module->id == 'gifts' ,
                             ] ,
                             [
+                                'label' => 'Крупный опт' ,
+                                'url' => Url::to([ '/sima_land/wholesale/index' ]) ,
+                                'active' => Yii::$app->controller->module->id == 'wholesale' ,
+                            ] ,
+                            [
+                                'label' => 'Хиты продаж со скидкой' ,
+                                'url' => Url::to([ '/sima_land/hits/index' ]) ,
+                                'active' => Yii::$app->controller->module->id == 'hits' ,
+                            ] ,
+                            [
                                 'label' => 'Уценённые товары' ,
                                 'url' => Url::to([ '/sima_land/markdowns/index' ]) ,
                                 'active' => Yii::$app->controller->module->id == 'markdowns' ,

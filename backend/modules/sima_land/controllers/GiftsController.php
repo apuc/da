@@ -16,14 +16,13 @@ class GiftsController extends DefaultController
      * @param $page
      * @return string
      * @throws Exception
+     * @throws NotFoundHttpException
      */
     public function actionIndex($page = 1)
     {
         $this->currentPage = $page;
 
-        $data = array( 'is_active' => 1 );
-
-        $query = $this->runQuery(IUrls::Gift , $data);
+        $query = $this->runQuery(IUrls::Gift , array( 'is_active' => 1 ,'page' => $page ));
 
         try {
             $resultData = $this->setCounts($page , $query);

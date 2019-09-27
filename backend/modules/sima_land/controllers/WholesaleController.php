@@ -3,27 +3,27 @@
 
 namespace backend\modules\sima_land\controllers;
 
-
 use backend\modules\sima_land\models\SearchCategories;
-use Classes\Wrapper\IUrls;
+use backend\modules\sima_land\models\SearchGoods;
 use Exception;
+use Classes\Wrapper\IUrls;
 use yii\data\ArrayDataProvider;
 use yii\web\NotFoundHttpException;
 
-class OffersController extends DefaultController
+class WholesaleController extends DefaultController
 {
-
     /**
      * Renders the index view for the module
      * @param $page
      * @return string
      * @throws Exception
+     * @throws NotFoundHttpException
      */
     public function actionIndex($page = 1)
     {
         $this->currentPage = $page;
 
-        $query = $this->runQuery(IUrls::Offer , array( 'is_active' => 1 ,'page' => $page ));
+        $query = $this->runQuery(IUrls::Wholesale , array( 'is_active' => 1 , 'page'=> $page));
 
         try {
             $resultData = $this->setCounts($page , $query);

@@ -22,9 +22,7 @@ class MarkdownsController extends DefaultController
     {
         $this->currentPage = $page;
 
-        $data = array( 'is_markdown' => 1 );
-
-        $query = $this->runQuery(IUrls::Goods , $data);
+        $query = $this->runQuery(IUrls::Goods , array( 'is_markdown' => 1 ));
 
         try {
             $resultData = $this->setCounts($page , $query);

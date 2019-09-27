@@ -22,9 +22,7 @@ class LocoController extends DefaultController
     {
         $this->currentPage = $page;
 
-        $data = array( 'is_loco' => 1 );
-
-        $query = $this->runQuery(IUrls::Goods , $data);
+        $query = $this->runQuery(IUrls::Goods ,  array( 'is_loco' => 1, 'page' => $page ));
 
         try {
             $resultData = $this->setCounts($page , $query);

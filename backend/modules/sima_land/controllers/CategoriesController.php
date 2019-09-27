@@ -50,12 +50,10 @@ class CategoriesController extends DefaultController
         $this->level = $level;
         $this->path = $path;
 
-        $data = array(
+        $query = $this->runQuery(IUrls::Category , array(
             'path' => $path ,
-            'level' => $level,
-            'page' => $page );
-
-        $query = $this->runQuery(IUrls::Category , $data);
+            'level' => $level ,
+            'page' => $page ));
 
         try {
             $resultData = $this->setCounts($page , $query);
