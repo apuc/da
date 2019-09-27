@@ -4,8 +4,8 @@
 namespace backend\modules\sima_land\controllers;
 
 use backend\modules\sima_land\models\SearchGoods;
-use Exception;
 use Classes\Wrapper\IUrls;
+use Exception;
 use yii\data\ArrayDataProvider;
 use yii\web\NotFoundHttpException;
 

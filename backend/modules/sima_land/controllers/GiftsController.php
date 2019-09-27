@@ -22,7 +22,7 @@ class GiftsController extends DefaultController
     {
         $this->currentPage = $page;
 
-        $query = $this->runQuery(IUrls::Gift , array( 'is_active' => 1 ,'page' => $page ));
+        $query = $this->runQuery(IUrls::Gift , array( 'is_active' => 1 , 'page' => $page ));
 
         try {
             $resultData = $this->setCounts($page , $query);

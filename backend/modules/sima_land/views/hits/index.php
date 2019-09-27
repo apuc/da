@@ -1,7 +1,7 @@
 <?php
 
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->context->currentPage;
                 'label' => 'Full Info' ,
                 'format' => 'raw' ,
                 'content' => function ($model) {
-                    return Html::a('View' , [ 'view' , 'id' => $model['id'] ] ,
+                    return Html::a('View' , [ 'goods/view' , 'id' => $model['id'] ] ,
                         [ 'class' => 'btn btn-info' ]);
                 }
             ] ,

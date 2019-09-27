@@ -4,9 +4,8 @@
 namespace backend\modules\sima_land\controllers;
 
 use backend\modules\sima_land\models\SearchCategories;
-use backend\modules\sima_land\models\SearchGoods;
-use Exception;
 use Classes\Wrapper\IUrls;
+use Exception;
 use yii\data\ArrayDataProvider;
 use yii\web\NotFoundHttpException;
 
@@ -23,7 +22,7 @@ class WholesaleController extends DefaultController
     {
         $this->currentPage = $page;
 
-        $query = $this->runQuery(IUrls::Wholesale , array( 'is_active' => 1 , 'page'=> $page));
+        $query = $this->runQuery(IUrls::Wholesale , array( 'is_active' => 1 , 'page' => $page ));
 
         try {
             $resultData = $this->setCounts($page , $query);

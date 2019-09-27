@@ -5,8 +5,8 @@ namespace backend\modules\sima_land\controllers;
 
 
 use backend\modules\sima_land\models\SearchCategories;
-use Exception;
 use Classes\Wrapper\IUrls;
+use Exception;
 use yii\data\ArrayDataProvider;
 use yii\web\NotFoundHttpException;
 
@@ -22,7 +22,7 @@ class LocoController extends DefaultController
     {
         $this->currentPage = $page;
 
-        $query = $this->runQuery(IUrls::Goods ,  array( 'is_loco' => 1, 'page' => $page ));
+        $query = $this->runQuery(IUrls::Goods , array( 'is_loco' => 1 , 'page' => $page ));
 
         try {
             $resultData = $this->setCounts($page , $query);

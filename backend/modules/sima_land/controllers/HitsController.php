@@ -21,7 +21,7 @@ class HitsController extends DefaultController
     {
         $this->currentPage = $page;
 
-        $data = array( 'is_hit' => 1, 'has_discount' => 1, 'page' => $page  );
+        $data = array( 'is_hit' => 1 , 'has_discount' => 1 , 'page' => $page );
 
         $query = $this->runQuery(IUrls::Goods , $data);
 

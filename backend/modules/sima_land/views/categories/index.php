@@ -1,9 +1,7 @@
 <?php
 
-use http\Url;
-use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\ActiveForm;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\sima_land\models\SearchCategories */
