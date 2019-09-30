@@ -8,7 +8,7 @@
     "support": {
         "source": "https://github.com/apuc/yii2-advanced"
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": ">=2.0.6@stable",
@@ -30,7 +30,8 @@
         "miloschuman/yii2-highcharts-widget": "*",
         "cagartner/phpquery": "*",
         "abraham/twitteroauth": "^0.7.4",
-        "kartik-v/bootstrap-star-rating": "@dev"
+        "kartik-v/bootstrap-star-rating": "@dev",
+        "craft-group/sima-land-api": "dev-master"
 
     },
     "require-dev": {
