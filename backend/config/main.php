@@ -167,6 +167,9 @@ return [
         'service' => [
             'class' => 'backend\modules\service\Service',
         ],
+        'sima_land' => [
+            'class' => 'backend\modules\sima_land\SimaLand',
+        ],
     ],
     'components' => [
         'cart' => [
