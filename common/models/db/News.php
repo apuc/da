@@ -215,4 +215,13 @@ class News extends \yii\db\ActiveRecord
             ->all();
 
     }
+
+    /**
+     * @param $id
+     * @return static
+     */
+    public static function findById($id)
+    {
+        return static::findOne(['id' => $id]);
+    }
 }

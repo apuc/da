@@ -6,8 +6,10 @@ use Classes\Wrapper\IUrls;
 use Classes\Wrapper\Wrapper;
 use common\classes\Debug;
 
-class SimaController extends \yii\web\Controller
+class SimaController extends \yii\rest\Controller
 {
+    public $enableCsrfValidation = false;
+
     public static function allowedDomains() {
         return [
             '*',
@@ -25,6 +27,9 @@ class SimaController extends \yii\web\Controller
                 // restrict access to domains:
                 'Origin'                           => static::allowedDomains(),
                 'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+                'Access-Control-Request-Headers' => ['*'],
+                'Access-Control-Allow-Origin' => ['*'],
+                'Access-Control-Allow-Credentials' => true,
                 'Access-Control-Max-Age'           => 3600,                 // Cache (seconds)
             ],
         ];
