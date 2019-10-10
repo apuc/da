@@ -10,7 +10,8 @@ class SimaController extends \yii\rest\Controller
 {
     public $enableCsrfValidation = false;
 
-    public static function allowedDomains() {
+    public static function allowedDomains()
+    {
         return [
             '*',
         ];
@@ -23,14 +24,14 @@ class SimaController extends \yii\rest\Controller
         // add CORS filter
         $behaviors['corsFilter'] = [
             'class' => \yii\filters\Cors::className(),
-            'cors'  => [
+            'cors' => [
                 // restrict access to domains:
-                'Origin'                           => static::allowedDomains(),
+                'Origin' => static::allowedDomains(),
                 'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
                 'Access-Control-Request-Headers' => ['*'],
                 'Access-Control-Allow-Origin' => ['*'],
                 'Access-Control-Allow-Credentials' => true,
-                'Access-Control-Max-Age'           => 3600,                 // Cache (seconds)
+                'Access-Control-Max-Age' => 3600,                 // Cache (seconds)
             ],
         ];
 
@@ -44,15 +45,33 @@ class SimaController extends \yii\rest\Controller
 
     public function actionCategory()
     {
-        $data = array(
-            'level'=>'1');
+        $cache = \Yii::$app->cache;
+        $items = $cache->get('sima-category');
 
-        $res = Wrapper::runFor(IUrls::Category)
-            ->query($data)->getJson();
+        if(!$items){
+            $items = [];
 
-        //$res = json_encode($res);
+            $res = Wrapper::runFor(IUrls::Category)
+                ->query(['level' => '1'])->getItemFromJson();
 
-        return $res;
+            //$res = json_encode($res);
+
+            foreach ((array)$res as $re) {
+                $subCat = Wrapper::runFor(IUrls::Category)
+                    ->query(['level' => '2', 'path' => $re->path])->getItemFromJson();
+                $items[] = [
+                    'id' => $re->id,
+                    'photo' => $re->photo,
+                    'icon' => $re->icon,
+                    'name' => $re->name,
+                    'full_slug' => $re->full_slug,
+                    'subCat' => $subCat,
+                ];
+            }
+            $cache->set('sima-category', $items, 60 * 60 * 24);
+        }
+
+        return json_encode($items);
     }
 
 }
