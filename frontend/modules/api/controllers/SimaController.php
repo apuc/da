@@ -45,6 +45,7 @@ class SimaController extends \yii\rest\Controller
 
     public function actionCategory()
     {
+        header("Access-Control-Allow-Origin: *");
         $cache = \Yii::$app->cache;
         $items = $cache->get('sima-category');
 
