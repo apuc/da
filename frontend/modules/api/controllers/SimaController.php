@@ -17,26 +17,26 @@ class SimaController extends \yii\rest\Controller
         ];
     }
 
-    public function behaviors()
-    {
-        $behaviors = parent::behaviors();
-
-        // add CORS filter
-        $behaviors['corsFilter'] = [
-            'class' => \yii\filters\Cors::className(),
-            'cors' => [
-                // restrict access to domains:
-                'Origin' => static::allowedDomains(),
-                'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
-                'Access-Control-Request-Headers' => ['*'],
-                'Access-Control-Allow-Origin' => ['*'],
-                'Access-Control-Allow-Credentials' => true,
-                'Access-Control-Max-Age' => 3600,                 // Cache (seconds)
-            ],
-        ];
-
-        return $behaviors;
-    }
+//    public function behaviors()
+//    {
+//        $behaviors = parent::behaviors();
+//
+//        // add CORS filter
+//        $behaviors['corsFilter'] = [
+//            'class' => \yii\filters\Cors::className(),
+//            'cors' => [
+//                // restrict access to domains:
+//                'Origin' => static::allowedDomains(),
+//                'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+//                'Access-Control-Request-Headers' => ['*'],
+//                'Access-Control-Allow-Origin' => ['*'],
+//                'Access-Control-Allow-Credentials' => true,
+//                'Access-Control-Max-Age' => 3600,                 // Cache (seconds)
+//            ],
+//        ];
+//
+//        return $behaviors;
+//    }
 
     public function actionIndex()
     {
