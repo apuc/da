@@ -9,7 +9,9 @@
 
     <div class="category-photo">
         <?php
-        if (!empty($model['cover'])): ?>
+        if(empty($model->id)): ?>
+            <img src="<?=$model->cover?>" alt="<?= $model['title']; ?>">
+        <?php elseif (!empty($model['cover'])): ?>
             <img src="<?= \common\models\UploadPhoto::getImageOrNoImage( $model['cover']); ?>" alt="<?= $model['title']; ?>">
         <?php else: ?>
             <?php if(!empty($model['images'][0]->img_thumb)): ?>

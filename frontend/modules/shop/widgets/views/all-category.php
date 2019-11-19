@@ -17,12 +17,16 @@ if ($this->beginCache('show_category_shop', ['duration' => Yii::$app->params['ho
     echo Html::a('text', Url::to(['/shop/shop/product', 'slug' => 'shop']));*/
     ?>
     <section class="mobile-second-menu">
+        <button class="change-shop-categories jsChangeShopCategoriesMob">
+            <span class="jsChangeTextMob">Категории магазинов ДНР</span>
+            <img src="/theme/portal-donbassa/img/refresh.svg" alt="">
+        </button>
         <div class="mobile-second-menu__header">
             <div class="header-m-arrow"></div>
             <span>Каталог</span> <a href="#" class="header-close"><img
                         src="/theme/portal-donbassa/img/second-menu/close.svg" alt=""></a>
         </div>
-        <div class="mobile-second-menu__wrap">
+        <div class="mobile-second-menu__wrap jsShopCategoriesMob">
             <ul class="mobile-menu-lvl-1">
 
                 <?php
@@ -87,12 +91,17 @@ if ($this->beginCache('show_category_shop', ['duration' => Yii::$app->params['ho
     </section>
     <div class="shop__categories">
 
+        <button class="change-shop-categories jsChangeShopCategories">
+            <span class="jsChangeText">Категории магазинов ДНР</span>
+            <img src="/theme/portal-donbassa/img/refresh.svg" alt="">
+        </button>
+
         <div class="shop__categories--title">
             <span>Категории</span>
             <a href="<?= Url::to(['/shop/shop/index']); ?>">Смотреть все ></a>
         </div>
 
-        <ul class="shop__categories--list">
+        <ul class="shop__categories--list jsShopCategories">
             <?php foreach ($category[0] as $cat): ?>
                 <li>
                     <a href="<?= Url::to(['/shop/shop/category', 'category' => [$cat->slug]]) ?>"><?= $cat->name; ?></a>

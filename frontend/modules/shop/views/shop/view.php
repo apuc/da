@@ -32,7 +32,7 @@ foreach ($categoryList as $key => $item) {
     $this->params['breadcrumbs'][] =
         [
             'label' => $item['name'],
-            'url' => Url::to(['/shop/shop/category', 'category' => [$url, $item['slug']]]),
+            'url' => Url::to(['/sima/shop/category', 'category' => [$url, $item['slug']]]),
         ];
 
 }

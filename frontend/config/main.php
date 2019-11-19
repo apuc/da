@@ -357,6 +357,7 @@ return \yii\helpers\ArrayHelper::merge([
 
 
                 'shop/all-category/<page:\d+>' => 'shop/shop/index',
+                'shop/sima-land/<slug>' => 'shop/shop/sima-land',
                 'shop/all-category' => 'shop/shop/index',
                 'shop/product/<slug>' => 'shop/shop/show',
                 'shop/service/<slug>' => 'shop/shop/show-service',

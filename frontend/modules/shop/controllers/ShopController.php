@@ -8,20 +8,27 @@
 
 namespace frontend\modules\shop\controllers;
 
+use backend\modules\category\Category;
+use Classes\Wrapper\IUrls;
+use Classes\Wrapper\Wrapper;
 use common\classes\Cart;
 use common\classes\DaMail;
 use common\classes\Debug;
 use common\classes\Shop;
 use common\models\db\KeyValue;
 use common\models\db\LikeProducts;
+use common\models\db\ProductMark;
 use common\models\db\ProductsImg;
 use common\models\db\ServiceReservation;
 use frontend\modules\shop\models\CategoryShop;
 use frontend\modules\shop\models\Products;
 use Yii;
 use dektrium\user\models\User;
+use yii\data\ArrayDataProvider;
+use yii\data\Pagination;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\httpclient\Client;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -76,7 +83,7 @@ class ShopController extends Controller
         $categoryModel = $model->getCategoryInfoBySlug($category);
 
 
-        if(!$categoryModel){
+        if (!$categoryModel) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
 
@@ -98,9 +105,7 @@ class ShopController extends Controller
                 'status' => \common\models\db\CategoryShop::STATUS_PUBLIC])->all();
 
 
-
             $categoryTreeArr = $categoryModel->getArrayTreeCategory($category);
-
             return $this->render('category',
                 [
                     'categoryInfo' => $categoryModel,
@@ -111,6 +116,7 @@ class ShopController extends Controller
                 ]);
         }
 
+       //Debug::dd($categoryList);
         return $this->render('list-products',
             [
                 'categoryInfo' => $categoryModel,
@@ -118,6 +124,71 @@ class ShopController extends Controller
                 'categoryList' => $categoryList,
             ]);
 
+    }
+
+    public function actionSimaLand($slug)
+    {
+        $result = Wrapper::runFor(IUrls::Category)->query(['full_slug' => $slug])->getItemFromJson();
+        if (count($result) != 1)
+            return 123;
+        $result = Wrapper::runFor(IUrls::Goods)->query(['category_id' => $result[0]->id])->getItemFromJson();
+        $products_items = [];
+        foreach ($result as $item) {
+            $tmp = new \common\models\db\Products();
+            $tmp->price = $item->price;
+            $tmp->title = $item->name;
+            $tmp->cover = $item->img;
+            $tmp->slug = $item->slug;
+            $products_items[] = $tmp;
+        }
+        $products = new ArrayDataProvider([
+            'allModels' => $products_items
+        ]);
+        $model = new CategoryShop();
+        $categoryModel = new CategoryShop();
+
+
+        if (!$categoryModel) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
+//        $modelProduct = new Products();
+//        if (count(Yii::$app->request->get()) > 1 && !Yii::$app->request->get('page')) {
+//            $products = $modelProduct->listProductFilter(16, $categoryModel->id, Yii::$app->request->get());
+//        } else {
+//            $products = $modelProduct->listProduct(16, $categoryModel->id);
+//        }
+
+        $categoryList = \common\classes\Shop::getListCategoryAllInfo($categoryModel->id, []);
+
+
+        $category = Wrapper::runFor(IUrls::Category)->query([''])->getItemFromJson();
+        //Debug::dd($category);
+//        if ($category) {
+//
+//
+//
+//            return $this->render('category',
+//                [
+//                    'categoryInfo' => $categoryModel,
+//                    'categoryTreeArr' => $categoryTreeArr,
+//                    'ollCategory' => ArrayHelper::index($category, 'id'),
+//                    'products' => $products,
+//                    'categoryList' => $categoryList,
+//                ]);
+//        }
+        $categoryList = [];
+            foreach ($category as $i) {
+                $tmp = new CategoryShop();
+                $tmp->name = $i->title;
+                $categoryList[] = $tmp;
+            }
+        return $this->render('list-products',
+            [
+                'categoryInfo' => $categoryModel,
+                'products' => $products,
+                'categoryList' => $categoryList,
+            ]);
     }
 
     /**
@@ -289,14 +360,13 @@ class ShopController extends Controller
     {
 
         $post = Yii::$app->request->post();
-        if(empty($post['text']))
+        if (empty($post['text']))
             return '';
         $result = '';
-        foreach($post['text'] as $text)
-        {
+        foreach ($post['text'] as $text) {
             $times = explode('-', $text);
             $date = strtotime($post['date']);
-            $date = date('y-m-d',$date);
+            $date = date('y-m-d', $date);
             $all_count = Products::findOne($post['product_id'])->person_count;
             $count = ServiceReservation::find()
                 ->where([
@@ -332,7 +402,7 @@ class ShopController extends Controller
                 ->setTo($user->email)
                 ->setFrom(['noreply@da-info.pro' => 'DA-Info'])
                 ->setTpl('layouts/html')
-                ->setContent('<div>Пользователь ' . $user->username .  ' заказал у вас услугу: ' . $product->title . ' с ' . $time[0] . ' до ' . $time[1] . '.</div>')
+                ->setContent('<div>Пользователь ' . $user->username . ' заказал у вас услугу: ' . $product->title . ' с ' . $time[0] . ' до ' . $time[1] . '.</div>')
                 ->send();
             DaMail::createMsg()->setSubject('Заказ ожидает обработки')
                 ->setTo($product->company->email)
@@ -349,7 +419,7 @@ class ShopController extends Controller
                 'product_id' => $id,
                 'date' => $date
             ])->count();
-        if($count < \common\models\db\Products::findOne($id)->person_count)
+        if ($count < \common\models\db\Products::findOne($id)->person_count)
             return 'not full';
         else return 'full';
     }
