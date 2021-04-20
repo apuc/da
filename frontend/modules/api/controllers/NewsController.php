@@ -46,7 +46,7 @@ class NewsController extends Controller
      */
     public function actionGetNewsCategories()
     {
-        $categories = CategoryNews::find()->all();
+        $categories = CategoryNews::find()->asArray()->all();
 
         return json_encode($categories);
     }
