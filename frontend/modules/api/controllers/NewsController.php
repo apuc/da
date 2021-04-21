@@ -28,7 +28,7 @@ class NewsController extends Controller
         } else {
             ($category_id) ? $query->leftJoin('category_news_relations', '`category_news_relations`.`new_id` = `news`.`id`')
                 ->where(['category_news_relations.cat_id' => $category_id]) : '';
-            ($limit) ? $query->limit($limit) : '';
+            ($limit) ? $query->limit($limit) : $query->limit(20);
             ($offset) ? $query->offset($offset) : '';
         }
 
