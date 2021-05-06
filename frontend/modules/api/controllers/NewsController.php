@@ -32,13 +32,18 @@ class NewsController extends Controller
             ($offset) ? $query->offset($offset) : '';
         }
 
-        $news = $query->asArray()->all();
+        $news = $query->orderBy(['id' => SORT_DESC])->asArray()->all();
 
         if (!empty($news)) {
             return json_encode($news);
         } else {
             return json_encode('News not found');
         }
+    }
+
+    public function actionGetAmount()
+    {
+        return News::find()->count();
     }
 
     /**
