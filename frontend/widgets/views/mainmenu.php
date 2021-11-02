@@ -15,6 +15,7 @@
         <li><a href="<?= \yii\helpers\Url::to(['/all-new'])?>">Новости</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/all-company'])?>">Компании</a></li>
         <li><a href="<?= \yii\helpers\Url::to(['/board/default'])?>">Объявления</a></li>
+        <li><a href="<?= \yii\helpers\Url::to(['/shop'])?>">Товары</a></li>
     </ul>
 
     <!--<div class="header-menu__sub">
