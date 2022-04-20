@@ -2,12 +2,17 @@
 
 namespace frontend\modules\mainpage\widgets;
 
+use common\models\db\GeobaseCity;
 use yii\base\Widget;
 
 class ShowSearchMissingPeopleForm extends Widget
 {
     public function run()
     {
-       return $this->render('search-people-form', []);
+        $cities = GeobaseCity::find()->orderBy('name')->all();
+
+       return $this->render('search-people-form', [
+           'cities' => $cities
+       ]);
     }
 }
