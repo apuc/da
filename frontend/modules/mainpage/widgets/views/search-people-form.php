@@ -1,10 +1,14 @@
 <?php
 
+use common\models\db\GeobaseCity;
 use yii\helpers\Url;
 use common\classes\WordFunctions;
+
+/** @var $cities GeobaseCity[] */
 ?>
 
 <link rel="stylesheet" href="css/raw/search-missing-person.css">
+
 <form class="search-people-form" action="#" method="post">
     <h3>Оперативное оповещение о пропавших</h3>
     <p class="search-people-form__header">
@@ -30,12 +34,16 @@ use common\classes\WordFunctions;
                         </select>
                     </div>
                     <div class="search-people-form__select">
-                        <select class="search-people-form__place-select">
-                            <option value="" disabled selected>
-                                Выберите местоположение
-                            </option>
-                            <option value="Донецк">Донецк</option>
-                            <option value="Макеевка">Макеевка</option>
+                        <select class="search-people-form__place-select" name="city_id" placeholder="Выберите город" id="city_select">
+<!--                            <option value="" disabled selected>-->
+<!--                                Выберите местоположение-->
+<!--                            </option>-->
+                            <?php
+                            foreach ($cities as $city){ ?>
+                                <option value="<?= $city->id ?>"><?= $city->name ?></option>
+                            <?php
+                            }
+                            ?>
                         </select>
                     </div>
                 </div>
