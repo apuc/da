@@ -45,7 +45,7 @@ $md = new \common\classes\Mobile_Detect();
 ?>
 
 <section class="news">
-    <amp-auto-ads type="adsense" data-ad-client="ca-pub-7346523585639786"></amp-auto-ads>
+<!--    <amp-auto-ads type="adsense" data-ad-client="ca-pub-7346523585639786"></amp-auto-ads>-->
     <div class="container">
 
         <?= Breadcrumbs::widget([
