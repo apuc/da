@@ -13,7 +13,7 @@ class m220420_222222_create_missing_person_table extends Migration
         $this->createTable('missing_person', [
             'id' => $this->primaryKey(),
             'FIO' => $this->string(512),
-            'day_of_birth' => $this->timestamp(),
+            'date_of_birth' => $this->timestamp(),
             'city_id' => $this->integer()->unsigned()->notNull(),
         ]);
 
