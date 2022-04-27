@@ -8,6 +8,11 @@ use yii\web\Controller;
 
 class JournalController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     public function actionIndex()
     {
         $journals = Journal::find()

@@ -14,6 +14,11 @@ use yii\filters\VerbFilter;
  */
 class ErrorController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */

@@ -14,6 +14,12 @@ use yii\filters\VerbFilter;
  */
 class CityController extends Controller
 {
+
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */

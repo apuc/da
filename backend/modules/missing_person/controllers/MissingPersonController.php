@@ -6,6 +6,11 @@ use yii\web\Request;
 
 class MissingPersonController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */

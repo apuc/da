@@ -15,6 +15,11 @@ use yii\web\Controller;
  */
 class DefaultController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
 
     public $layout = 'shop';
 

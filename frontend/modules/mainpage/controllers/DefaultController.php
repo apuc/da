@@ -17,7 +17,13 @@ use yii\web\Controller;
 /**
  * Default controller for the `mainpage` module
  */
-class DefaultController extends Controller {
+class DefaultController extends Controller
+{
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * Renders the index view for the module
      * @return string
@@ -25,52 +31,56 @@ class DefaultController extends Controller {
 
     //public $layout = 'portal';
 
-    public function actionIndex() {
+    public function actionIndex()
+    {
         $keyVal = KeyValue::find()->all();
         $useReg = UserFunction::getRegionUser();
-        return $this->render( 'index',
+        return $this->render('index',
             [
                 'meta' => ArrayHelper::index($keyVal, 'key'),
                 'useReg' => $useReg,
             ]
-    );
+        );
     }
 
-    public function actionGet_news_by_cat() {
-        $news = News::find()->leftJoin( 'category_news_relations', '`category_news_relations`.`new_id` = `news`.`id`' );
-        if ( $_POST['id'] == 0 ) {
-            $news->where( [ 'lang_id' => Lang::getCurrent()['id'] ] );
+    public function actionGet_news_by_cat()
+    {
+        $news = News::find()->leftJoin('category_news_relations', '`category_news_relations`.`new_id` = `news`.`id`');
+        if ($_POST['id'] == 0) {
+            $news->where(['lang_id' => Lang::getCurrent()['id']]);
         } else {
-            $news->where( [ 'lang_id' => Lang::getCurrent()['id'], 'cat_id' => $_POST['id'] ] );
+            $news->where(['lang_id' => Lang::getCurrent()['id'], 'cat_id' => $_POST['id']]);
         }
-        $news = $news->limit( 10 )->all();
+        $news = $news->limit(10)->all();
 
-        return $this->renderPartial( 'news_list', [ 'news' => $news ] );
+        return $this->renderPartial('news_list', ['news' => $news]);
     }
 
-    public function actionGet_news_by_id() {
-        return $this->renderPartial( 'new_item', [
-            'news' => News::findOne( $_POST['id'] ),
-        ] );
+    public function actionGet_news_by_id()
+    {
+        return $this->renderPartial('new_item', [
+            'news' => News::findOne($_POST['id']),
+        ]);
     }
 
-    public function actionGet_company_by_cat() {
-        $all_cats = CategoryCompany::find()->where( [ 'parent_id' => $_POST['id'] ] )->all();
-        $cats_id  = [ ];
-        foreach ( $all_cats as $cat ) {
+    public function actionGet_company_by_cat()
+    {
+        $all_cats = CategoryCompany::find()->where(['parent_id' => $_POST['id']])->all();
+        $cats_id = [];
+        foreach ($all_cats as $cat) {
             $cats_id[] = $cat->id;
         }
         //Debug::prn($cats_id);
 
         $company = Company::find()
-                          ->leftJoin( 'category_company_relations', '`category_company_relations`.`company_id` = `company`.`id`' )
-                          ->where( [ 'lang_id' => Lang::getCurrent()['id'], 'cat_id' => $cats_id ] )
-                          ->limit( 10 )
-                          ->all();
+            ->leftJoin('category_company_relations', '`category_company_relations`.`company_id` = `company`.`id`')
+            ->where(['lang_id' => Lang::getCurrent()['id'], 'cat_id' => $cats_id])
+            ->limit(10)
+            ->all();
 
         //Debug::prn($company->createCommand()->getRawSql());
-        return $this->renderPartial( 'company_list', [
+        return $this->renderPartial('company_list', [
             'company' => $company,
-        ] );
+        ]);
     }
 }

@@ -27,6 +27,10 @@ use yii\web\NotFoundHttpException;
 
 class ShopController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
 
     public $layout = 'shop';
 

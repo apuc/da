@@ -16,7 +16,13 @@ use yii\widgets\ActiveForm;
 /**
  * Category_faqController implements the CRUD actions for CategoryFaq model.
  */
-class Category_faqController extends Controller {
+class Category_faqController extends Controller
+{
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */

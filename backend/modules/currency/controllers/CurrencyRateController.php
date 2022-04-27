@@ -14,6 +14,11 @@ use yii\filters\VerbFilter;
  */
 class CurrencyRateController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */

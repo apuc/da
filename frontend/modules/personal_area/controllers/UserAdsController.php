@@ -20,6 +20,11 @@ class UserAdsController extends Controller
     public $siteApi;
     public $apiKey;
 
+    function init()
+    {
+        parent::init();
+    }
+
     public function behaviors()
     {
         return [

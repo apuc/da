@@ -17,6 +17,11 @@ class DefaultController extends Controller
     public $siteApi;
     public $apiKey;
 
+    function init()
+    {
+        parent::init();
+    }
+
 
     /**
      * @inheritdoc
@@ -50,20 +55,19 @@ class DefaultController extends Controller
     public function actionIndex()
     {
         //Debug::prn($_GET);
-        $url = $this->siteApi . '/ads/ads-list-all?limit=20&expand=categoryAds&page=' . Yii::$app->request->get('page',1) . '&api_key=' . $this->apiKey;
-        if (BoardFunction::isDomainAvailible($url)){
-            if(Yii::$app->request->get('status-ads')){
-                $rez = BoardFunction::fileGetContent($this->siteApi . '/ads/ads-list-all?limit=20&expand=categoryAds&page=' . Yii::$app->request->get('page',1) . '&api_key=' . $this->apiKey . '&status=' . Yii::$app->request->get('status-ads'));
-            }
-            else{
-                $rez = BoardFunction::fileGetContent($this->siteApi . '/ads/ads-list-all?limit=20&expand=categoryAds&page=' . Yii::$app->request->get('page',1) . '&api_key=' . $this->apiKey);
+        $url = $this->siteApi . '/ads/ads-list-all?limit=20&expand=categoryAds&page=' . Yii::$app->request->get('page', 1) . '&api_key=' . $this->apiKey;
+        if (BoardFunction::isDomainAvailible($url)) {
+            if (Yii::$app->request->get('status-ads')) {
+                $rez = BoardFunction::fileGetContent($this->siteApi . '/ads/ads-list-all?limit=20&expand=categoryAds&page=' . Yii::$app->request->get('page', 1) . '&api_key=' . $this->apiKey . '&status=' . Yii::$app->request->get('status-ads'));
+            } else {
+                $rez = BoardFunction::fileGetContent($this->siteApi . '/ads/ads-list-all?limit=20&expand=categoryAds&page=' . Yii::$app->request->get('page', 1) . '&api_key=' . $this->apiKey);
             }
 
             $rez = json_decode($rez);
 
-            if(!isset($rez->_meta->totalCount)){
+            if (!isset($rez->_meta->totalCount)) {
                 echo $rez;
-            }else{
+            } else {
                 $pagination = new Pagination([
                     'defaultPageSize' => 10,
                     'totalCount' => $rez->_meta->totalCount,
@@ -81,9 +85,7 @@ class DefaultController extends Controller
         }
 
 
-
         //$rez = file_get_contents($this->siteApi . '/ads/index?limit=10&expand=adsImgs,adsFieldsValues,city,region,categoryAds&page=' . Yii::$app->request->get('page',1));
-
 
 
     }
@@ -93,10 +95,9 @@ class DefaultController extends Controller
         $ads = BoardFunction::fileGetContent($this->siteApi . '/ads/' . $id . '?expand=adsImgs,adsFieldsValues' . '&api_key=' . $this->apiKey);
 
         $ads = json_decode($ads);
-        if(!isset($ads->title)){
+        if (!isset($ads->title)) {
             echo $ads;
-        }
-        else {
+        } else {
             return $this->render('view',
                 [
                     'ads' => $ads,
@@ -107,7 +108,7 @@ class DefaultController extends Controller
 
     public function actionEditStatus($status, $id)
     {
-        BoardFunction::fileGetContent($this->siteApi . '/ads/edit-status?id=' . $id . '&status=' . $status .'&api_key=' . $this->apiKey);
+        BoardFunction::fileGetContent($this->siteApi . '/ads/edit-status?id=' . $id . '&status=' . $status . '&api_key=' . $this->apiKey);
         return $this->redirect(['index']);
     }
 }

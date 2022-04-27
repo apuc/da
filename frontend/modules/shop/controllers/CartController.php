@@ -23,6 +23,11 @@ class CartController extends Controller
 {
     public $layout = 'shop';
 
+    function init()
+    {
+        parent::init();
+    }
+
     public function behaviors()
     {
         return array_merge(parent::behaviors(), [

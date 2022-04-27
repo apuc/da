@@ -14,6 +14,12 @@ use yii\filters\VerbFilter;
  */
 class Company_feedbackController extends Controller
 {
+
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */

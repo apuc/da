@@ -12,6 +12,11 @@ use yii\web\Controller;
 
 class ProductsController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */

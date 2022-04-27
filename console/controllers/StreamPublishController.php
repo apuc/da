@@ -17,6 +17,13 @@ use yii\console\Controller;
 
 class StreamPublishController extends Controller
 {
+
+    function init()
+    {
+        parent::init();
+    }
+
+
     public function actionIndex()
     {
         $stream = VkStream::find()->where(['status' => 4])->orderBy('dt_publish DESC')->one();

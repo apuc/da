@@ -22,6 +22,13 @@ use yii\web\NotFoundHttpException;
 
 class OrderTariffController extends Controller
 {
+
+    function init()
+    {
+        parent::init();
+    }
+
+
     /**
      * @inheritdoc
      */

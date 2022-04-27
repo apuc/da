@@ -14,6 +14,11 @@ use yii\web\Controller;
 
 class UserDesireController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     public function behaviors()
     {
         return [

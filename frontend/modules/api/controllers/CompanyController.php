@@ -8,6 +8,7 @@ class CompanyController extends \yii\web\Controller
 {
     public function init()
     {
+        parent::init();
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
     }
 

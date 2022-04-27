@@ -17,6 +17,13 @@ use yii\filters\VerbFilter;
  */
 class Soc_companyController extends Controller
 {
+
+    function init()
+    {
+        parent::init();
+    }
+
+
     /**
      * @inheritdoc
      */

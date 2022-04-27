@@ -15,6 +15,11 @@ use yii\filters\AccessControl;
 
 class UserCompanyController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     public function behaviors()
     {
         return [

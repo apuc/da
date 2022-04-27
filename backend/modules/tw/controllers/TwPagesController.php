@@ -17,6 +17,11 @@ use yii\filters\VerbFilter;
  */
 class TwPagesController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */

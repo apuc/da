@@ -16,6 +16,13 @@ use yii\filters\VerbFilter;
  */
 class ServicePeriodsController extends Controller
 {
+
+    function init()
+    {
+        parent::init();
+    }
+
+
     /**
      * {@inheritdoc}
      */

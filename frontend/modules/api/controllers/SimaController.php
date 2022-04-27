@@ -10,6 +10,12 @@ class SimaController extends \yii\rest\Controller
 {
     public $enableCsrfValidation = false;
 
+    function init()
+    {
+        parent::init();
+    }
+
+
     public static function allowedDomains()
     {
         return [

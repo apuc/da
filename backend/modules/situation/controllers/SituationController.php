@@ -14,6 +14,13 @@ use yii\filters\VerbFilter;
  */
 class SituationController extends Controller
 {
+
+    function init()
+    {
+        parent::init();
+    }
+
+
     /**
      * @inheritdoc
      */
