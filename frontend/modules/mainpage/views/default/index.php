@@ -10,10 +10,10 @@ $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends
 ?>
     <section class="home-content">
         <div class="container">
-            <?=
+<!--          <?//=
             // ПОИСК ПРОПАВШИХ ЛЮДЕЙ
-            \frontend\modules\mainpage\widgets\ShowSearchMissingPeopleForm::widget();
-            ?>
+            // \frontend\modules\mainpage\widgets\ShowSearchMissingPeopleForm::widget();
+//            ?> -->
             <!-- open home-content__wrap -->
             <div class="home-content__wrap">
                 <!-- СЛАЙДЕР ГЛАВНАЯ СТРАНИЦА -->
