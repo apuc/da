@@ -85,8 +85,8 @@ class RubricSlider extends Widget
 
         $newsAll = [];
         foreach ($news as $item){
-            if(!empty($newsAll[$item['idCat']]) && count($newsAll[$item['idCat']]) == 5){ continue;}
-            $newsAll[$item['idCat']][] = $item;
+            if(!empty($newsAll[$item['idcat']]) && count($newsAll[$item['idcat']]) == 5){ continue;}
+            $newsAll[$item['idcat']][] = $item;
 
         }
 
