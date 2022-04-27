@@ -19,6 +19,11 @@ class UserPromotionsController extends Controller
 
     public $layout = 'personal_area';
 
+    function init()
+    {
+        parent::init();
+    }
+
     public function actionIndex()
     {
         $searchModel = new UserPromotionsSearch();

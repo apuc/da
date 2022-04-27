@@ -21,20 +21,9 @@ class Consultation extends Widget
     {
         $faq = CategoryFaq::find()
             ->joinWith('faq')
-            //->where(['`faq`.`main_page`' => 1])
-            //->with('faq')
-            ->all();
-//Debug::prn($faq);
-/*        Debug::prn($faq->createCommand()->rawSql);
-die();*/
+            ->limit(6)->all();
 
         return $this->render('consultation', [
-            /*'faq' => Faq::find()
-                ->where(['main_page' => 1])
-                ->with('company')
-                ->with('category')
-                ->with('consulting')
-                ->all(),*/
             'faq' => $faq,
         ]);
     }

@@ -19,6 +19,11 @@ use yii\filters\VerbFilter;
  */
 class CategoryController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */
@@ -80,7 +85,6 @@ class CategoryController extends Controller
         $category = CategoryProduct::find()->all();
 
 
-
         return $this->render('create', [
             'model' => $model,
             'category' => $category,
@@ -108,11 +112,10 @@ class CategoryController extends Controller
         $fieldsRel = CategoryFields::find()->where(['category_id' => $id])->all();
 
         $fields = [];
-        if($fieldsRel)
-        foreach($fieldsRel as $fieldRel){
-            $fields[] = ProductFields::find()->where(['id' => $fieldRel['fields_id']])->one();
-        }
-
+        if ($fieldsRel)
+            foreach ($fieldsRel as $fieldRel) {
+                $fields[] = ProductFields::find()->where(['id' => $fieldRel['fields_id']])->one();
+            }
 
 
         return $this->render('update', [

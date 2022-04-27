@@ -26,6 +26,11 @@ class VkController extends Controller
     public $count = 40;
     public $vk;
 
+    function init()
+    {
+        parent::init();
+    }
+
     public function actionIndex()
     {
         echo 'test';

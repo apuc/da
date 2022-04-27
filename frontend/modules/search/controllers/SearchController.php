@@ -14,6 +14,11 @@ use yii\web\Controller;
 
 class SearchController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
 
     public function actionIndex()
     {

@@ -15,6 +15,11 @@ use yii\filters\VerbFilter;
  */
 class ContactingController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */
@@ -38,7 +43,7 @@ class ContactingController extends Controller
     {
         $searchModel = new ContactingSeacrh();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $model = New Contacting();
+        $model = new Contacting();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -51,17 +56,16 @@ class ContactingController extends Controller
     {
         $model = Contacting::findOne($id);
 
-        if($model->load(Yii::$app->request->post()))
-        {
+        if ($model->load(Yii::$app->request->post())) {
             //Debug::prn(Yii::$app->request->post('Contacting'));
             $contact = Yii::$app->request->post('Contacting');
-            $text = 'Ваш вопрос: '.$contact['content']."\n".'Ответ: '."\n";
+            $text = 'Ваш вопрос: ' . $contact['content'] . "\n" . 'Ответ: ' . "\n";
             //Debug::prn($contact);
             Yii::$app->mailer->compose()
                 ->setFrom('noreply@da-info.pro')
                 ->setTo($contact['email'])
                 ->setSubject(Yii::$app->request->post('subject'))
-                ->setTextBody($text.Yii::$app->request->post('text-mail'))
+                ->setTextBody($text . Yii::$app->request->post('text-mail'))
                 ->send();
             $model->answer = Yii::$app->request->post('text-mail');
             $model->status = 1;

@@ -13,6 +13,11 @@ use yii\web\Controller;
 
 class MainController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     public function beforeaction($action){
         $absoluteUrl = Yii::$app->request->absoluteUrl;
         if ((strpos($absoluteUrl, 'index.php') !== false)) {

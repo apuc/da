@@ -12,6 +12,10 @@ use yii\web\Controller;
 // api key = AIzaSyA8pB7KFccjRUonbm4Uy8kJHU8ui2k_K5M
 class DefaultController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
 
     /**
      * Renders the index view for the module

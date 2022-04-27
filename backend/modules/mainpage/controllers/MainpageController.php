@@ -12,6 +12,11 @@ use yii\web\Controller;
  */
 class MainpageController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     public function beforeAction($action) {
         if($action->id = 'photos') {
             Yii::$app->request->enableCsrfValidation = false;

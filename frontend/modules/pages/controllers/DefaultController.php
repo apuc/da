@@ -13,6 +13,11 @@ use yii\web\NotFoundHttpException;
  */
 class DefaultController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * Renders the index view for the module
      * @return string

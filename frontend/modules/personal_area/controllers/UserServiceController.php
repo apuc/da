@@ -15,6 +15,11 @@ use yii\web\Controller;
 
 class UserServiceController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     public function behaviors()
     {
         return [

@@ -16,6 +16,11 @@ use yii\filters\AccessControl;
 
 class UserLikesController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     public function behaviors()
     {
         return [

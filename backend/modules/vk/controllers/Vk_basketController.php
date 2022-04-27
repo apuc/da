@@ -18,6 +18,11 @@ use yii\filters\VerbFilter;
  */
 class Vk_basketController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */

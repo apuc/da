@@ -16,6 +16,11 @@ use yii\helpers\ArrayHelper;
 
 class ViewsUpdateAllCountersController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     public function actionIndex()
     {
         $this->countNews();

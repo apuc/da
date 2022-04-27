@@ -20,6 +20,11 @@ use yii\helpers\Console;
 
 class ApiController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     public function actionGetCurrency()
     {
         $currency = new Currency();

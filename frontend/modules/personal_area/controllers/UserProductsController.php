@@ -14,6 +14,11 @@ use yii\web\Controller;
 
 class UserProductsController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     public function behaviors()
     {
         return [

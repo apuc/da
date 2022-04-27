@@ -12,6 +12,11 @@ class CategoriesController extends DefaultController
     public $path;
     public $level;
 
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * Lists all categories models.
      * @param $page

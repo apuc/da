@@ -14,16 +14,23 @@ use yii\filters\VerbFilter;
 /**
  * Posts_digestController implements the CRUD actions for PostsDigest model.
  */
-class Posts_digestController extends Controller {
+class Posts_digestController extends Controller
+{
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */
-    public function behaviors() {
+    public function behaviors()
+    {
         return [
             'verbs' => [
-                'class'   => VerbFilter::className(),
+                'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => [ 'POST' ],
+                    'delete' => ['POST'],
                 ],
             ],
         ];
@@ -33,14 +40,15 @@ class Posts_digestController extends Controller {
      * Lists all PostsDigest models.
      * @return mixed
      */
-    public function actionIndex() {
-        $searchModel  = new PostsDigestSearch();
-        $dataProvider = $searchModel->search( Yii::$app->request->queryParams );
+    public function actionIndex()
+    {
+        $searchModel = new PostsDigestSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render( 'index', [
-            'searchModel'  => $searchModel,
+        return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-        ] );
+        ]);
     }
 
     /**
@@ -50,17 +58,18 @@ class Posts_digestController extends Controller {
      *
      * @return mixed
      */
-    public function actionView( $id ) {
-        $cats     = CategoryPostsDigestRelations::find()->where( [ 'posts_digest_id' => $id ] )->all();
-        $cats_arr = [ ];
-        foreach ( $cats as $cat_item ) {
+    public function actionView($id)
+    {
+        $cats = CategoryPostsDigestRelations::find()->where(['posts_digest_id' => $id])->all();
+        $cats_arr = [];
+        foreach ($cats as $cat_item) {
             $cats_arr[] = $cat_item->cat_id;
         }
 
-        return $this->render( 'view', [
-            'model'    => $this->findModel( $id ),
+        return $this->render('view', [
+            'model' => $this->findModel($id),
             'cats_arr' => $cats_arr,
-        ] );
+        ]);
     }
 
     /**
@@ -69,25 +78,26 @@ class Posts_digestController extends Controller {
      * @return mixed
      * @throws \yii\base\InvalidParamException
      */
-    public function actionCreate() {
+    public function actionCreate()
+    {
         $model = new PostsDigest();
 
-        if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            foreach ( $_POST['categ'] as $cat ) {
-                $catNewRel                  = new CategoryPostsDigestRelations();
-                $catNewRel->cat_id          = $cat;
+            foreach ($_POST['categ'] as $cat) {
+                $catNewRel = new CategoryPostsDigestRelations();
+                $catNewRel->cat_id = $cat;
                 $catNewRel->posts_digest_id = $model->id;
                 $catNewRel->save();
             }
 
-            return $this->redirect( [ 'view', 'id' => $model->id ] );
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            $cats_arr = [ ];
-            return $this->render( 'create', [
+            $cats_arr = [];
+            return $this->render('create', [
                 'model' => $model,
                 'cats_arr' => $cats_arr,
-            ] );
+            ]);
         }
     }
 
@@ -99,30 +109,31 @@ class Posts_digestController extends Controller {
      *
      * @return mixed
      */
-    public function actionUpdate( $id ) {
-        $model = $this->findModel( $id );
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
 
-        $cats     = CategoryPostsDigestRelations::find()->where( [ 'posts_digest_id' => $id ] )->all();
-        $cats_arr = [ ];
-        foreach ( $cats as $cat_item ) {
+        $cats = CategoryPostsDigestRelations::find()->where(['posts_digest_id' => $id])->all();
+        $cats_arr = [];
+        foreach ($cats as $cat_item) {
             $cats_arr[] = $cat_item->cat_id;
         }
 
-        if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
-            CategoryPostsDigestRelations::deleteAll([ 'posts_digest_id' => $model->id ]);
-            foreach ( $_POST['categ'] as $cat ) {
-                $catNewRel                  = new CategoryPostsDigestRelations();
-                $catNewRel->cat_id          = $cat;
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            CategoryPostsDigestRelations::deleteAll(['posts_digest_id' => $model->id]);
+            foreach ($_POST['categ'] as $cat) {
+                $catNewRel = new CategoryPostsDigestRelations();
+                $catNewRel->cat_id = $cat;
                 $catNewRel->posts_digest_id = $model->id;
                 $catNewRel->save();
             }
 
-            return $this->redirect( [ 'view', 'id' => $model->id ] );
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render( 'update', [
-                'model'    => $model,
+            return $this->render('update', [
+                'model' => $model,
                 'cats_arr' => $cats_arr,
-            ] );
+            ]);
         }
     }
 
@@ -134,10 +145,11 @@ class Posts_digestController extends Controller {
      *
      * @return mixed
      */
-    public function actionDelete( $id ) {
-        $this->findModel( $id )->delete();
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
 
-        return $this->redirect( [ 'index' ] );
+        return $this->redirect(['index']);
     }
 
     /**
@@ -149,11 +161,12 @@ class Posts_digestController extends Controller {
      * @return PostsDigest the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel( $id ) {
-        if ( ( $model = PostsDigest::findOne( $id ) ) !== null ) {
+    protected function findModel($id)
+    {
+        if (($model = PostsDigest::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException( 'The requested page does not exist.' );
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
 }

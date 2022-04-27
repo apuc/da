@@ -39,6 +39,11 @@ class CompanyController extends Controller
 {
     public $enableCsrfValidation = false;
 
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */
@@ -136,14 +141,14 @@ class CompanyController extends Controller
                 }
             }
             $phones = Yii::$app->request->post('Phones');
-            if(!empty($phones)){
-                foreach($phones as $phone){
+            if (!empty($phones)) {
+                foreach ($phones as $phone) {
                     $newPhone = new Phones();
                     $newPhone->phone = $phone['phone'];
                     $newPhone->company_id = $model->id;
                     $newPhone->save();
-                    if(!empty($phone['messengeresArray'])){
-                        foreach($phone['messengeresArray'] as $messenger){
+                    if (!empty($phone['messengeresArray'])) {
+                        foreach ($phone['messengeresArray'] as $messenger) {
                             $newMessenger = new MessengerPhone();
                             $newMessenger->messenger_id = $messenger;
                             $newMessenger->phone_id = $newPhone->id;
@@ -155,7 +160,7 @@ class CompanyController extends Controller
 
             if (!empty(Yii::$app->request->post('Tags'))) {
                 foreach (Yii::$app->request->post('Tags') as $tag) {
-                    $tags = New TagsRelation();
+                    $tags = new TagsRelation();
                     $tags->saveTagsRel($tag, $model->id, 'company');
                 }
             }
@@ -221,7 +226,7 @@ class CompanyController extends Controller
                 $compPhotos = explode(',', Yii::$app->request->post('company-photos'));
 
                 foreach ($compPhotos as $compPhoto) {
-                    $company_photo = New CompanyPhoto();
+                    $company_photo = new CompanyPhoto();
                     $company_photo->company_id = $model->id;
                     $company_photo->photo = $compPhoto;
                     $company_photo->save();
@@ -248,7 +253,7 @@ class CompanyController extends Controller
             if (!empty(Yii::$app->request->post('Tags'))) {
                 TagsRelation::deleteAll(['post_id' => $id, 'type' => 'company']);
                 foreach (Yii::$app->request->post('Tags') as $tag) {
-                    $tags = New TagsRelation();
+                    $tags = new TagsRelation();
                     $tags->saveTagsRel($tag, $id, 'company');
                 }
             }
@@ -300,7 +305,7 @@ class CompanyController extends Controller
     public function actionDelete($id)
     {
         $company = Company::findById($id);
-        if($company)
+        if ($company)
             $company->status = Company::COMPANY_DELETED;
         $company->save();
 //        CategoryCompanyRelations::deleteAll(['company_id' => $id]);

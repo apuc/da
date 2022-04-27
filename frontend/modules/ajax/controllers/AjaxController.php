@@ -41,6 +41,11 @@ use yii\web\Controller;
  */
 class AjaxController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     public function actionSend_poll()
     {
         if ($_POST) {

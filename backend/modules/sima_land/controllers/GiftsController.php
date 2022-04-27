@@ -9,6 +9,11 @@ use yii\web\NotFoundHttpException;
 
 class GiftsController extends DefaultController
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * Renders the index view for the module
      * @param $page

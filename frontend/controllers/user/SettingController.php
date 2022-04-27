@@ -22,6 +22,11 @@ use yii\imagine\Image;
 
 class SettingController extends SettingsController
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * Shows profile settings form.
      *

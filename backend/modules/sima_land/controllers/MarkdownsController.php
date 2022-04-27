@@ -9,6 +9,11 @@ use Exception;
 
 class MarkdownsController extends DefaultController
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * Renders the index view for the module
      * @param $page

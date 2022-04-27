@@ -9,6 +9,11 @@ use yii\helpers\ArrayHelper;
 
 class ShopController extends \yii\web\Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     public function actionCategories()
     {
         $request = Yii::$app->request;

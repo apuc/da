@@ -20,6 +20,11 @@ class OrderController extends Controller
 {
     public $layout = 'personal_area';
 
+    function init()
+    {
+        parent::init();
+    }
+
     public function actionIndex($id)
     {
         $model = OrderProduct::find()->with(['order', 'products'])->where(['order_id' => $id])->all();

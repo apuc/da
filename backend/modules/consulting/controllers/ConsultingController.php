@@ -13,16 +13,23 @@ use yii\filters\VerbFilter;
 /**
  * ConsultingController implements the CRUD actions for Consulting model.
  */
-class ConsultingController extends Controller {
+class ConsultingController extends Controller
+{
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */
-    public function behaviors() {
+    public function behaviors()
+    {
         return [
             'verbs' => [
-                'class'   => VerbFilter::className(),
+                'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => [ 'POST' ],
+                    'delete' => ['POST'],
                 ],
             ],
         ];
@@ -32,14 +39,15 @@ class ConsultingController extends Controller {
      * Lists all Consulting models.
      * @return mixed
      */
-    public function actionIndex() {
-        $searchModel  = new ConsultingSearch();
-        $dataProvider = $searchModel->search( Yii::$app->request->queryParams );
+    public function actionIndex()
+    {
+        $searchModel = new ConsultingSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render( 'index', [
-            'searchModel'  => $searchModel,
+        return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-        ] );
+        ]);
     }
 
     /**
@@ -49,10 +57,11 @@ class ConsultingController extends Controller {
      *
      * @return mixed
      */
-    public function actionView( $id ) {
-        return $this->render( 'view', [
-            'model' => $this->findModel( $id ),
-        ] );
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
     }
 
     /**
@@ -60,20 +69,21 @@ class ConsultingController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate() {
+    public function actionCreate()
+    {
         $model = new Consulting();
 
-        if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
-            if ( empty( $model->company_id ) ) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if (empty($model->company_id)) {
                 $model->company_id = 0;
             }
             $model->save();
 
-            return $this->redirect( [ 'view', 'id' => $model->id ] );
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render( 'create', [
+            return $this->render('create', [
                 'model' => $model,
-            ] );
+            ]);
         }
     }
 
@@ -85,20 +95,22 @@ class ConsultingController extends Controller {
      *
      * @return mixed
      */
-    public function actionUpdate( $id ) {
-        $model = $this->findModel( $id );
-        
-            if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
-                return $this->redirect( [ 'view', 'id' => $model->id ] );
-            } else {
-                return $this->render( 'update', [
-                    'model' => $model,
-                ] );
-            }
-        }
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
 
-    public function beforeAction($action) {
-        if($action->id = 'update') {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    public function beforeAction($action)
+    {
+        if ($action->id = 'update') {
             Yii::$app->request->enableCsrfValidation = false;
         }
         return parent::beforeAction($action);
@@ -112,10 +124,11 @@ class ConsultingController extends Controller {
      *
      * @return mixed
      */
-    public function actionDelete( $id ) {
-        $this->findModel( $id )->delete();
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
 
-        return $this->redirect( [ 'index' ] );
+        return $this->redirect(['index']);
     }
 
     /**
@@ -127,11 +140,12 @@ class ConsultingController extends Controller {
      * @return Consulting the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel( $id ) {
-        if ( ( $model = Consulting::findOne( $id ) ) !== null ) {
+    protected function findModel($id)
+    {
+        if (($model = Consulting::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException( 'The requested page does not exist.' );
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
 }

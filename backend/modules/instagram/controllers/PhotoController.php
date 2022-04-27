@@ -16,6 +16,11 @@ use yii\helpers\Url;
  */
 class PhotoController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
 
     /**
      * {@inheritdoc}

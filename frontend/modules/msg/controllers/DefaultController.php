@@ -10,6 +10,11 @@ use yii\web\Controller;
  */
 class DefaultController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     public function actions()
     {
         return [
@@ -28,7 +33,8 @@ class DefaultController extends Controller
         return $this->render('index');
     }
 
-    public function actionMsg(){
+    public function actionMsg()
+    {
 
     }
 }

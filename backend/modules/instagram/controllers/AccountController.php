@@ -13,6 +13,11 @@ use common\models\db\InstPhoto;
 
 class AccountController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     private $token = "1641006685.78b185f.bdb953c8798e45d899dab1e5766e8937";
     /**
      * {@inheritdoc}

@@ -14,6 +14,11 @@ use yii\filters\AccessControl;
 
 class UserCommentsController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     public function behaviors()
     {
         return [

@@ -15,6 +15,13 @@ use yii\web\Controller;
 
 class TagController extends Controller
 {
+
+    function init()
+    {
+        parent::init();
+    }
+
+
     public function actionIndex()
     {
         $allTags = Tags::find()->all();

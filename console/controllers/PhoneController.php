@@ -16,6 +16,11 @@ use yii\helpers\Console;
 
 class PhoneController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     public function actionIndex()
     {
         $companies = Company::find()->all();

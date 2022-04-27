@@ -18,6 +18,11 @@ use yii\filters\VerbFilter;
  */
 class TwPostsController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */

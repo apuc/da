@@ -14,6 +14,11 @@ use yii\filters\VerbFilter;
  */
 class Pages_groupController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */
