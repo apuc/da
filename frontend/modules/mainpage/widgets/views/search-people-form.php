@@ -7,9 +7,12 @@ use common\classes\WordFunctions;
 /** @var $cities GeobaseCity[] */
 ?>
 
+<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>-->
+<!-- CSS -->
 <link rel="stylesheet" href="css/raw/search-missing-person.css">
 
-<form class="search-people-form" action="#" method="post">
+<form class="search-people-form" action="/post_person" method="post">
     <h3>Оперативное оповещение о пропавших</h3>
     <p class="search-people-form__header">
         Центр поиска пропавших людей - ежедневно публикуется информация о
@@ -71,3 +74,9 @@ use common\classes\WordFunctions;
         <span>будем искать вместе.</span>
     </p>
 </form>
+
+<script type="text/javascript">
+    $(document).ready(function (){
+        $('.search-people-form__select').select2();
+    });
+</script>
