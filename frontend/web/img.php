@@ -1,4 +1,6 @@
 <?php
+//error_reporting(E_ALL);
+//ini_set("display_errors", 1);
 header('Content-type: image/jpg');
 $old_path = __DIR__ . $_SERVER['IMG_URI'];
 $width = isset($_GET['width']) ? $_GET['width'] : 1000;
