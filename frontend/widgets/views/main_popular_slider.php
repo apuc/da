@@ -90,12 +90,13 @@ use yii\helpers\Url;
                 <a href="#" class="customNextBtn"></a>
             </div>
         </div>
-        <div class="news-slider-index-panel">
-            <h3>Важная новость дня</h3>
-            <div class="buttons-wrap">
-                <a href="<?= \yii\helpers\Url::to(['/site/design']); ?>">подписаться</a>
-                <a href="<?= \yii\helpers\Url::to(['/news/news']) ?>">посмотреть больше</a>
-            </div>
-        </div>
+<!--        Был блок для рекламы, временно скрыт -->
+<!--        <div class="news-slider-index-panel">-->
+<!--            <h3>Важная новость дня</h3>-->
+<!--            <div class="buttons-wrap">-->
+<!--                <a href="--><?//= \yii\helpers\Url::to(['/site/design']); ?><!--">подписаться</a>-->
+<!--                <a href="--><?//= \yii\helpers\Url::to(['/news/news']) ?><!--">посмотреть больше</a>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 </section>

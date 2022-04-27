@@ -1,0 +1,191 @@
+.search-people-form {
+    font-family: 'Open Sans';
+    clear: both;
+    max-width: 1132px;
+    background-image: url('../../img/forms/search-missing-person/search_people_form_background.jpg');
+    margin: 0 auto;
+    padding: 26px 30px 40px;
+}
+.search-people-form__radiobuttons-selects {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.search-people-form h3 {
+    margin: 0 0 15px;
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ee2e24;
+}
+.search-people-form__header {
+    max-width: 575px;
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 400;
+    color: #fff;
+    margin: 0 0 25px;
+}
+.search-people-form__radiobuttons {
+    max-width: 185px;
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+    margin-bottom: 15px;
+}
+.search-people-form__radiobuttons input {
+    display: none;
+}
+.search-people-form__radiobuttons input:checked + label::before {
+    background-color: red;
+    border: 4px solid #fff;
+}
+.search-people-form__radiobuttons label {
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    padding-left: 27px;
+    margin-right: 15px;
+    line-height: 18px;
+    user-select: none;
+    font-size: 14px;
+    line-height: 15px;
+    font-weight: 400;
+    color: #fff;
+}
+.search-people-form__radiobuttons label::before {
+    content: '';
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    bottom: 1px;
+    background-color: #fff;
+}
+.search-people-form__selects {
+    display: flex;
+    max-width: 475px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-grow: 1;
+}
+.search-people-form__selects .search-people-form__select {
+    display: inline-block;
+    width: 230px;
+    position: relative;
+    margin-bottom: 10px;
+}
+.search-people-form__selects .search-people-form__select .search-people-form__place-select {
+    font-size: 12px;
+    color: #637278;
+    line-height: 20px;
+}
+.search-people-form__selects .search-people-form__select:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    border-style: solid;
+    border-width: 7px 4px 0 4px;
+    border-color: red transparent transparent transparent;
+}
+.search-people-form__selects .search-people-form__select select {
+    cursor: pointer;
+    appearance: none;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #03121c;
+}
+.search-people-form__input-button {
+    margin-top: 35px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+.search-people-form__input-button .search-people-form__text-input {
+    display: inline-block;
+    position: relative;
+    max-width: 450px;
+    height: 42px;
+    width: 100%;
+    margin-bottom: 15px;
+    margin-right: 15px;
+}
+.search-people-form__input-button .search-people-form__text-input::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    border-style: solid;
+    border-width: 7px 4px 0 4px;
+    border-color: red transparent transparent transparent;
+}
+.search-people-form__input-button input {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 10px 30px 10px 10px;
+    background-color: #fff;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+}
+.search-people-form__input-button input::placeholder {
+    color: #637278;
+    font-size: 12px;
+}
+.search-people-form__input-button button {
+    text-transform: uppercase;
+    width: 230px;
+    height: 42px;
+    border-radius: 4px;
+    border: none;
+    background-color: #ff0200;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+}
+.search-people-form__footer {
+    margin: 0;
+    max-width: 680px;
+    font-size: 12px;
+    color: #fff;
+}
+.search-people-form__footer span {
+    font-weight: 700;
+    color: #ee2e24;
+}
+.search-people-form__form-telegram {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.search-people-form__form-telegram .search-people-form__form {
+    max-width: 695px;
+    width: 100%;
+}
+.search-people-form__form-telegram .search-people-form__telegram {
+    width: 240px;
+    color: #fff;
+    margin: 0 70px 20px 15px;
+}
+.search-people-form__form-telegram .search-people-form__telegram h4 {
+    font-size: 15px;
+    margin: 15px 0;
+}
+.search-people-form__form-telegram .search-people-form__telegram p {
+    font-size: 10px;
+}
