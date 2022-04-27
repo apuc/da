@@ -20,8 +20,9 @@ class Consultation extends Widget
     public function run()
     {
         $faq = CategoryFaq::find()
+            ->limit(5)
             ->joinWith('faq')
-            ->limit(6)->all();
+            ->all();
 
         return $this->render('consultation', [
             'faq' => $faq,
