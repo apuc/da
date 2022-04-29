@@ -51,8 +51,8 @@ use yii\widgets\MaskedInput;
         <div class="footer__social">
 
             <?= \frontend\widgets\FooterSocial::widget(); ?>
-
-            <a href="#" class="footer__send">написать нам</a>
+                                                <!--TODO-->
+            <a href="#" class="footer__send" id="write_to_us_button">написать нам</a>
 
         </div>
 
@@ -137,6 +137,9 @@ use yii\widgets\MaskedInput;
 
 </div>
 
+<?= \frontend\widgets\ErrorFeedback::widget() ?>
+
+<!-- Старая модалка "сообщить об ошибке" TODO удалить
 <div class="modal-callback" id="error-message">
 
     <h3 class="modal-callback__title">Сообщите нам об ошибке на сайте</h3>
@@ -165,7 +168,7 @@ use yii\widgets\MaskedInput;
     </form>
 
 </div>
-
+-->
 <div class="modal-review" id="modal-review">
 
     <h3 class="modal-review__title">Добавить отзыв</h3>
