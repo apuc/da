@@ -59,7 +59,7 @@ use common\classes\WordFunctions;
             </div>
         </div>
         <div class="search-people-form__telegram">
-            <a href="https://telegram.org" target="blank"
+            <a href="https://t.me/prosmi_dnr" target="blank"
             ><img src="img/forms/search-missing-person/telegram.png"
                 /></a>
             <h4>Максимальный результат</h4>
