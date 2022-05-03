@@ -2,8 +2,9 @@
 
     <span class="modal-send__close">X</span>
 
+    <h3 class="modal-callback__title">Сообщите нам об ошибке на сайте</h3>
+
     <form action="" class="modal-send__form" id="error_feedback_form">
-        <h3 class="modal-callback__title">Сообщите нам об ошибке на сайте</h3>
 
         <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken; ?>">
         <input type="hidden" name="user_id" value="<?= (empty(Yii::$app->user->id) ? 0 : Yii::$app->user->id) ?>" id="">
