@@ -27,6 +27,7 @@ class MainPageAsset extends AssetBundle
         '/theme/portal-donbassa/css/fancybox/jquery.fancybox-buttons.min.css',
 //        '/css/lightbox.min.css',
         '/theme/portal-donbassa/css/styles.min.css',
+//        '/css/raw/search-missing-person.css', todo подключить после сборки стилей
 
     ];
 
