@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    /* Модалка "написать нам" */
-    $('#write_to_us_form').submit(function( event ) {
+    /* Модалка "Написать нам" */
+    $('#write_to_us_form').submit(function (event) {
         event.preventDefault();
 
         $.ajax({
@@ -24,7 +24,21 @@ $(document).ready(function () {
         });
     });
 
-    /* TODO Отобразить и скрыть */
+    /* TODO Отобразить "Написать нам" */
+    // $('#write_to_us_button').click(function ( event ) {
+    //     event.preventDefault();
+    //
+    //     $("#overlay").fadeIn(400, function () {
+    //         $(".modal-send").css("display", "block").animate({opacity: 1}, 200)
+    //     });
+    // });
+    $(document).on("click", "#write_to_us_button", function () {
+        return $("#overlay").fadeIn(400, function () {
+            $(".modal-send").css("display", "block").animate({opacity: 1}, 200)
+        }), !1
+    });
+
+    /* TODO Скрыть */
     $(document).on("click", "#write_to_us_button, #overlay", function () {
         $(".modal-send").animate({opacity: 0}, 200, function () {
             $(this).css("display", "none"), $("#overlay").fadeOut(400);
@@ -32,7 +46,7 @@ $(document).ready(function () {
     });
 
     /* Модалка "сообщить об ошибке" */
-    $('#error_feedback_form').submit(function( event ) {
+    $('#error_feedback_form').submit(function (event) {
         event.preventDefault();
 
         $.ajax({
