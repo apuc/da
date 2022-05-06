@@ -325,6 +325,12 @@ class MainMenuAdmin extends Widget
                                 //'visible' => UserFunction::hasPermission(['Заявки компаний'])
                             ] ,
                             [
+                                'label' => 'Импорт Товаров' ,
+                                'url' => Url::to([ '/products/import' ]) ,
+                                'active' => Yii::$app->controller->module->id == 'products' && Yii::$app->controller->id == 'import' ,
+                                'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countProducts . '</small></span></a>' ,
+                            ] ,
+                            [
                                 'label' => 'Категории товаров' ,
                                 'url' => Url::to([ '/products/category' ]) ,
                                 'active' => Yii::$app->controller->module->id == 'products' && Yii::$app->controller->id == 'category' ,
