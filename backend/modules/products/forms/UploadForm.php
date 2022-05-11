@@ -21,7 +21,9 @@ class UploadForm extends Model
                 ],
                 'file',
                 'skipOnEmpty' => false,
-                'extensions' => 'xls, xlsx'
+                'extensions' => 'xls, xlsx',
+                'maxSize' => 1024 * 1024 * 30, // 30МБ
+
             ],
         ];
     }
