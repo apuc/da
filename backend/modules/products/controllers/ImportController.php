@@ -3,47 +3,67 @@
 namespace backend\modules\products\controllers;
 
 use backend\modules\products\forms\UploadForm;
-use Exception;
-use PHPExcel_IOFactory;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use yii\filters\VerbFilter;
-use PHPExcel;
 use yii\web\Request;
 use yii\web\UploadedFile;
 
 class ImportController extends \yii\web\Controller
 {
-//
-//    /**
-//     * @inheritdoc
-//     */
-//    public function behaviors()
-//    {
-//        return [
-//            'verbs' => [
-//                'class' => VerbFilter::className(),
-//                'actions' => [
-//                    'import' => ['POST'],
-//                ],
-//            ],
-//        ];
-//    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'import' => ['POST'],
+                ],
+            ],
+        ];
+    }
 
     public function actionIndex()
     {
         return $this->render('index');
     }
 
+    /**
+     * @throws \yii\db\Exception
+     */
     public function actionImport(Request $request)
     {
         $model = new UploadForm();
-
         $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+        $model->upload();
 
-        $uploadSuccess = $model->upload();
+        $inputFileName = 'uploads/' . $model->imageFile->name;
+        $spreadsheet = IOFactory::load($inputFileName);
+
+        $oCells = $spreadsheet->getActiveSheet()->getCellCollection();
+
+        $data = '';
+
+
+
+        for ($iRow = 1; $iRow <= $oCells->getHighestRow(); $iRow++)
+        {
+            for ($iCol = 'A'; $iCol <= $oCells->getHighestColumn(); $iCol++)
+            {
+                $oCell = $oCells->get($iCol.$iRow);
+                if($oCell)
+                {
+                    $data .= $oCell->getValue() . '<br />';
+                }
+            }
+            $data .= '<hr />';
+        }
 
         return $this->render('preview', [
-            'model' => $model,
-            'uploadSuccess' => $uploadSuccess
+            'data' => $oCells,
         ]);
     }
 }
