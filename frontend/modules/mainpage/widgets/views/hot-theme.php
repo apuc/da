@@ -3,6 +3,7 @@
  * @var \common\models\db\News $val
  */
 
+use backend\modules\news\models\ForcedView;
 use yii\helpers\Url;
 
 if ($this->beginCache('show_hot_theme_news_widget' . $userReg, ['duration' => Yii::$app->params['hours-for-cache']])) { ?>
@@ -40,7 +41,7 @@ if ($this->beginCache('show_hot_theme_news_widget' . $userReg, ['duration' => Yi
                                        class="comments">
                                         <?= \common\models\db\News::getCommentsCount($val->id); ?>
                                     </a>
-                                    <p class="business__sm-item--views"><?= $val->views; ?></p>
+                                    <p class="business__sm-item--views"><?= $val->views + ForcedView::getViews($val->id) ?></p>
                                     <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val->slug]); ?>"
                                        class="home-like">
                                         <i class="fa fa-heart" aria-hidden="true"></i>
@@ -76,7 +77,7 @@ if ($this->beginCache('show_hot_theme_news_widget' . $userReg, ['duration' => Yi
                                        class="comments">
                                         <?= \common\models\db\News::getCommentsCount($val->id); ?>
                                     </a>
-                                    <p class="business__sm-item--views"><?= $val->views; ?></p>
+                                    <p class="business__sm-item--views"><?= $val->views + ForcedView::getViews($val->id) ?></p>
                                 </div>
                             </div>
                         </div>
@@ -101,7 +102,7 @@ if ($this->beginCache('show_hot_theme_news_widget' . $userReg, ['duration' => Yi
                         <div class="right-column__content__text-wrap">
                             <p><?= $val->title; ?></p>
                             <div class="wrap-icon">
-                                <p class="business__sm-item--views"><?= $val->views; ?></p>
+                                <p class="business__sm-item--views"><?= $val->views + ForcedView::getViews($val->id) ?></p>
                                 <a href="#" class="home-like">
                                     <i class="fa fa-heart" aria-hidden="true"></i>
                                     <span class="like-counter">
@@ -122,7 +123,7 @@ if ($this->beginCache('show_hot_theme_news_widget' . $userReg, ['duration' => Yi
                                 <div class="content-row">
                                     <span><?= date('d.m.Y H:i', $val->dt_public) ?></span> <br>
                                     <span><?= $val['categoryNewsRelations'][0]['cat']->title ?></span>
-                                    <span><small class="view-icon"></small><?= $val->views; ?></span>
+                                    <span><small class="view-icon"></small><?= $val->views + ForcedView::getViews($val->id) ?></span>
                                     <span><small class="comments-icon"></small>
                                         <?= \common\models\db\News::getCommentsCount($val->id); ?>
                                         </span>
@@ -138,7 +139,7 @@ if ($this->beginCache('show_hot_theme_news_widget' . $userReg, ['duration' => Yi
                                 <div class="content-row">
                                     <span><?= date('d.m.Y H:i', $val->dt_public) ?></span> <br>
                                     <span><?= $val['categoryNewsRelations'][0]['cat']->title ?></span>
-                                    <span><small class="view-icon"></small><?= $val->views; ?></span>
+                                    <span><small class="view-icon"></small><?= $val->views + ForcedView::getViews($val->id) ?></span>
                                     <span><small class="comments-icon"></small>
                                         <?= \common\models\db\News::getCommentsCount($val->id); ?>
                                         </span>
