@@ -328,7 +328,7 @@ class MainMenuAdmin extends Widget
                                 'label' => 'Импорт Товаров' ,
                                 'url' => Url::to([ '/products/import' ]) ,
                                 'active' => Yii::$app->controller->module->id == 'products' && Yii::$app->controller->id == 'import' ,
-                                'template' => '<a href="{url}"><span>{label}</span><span class="pull-right-container"><small class="label pull-right bg-red">' . $countProducts . '</small></span></a>' ,
+                                'template' => '<a href="{url}"><span>{label}</span></a>' ,
                             ] ,
                             [
                                 'label' => 'Категории товаров' ,
