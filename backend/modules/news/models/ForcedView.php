@@ -21,7 +21,7 @@ class ForcedView extends ActiveRecord
     {
         $views = static::findOne(['news_id' => $id]);
 
-        return $views->views ?? 30000;
+        return $views->views ?? 0;
     }
 
     function init()
