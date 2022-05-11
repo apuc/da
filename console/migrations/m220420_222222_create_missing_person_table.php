@@ -25,6 +25,6 @@ class m220420_222222_create_missing_person_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('forced_views');
+        $this->dropTable('missing_person');
     }
 }
