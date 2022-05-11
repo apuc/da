@@ -2,6 +2,7 @@
 
 namespace console\controllers;
 
+use backend\modules\news\models\ForcedView;
 use backend\modules\news\models\News;
 use yii\console\Controller;
 
@@ -35,11 +36,21 @@ class ViewsForcingController extends Controller
     public function actionForceLastDayNews()
     {
         // За последние сутки
-        $news = News::find()->where(['>', 'dt_public', time() - 86400])->all();
-
+        $news = News::find()->select('id')->where(['>', 'dt_public', time() - 86400])->all();
+        $num = 0;
         foreach ($news as $rec) {
-            $rec->views = $rec->views + rand($this->min, $this->max);
-            $rec->save();
+            $views = ForcedView::findOne(['news_id' => $rec->id]);
+            if ($views) {
+                $views->views = $views->views + rand($this->min, $this->max);
+            } else {
+                $views = new ForcedView();
+                $views->news_id = $rec->id;
+                $views->views += rand($this->min, $this->max);
+            }
+            $views->save();
+            $num++;
         }
+
+        echo $num > 0 ? "Views in $num News successfully updated!\n" : "Nothing to update!\n";
     }
 }
