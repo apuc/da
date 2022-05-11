@@ -14,9 +14,6 @@ class ForcedView extends ActiveRecord
         return 'forced_views';
     }
 
-    public $newsId;
-    public $views;
-
     public static function getViews($id): int
     {
         $views = static::findOne(['news_id' => $id]);
