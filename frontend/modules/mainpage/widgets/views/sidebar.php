@@ -1,5 +1,6 @@
 <?php
 
+use backend\modules\news\models\ForcedView;
 use yii\helpers\Url;
 
 ?>
@@ -53,7 +54,7 @@ use yii\helpers\Url;
                                      alt="<?= !empty($val['news']->alt) ? $val['news']->alt : $val['news']->title ?>">
                                 <span><?= $val['cnt'] ?></span>
                             </a>
-                            <p class="business__sm-item--views"><?= $val['news']->views; ?></p>
+                            <p class="business__sm-item--views"><?= $val['news']->views + ForcedView::getViews($val['news']->id); ?></p>
                             <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['news']->slug]); ?>"
                                class="home-like">
                                 <i class="fa fa-heart" aria-hidden="true"></i>
@@ -82,7 +83,7 @@ use yii\helpers\Url;
                                      alt="<?= !empty($val['news']->alt) ? $val['news']->alt : $val['news']->title ?>">
                                 <span><?= $val->cnt ?></span>
                             </a>
-                            <p class="business__sm-item--views"><?= $val['news']->views; ?></p>
+                            <p class="business__sm-item--views"><?= $val['news']->views + ForcedView::getViews($val['news']->id); ?></p>
                             <a href="<?= \yii\helpers\Url::to(["/news/default/view", "slug" => $val['news']->slug]); ?>"
                                class="home-like">
                                 <i class="fa fa-heart" aria-hidden="true"></i>
