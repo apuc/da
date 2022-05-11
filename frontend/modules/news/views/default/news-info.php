@@ -1,3 +1,8 @@
+<?php
+
+use backend\modules\news\models\ForcedView;
+
+?>
 <div class="content-info">
     <span class="author"><?= $model->author; ?></span>
     <span class="comments"><?= $countComments . ' ' . \common\classes\WordFunctions::getNumEnding($countComments,
@@ -7,7 +12,7 @@
                 'комментариев',
             ]); ?>
                 </span>
-    <span class="views"><?= $model->views; ?> просмотров</span>
+    <span class="views"><?= $model->views + ForcedView::getViews($model->id) ?> просмотров</span>
     <span class="data-time"><?= \common\classes\WordFunctions::FullEventDate($model->dt_public) ?></span>
 
     <a href="#" class="like likes <?= (!empty($thisUserLike)) ? 'active' : ''?>"
