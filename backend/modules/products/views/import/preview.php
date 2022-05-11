@@ -3,7 +3,7 @@ use backend\modules\products\forms\UploadForm;
 use yii\web\Request;
 
 /**
- * @var $request Request
+ * @var $data
  * @var $model UploadForm
  */
 ?>
@@ -11,6 +11,6 @@ use yii\web\Request;
 <pre>
 
 <?php
-var_dump($model);
+var_dump($data);
 ?>
 </pre>
