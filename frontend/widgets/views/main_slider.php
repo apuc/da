@@ -5,6 +5,7 @@
  * @var News $new
  */
 
+use backend\modules\news\models\ForcedView;
 use \common\models\db\News;
 
 ?>
@@ -21,7 +22,7 @@ use \common\models\db\News;
 
                     <span><?= \frontend\widgets\MainSlider::getDateNew($new->dt_public); ?></span>
                     <span><?= $new['categoryNewsRelations'][0]['cat']->title; ?></span>
-                    <span><small class="view-icon"></small><?= $new->views; ?></span>
+                    <span><small class="view-icon"></small><?= $new->views + ForcedView::getViews($new->id) ?></span>
                     <span><small class="comments-icon"></small><?= News::getCommentsCount($new->id) ?></span>
 
                     <?php
