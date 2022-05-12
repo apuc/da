@@ -1,4 +1,5 @@
 <?php
+namespace backend\modules\missing_person\controllers;
 
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -28,15 +29,14 @@ class MissingPersonController extends Controller
         ];
     }
 
-    /**
-     * @param Request $request | name, date_of_birth, city_id
-     */
-    public function actionIndex(Request $request): string
+
+
+    public function actionIndex(): string
     {
-        $records = MissingPerson::find()->all();
+//        $records = MissingPerson::find()->all();
 
         return $this->render('index', [
-            'records' => $records,
+//            'records' => $records,
         ]);
     }
 
