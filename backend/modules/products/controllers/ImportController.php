@@ -3,6 +3,7 @@
 namespace backend\modules\products\controllers;
 
 use backend\modules\products\forms\UploadForm;
+use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use yii\filters\VerbFilter;
 use yii\web\Request;
@@ -32,7 +33,9 @@ class ImportController extends \yii\web\Controller
     }
 
     /**
-     * @throws \yii\db\Exception
+     * @param Request $request
+     * @return string
+     * @throws Exception
      */
     public function actionImport(Request $request)
     {
@@ -46,8 +49,6 @@ class ImportController extends \yii\web\Controller
         $oCells = $spreadsheet->getActiveSheet()->getCellCollection();
 
         $data = '';
-
-
 
         for ($iRow = 1; $iRow <= $oCells->getHighestRow(); $iRow++)
         {
