@@ -27,7 +27,7 @@ class MainPageAsset extends AssetBundle
         '/theme/portal-donbassa/css/fancybox/jquery.fancybox-buttons.min.css',
 //        '/css/lightbox.min.css',
         '/theme/portal-donbassa/css/styles.min.css',
-//        '/css/raw/search-missing-person.css', todo подключить после сборки стилей
+        '/css/raw/search-missing-person.css', //todo подключить после сборки стилей
 
     ];
 
@@ -52,6 +52,7 @@ class MainPageAsset extends AssetBundle
         '/js/share.min.js',
         '/js/main.min.js',
         '/js/main_page_ajax.min.js',
+        '/js/raw/search-missing-person.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
