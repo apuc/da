@@ -46,7 +46,6 @@ use common\classes\WordFunctions;
                         ]
                     );
                     ?>
-
                 </div>
                 <div class="inputSelect">
                     <?=
@@ -73,9 +72,9 @@ use common\classes\WordFunctions;
             </div>
         </form>
         <div class="search-people-form__telegram">
-            <a href="https://t.me/prosmi_dnr" target="blank"
-            ><img src="img/forms/search-missing-person/telegram.png"
-                /></a>
+            <a href="https://t.me/prosmi_dnr" target="blank">
+                <img src="img/forms/search-missing-person/telegram.png"/>
+            </a>
             <h4>Максимальный результат</h4>
             <p>
                 Подписка на уведомления - Оставайтесь всегда в курсе новых объявлений!
