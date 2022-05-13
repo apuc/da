@@ -25,11 +25,6 @@ use common\classes\WordFunctions;
         <form class="search-people-form__form">
             <div class="search-people-form__inputSelects">
                 <div class="inputSelect">
-                    <!--                    <select class="age-select" style="width: 330px">-->
-                    <!--                        <option value="1">Дети до 5 лет</option>-->
-                    <!--                        <option value="2">Дети от 5 до 18 лет</option>-->
-                    <!--                        <option value="3">Люди старше 18 лет</option>-->
-                    <!--                    </select>-->
                     <?=
                     Select2::widget(
                         [
@@ -70,7 +65,7 @@ use common\classes\WordFunctions;
             </div>
             <div class="search-people-form__input-button">
                 <div class="search-people-form__text-input">
-                    <input type="text" placeholder="Введите ФИО"/>
+                    <input type="text" placeholder="Введите ФИО" class="search_people_fio"/>
                 </div>
                 <button type="submit">Поиск</button>
             </div>

@@ -232,33 +232,42 @@
     display: block;
     font-size: 1.1em;
     height: 100%;
-    padding: 10px 30px 10px 10px;
-    width: 100%
+    padding: 10px 30px 10px 1em;
+    width: 100%;
 }
-
 .search-people-form__input-button input::-webkit-input-placeholder {
-    color: #637278;
-    font-size: 12px
+    color: #999999;
+    opacity: 95;
+    font-size: 1em;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .search-people-form__input-button input::-moz-placeholder {
-    color: #637278;
-    font-size: 12px
+    color: #999999;
+    opacity: 95;
+    font-size: 1em;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .search-people-form__input-button input:-ms-input-placeholder {
-    color: #637278;
-    font-size: 12px
+    color: #999999;
+    opacity: 95;
+    font-size: 1em;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .search-people-form__input-button input::-ms-input-placeholder {
-    color: #637278;
-    font-size: 12px
+    color: #999999;
+    opacity: 95;
+    font-size: 1em;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .search-people-form__input-button input::placeholder {
-    color: #637278;
-    font-size: 12px
+    color: #999999;
+    opacity: 95;
+    font-size: 1em;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .search-people-form__input-button button {
