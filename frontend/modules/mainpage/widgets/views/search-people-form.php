@@ -7,6 +7,8 @@ use common\classes\WordFunctions;
 
 /** @var $cities GeobaseCity[] */
 ?>
+<link href="/css/raw/search-missing-person.css" rel="stylesheet">
+
 <div class="search-people-form" action="<?= Url::to(['']) ?>" method="get">
     <div class="search-people-form__headerBlock">
         <div>
