@@ -1,3 +1,10 @@
+<?php
+
+use kartik\select2\Select2;
+
+?>
+
+<link href="/css/raw/search-missing-person-index.css" rel="stylesheet">
 
 <div class="form">
     <div class="form__header">
@@ -16,20 +23,41 @@
             <form method="post" action="#" class="form__form-block">
                 <div class="form__inputSelects">
                     <div class="inputSelect">
-                        <select class="age-select" style="width: 330px">
-                            <option value="до 5 лет">Дети до 5 лет</option>
-                            <option value="от 5 до 18 лет">Дети от 5 до 18 лет</option>
-                            <option value="более 18 лет">Люди старше 18 лет</option>
-                        </select>
+                        <?=
+                        Select2::widget(
+                            [
+                                'name' => 'age_category_id',
+                                'attribute' => 'age_category_id',
+                                'data' => [
+                                    0 => 'Любой',
+                                    1 => 'Дети до 5 лет',
+                                    2 => 'Дети от 5 до 18 лет',
+                                    3 => 'Люди старше 18 лет'
+                                ],
+                                'theme' => Select2::THEME_BOOTSTRAP,
+                                'options' => [
+                                    'placeholder' => 'Возраст',
+                                    'class' => 'select_place-select select2-hidden-accessible',
+                                ],
+                            ]
+                        );
+                        ?>
                     </div>
                     <div class="inputSelect">
-                        <select class="select_place-select" style="width: 330px">
-                            <option value="" disabled selected>
-                                Выберите местоположение
-                            </option>
-                            <option value="Донецк">Донецк</option>
-                            <option value="Макеевка">Макеевка</option>
-                        </select>
+                        <?=
+                        Select2::widget(
+                            [
+                                'name' => 'city_id',
+                                'attribute' => 'city_id',
+                                'data' => \yii\helpers\ArrayHelper::map($cities, 'id', 'name'),
+                                'theme' => Select2::THEME_BOOTSTRAP,
+                                'options' => [
+                                    'placeholder' => 'Выберите город',
+                                    'class' => 'select_place-select select2-hidden-accessible',
+                                ],
+                            ]
+                        );
+                        ?>
                     </div>
                 </div>
                 <div class="form__down-block">
@@ -43,7 +71,9 @@
         </div>
         <div class="form__content-right">
             <div class="form__i-block">
-                <img src="img/new-search-people-form/i.png" />
+                <a href="https://t.me/prosmi_dnr" target="blank">
+                    <img src="/img/forms/search-missing-person/i.png"/>
+                </a>
             </div>
             <div class="form__text-block">
                 <p class="form__info">
@@ -60,33 +90,7 @@
             </div>
         </div>
     </div>
-    <form class="form__modal">
-        <div class="form__modal-content">
-            <div class="form__modal-date">
-                <label for="modalInputDate">Дата рождения</label>
-                <input id="modalInputDate" type="date" placeholder="Введите ФИО" />
-            </div>
-            <div class="form__modal-place">
-                <span><b>Местоположение</b></span>
-                <select>
-                    <option value="" disabled selected>Выберите местоположение</option>
-                    <option value="Донецк">Донецк</option>
-                    <option value="Макеевка">Макеевка</option>
-                </select>
-            </div>
-            <div class="form__modal-name">
-                <label for="modalInputName">ФИО</label>
-                <input id="modalInputName" type="text" placeholder="Введите ФИО" />
-            </div>
-            <div class="form__modal-additional-information">
-                <span><b>Дополнительная информация</b></span>
-                <textarea cols="100" rows="5"></textarea>
-            </div>
-            <div class="form__modal-okButton">
-                <button id="modalOkButton">Сообщить</button>
-            </div>
-        </div>
-    </form>
+   <?= \frontend\modules\mainpage\widgets\PostMissingPeopleModal::widget() ?>
 </div>
 <script src="https://www.google.com/recaptcha/api.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

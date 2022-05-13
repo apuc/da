@@ -86,39 +86,7 @@ use common\classes\WordFunctions;
         связь с однополчанами, близкими, родными - размещайте информацию,
         <span>будем искать вместе.</span>
     </p>
-    <form class="search-people-form__modal">
-        <div class="search-people-form__modal-content">
-            <div class="search-people-form__modal-date">
-                <label for="modalInputDate">Дата рождения</label>
-                <input
-                        id="modalInputDate"
-                        type="date"
-                        placeholder="Введите дату рождения"
-                />
-            </div>
-            <div class="search-people-form__modal-place">
-                <span><b>Местоположение</b></span>
-                <select>
-                    <option value="Донецк">Донецк</option>
-                    <option value="Макеевка">Макеевка</option>
-                    <option value="Луганск">Луганск</option>
-                    <option value="Мариуполь">Мариуполь</option>
-                    <option value="Сартана">Сартана</option>
-                </select>
-            </div>
-            <div class="search-people-form__modal-name">
-                <label for="modalInputName">ФИО</label>
-                <input id="modalInputName" type="text" placeholder="Введите ФИО"/>
-            </div>
-            <div class="search-people-form__modal-additional-information">
-                <span><b>Дополнительная информация</b></span>
-                <textarea cols="40" rows="5"></textarea>
-            </div>
-            <div class="search-people-form__modal-okButton">
-                <button id="modalOkButton">Сообщить</button>
-            </div>
-        </div>
-    </form>
+    <?= \frontend\modules\mainpage\widgets\PostMissingPeopleModal::widget() ?>
 </div>
 <script>
     $(document).ready(function () {
