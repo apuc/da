@@ -1,0 +1,220 @@
+.form {
+    font-family: 'Open Sans';
+    max-width: 1131px;
+    min-height: 535px;
+    background-color: #edeef0;
+    margin: 0 auto;
+}
+.form * {
+    margin: 0;
+    padding: 0;
+}
+.form__modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+.form__modal .form__modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+}
+.form__modal .form__modal-content > div {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.form__modal .form__modal-content > div > span, .form__modal .form__modal-content > div label {
+    padding-bottom: 5px;
+}
+.form__modal .form__modal-content .form__modal-okButton {
+    display: flex;
+    align-items: center;
+}
+.form__modal .form__modal-content .form__modal-okButton button {
+    width: 100px;
+}
+.form__header {
+    display: flex;
+    background-image: url('../img/new-search-people-form/header_background.jpg');
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    padding-bottom: 25px;
+    padding-left: 2.7%;
+    padding-right: 9.4%;
+}
+.form__header .form__text {
+    max-width: 620px;
+}
+.form__header .form__text h3 {
+    color: #ee2e24;
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0 0 15px;
+}
+.form__header .form__text p {
+    font-size: 13px;
+    color: #fff;
+    line-height: 15px;
+    margin: 0;
+}
+.form__header .form__button {
+    min-width: 140px;
+    width: 228px;
+    height: 42px;
+    border-radius: 4px;
+    margin-top: 5px;
+    border: none;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #ff0200;
+    cursor: pointer;
+}
+.form__header .form__button:active {
+    transform: translate(1px, 1px);
+}
+.form__content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-left: 2.7%;
+    padding-top: 25px;
+    padding-right: 2px;
+}
+.form__content .form__content-left {
+    max-width: 715px;
+    width: 100%;
+}
+.form__content .form__content-left .form__form-block .form__inputSelects {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-grow: 1;
+}
+.form__content .form__content-left .form__form-block .form__inputSelects .inputSelect {
+    display: inline-block;
+    width: 330px;
+    position: relative;
+    margin-top: 10px;
+}
+.form__content .form__content-left .form__form-block .form__inputSelects .inputSelect_place-select {
+    font-size: 12px;
+    color: #637278;
+    line-height: 20px;
+}
+.form__content .form__content-left .form__form-block .form__inputSelects .inputSelect:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    border-style: solid;
+    border-width: 7px 4px 0 4px;
+    border-color: red transparent transparent transparent;
+    pointer-events: none;
+}
+.form__content .form__content-left .form__form-block .form__inputSelects .inputSelect .up-selects {
+    display: flex;
+    align-items: center;
+    height: 42px;
+    background-color: #fff;
+    font-size: 14px;
+    color: #03121c;
+}
+.form__content .form__content-left .form__form-block .form__down-block {
+    margin-top: 35px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+.form__content .form__content-left .form__form-block .form__down-block .form__inputName {
+    display: inline-block;
+    position: relative;
+    max-width: 450px;
+    height: 42px;
+    width: 100%;
+    margin-bottom: 15px;
+    margin-right: 15px;
+}
+.form__content .form__content-left .form__form-block .form__down-block .form__inputName input {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 10px 30px 10px 10px;
+    background-color: #fff;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 0.5px solid #000 6f;
+}
+.form__content .form__content-left .form__form-block .form__down-block .form__inputName input::placeholder {
+    color: #637278;
+    font-size: 12px;
+}
+.form__content .form__content-left .form__form-block .form__down-block button {
+    text-transform: uppercase;
+    width: 230px;
+    height: 42px;
+    border-radius: 4px;
+    border: none;
+    background-color: #ff0200;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+}
+.form__content .form__content-right {
+    max-width: 326px;
+    height: 50px;
+    width: 100%;
+    margin-top: 10px;
+}
+.form__content .form__content-right .form__i-block {
+    width: 51px;
+    height: 51px;
+    background-color: #ff0200;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.form__content .form__content-right .form__text-block {
+    padding-left: 10px;
+    padding-top: 20px;
+}
+.form__content .form__content-right .form__text-block .form__info {
+    margin-bottom: 15px;
+    font-size: 15px;
+    line-height: 22px;
+    color: #3f484f;
+}
+.form__content .form__content-right .form__text-block .form__info span {
+    font-weight: 700;
+}
+.form__content .form__content-right .form__text-block h5 {
+    color: #ff0200;
+    font-size: 12px;
+}
+.form__content .form__content-right .form__text-block h3 {
+    margin-top: 12px;
+    color: #ff0200;
+    font-size: 22px;
+}
+.form__content .form__content-right .form__text-block .form__source {
+    margin-top: 10px;
+    color: #0c1d29;
+    font-size: 8px;
+}
