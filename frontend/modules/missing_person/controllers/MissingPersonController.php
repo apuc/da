@@ -1,6 +1,7 @@
 <?php
-namespace backend\modules\missing_person\controllers;
+namespace frontend\modules\missing_person\controllers;
 
+use frontend\modules\missing_person\models\MissingPerson;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\Request;
@@ -21,11 +22,11 @@ class MissingPersonController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'create' => ['POST'],
                     'index' => ['GET'],
+                    'create' => ['POST'],
                 ],
             ],
-            'defaultRoute' => 'post_person'
+//            'defaultRoute' => 'missing-person'
         ];
     }
 
@@ -33,10 +34,10 @@ class MissingPersonController extends Controller
 
     public function actionIndex(): string
     {
-//        $records = MissingPerson::find()->all();
+        $records = MissingPerson::find()->all();
 
         return $this->render('index', [
-//            'records' => $records,
+            'records' => $records,
         ]);
     }
 

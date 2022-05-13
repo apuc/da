@@ -1,5 +1,7 @@
 <?php
 
+namespace frontend\modules\missing_person\models;
+
 use yii\db\ActiveRecord;
 
 /**
