@@ -25,13 +25,13 @@ class MissingPersonController extends Controller
                     'index' => ['GET'],
                     'create' => ['POST'],
                 ],
-            ],
-//            'defaultRoute' => 'missing-person'
+            ]
         ];
     }
 
-
-
+    /**
+     * @return string
+     */
     public function actionIndex(): string
     {
         $records = MissingPerson::find()->all();
