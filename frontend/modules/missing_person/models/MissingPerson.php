@@ -11,6 +11,7 @@ use yii\db\ActiveRecord;
  * @property string $FIO
  * @property integer $date_of_birth
  * @property integer $city_id
+ * @property mixed|null $additional_info
  */
 class MissingPerson extends ActiveRecord
 {
