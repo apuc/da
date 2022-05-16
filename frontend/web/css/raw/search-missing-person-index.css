@@ -308,3 +308,10 @@
     height: 43px !important;
 }
 /* Select2 END*/
+
+/* Таблица с пропавшими */
+/* Блок */
+.missing-person__block {
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
