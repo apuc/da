@@ -7,8 +7,8 @@ use kartik\select2\Select2;
 <form class="form__modal" action="/missing_person/missing-person/create" id="post_missing_person">
     <div class="form__modal-content">
         <div class="form__modal-date">
-            <label for="modalInputDate">Дата рождения</label>
-            <input id="modalInputDate" name="modalInputDate" type="date" required/>
+            <label for="date_of_birth">Дата рождения</label>
+            <input id="date_of_birth" name="date_of_birth" type="date" required/>
         </div>
         <div class="form__modal-place">
             <span><b>Местоположение</b></span>
