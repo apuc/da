@@ -2,14 +2,20 @@
 
 namespace frontend\modules\missing_person\controllers;
 
+use backend\modules\currency\controllers\CurrencyRateController;
 use frontend\modules\missing_person\models\MissingPerson;
 use yii\base\InvalidConfigException;
+use yii\db\Query;
+use yii\db\QueryBuilder;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\Request;
 
 class MissingPersonController extends Controller
 {
+    const FIVE_YEARS = 157766400;
+    const YEARS_18 = 567993600;
+
     function init()
     {
         parent::init();
@@ -34,12 +40,53 @@ class MissingPersonController extends Controller
     /**
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex(Request $request): string
     {
-        $records = MissingPerson::find()->all();
-
         return $this->render('index', [
-            'records' => $records,
+            'records' => MissingPerson::find()->all(),
+        ]);
+    }
+
+    /**
+     * @return string
+     */
+    public function actionSearch(Request $request): string
+    {
+        $data = $request->getQueryParams();
+        echo "<pre>";
+        var_dump($data);
+        var_dump((int)$data['age_category_id']);
+        die;
+        $query = (new Query())
+            ->select()
+            ->from('missing_person');
+
+        if (isset($data['age_category_id']) && strlen($data['age_category_id']) > 0){
+            $yo18 = 1;
+            switch ((int)$data['age_category_id']) {
+                case 1:
+                    $query->where(['<','date_of_birth', time() - self::FIVE_YEARS]);
+                    break;
+                case 2:
+                    $query->where(['<', 'date_of_birth', time() - self::FIVE_YEARS])
+                        ->andWhere(['>', 'date_of_birth', time() - self::YEARS_18]);
+                    break;
+                case 3:
+                    $query->where(['<', 'date_of_birth', time() - self::YEARS_18]);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        if (isset($data['city_id']) && strlen($data['city_id']) > 0){
+            $query->andWhere(['city_id' => (int)$data['city_id']]);
+        }
+
+
+
+            return $this->render('index', [
+            'records' => $query->all(),
         ]);
     }
 
@@ -48,7 +95,7 @@ class MissingPersonController extends Controller
      * @return string
      * @throws InvalidConfigException
      */
-    public function actionCreate(Request $request)
+    public function actionCreate(Request $request): string
     {
         $data = $request->getBodyParams();
 
