@@ -100,25 +100,4 @@ use common\classes\WordFunctions;
         $('b[role="presentation"]').hide()
     })
 
-    // Модальное окно
-
-    const modal = document.querySelector('.search-people-form__modal')
-
-    // Кнопка закрытия модального окна
-
-    const modalOkButton = document.getElementById('modalOkButton')
-
-    modalOkButton.addEventListener('click', (event) => {
-        event.preventDefault()
-        modal.style.display = 'none'
-    })
-
-    // Нажатие на кнопку "Сообщить о пропаже" на форме search-people-form
-
-    const reportMissing = document.getElementById('reportMissing')
-
-    reportMissing.addEventListener('click', (event) => {
-        event.preventDefault()
-        modal.style.display = 'block'
-    })
 </script>
