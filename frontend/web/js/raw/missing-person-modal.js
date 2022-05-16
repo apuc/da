@@ -12,10 +12,11 @@ $(document).ready(function () {
         event.preventDefault();
 
         let canContinue = true;
-        let data = [];
+        let data = {};
         modalForm.find('input, textarea, select').each(function () {
             let value = $(this).val();
             if (canContinue) {
+                // Проверка на выбранный город. На остальных полях работает required.
                 if (this.name === "city_id" && value === "") {
                     alert('Выберите город');
                     canContinue = false;
@@ -23,23 +24,20 @@ $(document).ready(function () {
                 data[this.name] = value;
             }
         });
-
         if (canContinue) {
             $.ajax({
                 url: modalForm.attr('action'),
                 data: data,
-                dataType: "json",
                 type: "POST",
                 success: function () {
+                    //TODO заменить содержание модалки на сообщение с кнопкой ОК,
+                    // заменить ивенты закрытия и нажатия на кнопку на релоад
                     alert('Ваши данные успешно отправлены!');
-                    //спрятать и очистить модалку
-                    document.querySelector('.form__modal').style.display = 'none';
-                    modalForm.find('input, textarea, select').each(function () {
-                        $(this).setAttribute('value', '');
-                    });
+                    // перезагрузить страницу
+                    location.reload();
                 },
-                error: function () {
-                    alert("Произошла ошибка! Попробуйте позже");
+                error: function (response) {
+                    alert(response.responseText !== '' ? response.responseText : "Произошла ошибка! Попробуйте позже");
                     //спрятать модалку
                     document.querySelector('.form__modal').style.display = 'none';
                 }
