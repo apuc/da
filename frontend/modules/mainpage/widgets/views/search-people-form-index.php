@@ -5,6 +5,7 @@ use kartik\select2\Select2;
 ?>
 
 <link href="/css/raw/search-missing-person-index.css" rel="stylesheet">
+<script defer src="/js/raw/missing-person-modal.js"></script>
 
 <div class="form">
     <div class="form__header">
@@ -20,7 +21,7 @@ use kartik\select2\Select2;
     </div>
     <div class="form__content">
         <div class="form__content-left">
-            <form method="post" action="#" class="form__form-block">
+            <form method="get" action="/missing_person/missing-person/index" class="form__form-block">
                 <div class="form__inputSelects">
                     <div class="inputSelect">
                         <?=
@@ -117,20 +118,4 @@ use kartik\select2\Select2;
         }
     }
 
-    // Кнопка закрытия модального окна
-
-    const modalOkButton = document.getElementById('modalOkButton')
-
-    modalOkButton.addEventListener('click', (event) => {
-        event.preventDefault()
-        modal.style.display = 'none'
-    })
-
-    // Нажатие на кнопку "Сообщить о пропаже" на форме search-people-form
-
-    const reportMissing = document.getElementById('reportMissing')
-
-    reportMissing.addEventListener('click', (event) => {
-        modal.style.display = 'block'
-    })
 </script>
