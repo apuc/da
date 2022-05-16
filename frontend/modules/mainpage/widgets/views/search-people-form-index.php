@@ -21,7 +21,7 @@ use kartik\select2\Select2;
     </div>
     <div class="form__content">
         <div class="form__content-left">
-            <form method="get" action="/missing_person/missing-person/index" class="form__form-block">
+            <form method="get" action="/missing_person/missing-person/search" class="form__form-block">
                 <div class="form__inputSelects">
                     <div class="inputSelect">
                         <?=
@@ -63,7 +63,7 @@ use kartik\select2\Select2;
                 </div>
                 <div class="form__down-block">
                     <div class="form__inputName">
-                        <input type="text" placeholder="Введите ФИО" />
+                        <input type="text" name="FIO" placeholder="Введите ФИО" required/>
                     </div>
                     <button type="submit">Поиск</button>
                 </div>
