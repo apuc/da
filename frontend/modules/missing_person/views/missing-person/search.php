@@ -7,8 +7,6 @@ use frontend\modules\missing_person\models\MissingPerson;
 /**
  * @var $records
  * @var $cities GeobaseCity[]
- * @var $page int
- * @var $offset int
  */
 
 echo ShowSearchMissingPeopleFormForIndex::widget();
@@ -28,21 +26,21 @@ echo ShowSearchMissingPeopleFormForIndex::widget();
                 <th>Доп. Информация</th>
             </tr>
             </thead>
-            <tbody id="missing-person__table-body">
+            <tbody>
             <?php
             /**
+             * @var $records MissingPerson[]
              * @var $record MissingPerson
              */
             foreach ($records as $record) { ?>
                 <tr>
-                    <td><?= $record->FIO ?></td>
-                    <td><?= date('d.m.Y', $record->date_of_birth) ?></td>
-                    <td><?= GeobaseCity::findOne($record->city_id)->name ?></td>
-                    <td><?= strlen($record->additional_info) > 0 ? $record->additional_info : '—' ?></td>
+                    <td><?= $record['FIO'] ?></td>
+                    <td><?= date('d.m.Y', $record['date_of_birth']) ?></td>
+                    <td><?= GeobaseCity::findOne($record['city_id'])->name ?></td>
+                    <td><?= strlen($record['additional_info']) > 0 ? $record['additional_info'] : '—' ?></td>
                 </tr>
                 <?php
-            }
-            ?>
+            } ?>
             </tbody>
         </table>
         <?php
@@ -56,5 +54,5 @@ echo ShowSearchMissingPeopleFormForIndex::widget();
         <?php
     }
     ?>
-    <button id="load_missing_persons" class="load-btn" >Загрузить ещё</button>
+
 </div>

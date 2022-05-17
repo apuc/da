@@ -255,7 +255,7 @@
 }
 
 .form__content .form__content-right .form__text-block h3 {
-    margin-top: 12px;
+    margin-top: 0.1em;
     color: #ff0200;
     font-size: 22px;
 }
@@ -313,5 +313,21 @@
 /* Блок */
 .missing-person__block {
     margin-top: 2em;
+    margin-bottom: 3em;
+}
+/* Надпись ничего не найдено */
+.nothing-found {
+    text-align: center;
+    color: #e10a0a;
     margin-bottom: 1em;
+}
+
+.red-hr {
+    border: 2px solid #9d0808;
+}
+
+.load-btn {
+    width: 100%;
+    height: 2.5em;
+
 }

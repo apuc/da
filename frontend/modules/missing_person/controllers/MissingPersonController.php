@@ -8,6 +8,7 @@ use yii\base\InvalidConfigException;
 use yii\db\Query;
 use yii\db\QueryBuilder;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\Request;
 
@@ -15,6 +16,7 @@ class MissingPersonController extends Controller
 {
     const FIVE_YEARS = 157766400;
     const YEARS_18 = 567993600;
+    const PER_PAGE = 2;
 
     function init()
     {
@@ -32,19 +34,35 @@ class MissingPersonController extends Controller
                 'actions' => [
                     'index' => ['GET'],
                     'create' => ['POST'],
+                    'search' => ['GET'],
+                    'page' => ['GET'],
                 ],
             ]
         ];
     }
 
     /**
+     * @param Request $request
      * @return string
      */
     public function actionIndex(Request $request): string
     {
         return $this->render('index', [
-            'records' => MissingPerson::find()->all(),
+            'records' => MissingPerson::find()->limit(self::PER_PAGE)->all(),
         ]);
+    }
+
+    public function actionPage(Request $request)
+    {
+        $data = $request->getQueryParams();
+
+        if (!isset($data['page'])) {
+            \Yii::$app->response->setStatusCode(400);
+            return 'Missing page param';
+        }
+        $offset = (int)$data['page'] * self::PER_PAGE;
+
+        return Json::encode(MissingPerson::find()->offset($offset)->limit(self::PER_PAGE)->all());
     }
 
     /**
@@ -53,19 +71,16 @@ class MissingPersonController extends Controller
     public function actionSearch(Request $request): string
     {
         $data = $request->getQueryParams();
-        echo "<pre>";
-        var_dump($data);
-        var_dump((int)$data['age_category_id']);
-        die;
+
         $query = (new Query())
-            ->select()
+            ->select('*')
             ->from('missing_person');
 
-        if (isset($data['age_category_id']) && strlen($data['age_category_id']) > 0){
+        if (isset($data['age_category_id']) && strlen($data['age_category_id']) > 0) {
             $yo18 = 1;
             switch ((int)$data['age_category_id']) {
                 case 1:
-                    $query->where(['<','date_of_birth', time() - self::FIVE_YEARS]);
+                    $query->where(['<', 'date_of_birth', time() - self::FIVE_YEARS]);
                     break;
                 case 2:
                     $query->where(['<', 'date_of_birth', time() - self::FIVE_YEARS])
@@ -79,13 +94,16 @@ class MissingPersonController extends Controller
             }
         }
 
-        if (isset($data['city_id']) && strlen($data['city_id']) > 0){
+        if (isset($data['city_id']) && strlen($data['city_id']) > 0) {
             $query->andWhere(['city_id' => (int)$data['city_id']]);
         }
 
+        if (isset($data['FIO']) && strlen($data['FIO']) > 0) {
+            $query->andWhere(['like', 'FIO', $data['FIO']]);
+        }
 
 
-            return $this->render('index', [
+        return $this->render('search', [
             'records' => $query->all(),
         ]);
     }

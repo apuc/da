@@ -6,6 +6,7 @@ use kartik\select2\Select2;
 
 <link href="/css/raw/search-missing-person-index.css" rel="stylesheet">
 <script defer src="/js/raw/missing-person-modal.js"></script>
+<script defer src="/js/raw/missing-person-pagination.js"></script>
 
 <div class="form">
     <div class="form__header">
