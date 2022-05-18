@@ -3,11 +3,13 @@
 namespace frontend\modules\missing_person\controllers;
 
 use backend\modules\currency\controllers\CurrencyRateController;
+use common\models\db\GeobaseCity;
 use frontend\modules\missing_person\models\MissingPerson;
 use yii\base\InvalidConfigException;
 use yii\db\Query;
 use yii\db\QueryBuilder;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\Request;
@@ -62,7 +64,14 @@ class MissingPersonController extends Controller
         }
         $offset = (int)$data['page'] * self::PER_PAGE;
 
-        return Json::encode(MissingPerson::find()->offset($offset)->limit(self::PER_PAGE)->all());
+        $records = MissingPerson::find()->offset($offset)->limit(self::PER_PAGE)->all();
+
+        foreach ($records as $key => $record) {
+            $records[$key] = $record->toArray();
+            $records[$key]['city_name'] = GeobaseCity::findOne($record['city_id'])->name;
+        }
+
+        return Json::encode($records);
     }
 
     /**
@@ -101,7 +110,6 @@ class MissingPersonController extends Controller
         if (isset($data['FIO']) && strlen($data['FIO']) > 0) {
             $query->andWhere(['like', 'FIO', $data['FIO']]);
         }
-
 
         return $this->render('search', [
             'records' => $query->all(),

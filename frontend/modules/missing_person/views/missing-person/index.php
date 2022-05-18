@@ -56,5 +56,8 @@ echo ShowSearchMissingPeopleFormForIndex::widget();
         <?php
     }
     ?>
-    <button id="load_missing_persons" class="load-btn" >Загрузить ещё</button>
+    <button id="load_missing_persons" class="load-btn">
+        <span id="load-btn__text">Загрузить ещё</span>
+        <img hidden id="load-btn__gif" src="/images/loading.gif">
+    </button>
 </div>
