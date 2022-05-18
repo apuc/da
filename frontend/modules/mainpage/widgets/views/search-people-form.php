@@ -88,16 +88,3 @@ use common\classes\WordFunctions;
     </p>
     <?= \frontend\modules\mainpage\widgets\PostMissingPeopleModal::widget() ?>
 </div>
-<script>
-    $(document).ready(function () {
-        $('.age-select').select2({
-            selectionCssClass: 'up-selects',
-            width: 'resolve'
-        })
-        $('.select_place-select').select2({
-            selectionCssClass: 'up-selects'
-        })
-        $('b[role="presentation"]').hide()
-    })
-
-</script>

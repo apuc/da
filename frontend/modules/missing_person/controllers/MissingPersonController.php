@@ -76,10 +76,12 @@ class MissingPersonController extends Controller
     }
 
     /**
-     * @return string
+     * @param Request $request
      */
     public function actionSearch(Request $request): string
     {
+        $redirectToIndex = true;
+
         $data = $request->getQueryParams();
 
         $query = (new Query())
@@ -87,10 +89,11 @@ class MissingPersonController extends Controller
             ->from('missing_person');
 
         if (isset($data['age_category_id']) && strlen($data['age_category_id']) > 0) {
-            $yo18 = 1;
+            $redirectToIndex = false;
+
             switch ((int)$data['age_category_id']) {
                 case 1:
-                    $query->where(['<', 'date_of_birth', time() - self::FIVE_YEARS]);
+                    $query->where(['>', 'date_of_birth', time() - self::FIVE_YEARS]);
                     break;
                 case 2:
                     $query->where(['<', 'date_of_birth', time() - self::FIVE_YEARS])
@@ -105,12 +108,16 @@ class MissingPersonController extends Controller
         }
 
         if (isset($data['city_id']) && strlen($data['city_id']) > 0) {
+            $redirectToIndex = false;
             $query->andWhere(['city_id' => (int)$data['city_id']]);
         }
 
         if (isset($data['FIO']) && strlen($data['FIO']) > 0) {
+            $redirectToIndex = false;
             $query->andWhere(['like', 'FIO', $data['FIO']]);
         }
+
+        if($redirectToIndex) $this->redirect('/missing_person/missing-person/index');
 
         return $this->render('search', [
             'records' => $query->all(),

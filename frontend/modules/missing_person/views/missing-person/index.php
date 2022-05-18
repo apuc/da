@@ -9,6 +9,7 @@ use frontend\modules\missing_person\models\MissingPerson;
  * @var $cities GeobaseCity[]
  * @var $page int
  * @var $offset int
+ * @var $hasMore bool True если больше одной страницы
  */
 
 echo ShowSearchMissingPeopleFormForIndex::widget();
@@ -55,9 +56,14 @@ echo ShowSearchMissingPeopleFormForIndex::widget();
         <hr class="red-hr">
         <?php
     }
+
+    if ($hasMore) {
+        ?>
+        <button id="load_missing_persons" class="load-btn">
+            <span id="load-btn__text">Загрузить ещё</span>
+            <img hidden id="load-btn__gif" src="/images/loading.gif">
+        </button>
+        <?php
+    }
     ?>
-    <button id="load_missing_persons" class="load-btn">
-        <span id="load-btn__text">Загрузить ещё</span>
-        <img hidden id="load-btn__gif" src="/images/loading.gif">
-    </button>
 </div>

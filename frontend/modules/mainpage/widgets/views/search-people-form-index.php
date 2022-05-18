@@ -5,7 +5,6 @@ use kartik\select2\Select2;
 ?>
 
 <link href="/css/raw/search-missing-person-index.css" rel="stylesheet">
-<script defer src="/js/raw/missing-person-modal.js"></script>
 <script defer src="/js/raw/missing-person-pagination.js"></script>
 
 <div class="form">
@@ -64,11 +63,11 @@ use kartik\select2\Select2;
                 </div>
                 <div class="form__down-block">
                     <div class="form__inputName">
-                        <input type="text" name="FIO" placeholder="Введите ФИО" required/>
+                        <input type="text" name="FIO" placeholder="Введите ФИО"/>
                     </div>
                     <button type="submit">Поиск</button>
                 </div>
-                <div class="g-recaptcha" data-sitekey="К"></div>
+                <div class="g-recaptcha" data-sitekey="К" hidden></div>
             </form>
         </div>
         <div class="form__content-right">
@@ -92,7 +91,7 @@ use kartik\select2\Select2;
             </div>
         </div>
     </div>
-   <?= \frontend\modules\mainpage\widgets\PostMissingPeopleModal::widget() ?>
+    <?= \frontend\modules\mainpage\widgets\PostMissingPeopleModal::widget() ?>
 </div>
 <script src="https://www.google.com/recaptcha/api.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

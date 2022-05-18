@@ -4,6 +4,8 @@ use kartik\select2\Select2;
 
 ?>
 <link href="/css/raw/search-missing-person-modal.css" rel="stylesheet">
+<script defer src="/js/raw/missing-person-modal.js"></script>
+
 <form class="form__modal" action="/missing_person/missing-person/create" id="post_missing_person">
     <div class="form__modal-content">
         <div class="form__modal-date">
