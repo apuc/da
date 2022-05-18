@@ -130,7 +130,7 @@
 
 .search-people-form__header {
     color: #fff;
-    font-size: 12px;
+    font-size: 1em;
     font-weight: 400;
     line-height: 15px;
     margin: 0 0 15px;
@@ -284,7 +284,7 @@
 
 .search-people-form__footer {
     color: #fff;
-    font-size: 12px;
+    font-size: 0.9em;
     margin: 0;
     max-width: 680px
 }
@@ -320,12 +320,12 @@
 }
 
 .search-people-form__form-telegram .search-people-form__telegram h4 {
-    font-size: 15px;
-    margin: 15px 0
+    font-size: 1.3em;
+    margin: 15px 0;
 }
 
 .search-people-form__form-telegram .search-people-form__telegram p {
-    font-size: 10px
+    font-size: 0.85em;
 }
 
 .form {
@@ -630,7 +630,7 @@
 
 .form__content .form__content-right .form__text-block .form__source {
     color: #0c1d29;
-    font-size: 8px;
+    font-size: 9px;
     margin-top: 10px
 }
 

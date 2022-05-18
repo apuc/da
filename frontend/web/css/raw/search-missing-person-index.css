@@ -263,7 +263,7 @@
 .form__content .form__content-right .form__text-block .form__source {
     margin-top: 10px;
     color: #0c1d29;
-    font-size: 8px;
+    font-size: 9px;
 }
 
 /* Select2 start*/
@@ -321,13 +321,17 @@
     color: #e10a0a;
     margin-bottom: 1em;
 }
-
+/* Разделитель для надписи "никого не нашли" */
 .red-hr {
     border: 2px solid #9d0808;
 }
-
+/* Кнопка подзагрузки таблицы */
 .load-btn {
     width: 100%;
     height: 2.7em;
 
+}
+/* Сама таблица */
+.table {
+    font-size: 1.3em;
 }
