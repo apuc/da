@@ -18,7 +18,7 @@ class MissingPersonController extends Controller
 {
     const FIVE_YEARS = 157766400;
     const YEARS_18 = 567993600;
-    const PER_PAGE = 2;
+    const PER_PAGE = 50;
 
     function init()
     {
