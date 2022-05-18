@@ -51,7 +51,7 @@ class MissingPersonController extends Controller
     {
         return $this->render('index', [
             'records' => MissingPerson::find()->limit(self::PER_PAGE)->all(),
-            'hasMore' => (new Query)->select('COUNT(*)')->from('missing_person') > self::PER_PAGE,
+            'hasMore' => (new Query)->select('*')->from('missing_person')->count() > self::PER_PAGE,
         ]);
     }
 
