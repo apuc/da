@@ -1,5 +1,15 @@
 $(document).ready(function () {
 
+    /* Закрытие модалки */
+    const modal = document.querySelector('.form__modal')
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = 'none'
+        }
+    }
+
+
     // Нажатие на кнопку "Сообщить о пропаже" -> отобразить модалку
     document.getElementById('reportMissing')
         .addEventListener('click', (event) => {
