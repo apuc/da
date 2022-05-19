@@ -1,0 +1,80 @@
+/* фикс красной стрелочки */
+.form__modal-place .select2-container--bootstrap .select2-selection--single .select2-selection__arrow {
+    top: -7px;
+    right: 1.5em;
+}
+
+/* ФИО начало */
+.form__modal-name {
+    display: inline-block;
+    max-width: 450px;
+    height: 42px;
+    width: 100%;
+    margin-bottom: 3em;
+}
+
+.form__modal-name input {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 10px 30px 10px 1em;
+    background-color: #fff;
+    font-size: 1.1em;
+    border-radius: 4px;
+    border: 1px solid rgba(150, 150, 150, 0.5);
+}
+.form__modal-name input::placeholder {
+    color: #999999;
+    opacity: 95;
+    font-size: 1em;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+/* ФИО конец */
+
+/* Дата рождения */
+.form__modal-date input{
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 10px 0.5em 10px 1em;
+    background-color: #fff;
+    font-size: 1.1em;
+    border-radius: 4px;
+    border: 1px solid rgba(150, 150, 150, 0.5);
+}
+
+/* Доп инфо */
+.form__modal-additional-information textarea {
+    background-color: #fff;
+    font-size: 1.1em;
+    border-radius: 4px;
+    border: 1px solid rgba(150, 150, 150, 0.5);
+    padding: 1em;
+}
+
+/* Submit button */
+.form__modal-okButton {
+    margin-top: 1.5em!important;
+}
+/* Submit button */
+.modal_submit_button {
+    background-color: #ff0200;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    height: 42px;
+    text-transform: uppercase;
+    width: 230px;
+}
+
+
+.form__modal .form__modal-content {
+    background-color: #dcdcdc;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+}

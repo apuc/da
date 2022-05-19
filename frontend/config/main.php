@@ -77,6 +77,9 @@ return \yii\helpers\ArrayHelper::merge([
         'journal' => [
             'class' => 'frontend\modules\journal\Journal',
         ],
+        'missing_person' => [
+            'class' => 'frontend\modules\missing_person\MissingPerson',
+        ],
     ],
     'components' => [
         'cart' => [
@@ -185,6 +188,8 @@ return \yii\helpers\ArrayHelper::merge([
             'rules' => [
                 '' => 'mainpage/default',
 
+                //==============================MISSING_PERSON==============================
+                'missing-person' => 'missing_person/missing-person/index',
 
                 //==============================PERSONAL_AREA==============================
                 'personal-area' => 'personal_area/default/index',

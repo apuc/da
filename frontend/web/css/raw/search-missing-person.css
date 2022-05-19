@@ -1,191 +1,676 @@
+@charset "utf-8";
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&subset=cyrillic,cyrillic-ext,latin-ext");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,500,700,900&subset=cyrillic,cyrillic-ext,latin-ext");
+
+@font-face {
+    font-family: slick;
+    font-weight: 400;
+    src: url(../../fonts/slick/slick.eot) format("embedded-opentype"), url(../../fonts/slick/slick.woff2) format("woff2"), url(../../fonts/slick/slick.woff) format("woff"), url(../../fonts/slick/slick.ttf) format("truetype"), url(../../fonts/slick/slick.svg) format("svg")
+}
+
+@font-face {
+    font-family: Roboto-Light;
+    font-weight: 400;
+    src: url(../../fonts/Roboto-Light/Roboto-Light.eot) format("embedded-opentype"), url(../../fonts/Roboto-Light/Roboto-Light.woff2) format("woff2"), url(../../fonts/Roboto-Light/Roboto-Light.woff) format("woff"), url(../../fonts/Roboto-Light/Roboto-Light.ttf) format("truetype"), url(../../fonts/Roboto-Light/Roboto-Light.svg) format("svg")
+}
+
+@font-face {
+    font-family: Roboto-Bold;
+    font-weight: 400;
+    src: url(../../fonts/Roboto-Bold/Roboto-Bold.eot) format("embedded-opentype"), url(../../fonts/Roboto-Bold/Roboto-Bold.woff2) format("woff2"), url(../../fonts/Roboto-Bold/Roboto-Bold.woff) format("woff"), url(../../fonts/Roboto-Bold/Roboto-Bold.ttf) format("truetype"), url(../../fonts/Roboto-Bold/Roboto-Bold.svg) format("svg")
+}
+
+@font-face {
+    font-family: Roboto-Medium;
+    font-weight: 400;
+    src: url(../../fonts/Roboto-Medium/Roboto-Medium.eot) format("embedded-opentype"), url(../../fonts/Roboto-Medium/Roboto-Medium.woff2) format("woff2"), url(../../fonts/Roboto-Medium/Roboto-Medium.woff) format("woff"), url(../../fonts/Roboto-Medium/Roboto-Medium.ttf) format("truetype"), url(../../fonts/Roboto-Medium/Roboto-Medium.svg) format("svg")
+}
+
+@font-face {
+    font-family: BebasNeueBoldRegular;
+    font-weight: 400;
+    src: url(../../fonts/BebasNeueBold/BebasNeueBold_Regular.eot) format("embedded-opentype"), url(../../fonts/BebasNeueBold/BebasNeueBold_Regular.woff2) format("woff2"), url(../../fonts/BebasNeueBold/BebasNeueBold_Regular.woff) format("woff"), url(../../fonts/BebasNeueBold/BebasNeueBold_Regular.ttf) format("truetype"), url(../../fonts/BebasNeueBold/BebasNeueBold_Regular.svg) format("svg")
+}
+
 .search-people-form {
-    font-family: 'Open Sans';
+    background-image: url(../../img/forms/search-missing-person/search_people_form_background.jpg);
+    background-size: cover;
     clear: both;
-    max-width: 1132px;
-    background-image: url('../../img/forms/search-missing-person/search_people_form_background.jpg');
+    font-family: Open Sans;
     margin: 0 auto;
-    padding: 26px 30px 40px;
+    max-width: 1132px;
+    padding: 26px 30px 40px
 }
-.search-people-form__radiobuttons-selects {
+
+.search-people-form__modal {
+    background-color: rgba(0, 0, 0, .9);
+    display: none;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100
+}
+
+.search-people-form__modal .search-people-form__modal-content {
+    background-color: #fefefe;
+    border: 1px solid #888;
+    margin: 15% auto;
+    max-width: 400px;
+    padding: 20px;
+    width: 80%
+}
+
+.search-people-form__modal .search-people-form__modal-content > div {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    margin-top: 10px
 }
+
+.search-people-form__modal .search-people-form__modal-content > div label, .search-people-form__modal .search-people-form__modal-content > div > span {
+    padding-bottom: 5px
+}
+
+.search-people-form__modal .search-people-form__modal-content .search-people-form__modal-okButton {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex
+}
+
+.search-people-form__modal .search-people-form__modal-content .search-people-form__modal-okButton button {
+    width: 100px
+}
+
+.search-people-form__headerBlock {
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: space-between;
+    justify-content: space-between
+}
+
+.search-people-form__headerBlock button {
+    background-color: #ff0200;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    height: 42px;
+    text-transform: uppercase;
+    width: 230px
+}
+
 .search-people-form h3 {
-    margin: 0 0 15px;
+    color: #ee2e24;
     font-size: 22px;
     font-weight: 700;
-    text-transform: uppercase;
-    color: #ee2e24;
+    margin: 0 0 15px;
+    text-transform: uppercase
 }
+
 .search-people-form__header {
-    max-width: 575px;
-    font-size: 12px;
-    line-height: 15px;
-    font-weight: 400;
     color: #fff;
-    margin: 0 0 25px;
+    font-size: 1em;
+    font-weight: 400;
+    line-height: 15px;
+    margin: 0 0 15px;
+    max-width: 575px
 }
-.search-people-form__radiobuttons {
-    max-width: 185px;
+
+.search-people-form .search-people-form__inputSelects {
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
+    -webkit-flex-grow: 1;
     flex-grow: 1;
-    margin-bottom: 15px;
-}
-.search-people-form__radiobuttons input {
-    display: none;
-}
-.search-people-form__radiobuttons input:checked + label::before {
-    background-color: red;
-    border: 4px solid #fff;
-}
-.search-people-form__radiobuttons label {
-    display: inline-block;
-    cursor: pointer;
-    position: relative;
-    padding-left: 27px;
-    margin-right: 15px;
-    line-height: 18px;
-    user-select: none;
-    font-size: 14px;
-    line-height: 15px;
-    font-weight: 400;
-    color: #fff;
-}
-.search-people-form__radiobuttons label::before {
-    content: '';
-    display: inline-block;
-    width: 17px;
-    height: 17px;
-    border-radius: 50%;
-    position: absolute;
-    left: 0;
-    bottom: 1px;
-    background-color: #fff;
-}
-.search-people-form__selects {
-    display: flex;
-    max-width: 475px;
-    justify-content: space-between;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    flex-grow: 1;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    max-width: 695px
 }
-.search-people-form__selects .search-people-form__select {
+
+.search-people-form .search-people-form__inputSelects .inputSelect {
     display: inline-block;
-    width: 230px;
+    margin-top: 10px;
     position: relative;
-    margin-bottom: 10px;
+    width: 330px
 }
-.search-people-form__selects .search-people-form__select .search-people-form__place-select {
-    font-size: 12px;
+
+.search-people-form .search-people-form__inputSelects .inputSelect_place-select {
     color: #637278;
-    line-height: 20px;
+    font-size: 12px;
+    line-height: 20px
 }
-.search-people-form__selects .search-people-form__select:after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: 15px;
-    transform: translateY(-50%);
-    border-style: solid;
-    border-width: 7px 4px 0 4px;
-    border-color: red transparent transparent transparent;
-}
-.search-people-form__selects .search-people-form__select select {
-    cursor: pointer;
-    appearance: none;
-    display: block;
-    width: 100%;
-    padding: 10px;
+
+/*.search-people-form .search-people-form__inputSelects .inputSelect:after {*/
+/*    border-color: red transparent transparent;*/
+/*    border-style: solid;*/
+/*    border-width: 7px 4px 0;*/
+/*    content: "";*/
+/*    display: block;*/
+/*    pointer-events: none;*/
+/*    position: absolute;*/
+/*    right: 15px;*/
+/*    top: 50%;*/
+/*    -webkit-transform: translateY(-50%);*/
+/*    -ms-transform: translateY(-50%);*/
+/*    transform: translateY(-50%)*/
+/*}*/
+
+.search-people-form .search-people-form__inputSelects .inputSelect .up-selects {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
     background-color: #fff;
-    border-radius: 4px;
-    font-size: 14px;
     color: #03121c;
-}
-.search-people-form__input-button {
-    margin-top: 35px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin-bottom: 25px;
+    font-size: 14px;
+    height: 42px
 }
+
+.search-people-form__input-button {
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    margin-top: 35px
+}
+
 .search-people-form__input-button .search-people-form__text-input {
     display: inline-block;
-    position: relative;
-    max-width: 450px;
     height: 42px;
-    width: 100%;
     margin-bottom: 15px;
     margin-right: 15px;
+    max-width: 450px;
+    position: relative;
+    width: 100%
 }
-.search-people-form__input-button .search-people-form__text-input::after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: 15px;
-    transform: translateY(-50%);
-    border-style: solid;
-    border-width: 7px 4px 0 4px;
-    border-color: red transparent transparent transparent;
-}
+
 .search-people-form__input-button input {
-    display: block;
-    width: 100%;
-    height: 100%;
-    padding: 10px 30px 10px 10px;
     background-color: #fff;
-    font-size: 14px;
     border: none;
     border-radius: 4px;
+    display: block;
+    font-size: 1.1em;
+    height: 100%;
+    padding: 10px 30px 10px 1em;
+    width: 100%;
 }
+.search-people-form__input-button input::-webkit-input-placeholder {
+    color: #999999;
+    opacity: 95;
+    font-size: 1em;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.search-people-form__input-button input::-moz-placeholder {
+    color: #999999;
+    opacity: 95;
+    font-size: 1em;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.search-people-form__input-button input:-ms-input-placeholder {
+    color: #999999;
+    opacity: 95;
+    font-size: 1em;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.search-people-form__input-button input::-ms-input-placeholder {
+    color: #999999;
+    opacity: 95;
+    font-size: 1em;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 .search-people-form__input-button input::placeholder {
-    color: #637278;
-    font-size: 12px;
+    color: #999999;
+    opacity: 95;
+    font-size: 1em;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
 .search-people-form__input-button button {
-    text-transform: uppercase;
-    width: 230px;
-    height: 42px;
-    border-radius: 4px;
-    border: none;
     background-color: #ff0200;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
     font-size: 14px;
     font-weight: 700;
+    height: 42px;
     text-transform: uppercase;
-    color: #fff;
+    width: 230px
 }
+
 .search-people-form__footer {
-    margin: 0;
-    max-width: 680px;
-    font-size: 12px;
     color: #fff;
+    font-size: 0.9em;
+    margin: 0;
+    max-width: 680px
 }
+
 .search-people-form__footer span {
-    font-weight: 700;
     color: #ee2e24;
+    font-weight: 700
 }
+
 .search-people-form__form-telegram {
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+    -webkit-justify-content: space-between;
+    justify-content: space-between
 }
+
 .search-people-form__form-telegram .search-people-form__form {
     max-width: 695px;
-    width: 100%;
+    width: 100%
 }
+
 .search-people-form__form-telegram .search-people-form__telegram {
-    width: 240px;
     color: #fff;
     margin: 0 70px 20px 15px;
+    width: 240px
 }
+
 .search-people-form__form-telegram .search-people-form__telegram h4 {
-    font-size: 15px;
+    font-size: 1.3em;
     margin: 15px 0;
 }
+
 .search-people-form__form-telegram .search-people-form__telegram p {
-    font-size: 10px;
+    font-size: 0.85em;
 }
+
+.form {
+    background-color: #edeef0;
+    font-family: Open Sans;
+    margin: 0 auto;
+    max-width: 1131px;
+    min-height: 535px
+}
+
+.form * {
+    margin: 0;
+    padding: 0
+}
+
+.form__modal {
+    background-color: rgba(0, 0, 0, .9);
+    display: none;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100
+}
+
+.form__modal .form__modal-content {
+    background-color: #fefefe;
+    border: 1px solid #888;
+    margin: 15% auto;
+    max-width: 400px;
+    padding: 20px;
+    width: 80%
+}
+
+.form__modal .form__modal-content > div {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    margin-top: 10px
+}
+
+.form__modal .form__modal-content > div label, .form__modal .form__modal-content > div > span {
+    padding-bottom: 5px
+}
+
+.form__modal .form__modal-content .form__modal-okButton {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex
+}
+
+.form__modal .form__modal-content .form__modal-okButton button {
+    width: 100px
+}
+
+.form__header .form__text {
+    max-width: 620px
+}
+
+.form__header .form__text h3 {
+    color: #ee2e24;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 15px;
+    text-transform: uppercase
+}
+
+.form__header .form__text p {
+    color: #fff;
+    font-size: 13px;
+    line-height: 15px;
+    margin: 0
+}
+
+.form__header .form__button {
+    background-color: #ff0200;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    height: 42px;
+    margin-top: 5px;
+    min-width: 140px;
+    text-transform: uppercase;
+    width: 228px
+}
+
+.form__header .form__button:active {
+    -webkit-transform: translate(1px, 1px);
+    -ms-transform: translate(1px, 1px);
+    transform: translate(1px, 1px)
+}
+
+.form__content {
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    padding-left: 2.7%;
+    padding-right: 2px;
+    padding-top: 25px
+}
+
+.form__content .form__content-left {
+    max-width: 715px;
+    width: 100%
+}
+
+.form__content .form__content-left .form__form-block .form__inputSelects {
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: space-between;
+    justify-content: space-between
+}
+
+.form__content .form__content-left .form__form-block .form__inputSelects .inputSelect {
+    display: inline-block;
+    margin-top: 10px;
+    position: relative;
+    width: 330px
+}
+
+.form__content .form__content-left .form__form-block .form__inputSelects .inputSelect_place-select {
+    color: #637278;
+    font-size: 12px;
+    line-height: 20px
+}
+
+.form__content .form__content-left .form__form-block .form__inputSelects .inputSelect .up-selects {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    background-color: #fff;
+    color: #03121c;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: 14px;
+    height: 42px
+}
+
+.form__content .form__content-left .form__form-block .form__down-block {
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    margin-top: 35px
+}
+
+.form__content .form__content-left .form__form-block .form__down-block .form__inputName {
+    display: inline-block;
+    height: 42px;
+    margin-bottom: 15px;
+    margin-right: 15px;
+    max-width: 450px;
+    position: relative;
+    width: 100%
+}
+
+.form__content .form__content-left .form__form-block .form__down-block .form__inputName input {
+    background-color: #fff;
+    border: .5px solid rgba(0, 0, 0, .435);
+    border-radius: 4px;
+    display: block;
+    font-size: 14px;
+    height: 100%;
+    padding: 10px 30px 10px 10px;
+    width: 100%
+}
+
+.form__content .form__content-left .form__form-block .form__down-block .form__inputName input::-webkit-input-placeholder {
+    color: #637278;
+    font-size: 12px
+}
+
+.form__content .form__content-left .form__form-block .form__down-block .form__inputName input::-moz-placeholder {
+    color: #637278;
+    font-size: 12px
+}
+
+.form__content .form__content-left .form__form-block .form__down-block .form__inputName input:-ms-input-placeholder {
+    color: #637278;
+    font-size: 12px
+}
+
+.form__content .form__content-left .form__form-block .form__down-block .form__inputName input::-ms-input-placeholder {
+    color: #637278;
+    font-size: 12px
+}
+
+.form__content .form__content-left .form__form-block .form__down-block .form__inputName input::placeholder {
+    color: #637278;
+    font-size: 12px
+}
+
+.form__content .form__content-left .form__form-block .form__down-block button {
+    background-color: #ff0200;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    height: 42px;
+    text-transform: uppercase;
+    width: 230px
+}
+
+.form__content .form__content-right {
+    height: 50px;
+    margin-top: 10px;
+    max-width: 326px;
+    width: 100%
+}
+
+.form__content .form__content-right .form__i-block {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-align-items: center;
+    align-items: center;
+    background-color: #ff0200;
+    border-radius: 50%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    height: 51px;
+    -webkit-justify-content: center;
+    justify-content: center;
+    width: 51px
+}
+
+.form__content .form__content-right .form__text-block {
+    padding-left: 10px;
+    padding-top: 20px
+}
+
+.form__content .form__content-right .form__text-block .form__info {
+    color: #3f484f;
+    font-size: 15px;
+    line-height: 22px;
+    margin-bottom: 15px
+}
+
+.form__content .form__content-right .form__text-block .form__info span {
+    font-weight: 700
+}
+
+.form__content .form__content-right .form__text-block h5 {
+    color: #ff0200;
+    font-size: 12px
+}
+
+.form__content .form__content-right .form__text-block h3 {
+    color: #ff0200;
+    font-size: 22px;
+    margin-top: 12px
+}
+
+.form__content .form__content-right .form__text-block .form__source {
+    color: #0c1d29;
+    font-size: 9px;
+    margin-top: 10px
+}
+
+/* Select2 start*/
+/* Стрелочка-треугольник для селекта */
+.select2-container--bootstrap .select2-selection--single .select2-selection__arrow b {
+    border-color: red transparent transparent;
+    border-style: solid;
+    border-width: 7px 4px 0;
+    content: "";
+    display: block;
+    pointer-events: none;
+    position: absolute;
+    right: 15px;
+    top: 60%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%)
+}
+
+.select2-container--bootstrap.select2-container--open .select2-selection .select2-selection__arrow b {
+    border-color: red transparent transparent;
+    border-style: solid;
+    border-width: 7px 4px 0;
+    content: "";
+    display: block;
+    pointer-events: none;
+    position: absolute;
+    right: 15px;
+    top: 60%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%)
+}
+.select2-selection__rendered {
+    line-height: 42px !important;
+    font-size: 1.1em;
+    margin: -0.4em 0.2em;
+}
+.select2-container .select2-selection--single {
+    height: 43px !important;
+}
+/* Select2 END*/

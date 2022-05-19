@@ -33,25 +33,9 @@ MainPageAsset::register($this);
 
 <?= \frontend\widgets\ShowFooter::widget(); ?>
 
-<div class="modal-send">
+<!-- Модалка "Напишите нам"-->
+<?= \frontend\widgets\WriteToUsModal::widget(); ?>
 
-    <span class="modal-send__close">X</span>
-
-    <form action="" class="modal-send__form">
-
-        <input id="send-message-name" class="modal-send__field valid" type="name" placeholder="Имя" required>
-
-        <input id="send-message-email" class="modal-send__field valid" type="email" placeholder="Электронная почта"
-               required>
-
-        <textarea name="" id="send-message-text" class="modal-send__textarea valid" placeholder="Ваше сообщение"
-                  required></textarea>
-
-        <input id="send-message-submit" class="modal-send__submit" type="submit" value="Отправить">
-
-    </form>
-
-</div>
 
 <div class="modal-callback" id="modal-callback">
 

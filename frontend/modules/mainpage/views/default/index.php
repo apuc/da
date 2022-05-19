@@ -8,12 +8,13 @@ $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends
 //$this->registerJsFile('/js/jquery-ui-1.12.1/jquery-ui.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 ?>
+<?=
+// ПОИСК ПРОПАВШИХ ЛЮДЕЙ
+\frontend\modules\mainpage\widgets\ShowSearchMissingPeopleForm::widget();
+?>
+
     <section class="home-content">
         <div class="container">
-<!--          <?//=
-            // ПОИСК ПРОПАВШИХ ЛЮДЕЙ
-            // \frontend\modules\mainpage\widgets\ShowSearchMissingPeopleForm::widget();
-//            ?> -->
             <!-- open home-content__wrap -->
             <div class="home-content__wrap">
                 <!-- СЛАЙДЕР ГЛАВНАЯ СТРАНИЦА -->

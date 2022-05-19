@@ -306,7 +306,7 @@ class AjaxController extends Controller
     public function actionAddCategorySelect()
     {
         $catId = Yii::$app->request->post('catId');
-         // var_dump($catId);
+        // var_dump($catId);
         $catId = explode(',', $catId);
         array_splice($catId, -1);
         $model = new \frontend\modules\news\models\News();
@@ -340,30 +340,36 @@ class AjaxController extends Controller
     }
 
     //отправка сообщения об ошибке
-    public function actionSendErrorMsg()
+    public function actionSendErrorMsg(): bool
     {
         $request = Yii::$app->request->post();
-        //Debug::prn(Yii::$app->request->post('url'));
-        $error = new SiteError();
-        $error->url = $request['url'];
-        $error->user_id = $request['user_id'];
-        $error->msg = $request['text'];
+        $errorFeedback = new SiteError();
+        $errorFeedback->url = $request['url'];
+        $errorFeedback->user_id = $request['user_id'];
+        $errorFeedback->msg = $request['text'];
 
         if (Yii::$app->user->isGuest) {
-            $error->username = $request['name'];
-            $error->email = $request['email'];
+            $errorFeedback->username = $request['name'];
+            $errorFeedback->email = $request['email'];
         } else {
-            $error->username = UserFunction::getUserName($request['user_id']);
-            $error->email = Yii::$app->user->identity->email;
+            $errorFeedback->username = UserFunction::getUserName($request['user_id']);
+            $errorFeedback->email = Yii::$app->user->identity->email;
         }
 
-        $error->dt_add = time();
-        $error->save();
+        $errorFeedback->dt_add = time();
+        $errorFeedback->save();
 
-        if (isset($error->id)) {
+        if (isset($errorFeedback->id)) {
             return true;
         }
         return false;
+    }
+
+    public function actionSendUserMsg(): bool
+    {
+        //TODO send
+
+        return true;
     }
 
     public function actionSelectRegion()
@@ -472,8 +478,8 @@ class AjaxController extends Controller
         $dir = '/media/users/' . Yii::$app->user->id . '/' . date('Y-m-d') . '/';
         $path = Yii::getAlias('@frontend/web' . $dir);
         $folderImg = new Folder($path, 0775);
-        $folderImg->create()->file($img)->crop($post['w']*$k,$post['h']*$k, $post['x']*$k, $post['y']*$k)->save('crop_' . $time . '_' .$post['imgName']);
-        $post['img'] = $dir . 'crop_' . $time . '_' .$post['imgName'];
+        $folderImg->create()->file($img)->crop($post['w'] * $k, $post['h'] * $k, $post['x'] * $k, $post['y'] * $k)->save('crop_' . $time . '_' . $post['imgName']);
+        $post['img'] = $dir . 'crop_' . $time . '_' . $post['imgName'];
         return json_encode($post);
     }
 
