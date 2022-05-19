@@ -96,26 +96,3 @@ use kartik\select2\Select2;
 <script src="https://www.google.com/recaptcha/api.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('.age-select').select2({
-            selectionCssClass: 'up-selects',
-            width: 'resolve'
-        })
-        $('.select_place-select').select2({
-            selectionCssClass: 'up-selects'
-        })
-        $('b[role="presentation"]').hide()
-    })
-
-    // Модальное окно
-
-    const modal = document.querySelector('.form__modal')
-
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = 'none'
-        }
-    }
-
-</script>
