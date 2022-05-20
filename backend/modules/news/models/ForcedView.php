@@ -4,6 +4,10 @@ namespace backend\modules\news\models;
 
 use yii\db\ActiveRecord;
 
+/**
+ * @property int $news_id
+ * @property int $views
+ */
 class ForcedView extends ActiveRecord
 {
     /**

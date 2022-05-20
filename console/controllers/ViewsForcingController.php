@@ -8,9 +8,7 @@ use yii\console\Controller;
 
 class ViewsForcingController extends Controller
 {
-    const NEWS_IDS = [30334, 30332, 30333];
-
-    public $min, $max;
+    public $min, $max, $days;
 
     function init()
     {
@@ -26,6 +24,11 @@ class ViewsForcingController extends Controller
                 $options[] = 'min';
                 $options[] = 'max';
                 break;
+            case 'force':
+                $options[] = 'min';
+                $options[] = 'max';
+                $options[] = 'days';
+                break;
             default:
                 break;
         }
@@ -35,22 +38,34 @@ class ViewsForcingController extends Controller
 
     public function actionForceLastDayNews()
     {
-        // За последние сутки
-        $news = News::find()->select('id')->where(['>', 'dt_public', time() - 86400])->all();
+        $min = $this->min ?? 1;
+        $max = $this->max ?? 5;
+        $this->forceNews(News::find()->select('id')->where(['>', 'dt_public', time() - 86400])->all(), $min, $max);
+    }
+
+    public function actionForce()
+    {
+        $days = $this->days ?? 1;
+        $min = $this->min ?? 1;
+        $max = $this->max ?? max($min+1, 5);
+        $this->forceNews(News::find()->select('id')->where(['>', 'dt_public', time() - 86400 * $days])->all(), $min, $max);
+    }
+
+    public function forceNews($news, $min, $max)
+    {
         $num = 0;
         foreach ($news as $rec) {
             $views = ForcedView::findOne(['news_id' => $rec->id]);
             if ($views) {
-                $views->views = $views->views + rand($this->min, $this->max);
+                $views->views = $views->views + rand($min, $max);
             } else {
                 $views = new ForcedView();
                 $views->news_id = $rec->id;
-                $views->views += rand($this->min, $this->max);
+                $views->views += rand($min, $max);
             }
             $views->save();
             $num++;
         }
-
         echo $num > 0 ? "Views in $num News successfully updated!\n" : "Nothing to update!\n";
     }
 }
