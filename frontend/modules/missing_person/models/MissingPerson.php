@@ -2,8 +2,6 @@
 
 namespace frontend\modules\missing_person\models;
 
-use yii\db\ActiveRecord;
-
 /**
  * This is the model class for table "missing_person".
  *
@@ -13,17 +11,8 @@ use yii\db\ActiveRecord;
  * @property integer $city_id
  * @property mixed|null $additional_info
  */
-class MissingPerson extends ActiveRecord
+class MissingPerson extends \common\models\db\MissingPerson
 {
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'missing_person';
-    }
-
-
     /**
      * @inheritdoc
      */
@@ -34,36 +23,5 @@ class MissingPerson extends ActiveRecord
             [['id', 'city_id'], 'integer'],
             [['fio'], 'string', 'max' => 256],
         ];
-    }
-
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'fio' => 'ФИО',
-            'date_of_birth' => 'Дата рождения',
-            'city_id' => 'ID Города',
-        ];
-    }
-
-    /**
-     * @param $id
-     * @return static
-     */
-    public static function findById($id)
-    {
-        return static::findOne(['id' => $id]);
-    }
-    /**
-     * @param $id
-     * @return static
-     */
-    public static function findByName($str)
-    {
-        return static::findOne(['fio', 'LIKE', "%$str%"]);
     }
 }
