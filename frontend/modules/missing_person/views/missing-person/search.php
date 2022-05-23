@@ -28,13 +28,9 @@ echo ShowSearchMissingPeopleFormForIndex::widget();
             </thead>
             <tbody>
             <?php
-            /**
-             * @var $records MissingPerson[]
-             * @var $record MissingPerson
-             */
             foreach ($records as $record) { ?>
                 <tr>
-                    <td><?= $record['FIO'] ?></td>
+                    <td><?= $record['fio'] ?></td>
                     <td><?= date('d.m.Y', $record['date_of_birth']) ?></td>
                     <td><?= GeobaseCity::findOne($record['city_id'])->name ?></td>
                     <td><?= strlen($record['additional_info']) > 0 ? $record['additional_info'] : '—' ?></td>
