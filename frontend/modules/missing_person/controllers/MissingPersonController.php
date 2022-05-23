@@ -112,9 +112,9 @@ class MissingPersonController extends Controller
             $query->andWhere(['city_id' => (int)$data['city_id']]);
         }
 
-        if (isset($data['FIO']) && strlen($data['FIO']) > 0) {
+        if (isset($data['fio']) && strlen($data['fio']) > 0) {
             $redirectToIndex = false;
-            $query->andWhere(['like', 'FIO', $data['FIO']]);
+            $query->andWhere(['like', 'fio', $data['fio']]);
         }
 
         if($redirectToIndex) $this->redirect('/missing_person/missing-person/index');
@@ -135,7 +135,7 @@ class MissingPersonController extends Controller
 
         if (!(isset($data['date_of_birth'])
             && isset($data['city_id'])
-            && isset($data['FIO'])
+            && isset($data['fio'])
             && isset($data['additional_info'])
         )) {
             \Yii::$app->response->statusCode = 400;
@@ -146,7 +146,7 @@ class MissingPersonController extends Controller
 
         if (MissingPerson::findOne([
             'date_of_birth' => $birthDay,
-            'FIO' => $data['FIO'],
+            'fio' => $data['fio'],
             'city_id' => $data['city_id'],
         ])) {
             \Yii::$app->response->statusCode = 400;
@@ -155,7 +155,7 @@ class MissingPersonController extends Controller
 
         $person = new MissingPerson();
         $person->city_id = $data['city_id'];
-        $person->FIO = $data['FIO'];
+        $person->fio = $data['fio'];
         $person->date_of_birth = $birthDay;
         $person->additional_info = $data['additional_info'];
         $person->save();

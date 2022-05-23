@@ -32,7 +32,7 @@ use kartik\select2\Select2;
         </div>
         <div class="form__modal-name">
             <label for="modalInputName">ФИО</label>
-            <input id="modalInputName" name="FIO" type="text" placeholder="Введите ФИО" required />
+            <input id="modalInputName" name="fio" type="text" placeholder="Введите ФИО" required />
         </div>
         <div class="form__modal-additional-information">
             <span><b>Дополнительная информация</b></span>
