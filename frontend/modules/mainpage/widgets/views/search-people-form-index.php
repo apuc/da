@@ -63,7 +63,7 @@ use kartik\select2\Select2;
                 </div>
                 <div class="form__down-block">
                     <div class="form__inputName">
-                        <input type="text" name="FIO" placeholder="Введите ФИО"/>
+                        <input type="text" name="fio" placeholder="Введите ФИО"/>
                     </div>
                     <button type="submit">Поиск</button>
                 </div>

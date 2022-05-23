@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
  * This is the model class for table "missing_person".
  *
  * @property integer $id
- * @property string $FIO
+ * @property string $fio
  * @property integer $date_of_birth
  * @property integer $city_id
  * @property mixed|null $additional_info
@@ -30,9 +30,9 @@ class MissingPerson extends ActiveRecord
     public function rules()
     {
         return [
-            [['FIO', 'date_of_birth', 'city_id'], 'required'],
+            [['fio', 'date_of_birth', 'city_id'], 'required'],
             [['id', 'city_id'], 'integer'],
-            [['FIO'], 'string', 'max' => 256],
+            [['fio'], 'string', 'max' => 256],
         ];
     }
 
@@ -44,7 +44,7 @@ class MissingPerson extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'FIO' => 'ФИО',
+            'fio' => 'ФИО',
             'date_of_birth' => 'Дата рождения',
             'city_id' => 'ID Города',
         ];
@@ -64,6 +64,6 @@ class MissingPerson extends ActiveRecord
      */
     public static function findByName($str)
     {
-        return static::findOne(['FIO', 'LIKE', "%$str%"]);
+        return static::findOne(['fio', 'LIKE', "%$str%"]);
     }
 }
