@@ -170,6 +170,9 @@ return [
         'sima_land' => [
             'class' => 'backend\modules\sima_land\SimaLand',
         ],
+        'missing_person' => [
+            'class' => 'backend\modules\missing_person\MissingPerson'
+        ]
     ],
     'components' => [
         'cart' => [
@@ -212,6 +215,9 @@ return [
                 'entertainment' => 'entertainment/default',
                 'main-premiere' => 'poster/poster/main-premiere',
                 'stock' => 'stock/stock',
+                'missing-person' => 'missing_person/missing-person/index',
+                'missing-person/delete' => 'missing_person/missing-person/delete',
+                'missing-person/update' => 'missing_person/missing-person/update',
             ],
         ],
 

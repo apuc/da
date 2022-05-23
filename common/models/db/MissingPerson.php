@@ -30,9 +30,10 @@ class MissingPerson extends ActiveRecord
     public function rules()
     {
         return [
-            [['fio', 'date_of_birth', 'city_id'], 'required'],
+            [['date_of_birth'], 'date'],
             [['id', 'city_id'], 'integer'],
             [['fio'], 'string', 'max' => 256],
+            [['additional_info'], 'string'],
         ];
     }
 
@@ -47,6 +48,7 @@ class MissingPerson extends ActiveRecord
             'fio' => 'ФИО',
             'date_of_birth' => 'Дата рождения',
             'city_id' => 'ID Города',
+            'additional_info' => 'Доп. информация',
         ];
     }
 
