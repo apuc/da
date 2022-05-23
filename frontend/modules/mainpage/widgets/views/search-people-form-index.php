@@ -21,7 +21,7 @@ use kartik\select2\Select2;
     </div>
     <div class="form__content">
         <div class="form__content-left">
-            <form method="get" action="/missing_person/missing-person/search" class="form__form-block">
+            <form method="get" action="/missing-person/search" class="form__form-block">
                 <div class="form__inputSelects">
                     <div class="inputSelect">
                         <?=

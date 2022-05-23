@@ -190,6 +190,8 @@ return \yii\helpers\ArrayHelper::merge([
 
                 //==============================MISSING_PERSON==============================
                 'missing-person' => 'missing_person/missing-person/index',
+                'missing-person/search' => 'missing_person/missing-person/search',
+                'missing-person/create' => 'missing_person/missing-person/create',
 
                 //==============================PERSONAL_AREA==============================
                 'personal-area' => 'personal_area/default/index',
