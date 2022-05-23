@@ -28,10 +28,6 @@ echo ShowSearchMissingPeopleFormForIndex::widget();
             </thead>
             <tbody>
             <?php
-            /**
-             * @var $records MissingPerson[]
-             * @var $record MissingPerson
-             */
             foreach ($records as $record) { ?>
                 <tr>
                     <td><?= $record['FIO'] ?></td>
