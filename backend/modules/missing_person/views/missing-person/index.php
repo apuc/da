@@ -10,6 +10,9 @@ use yii\helpers\Html; ?>
 
 <div>
     <h1>Сообщения о пропавших</h1>
+    <p>
+        <?= Html::a(Yii::t('missing-person', 'Добавить сообщение'), ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
     <?=
     /** @var ActiveDataProvider $dataProvider */
     /** @var MissingPersonSearch $searchModel */
