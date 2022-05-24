@@ -117,7 +117,7 @@ class MissingPersonController extends Controller
             $query->andWhere(['like', 'fio', $data['fio']]);
         }
 
-        if($redirectToIndex) $this->redirect('/missing_person/missing-person/index');
+        if($redirectToIndex) $this->redirect('/missing-person');
 
         return $this->render('search', [
             'records' => $query->all(),

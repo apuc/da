@@ -24,7 +24,7 @@ use common\classes\WordFunctions;
         </div>
     </div>
     <div class="search-people-form__form-telegram">
-        <form class="search-people-form__form" action="/missing_person/missing-person/search" method="get">
+        <form class="search-people-form__form" action="/missing-person/search" method="get">
             <div class="search-people-form__inputSelects">
                 <div class="inputSelect">
                     <?=
