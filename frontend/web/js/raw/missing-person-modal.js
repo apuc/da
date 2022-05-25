@@ -5,9 +5,9 @@ $(document).ready(function () {
 
     window.onclick = function (event) {
         if (event.target == modal) {
-            modal.style.display = 'none'
+            modal.style.display = 'none';
         }
-    }
+    };
 
 
     // Нажатие на кнопку "Сообщить о пропаже" -> отобразить модалку

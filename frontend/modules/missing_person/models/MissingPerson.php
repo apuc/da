@@ -9,6 +9,8 @@ namespace frontend\modules\missing_person\models;
  * @property string $fio
  * @property integer $date_of_birth
  * @property integer $city_id
+ * @property integer $user_id ID пользователя
+ * @property integer $user_ip IP запроса
  * @property mixed|null $additional_info
  */
 class MissingPerson extends \common\models\db\MissingPerson

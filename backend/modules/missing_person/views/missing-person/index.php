@@ -23,6 +23,10 @@ use yii\helpers\Html; ?>
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => UserFunction::hasRoles(['admin']) ? '{update} &nbsp&nbsp {delete}' : '',
+            ],
             'id',
             [
                 'attribute' => 'fio',
@@ -59,9 +63,10 @@ use yii\helpers\Html; ?>
                 'label' => 'Доп. Информация',
                 'format' => 'text',
             ],
+            'user_id',
             [
-                'class' => 'yii\grid\ActionColumn',
-                'template' => UserFunction::hasRoles(['admin']) ? '{update} {delete}' : '',
+                'attribute' => 'user_ip',
+                'format' => 'text',
             ],
         ],
     ]); ?>
