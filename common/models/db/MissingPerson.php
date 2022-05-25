@@ -12,6 +12,7 @@ use yii\db\ActiveRecord;
  * @property integer $date_of_birth
  * @property integer $city_id
  * @property mixed|null $additional_info
+ * @property integer $user_id
  */
 class MissingPerson extends ActiveRecord
 {
@@ -30,9 +31,9 @@ class MissingPerson extends ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'city_id'], 'integer'],
+            [['id', 'city_id', 'user_id'], 'integer'],
             [['fio'], 'string', 'max' => 256],
-            [['additional_info'], 'string'],
+            [['additional_info', 'user_ip'], 'string'],
         ];
     }
 
@@ -47,6 +48,8 @@ class MissingPerson extends ActiveRecord
             'fio' => 'ФИО',
             'date_of_birth' => 'Дата рождения',
             'city_id' => 'ID Города',
+            'user_id' => 'ID Пользователя',
+            'user_ip' => 'IP Пользователя',
             'additional_info' => 'Доп. информация',
         ];
     }

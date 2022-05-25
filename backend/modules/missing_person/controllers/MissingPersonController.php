@@ -60,6 +60,8 @@ class MissingPersonController extends \yii\web\Controller
             $model->setAttribute('date_of_birth', strtotime($data['date_of_birth']));
             $model->setAttribute('city_id', $data['city_id']);
             $model->setAttribute('additional_info', $data['additional_info']);
+            $model->setAttribute('user_id', Yii::$app->getUser()->id);
+            $model->setAttribute('user_ip', Yii::$app->request->userIP);
             $model->save();
 
             return $this->redirect(['index']);

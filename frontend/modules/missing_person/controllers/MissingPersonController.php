@@ -5,6 +5,7 @@ namespace frontend\modules\missing_person\controllers;
 use backend\modules\currency\controllers\CurrencyRateController;
 use common\models\db\GeobaseCity;
 use frontend\modules\missing_person\models\MissingPerson;
+use Yii;
 use yii\base\InvalidConfigException;
 use yii\db\Query;
 use yii\db\QueryBuilder;
@@ -155,6 +156,8 @@ class MissingPersonController extends Controller
 
         $person = new MissingPerson();
         $person->city_id = $data['city_id'];
+        $person->user_id = Yii::$app->getUser()->id;
+        $person->user_ip = Yii::$app->request->userIP;
         $person->fio = $data['fio'];
         $person->date_of_birth = $birthDay;
         $person->additional_info = $data['additional_info'];

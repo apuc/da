@@ -7,6 +7,7 @@ use kartik\select2\Select2;
 <script defer src="/js/raw/missing-person-modal.js"></script>
 
 <form class="form__modal" action="/missing-person/create" id="post_missing_person">
+    <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" />
     <div class="form__modal-content">
         <div class="form__modal-date">
             <label for="date_of_birth">Дата рождения</label>
