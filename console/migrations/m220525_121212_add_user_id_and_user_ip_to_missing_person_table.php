@@ -1,6 +1,6 @@
 <?php
 
-class m220525_121212_add_user_id_to_missing_person_table extends \yii\db\Migration
+class m220525_121212_add_user_id_and_user_ip_to_missing_person_table extends \yii\db\Migration
 {
     public function up()
     {
