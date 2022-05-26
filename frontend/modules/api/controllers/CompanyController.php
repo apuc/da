@@ -2,9 +2,10 @@
 
 namespace frontend\modules\api\controllers;
 
+use frontend\controllers\MainWebController;
 use frontend\models\sitemap\CategoryCompany;
 
-class CompanyController extends \yii\web\Controller
+class CompanyController extends MainWebController
 {
     public function init()
     {

@@ -5,8 +5,9 @@ namespace frontend\modules\api\controllers;
 use Classes\Wrapper\IUrls;
 use Classes\Wrapper\Wrapper;
 use common\classes\Debug;
+use frontend\controllers\MainRestController;
 
-class SimaController extends \yii\rest\Controller
+class SimaController extends MainRestController
 {
     public $enableCsrfValidation = false;
 

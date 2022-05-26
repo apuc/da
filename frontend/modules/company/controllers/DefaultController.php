@@ -11,14 +11,13 @@ use common\models\db\Likes;
 use common\models\db\ServicesCompanyRelations;
 use common\models\db\Tariff;
 use common\models\db\TariffServicesRelations;
+use frontend\controllers\MainWebController;
 use Yii;
-use yii\helpers\ArrayHelper;
-use yii\web\Controller;
 
 /**
  * Default controller for the `company` module
  */
-class DefaultController extends Controller
+class DefaultController extends MainWebController
 {
     public $layout = 'portal_page';
 

@@ -22,6 +22,7 @@ use common\models\db\SiteError;
 use common\models\db\News;
 use common\models\db\Subscribe;
 use common\models\User;
+use frontend\controllers\MainWebController;
 use frontend\models\user\Profile;
 use frontend\modules\company\models\Company;
 use frontend\modules\promotions\models\Stock;
@@ -39,7 +40,7 @@ use yii\web\Controller;
 /**
  * Default controller for the `ajax` module
  */
-class AjaxController extends Controller
+class AjaxController extends MainWebController
 {
     function init()
     {

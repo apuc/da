@@ -9,6 +9,7 @@ use common\models\db\ProductFieldsValue;
 use common\models\db\ProductsImg;
 use common\models\db\ServicePeriods;
 use common\models\db\ServiceReservation;
+use frontend\controllers\MainWebController;
 use frontend\modules\company\models\Company;
 use frontend\modules\shop\models\CategoryShop;
 use frontend\modules\shop\models\Products;
@@ -16,9 +17,8 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
-use yii\web\Controller;
 
-class ServiceController extends Controller
+class ServiceController extends MainWebController
 {
     public $layout = "personal_area";
 
@@ -44,28 +44,30 @@ class ServiceController extends Controller
      */
     public function behaviors()
     {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@'],
+        return array_merge(parent::behaviors(),
+            [
+                'verbs' => [
+                    'class' => VerbFilter::className(),
+                    'actions' => [
+                        'delete' => ['POST'],
                     ],
-                    /*[
-                        'actions' => ['create'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],*/
                 ],
-            ],
-        ];
+                'access' => [
+                    'class' => AccessControl::className(),
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                        /*[
+                            'actions' => ['create'],
+                            'allow' => true,
+                            'roles' => ['?'],
+                        ],*/
+                    ],
+                ],
+            ]
+        );
     }
 
     public function actionCreate()
@@ -281,7 +283,7 @@ class ServiceController extends Controller
         $reservation->product_id = Yii::$app->request->post('id');
         $reservation->user_id = 0;
 
-        if($reservation->save())
+        if ($reservation->save())
             return 'ok';
 
     }
@@ -303,8 +305,8 @@ class ServiceController extends Controller
 
     public function actionDeleteReservation()
     {
-        if($reservation = ServiceReservation::findOne(Yii::$app->request->post('id')))
-            if($reservation->delete())
+        if ($reservation = ServiceReservation::findOne(Yii::$app->request->post('id')))
+            if ($reservation->delete())
                 return 'ok';
         return 'error';
 

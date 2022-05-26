@@ -14,12 +14,13 @@ use common\classes\Debug;
 use common\classes\UserFunction;
 use common\models\db\Order;
 use common\models\db\OrderProduct;
+use frontend\controllers\MainWebController;
 use frontend\modules\shop\models\Products;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 
-class CartController extends Controller
+class CartController extends MainWebController
 {
     public $layout = 'shop';
 

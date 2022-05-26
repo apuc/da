@@ -18,6 +18,7 @@ use common\models\db\Phones;
 use common\models\db\ProductsImg;
 use common\models\db\SocCompany;
 use common\models\UploadPhoto;
+use frontend\controllers\MainWebController;
 use frontend\modules\shop\models\Products;
 use Yii;
 use frontend\modules\company\models\Company;
@@ -35,7 +36,7 @@ use yii\web\UploadedFile;
 /**
  * CompanyController implements the CRUD actions for Company model.
  */
-class CompanyController extends Controller
+class CompanyController extends MainWebController
 {
 
     public $layout = 'portal_page';
@@ -59,28 +60,30 @@ class CompanyController extends Controller
 
     public function behaviors()
     {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['index', 'view', 'category', 'view-category', 'get_categ', 'get_sub_categ', 'get_company_by_categ', 'get-more-company', 'startwidgetcompany', 'get-company'],
-                        'roles' => ['?'],
+        return array_merge(parent::behaviors(),
+            [
+                'verbs' => [
+                    'class' => VerbFilter::className(),
+                    'actions' => [
+                        'delete' => ['POST'],
                     ],
                 ],
-            ],
-        ];
+                'access' => [
+                    'class' => AccessControl::className(),
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions' => ['index', 'view', 'category', 'view-category', 'get_categ', 'get_sub_categ', 'get_company_by_categ', 'get-more-company', 'startwidgetcompany', 'get-company'],
+                            'roles' => ['?'],
+                        ],
+                    ],
+                ],
+            ]
+        );
     }
 
     public function actionIndex()
@@ -178,7 +181,7 @@ class CompanyController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
 
-        if($place === '' || !in_array($place, \common\models\db\Company::$start_page_items_en)){
+        if ($place === '' || !in_array($place, \common\models\db\Company::$start_page_items_en)) {
             $place = $model->start_page_titles[$model->start_page];
         }
         $services = [];
@@ -236,7 +239,7 @@ class CompanyController extends Controller
             }
 
             if ($_FILES['Company']['name']['photo']) {
-                $upphoto = New UploadPhoto();
+                $upphoto = new UploadPhoto();
                 $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
                 $loc = 'media/upload/userphotos/' . date('dmY') . '/';
                 if (!is_dir($loc)) {
@@ -249,8 +252,8 @@ class CompanyController extends Controller
             $model->save();
 
             CompanySliderPhoto::deleteAll(['company_id' => $model->id]);
-            if($model->slider == 1){
-                foreach(Yii::$app->request->post('sliderImg') as $image){
+            if ($model->slider == 1) {
+                foreach (Yii::$app->request->post('sliderImg') as $image) {
                     $newImage = new CompanySliderPhoto();
                     $newImage->company_id = $model->id;
                     $newImage->photo = $image;
@@ -261,7 +264,7 @@ class CompanyController extends Controller
             $phones = $model->allPhones;
 
             $post['Phones'] = array_values($post['Phones']);
-            if(isset($post['messengeresArray']))
+            if (isset($post['messengeresArray']))
                 $post['messengeresArray'] = array_values($post['messengeresArray']);
 
             $diff = count($post['Phones']);
@@ -319,8 +322,8 @@ class CompanyController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             CompanySliderPhoto::deleteAll(['company_id' => $model->id]);
-            if($model->slider == 1){
-                foreach(Yii::$app->request->post('sliderImg') as $image){
+            if ($model->slider == 1) {
+                foreach (Yii::$app->request->post('sliderImg') as $image) {
                     $newImage = new CompanySliderPhoto();
                     $newImage->company_id = $model->id;
                     $newImage->photo = $image;
@@ -345,7 +348,7 @@ class CompanyController extends Controller
             if (Phones::loadMultiple($phones, $post) && Phones::validateMultiple($phones)) {
                 foreach ($phones as $phone) {
                     /** @var Phones $phone */
-                    if(isset($post['messengeresArray'])){
+                    if (isset($post['messengeresArray'])) {
                         $phone->messengeresArray = $post['messengeresArray'][$phone->id];
                     }
                     $phone->save();
@@ -360,7 +363,7 @@ class CompanyController extends Controller
             }
 
             if (!empty($_FILES['Company']['name']['photo'])) {
-                $upphoto = New UploadPhoto();
+                $upphoto = new UploadPhoto();
                 $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
                 $loc = 'media/upload/userphotos/' . date('dmY') . '/';
                 if (!is_dir($loc)) {
@@ -385,7 +388,7 @@ class CompanyController extends Controller
             if (!empty($_POST['productImg'])) {
                 CompanyPhoto::deleteAll(['company_id' => $model->id]);
                 foreach ((array)$_POST['productImg'] as $photo) {
-                    if($photo){
+                    if ($photo) {
                         $companyPhoto = new CompanyPhoto;
                         $companyPhoto->company_id = $model->id;
                         $companyPhoto->photo = $photo;

@@ -10,6 +10,7 @@ namespace frontend\modules\promotions\controllers;
 
 use common\classes\Debug;
 use common\models\db\Comments;
+use frontend\controllers\MainWebController;
 use frontend\modules\promotions\models\Stock;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -17,7 +18,7 @@ use Yii;
 use yii\web\UploadedFile;
 use yii\web\NotFoundHttpException;
 
-class PromotionsController extends Controller
+class PromotionsController extends MainWebController
 {
     public function init()
     {
@@ -38,23 +39,25 @@ class PromotionsController extends Controller
 
     public function behaviors()
     {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
+        return array_merge(parent::behaviors(),
+            [
+                'access' => [
+                    'class' => AccessControl::className(),
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
 
-                    [
-                        'actions' => ['index', 'view', 'update-view', 'read-more-stock'],
-                        'allow' => true,
-                        'roles' => ['?'],
+                        [
+                            'actions' => ['index', 'view', 'update-view', 'read-more-stock'],
+                            'allow' => true,
+                            'roles' => ['?'],
+                        ],
                     ],
                 ],
-            ],
-        ];
+            ]
+        );
     }
 
     /**
@@ -139,7 +142,7 @@ class PromotionsController extends Controller
     public function actionCreate()
     {
         $this->layout = "personal_area";
-        $model = New Stock();
+        $model = new Stock();
         $beforeCreate = $model->beforeCreate();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -148,7 +151,7 @@ class PromotionsController extends Controller
 
             if ($_FILES['Stock']['name']) {
 
-                $upphoto = New \common\models\UploadPhoto();
+                $upphoto = new \common\models\UploadPhoto();
                 $upphoto->imageFile = UploadedFile::getInstanceByName('Stock');
                 $loc = 'media/upload/userphotos/' . date('dmY') . '/';
                 if (!is_dir($loc)) {
@@ -191,7 +194,7 @@ class PromotionsController extends Controller
             $model->user_id = Yii::$app->user->id;
 
             if ($_FILES['Stock']['name']) {
-                $upphoto = New \common\models\UploadPhoto();
+                $upphoto = new \common\models\UploadPhoto();
                 $upphoto->imageFile = UploadedFile::getInstanceByName('Stock');
                 $loc = 'media/upload/userphotos/' . date('dmY') . '/';
                 if (!is_dir($loc)) {
@@ -244,7 +247,7 @@ class PromotionsController extends Controller
     public function actionView($slug)
     {
         $model = Stock::find()->with(['company', 'comments'])->where(['slug' => $slug])->one();
-        if(!$model){
+        if (!$model) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
         $model->updateAllCounters(['view' => 1], ['id' => $model->id]);

@@ -7,6 +7,7 @@ use common\models\db\CategoryFields;
 use common\models\db\ProductFields;
 use common\models\db\ProductFieldsValue;
 use common\models\db\ProductsImg;
+use frontend\controllers\MainWebController;
 use frontend\modules\company\models\Company;
 use frontend\modules\shop\models\CategoryShop;
 use frontend\modules\shop\models\Products;
@@ -16,7 +17,7 @@ use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 
-class ProductsController extends Controller
+class ProductsController extends MainWebController
 {
     public $layout = "personal_area";
 
@@ -42,28 +43,30 @@ class ProductsController extends Controller
      */
     public function behaviors()
     {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@'],
+        return array_merge(parent::behaviors(),
+            [
+                'verbs' => [
+                    'class' => VerbFilter::className(),
+                    'actions' => [
+                        'delete' => ['POST'],
                     ],
-                    /*[
-                        'actions' => ['create'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],*/
                 ],
-            ],
-        ];
+                'access' => [
+                    'class' => AccessControl::className(),
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                        /*[
+                            'actions' => ['create'],
+                            'allow' => true,
+                            'roles' => ['?'],
+                        ],*/
+                    ],
+                ],
+            ]
+        );
     }
 
     public function actionCreate()
@@ -75,7 +78,7 @@ class ProductsController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post())) {
-            if ($model->company->verifikation === 1){
+            if ($model->company->verifikation === 1) {
                 $model->status = 1;
             } else {
                 $model->status = 0;
@@ -270,7 +273,7 @@ class ProductsController extends Controller
                 }
 
             }
-            if ($model->company->verifikation === 1){
+            if ($model->company->verifikation === 1) {
                 $model->status = 1;
             } else {
                 $model->status = 0;

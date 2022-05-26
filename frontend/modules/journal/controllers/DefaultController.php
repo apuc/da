@@ -2,12 +2,13 @@
 
 namespace frontend\modules\journal\controllers;
 
+use frontend\controllers\MainWebController;
 use yii\web\Controller;
 
 /**
  * Default controller for the `journal` module
  */
-class DefaultController extends Controller
+class DefaultController extends MainWebController
 {
     function init()
     {

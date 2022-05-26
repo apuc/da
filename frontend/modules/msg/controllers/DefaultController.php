@@ -2,13 +2,13 @@
 
 namespace frontend\modules\msg\controllers;
 
+use frontend\controllers\MainWebController;
 use vision\messages\actions\MessageApiAction;
-use yii\web\Controller;
 
 /**
  * Default controller for the `msg` module
  */
-class DefaultController extends Controller
+class DefaultController extends MainWebController
 {
     function init()
     {

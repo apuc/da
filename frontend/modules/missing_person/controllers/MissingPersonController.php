@@ -4,18 +4,20 @@ namespace frontend\modules\missing_person\controllers;
 
 use backend\modules\currency\controllers\CurrencyRateController;
 use common\models\db\GeobaseCity;
+use frontend\controllers\MainWebController;
 use frontend\modules\missing_person\models\MissingPerson;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\db\Query;
 use yii\db\QueryBuilder;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\Request;
 
-class MissingPersonController extends Controller
+class MissingPersonController extends MainWebController
 {
     const FIVE_YEARS = 157766400;
     const YEARS_18 = 567993600;
@@ -31,17 +33,19 @@ class MissingPersonController extends Controller
      */
     public function behaviors()
     {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'index' => ['GET'],
-                    'create' => ['POST'],
-                    'search' => ['GET'],
-                    'page' => ['GET'],
-                ],
+        return array_merge(parent::behaviors(),
+            [
+                'verbs' => [
+                    'class' => VerbFilter::className(),
+                    'actions' => [
+                        'index' => ['GET'],
+                        'create' => ['POST'],
+                        'search' => ['GET'],
+                        'page' => ['GET'],
+                    ],
+                ]
             ]
-        ];
+        );
     }
 
     /**
@@ -119,7 +123,7 @@ class MissingPersonController extends Controller
             $query->andWhere(['like', 'fio', $data['fio']]);
         }
 
-        if($redirectToIndex) $this->redirect('/missing-person');
+        if ($redirectToIndex) $this->redirect('/missing-person');
 
         return $this->render('search', [
             'records' => $query->all(),

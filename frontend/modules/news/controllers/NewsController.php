@@ -8,13 +8,13 @@ use common\models\db\CategoryNews;
 use common\models\db\CategoryNewsRelations;
 use common\models\db\KeyValue;
 use common\models\db\Lang;
+use frontend\controllers\MainWebController;
 use Yii;
 use common\models\db\News;
 use frontend\modules\news\models\NewsSearch;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
@@ -22,7 +22,7 @@ use yii\web\UploadedFile;
 /**
  * NewsController implements the CRUD actions for News model.
  */
-class NewsController extends Controller
+class NewsController extends MainWebController
 {
     public $layout = 'portal_page';
 
@@ -51,28 +51,30 @@ class NewsController extends Controller
      */
     public function behaviors()
     {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                    [
-                        'actions' => ['index', 'category', 'more-news', 'more-category-news', 'archive'],
-                        'allow' => true,
-                        'roles' => ['?'],
+        return array_merge(parent::behaviors(),
+            [
+                'verbs' => [
+                    'class' => VerbFilter::className(),
+                    'actions' => [
+                        'delete' => ['POST'],
                     ],
                 ],
-            ],
-        ];
+                'access' => [
+                    'class' => AccessControl::className(),
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                        [
+                            'actions' => ['index', 'category', 'more-news', 'more-category-news', 'archive'],
+                            'allow' => true,
+                            'roles' => ['?'],
+                        ],
+                    ],
+                ],
+            ]
+        );
     }
 
 
@@ -190,7 +192,7 @@ class NewsController extends Controller
             }
 
             if ($_FILES['News']['name']['photo']) {
-                $upphoto = New \common\models\UploadPhoto();
+                $upphoto = new \common\models\UploadPhoto();
                 $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
                 $loc = 'media/upload/userphotos/' . date('dmY') . '/';
                 if (!is_dir($loc)) {
@@ -268,7 +270,7 @@ class NewsController extends Controller
             }
 
             if (!empty($_FILES['News']['name']['photo'])) {
-                $upphoto = New \common\models\UploadPhoto();
+                $upphoto = new \common\models\UploadPhoto();
                 $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
                 $loc = 'media/upload/userphotos/' . date('dmY') . '/';
                 if (!is_dir($loc)) {
@@ -302,7 +304,7 @@ class NewsController extends Controller
 
             $newsPhoto = News::find()->select(['photo'])->where(['id' => $id])->one();
             $img = $newsPhoto->photo;
-            $selectCat_arr = Array();
+            $selectCat_arr = array();
             $i = 0;
             $newsRel_1 = CategoryNewsRelations::find()->where(['new_id' => $id])->all();
 
@@ -417,7 +419,8 @@ class NewsController extends Controller
         );
     }
 
-    public function actionRedirect(){
+    public function actionRedirect()
+    {
         return $this->redirect('/all-new');
     }
 
