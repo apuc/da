@@ -51,7 +51,7 @@ class MissingPersonController extends Controller
     public function actionIndex(Request $request): string
     {
         return $this->render('index', [
-            'records' => MissingPerson::find()->limit(self::PER_PAGE)->all(),
+            'records' => MissingPerson::find()->where(['moderated' => 1])->limit(self::PER_PAGE)->all(),
             'hasMore' => (new Query)->select('*')->from('missing_person')->count() > self::PER_PAGE,
         ]);
     }
@@ -66,7 +66,7 @@ class MissingPersonController extends Controller
         }
         $offset = (int)$data['page'] * self::PER_PAGE;
 
-        $records = MissingPerson::find()->offset($offset)->limit(self::PER_PAGE)->all();
+        $records = MissingPerson::find()->where(['moderated' => 1])->offset($offset)->limit(self::PER_PAGE)->all();
 
         foreach ($records as $key => $record) {
             $records[$key] = $record->toArray();
@@ -87,7 +87,8 @@ class MissingPersonController extends Controller
 
         $query = (new Query())
             ->select('*')
-            ->from('missing_person');
+            ->from('missing_person')
+            ->where(['moderated' => 1]);
 
         if (isset($data['age_category_id']) && strlen($data['age_category_id']) > 0) {
             $redirectToIndex = false;
