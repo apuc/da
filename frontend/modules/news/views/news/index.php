@@ -4,6 +4,8 @@ use common\classes\DateFunctions;
 use common\classes\WordFunctions;
 use common\models\db\CategoryNews;
 use common\models\db\News;
+use frontend\modules\news\models\NewsSearch;
+use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\StringHelper;
