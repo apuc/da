@@ -3,6 +3,7 @@
 use backend\modules\missing_person\models\MissingPersonSearch;
 use common\classes\UserFunction;
 use common\models\db\GeobaseCity;
+use common\models\db\MissingPerson;
 use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
@@ -67,6 +68,32 @@ use yii\helpers\Html; ?>
             [
                 'attribute' => 'user_ip',
                 'format' => 'text',
+            ],
+            [
+                'attribute' => 'moderated',
+                'value' => function ($model) {
+                    if ($model->moderated) {
+                        return Html::a('Заблокировать',
+                            ['block', 'id' => $model->id],
+                            [
+                                'class' => 'btn btn-xs btn-danger btn-block',
+//                                'data-method' => 'get',
+                                'data-confirm' => 'Заблокировать эту запись?',
+                            ]
+                        );
+                    } else {
+                        return Html::a('Опубликовать',
+                            ['moderate', 'id' => $model->id],
+                            [
+                                'class' => 'btn btn-xs btn-success btn-block',
+//                                'data-method' => 'get',
+                                'data-confirm' => 'Опубликовать эту запись?',
+                            ]
+                        );
+                    }
+                },
+                'format' => 'raw',
+                'visible' => Yii::$app->getModule('user')->enableConfirmation,
             ],
         ],
     ]); ?>

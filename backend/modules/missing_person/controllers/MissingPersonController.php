@@ -6,6 +6,7 @@ use backend\modules\missing_person\models\MissingPerson;
 use backend\modules\missing_person\models\MissingPersonSearch;
 use Yii;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 class MissingPersonController extends \yii\web\Controller
 {
@@ -54,7 +55,7 @@ class MissingPersonController extends \yii\web\Controller
     {
         $model = new MissingPerson();
 
-        if('POST' == Yii::$app->request->method){
+        if ('POST' == Yii::$app->request->method) {
             $data = Yii::$app->request->getBodyParam('MissingPerson');
             $model->setAttribute('fio', $data['fio']);
             $model->setAttribute('date_of_birth', strtotime($data['date_of_birth']));
@@ -66,7 +67,7 @@ class MissingPersonController extends \yii\web\Controller
 
             return $this->redirect(['index']);
         } else {
-            return $this->render('create',[
+            return $this->render('create', [
                 'model' => $model,
             ]);
         }
@@ -76,7 +77,7 @@ class MissingPersonController extends \yii\web\Controller
     {
         $model = MissingPerson::findById($id);
 
-        if('POST' == Yii::$app->request->method){
+        if ('POST' == Yii::$app->request->method) {
             $data = Yii::$app->request->getBodyParam('MissingPerson');
             $model->setAttribute('fio', $data['fio']);
             $model->setAttribute('date_of_birth', strtotime($data['date_of_birth']));
@@ -86,9 +87,33 @@ class MissingPersonController extends \yii\web\Controller
 
             return $this->redirect(['index']);
         } else {
-            return $this->render('update',[
+            return $this->render('update', [
                 'model' => $model,
             ]);
         }
+    }
+
+    /**
+     * @return Response
+     */
+    public function actionModerate($id): Response
+    {
+        $model = MissingPerson::findById($id);
+        $model->setAttribute('moderated', 1);
+        $model->save();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * @return Response
+     */
+    public function actionBlock($id): Response
+    {
+        $model = MissingPerson::findById($id);
+        $model->setAttribute('moderated', 0);
+        $model->save();
+
+        return $this->redirect(['index']);
     }
 }

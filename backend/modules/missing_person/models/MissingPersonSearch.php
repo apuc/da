@@ -16,7 +16,7 @@ class MissingPersonSearch extends MissingPerson
      */
     public function search($params)
     {
-        $query = MissingPerson::find();
+        $query = MissingPerson::find()->orderBy('id DESC');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
