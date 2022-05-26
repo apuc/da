@@ -77,7 +77,7 @@ use yii\helpers\Html; ?>
                             ['block', 'id' => $model->id],
                             [
                                 'class' => 'btn btn-xs btn-danger btn-block',
-//                                'data-method' => 'get',
+                                'data-method' => 'post',
                                 'data-confirm' => 'Заблокировать эту запись?',
                             ]
                         );
@@ -86,7 +86,7 @@ use yii\helpers\Html; ?>
                             ['moderate', 'id' => $model->id],
                             [
                                 'class' => 'btn btn-xs btn-success btn-block',
-//                                'data-method' => 'get',
+                                'data-method' => 'post',
                                 'data-confirm' => 'Опубликовать эту запись?',
                             ]
                         );

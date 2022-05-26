@@ -28,6 +28,8 @@ class MissingPersonController extends \yii\web\Controller
                     'index' => ['GET'],
                     'create' => ['GET', 'POST'],
                     'delete' => ['POST'],
+                    'block' => ['POST'],
+                    'moderate' => ['POST'],
                 ],
             ],
         ];
