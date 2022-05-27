@@ -44,7 +44,7 @@ $this->registerJsFile('/theme/portal-donbassa/js/jquery-2.1.3.min.js', ['depends
         </div>
     </section>
 <?php
-echo \frontend\widgets\MainPopularSlider::widget(['useReg' => $useReg]);
+//echo \frontend\widgets\MainPopularSlider::widget(['useReg' => $useReg]);
 
 
 echo \frontend\widgets\MainPosters::widget(['useReg' => $useReg]);
