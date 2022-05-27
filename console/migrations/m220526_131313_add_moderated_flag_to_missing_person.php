@@ -1,6 +1,6 @@
 <?php
 
-class m229526_131313_add_moderated_flag_to_missing_person extends \yii\db\Migration
+class m220526_131313_add_moderated_flag_to_missing_person extends \yii\db\Migration
 {
     public function up()
     {
