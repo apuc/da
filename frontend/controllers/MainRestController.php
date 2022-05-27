@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 
+use common\models\db\BannedIp;
 use yii\filters\AccessControl;
 use yii\rest\Controller;
 
@@ -14,12 +15,10 @@ class MainRestController extends Controller
             'access' => [
                 'class' => AccessControl::classname(),
                 'rules' => [
-//                    [
-//                        'allow' => false,
-//                        'ips' => [
-//                            '127.0.0.2',
-//                        ],
-//                    ],
+                    [
+                        'allow' => false,
+                        'ips' => BannedIp::getIps()
+                    ],
                     [
                         'allow' => true,
                         'ips' => [

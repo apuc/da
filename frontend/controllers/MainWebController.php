@@ -18,12 +18,10 @@ class MainWebController extends \yii\web\Controller
             'access' => [
                 'class' => AccessControl::classname(),
                 'rules' => [
-//                    [
-//                        'allow' => false,
-//                        'ips' => [
-//                            BannedIP::find()->all()
-//                        ],
-//                    ],
+                    [
+                        'allow' => false,
+                        'ips' => BannedIp::getIps()
+                    ],
                     [
                         'allow' => true,
                         'ips' => [
