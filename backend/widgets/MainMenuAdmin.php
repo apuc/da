@@ -77,7 +77,8 @@ class MainMenuAdmin extends Widget
         $countProducts = Products::find()->where(['status' => 0, 'type' => Products::TYPE_PRODUCT])->count();
         $countService = Products::find()->where(['status' => 0, 'type' => Products::TYPE_SERVICE])->count();
 
-        $countMissingPerson = \common\models\db\MissingPerson::find()->count();
+        $countMissingPersonPosted = \common\models\db\MissingPerson::find()->where(['moderated' => 1])->count();
+        $countMissingPersonNew = \common\models\db\MissingPerson::find()->where(['moderated' => 0])->count();
 
         echo \yii\widgets\Menu::widget(
             [
@@ -213,7 +214,8 @@ class MainMenuAdmin extends Widget
                                 <i class="fa fa-user-times"></i>
                                 <span>{label}</span> 
                                       <span class="pull-right-container">
-                                          <span class="label bg-blue pull-right">' . $countMissingPerson . '</span>
+                                          <span class="label bg-blue pull-right">' . $countMissingPersonPosted . '</span>
+                                          <span class="label bg-red pull-right">' . $countMissingPersonNew . '</span>
                                       </span>  
                             </a>',
 
