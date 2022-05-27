@@ -27,6 +27,7 @@ class MissingPersonController extends \yii\web\Controller
                 'actions' => [
                     'index' => ['GET'],
                     'create' => ['GET', 'POST'],
+                    'update' => ['GET', 'POST'],
                     'delete' => ['POST'],
                     'block' => ['POST'],
                     'moderate' => ['POST'],
