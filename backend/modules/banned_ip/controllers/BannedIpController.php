@@ -50,8 +50,13 @@ class BannedIpController extends \yii\web\Controller
         $model = new BannedIp();
 
         if ('POST' == Yii::$app->request->method) {
-            $model->setAttribute('ip_mask', Yii::$app->request->getBodyParam('BannedIp')['ip_mask']);
-            $model->save();
+            $ip_mask = Yii::$app->request->getBodyParam('BannedIp')['ip_mask']
+                ?? Yii::$app->request->getQueryParam('ip_mask');
+
+            if(!BannedIp::find()->where(['ip_mask' => $ip_mask])->exists()){
+                $model->setAttribute('ip_mask', $ip_mask);
+                $model->save();
+            }
 
             return $this->redirect(['index']);
         } else {
