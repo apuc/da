@@ -12,6 +12,7 @@ use common\models\db\VkStream;
 use common\models\db\InstPhoto;
 use common\models\Stream;
 use common\models\User;
+use frontend\controllers\MainWebController;
 use frontend\models\user\Profile;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -19,7 +20,7 @@ use yii\web\Cookie;
 use Yii;
 
 
-class DefaultController extends Controller
+class DefaultController extends MainWebController
 {
     public function init()
     {

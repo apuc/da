@@ -2,9 +2,10 @@
 
 namespace frontend\modules\api\controllers;
 
+use frontend\controllers\MainWebController;
 use frontend\modules\api\models\City;
 
-class CityController extends \yii\web\Controller
+class CityController extends MainWebController
 {
     public function init()
     {

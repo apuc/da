@@ -9,7 +9,7 @@ use common\models\db\News;
 use Yii;
 use yii\web\Controller;
 
-class LikesController extends Controller
+class LikesController extends MainWebController
 {
     function init()
     {

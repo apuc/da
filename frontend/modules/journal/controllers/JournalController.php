@@ -4,9 +4,10 @@ namespace frontend\modules\journal\controllers;
 
 use common\classes\Debug;
 use common\models\db\Journal;
+use frontend\controllers\MainWebController;
 use yii\web\Controller;
 
-class JournalController extends Controller
+class JournalController extends MainWebController
 {
     function init()
     {

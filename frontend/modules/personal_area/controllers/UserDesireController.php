@@ -8,11 +8,12 @@
 
 namespace frontend\modules\personal_area\controllers;
 
+use frontend\controllers\MainWebController;
 use frontend\modules\personal_area\models\UserDesireSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
-class UserDesireController extends Controller
+class UserDesireController extends MainWebController
 {
     function init()
     {
@@ -21,18 +22,21 @@ class UserDesireController extends Controller
 
     public function behaviors()
     {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@'],
+        return array_merge(parent::behaviors(),
+            [
+                'access' => [
+                    'class' => AccessControl::className(),
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
                     ],
                 ],
-            ],
-        ];
+            ]
+        );
     }
+
     public $layout = 'personal_area';
 
     public function actionIndex()

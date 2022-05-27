@@ -10,6 +10,7 @@ use common\models\db\KeyValue;
 use common\models\db\Lang;
 use common\models\db\News;
 use frontend\controllers\MainController;
+use frontend\controllers\MainWebController;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -17,7 +18,7 @@ use yii\web\Controller;
 /**
  * Default controller for the `mainpage` module
  */
-class DefaultController extends Controller
+class DefaultController extends MainWebController
 {
     function init()
     {

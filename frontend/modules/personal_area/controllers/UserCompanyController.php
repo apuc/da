@@ -9,11 +9,12 @@
 namespace frontend\modules\personal_area\controllers;
 
 use common\classes\Debug;
+use frontend\controllers\MainWebController;
 use frontend\modules\personal_area\models\UserCompanySearch;
 use yii\base\Controller;
 use yii\filters\AccessControl;
 
-class UserCompanyController extends Controller
+class UserCompanyController extends MainWebController
 {
     function init()
     {

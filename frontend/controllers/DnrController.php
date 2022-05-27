@@ -14,7 +14,7 @@ use common\models\db\KeyValue;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 
-class DnrController extends Controller
+class DnrController extends MainWebController
 {
     public $layout = 'portal';
 

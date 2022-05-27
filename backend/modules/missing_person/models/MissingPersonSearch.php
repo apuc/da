@@ -33,10 +33,12 @@ class MissingPersonSearch extends MissingPerson
             'id' => $this->id,
             'city_id' => $this->city_id,
             'date_of_birth' => $this->date_of_birth,
+            'user_id' => $this->user_id,
         ]);
 
         $query->andFilterWhere(['like', 'fio', $this->fio])
-            ->andFilterWhere(['like', 'additional_info', $this->additional_info]);
+            ->andFilterWhere(['like', 'additional_info', $this->additional_info])
+            ->andFilterWhere(['like', 'user_ip', $this->user_ip]);
 
         return $dataProvider;
     }

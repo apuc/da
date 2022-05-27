@@ -13,6 +13,7 @@ use yii\db\ActiveRecord;
  * @property integer $city_id
  * @property mixed|null $additional_info
  * @property integer $user_id
+ * @property string $user_ip
  * @property integer $moderated 1 - опубликовано, 0 - нет
  */
 class MissingPerson extends ActiveRecord

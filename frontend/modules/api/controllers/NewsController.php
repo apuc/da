@@ -6,10 +6,11 @@ namespace frontend\modules\api\controllers;
 
 use common\models\db\CategoryNews;
 use common\models\db\News;
+use frontend\controllers\MainWebController;
 use Yii;
 use yii\base\Controller;
 
-class NewsController extends Controller
+class NewsController extends MainWebController
 {
     function init()
     {

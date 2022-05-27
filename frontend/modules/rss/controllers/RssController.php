@@ -9,6 +9,7 @@ use common\models\db\CategoryPosterRelations;
 use common\models\db\KeyValue;
 use common\models\db\News;
 use common\models\db\Poster;
+use frontend\controllers\MainWebController;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\helpers\StringHelper;
@@ -19,7 +20,7 @@ use yii\web\Response;
 /**
  * Default controller for the `rss` module
  */
-class RssController extends Controller
+class RssController extends MainWebController
 {
     function init()
     {

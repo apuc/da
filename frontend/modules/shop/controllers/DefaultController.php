@@ -6,6 +6,7 @@ use common\classes\Debug;
 use common\models\db\KeyValue;
 use common\models\db\ProductMark;
 use common\models\db\Products;
+use frontend\controllers\MainWebController;
 use frontend\modules\shop\models\CategoryShop;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -13,7 +14,7 @@ use yii\web\Controller;
 /**
  * Default controller for the `shop` module
  */
-class DefaultController extends Controller
+class DefaultController extends MainWebController
 {
     function init()
     {

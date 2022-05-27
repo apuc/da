@@ -172,7 +172,10 @@ return [
         ],
         'missing_person' => [
             'class' => 'backend\modules\missing_person\MissingPerson'
-        ]
+        ],
+        'banned_ip' => [
+            'class' => 'backend\modules\banned_ip\BannedIp'
+        ],
     ],
     'components' => [
         'cart' => [
@@ -218,6 +221,9 @@ return [
                 'missing-person' => 'missing_person/missing-person/index',
                 'missing-person/delete' => 'missing_person/missing-person/delete',
                 'missing-person/update' => 'missing_person/missing-person/update',
+                'ban-ip' => 'banned_ip/banned-ip/index',
+                'ban-ip/delete' => 'banned_ip/banned-ip/delete',
+                'ban-ip/create' => 'banned_ip/banned-ip/create',
             ],
         ],
 

@@ -25,6 +25,7 @@ $(document).ready(function () {
         let data = {};
         modalForm.find('input, textarea, select').each(function () {
             let value = $(this).val();
+
             if (canContinue) {
                 // Проверка на выбранный город. На остальных полях работает required.
                 if (this.name === "city_id" && value === "") {
@@ -34,11 +35,13 @@ $(document).ready(function () {
                 data[this.name] = value;
             }
         });
+
         if (canContinue) {
             $.ajax({
                 url: modalForm.attr('action'),
                 data: data,
                 type: "POST",
+
                 success: function () {
                     //TODO заменить содержание модалки на сообщение с кнопкой ОК,
                     // заменить ивенты закрытия и нажатия на кнопку на релоад
@@ -46,6 +49,7 @@ $(document).ready(function () {
                     // перезагрузить страницу
                     location.reload();
                 },
+
                 error: function (response) {
                     alert(response.responseText !== '' ? response.responseText : "Произошла ошибка! Попробуйте позже");
                     //спрятать модалку
