@@ -7,7 +7,7 @@
 
 namespace frontend\controllers;
 
-use common\models\db\BannedIP;
+use common\models\db\BannedIp;
 use yii\filters\AccessControl;
 
 class MainWebController extends \yii\web\Controller

@@ -90,6 +90,12 @@ class MainMenuAdmin extends Widget
                         'visible' => UserFunction::hasPermission(['Пользователи']),
                     ],
                     [
+                        'label' => 'Бан по IP',
+                        'template' => '<a href="{url}"><i class="fa fa-users"></i> <span>{label}</span></a>',
+                        'url' => Url::to(['/banned_ip/banned-ip/index']),
+                        'visible' => UserFunction::hasPermission(['Пользователи']),
+                    ],
+                    [
                         'label' => 'Главная',
                         'items' => [
                             [

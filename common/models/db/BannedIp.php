@@ -7,16 +7,16 @@ namespace common\models\db;
  * This is the model class for table "banned_ip".
  *
  * @property integer $id
- * @property string $fio
+ * @property string $ip_mask
  */
-class BannedIP extends \yii\db\ActiveRecord
+class BannedIp extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'banned_ips';
+        return 'banned_ip';
     }
 
 

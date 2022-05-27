@@ -1,11 +1,10 @@
 <?php
 
-namespace backend\modules\missing_person\models;
+namespace backend\modules\banned_ip\models;
 
-use Yii;
 use yii\data\ActiveDataProvider;
 
-class MissingPersonSearch extends MissingPerson
+class BannedIpSearch extends BannedIp
 {
     /**
      * Creates data provider instance with search query applied
@@ -16,7 +15,7 @@ class MissingPersonSearch extends MissingPerson
      */
     public function search($params)
     {
-        $query = MissingPerson::find()->orderBy('id DESC');
+        $query = self::find()->orderBy('id DESC');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -31,14 +30,8 @@ class MissingPersonSearch extends MissingPerson
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'city_id' => $this->city_id,
-            'date_of_birth' => $this->date_of_birth,
-            'user_id' => $this->user_id,
+            'ip_mask' => $this->ip_mask,
         ]);
-
-        $query->andFilterWhere(['like', 'fio', $this->fio])
-            ->andFilterWhere(['like', 'additional_info', $this->additional_info])
-            ->andFilterWhere(['like', 'user_ip', $this->user_ip]);
 
         return $dataProvider;
     }
