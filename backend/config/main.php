@@ -222,8 +222,8 @@ return [
                 'missing-person/delete' => 'missing_person/missing-person/delete',
                 'missing-person/update' => 'missing_person/missing-person/update',
                 'ban-ip' => 'banned_ip/banned-ip/index',
-                'ban-ip/delete' => 'banned_ip/banned-i-p/delete',
-                'ban-ip/create' => 'banned_ip/banned-i-p/create',
+                'ban-ip/delete' => 'banned_ip/banned-ip/delete',
+                'ban-ip/create' => 'banned_ip/banned-ip/create',
             ],
         ],
 
