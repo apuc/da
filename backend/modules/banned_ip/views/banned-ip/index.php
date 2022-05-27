@@ -14,21 +14,23 @@ use yii\helpers\Html;
     <p>
         <?= Html::a('Добавить IP', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <?=
+    <div style="width: 30%;">
+        <?=
 
-    \yii\grid\GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'template' => '{delete}',
-            ],
-            'id',
-            'ip_mask',
-        ]
-    ]);
+        \yii\grid\GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                    'template' => '{delete} &nbsp&nbsp {update}',
+                ],
+                'ip_mask',
+            ]
+        ]);
 
-    ?>
+        ?>
+
+    </div>
 </div>
