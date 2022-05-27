@@ -7,6 +7,7 @@
 
 namespace frontend\controllers;
 
+use common\models\db\BannedIP;
 use yii\filters\AccessControl;
 
 class MainWebController extends \yii\web\Controller
@@ -17,12 +18,12 @@ class MainWebController extends \yii\web\Controller
             'access' => [
                 'class' => AccessControl::classname(),
                 'rules' => [
-                    [
-                        'allow' => false,
-                        'ips' => [
-                            '127.0.0.2',
-                        ],
-                    ],
+//                    [
+//                        'allow' => false,
+//                        'ips' => [
+//                            BannedIP::find()->all()
+//                        ],
+//                    ],
                     [
                         'allow' => true,
                         'ips' => [

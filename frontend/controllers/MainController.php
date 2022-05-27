@@ -9,9 +9,8 @@
 namespace frontend\controllers;
 
 use Yii;
-use yii\web\Controller;
 
-class MainController extends Controller
+class MainController extends MainWebController
 {
     function init()
     {

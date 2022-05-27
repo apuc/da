@@ -14,12 +14,12 @@ class MainRestController extends Controller
             'access' => [
                 'class' => AccessControl::classname(),
                 'rules' => [
-                    [
-                        'allow' => false,
-                        'ips' => [
-                            '127.0.0.2',
-                        ],
-                    ],
+//                    [
+//                        'allow' => false,
+//                        'ips' => [
+//                            '127.0.0.2',
+//                        ],
+//                    ],
                     [
                         'allow' => true,
                         'ips' => [
