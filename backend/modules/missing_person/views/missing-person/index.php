@@ -1,5 +1,6 @@
 <?php
 
+use backend\modules\banned_ip\models\BannedIp;
 use backend\modules\missing_person\models\MissingPersonSearch;
 use common\classes\UserFunction;
 use common\models\db\GeobaseCity;
@@ -68,6 +69,26 @@ use yii\helpers\Html; ?>
             [
                 'attribute' => 'user_ip',
                 'format' => 'text',
+            ],
+            [
+                'label' => 'БАН',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    if (!BannedIp::find()->where(['ip_mask' => $model->user_ip])->exists()) {
+                        return Html::a('Забанить IP',
+                            ['/ban-ip/create', 'ip_mask' => $model->user_ip],
+                            [
+                                'class' => 'btn btn-xs btn-danger btn-block',
+                                'data-method' => 'post',
+                                'data-confirm' => 'Забанить IP',
+                            ]
+                        );
+                    } else {
+                        return '<div class="text-center">
+                                    <span class="text-danger">Забанен</span>
+                                </div>';
+                    }
+                }
             ],
             [
                 'attribute' => 'moderated',
