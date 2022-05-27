@@ -3,6 +3,8 @@
 namespace common\models\db;
 
 
+use yii\helpers\ArrayHelper;
+
 /**
  * This is the model class for table "banned_ip".
  *
@@ -50,5 +52,13 @@ class BannedIp extends \yii\db\ActiveRecord
     public static function findById($id)
     {
         return static::findOne(['id' => $id]);
+    }
+
+    /**
+     * @return array
+     */
+    public static function getIps(): array
+    {
+        return ArrayHelper::getColumn((new \yii\db\Query())->select('ip_mask')->from('banned_ip')->all(), 'ip_mask');
     }
 }
