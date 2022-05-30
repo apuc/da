@@ -2,6 +2,7 @@
 
 namespace backend\modules\missing_person\controllers;
 
+use backend\modules\banned_ip\models\BannedIp;
 use backend\modules\missing_person\models\MissingPerson;
 use backend\modules\missing_person\models\MissingPersonSearch;
 use Yii;
@@ -47,9 +48,17 @@ class MissingPersonController extends \yii\web\Controller
         ]);
     }
 
-    public function actionDelete($id)
+    public function actionDelete($id, $ban = false)
     {
-        MissingPerson::findOne($id)->delete();
+        $missingPerson = MissingPerson::findOne($id);
+
+        if ($ban && !BannedIp::find()->where(['ip_mask' => $missingPerson->user_ip])->exists()) {
+            $model = new BannedIp();
+            $model->setAttribute('ip_mask', $missingPerson->user_ip);
+            $model->save();
+        }
+
+        $missingPerson->delete();
 
         return $this->redirect(['index']);
     }

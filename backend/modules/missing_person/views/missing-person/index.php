@@ -76,7 +76,7 @@ use yii\helpers\Html; ?>
                 'value' => function ($model) {
                     if (!BannedIp::find()->where(['ip_mask' => $model->user_ip])->exists()) {
                         return Html::a('Забанить IP',
-                            ['/ban-ip/create', 'ip_mask' => $model->user_ip],
+                            ['delete', 'id' => $model->id, 'ban' => true],
                             [
                                 'class' => 'btn btn-xs btn-danger btn-block',
                                 'data-method' => 'post',
