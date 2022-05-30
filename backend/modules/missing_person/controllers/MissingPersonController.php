@@ -52,13 +52,16 @@ class MissingPersonController extends \yii\web\Controller
     {
         $missingPerson = MissingPerson::findOne($id);
 
-        if ($ban && !BannedIp::find()->where(['ip_mask' => $missingPerson->user_ip])->exists()) {
-            $model = new BannedIp();
-            $model->setAttribute('ip_mask', $missingPerson->user_ip);
-            $model->save();
+        if ($ban) {
+            if(!BannedIp::find()->where(['ip_mask' => $missingPerson->user_ip])->exists()) {
+                $model = new BannedIp();
+                $model->setAttribute('ip_mask', $missingPerson->user_ip);
+                $model->save();
+            }
+            MissingPerson::deleteAll(['user_ip' => $missingPerson->user_ip]);
+        } else {
+            $missingPerson->delete();
         }
-
-        $missingPerson->delete();
 
         return $this->redirect(['index']);
     }
