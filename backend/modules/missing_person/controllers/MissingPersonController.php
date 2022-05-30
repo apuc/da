@@ -52,7 +52,7 @@ class MissingPersonController extends \yii\web\Controller
     {
         $missingPerson = MissingPerson::findOne($id);
 
-        if ($ban) {
+        if ($ban && isset($missingPerson->user_ip)) {
             if(!BannedIp::find()->where(['ip_mask' => $missingPerson->user_ip])->exists()) {
                 $model = new BannedIp();
                 $model->setAttribute('ip_mask', $missingPerson->user_ip);

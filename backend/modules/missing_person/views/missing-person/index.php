@@ -83,10 +83,12 @@ use yii\helpers\Html; ?>
                                 'data-confirm' => 'Забанить IP и удалить все его записи?',
                             ]
                         );
-                    } else {
+                    } elseif(isset($model->user_ip)) {
                         return '<div class="text-center">
                                     <span class="text-danger">Забанен</span>
                                 </div>';
+                    } else {
+                        return 'Отсутствует IP';
                     }
                 }
             ],
