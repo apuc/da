@@ -74,7 +74,13 @@ use yii\helpers\Html; ?>
                 'label' => 'БАН',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    if (!BannedIp::find()->where(['ip_mask' => $model->user_ip])->exists()) {
+                    if (!isset($model->user_ip)) {
+                        return 'Отсутствует IP';
+                    } elseif(BannedIp::find()->where(['ip_mask' => $model->user_ip])->exists()) {
+                        return '<div class="text-center">
+                                    <span class="text-danger">Забанен</span>
+                                </div>';
+                    } else {
                         return Html::a('Забанить IP',
                             ['delete', 'id' => $model->id, 'ban' => true],
                             [
@@ -83,12 +89,6 @@ use yii\helpers\Html; ?>
                                 'data-confirm' => 'Забанить IP и удалить все его записи?',
                             ]
                         );
-                    } elseif(isset($model->user_ip)) {
-                        return '<div class="text-center">
-                                    <span class="text-danger">Забанен</span>
-                                </div>';
-                    } else {
-                        return 'Отсутствует IP';
                     }
                 }
             ],
