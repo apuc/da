@@ -80,7 +80,7 @@ use yii\helpers\Html; ?>
                             [
                                 'class' => 'btn btn-xs btn-danger btn-block',
                                 'data-method' => 'post',
-                                'data-confirm' => 'Забанить IP',
+                                'data-confirm' => 'Забанить IP и удалить все его записи?',
                             ]
                         );
                     } else {
