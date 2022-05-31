@@ -1,5 +1,6 @@
 <?php
 
+use backend\modules\news\models\ForcedView;
 use common\classes\DateFunctions;
 use common\classes\WordFunctions;
 use common\models\db\CategoryNews;
@@ -88,7 +89,7 @@ $md = new \common\classes\Mobile_Detect();
                                 <div class="content-row">
                                     <span><?= WordFunctions::dateWithMonts($currNew->dt_public); ?></span>
                                     <span><?= $currNew['categoryNewsRelations'][0]['cat']->title; ?></span>
-                                    <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
+                                    <span><small class="view-icon"></small> <?= $currNew->views + ForcedView::getViews($currNew->id); ?></span>
                                     <span><small
                                                 class="comments-icon"></small><?= News::getCommentsCount($currNew->id) ?></span>
                                     <h2><?= $currNew->title; ?></h2>
@@ -112,7 +113,7 @@ $md = new \common\classes\Mobile_Detect();
                                          alt="<?= !empty($currNew->alt) ? $currNew->alt : $currNew->title ?>">
                                 <?php endif; ?>
                                 <div class="content-row">
-                                    <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
+                                    <span><small class="view-icon"></small> <?= $currNew->views + ForcedView::getViews($currNew->id); ?></span>
                                     <span><small
                                                 class="comments-icon"></small><?= News::getCommentsCount($currNew->id) ?></span>
                                     <span><?= $currNew['categoryNewsRelations'][0]['cat']->title; ?></span>
@@ -152,7 +153,7 @@ $md = new \common\classes\Mobile_Detect();
                             <?php endif; ?>
 
                             <div class="content-row">
-                                <span><small class="view-icon"></small><?= $currHotNew->views; ?></span>
+                                <span><small class="view-icon"></small><?= $currHotNew->views + ForcedView::getViews($currHotNew->id); ?></span>
                                 <span><small
                                             class="comments-icon"></small><?= News::getCommentsCount($currHotNew->id) ?></span>
                                 <span><?= $currHotNew['categoryNewsRelations'][0]['cat']->title; ?></span>

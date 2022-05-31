@@ -1,4 +1,6 @@
 <?php
+
+use backend\modules\news\models\ForcedView;
 use common\classes\WordFunctions;
 use yii\helpers\Url;
 
@@ -10,7 +12,7 @@ foreach($news as $new): ?>
         ]); ?>" class="thumb" title="<?= $new->title; ?>">
             <img src="<?= \common\models\UploadPhoto::getImageOrNoImage($new->photo); ?>" alt="">
             <div class="content-row">
-                <span><small class="view-icon"></small> <?= $new->views; ?></span>
+                <span><small class="view-icon"></small> <?= $new->views + ForcedView::getViews($new->id); ?></span>
                 <span><small class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($new->id)?></span>
                 <span><?= $new['categoryNewsRelations'][0]['cat']->title; ?></span>
             </div>
