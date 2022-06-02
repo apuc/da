@@ -43,29 +43,29 @@ class ProductsController extends MainWebController
      */
     public function behaviors()
     {
-        return array_merge(parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
+        return array_merge([
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
                 ],
-                'access' => [
-                    'class' => AccessControl::className(),
-                    'rules' => [
-                        [
-                            'allow' => true,
-                            'roles' => ['@'],
-                        ],
-                        /*[
-                            'actions' => ['create'],
-                            'allow' => true,
-                            'roles' => ['?'],
-                        ],*/
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
                     ],
+                    /*[
+                        'actions' => ['create'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],*/
                 ],
-            ]
+            ],
+        ],
+            parent::behaviors()
         );
     }
 

@@ -33,18 +33,18 @@ class MissingPersonController extends MainWebController
      */
     public function behaviors()
     {
-        return array_merge(parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'index' => ['GET'],
-                        'create' => ['POST'],
-                        'search' => ['GET'],
-                        'page' => ['GET'],
-                    ],
-                ]
+        return array_merge([
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'index' => ['GET'],
+                    'create' => ['POST'],
+                    'search' => ['GET'],
+                    'page' => ['GET'],
+                ],
             ]
+        ],
+            parent::behaviors()
         );
     }
 

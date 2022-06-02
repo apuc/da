@@ -22,18 +22,18 @@ class UserProductsController extends MainWebController
 
     public function behaviors()
     {
-        return array_merge(parent::behaviors(),
-            [
-                'access' => [
-                    'class' => AccessControl::className(),
-                    'rules' => [
-                        [
-                            'allow' => true,
-                            'roles' => ['@'],
-                        ],
+        return array_merge([
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
                     ],
                 ],
-            ]
+            ],
+        ],
+            parent::behaviors()
         );
     }
 

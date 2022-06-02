@@ -47,29 +47,29 @@ class DefaultController extends MainWebController
 
     public function behaviors()
     {
-        return array_merge(parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
+        return array_merge([
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['index', 'view', 'category', 'archive_category', 'single_category', 'single_archive_category', 'updposterdt_event', 'updposterdt_event_end', 'more-interested-in', 'interested-in-posters', 'get-more-poster', 'get-more-kino', 'more-poster', 'archive'],
+                        'allow' => true,
+                        'roles' => ['?'],
                     ],
                 ],
-                'access' => [
-                    'class' => AccessControl::className(),
-                    'rules' => [
-                        [
-                            'allow' => true,
-                            'roles' => ['@'],
-                        ],
-                        [
-                            'actions' => ['index', 'view', 'category', 'archive_category', 'single_category', 'single_archive_category', 'updposterdt_event', 'updposterdt_event_end', 'more-interested-in', 'interested-in-posters', 'get-more-poster', 'get-more-kino', 'more-poster', 'archive'],
-                            'allow' => true,
-                            'roles' => ['?'],
-                        ],
-                    ],
-                ],
-            ]
+            ],
+        ],
+            parent::behaviors()
         );
     }
 

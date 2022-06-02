@@ -23,7 +23,7 @@ class UserCompanyController extends MainWebController
 
     public function behaviors()
     {
-        return [
+        return array_merge([
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
@@ -33,7 +33,9 @@ class UserCompanyController extends MainWebController
                     ],
                 ],
             ],
-        ];
+        ],
+            parent::behaviors()
+        );
     }
     public $layout = 'personal_area';
 

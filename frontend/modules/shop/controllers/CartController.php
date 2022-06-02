@@ -31,7 +31,7 @@ class CartController extends MainWebController
 
     public function behaviors()
     {
-        return array_merge(parent::behaviors(), [
+        return array_merge([
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -40,7 +40,7 @@ class CartController extends MainWebController
                     'delete-from-cart' => ['post'],
                 ],
             ],
-        ]);
+        ], parent::behaviors());
     }
 
     public function actionAddInCart()
