@@ -44,27 +44,27 @@ class DefaultController extends MainWebController
      */
     public function behaviors()
     {
-        return array_merge(parent::behaviors(),
-            [
-                'access' => [
-                    'class' => AccessControl::className(),
-                    'rules' => [
-                        [
-                            'allow' => true,
-                            'roles' => ['@'],
+        return array_merge([
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => [
+                            'index', 'category-ads', 'view', 'get-children-category', 'show-city-list',
+                            'search', 'general-modal', 'show-category', 'show-parent-modal-category',
+                            'ShowCategoryEnd', 'show-additional-fields'
                         ],
-                        [
-                            'actions' => [
-                                'index', 'category-ads', 'view', 'get-children-category', 'show-city-list',
-                                'search', 'general-modal', 'show-category', 'show-parent-modal-category',
-                                'ShowCategoryEnd', 'show-additional-fields'
-                            ],
-                            'allow' => true,
-                            'roles' => ['?'],
-                        ],
+                        'allow' => true,
+                        'roles' => ['?'],
                     ],
                 ],
-            ]
+            ],
+        ],
+            parent::behaviors()
         );
     }
 

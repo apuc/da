@@ -51,29 +51,29 @@ class NewsController extends MainWebController
      */
     public function behaviors()
     {
-        return array_merge(parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
+        return array_merge([
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['index', 'category', 'more-news', 'more-category-news', 'archive'],
+                        'allow' => true,
+                        'roles' => ['?'],
                     ],
                 ],
-                'access' => [
-                    'class' => AccessControl::className(),
-                    'rules' => [
-                        [
-                            'allow' => true,
-                            'roles' => ['@'],
-                        ],
-                        [
-                            'actions' => ['index', 'category', 'more-news', 'more-category-news', 'archive'],
-                            'allow' => true,
-                            'roles' => ['?'],
-                        ],
-                    ],
-                ],
-            ]
+            ],
+        ],
+            parent::behaviors()
         );
     }
 
@@ -99,7 +99,7 @@ class NewsController extends MainWebController
 
         $hotNewsIndexes = [1, 7, 13, 20, 22];
         $bigNewsIndexes = [14, 28, 38];
-        //Debug::prn($hotNews);
+
         return $this->render('index',
             [
                 'news' => $news,
