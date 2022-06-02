@@ -20,7 +20,7 @@ class MainWebController extends \yii\web\Controller
                 'rules' => [
                     [
                         'allow' => false,
-                        'ips' => BannedIp::getIps()
+                        'ips' => empty(BannedIp::getIps()) ? ['0.0.0.0'] : BannedIp::getIps()
                     ],
                     [
                         'allow' => true,
