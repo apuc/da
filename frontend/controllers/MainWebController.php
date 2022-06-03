@@ -36,4 +36,9 @@ class MainWebController extends \yii\web\Controller
             ],
         ];
     }
+
+    public function actionGetCaptcha()
+    {
+        return '1ghg488';
+    }
 }

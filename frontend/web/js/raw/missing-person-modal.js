@@ -44,7 +44,6 @@ $(document).ready(function () {
 
                 success: function () {
                     alert('Ваши данные успешно отправлены и ожидают модерации!');
-                    // перезагрузить страницу
                     location.reload();
                 },
 

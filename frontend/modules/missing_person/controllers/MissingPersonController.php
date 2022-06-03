@@ -142,10 +142,16 @@ class MissingPersonController extends MainWebController
         if (!(isset($data['date_of_birth'])
             && isset($data['city_id'])
             && isset($data['fio'])
+            && isset($data['_phrase'])
+            && isset($data['captcha'])
             && isset($data['additional_info'])
         )) {
             \Yii::$app->response->statusCode = 400;
             return 'Missing requested parameters';
+        } elseif (strtolower($data['captcha']) != strtolower($data['_phrase']))
+        {
+            \Yii::$app->response->statusCode = 400;
+            return 'Invalid captcha';
         }
 
         $birthDay = strtotime($data['date_of_birth']);
