@@ -1,5 +1,6 @@
 <?php
 
+use common\classes\UserFunction;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
@@ -18,6 +19,10 @@ use yii\helpers\Html;
         ['class' => 'yii\grid\SerialColumn'],
         'id',
         'label',
+        [
+            'class' => 'yii\grid\ActionColumn',
+            'template' => UserFunction::hasRoles(['admin']) ? '{update} &nbsp&nbsp {delete}' : '',
+        ],
         ]
     ]);
  ?>
