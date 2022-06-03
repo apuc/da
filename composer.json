@@ -32,8 +32,7 @@
         "abraham/twitteroauth": "^0.7.4",
         "kartik-v/bootstrap-star-rating": "@dev",
         "craft-group/sima-land-api": "dev-master",
-        "ext-json": "*",
-        "gregwar/captcha": "dev-master"
+        "ext-json": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
