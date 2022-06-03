@@ -21,7 +21,7 @@ class MissingPerson extends \common\models\db\MissingPerson
     public function rules()
     {
         return [
-            [['fio', 'date_of_birth'], 'required'],
+            [['fio', 'date_of_birth', 'city_id'], 'required'],
             [['id', 'city_id'], 'integer'],
             [['fio'], 'string', 'max' => 256],
         ];
