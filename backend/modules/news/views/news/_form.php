@@ -1,5 +1,6 @@
 <?php
 
+use backend\modules\news\models\NewsType;
 use common\classes\Debug;
 use common\models\db\CategoryNews;
 use common\models\db\Company;
@@ -7,6 +8,7 @@ use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\InputFile;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\jui\DatePicker;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 
@@ -51,8 +53,8 @@ use kartik\select2\Select2;
 
     <?= $form->field($model, 'company_id')->widget(Select2::className(),
         [
-            'data' => \yii\helpers\ArrayHelper::map(Company::find()->with('news')->all(),'id', 'name'),
-            'options' => ['placeholder' => 'Начните вводить компанию ...','class' => 'form-control'],
+            'data' => \yii\helpers\ArrayHelper::map(Company::find()->with('news')->all(), 'id', 'name'),
+            'options' => ['placeholder' => 'Начните вводить компанию ...', 'class' => 'form-control'],
             'pluginOptions' => [
                 'allowClear' => true
             ],
@@ -114,8 +116,8 @@ use kartik\select2\Select2;
 
     <?= $form->field($model, 'region_id')->widget(Select2::className(),
         [
-            'data' => \yii\helpers\ArrayHelper::map($region,'id', 'name'),
-            'options' => ['placeholder' => 'Начните вводить регион ...','class' => 'form-control'],
+            'data' => \yii\helpers\ArrayHelper::map($region, 'id', 'name'),
+            'options' => ['placeholder' => 'Начните вводить регион ...', 'class' => 'form-control'],
             'pluginOptions' => [
                 'allowClear' => true
             ],
@@ -135,6 +137,26 @@ use kartik\select2\Select2;
     <?= $form->field($model, 'dzen')->checkbox(); ?>
     <?= $form->field($model, 'show_prev_in_single')->checkbox(); ?>
     <?= $form->field($model, 'in_company')->checkbox(); ?>
+    <?= $form->field($model, 'is_event')->checkbox(); ?>
+    <?= $form->field($model, 'coordinates')->textInput(); ?>
+    <?= $form->field($model, 'event_time')->widget(
+        DatePicker::class,
+        [
+            'model' => $model,
+            'attribute' => 'event_time',
+            'value' => $model->event_time ?? 'null',
+            'clientOptions' => [
+                'language' => 'ru',
+                'format' => 'dd.mm.yyyy',
+            ],
+        ]
+    ) ?>
+    <?= $form->field($model, 'type')->dropDownList(
+            ArrayHelper::map(NewsType::find()->orderBy('id')->all(), 'id', 'label'),
+            [
+                'prompt' => 'Not selected'
+            ]
+    ); ?>
     <br>
 
     <div class="form-group">

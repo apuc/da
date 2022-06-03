@@ -1,5 +1,6 @@
 <?php
 
+use backend\modules\news\models\NewsType;
 use common\classes\UserFunction;
 use common\models\db\Company;
 use yii\helpers\ArrayHelper;
@@ -106,6 +107,29 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => UserFunction::hasRoles(['admin']) ? '{view} {update} {delete}' : '{view} {update}',
+            ],
+            [
+                'attribute' => 'is_event',
+                'value' => function($model){
+                    return $model->is_event ? '✓' : '☓';
+                }
+            ],
+            'coordinates',
+            [
+                'attribute' => 'event_time',
+                'format' => 'text',
+                'value' => function ($model) {
+                    return date("d.m.Y", $model->event_time);
+                }
+            ],
+            [
+                'attribute' => 'type',
+                'format' => 'text',
+                'value' => function ($model) {
+                    $type = NewsType::findOne(['id' => $model->type]);
+
+                    return $type->label ?? 'none';
+                }
             ],
         ],
     ]); ?>
