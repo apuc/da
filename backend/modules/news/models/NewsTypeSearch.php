@@ -21,7 +21,7 @@ class NewsTypeSearch extends NewsType
 
         $query->andFilterWhere(['id' => $this->id])
             ->andFilterWhere(['like', 'label', $this->label])
-            ->orderBy('dt_add DESC');
+            ->orderBy('id DESC');
 
         return $dataProvider;
     }
