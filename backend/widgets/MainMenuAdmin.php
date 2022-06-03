@@ -186,6 +186,10 @@ class MainMenuAdmin extends Widget
                                 'active' => Yii::$app->controller->module->id == 'main_new' && Yii::$app->controller->action->id == 'index',
                                 'visible' => UserFunction::hasPermission(['Главная новость']),
                             ],
+                            [
+                                'label' => 'Типы событий',
+                                'url' => Url::to(['/news/type/index'])
+                            ]
                         ],
                         'visible' => UserFunction::hasPermission(['Новости']),
                         'options' => [

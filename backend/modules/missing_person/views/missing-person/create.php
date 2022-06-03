@@ -1,7 +1,6 @@
 <?php
 
 use backend\modules\missing_person\MissingPerson;
-use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /** @var $model MissingPerson */

@@ -8,7 +8,7 @@ use common\models\db\CategoryNews;
 use common\models\db\News;
 use frontend\controllers\MainWebController;
 use Yii;
-use yii\base\Controller;
+use yii\db\Query;
 
 class NewsController extends MainWebController
 {
@@ -29,7 +29,7 @@ class NewsController extends MainWebController
 
         $query = News::find();
 
-        if($news_id) {
+        if ($news_id) {
             $query->where(['id' => $news_id]);
         } else {
             ($category_id) ? $query->leftJoin('category_news_relations', '`category_news_relations`.`new_id` = `news`.`id`')
@@ -60,5 +60,21 @@ class NewsController extends MainWebController
         $categories = CategoryNews::find()->asArray()->all();
 
         return json_encode($categories);
+    }
+
+    public function actionGetEvents()
+    {
+        $dateFrom = Yii::$app->request->get('dateFrom') ?? strtotime('-1 week', time());
+        $dateTo = Yii::$app->request->get('dateTo') ?? strtotime('+1 week', time());
+
+        $query = (new Query())
+            ->select('news.id, title, content, photo, coordinates, event_time, label as type')
+            ->from('news')
+            ->where(['is_event' => 1])
+            ->andWhere(['>=', 'event_time', $dateFrom])
+            ->andWhere(['<=', 'event_time', $dateTo])
+            ->leftJoin('news_type', 'news.type = news_type.id');
+
+        return json_encode($query->all());
     }
 }
