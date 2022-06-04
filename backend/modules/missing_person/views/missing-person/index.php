@@ -74,8 +74,8 @@ use yii\helpers\Html; ?>
                 'label' => 'БАН',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    if (!isset($model->user_ip)) {
-                        return 'Отсутствует IP';
+                    if (!isset($model->user_ip) || $model->user_ip == 'local') {
+                        return '—';
                     } elseif(BannedIp::find()->where(['ip_mask' => $model->user_ip])->exists()) {
                         return '<div class="text-center">
                                     <span class="text-danger">Забанен</span>
