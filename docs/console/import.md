@@ -9,7 +9,7 @@
     <tbody>
   <tr>
   <td><code>php7.4 yii import/missing-person</code></td>
-  <td><code>--path=./Z.html</code><br><code>--moderated=0</code></td>
+  <td><code>--path=a.html</code><br><code>--moderated=0</code></td>
   <td>Сохраняет данные из HTML-таблицы в БД. Параметр moderated=0 по умолчанию.</td>
   </tr>
     </tbody>
