@@ -3,17 +3,50 @@
 <table>
     <thead>
         <th>Команда</th>
-        <th>Параметры</th>
-        <th>Описание</th>
+  <th>Параметры</th>
+  <th>Описание</th>
     </thead>
     <tbody>
-        <tr>
-            <td><code>php7.4 yii import/missing-person</code></td>
-            <td><code>--path=./Z.html</code><br><code>--moderated=0</code></td>
-            <td>Сохраняет данные из HTML-таблицы в БД. Параметр moderated=0 по умолчанию.</td>
-        </tr>
+  <tr>
+  <td><code>php7.4 yii import/missing-person</code></td>
+  <td><code>--path=./Z.html</code><br><code>--moderated=0</code></td>
+  <td>Сохраняет данные из HTML-таблицы в БД. Параметр moderated=0 по умолчанию.</td>
+  </tr>
     </tbody>
 </table>
+
+
+### Инструкция по использованию:
+- скопировать HTML-таблицу (шаблон ниже)
+- вставить в файл и сохранить
+- выполнить команду с путём к файлу
+
+### Шаблон таблицы:
+<table> 
+<tbody>
+    <tr>
+        <th>ФИО</th>
+        <th>Число, месяц, год рождения</th>
+    </tr>
+    <tr>
+        <td>Иванова Ирина Александровна</td>
+        <td>05.09.1978</td>
+    </tr>
+    <tr>
+        <td>Иванов Виктор Николаевич</td>
+        <td>08.05.1961</td>
+    </tr>
+    <tr>
+        <td>Иванова Анжелика Викторовна</td>
+        <td>15.12.1981</td>
+    </tr>
+    <tr>
+        <td>Иванов Станислав Евгеньевич</td>
+        <td>11.10.2001</td>
+    </tr>
+</tbody>
+</table>
+
 
 ### Примеры работы команды:
 <pre><font color="#8AE234"><b>oem@korona-desktop</b></font>:<font color="#729FCF"><b>~/repositories/internal/da</b></font>$ php yii csv-import/missing-person --path=./Z.html --moderated=1
