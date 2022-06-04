@@ -38,7 +38,7 @@ echo ShowSearchMissingPeopleFormForIndex::widget();
                 <tr>
                     <td><?= $record->fio ?></td>
                     <td><?= date('d.m.Y', $record->date_of_birth) ?></td>
-                    <td><?= GeobaseCity::findOne($record->city_id)->name ?></td>
+                    <td><?= isset($record->city_id) ? GeobaseCity::findOne($record->city_id)->name : '—'?></td>
                     <td><?= strlen($record->additional_info) > 0 ? $record->additional_info : '—' ?></td>
                 </tr>
                 <?php

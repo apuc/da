@@ -47,7 +47,7 @@ use yii\helpers\Html; ?>
                 'attribute' => 'city_id',
                 'label' => 'Город',
                 'value' => function ($model) {
-                    return GeobaseCity::findOne($model->city_id)->name;
+                    return isset($model->city_id) ? GeobaseCity::findOne($model->city_id)->name : '—';
                 },
                 'filter' => \kartik\select2\Select2::widget(
                     [
