@@ -19,7 +19,7 @@ $(document).ready(function () {
                     for (let i = 0; i < data.length; i++) {
                         tableBody.append(`
                             <tr>
-                                <td>${data[i]["FIO"]}</td>
+                                <td>${data[i]["fio"]}</td>
                                 <td>${data[i]["date_of_birth"]}</td>
                                 <td>${data[i]["city_name"]}</td>
                                 <td>${data[i]["additional_info"]}</td>

@@ -74,7 +74,9 @@ class MissingPersonController extends MainWebController
 
         foreach ($records as $key => $record) {
             $records[$key] = $record->toArray();
-            $records[$key]['city_name'] = GeobaseCity::findOne($record['city_id'])->name;
+            $records[$key]['city_name'] = isset($record['city_id']) ? GeobaseCity::findOne($record['city_id'])->name : '—';
+            $records[$key]['date_of_birth'] = date('d.m.Y', $record['date_of_birth']);
+            $records[$key]['additional_info'] = $record['additional_info'] ?? '—';
         }
 
         return Json::encode($records);
