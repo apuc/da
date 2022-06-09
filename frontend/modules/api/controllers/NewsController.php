@@ -71,6 +71,7 @@ class NewsController extends MainWebController
             ->select('news.id, title, content, photo, coordinates, event_time, label as type')
             ->from('news')
             ->where(['is_event' => 1])
+            ->andWhere(['status' => 0])
             ->andWhere(['>=', 'event_time', $dateFrom])
             ->andWhere(['<=', 'event_time', $dateTo])
             ->leftJoin('news_type', 'news.type = news_type.id');
