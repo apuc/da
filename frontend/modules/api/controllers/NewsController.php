@@ -30,6 +30,8 @@ class NewsController extends MainWebController
                         'Access-Control-Request-Method' => ['*'],
                         // Allow credentials (cookies, authorization headers, etc.) to be exposed to the browser
                         'Access-Control-Allow-Credentials' => true,
+                        // Allow credentials (cookies, authorization headers, etc.) to be exposed to the browser
+                        'Access-Control-Allow-Origin' => '*',
                     ],
 
                 ],
