@@ -50,7 +50,7 @@ class NewsController extends MainWebController
         $limit = Yii::$app->request->get('limit');
         $offset = Yii::$app->request->get('offset');
 
-        $query = News::find();
+        $query = News::find()->where(['status' => 0]);
 
         if ($news_id) {
             $query->where(['id' => $news_id]);
