@@ -12,6 +12,12 @@ use frontend\modules\missing_person\models\MissingPerson;
  * @var $hasMore bool True если больше одной страницы
  */
 
+$this->title = "DA | Списки пропавших";
+$this->registerMetaTag([
+    'name' => 'description',
+    'content' => 'Списки пропавших людей, поиск среди сообщений о пропаже. Сообщите о пропаже своих близких.',
+]);
+
 echo ShowSearchMissingPeopleFormForIndex::widget();
 
 ?>
