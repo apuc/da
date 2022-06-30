@@ -19,21 +19,18 @@ class NewsController extends MainWebController
 
     public function behaviors()
     {
-        return array_merge(
-            [
-                'corsFilter' => [
-                    'class' => \yii\filters\Cors::class,
-                    'cors' => [
-                        'Origin' => ['*'],
-                        'Access-Control-Request-Method' => ['*'],
-                        'Access-Control-Allow-Credentials' => true,
-                        'Access-Control-Allow-Origin' => '*',
-                    ],
-
+        return [
+            'corsFilter' => [
+                'class' => \yii\filters\Cors::class,
+                'cors' => [
+                    'Origin' => ['*'],
+                    'Access-Control-Request-Method' => ['*'],
+                    'Access-Control-Allow-Credentials' => true,
+                    'Access-Control-Allow-Origin' => '*',
                 ],
+
             ],
-            parent::behaviors()
-        );
+        ];
     }
 
     /**
