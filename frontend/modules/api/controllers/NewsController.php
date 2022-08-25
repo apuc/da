@@ -4,13 +4,15 @@
 namespace frontend\modules\api\controllers;
 
 
+use common\behaviors\GsCors;
 use common\models\db\CategoryNews;
 use common\models\db\News;
+use frontend\controllers\MainRestController;
 use frontend\controllers\MainWebController;
 use Yii;
 use yii\db\Query;
 
-class NewsController extends MainWebController
+class NewsController extends MainRestController
 {
     function init()
     {
@@ -21,14 +23,17 @@ class NewsController extends MainWebController
     {
         return [
             'corsFilter' => [
-                'class' => \yii\filters\Cors::class,
+                'class' => GsCors::class,
                 'cors' => [
                     'Origin' => ['*'],
-                    'Access-Control-Request-Method' => ['*'],
-                    'Access-Control-Allow-Credentials' => true,
-                    'Access-Control-Allow-Origin' => '*',
-                ],
-
+                    //'Access-Control-Allow-Credentials' => true,
+                    'Access-Control-Allow-Headers' => [
+                        'Content-Type',
+                        'Access-Control-Allow-Headers',
+                        'Authorization',
+                        'X-Requested-With'
+                    ],
+                ]
             ],
         ];
     }
