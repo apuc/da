@@ -5,14 +5,20 @@ namespace frontend\modules\dzen\controllers;
 use common\models\db\News;
 use common\models\Item;
 use common\models\Xml;
+use frontend\controllers\MainWebController;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use yii\web\Controller;
 
 /**
  * Default controller for the `dzen` module
  */
-class DefaultController extends Controller
+class DefaultController extends MainWebController
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * Renders the index view for the module
      * @return string

@@ -10,11 +10,19 @@ namespace frontend\modules\search\controllers;
 
 use common\classes\Debug;
 use common\models\db\Tags;
+use frontend\controllers\MainWebController;
 use frontend\modules\search\models\TagSearch;
 use yii\web\Controller;
 
-class TagController extends Controller
+class TagController extends MainWebController
 {
+
+    function init()
+    {
+        parent::init();
+    }
+
+
     public function actionIndex()
     {
         $allTags = Tags::find()->all();

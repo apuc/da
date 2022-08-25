@@ -10,15 +10,21 @@ namespace frontend\modules\personal_area\controllers;
 
 use common\classes\Debug;
 use common\models\db\Likes;
+use frontend\controllers\MainWebController;
 use frontend\modules\personal_area\models\UserLikesSearch;
 use yii\base\Controller;
 use yii\filters\AccessControl;
 
-class UserLikesController extends Controller
+class UserLikesController extends MainWebController
 {
+    function init()
+    {
+        parent::init();
+    }
+
     public function behaviors()
     {
-        return [
+        return array_merge([
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
@@ -28,8 +34,11 @@ class UserLikesController extends Controller
                     ],
                 ],
             ],
-        ];
+        ],
+            parent::behaviors()
+        );
     }
+
     public $layout = 'personal_area';
 
     public function actionIndex()

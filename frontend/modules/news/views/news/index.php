@@ -1,7 +1,12 @@
 <?php
 
+use backend\modules\news\models\ForcedView;
 use common\classes\DateFunctions;
 use common\classes\WordFunctions;
+use common\models\db\CategoryNews;
+use common\models\db\News;
+use frontend\modules\news\models\NewsSearch;
+use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\StringHelper;
@@ -11,17 +16,16 @@ use yii\widgets\Breadcrumbs;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
-/* @var $this yii\web\View */
-/* @var $searchModel frontend\modules\news\models\NewsSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-/**
- * @var $cat \common\models\db\CategoryNews
- * @var $news_5 \common\models\db\News
+/* @var $this yii\web\View
+ * @var $searchModel NewsSearch
+ * @var $dataProvider ActiveDataProvider
+ * @var $cat CategoryNews
+ * @var $news_5 News
  * @var $meta_title string
  * @var $meta_descr string
- * @var $hotNews \common\models\db\News
- * @var $currHotNew \common\models\db\News
- * @var $currNew \common\models\db\News
+ * @var $hotNews News
+ * @var $currHotNew News
+ * @var $currNew News
  */
 //$this->title                   = Yii::t( 'news', 'News' );
 $this->title = $meta_title;
@@ -32,8 +36,8 @@ $this->registerMetaTag([
     'content' => $meta_descr,
 ]);
 $this->registerLinkTag([
-        'rel' => 'amphtml',
-        'href' => 'https://da-info.pro/amp'
+    'rel' => 'amphtml',
+    'href' => 'https://da-info.pro/amp'
 ]);
 
 $this->registerLinkTag([
@@ -45,7 +49,7 @@ $md = new \common\classes\Mobile_Detect();
 ?>
 
 <section class="news">
-    <amp-auto-ads type="adsense" data-ad-client="ca-pub-7346523585639786"></amp-auto-ads>
+    <!--    <amp-auto-ads type="adsense" data-ad-client="ca-pub-7346523585639786"></amp-auto-ads>-->
     <div class="container">
 
         <?= Breadcrumbs::widget([
@@ -85,9 +89,9 @@ $md = new \common\classes\Mobile_Detect();
                                 <div class="content-row">
                                     <span><?= WordFunctions::dateWithMonts($currNew->dt_public); ?></span>
                                     <span><?= $currNew['categoryNewsRelations'][0]['cat']->title; ?></span>
-                                    <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
+                                    <span><small class="view-icon"></small> <?= $currNew->views + ForcedView::getViews($currNew->id); ?></span>
                                     <span><small
-                                                class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currNew->id) ?></span>
+                                                class="comments-icon"></small><?= News::getCommentsCount($currNew->id) ?></span>
                                     <h2><?= $currNew->title; ?></h2>
                                 </div>
 
@@ -109,9 +113,9 @@ $md = new \common\classes\Mobile_Detect();
                                          alt="<?= !empty($currNew->alt) ? $currNew->alt : $currNew->title ?>">
                                 <?php endif; ?>
                                 <div class="content-row">
-                                    <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
+                                    <span><small class="view-icon"></small> <?= $currNew->views + ForcedView::getViews($currNew->id); ?></span>
                                     <span><small
-                                                class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currNew->id) ?></span>
+                                                class="comments-icon"></small><?= News::getCommentsCount($currNew->id) ?></span>
                                     <span><?= $currNew['categoryNewsRelations'][0]['cat']->title; ?></span>
                                 </div>
                             </a>
@@ -149,9 +153,9 @@ $md = new \common\classes\Mobile_Detect();
                             <?php endif; ?>
 
                             <div class="content-row">
-                                <span><small class="view-icon"></small><?= $currHotNew->views; ?></span>
+                                <span><small class="view-icon"></small><?= $currHotNew->views + ForcedView::getViews($currHotNew->id); ?></span>
                                 <span><small
-                                            class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currHotNew->id) ?></span>
+                                            class="comments-icon"></small><?= News::getCommentsCount($currHotNew->id) ?></span>
                                 <span><?= $currHotNew['categoryNewsRelations'][0]['cat']->title; ?></span>
                             </div>
                         </div>

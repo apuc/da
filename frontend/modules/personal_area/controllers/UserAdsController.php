@@ -9,20 +9,26 @@
 namespace frontend\modules\personal_area\controllers;
 
 use common\classes\Debug;
+use frontend\controllers\MainWebController;
 use frontend\modules\board\models\BoardFunction;
 use Yii;
 use yii\base\Controller;
 use yii\data\Pagination;
 use yii\filters\AccessControl;
 
-class UserAdsController extends Controller
+class UserAdsController extends MainWebController
 {
     public $siteApi;
     public $apiKey;
 
+    function init()
+    {
+        parent::init();
+    }
+
     public function behaviors()
     {
-        return [
+        return array_merge([
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
@@ -32,8 +38,11 @@ class UserAdsController extends Controller
                     ],
                 ],
             ],
-        ];
+        ],
+            parent::behaviors()
+        );
     }
+
     public $layout = 'personal_area';
 
     public function beforeAction($action)
@@ -46,7 +55,7 @@ class UserAdsController extends Controller
     public function actionIndex()
     {
 
-        if (!BoardFunction::isDomainAvailible($this->siteApi)){
+        if (!BoardFunction::isDomainAvailible($this->siteApi)) {
             return $this->render('error');
         }
 
@@ -58,9 +67,9 @@ class UserAdsController extends Controller
 
         $rez = json_decode($rez);
 
-        if(!isset($rez->_meta->totalCount)){
+        if (!isset($rez->_meta->totalCount)) {
             echo $rez;
-        }else {
+        } else {
             $pagination = new Pagination([
                 'defaultPageSize' => 10,
                 'totalCount' => $rez->_meta->totalCount,

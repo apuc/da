@@ -8,15 +8,21 @@
 
 namespace frontend\modules\personal_area\controllers;
 
+use frontend\controllers\MainWebController;
 use frontend\modules\personal_area\models\UserProductsSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
-class UserProductsController extends Controller
+class UserProductsController extends MainWebController
 {
+    function init()
+    {
+        parent::init();
+    }
+
     public function behaviors()
     {
-        return [
+        return array_merge([
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
@@ -26,7 +32,9 @@ class UserProductsController extends Controller
                     ],
                 ],
             ],
-        ];
+        ],
+            parent::behaviors()
+        );
     }
 
     public $layout = 'personal_area';

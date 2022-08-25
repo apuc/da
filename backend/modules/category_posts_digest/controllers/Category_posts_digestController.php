@@ -14,6 +14,11 @@ use yii\filters\VerbFilter;
  */
 class Category_posts_digestController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */

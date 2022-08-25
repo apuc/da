@@ -16,6 +16,11 @@ use yii\web\NotFoundHttpException;
 
 class RecoveryController extends \dektrium\user\controllers\RecoveryController
 {
+    function init()
+    {
+        parent::init();
+    }
+
 
     public function actionRequest()
     {

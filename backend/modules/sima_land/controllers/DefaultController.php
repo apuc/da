@@ -24,6 +24,11 @@ class DefaultController extends Controller
 
     public $value;
 
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * Renders the index view for the module
      * @return string
@@ -39,12 +44,12 @@ class DefaultController extends Controller
      * @return array
      * @throws Exception
      */
-    public function preparePage($page , $url)
+    public function preparePage($page, $url)
     {
         $query = Wrapper::runFor($url)
             ->getPage($this->currentPage);
 
-        $resultData = $this->setCounts($page , $query);
+        $resultData = $this->setCounts($page, $query);
 
         if ($url === IUrls::Category) {
             $searchModel = new SearchCategories();
@@ -53,16 +58,16 @@ class DefaultController extends Controller
         }
 
         $dataProvider = new ArrayDataProvider([
-            'key' => 'id' ,
-            'allModels' => $resultData ,
+            'key' => 'id',
+            'allModels' => $resultData,
             'pagination' => [
-                'pageSize' => $this->pageSize ,
-                'totalCount' => $this->totalPages ] ,
+                'pageSize' => $this->pageSize,
+                'totalCount' => $this->totalPages],
             'sort' => [
                 'attributes' => array_keys($resultData[0])
-            ] ,
+            ],
         ]);
-        return array( $searchModel , $dataProvider );
+        return array($searchModel, $dataProvider);
     }
 
     /**
@@ -71,7 +76,7 @@ class DefaultController extends Controller
      * @return array
      * @throws Exception
      */
-    public function setCounts($page , Wrapper $query)
+    public function setCounts($page, Wrapper $query)
     {
         $this->checkQuery($query);
 
@@ -100,7 +105,7 @@ class DefaultController extends Controller
      */
     public function checkQuery(Wrapper $query)
     {
-        $json = json_decode($query->getJson() , true);
+        $json = json_decode($query->getJson(), true);
 
         if (isset($json['status'])) {
             $message = $json['code'] . ' ' . $json['status'] . ' ' . $json['message'];
@@ -108,7 +113,7 @@ class DefaultController extends Controller
         }
     }
 
-    public function findById($id , $url)
+    public function findById($id, $url)
     {
         try {
             return Wrapper::runFor($url)->getById($id)->getItemFromJson();
@@ -123,23 +128,23 @@ class DefaultController extends Controller
      * @return array
      * @throws NotFoundHttpException
      */
-    public function createData($page , Wrapper $query)
+    public function createData($page, Wrapper $query)
     {
-        $resultData = $this->setPageCounts($page , $query);
+        $resultData = $this->setPageCounts($page, $query);
 
         $searchModel = new SearchCategories();
 
         $dataProvider = new ArrayDataProvider([
-            'key' => 'id' ,
-            'allModels' => $resultData ,
+            'key' => 'id',
+            'allModels' => $resultData,
             'pagination' => [
-                'pageSize' => $this->pageSize ,
-                'totalCount' => $this->totalPages ] ,
+                'pageSize' => $this->pageSize,
+                'totalCount' => $this->totalPages],
             'sort' => [
                 'attributes' => array_keys($resultData[0])
-            ] ,
+            ],
         ]);
-        return array( $searchModel , $dataProvider );
+        return array($searchModel, $dataProvider);
     }
 
     /**
@@ -148,10 +153,10 @@ class DefaultController extends Controller
      * @return array
      * @throws NotFoundHttpException
      */
-    public function setPageCounts($page , Wrapper $query)
+    public function setPageCounts($page, Wrapper $query)
     {
         try {
-            $resultData = $this->setCounts($page , $query);
+            $resultData = $this->setCounts($page, $query);
         } catch (Exception $e) {
             throw new NotFoundHttpException($e->getMessage());
         }
@@ -167,7 +172,7 @@ class DefaultController extends Controller
      * @param array $data
      * @return Wrapper
      */
-    public function runQuery($queryPath , array $data)
+    public function runQuery($queryPath, array $data)
     {
         $query = Wrapper::runFor($queryPath)
             ->query($data);

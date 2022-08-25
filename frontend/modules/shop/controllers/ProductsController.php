@@ -7,6 +7,7 @@ use common\models\db\CategoryFields;
 use common\models\db\ProductFields;
 use common\models\db\ProductFieldsValue;
 use common\models\db\ProductsImg;
+use frontend\controllers\MainWebController;
 use frontend\modules\company\models\Company;
 use frontend\modules\shop\models\CategoryShop;
 use frontend\modules\shop\models\Products;
@@ -16,12 +17,14 @@ use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 
-class ProductsController extends Controller
+class ProductsController extends MainWebController
 {
     public $layout = "personal_area";
 
     public function init()
     {
+        parent::init();
+
         $this->on('beforeAction', function ($event) {
 
             // запоминаем страницу неавторизованного пользователя, чтобы потом отредиректить его обратно с помощью  goBack()
@@ -40,7 +43,7 @@ class ProductsController extends Controller
      */
     public function behaviors()
     {
-        return [
+        return array_merge([
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -61,7 +64,9 @@ class ProductsController extends Controller
                     ],*/
                 ],
             ],
-        ];
+        ],
+            parent::behaviors()
+        );
     }
 
     public function actionCreate()
@@ -73,7 +78,7 @@ class ProductsController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post())) {
-            if ($model->company->verifikation === 1){
+            if ($model->company->verifikation === 1) {
                 $model->status = 1;
             } else {
                 $model->status = 0;
@@ -268,7 +273,7 @@ class ProductsController extends Controller
                 }
 
             }
-            if ($model->company->verifikation === 1){
+            if ($model->company->verifikation === 1) {
                 $model->status = 1;
             } else {
                 $model->status = 0;

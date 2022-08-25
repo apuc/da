@@ -15,6 +15,11 @@ use yii\filters\VerbFilter;
  */
 class PhotoController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */

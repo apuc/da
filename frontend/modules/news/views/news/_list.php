@@ -1,3 +1,8 @@
+<?php
+
+use backend\modules\news\models\ForcedView;
+
+?>
 <li>
             <span class="time">
             <?= date('d.m', $model['dt_public']) ?><br>
@@ -8,8 +13,7 @@
         <?= $model['title'] ?>
         <span class="views">
             <i class="views-ico fa fa-eye"></i>
-<!--            <span class="view-icon"></span>-->
-            <?= $model['views'] ?>
+            <?= $model['views'] + ForcedView::getViews($model['id']) ?>
         </span>
     </a>
 </li>

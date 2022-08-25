@@ -22,6 +22,11 @@ use yii\filters\VerbFilter;
  */
 class CommentsController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */
@@ -162,8 +167,7 @@ class CommentsController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            switch ($model->post_type)
-            {
+            switch ($model->post_type) {
                 case 'news':
                     $posts = News::find()->one();
                     break;

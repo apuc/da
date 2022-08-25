@@ -9,6 +9,7 @@ use common\models\db\CategoryPosterRelations;
 use common\models\db\KeyValue;
 use common\models\db\Likes;
 use common\models\db\Poster;
+use frontend\controllers\MainWebController;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\data\SqlDataProvider;
@@ -23,12 +24,14 @@ use yii\helpers\ArrayHelper;
 /**
  * Default controller for the `poster` module
  */
-class DefaultController extends Controller
+class DefaultController extends MainWebController
 {
     public $layout = 'portal_page';
 
     public function init()
     {
+        parent::init();
+
         $this->on('beforeAction', function ($event) {
 
             // запоминаем страницу неавторизованного пользователя, чтобы потом отредиректить его обратно с помощью  goBack()
@@ -44,7 +47,7 @@ class DefaultController extends Controller
 
     public function behaviors()
     {
-        return [
+        return array_merge([
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -65,7 +68,9 @@ class DefaultController extends Controller
                     ],
                 ],
             ],
-        ];
+        ],
+            parent::behaviors()
+        );
     }
 
     /**
@@ -74,7 +79,7 @@ class DefaultController extends Controller
     public function actionIndex()
     {
         //return $this->render('index');
-        throw new \yii\web\HttpException(404 ,'Страница не найдена.');
+        throw new \yii\web\HttpException(404, 'Страница не найдена.');
     }
 
     public function actionView($slug)
@@ -87,8 +92,8 @@ class DefaultController extends Controller
         if (empty($poster)) {
             return $this->redirect(['site/error']);
         }
-        if($poster['status'] == '1'){
-            throw new \yii\web\HttpException(404 ,'Страница не найдена.');
+        if ($poster['status'] == '1') {
+            throw new \yii\web\HttpException(404, 'Страница не найдена.');
         }
 
         $likes = Likes::find()
@@ -173,20 +178,20 @@ class DefaultController extends Controller
 
     public function actionCategory()
     {
-       /* $query = \common\models\db\Poster::find()->andWhere([
-            '>',
-            'dt_event_end',
-            time(),
-        ])
-            ->orderBy('dt_event_end')
-        ;
-        $dataProvider = new SqlDataProvider([
-            'sql' => $query->createCommand()->rawSql,
-            'totalCount' => (int)$query->count(),
-            'pagination' => [
-                'pageSize' => 12,
-            ],
-        ]);*/
+        /* $query = \common\models\db\Poster::find()->andWhere([
+             '>',
+             'dt_event_end',
+             time(),
+         ])
+             ->orderBy('dt_event_end')
+         ;
+         $dataProvider = new SqlDataProvider([
+             'sql' => $query->createCommand()->rawSql,
+             'totalCount' => (int)$query->count(),
+             'pagination' => [
+                 'pageSize' => 12,
+             ],
+         ]);*/
         $useReg = UserFunction::getRegionUser();
 
         return $this->render('category2', [
@@ -216,7 +221,8 @@ class DefaultController extends Controller
     }
 
     public function actionSingle_category($slug)
-    {   $useReg = UserFunction::getRegionUser();
+    {
+        $useReg = UserFunction::getRegionUser();
 
         $cat = CategoryPoster::find()->where(['slug' => $slug])->one();
         $query = CategoryPosterRelations::find()
@@ -250,7 +256,7 @@ class DefaultController extends Controller
             ->leftJoin('poster', '`category_poster_relations`.`poster_id` = `poster`.`id`')
             ->orderBy('dt_event DESC');
 
-        if($cat){
+        if ($cat) {
             $query->where(['cat_id' => $cat->id]);
         }
 
@@ -294,6 +300,7 @@ class DefaultController extends Controller
         }
 
     }
+
     // загружаем больше категорий "Вас может заинтересовать"
     public function actionMoreInterestedIn()
     {
@@ -310,10 +317,11 @@ class DefaultController extends Controller
             'interestedInPosters' => $moreInterestedPosters,
         ]);
     }
+
     // показываем события из категории "Вас может заинтересовать"
     public function actionInterestedInPosters()
     {
-        $posterID = (int) Yii::$app->request->post('posterID');
+        $posterID = (int)Yii::$app->request->post('posterID');
 
         $interestedInPostersJson = KeyValue::findOne(['key' => 'intrested_in_posters']);
         $interestedInPosters = json_decode($interestedInPostersJson->value);
@@ -377,7 +385,6 @@ class DefaultController extends Controller
         $count = Yii::$app->request->post('count');
 
 
-
         $poster = Poster::find()
             ->where(['popular' => 1])
             ->andWhere(['>=', 'dt_event', time()])
@@ -402,7 +409,7 @@ class DefaultController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             $phone = '';
-            foreach ($_POST['mytext'] as $item){
+            foreach ($_POST['mytext'] as $item) {
                 $phone .= $item . ' ';
             }
 
@@ -417,8 +424,8 @@ class DefaultController extends Controller
             //var_dump($_FILES['Poster']['name']); die();
 
             if ($_FILES['Poster']['name']) {
-                $upphoto = New \common\models\UploadPhoto();
-                $upphoto->imageFile = UploadedFile::getInstance($model,'photo');
+                $upphoto = new \common\models\UploadPhoto();
+                $upphoto->imageFile = UploadedFile::getInstance($model, 'photo');
 
                 $loc = 'media/upload/userphotos/' . date('dmY') . '/';
                 if (!is_dir($loc)) {
@@ -437,7 +444,7 @@ class DefaultController extends Controller
                 $catNewRel->poster_id = $model->id;
                 $catNewRel->save();
             }
-            Yii::$app->session->setFlash('success','Ваша афиша успешно добавлена. После прохождения модерации она будет опубликована.');
+            Yii::$app->session->setFlash('success', 'Ваша афиша успешно добавлена. После прохождения модерации она будет опубликована.');
             return $this->redirect('/personal_area/user-poster');
         } else {
 
@@ -468,7 +475,7 @@ class DefaultController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             $phone = '';
-            foreach ($_POST['mytext'] as $item){
+            foreach ($_POST['mytext'] as $item) {
                 $phone .= $item . ' ';
             }
 
@@ -481,7 +488,7 @@ class DefaultController extends Controller
             $model->meta_descr = \yii\helpers\StringHelper::truncate($model->descr, 250) . ' - Афиша на DA-info';
 
             if (!empty($_FILES['Poster']['name'])) {
-                $upphoto = New \common\models\UploadPhoto();
+                $upphoto = new \common\models\UploadPhoto();
                 $upphoto->imageFile = UploadedFile::getInstanceByName('Poster');
                 $loc = 'media/upload/userphotos/' . date('dmY') . '/';
                 if (!is_dir($loc)) {
@@ -490,7 +497,7 @@ class DefaultController extends Controller
                 $upphoto->location = $loc;
                 $upphoto->upload();
                 $model->photo = '/' . $loc . $_FILES['Poster']['name'];
-            }else{
+            } else {
                 $model->photo = $_POST['Poster']['photo'];
             }
 
@@ -502,7 +509,7 @@ class DefaultController extends Controller
                 $catNewRel->poster_id = $model->id;
                 $catNewRel->save();
             }
-            Yii::$app->session->setFlash('success','Ваша афиша успешно измененна. После прохождения модерации она будет опубликована.');
+            Yii::$app->session->setFlash('success', 'Ваша афиша успешно измененна. После прохождения модерации она будет опубликована.');
             return $this->redirect('/personal_area/user-poster');
         } else {
 
@@ -520,7 +527,7 @@ class DefaultController extends Controller
     public function actionDelete($id)
     {
         Poster::updateAll(['status' => 2], ['id' => $id]);
-        Yii::$app->session->setFlash('success','Ваша афиша успешно удалена.');
+        Yii::$app->session->setFlash('success', 'Ваша афиша успешно удалена.');
         return $this->redirect('/personal_area/user-poster');
     }
 

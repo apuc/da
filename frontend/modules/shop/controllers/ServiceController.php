@@ -9,6 +9,7 @@ use common\models\db\ProductFieldsValue;
 use common\models\db\ProductsImg;
 use common\models\db\ServicePeriods;
 use common\models\db\ServiceReservation;
+use frontend\controllers\MainWebController;
 use frontend\modules\company\models\Company;
 use frontend\modules\shop\models\CategoryShop;
 use frontend\modules\shop\models\Products;
@@ -16,14 +17,15 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
-use yii\web\Controller;
 
-class ServiceController extends Controller
+class ServiceController extends MainWebController
 {
     public $layout = "personal_area";
 
     public function init()
     {
+        parent::init();
+
         $this->on('beforeAction', function ($event) {
 
             // запоминаем страницу неавторизованного пользователя, чтобы потом отредиректить его обратно с помощью  goBack()
@@ -42,7 +44,7 @@ class ServiceController extends Controller
      */
     public function behaviors()
     {
-        return [
+        return array_merge([
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -63,7 +65,9 @@ class ServiceController extends Controller
                     ],*/
                 ],
             ],
-        ];
+        ],
+            parent::behaviors()
+        );
     }
 
     public function actionCreate()
@@ -279,7 +283,7 @@ class ServiceController extends Controller
         $reservation->product_id = Yii::$app->request->post('id');
         $reservation->user_id = 0;
 
-        if($reservation->save())
+        if ($reservation->save())
             return 'ok';
 
     }
@@ -301,8 +305,8 @@ class ServiceController extends Controller
 
     public function actionDeleteReservation()
     {
-        if($reservation = ServiceReservation::findOne(Yii::$app->request->post('id')))
-            if($reservation->delete())
+        if ($reservation = ServiceReservation::findOne(Yii::$app->request->post('id')))
+            if ($reservation->delete())
                 return 'ok';
         return 'error';
 

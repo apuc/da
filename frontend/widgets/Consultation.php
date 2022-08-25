@@ -13,6 +13,7 @@ use common\models\db\CategoryFaq;
 use common\models\db\Faq;
 use common\models\db\Lang;
 use yii\base\Widget;
+use yii\db\ActiveQuery;
 
 class Consultation extends Widget
 {
@@ -20,21 +21,14 @@ class Consultation extends Widget
     public function run()
     {
         $faq = CategoryFaq::find()
-            ->joinWith('faq')
-            //->where(['`faq`.`main_page`' => 1])
-            //->with('faq')
+            ->joinWith([
+                'faq' => function (ActiveQuery $query) {
+                    $query->limit(6);
+                }
+            ])
             ->all();
-//Debug::prn($faq);
-/*        Debug::prn($faq->createCommand()->rawSql);
-die();*/
 
         return $this->render('consultation', [
-            /*'faq' => Faq::find()
-                ->where(['main_page' => 1])
-                ->with('company')
-                ->with('category')
-                ->with('consulting')
-                ->all(),*/
             'faq' => $faq,
         ]);
     }

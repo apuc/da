@@ -13,12 +13,18 @@ use common\classes\Debug;
 use common\classes\Shop;
 use common\models\db\Order;
 use common\models\db\OrderProduct;
+use frontend\controllers\MainWebController;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 
-class OrderController extends Controller
+class OrderController extends MainWebController
 {
     public $layout = 'personal_area';
+
+    function init()
+    {
+        parent::init();
+    }
 
     public function actionIndex($id)
     {

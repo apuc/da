@@ -18,7 +18,7 @@ MainPageAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <meta name="yandex-verification" content="6102a93fabadb2cf"/>
+    <meta name="yandex-verification" content="e08f0c20c50137da" />
     <?= \frontend\widgets\Metrika::widget() ?>
 </head>
 <body>
@@ -33,25 +33,9 @@ MainPageAsset::register($this);
 
 <?= \frontend\widgets\ShowFooter::widget(); ?>
 
-<div class="modal-send">
+<!-- Модалка "Напишите нам"-->
+<?= \frontend\widgets\WriteToUsModal::widget(); ?>
 
-    <span class="modal-send__close">X</span>
-
-    <form action="" class="modal-send__form">
-
-        <input id="send-message-name" class="modal-send__field valid" type="name" placeholder="Имя" required>
-
-        <input id="send-message-email" class="modal-send__field valid" type="email" placeholder="Электронная почта"
-               required>
-
-        <textarea name="" id="send-message-text" class="modal-send__textarea valid" placeholder="Ваше сообщение"
-                  required></textarea>
-
-        <input id="send-message-submit" class="modal-send__submit" type="submit" value="Отправить">
-
-    </form>
-
-</div>
 
 <div class="modal-callback" id="modal-callback">
 

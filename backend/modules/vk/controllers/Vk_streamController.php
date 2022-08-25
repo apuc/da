@@ -21,6 +21,11 @@ use yii\filters\VerbFilter;
  */
 class Vk_streamController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */

@@ -1,0 +1,337 @@
+@charset "utf-8";
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&subset=cyrillic,cyrillic-ext,latin-ext");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,500,700,900&subset=cyrillic,cyrillic-ext,latin-ext");
+
+@font-face {
+    font-family: slick;
+    font-weight: 400;
+    src: url(../../fonts/slick/slick.eot) format("embedded-opentype"), url(../../fonts/slick/slick.woff2) format("woff2"), url(../../fonts/slick/slick.woff) format("woff"), url(../../fonts/slick/slick.ttf) format("truetype"), url(../../fonts/slick/slick.svg) format("svg")
+}
+
+@font-face {
+    font-family: Roboto-Light;
+    font-weight: 400;
+    src: url(../../fonts/Roboto-Light/Roboto-Light.eot) format("embedded-opentype"), url(../../fonts/Roboto-Light/Roboto-Light.woff2) format("woff2"), url(../../fonts/Roboto-Light/Roboto-Light.woff) format("woff"), url(../../fonts/Roboto-Light/Roboto-Light.ttf) format("truetype"), url(../../fonts/Roboto-Light/Roboto-Light.svg) format("svg")
+}
+
+@font-face {
+    font-family: Roboto-Bold;
+    font-weight: 400;
+    src: url(../../fonts/Roboto-Bold/Roboto-Bold.eot) format("embedded-opentype"), url(../../fonts/Roboto-Bold/Roboto-Bold.woff2) format("woff2"), url(../../fonts/Roboto-Bold/Roboto-Bold.woff) format("woff"), url(../../fonts/Roboto-Bold/Roboto-Bold.ttf) format("truetype"), url(../../fonts/Roboto-Bold/Roboto-Bold.svg) format("svg")
+}
+
+@font-face {
+    font-family: Roboto-Medium;
+    font-weight: 400;
+    src: url(../../fonts/Roboto-Medium/Roboto-Medium.eot) format("embedded-opentype"), url(../../fonts/Roboto-Medium/Roboto-Medium.woff2) format("woff2"), url(../../fonts/Roboto-Medium/Roboto-Medium.woff) format("woff"), url(../../fonts/Roboto-Medium/Roboto-Medium.ttf) format("truetype"), url(../../fonts/Roboto-Medium/Roboto-Medium.svg) format("svg")
+}
+
+@font-face {
+    font-family: BebasNeueBoldRegular;
+    font-weight: 400;
+    src: url(../../fonts/BebasNeueBold/BebasNeueBold_Regular.eot) format("embedded-opentype"), url(../../fonts/BebasNeueBold/BebasNeueBold_Regular.woff2) format("woff2"), url(../../fonts/BebasNeueBold/BebasNeueBold_Regular.woff) format("woff"), url(../../fonts/BebasNeueBold/BebasNeueBold_Regular.ttf) format("truetype"), url(../../fonts/BebasNeueBold/BebasNeueBold_Regular.svg) format("svg")
+}
+
+.form {
+    font-family: 'Open Sans';
+    max-width: 1131px;
+    min-height: 535px;
+    background-color: #edeef0;
+    margin: 0 auto;
+}
+
+.form * {
+    margin: 0;
+    padding: 0;
+}
+
+.form__modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+
+.form__modal .form__modal-content > div {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form__modal .form__modal-content > div > span, .form__modal .form__modal-content > div label {
+    padding-bottom: 5px;
+}
+
+.form__modal .form__modal-content .form__modal-okButton {
+    display: flex;
+    align-items: center;
+}
+
+.form__modal .form__modal-content .form__modal-okButton button {
+    width: 100px;
+}
+
+.form__header {
+    display: flex;
+    background-image: url(../../img/forms/search-missing-person/header_background.jpg);
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    padding-bottom: 25px;
+    padding-left: 2.7%;
+    padding-right: 9.4%;
+}
+
+.form__header .form__text {
+    max-width: 620px;
+}
+
+.form__header .form__text h3 {
+    color: #ee2e24;
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0 0 15px;
+}
+
+.form__header .form__text p {
+    font-size: 13px;
+    color: #fff;
+    line-height: 15px;
+    margin: 0;
+}
+
+.form__header .form__button {
+    min-width: 140px;
+    width: 228px;
+    height: 42px;
+    border-radius: 4px;
+    margin-top: 5px;
+    border: none;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #ff0200;
+    cursor: pointer;
+}
+
+.form__header .form__button:active {
+    transform: translate(1px, 1px);
+}
+
+.form__content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-left: 2.7%;
+    padding-top: 25px;
+    padding-right: 2px;
+}
+
+.form__content .form__content-left {
+    max-width: 715px;
+    width: 100%;
+}
+
+.form__content .form__content-left .form__form-block .form__inputSelects {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-grow: 1;
+}
+
+.form__content .form__content-left .form__form-block .form__inputSelects .inputSelect {
+    display: inline-block;
+    width: 330px;
+    position: relative;
+    margin-top: 10px;
+}
+
+.form__content .form__content-left .form__form-block .form__inputSelects .inputSelect_place-select {
+    font-size: 12px;
+    color: #637278;
+    line-height: 20px;
+}
+
+.form__content .form__content-left .form__form-block .form__inputSelects .inputSelect .up-selects {
+    display: flex;
+    align-items: center;
+    height: 42px;
+    background-color: #fff;
+    font-size: 14px;
+    color: #03121c;
+}
+
+.form__content .form__content-left .form__form-block .form__down-block {
+    margin-top: 35px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.form__content .form__content-left .form__form-block .form__down-block .form__inputName {
+    display: inline-block;
+    position: relative;
+    max-width: 450px;
+    height: 42px;
+    width: 100%;
+    margin-bottom: 15px;
+    margin-right: 15px;
+}
+
+.form__content .form__content-left .form__form-block .form__down-block .form__inputName input {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 10px 30px 10px 1em;
+    background-color: #fff;
+    font-size: 1.1em;
+    border: 0;
+}
+
+.form__content .form__content-left .form__form-block .form__down-block .form__inputName input::placeholder {
+    color: #999999;
+    opacity: 95;
+    font-size: 1em;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.form__content .form__content-left .form__form-block .form__down-block button {
+    text-transform: uppercase;
+    width: 230px;
+    height: 42px;
+    border-radius: 4px;
+    border: none;
+    background-color: #ff0200;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.form__content .form__content-right {
+    max-width: 326px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.form__content .form__content-right .form__i-block {
+    width: 51px;
+    height: 51px;
+    background-color: #ff0200;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1em;
+}
+
+.form__content .form__content-right .form__text-block {
+    padding-left: 10px;
+    padding-top: 20px;
+}
+
+.form__content .form__content-right .form__text-block .form__info {
+    margin-bottom: 15px;
+    font-size: 15px;
+    line-height: 22px;
+    color: #3f484f;
+}
+
+.form__content .form__content-right .form__text-block .form__info span {
+    font-weight: 700;
+}
+
+.form__content .form__content-right .form__text-block h5 {
+    color: #ff0200;
+    font-size: 12px;
+}
+
+.form__content .form__content-right .form__text-block h3 {
+    margin-top: 0.1em;
+    color: #ff0200;
+    font-size: 22px;
+}
+
+.form__content .form__content-right .form__text-block .form__source {
+    margin-top: 10px;
+    color: #0c1d29;
+    font-size: 9px;
+}
+
+/* Select2 start*/
+/* Стрелочка-треугольник для селекта */
+.select2-container--bootstrap .select2-selection--single .select2-selection__arrow b {
+    border-color: red transparent transparent;
+    border-style: solid;
+    border-width: 7px 4px 0;
+    content: "";
+    display: block;
+    pointer-events: none;
+    position: absolute;
+    right: 15px;
+    top: 60%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%)
+}
+
+.select2-container--bootstrap.select2-container--open .select2-selection .select2-selection__arrow b {
+    border-color: red transparent transparent;
+    border-style: solid;
+    border-width: 7px 4px 0;
+    content: "";
+    display: block;
+    pointer-events: none;
+    position: absolute;
+    right: 15px;
+    top: 60%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%)
+}
+
+.select2-selection__rendered {
+    line-height: 42px !important;
+    font-size: 1.1em;
+    margin: -0.4em 0.2em;
+}
+
+.select2-container .select2-selection--single {
+    height: 43px !important;
+}
+/* Select2 END*/
+
+/* Таблица с пропавшими */
+/* Блок */
+.missing-person__block {
+    margin-top: 2em;
+    margin-bottom: 3em;
+}
+/* Надпись ничего не найдено */
+.nothing-found {
+    text-align: center;
+    color: #e10a0a;
+    margin-bottom: 1em;
+}
+/* Разделитель для надписи "никого не нашли" */
+.red-hr {
+    border: 2px solid #9d0808;
+}
+/* Кнопка подзагрузки таблицы */
+.load-btn {
+    width: 100%;
+    height: 2.7em;
+
+}
+/* Сама таблица */
+.table {
+    font-size: 1.3em;
+}

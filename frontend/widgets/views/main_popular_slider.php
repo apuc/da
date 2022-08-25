@@ -1,5 +1,6 @@
 <?php
 
+use backend\modules\news\models\ForcedView;
 use yii\helpers\Url;
 
 ?>
@@ -20,7 +21,7 @@ use yii\helpers\Url;
 
                 $url = Url::to(['/news/default/view', 'slug' => $item->slug]);
                 $img = $item->photo  . '?width=600';
-                $view = $item->views;
+                $view = $item->views + ForcedView::getViews($item->id);
                 $comments = \common\models\db\News::getCommentsCount($item->id);
                 $share = \frontend\widgets\Share::widget([
                     'url' => \yii\helpers\Url::base(true) . '/news/' . $item->slug,
@@ -90,12 +91,13 @@ use yii\helpers\Url;
                 <a href="#" class="customNextBtn"></a>
             </div>
         </div>
-        <div class="news-slider-index-panel">
-            <h3>Важная новость дня</h3>
-            <div class="buttons-wrap">
-                <a href="<?= \yii\helpers\Url::to(['/site/design']); ?>">подписаться</a>
-                <a href="<?= \yii\helpers\Url::to(['/news/news']) ?>">посмотреть больше</a>
-            </div>
-        </div>
+<!--        Был блок для рекламы, временно скрыт -->
+<!--        <div class="news-slider-index-panel">-->
+<!--            <h3>Важная новость дня</h3>-->
+<!--            <div class="buttons-wrap">-->
+<!--                <a href="--><?//= \yii\helpers\Url::to(['/site/design']); ?><!--">подписаться</a>-->
+<!--                <a href="--><?//= \yii\helpers\Url::to(['/news/news']) ?><!--">посмотреть больше</a>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 </section>

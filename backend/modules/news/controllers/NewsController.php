@@ -24,6 +24,11 @@ use backend\modules\tags\models\Tags;
  */
 class NewsController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */
@@ -90,11 +95,16 @@ class NewsController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
+            $data = Yii::$app->request->getBodyParam('News');
+            $model->is_event = (int)$data['is_event'];
+            $model->event_time = strtotime($data['event_time']);
+
             if (empty($model->alt)) {
                 $model->alt = $model->title;
             }
             $model->user_id = Yii::$app->user->getId();
-            $model->dt_public = (!empty($_POST['dt_public_time'])) ? strtotime($_POST['News']['dt_public'] . ' ' . $_POST['dt_public_time']) : time();
+            $model->dt_public = (!empty($_POST['dt_public_time'])) ? strtotime($_POST['News']['dt_public'] . ' '
+                . $_POST['dt_public_time']) : time();
             $model->save();
 
             if (!empty(Yii::$app->request->post('categ'))) {
@@ -113,7 +123,7 @@ class NewsController extends Controller
 
             if (!empty(Yii::$app->request->post('Tags'))) {
                 foreach (Yii::$app->request->post('Tags') as $tag) {
-                    $tags = New TagsRelation();
+                    $tags = new TagsRelation();
                     $tags->saveTagsRel($tag, $model->id, 'news');
                 }
             }
@@ -168,6 +178,10 @@ class NewsController extends Controller
         }
         if ($model->load(Yii::$app->request->post())) {
 
+            $data = Yii::$app->request->getBodyParam('News');
+            $model->is_event = (int)$data['is_event'];
+            $model->event_time = strtotime($data['event_time']);
+
             if (!empty($_POST['dt_public_time'])) {
                 $model->dt_public = strtotime($_POST['News']['dt_public'] . ' ' . $_POST['dt_public_time']);
             }
@@ -195,7 +209,7 @@ class NewsController extends Controller
             if (!empty(Yii::$app->request->post('Tags'))) {
                 TagsRelation::deleteAll(['post_id' => $id, 'type' => 'news']);
                 foreach (Yii::$app->request->post('Tags') as $tag) {
-                    $tags = New TagsRelation();
+                    $tags = new TagsRelation();
                     $tags->saveTagsRel($tag, $id, 'news');
                 }
             }

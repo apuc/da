@@ -9,11 +9,17 @@
 namespace frontend\modules\search\controllers;
 
 use common\classes\Debug;
+use frontend\controllers\MainWebController;
 use frontend\modules\search\models\Search;
 use yii\web\Controller;
 
-class SearchController extends Controller
+class SearchController extends MainWebController
 {
+    function init()
+    {
+        parent::init();
+    }
+
 
     public function actionIndex()
     {

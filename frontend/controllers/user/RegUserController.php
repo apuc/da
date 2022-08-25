@@ -18,6 +18,11 @@ use yii\web\NotFoundHttpException;
 
 class RegUserController extends RegistrationController
 {
+    function init()
+    {
+        parent::init();
+    }
+
 
     /**
      * Displays the registration page.

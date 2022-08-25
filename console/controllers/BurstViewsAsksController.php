@@ -17,6 +17,11 @@ class BurstViewsAsksController extends Controller
 {
     public $count;
 
+    function init()
+    {
+        parent::init();
+    }
+
     public function actionIndex($id = null)
     {
         if($this->count >= 5)

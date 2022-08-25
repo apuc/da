@@ -3,14 +3,20 @@
 namespace frontend\modules\promotions\controllers;
 
 use common\classes\Debug;
+use frontend\controllers\MainWebController;
 use frontend\modules\promotions\models\Stock;
 use yii\web\Controller;
 
 /**
  * Default controller for the `PromotionsModule` module
  */
-class DefaultController extends Controller
+class DefaultController extends MainWebController
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * Renders the index view for the module
      * @return string

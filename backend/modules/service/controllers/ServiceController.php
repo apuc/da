@@ -22,6 +22,11 @@ use yii\filters\VerbFilter;
  */
 class ServiceController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * {@inheritdoc}
      */

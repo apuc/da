@@ -8,15 +8,21 @@
 
 namespace frontend\modules\personal_area\controllers;
 
+use frontend\controllers\MainWebController;
 use frontend\modules\personal_area\models\UserCommentsSearch;
 use yii\base\Controller;
 use yii\filters\AccessControl;
 
-class UserCommentsController extends Controller
+class UserCommentsController extends MainWebController
 {
+    function init()
+    {
+        parent::init();
+    }
+
     public function behaviors()
     {
-        return [
+        return array_merge([
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
@@ -26,8 +32,11 @@ class UserCommentsController extends Controller
                     ],
                 ],
             ],
-        ];
+        ],
+            parent::behaviors()
+        );
     }
+
     public $layout = 'personal_area';
 
     public function actionIndex()

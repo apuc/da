@@ -15,6 +15,11 @@ use yii\data\ActiveDataProvider;
  */
 class DefaultController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * {@inheritdoc}
      */

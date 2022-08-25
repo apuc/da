@@ -9,15 +9,21 @@
 namespace frontend\modules\personal_area\controllers;
 
 use common\classes\Debug;
+use frontend\controllers\MainWebController;
 use frontend\modules\personal_area\models\UserCompanySearch;
 use yii\base\Controller;
 use yii\filters\AccessControl;
 
-class UserCompanyController extends Controller
+class UserCompanyController extends MainWebController
 {
+    function init()
+    {
+        parent::init();
+    }
+
     public function behaviors()
     {
-        return [
+        return array_merge([
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
@@ -27,7 +33,9 @@ class UserCompanyController extends Controller
                     ],
                 ],
             ],
-        ];
+        ],
+            parent::behaviors()
+        );
     }
     public $layout = 'personal_area';
 

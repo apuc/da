@@ -14,6 +14,11 @@ use yii\filters\VerbFilter;
  */
 class PublishedController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * {@inheritdoc}
      */

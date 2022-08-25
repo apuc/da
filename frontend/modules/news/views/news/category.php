@@ -1,5 +1,6 @@
 <?php
 
+use backend\modules\news\models\ForcedView;
 use common\classes\DateFunctions;
 use common\classes\WordFunctions;
 use yii\helpers\Html;
@@ -68,7 +69,7 @@ $md = new \common\classes\Mobile_Detect();
                                 <div class="content-row">
                                     <span><?= WordFunctions::dateWithMonts($currNew->dt_public); ?></span>
                                     <span><?= $cat->title; ?></span>
-                                    <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
+                                    <span><small class="view-icon"></small> <?= $currNew->views  + ForcedView::getViews($new->id); ?></span>
                                     <span><small
                                             class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currNew->id) ?></span>
                                     <h2><?= $currNew->title; ?></h2>
@@ -89,7 +90,7 @@ $md = new \common\classes\Mobile_Detect();
                                     <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($currNew->photo); ?>" alt="">
                                 <?php endif;?>
                                 <div class="content-row">
-                                    <span><small class="view-icon"></small> <?= $currNew->views; ?></span>
+                                    <span><small class="view-icon"></small> <?= $currNew->views + ForcedView::getViews($new->id); ?></span>
                                     <span><small
                                             class="comments-icon"></small><?= \common\models\db\News::getCommentsCount($currNew->id) ?></span>
                                     <span><?= $cat->title; ?></span>
@@ -123,7 +124,7 @@ $md = new \common\classes\Mobile_Detect();
                                 <img class="thumbnail" src="<?= \common\models\UploadPhoto::getImageOrNoImage($currHotNew['hotNews']->photo); ?>" alt="">
                             <?php endif;?>
                             <div class="content-row">
-                                <span><small class="view-icon"></small><?= $currHotNew['hotNews']->views; ?></span>
+                                <span><small class="view-icon"></small><?= $currHotNew['hotNews']->views + ForcedView::getViews($currHotNew['hotNews']->id); ?></span>
                                 <span>
                                     <small class="comments-icon"></small>
                                     <?= \common\models\db\News::getCommentsCount($currHotNew['hotNews']->id) ?>

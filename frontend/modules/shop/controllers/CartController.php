@@ -14,18 +14,24 @@ use common\classes\Debug;
 use common\classes\UserFunction;
 use common\models\db\Order;
 use common\models\db\OrderProduct;
+use frontend\controllers\MainWebController;
 use frontend\modules\shop\models\Products;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 
-class CartController extends Controller
+class CartController extends MainWebController
 {
     public $layout = 'shop';
 
+    function init()
+    {
+        parent::init();
+    }
+
     public function behaviors()
     {
-        return array_merge(parent::behaviors(), [
+        return array_merge([
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -34,7 +40,7 @@ class CartController extends Controller
                     'delete-from-cart' => ['post'],
                 ],
             ],
-        ]);
+        ], parent::behaviors());
     }
 
     public function actionAddInCart()

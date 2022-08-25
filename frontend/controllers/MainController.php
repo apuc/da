@@ -9,10 +9,14 @@
 namespace frontend\controllers;
 
 use Yii;
-use yii\web\Controller;
 
-class MainController extends Controller
+class MainController extends MainWebController
 {
+    function init()
+    {
+        parent::init();
+    }
+
     public function beforeaction($action){
         $absoluteUrl = Yii::$app->request->absoluteUrl;
         if ((strpos($absoluteUrl, 'index.php') !== false)) {

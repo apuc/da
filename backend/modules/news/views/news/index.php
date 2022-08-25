@@ -1,5 +1,6 @@
 <?php
 
+use backend\modules\news\models\NewsType;
 use common\classes\UserFunction;
 use common\models\db\Company;
 use yii\helpers\ArrayHelper;
@@ -29,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'title',
+            'views',
             [
                 'attribute' => 'company_id',
                 'label' => 'Относится к компании',
@@ -44,28 +46,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                     ]),
             ],
-            /*'content:ntext',*/
-//            [
-//                'attribute' => 'dt_add',
-//                'format' => 'text',
-//                'value' => function($model){
-//                    return date('Y-m-d H:i', $model->dt_add);
-//                }
-//            ],
             [
                 'attribute' => 'dt_update',
                 'format' => 'text',
                 'value' => function ($model) {
                     return date('Y-m-d H:i', $model->dt_update);
                 },
-//                'filter'    => Html::
             ],
-
-            //'dt_add',
-            //'dt_update',
-            // 'slug',
-            // 'tags',
-            // 'photo',
             [
                 'attribute' => 'status',
                 'format' => 'text',
@@ -117,11 +104,32 @@ $this->params['breadcrumbs'][] = $this->title;
                         ['target' => '_blank']);
                 },
             ],
-            // 'lang_id',
-
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => UserFunction::hasRoles(['admin']) ? '{view} {update} {delete}' : '{view} {update}',
+            ],
+            [
+                'attribute' => 'is_event',
+                'value' => function($model){
+                    return $model->is_event ? '✓' : '☓';
+                }
+            ],
+            'coordinates',
+            [
+                'attribute' => 'event_time',
+                'format' => 'text',
+                'value' => function ($model) {
+                    return date("d.m.Y", $model->event_time);
+                }
+            ],
+            [
+                'attribute' => 'type',
+                'format' => 'text',
+                'value' => function ($model) {
+                    $type = NewsType::findOne(['id' => $model->type]);
+
+                    return $type->label ?? 'none';
+                }
             ],
         ],
     ]); ?>

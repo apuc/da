@@ -16,6 +16,12 @@ use yii\filters\VerbFilter;
  */
 class CategoryController extends Controller
 {
+
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * {@inheritdoc}
      */

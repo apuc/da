@@ -16,6 +16,11 @@ use yii\console\Controller;
 
 class GoogleController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     public static $key = 'AIzaSyA8pB7KFccjRUonbm4Uy8kJHU8ui2k_K5M';
 
     public function actionIndex()

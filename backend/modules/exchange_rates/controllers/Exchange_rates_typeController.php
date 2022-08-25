@@ -14,6 +14,11 @@ use yii\filters\VerbFilter;
  */
 class Exchange_rates_typeController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */

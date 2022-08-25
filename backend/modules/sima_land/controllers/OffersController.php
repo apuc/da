@@ -9,6 +9,11 @@ use Exception;
 
 class OffersController extends DefaultController
 {
+    function init()
+    {
+        parent::init();
+    }
+
 
     /**
      * Renders the index view for the module

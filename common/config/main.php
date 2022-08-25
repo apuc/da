@@ -82,6 +82,10 @@ return [
             ],
         ],
     ],
+    'aliases' => [
+        '@bower' => '@vendor/bower-asset',
+        '@npm'   => '@vendor/npm-asset'
+    ]
 
     /*'catchAll' => [
         'offline/notice',

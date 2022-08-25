@@ -23,6 +23,11 @@ use backend\modules\tags\models\TagsRelation;
  */
 class PosterController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
 
     public function beforeAction($action)
     {

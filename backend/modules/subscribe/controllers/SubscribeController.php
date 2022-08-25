@@ -14,6 +14,13 @@ use yii\filters\VerbFilter;
  */
 class SubscribeController extends Controller
 {
+
+    function init()
+    {
+        parent::init();
+    }
+
+
     /**
      * @inheritdoc
      */

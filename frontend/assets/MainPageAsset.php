@@ -25,15 +25,13 @@ class MainPageAsset extends AssetBundle
         '/theme/portal-donbassa/css/fancybox/jquery.fancybox.min.css',
         '/theme/portal-donbassa/css/fancybox/jquery.fancybox-thumbs.min.css',
         '/theme/portal-donbassa/css/fancybox/jquery.fancybox-buttons.min.css',
-//        '/css/lightbox.min.css',
         '/theme/portal-donbassa/css/styles.min.css',
 
     ];
+
+    /** Подключение js по endBody() */
     public $js = [
         'https://api-maps.yandex.ru/2.1/?lang=ru_RU',
-//        '/theme/portal-donbassa/js/countdown.min.js',
-
-//        '/theme/portal-donbassa/js/map.min.js',
         '/theme/portal-donbassa/js/libs.min.js',
         '/theme/portal-donbassa/js/owl.carousel.min.js',
          '/theme/portal-donbassa/js/datepicker.min.js',
@@ -42,8 +40,7 @@ class MainPageAsset extends AssetBundle
         '/theme/portal-donbassa/js/jquery.hc-sticky.min.js',
         '/theme/portal-donbassa/js/script.min.js',
         '/theme/portal-donbassa/js/raw/ajax.js',
-
-//        '/js/poll_ajax.min.js',
+        '/theme/portal-donbassa/js/raw/ajax-modals.js',
         '/js/comments.min.js',
         '/js/share.min.js',
         '/js/main.min.js',

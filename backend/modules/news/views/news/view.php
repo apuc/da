@@ -1,5 +1,6 @@
 <?php
 
+use backend\modules\news\models\NewsType;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
@@ -67,6 +68,29 @@ $this->params['breadcrumbs'][] = $this->title;
                     $user = \common\models\User::find()->where(['id' => $model->user_id])->one();
                     return !empty($user) ? $user->username : '';
                 },
+            ],
+            [
+                'attribute' => 'is_event',
+                'value' => function($model){
+                    return $model->is_event ? '✓' : '☓';
+                }
+            ],
+            'coordinates',
+            [
+                'attribute' => 'event_time',
+                'format' => 'text',
+                'value' => function ($model) {
+                    return date("d.m.Y", $model->event_time);
+                }
+            ],
+            [
+                'attribute' => 'type',
+                'format' => 'text',
+                'value' => function ($model) {
+                    $type = NewsType::findOne(['id' => $model->type]);
+
+                    return $type->label ?? 'none';
+                }
             ],
             /*'status',*/
             /*'user_id',*/

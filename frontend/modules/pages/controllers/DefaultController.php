@@ -5,14 +5,20 @@ namespace frontend\modules\pages\controllers;
 use common\classes\Debug;
 use common\classes\UserFunction;
 use common\models\db\Pages;
+use frontend\controllers\MainWebController;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 /**
  * Default controller for the `pages` module
  */
-class DefaultController extends Controller
+class DefaultController extends MainWebController
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * Renders the index view for the module
      * @return string

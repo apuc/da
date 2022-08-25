@@ -13,6 +13,7 @@ use common\models\db\KeyValue;
 use common\models\db\Likes;
 use common\models\db\PostsConsulting;
 use common\models\db\PostsDigest;
+use frontend\controllers\MainWebController;
 use frontend\modules\consulting\models\CategoryPosts;
 use Yii;
 use yii\data\SqlDataProvider;
@@ -20,10 +21,12 @@ use yii\db\Connection;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
-class ConsultingController extends \yii\web\Controller
+class ConsultingController extends MainWebController
 {
     public function init()
     {
+        parent::init();
+
         $this->on('beforeAction', function ($event) {
 
             // запоминаем страницу неавторизованного пользователя, чтобы потом отредиректить его обратно с помощью  goBack()
@@ -91,9 +94,9 @@ class ConsultingController extends \yii\web\Controller
         $posts = $posts->limit(3)->all();
 
         //$consulting = $posts[0]->consulting;
-        $consulting = Consulting::findOne(['slug'=>Yii::$app->request->get()]);
+        $consulting = Consulting::findOne(['slug' => Yii::$app->request->get()]);
         //Debug::prn($posts);
-        if(empty($consulting)){
+        if (empty($consulting)) {
             return $this->redirect(['site/error']);
         }
 
@@ -122,12 +125,12 @@ class ConsultingController extends \yii\web\Controller
         $posts = $posts->limit(3)->all();
 
         $categoryPostsDigest = CategoryPostsDigest::find()->where(['slug' => $request->get('slug')])->one();
-        if(empty($posts)){
+        if (empty($posts)) {
             return $this->redirect(['site/error']);
         }
 
         $consulting = $posts[0]->consulting;
-        if(empty($consulting)){
+        if (empty($consulting)) {
             return $this->redirect(['site/error']);
         }
         return $this->render('view_posts_digest', [
@@ -155,8 +158,8 @@ class ConsultingController extends \yii\web\Controller
         $posts = $posts->limit(3)->all();
 
         //$consulting = $posts[0]->consulting;
-        $consulting = Consulting::findOne(['slug'=>Yii::$app->request->get()]);
-        if(empty($consulting)){
+        $consulting = Consulting::findOne(['slug' => Yii::$app->request->get()]);
+        if (empty($consulting)) {
             return $this->redirect(['site/error']);
         }
 
@@ -188,7 +191,7 @@ class ConsultingController extends \yii\web\Controller
         $categoryPostsConsulting = CategoryPostsConsulting::find()->where(['slug' => $request->get('slug')])->one();
 
 
-        if(empty($consulting)){
+        if (empty($consulting)) {
             return $this->redirect(['site/error']);
         }
 
@@ -217,8 +220,8 @@ class ConsultingController extends \yii\web\Controller
         $posts = $posts->limit(3)->all();
 
         //$consulting = $posts[0]->consulting;
-        $consulting = Consulting::findOne(['slug'=>Yii::$app->request->get()]);
-        if(empty($consulting)){
+        $consulting = Consulting::findOne(['slug' => Yii::$app->request->get()]);
+        if (empty($consulting)) {
             return $this->redirect(['site/error']);
         }
 
@@ -252,7 +255,7 @@ class ConsultingController extends \yii\web\Controller
 
         $categoryFaq = CategoryFaq::find()->where(['slug' => $request->get('slug')])->one();
 
-        if(empty($consulting)){
+        if (empty($consulting)) {
             return $this->redirect(['site/error']);
         }
 
@@ -278,10 +281,10 @@ class ConsultingController extends \yii\web\Controller
         if (empty($post)) {
             return $this->redirect(['/consulting/consulting/index']);
         }
-        PostsDigest::updateAllCounters(['views' => 1], ['id' => $post->id] );
+        PostsDigest::updateAllCounters(['views' => 1], ['id' => $post->id]);
         return $this->render('view_post_digest', [
             'post' => $post,
-            'consulting'=> $post->consulting,
+            'consulting' => $post->consulting,
             'activeCategory' => ArrayHelper::getColumn($post->categoryPostsDigest, 'slug'),
         ]);
 
@@ -301,7 +304,7 @@ class ConsultingController extends \yii\web\Controller
         $post->updateCounters(['views' => 1]);
         return $this->render('view_post', [
             'post' => $post,
-            'consulting'=> $post->consulting,
+            'consulting' => $post->consulting,
             'activeCategory' => ArrayHelper::getColumn($post->categoryPostsConsulting, 'slug'),
         ]);
 
@@ -319,10 +322,10 @@ class ConsultingController extends \yii\web\Controller
         if (empty($post)) {
             return $this->redirect(['/consulting/consulting/index']);
         }
-        Faq::updateAllCounters(['views' => 1], ['id' => $post->id] );
+        Faq::updateAllCounters(['views' => 1], ['id' => $post->id]);
         return $this->render('view_post_faq', [
             'post' => $post,
-            'consulting'=> $post->consulting,
+            'consulting' => $post->consulting,
             'activeCategory' => $post->category->slug,
         ]);
 
@@ -331,12 +334,12 @@ class ConsultingController extends \yii\web\Controller
     public function actionSearchPost()
     {
         $q = Yii::$app->request->get('q');
-        $postConsalting = PostsConsulting::find()->where(['or', ['LIKE', 'title', $q],['LIKE', 'content', $q]])
+        $postConsalting = PostsConsulting::find()->where(['or', ['LIKE', 'title', $q], ['LIKE', 'content', $q]])
             ->all();
-        $postDigest = PostsDigest::find()->where(['or', ['LIKE', 'title', $q],['LIKE', 'content', $q]])
+        $postDigest = PostsDigest::find()->where(['or', ['LIKE', 'title', $q], ['LIKE', 'content', $q]])
             ->all();
-        $faq = Faq::find()->where(['or', ['LIKE', 'question', $q],['LIKE', 'answer', $q]])
-        ->all();
+        $faq = Faq::find()->where(['or', ['LIKE', 'question', $q], ['LIKE', 'answer', $q]])
+            ->all();
 
         $result = array_merge($this->getArrayConsulting($postConsalting, 'post'),
             $this->getArrayConsulting($postDigest, 'document'), $this->getArrayConsulting($faq, 'faq-post'));
@@ -359,8 +362,8 @@ class ConsultingController extends \yii\web\Controller
     {
         $result = [];
 
-        foreach ($consaltings as $consalting){
-            if('faq-post' != $type){
+        foreach ($consaltings as $consalting) {
+            if ('faq-post' != $type) {
                 $result[] = [
                     'title' => $consalting->title,
                     'text' => $consalting->content,
@@ -369,7 +372,7 @@ class ConsultingController extends \yii\web\Controller
                     'views' => $consalting->views,
                     'url' => $type
                 ];
-            }else $result[] = [
+            } else $result[] = [
                 'title' => $consalting->question,
                 'text' => $consalting->answer,
                 'dt_add' => $consalting->dt_add,

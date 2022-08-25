@@ -5,13 +5,19 @@ namespace frontend\modules\turbo\controllers;
 use common\models\db\News;
 use common\models\Item;
 use common\models\Xml;
+use frontend\controllers\MainWebController;
 use yii\web\Controller;
 
 /**
  * Default controller for the `turbo` module
  */
-class DefaultController extends Controller
+class DefaultController extends MainWebController
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * Renders the index view for the module
      * @return string

@@ -11,25 +11,33 @@ use common\models\db\Likes;
 use common\models\db\ServicesCompanyRelations;
 use common\models\db\Tariff;
 use common\models\db\TariffServicesRelations;
+use frontend\controllers\MainWebController;
 use Yii;
-use yii\helpers\ArrayHelper;
-use yii\web\Controller;
 
 /**
  * Default controller for the `company` module
  */
-class DefaultController extends Controller {
+class DefaultController extends MainWebController
+{
     public $layout = 'portal_page';
+
+
+    function init()
+    {
+        parent::init();
+    }
 
     /**
      * Renders the index view for the module
      * @return string
      */
-    public function actionIndex() {
-        return $this->render( 'index' );
+    public function actionIndex()
+    {
+        return $this->render('index');
     }
 
-    public function actionView($slug) {
+    public function actionView($slug)
+    {
         return $this->redirect(['/company/company/view', 'slug' => $slug]);
 
         /*$company = \common\models\db\Company::find()->where( [ 'slug' => $_GET['slug'] ] )->one();
@@ -98,7 +106,7 @@ class DefaultController extends Controller {
         $cto->save();
 
         ServicesCompanyRelations::deleteAll(['company_id' => $companyId]);
-        if($tariffId != 4) {
+        if ($tariffId != 4) {
             $servisec = TariffServicesRelations::find()->where(['tariff_id' => $tariffId])->all();
 
             foreach ($servisec as $item) {
@@ -107,10 +115,10 @@ class DefaultController extends Controller {
                 $scr->company_id = $companyId;
                 $scr->save();
             }
-        }else{
+        } else {
             $servId = explode(',', $request['servicesId']);
-            foreach ($servId as $item){
-                if(!empty($item)){
+            foreach ($servId as $item) {
+                if (!empty($item)) {
                     $scr = new ServicesCompanyRelations();
                     $scr->services_id = $item;
                     $scr->company_id = $companyId;

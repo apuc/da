@@ -16,6 +16,7 @@ use common\models\db\KeyValue;
 use common\models\db\LikeProducts;
 use common\models\db\ProductsImg;
 use common\models\db\ServiceReservation;
+use frontend\controllers\MainWebController;
 use frontend\modules\shop\models\CategoryShop;
 use frontend\modules\shop\models\Products;
 use Yii;
@@ -25,8 +26,12 @@ use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
-class ShopController extends Controller
+class ShopController extends MainWebController
 {
+    function init()
+    {
+        parent::init();
+    }
 
     public $layout = 'shop';
 

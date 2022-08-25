@@ -2,6 +2,7 @@
 
 namespace frontend\modules\currency\controllers;
 
+use frontend\controllers\MainWebController;
 use frontend\modules\currency\models\CurrencyCoinSearch;
 use common\models\db\Currency;
 use common\models\db\CurrencyCoin;
@@ -16,8 +17,13 @@ use yii\web\Controller;
 /**
  * Default controller for the `currency` module
  */
-class DefaultController extends Controller
+class DefaultController extends MainWebController
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * Renders the index view for the module
      * @param int $type

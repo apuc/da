@@ -15,6 +15,11 @@ use yii\filters\VerbFilter;
  */
 class MainPremiereController extends Controller
 {
+    function init()
+    {
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */

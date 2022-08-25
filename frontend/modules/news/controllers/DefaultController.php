@@ -10,6 +10,7 @@ use common\models\db\Comments;
 use common\models\db\Lang;
 use common\models\db\Likes;
 use common\models\db\News;
+use frontend\controllers\MainWebController;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -18,12 +19,14 @@ use yii\web\NotFoundHttpException;
 /**
  * Default controller for the `news` module
  */
-class DefaultController extends Controller
+class DefaultController extends MainWebController
 {
     public $layout = 'portal_page';
 
     public function init()
     {
+        parent::init();
+
         $this->on('beforeAction', function ($event) {
 
             // запоминаем страницу неавторизованного пользователя, чтобы потом отредиректить его обратно с помощью  goBack()

@@ -4,6 +4,7 @@ namespace frontend\modules\board\controllers;
 
 use common\classes\Debug;
 use common\models\db\KeyValue;
+use frontend\controllers\MainWebController;
 use frontend\modules\board\models\Ads;
 use frontend\modules\board\models\BoardFunction;
 use Yii;
@@ -11,18 +12,20 @@ use yii\data\Pagination;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\imagine\Image;
-use yii\web\Controller;
 
 /**
  * Default controller for the `board` module
  */
-class DefaultController extends Controller
+class DefaultController extends MainWebController
 {
     public $siteApi;
     public $apiKey;
 
     public function init()
     {
+        parent::init();
+
+
         $this->on('beforeAction', function ($event) {
 
             // запоминаем страницу неавторизованного пользователя, чтобы потом отредиректить его обратно с помощью  goBack()
@@ -41,7 +44,7 @@ class DefaultController extends Controller
      */
     public function behaviors()
     {
-        return [
+        return array_merge([
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
@@ -60,7 +63,9 @@ class DefaultController extends Controller
                     ],
                 ],
             ],
-        ];
+        ],
+            parent::behaviors()
+        );
     }
 
     public function beforeAction($action)
