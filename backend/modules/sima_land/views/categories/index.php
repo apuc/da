@@ -8,7 +8,7 @@ use yii\helpers\Html;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $form yii\widgets\ActiveForm */
 
-$this->title = 'Категории';
+$this->title = Yii::t('sima', 'Category title');
 $this->params['breadcrumbs'][] = $this->context->currentPage;
 
 ?>
