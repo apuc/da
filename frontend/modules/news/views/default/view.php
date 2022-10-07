@@ -112,7 +112,6 @@ $this->params['breadcrumbs'][] = $model->title;
                 <div class="content-single">
                     <?= $model->content; ?>
                 </div>
-                <?php \common\classes\Debug::prn($model['tags']); ?>
                 <?php if (!empty($model['tags'])): ?>
                     <div class="content__separator"></div>
                     <section class="hashtag">
